@@ -111,7 +111,8 @@ class Mech:
                 ll = int(gettext(anode.childNodes))
                 anode = arm.getElementsByTagName("rl")[0]
                 rl = int(gettext(anode.childNodes))
-                self.armor = Armor(armortype, hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl)
+                self.armor = Armor(self.weight, self.motive, armortype,
+                                   hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl)
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
