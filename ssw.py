@@ -428,7 +428,7 @@ date = get_comp_year(mech.armor.get_armor_year, date)
 #else:
 #    wgt = mech.weight
 wgt = mech.weight
-mech.armor.parse_armor(wgt)
+mech.armor.parse_armor()
 print "Armor Def BV: ", mech.armor.get_armor_BV()
 print "-5-----------------------------"
 if (mech.omni == "TRUE"):

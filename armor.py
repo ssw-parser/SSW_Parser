@@ -176,6 +176,9 @@ class Armor:
         maxtotal = self.hd.m + self.ct.m + self.lt.m + self.rt.m + self.la.m + self.ra.m + self.ll.m + self.rl.m
         self.total = Armor_loc("Total", armortotal, maxtotal);
 
+        # Store potential falling damage
+        self.fall_dam = ceil(weight / 10.0)
+
 
     # Return armor BV
     def get_armor_BV(self):
@@ -215,57 +218,6 @@ class Armor:
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
-    def center_torso_report(self, weight):
-        self.print_report(self.ctf)
-        if (not self.ctf.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.ctf.l_name + " armor!"
-            st2 = self.ctf.get_warning_string()
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        self.print_report(self.ctr)
-        # Falling damage
-        fall_dam = ceil(weight / 10.0)
-        if (self.ctr.a < fall_dam):
-            st1 = "WARNING: Falling damage might go internal on center torso rear armor!"
-            st2 = "  Damage: " + str(fall_dam) + ", armor: " + str(self.ctr.a)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        self.print_report(self.ct)
-
-    def left_torso_report(self, weight):
-        self.print_report(self.ltf)
-        if (not self.ltf.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.ltf.l_name + " armor!"
-            st2 = self.ltf.get_warning_string()
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        self.print_report(self.ltr)
-        # Falling damage
-        fall_dam = ceil(weight / 10.0)
-        if (self.ltr.a < fall_dam):
-            st1 = "WARNING: Falling damage might go internal on left torso rear armor!"
-            st2 = "  Damage: " + str(fall_dam) + ", armor: " + str(self.ltr.a)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        self.print_report(self.lt)
-
-    def right_torso_report(self, weight):
-        self.print_report(self.rtf)
-        if (not self.rtf.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.rtf.l_name + " armor!"
-            st2 = self.rtf.get_warning_string()
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        self.print_report(self.rtr)
-        # Falling damage
-        fall_dam = ceil(weight / 10.0)
-        if (self.rtr.a < fall_dam):
-            st1 = "WARNING: Falling damage might go internal on right torso rear armor!"
-            st2 = "  Damage: " + str(fall_dam) + ", armor: " + str(self.rtr.a)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        self.print_report(self.rt)
-
     # Standard armor location report, should be used in most cases
     # Considers an armor value of less than 50% of max to be too weak
     def report_standard(self, a_loc):
@@ -276,18 +228,51 @@ class Armor:
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
+    def center_torso_report(self):
+        self.report_standard(self.ctf)
+        self.print_report(self.ctr)
+        # Falling damage
+        if (self.ctr.a < self.fall_dam):
+            st1 = "WARNING: Falling damage might go internal on center torso rear armor!"
+            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(self.ctr.a)
+            warnings.add((st1, st2))
+            print_warning((st1, st2))
+        self.print_report(self.ct)
+
+    def left_torso_report(self):
+        self.report_standard(self.ltf)
+        self.print_report(self.ltr)
+        # Falling damage
+        if (self.ltr.a < self.fall_dam):
+            st1 = "WARNING: Falling damage might go internal on left torso rear armor!"
+            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(self.ltr.a)
+            warnings.add((st1, st2))
+            print_warning((st1, st2))
+        self.print_report(self.lt)
+
+    def right_torso_report(self):
+        self.report_standard(self.rtf)
+        self.print_report(self.rtr)
+        # Falling damage
+        if (self.rtr.a < self.fall_dam):
+            st1 = "WARNING: Falling damage might go internal on right torso rear armor!"
+            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(self.rtr.a)
+            warnings.add((st1, st2))
+            print_warning((st1, st2))
+        self.print_report(self.rt)
+
     def armor_total_report(self):
         # Commented out calculates tonnage with standard armor
         #    print atype, armor, "pts", int(round(float(armor)/30))
         print self.atype
         self.print_report(self.total)
 
-    def parse_armor(self, weight):
+    def parse_armor(self):
         self.armor_total_report()
         self.head_report()
-        self.center_torso_report(weight)
-        self.left_torso_report(weight)
-        self.right_torso_report(weight)
+        self.center_torso_report()
+        self.left_torso_report()
+        self.right_torso_report()
         self.report_standard(self.ll)
         self.report_standard(self.rl)
         self.report_standard(self.la)
