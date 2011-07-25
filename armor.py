@@ -266,35 +266,13 @@ class Armor:
             print_warning((st1, st2))
         self.print_report(self.rt)
 
-    def left_leg_report(self):
-        self.print_report(self.ll)
-        if (not self.ll.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.ll.l_name + " armor!"
-            st2 = self.ll.get_warning_string()
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-
-    def right_leg_report(self):
-        self.print_report(self.rl)
-        if (not self.rl.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.rl.l_name + " armor!"
-            st2 =  self.rl.get_warning_string()
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-
-    def left_arm_report(self):
-        self.print_report(self.la)
-        if (not self.la.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.la.l_name + " armor!"
-            st2 = self.la.get_warning_string()
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-
-    def right_arm_report(self):
-        self.print_report(self.ra)
-        if (not self.ra.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.ra.l_name + " armor!"
-            st2 = self.ra.get_warning_string()
+    # Standard armor location report, should be used in most cases
+    # Considers an armor value of less than 50% of max to be too weak
+    def report_standard(self, a_loc):
+        self.print_report(a_loc)
+        if (not a_loc.check_percent(0.5)):
+            st1 = "WARNING: Weak " + a_loc.l_name + " armor!"
+            st2 = a_loc.get_warning_string()
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
@@ -310,10 +288,10 @@ class Armor:
         self.center_torso_report(weight)
         self.left_torso_report(weight)
         self.right_torso_report(weight)
-        self.left_leg_report()
-        self.right_leg_report()
-        self.left_arm_report()
-        self.right_arm_report()
+        self.report_standard(self.ll)
+        self.report_standard(self.rl)
+        self.report_standard(self.la)
+        self.report_standard(self.ra)
 
 
 
