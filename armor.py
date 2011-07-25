@@ -228,37 +228,39 @@ class Armor:
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
-    def center_torso_report(self):
-        self.report_standard(self.ctf)
-        self.print_report(self.ctr)
-        # Falling damage
-        if (self.ctr.a < self.fall_dam):
-            st1 = "WARNING: Falling damage might go internal on center torso rear armor!"
-            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(self.ctr.a)
+    # Falling damage armor report
+    def report_fall(self, a_loc):
+        if (a_loc.a < self.fall_dam):
+            st1 = "WARNING: Falling damage might go internal on " + a_loc.l_name + " armor!"
+            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.a)
             warnings.add((st1, st2))
             print_warning((st1, st2))
+
+    def center_torso_report(self):
+        # Standard for front armor
+        self.report_standard(self.ctf)
+        # Only falling damage check for rear
+        self.print_report(self.ctr)
+        self.report_fall(self.ctr)
+        # No checks for total armor
         self.print_report(self.ct)
 
     def left_torso_report(self):
+        # Standard for front armor
         self.report_standard(self.ltf)
+        # Only falling damage check for rear
         self.print_report(self.ltr)
-        # Falling damage
-        if (self.ltr.a < self.fall_dam):
-            st1 = "WARNING: Falling damage might go internal on left torso rear armor!"
-            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(self.ltr.a)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
+        self.report_fall(self.ltr)
+        # No checks for total armor
         self.print_report(self.lt)
 
     def right_torso_report(self):
+        # Standard for front armor
         self.report_standard(self.rtf)
+        # Only falling damage check for rear
         self.print_report(self.rtr)
-        # Falling damage
-        if (self.rtr.a < self.fall_dam):
-            st1 = "WARNING: Falling damage might go internal on right torso rear armor!"
-            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(self.rtr.a)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
+        self.report_fall(self.rtr)
+        # No checks for total armor
         self.print_report(self.rt)
 
     def armor_total_report(self):
