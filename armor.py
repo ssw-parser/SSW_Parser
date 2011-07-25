@@ -104,6 +104,14 @@ class Armor_loc:
         self.m = maximum
         assert self.a <= self.m, "More than maximum armor!"
 
+    # Check if armor is at least value
+    def check_value(self, value):
+        return self.a >= value
+
+    # Check if armor is at least percent of max
+    def check_percent(self, percent):
+        return (self.a >= self.m * percent)
+
 # A class to hold armor info for a mech
 class Armor:
     def __init__(self, weight, motive, atype,
@@ -194,7 +202,7 @@ class Armor:
 
     def head_report(self):
         self.print_report(self.hd)
-        if (self.hd.a < 8):
+        if (not self.hd.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
             st2 = "  Head armor: " + str(self.hd.a)
             warnings.add((st1, st2))
@@ -202,7 +210,7 @@ class Armor:
 
     def center_torso_report(self, weight):
         self.print_report(self.ctf)
-        if (self.ctf.a < ctIS[weight]):
+        if (not self.ctf.check_percent(0.5)):
             st1 = "WARNING: Weak center torso armor!"
             st2 = "  Center torso armor: " + str(self.ctf.a)
             warnings.add((st1, st2))
@@ -219,7 +227,7 @@ class Armor:
 
     def left_torso_report(self, weight):
         self.print_report(self.ltf)
-        if (self.ltf.a < stIS[weight]):
+        if (not self.ltf.check_percent(0.5)):
             st1 = "WARNING: Weak left torso armor!"
             st2 = "  Left torso armor: " + str(self.ltf.a)
             warnings.add((st1, st2))
@@ -236,7 +244,7 @@ class Armor:
 
     def right_torso_report(self, weight):
         self.print_report(self.rtf)
-        if (self.rtf.a < stIS[weight]):
+        if (not self.rtf.check_percent(0.5)):
             st1 = "WARNING: Weak right torso armor!"
             st2 = "  Right torso armor: " + str(self.rtf.a)
             warnings.add((st1, st2))
@@ -251,17 +259,17 @@ class Armor:
             print_warning((st1, st2))
         self.print_report(self.rt)
 
-    def left_leg_report(self, weight, motive):
+    def left_leg_report(self, weight):
         self.print_report(self.ll)
-        if ((self.ll.a < legIS[weight])):
+        if (not self.ll.check_percent(0.5)):
             st1 = "WARNING: Weak left leg armor!"
             st2 =  "  Left leg armor: " + str(self.ll.a)
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
-    def right_leg_report(self, weight, motive):
+    def right_leg_report(self, weight):
         self.print_report(self.rl)
-        if (self.rl.a < legIS[weight]):
+        if (not self.rl.check_percent(0.5)):
             st1 = "WARNING: Weak right leg armor!"
             st2 =  "  Right leg armor: " + str(self.rl.a)
             warnings.add((st1, st2))
@@ -270,13 +278,13 @@ class Armor:
     def left_arm_report(self, weight, motive):
         self.print_report(self.la)
         if motive == "Quad":
-            if (self.la.a < legIS[weight]):
+            if (not self.la.check_percent(0.5)):
                 st1 =  "WARNING: Weak left front leg armor!"
                 st2 =  "  Left front leg armor: " + str(self.la.a)
                 warnings.add((st1, st2))
                 print_warning((st1, st2))
         elif motive == "Biped":
-            if (self.la.a < armIS[weight]):
+            if (not self.la.check_percent(0.5)):
                 st1 = "WARNING: Weak left arm armor!"
                 st2 = "  Left arm armor: " +  str(self.la.a)
                 warnings.add((st1, st2))
@@ -287,13 +295,13 @@ class Armor:
     def right_arm_report(self, weight, motive):
         self.print_report(self.ra)
         if motive == "Quad":
-            if (self.ra.a < legIS[weight]):
+            if (not self.ra.check_percent(0.5)):
                 st1 =  "WARNING: Weak right front leg armor!"
                 st2 =  "  Right front leg armor: " + str(self.ra.a)
                 warnings.add((st1, st2))
                 print_warning((st1, st2))
         elif motive == "Biped":
-            if (self.ra.a < armIS[weight]):
+            if (not self.ra.check_percent(0.5)):
                 st1 = "WARNING: Weak right arm armor!"
                 st2 = "  Right arm armor: " +  str(self.ra.a)
                 warnings.add((st1, st2))
@@ -301,20 +309,20 @@ class Armor:
         else:
             error_exit(mech.motive)
 
-    def armor_total_report(self, w, motive):
+    def armor_total_report(self):
         # Commented out calculates tonnage with standard armor
         #    print atype, armor, "pts", int(round(float(armor)/30))
         print self.atype
         self.print_report(self.total)
 
     def parse_armor(self, weight, motive):
-        self.armor_total_report(weight, motive)
+        self.armor_total_report()
         self.head_report()
         self.center_torso_report(weight)
         self.left_torso_report(weight)
         self.right_torso_report(weight)
-        self.left_leg_report(weight, motive)
-        self.right_leg_report(weight, motive)
+        self.left_leg_report(weight)
+        self.right_leg_report(weight)
         self.left_arm_report(weight, motive)
         self.right_arm_report(weight, motive)
 
