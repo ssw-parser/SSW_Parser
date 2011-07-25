@@ -98,7 +98,8 @@ armor = [["Standard Armor", 2470, 1.0],
 
 # A class to hold info about the armor in one location
 class Armor_loc:
-    def __init__(self, armor, maximum):
+    def __init__(self, loc_name, armor, maximum):
+        self.l_name = loc_name
         self.a = armor
         self.m = maximum
         assert self.a <= self.m, "More than maximum armor!"
@@ -111,44 +112,54 @@ class Armor:
         self.atype = atype
 
         # Head always have max 9 armor
-        self.hd = Armor_loc(hd, 9)
+        self.hd = Armor_loc("Head", hd, 9)
 
         # Otherwise 2 times Internal Structure
         # We store three different values for each torso part
         # to simplify the interface. Front, rear and total
-        self.ctf = Armor_loc(ct, ctIS[weight] * 2);
-        self.ctr = Armor_loc(ctr, ctIS[weight] * 2);
-        self.ct = Armor_loc(ct + ctr, ctIS[weight] * 2);
-        self.ltf = Armor_loc(lt, stIS[weight] * 2);
-        self.ltr = Armor_loc(ltr, stIS[weight] * 2);
-        self.lt = Armor_loc(lt + ltr, stIS[weight] * 2);
-        self.rtf = Armor_loc(rt, stIS[weight] * 2);
-        self.rtr = Armor_loc(rtr, stIS[weight] * 2);
-        self.rt = Armor_loc(rt + rtr, stIS[weight] * 2);
+        self.ctf = Armor_loc("Center Torso front", ct, ctIS[weight] * 2);
+        self.ctr = Armor_loc("Center Torso rear", ctr, ctIS[weight] * 2);
+        self.ct = Armor_loc("Center Torso total", ct + ctr, ctIS[weight] * 2);
+        self.ltf = Armor_loc("Left Torso front", lt, stIS[weight] * 2);
+        self.ltr = Armor_loc("Left Torso rear", ltr, stIS[weight] * 2);
+        self.lt = Armor_loc("Left Torso total", lt + ltr, stIS[weight] * 2);
+        self.rtf = Armor_loc("Right Torso front", rt, stIS[weight] * 2);
+        self.rtr = Armor_loc("Right Torso rear", rtr, stIS[weight] * 2);
+        self.rt = Armor_loc("Right Torso total", rt + rtr, stIS[weight] * 2);
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.la = Armor_loc(la, legIS[weight] * 2);
+            self.la = Armor_loc("Front Left Leg", la, legIS[weight] * 2);
         elif motive == "Biped":
-            self.la = Armor_loc(la, armIS[weight] * 2);
+            self.la = Armor_loc("Left Arm", la, armIS[weight] * 2);
         else:
             error_exit(mech.motive)
 
         if motive == "Quad":
-            self.ra = Armor_loc(ra, legIS[weight] * 2);
+            self.ra = Armor_loc("Front Right Leg", ra, legIS[weight] * 2);
         elif motive == "Biped":
-            self.ra = Armor_loc(ra, armIS[weight] * 2);
+            self.ra = Armor_loc("Right Arm", ra, armIS[weight] * 2);
         else:
             error_exit(mech.motive)
 
-        # Legs are normal
-        self.ll = Armor_loc(ll, legIS[weight] * 2);
-        self.rl = Armor_loc(rl, legIS[weight] * 2);
+        if motive == "Quad":
+            self.ll = Armor_loc("Rear Left Leg", ll, legIS[weight] * 2);
+        elif motive == "Biped":
+            self.ll = Armor_loc("Left Leg", ll, legIS[weight] * 2);
+        else:
+            error_exit(mech.motive)
+
+        if motive == "Quad":
+            self.rl = Armor_loc("Rear Right Leg", rl, legIS[weight] * 2);
+        elif motive == "Biped":
+            self.rl = Armor_loc("Right Leg", rl, legIS[weight] * 2);
+        else:
+            error_exit(mech.motive)
 
         # Last sum up total
         armortotal = self.hd.a + self.ct.a + self.lt.a + self.rt.a + self.la.a + self.ra.a + self.ll.a + self.rl.a
         maxtotal = self.hd.m + self.ct.m + self.lt.m + self.rt.m + self.la.m + self.ra.m + self.ll.m + self.rl.m
-        self.total = Armor_loc(armortotal, maxtotal);
+        self.total = Armor_loc("Total", armortotal, maxtotal);
 
 
     # Return armor BV
@@ -197,7 +208,7 @@ class Armor:
             warnings.add((st1, st2))
             print_warning((st1, st2))
         self.print_report("Center Torso rear", self.ctr)
-         # Falling damage
+        # Falling damage
         fall_dam = ceil(weight / 10.0)
         if (self.ctr.a < fall_dam):
             st1 = "WARNING: Falling damage might go internal on center torso rear armor!"
