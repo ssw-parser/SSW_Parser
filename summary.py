@@ -21,4 +21,5 @@ for i in sys.argv[1:]:
 
     name_str = mech.name + " " + mech.model
     move = mech.engine.get_move_string()
-    print ("%-22s %3s %s" % (name_str, mech.weight, move))
+    armor = mech.armor.get_armor_percent()
+    print ("%-22s %3s %s %s" % (name_str, mech.weight, move, armor))
