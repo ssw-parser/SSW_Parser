@@ -33,7 +33,8 @@ class Mech:
         # Set some data to zero that sometimes will not get set otherwise
         jump = 0
         jjtype = ""
-        self.enhancement = "---"
+        enhancement = "---"
+        etb = 2
  
         # Get top-level stucture data
         for mmech in xmldoc.getElementsByTagName('mech'):
@@ -60,18 +61,18 @@ class Mech:
             for mt in mmech.getElementsByTagName('motive_type'):
                 self.motive = gettext(mt.childNodes)
 
-            # Get internal structure type
+            # Get internal structure type, TODO: base
             for stru in mmech.getElementsByTagName('structure'):
                 snode = stru.getElementsByTagName("type")[0]
                 self.structure = gettext(snode.childNodes)
            
-            # Get engine data, TODO: base
+            # Get engine data
             for eng in mmech.getElementsByTagName('engine'):
                 erating = int(eng.attributes["rating"].value)
                 ebase = int(eng.attributes["techbase"].value)
                 etype = gettext(eng.childNodes)
 
-            # Get gyro, TODO: base
+            # Get gyro
             for gy in mmech.getElementsByTagName('gyro'):
                 gtype = gettext(gy.childNodes)
                 gbase = int(gy.attributes["techbase"].value)
@@ -85,7 +86,7 @@ class Mech:
             # Get enhancement
             for enh in mmech.getElementsByTagName('enhancement'):
                 enode = enh.getElementsByTagName("type")[0]
-                self.enhancement = gettext(enode.childNodes)
+                enhancement = gettext(enode.childNodes)
 
             # Get armor.
             for arm in mmech.getElementsByTagName('armor'):
@@ -151,7 +152,7 @@ class Mech:
                         # Save in a tuple with name and type
                         self.equip.append((name,typ))
 
-            self.engine = Motive(etype, erating, ebase, gtype, gbase, jump, jjtype)
+            self.engine = Motive(etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
 
             # Get omni loadouts
             self.loads = []

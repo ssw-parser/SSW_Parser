@@ -200,10 +200,6 @@ structure = [["Standard Structure", 2439, 1.0],
 cockpit = [["Standard Cockpit", 2300],
            ["Small Cockpit", 3067]]
 
-enhancement = [["---", 0], #None
-               ["MASC", 2740],
-               ["TSM", 3050]]
-
 heatsink = [["Single Heat Sink", 2022],
             ["Double Heat Sink", 2567]]
 
@@ -308,13 +304,6 @@ class Cockpitlist:
         for c in cockpit:
             self.list.append(Component(c))
         self.name = "cockpit"
-
-class Enhancementlist:
-    def __init__(self):
-        self.list = []
-        for e in enhancement:
-            self.list.append(Component(e))
-        self.name = "enhancement"
 
 class Heatsinklist:
     def __init__(self):

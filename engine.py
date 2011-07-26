@@ -366,6 +366,15 @@ gyro = [["Standard Gyro", 2, 2439, 0.5],
 jumpjet = [["Standard Jump Jet", 2471],
            ["Improved Jump Jet", 3069]]
 
+# Myomer enhancement types
+#
+# Name, year
+#
+enhancement = [["---", 0], #None
+               ["MASC", 2740],
+               ["TSM", 3050]]
+
+
 
 
 # A class to hold motive info for a mech
@@ -373,7 +382,7 @@ jumpjet = [["Standard Jump Jet", 2471],
 # Note that this class is not intended to track pod-mounted jump-jets
 #
 class Motive:
-    def __init__(self, etype, erating, ebase, gtype, gbase, jump, jjtype):
+    def __init__(self, etype, erating, ebase, gtype, gbase, jump, jjtype, enh, etb):
         self.etype = etype
         self.erating = erating
         self.eb = int(ebase)
@@ -381,6 +390,8 @@ class Motive:
         self.gb = int(gbase)
         self.jump = jump
         self.jjtype = jjtype
+        self.enhancement = enh
+        self. etb = etb
 
         # Check for legal engine type, save data
         id = 0
@@ -403,14 +414,25 @@ class Motive:
         if id == 0:
             error_exit((self.gtype, self.gb))
 
-        # Check for legal jump-jet type, save data
+        # Check for legal jump-jet type, if jump-jets are mounted, save data
+        if self.jump > 0:
+            id = 0
+            for i in jumpjet:
+                if i[0] == self.jjtype:
+                    id = 1
+                    self.jjyear = i[1]
+            if id == 0:
+                error_exit(self.jjtype)
+
+
+        # Check for legal enhancement type, save data
         id = 0
-        for i in jumpjet:
-            if i[0] == self.jjtype:
+        for i in enhancement:
+            if i[0] == self.enhancement:
                 id = 1
-                self.jjyear = i[1]
+                self.enhyear = i[1]
         if id == 0:
-            error_exit(self.jjtype)
+            error_exit(self.enhancement)
 
 
 
@@ -425,6 +447,12 @@ class Motive:
     # Return earliest year jumpjet is available
     def get_jj_year(self):
         return self.jjyear
+
+    # Return earliest year enhancement is available
+    def get_enh_year(self):
+        return self.enhyear
+
+
 
     def parse_speed(self, weight):
         # Bigger of ground speed and jump range
@@ -492,7 +520,7 @@ class Motive:
             redweight = weight
 
         rrating = redweight * (self.erating / weight)
-        rmotive = Motive(self.etype, rrating, self.eb, self.gtype, self.gb, self.jump, self.jjtype)
+        rmotive = Motive(self.etype, rrating, self.eb, self.gtype, self.gb, self.jump, self.jjtype, self.enhancement, self.etb)
         neweight = rmotive.get_engine_weight()
         ngweight = rmotive.get_gyro_weight()
         njweight = rmotive.get_jj_weight(redweight)

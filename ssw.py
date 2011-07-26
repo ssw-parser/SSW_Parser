@@ -269,11 +269,11 @@ def parse_gear(mech, date):
             sbv = sbv + p.count * dam * p.BVmult
 
     # Check TSM & physical combo
-    if (phys == 1 and mech.enhancement != "TSM"):
+    if (phys == 1 and mech.engine.enhancement != "TSM"):
         st1 = "WARNING: Physical weapon mounted without TSM!"
         warnings.add((st1,))
         print_warning((st1,))
-    elif (phys == 0 and mech.enhancement == "TSM"):
+    elif (phys == 0 and mech.engine.enhancement == "TSM"):
         st1 = "WARNING: TSM mounted without Physical weapon!"
         warnings.add((st1,))
         print_warning((st1,))
@@ -370,7 +370,6 @@ def parse_omni(mech, date):
 # initialize gearlist
 structlist = Structlist()
 cockpitlist = Cockpitlist()
-enhancementlist = Enhancementlist()
 heatsinklist = Heatsinklist()
 
 # Read file
@@ -408,8 +407,8 @@ date = parse_console(mech, date)
 print mech.cockpit
 if mech.console == "TRUE":
     print "Command Console"
-date = parse_comp(mech.enhancement, enhancementlist, date)
-print "Enhancement: ", mech.enhancement
+date = get_comp_year(mech.engine.get_enh_year, date)
+print "Enhancement: ", mech.engine.enhancement
 print "-3-----------------------------"
 date = parse_comp(mech.hstype, heatsinklist, date)
 print mech.heatsinks, mech.hstype
