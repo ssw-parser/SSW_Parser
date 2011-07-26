@@ -395,6 +395,7 @@ class Motive:
         self.jjtype = jjtype
         self.enhancement = enh
         self.etb = int(etb)
+        self.speed = self.erating / weight
 
         # Check for legal engine type, save data
         id = 0
@@ -456,6 +457,11 @@ class Motive:
     # Return earliest year enhancement is available
     def get_enh_year(self):
         return self.enhyear
+
+    def get_move_string(self):
+        rspeed = int(ceil(self.speed * 1.5))
+        string = ("%d/%d/%d" % (self.speed, rspeed, self.jump))
+        return string
 
     def parse_speed(self, weight):
         # Bigger of ground speed and jump range
@@ -533,10 +539,7 @@ class Motive:
             st2 = "  Mounting LFE or XLFE suggested."
             warnings.add((st, st2))
             print_warning((st, st2))
-        speed = self.erating / weight
-        rspeed = int(ceil(speed * 1.5))
-        string = ("Speed: %d/%d/%d" % (speed, rspeed, self.jump))
-        print string
+        print "Speed: " + self.get_move_string()
         self.parse_speed(weight)
         gweight = self.get_gyro_weight()
         print self.gtype, gweight, "tons"
