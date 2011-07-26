@@ -408,7 +408,6 @@ print mech.cockpit
 if mech.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)
-print "Enhancement: ", mech.engine.enhancement
 print "-3-----------------------------"
 date = parse_comp(mech.hstype, heatsinklist, date)
 print mech.heatsinks, mech.hstype

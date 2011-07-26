@@ -153,7 +153,7 @@ class Mech:
                         # Save in a tuple with name and type
                         self.equip.append((name,typ))
 
-            self.engine = Motive(etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
+            self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
 
             # Get omni loadouts
             self.loads = []

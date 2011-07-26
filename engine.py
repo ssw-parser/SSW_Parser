@@ -368,14 +368,14 @@ jumpjet = [["Standard Jump Jet", 2471],
 
 # Myomer enhancement types
 #
-# Name, techbase, year
+# Name, techbase, year, weight
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-enhancement = [["---", 2, 0], #None
-               ["MASC", 0, 2740],
-               ["MASC", 1, 2740],
-               ["TSM", 0, 3050]]
+enhancement = [["---", 2, 0, (lambda x : 0)], #None
+               ["MASC", 0, 2740, (lambda x : round(x * 0.05))],
+               ["MASC", 1, 2740, (lambda x : round(x * 0.04))],
+               ["TSM", 0, 3050, (lambda x : 0)]]
 
 
 
@@ -385,7 +385,7 @@ enhancement = [["---", 2, 0], #None
 # Note that this class is not intended to track pod-mounted jump-jets
 #
 class Motive:
-    def __init__(self, etype, erating, ebase, gtype, gbase, jump, jjtype, enh, etb):
+    def __init__(self, weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enh, etb):
         self.etype = etype
         self.erating = erating
         self.eb = int(ebase)
@@ -434,6 +434,7 @@ class Motive:
             if (i[0] == self.enhancement and i[1] == self.etb):
                 id = 1
                 self.enhyear = i[2]
+                self.enhweight = i[3](weight)
         if id == 0:
             error_exit((self.enhancement, self.etb))
 
@@ -514,6 +515,9 @@ class Motive:
             error_exit(self.jjtype)
         return base * self.jump
 
+    def get_enh_weight(self):
+        return self.enhweight
+
     # Used to check if more equipment weight becomes available if the
     # weight is reduced by 5 tons
     def get_reduced_weight(self, weight):
@@ -523,7 +527,7 @@ class Motive:
             redweight = weight
 
         rrating = redweight * (self.erating / weight)
-        rmotive = Motive(self.etype, rrating, self.eb, self.gtype, self.gb, self.jump, self.jjtype, self.enhancement, self.etb)
+        rmotive = Motive(redweight, self.etype, rrating, self.eb, self.gtype, self.gb, self.jump, self.jjtype, self.enhancement, self.etb)
         neweight = rmotive.get_engine_weight()
         ngweight = rmotive.get_gyro_weight()
         njweight = rmotive.get_jj_weight(redweight)
@@ -557,8 +561,8 @@ class Motive:
             st = "WARNING: Reducing total mass would allow for more gear!"
             warnings.add((st,))
             print_warning((st,))
+        print "Enhancement: ", self.enhancement, self.enhweight, "tons"
 
 # TODO: TO stuff
-# TODO: Enhancement (MASC)
 # TODO: Cockpit?
 # TODO: BV related stuff
