@@ -97,9 +97,9 @@ legIS = {
 armor = [["Standard Armor", 2, 2470, 1.0],
          ["Ferro-Fibrous", 0, 2571, 1.0],
          ["Ferro-Fibrous", 1, 2571, 1.0],
-         ["Light Ferro-Fibrous", 10, 3067, 1.0],
-         ["Heavy Ferro-Fibrous", 10, 3069, 1.0],
-         ["Stealth Armor", 10, 3063, 1.0]]
+         ["Light Ferro-Fibrous", 0, 3067, 1.0],
+         ["Heavy Ferro-Fibrous", 0, 3069, 1.0],
+         ["Stealth Armor", 0, 3063, 1.0]]
 
 # A class to hold info about the armor in one location
 class Armor_loc:
@@ -270,7 +270,13 @@ class Armor:
     def armor_total_report(self):
         # Commented out calculates tonnage with standard armor
         #    print atype, armor, "pts", int(round(float(armor)/30))
-        print self.atype
+        if self.tb == 0:
+            base = "(Inner Sphere)"
+        elif self.tb == 1:
+            base = "(Clan)"
+        elif self.tb == 2:
+            base = ""
+        print self.atype + " " + base
         self.print_report(self.total)
 
     def parse_armor(self):
@@ -286,7 +292,6 @@ class Armor:
 
 # TODO: calculate armor weight
 # TODO: Tactical operations armor
-# TODO: indentify difference between IS and Clan armor
 # TODO: track crit slots used?
 
 
