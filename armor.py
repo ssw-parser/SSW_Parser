@@ -207,7 +207,7 @@ class Armor:
     # Location: armor/max xx%
     def print_report(self, armor):
         ratio = float(armor.a) / float(armor.m)
-        msg = armor.l_name + ": " + str(armor.a) + "/" + str(armor.m) + " " + str(int(ratio * 100)) + " %"
+        msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.a, armor.m, int(ratio * 100)))
         print msg
 
     def head_report(self):
@@ -215,6 +215,14 @@ class Armor:
         if (not self.hd.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
             st2 = self.hd.get_warning_string()
+            warnings.add((st1, st2))
+            print_warning((st1, st2))
+
+    # Falling damage armor report
+    def report_fall(self, a_loc):
+        if (a_loc.a < self.fall_dam):
+            st1 = "WARNING: Falling damage might go internal on " + a_loc.l_name + " armor!"
+            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.a)
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
@@ -227,14 +235,8 @@ class Armor:
             st2 = a_loc.get_warning_string()
             warnings.add((st1, st2))
             print_warning((st1, st2))
-
-    # Falling damage armor report
-    def report_fall(self, a_loc):
-        if (a_loc.a < self.fall_dam):
-            st1 = "WARNING: Falling damage might go internal on " + a_loc.l_name + " armor!"
-            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.a)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
+        # Also check for falling damage, just in case
+        self.report_fall(a_loc)
 
     def center_torso_report(self):
         # Standard for front armor
@@ -280,6 +282,7 @@ class Armor:
         self.report_standard(self.la)
         self.report_standard(self.ra)
 
+# TODO: calculate armor weight
 
 
 
