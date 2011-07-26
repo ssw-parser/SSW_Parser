@@ -283,7 +283,9 @@ class Armor:
         self.report_standard(self.ra)
 
 # TODO: calculate armor weight
-
+# TODO: Tactical operations armor
+# TODO: indentify difference between IS and Clan armor
+# TODO: track crit slots used?
 
 
 
