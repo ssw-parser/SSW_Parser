@@ -337,22 +337,27 @@ cmpengine = {
 
 # Engine types
 #
-# Name, year, BV multiplier
+# Name, techbase, year, BV multiplier
 #
-# Missing: Clan XL, ICE, Fuel Cell, Fission
-engine = [["Fusion Engine", 2021, 1.0],
-          ["XL Engine", 2579, 0.5],
-          ["Light Fusion Engine", 3062, 0.75],
-          ["Compact Fusion Engine", 3068, 1.0]]
+# Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+#
+# Missing: ICE, Fuel Cell, Fission
+engine = [["Fusion Engine", 2, 2021, 1.0],
+          ["XL Engine", 0, 2579, 0.5],
+          ["XL Engine", 1, 2579, 0.75],
+          ["Light Fusion Engine", 0, 3062, 0.75],
+          ["Compact Fusion Engine", 0, 3068, 1.0]]
 
 # Gyro types
 #
-# Name, year, BV multiplier
+# Name, techbase, year, BV multiplier
 #
-gyro = [["Standard Gyro", 2439, 0.5],
-        ["Extra-Light Gyro", 3067, 0.5],
-        ["Heavy-Duty Gyro", 3067, 1.0],
-        ["Compact Gyro", 3068, 0.5]]
+# Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+#
+gyro = [["Standard Gyro", 2, 2439, 0.5],
+        ["Extra-Light Gyro", 0, 3067, 0.5],
+        ["Heavy-Duty Gyro", 0, 3067, 1.0],
+        ["Compact Gyro", 0, 3068, 0.5]]
 
 # Jump-jet types
 #
@@ -368,34 +373,50 @@ jumpjet = [["Standard Jump Jet", 2471],
 # Note that this class is not intended to track pod-mounted jump-jets
 #
 class Motive:
-    def __init__(self, etype, erating, ebase, gyro, gbase, jump, jjtype):
+    def __init__(self, etype, erating, ebase, gtype, gbase, jump, jjtype):
         self.etype = etype
         self.erating = erating
         self.eb = int(ebase)
-        self.gyro = gyro
+        self.gtype = gtype
         self.gb = int(gbase)
         self.jump = jump
         self.jjtype = jjtype
 
-    # Return earliest year engine is available
-    def get_engine_year(self):
+        # Check for legal engine type, save data
         id = 0
         for i in engine:
-            if i[0] == self.etype:
+            if (i[0] == self.etype and i[1] == self.eb):
                 id = 1
-                return i[1]
+                self.eyear = i[2]
+                self.eBV = i[3]
         if id == 0:
-            error_exit(self.etype)
+            error_exit((self.etype, self.eb))
+
+        # Check for legal gyro type, save data
+        id = 0
+        for i in gyro:
+            if (i[0] == self.gtype and i[1] == self.gb):
+                id = 1
+                self.gyear = i[2]
+                self.gBV = i[3]
+        if id == 0:
+            error_exit((self.gtype, self.gb))
+
+
+
+    # Return earliest year engine is available
+    def get_engine_year(self):
+        return self.eyear
 
     # Return earliest year gyro is available
     def get_gyro_year(self):
         id = 0
         for i in gyro:
-            if i[0] == self.gyro:
+            if i[0] == self.gtype:
                 id = 1
                 return i[1]
         if id == 0:
-            error_exit(self.gyro)
+            error_exit(self.gtype)
 
     # Return earliest year jumpjet is available
     def get_jj_year(self):
@@ -445,16 +466,16 @@ class Motive:
 
     def get_gyro_weight(self):
         base_weight = ceil(float(self.erating) / 100.0)
-        if self.gyro == "Standard Gyro":
+        if self.gtype == "Standard Gyro":
             return base_weight
-        elif self.gyro == "Extra-Light Gyro":
+        elif self.gtype == "Extra-Light Gyro":
             return base_weight * 0.5
-        elif self.gyro == "Compact Gyro":
+        elif self.gtype == "Compact Gyro":
             return base_weight * 1.5
-        elif self.gyro == "Heavy-Duty Gyro":
+        elif self.gtype == "Heavy-Duty Gyro":
             return base_weight * 2.0
         else:
-            error_exit(self.gyro)
+            error_exit(self.gtype)
 
     def get_jj_weight(self, weight):
         if self.jump == 0:
@@ -482,7 +503,7 @@ class Motive:
             redweight = weight
 
         rrating = redweight * (self.erating / weight)
-        rmotive = Motive(self.etype, rrating, self.gyro, self.jump, self.jjtype)
+        rmotive = Motive(self.etype, rrating, self.eb, self.gtype, self.gb, self.jump, self.jjtype)
         neweight = rmotive.get_engine_weight()
         ngweight = rmotive.get_gyro_weight()
         njweight = rmotive.get_jj_weight(redweight)
@@ -503,7 +524,7 @@ class Motive:
         print string
         self.parse_speed(weight)
         gweight = self.get_gyro_weight()
-        print self.gyro, gweight, "tons"
+        print self.gtype, gweight, "tons"
         jweight = self.get_jj_weight(weight)
         if self.jump > 0:
             print "Fixed jump: ", self.jump, self.jjtype, jweight, "tons"

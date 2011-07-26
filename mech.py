@@ -73,7 +73,7 @@ class Mech:
 
             # Get gyro, TODO: base
             for gy in mmech.getElementsByTagName('gyro'):
-                gyro = gettext(gy.childNodes)
+                gtype = gettext(gy.childNodes)
                 gbase = int(gy.attributes["techbase"].value)
 
             # Get cockpit, TODO: base
@@ -151,7 +151,7 @@ class Mech:
                         # Save in a tuple with name and type
                         self.equip.append((name,typ))
 
-            self.engine = Motive(etype, erating, ebase, gyro, gbase, jump, jjtype)
+            self.engine = Motive(etype, erating, ebase, gtype, gbase, jump, jjtype)
 
             # Get omni loadouts
             self.loads = []
