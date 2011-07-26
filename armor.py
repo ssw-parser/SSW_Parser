@@ -89,14 +89,17 @@ legIS = {
 
 # Info on armor types
 #
-# Name, year, BV multiplier
+# Name, techbase, year, BV multiplier
+#
+# Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
-armor = [["Standard Armor", 2470, 1.0],
-         ["Ferro-Fibrous", 2571, 1.0],
-         ["Light Ferro-Fibrous", 3067, 1.0],
-         ["Heavy Ferro-Fibrous", 3069, 1.0],
-         ["Stealth Armor", 3063, 1.0]]
+armor = [["Standard Armor", 2, 2470, 1.0],
+         ["Ferro-Fibrous", 0, 2571, 1.0],
+         ["Ferro-Fibrous", 1, 2571, 1.0],
+         ["Light Ferro-Fibrous", 10, 3067, 1.0],
+         ["Heavy Ferro-Fibrous", 10, 3069, 1.0],
+         ["Stealth Armor", 10, 3063, 1.0]]
 
 # A class to hold info about the armor in one location
 class Armor_loc:
@@ -121,10 +124,23 @@ class Armor_loc:
 
 # A class to hold armor info for a mech
 class Armor:
-    def __init__(self, weight, motive, atype,
+    def __init__(self, weight, motive, atype, tb,
                  hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl):
         # Save type of armor
         self.atype = atype
+        # and its techbase
+        self.tb = int(tb)
+
+        # Check for legal armor type, save data
+        id = 0
+        for i in armor:
+            if (i[0] == self.atype and i[1] == self.tb):
+                id = 1
+                self.year = i[2]
+                self.arBV = i[3]
+        if id == 0:
+            error_exit((self.atype, self.tb))
+
 
         # Head always have max 9 armor
         self.hd = Armor_loc("Head", hd, 9)
@@ -182,26 +198,12 @@ class Armor:
 
     # Return armor BV
     def get_armor_BV(self):
-        id = 0
-        arBV = 0
-        for i in armor:
-            if self.atype == i[0]:
-                arBV = i[2]
-                id = 1
-        if id == 0:
-            error_exit(clist.name)
-        return (arBV * 2.5 * self.total.a)
+        return (self.arBV * 2.5 * self.total.a)
        
 
     # Return earliest year armor is available
     def get_armor_year(self):
-        id = 0
-        for i in armor:
-            if i[0] == self.atype:
-                id = 1
-                return i[1]
-        if id == 0:
-            error_exit(self.atype)
+        return self.year
 
     # Print a report of the armor in a cetain location in the form:
     # Location: armor/max xx%

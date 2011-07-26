@@ -87,6 +87,7 @@ class Mech:
 
             # Get armor.
             for arm in mmech.getElementsByTagName('armor'):
+                atbase = arm.attributes["techbase"].value
                 anode = arm.getElementsByTagName("type")[0]
                 armortype = gettext(anode.childNodes)
                 anode = arm.getElementsByTagName("hd")[0]
@@ -111,7 +112,7 @@ class Mech:
                 ll = int(gettext(anode.childNodes))
                 anode = arm.getElementsByTagName("rl")[0]
                 rl = int(gettext(anode.childNodes))
-                self.armor = Armor(self.weight, self.motive, armortype,
+                self.armor = Armor(self.weight, self.motive, armortype, atbase,
                                    hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl)
 
             # Get baseloadout

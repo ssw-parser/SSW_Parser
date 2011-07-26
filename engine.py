@@ -5,6 +5,8 @@ from error import *
 
 # Engine and other propulsion related stuff, like fixed jumpjets and gyros.
 
+# The following tables contain the engine weight for each rating
+
 stdengine = {
     10 : 0.5,
     15 : 0.5,
@@ -333,6 +335,8 @@ cmpengine = {
     400 : 79.0
 }
 
+# Engine types
+#
 # Name, year, BV multiplier
 #
 # Missing: Clan XL, ICE, Fuel Cell, Fission
@@ -341,6 +345,8 @@ engine = [["Fusion Engine", 2021, 1.0],
           ["Light Fusion Engine", 3062, 0.75],
           ["Compact Fusion Engine", 3068, 1.0]]
 
+# Gyro types
+#
 # Name, year, BV multiplier
 #
 gyro = [["Standard Gyro", 2439, 0.5],
@@ -348,12 +354,19 @@ gyro = [["Standard Gyro", 2439, 0.5],
         ["Heavy-Duty Gyro", 3067, 1.0],
         ["Compact Gyro", 3068, 0.5]]
 
+# Jump-jet types
+#
+# Name,year
+#
 jumpjet = [["Standard Jump Jet", 2471],
            ["Improved Jump Jet", 3069]]
 
 
 
 # A class to hold motive info for a mech
+#
+# Note that this class is not intended to track pod-mounted jump-jets
+#
 class Motive:
     def __init__(self, etype, erating, gyro, jump, jjtype):
         self.etype = etype
@@ -458,6 +471,8 @@ class Motive:
             error_exit(self.jjtype)
         return base * self.jump
 
+    # Used to check if more equipment weight becomes available if the
+    # weight is reduced by 5 tons
     def get_reduced_weight(self, weight):
         if (weight > 20):
             redweight = weight - 5
@@ -500,6 +515,7 @@ class Motive:
             warnings.add((st,))
             print_warning((st,))
 
+# TODO: TO stuff
 # TODO: Enhancement (MASC)
 # TODO: Cockpit?
 # TODO: BV related stuff
