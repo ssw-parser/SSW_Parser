@@ -350,14 +350,14 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
 
 # Gyro types
 #
-# Name, techbase, year, BV multiplier
+# Name, techbase, year, BV multiplier, weight multiplier
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-gyro = [["Standard Gyro", 2, 2439, 0.5],
-        ["Extra-Light Gyro", 0, 3067, 0.5],
-        ["Heavy-Duty Gyro", 0, 3067, 1.0],
-        ["Compact Gyro", 0, 3068, 0.5]]
+gyro = [["Standard Gyro", 2, 2439, 0.5, 1.0],
+        ["Extra-Light Gyro", 0, 3067, 0.5, 0.5],
+        ["Heavy-Duty Gyro", 0, 3067, 1.0, 2.0],
+        ["Compact Gyro", 0, 3068, 0.5, 1.5]]
 
 # Jump-jet types
 #
@@ -414,6 +414,7 @@ class Motive:
                 id = 1
                 self.gyear = i[2]
                 self.gBV = i[3]
+                self.gweightm = i[4]
         if id == 0:
             error_exit((self.gtype, self.gb))
 
@@ -456,8 +457,6 @@ class Motive:
     def get_enh_year(self):
         return self.enhyear
 
-
-
     def parse_speed(self, weight):
         # Bigger of ground speed and jump range
         speed = max((self.erating/weight, self.jump))
@@ -487,16 +486,7 @@ class Motive:
 
     def get_gyro_weight(self):
         base_weight = ceil(float(self.erating) / 100.0)
-        if self.gtype == "Standard Gyro":
-            return base_weight
-        elif self.gtype == "Extra-Light Gyro":
-            return base_weight * 0.5
-        elif self.gtype == "Compact Gyro":
-            return base_weight * 1.5
-        elif self.gtype == "Heavy-Duty Gyro":
-            return base_weight * 2.0
-        else:
-            error_exit(self.gtype)
+        return self.gweightm * base_weight
 
     def get_jj_weight(self, weight):
         if self.jump == 0:
@@ -566,3 +556,4 @@ class Motive:
 # TODO: TO stuff
 # TODO: Cockpit?
 # TODO: BV related stuff
+# TODO: Include enhancement in motive weight calculation
