@@ -521,7 +521,8 @@ class Motive:
         neweight = rmotive.get_engine_weight()
         ngweight = rmotive.get_gyro_weight()
         njweight = rmotive.get_jj_weight(redweight)
-        return (neweight + ngweight + njweight)
+        nenhweight = rmotive.get_enh_weight()
+        return (neweight + ngweight + njweight + nenhweight)
 
     def print_report(self, weight):
         eweight = self.get_engine_weight()
@@ -542,7 +543,9 @@ class Motive:
         jweight = self.get_jj_weight(weight)
         if self.jump > 0:
             print "Fixed jump: ", self.jump, self.jjtype, jweight, "tons"
-        tweight = eweight + gweight + jweight
+        enhweight = self.get_enh_weight()
+        print "Enhancement: ", self.enhancement, enhweight, "tons"
+        tweight = eweight + gweight + jweight + enhweight
         tratio = float(tweight) / float(weight)
         print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
         rweight = self.get_reduced_weight(weight)
@@ -551,9 +554,7 @@ class Motive:
             st = "WARNING: Reducing total mass would allow for more gear!"
             warnings.add((st,))
             print_warning((st,))
-        print "Enhancement: ", self.enhancement, self.enhweight, "tons"
 
 # TODO: TO stuff
 # TODO: Cockpit?
 # TODO: BV related stuff
-# TODO: Include enhancement in motive weight calculation
