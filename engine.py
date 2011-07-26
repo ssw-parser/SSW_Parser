@@ -410,13 +410,7 @@ class Motive:
 
     # Return earliest year gyro is available
     def get_gyro_year(self):
-        id = 0
-        for i in gyro:
-            if i[0] == self.gtype:
-                id = 1
-                return i[1]
-        if id == 0:
-            error_exit(self.gtype)
+        return self.gyear
 
     # Return earliest year jumpjet is available
     def get_jj_year(self):
@@ -520,7 +514,7 @@ class Motive:
             print_warning((st, st2))
         speed = self.erating / weight
         rspeed = int(ceil(speed * 1.5))
-        string = "Speed: " + str(speed) + "/" + str(rspeed) + "/" + str(self.jump)
+        string = ("Speed: %d/%d/%d" % (speed, rspeed, self.jump))
         print string
         self.parse_speed(weight)
         gweight = self.get_gyro_weight()
