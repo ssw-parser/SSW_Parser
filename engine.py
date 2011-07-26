@@ -346,7 +346,9 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
           ["XL Engine", 0, 2579, 0.5, (lambda x : xlengine[x])],
           ["XL Engine", 1, 2579, 0.75, (lambda x : xlengine[x])],
           ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : lgtengine[x])],
-          ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])]]
+          ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])],
+          # Assume same year as Mackie
+          ["Primitive Fusion Engine", 2, 2439, 1.0, (lambda x : stdengine[x])]]
 
 # Gyro types
 #
@@ -396,6 +398,11 @@ class Motive:
         self.enhancement = enh
         self.etb = int(etb)
         self.speed = self.erating / weight
+        # A note on primitive engines:
+        # It seems like using engine rating directly does give
+        # the right speed, even if rules says otherwise
+        # This looks like an internal SSW issue, so
+        # assume that the weight of these engines are incorrect
 
         # Check for legal engine type, save data
         id = 0
@@ -459,8 +466,20 @@ class Motive:
         return self.enhyear
 
     def get_move_string(self):
+        if self.enhancement == "TSM":
+            wstr = str(self.speed) + "[" + str(self.speed + 1) + "]"
+        else:
+            wstr = str(self.speed)
         rspeed = int(ceil(self.speed * 1.5))
-        string = ("%d/%d/%d" % (self.speed, rspeed, self.jump))
+        if self.enhancement == "TSM":
+            rspeed2 = int(ceil((self.speed + 1) * 1.5))
+            rstr = str(rspeed) + "[" + str(rspeed2) + "]"
+        elif self.enhancement == "MASC":
+            rspeed2 = int(ceil(self.speed * 2.0))
+            rstr = str(rspeed) + "[" + str(rspeed2) + "]"
+        else:
+            rstr = str(rspeed)
+        string = ("%s/%s/%d" % (wstr, rstr, self.jump))
         return string
 
     def parse_speed(self, weight):
@@ -558,6 +577,7 @@ class Motive:
             warnings.add((st,))
             print_warning((st,))
 
-# TODO: TO stuff
+# TODO: TO stuff: XXL, and Large engines
 # TODO: Cockpit?
 # TODO: BV related stuff
+# TODO: Weight of primitive engines

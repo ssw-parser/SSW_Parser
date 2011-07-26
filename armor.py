@@ -99,7 +99,10 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
          ["Ferro-Fibrous", 1, 2571, 1.0, 1.2],
          ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06],
          ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24],
-         ["Stealth Armor", 0, 3063, 1.0, 1.0]]
+         ["Stealth Armor", 0, 3063, 1.0, 1.0],
+         # No year given for primitive armor, assume it becomes available
+         # same year as the Mackie
+         ["Primitive Armor", 0, 2439, 1.0, 0.67]]
 
 # A class to hold info about the armor in one location
 class Armor_loc:
