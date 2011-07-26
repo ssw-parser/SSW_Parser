@@ -89,17 +89,17 @@ legIS = {
 
 # Info on armor types
 #
-# Name, techbase, year, BV multiplier
+# Name, techbase, year, BV multiplier, armor multiplier
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
-armor = [["Standard Armor", 2, 2470, 1.0],
-         ["Ferro-Fibrous", 0, 2571, 1.0],
-         ["Ferro-Fibrous", 1, 2571, 1.0],
-         ["Light Ferro-Fibrous", 0, 3067, 1.0],
-         ["Heavy Ferro-Fibrous", 0, 3069, 1.0],
-         ["Stealth Armor", 0, 3063, 1.0]]
+armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
+         ["Ferro-Fibrous", 0, 2571, 1.0, 1.12],
+         ["Ferro-Fibrous", 1, 2571, 1.0, 1.2],
+         ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06],
+         ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24],
+         ["Stealth Armor", 0, 3063, 1.0, 1.0]]
 
 # A class to hold info about the armor in one location
 class Armor_loc:
@@ -138,6 +138,7 @@ class Armor:
                 id = 1
                 self.year = i[2]
                 self.arBV = i[3]
+                self.arMult = i[4]
         if id == 0:
             error_exit((self.atype, self.tb))
 
@@ -204,6 +205,15 @@ class Armor:
     # Return earliest year armor is available
     def get_armor_year(self):
         return self.year
+
+    # Return armor weight
+    def get_armor_weight(self):
+        wgt = self.total.a / (16 * self.arMult)
+        # hack to get half-ton rounding up
+        wgt *= 2
+        wgt = ceil(wgt)
+        wgt /= 2
+        return wgt
 
     # Print a report of the armor in a cetain location in the form:
     # Location: armor/max xx%
@@ -276,7 +286,7 @@ class Armor:
             base = "(Clan)"
         elif self.tb == 2:
             base = ""
-        print self.atype + " " + base
+        print str(self.get_armor_weight()) + " tons " + self.atype + " " + base
         self.print_report(self.total)
 
     def parse_armor(self):
@@ -290,7 +300,6 @@ class Armor:
         self.report_standard(self.la)
         self.report_standard(self.ra)
 
-# TODO: calculate armor weight
 # TODO: Tactical operations armor
 # TODO: track crit slots used?
 
