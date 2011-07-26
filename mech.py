@@ -87,6 +87,7 @@ class Mech:
             for enh in mmech.getElementsByTagName('enhancement'):
                 enode = enh.getElementsByTagName("type")[0]
                 enhancement = gettext(enode.childNodes)
+                etb = int(enh.attributes["techbase"].value)
 
             # Get armor.
             for arm in mmech.getElementsByTagName('armor'):

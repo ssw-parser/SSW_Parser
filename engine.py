@@ -368,11 +368,14 @@ jumpjet = [["Standard Jump Jet", 2471],
 
 # Myomer enhancement types
 #
-# Name, year
+# Name, techbase, year
 #
-enhancement = [["---", 0], #None
-               ["MASC", 2740],
-               ["TSM", 3050]]
+# Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+#
+enhancement = [["---", 2, 0], #None
+               ["MASC", 0, 2740],
+               ["MASC", 1, 2740],
+               ["TSM", 0, 3050]]
 
 
 
@@ -391,7 +394,7 @@ class Motive:
         self.jump = jump
         self.jjtype = jjtype
         self.enhancement = enh
-        self. etb = etb
+        self.etb = int(etb)
 
         # Check for legal engine type, save data
         id = 0
@@ -428,11 +431,11 @@ class Motive:
         # Check for legal enhancement type, save data
         id = 0
         for i in enhancement:
-            if i[0] == self.enhancement:
+            if (i[0] == self.enhancement and i[1] == self.etb):
                 id = 1
-                self.enhyear = i[1]
+                self.enhyear = i[2]
         if id == 0:
-            error_exit(self.enhancement)
+            error_exit((self.enhancement, self.etb))
 
 
 
