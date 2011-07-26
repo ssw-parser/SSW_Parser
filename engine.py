@@ -337,16 +337,16 @@ cmpengine = {
 
 # Engine types
 #
-# Name, techbase, year, BV multiplier
+# Name, techbase, year, BV multiplier, weight
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: ICE, Fuel Cell, Fission
-engine = [["Fusion Engine", 2, 2021, 1.0],
-          ["XL Engine", 0, 2579, 0.5],
-          ["XL Engine", 1, 2579, 0.75],
-          ["Light Fusion Engine", 0, 3062, 0.75],
-          ["Compact Fusion Engine", 0, 3068, 1.0]]
+engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
+          ["XL Engine", 0, 2579, 0.5, (lambda x : xlengine[x])],
+          ["XL Engine", 1, 2579, 0.75, (lambda x : xlengine[x])],
+          ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : lgtengine[x])],
+          ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])]]
 
 # Gyro types
 #
@@ -389,6 +389,7 @@ class Motive:
                 id = 1
                 self.eyear = i[2]
                 self.eBV = i[3]
+                self.eweight = i[4](self.erating)
         if id == 0:
             error_exit((self.etype, self.eb))
 
@@ -447,16 +448,7 @@ class Motive:
             print_warning((st,))
 
     def get_engine_weight(self):
-        if self.etype == "Fusion Engine":
-            return stdengine[self.erating]
-        elif self.etype == "Light Fusion Engine":
-            return lgtengine[self.erating]
-        elif self.etype == "XL Engine":
-            return xlengine[self.erating]
-        elif self.etype == "Compact Fusion Engine":
-            return cmpengine[self.erating]
-        else:
-            error_exit(self.etype)
+        return self.eweight
 
     def get_gyro_weight(self):
         base_weight = ceil(float(self.erating) / 100.0)
