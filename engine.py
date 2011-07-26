@@ -368,10 +368,12 @@ jumpjet = [["Standard Jump Jet", 2471],
 # Note that this class is not intended to track pod-mounted jump-jets
 #
 class Motive:
-    def __init__(self, etype, erating, gyro, jump, jjtype):
+    def __init__(self, etype, erating, ebase, gyro, gbase, jump, jjtype):
         self.etype = etype
         self.erating = erating
+        self.eb = int(ebase)
         self.gyro = gyro
+        self.gb = int(gbase)
         self.jump = jump
         self.jjtype = jjtype
 
