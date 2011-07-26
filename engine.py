@@ -361,7 +361,7 @@ gyro = [["Standard Gyro", 2, 2439, 0.5],
 
 # Jump-jet types
 #
-# Name,year
+# Name, year
 #
 jumpjet = [["Standard Jump Jet", 2471],
            ["Improved Jump Jet", 3069]]
@@ -403,6 +403,15 @@ class Motive:
         if id == 0:
             error_exit((self.gtype, self.gb))
 
+        # Check for legal jump-jet type, save data
+        id = 0
+        for i in jumpjet:
+            if i[0] == self.jjtype:
+                id = 1
+                self.jjyear = i[1]
+        if id == 0:
+            error_exit(self.jjtype)
+
 
 
     # Return earliest year engine is available
@@ -415,13 +424,7 @@ class Motive:
 
     # Return earliest year jumpjet is available
     def get_jj_year(self):
-        id = 0
-        for i in jumpjet:
-            if i[0] == self.jjtype:
-                id = 1
-                return i[1]
-        if id == 0:
-            error_exit(self.jjtype)
+        return self.jjyear
 
     def parse_speed(self, weight):
         # Bigger of ground speed and jump range
