@@ -22,7 +22,7 @@ if sys.argv[1] == "-f":
 else:
     file_list = sys.argv[1:]
 
-print "Name                       Wgt Movement    Armor"
+print "Name                       Wgt Movement    Armor  BV"
 # Loop over input
 for i in file_list:
     # Read file
@@ -36,4 +36,5 @@ for i in file_list:
     name_str = mech.name + " " + mech.model
     move = mech.engine.get_move_string()
     armor = mech.armor.get_armor_percent()
-    print ("%-26s %3s %-11s %4s" % (name_str, mech.weight, move, armor))
+    BV = mech.BV
+    print ("%-26s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
