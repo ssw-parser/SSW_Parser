@@ -386,6 +386,8 @@ mech = Mech(xmldoc)
 date = 0
 
 print "Name: ", mech.model, mech.name
+mech.weight_summary()
+
 print "-1-----------------------------"
 print "Tech: ", mech.techbase
 print "Weight: ", mech.weight
