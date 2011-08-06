@@ -210,11 +210,11 @@ class Mech:
         motive += self.engine.get_gyro_weight()
         motive += self.engine.get_jj_weight(self.weight)
         motive += self.engine.get_enh_weight()
-        motive += self.cockpit.get_cockpit_weight()
+        motive += self.cockpit.get_weight()
         mratio = float(motive) / float(self.weight) * 100
         # defensive stuff
-        defensive = self.structure.get_structure_weight()
-        defensive += self.armor.get_armor_weight()
+        defensive = self.structure.get_weight()
+        defensive += self.armor.get_weight()
         dratio = float(defensive) / float(self.weight) * 100
         print ("Total weight    : %3.1ft" % (self.weight))
         print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))

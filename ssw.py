@@ -393,8 +393,8 @@ print "Weight: ", mech.weight
 print "Motive: ", mech.motive, mech.mechtype
 if (mech.omni == "TRUE"):
     print "Omni mech"
-date = get_comp_year(mech.structure.get_structure_year, date)
-print "Structure: ", mech.structure.type, mech.structure.wgt, "tons"
+date = get_comp_year(mech.structure.get_year, date)
+print "Structure: ", mech.structure.type, mech.structure.get_weight(), "tons"
 print "-2-----------------------------"
 mech.engine.print_report(mech.weight)
 #print "Gyro Def BV: ", mech.weight * parse_gyroBV(mech.engine.gyro, gyrolist)
@@ -402,9 +402,9 @@ date = get_comp_year(mech.engine.get_engine_year, date)
 date = get_comp_year(mech.engine.get_gyro_year, date)
 if mech.engine.jump > 0:
     date = get_comp_year(mech.engine.get_jj_year, date)
-date = get_comp_year(mech.cockpit.get_cockpit_year, date)
+date = get_comp_year(mech.cockpit.get_year, date)
 date = parse_console(mech, date)
-print mech.cockpit.type, mech.cockpit.get_cockpit_weight()
+print mech.cockpit.type, mech.cockpit.get_weight()
 if mech.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)
@@ -412,7 +412,7 @@ print "-3-----------------------------"
 date = parse_comp(mech.hstype, heatsinklist, date)
 print mech.heatsinks, mech.hstype
 print "-4-----------------------------"
-date = get_comp_year(mech.armor.get_armor_year, date)
+date = get_comp_year(mech.armor.get_year, date)
 #speed = mech.engine.erating/mech.weight
 #if (speed == 3 and mech.weight < 80):
 #    wgt = 80

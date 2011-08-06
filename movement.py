@@ -404,11 +404,11 @@ class Cockpit:
             error_exit((self.type))
 
     # Return earliest year cockpit is available
-    def get_cockpit_year(self):
+    def get_year(self):
         return self.year
 
     # Return weight
-    def get_cockpit_weight(self):
+    def get_weight(self):
         return self.wgt
 
 # A class to hold motive info for a mech

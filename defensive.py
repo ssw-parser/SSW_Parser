@@ -144,11 +144,11 @@ class IS:
         self.wgt = wgt
 
     # Return earliest year armor is available
-    def get_structure_year(self):
+    def get_year(self):
         return self.year
 
     # Return armor weight
-    def get_structure_weight(self):
+    def get_weight(self):
         return self.wgt
 
 
@@ -255,11 +255,11 @@ class Armor:
        
 
     # Return earliest year armor is available
-    def get_armor_year(self):
+    def get_year(self):
         return self.year
 
     # Return armor weight
-    def get_armor_weight(self):
+    def get_weight(self):
         wgt = self.total.a / (16 * self.arMult)
         # hack to get half-ton rounding up
         wgt *= 2
@@ -344,7 +344,7 @@ class Armor:
             base = "(Clan)"
         elif self.tb == 2:
             base = ""
-        print str(self.get_armor_weight()) + " tons " + self.atype + " " + base
+        print str(self.get_weight()) + " tons " + self.atype + " " + base
         self.print_report(self.total)
 
     def parse_armor(self):
