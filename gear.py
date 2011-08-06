@@ -191,9 +191,6 @@ equipment = [["A-Pod", 1, 3055, 0],
              # Experimental
              ["Electronic Warfare Equipment", 39, 3025, 0]]
 
-cockpit = [["Standard Cockpit", 2300],
-           ["Small Cockpit", 3067]]
-
 heatsink = [["Single Heat Sink", 2022],
             ["Double Heat Sink", 2567]]
 
@@ -278,13 +275,6 @@ class Component:
     def __init__(self, cinfo):
         self.name = cinfo[0]
         self.year = cinfo[1]
-
-class Cockpitlist:
-    def __init__(self):
-        self.list = []
-        for c in cockpit:
-            self.list.append(Component(c))
-        self.name = "cockpit"
 
 class Heatsinklist:
     def __init__(self):

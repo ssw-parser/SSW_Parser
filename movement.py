@@ -379,8 +379,37 @@ enhancement = [["---", 2, 0, (lambda x : 0)], #None
                ["MASC", 1, 2740, (lambda x : round(x * 0.04))],
                ["TSM", 0, 3050, (lambda x : 0)]]
 
+# Cockpit types
+#
+# Name, techbase, year, weight
+#
+cockpit = [["Standard Cockpit", 2300, 3],
+           ["Small Cockpit", 3067, 2]]
 
 
+
+# A class to hold cockpit info
+class Cockpit:
+    def __init__(self, ctype):
+        self.type = ctype
+
+        # Check for legal cockpit type, save data
+        id = 0
+        for i in cockpit:
+            if (i[0] == self.type):
+                id = 1
+                self.year = i[1]
+                self.wgt = i[2]
+        if id == 0:
+            error_exit((self.type))
+
+    # Return earliest year cockpit is available
+    def get_cockpit_year(self):
+        return self.year
+
+    # Return weight
+    def get_cockpit_weight(self):
+        return self.wgt
 
 # A class to hold motive info for a mech
 #

@@ -368,7 +368,6 @@ def parse_omni(mech, date):
 
 
 # initialize gearlist
-cockpitlist = Cockpitlist()
 heatsinklist = Heatsinklist()
 
 # Read file
@@ -403,9 +402,9 @@ date = get_comp_year(mech.engine.get_engine_year, date)
 date = get_comp_year(mech.engine.get_gyro_year, date)
 if mech.engine.jump > 0:
     date = get_comp_year(mech.engine.get_jj_year, date)
-date = parse_comp(mech.cockpit, cockpitlist, date)
+date = get_comp_year(mech.cockpit.get_cockpit_year, date)
 date = parse_console(mech, date)
-print mech.cockpit
+print mech.cockpit.type, mech.cockpit.get_cockpit_weight()
 if mech.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)

@@ -79,11 +79,12 @@ class Mech:
                 gtype = gettext(gy.childNodes)
                 gbase = int(gy.attributes["techbase"].value)
 
-            # Get cockpit, TODO: base
+            # Get cockpit
             for cpt in mmech.getElementsByTagName('cockpit'):
                 cnode = cpt.getElementsByTagName("type")[0]
                 self.console = cnode.attributes["commandconsole"].value
-                self.cockpit = gettext(cnode.childNodes)
+                cockpit = gettext(cnode.childNodes)
+                self.cockpit = Cockpit(cockpit)
 
             # Get enhancement
             for enh in mmech.getElementsByTagName('enhancement'):
