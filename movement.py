@@ -607,6 +607,5 @@ class Motive:
             print_warning((st,))
 
 # TODO: TO stuff: XXL, and Large engines
-# TODO: Cockpit?
 # TODO: BV related stuff
 # TODO: Weight of primitive engines

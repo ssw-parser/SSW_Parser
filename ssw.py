@@ -32,42 +32,6 @@ def get_comp_year(call, date):
         date = year
     return date
 
-# Parse a component list
-#def parse_gyroBV(gyro, clist):
-#    id = 0
-#    gyBV = 0
-#    for i in clist.list:
-#        if gyro == i.name:
-#            gyBV = i.BVmult
-#            id = 1
-#    if id == 0:
-#        error_exit(clist.name)
-#    return gyBV
-
-# Parse a component list
-def parse_structBV(struct, clist):
-    id = 0
-    stBV = 0
-    for i in clist.list:
-        if struct == i.name:
-            stBV = i.BVmult
-            id = 1
-    if id == 0:
-        error_exit(clist.name)
-    return stBV
-
-# Parse a component list
-#def parse_engBV(engine, clist):
-#    id = 0
-#    enBV = 0
-#    for i in clist.list:
-#        if engine == i.name:
-#            enBV = i.BVmult
-#            id = 1
-#    if id == 0:
-#        error_exit(clist.name)
-#    return enBV
-
 # Parse an equipment node
 def parse_gear(mech, date):
     lbv = 0
@@ -397,7 +361,6 @@ date = get_comp_year(mech.structure.get_year, date)
 print "Structure: ", mech.structure.type, mech.structure.get_weight(), "tons"
 print "-2-----------------------------"
 mech.engine.print_report(mech.weight)
-#print "Gyro Def BV: ", mech.weight * parse_gyroBV(mech.engine.gyro, gyrolist)
 date = get_comp_year(mech.engine.get_engine_year, date)
 date = get_comp_year(mech.engine.get_gyro_year, date)
 if mech.engine.jump > 0:
