@@ -20,7 +20,7 @@ class Loadout:
         self.apollo = ap
         self.name = name
         # Set to zero things that might not get defined otherwise
-        self.heatsinks = 0
+        self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jump = 0
 
 
@@ -184,9 +184,11 @@ class Mech:
 
                 # Get heat sinks
                 for hs in lo.getElementsByTagName('heatsinks'):
-                    current.heatsinks = int(hs.attributes["number"].value)
+                    heatsinks = int(hs.attributes["number"].value)
+                    hsbase = hs.attributes["techbase"].value
                     hnode = hs.getElementsByTagName("type")[0]
-                    current.hstype = gettext(hnode.childNodes)
+                    hstype = gettext(hnode.childNodes)
+                    current.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
                     
                 # Get equipment
                 current.equip = []

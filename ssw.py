@@ -318,9 +318,9 @@ def parse_omni(mech, date):
             if (i.jump):
                 d = parse_comp(i.jjtype, jumpjetlist, d)
                 print "Jump: ", i.jump, i.jjtype
-            if (i.heatsinks):
-                d = parse_comp(mech.hstype, heatsinklist, d)
-                print i.heatsinks, i.hstype
+            if (i.heatsinks.nr):
+                d = get_comp_year(mech.heatsinks.get_year, d)
+                print i.heatsinks.nr, i.heatsinks.type
             d = parse_artemis(mech, d)
             if i.artemis4 == "TRUE":
                 print "Artemis IV"
