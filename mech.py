@@ -66,7 +66,7 @@ class Mech:
                 sbase = int(stru.attributes["techbase"].value)
                 snode = stru.getElementsByTagName("type")[0]
                 stype = gettext(snode.childNodes)
-                self.structure = IS(stype, sbase)
+                self.structure = IS(stype, sbase, self.weight)
            
             # Get engine data
             for eng in mmech.getElementsByTagName('engine'):

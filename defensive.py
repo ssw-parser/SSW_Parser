@@ -89,14 +89,14 @@ legIS = {
 
 # Info on internal structure types
 #
-# Name, techbase, year, BV multiplier
+# Name, techbase, year, BV multiplier, weight factor
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: Industrial
-structure = [["Standard Structure", 2, 2439, 1.0],
-             ["Endo-Steel", 0, 2487, 1.0],
-             ["Endo-Steel", 1, 2487, 1.0]]
+structure = [["Standard Structure", 2, 2439, 1.0, 0.1],
+             ["Endo-Steel", 0, 2487, 1.0, 0.05],
+             ["Endo-Steel", 1, 2487, 1.0, 0.05]]
 
 
 # Info on armor types
@@ -119,9 +119,10 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
 
 # A class to hold info about the internal stucture
 class IS:
-    def __init__(self, type, tb):
+    def __init__(self, type, tb, weight):
         self.type = type
         self.tb = int(tb)
+        wgt = weight
 
         # Check for legal structure type, save data
         id = 0
@@ -130,12 +131,25 @@ class IS:
                 id = 1
                 self.year = i[2]
                 self.isBV = i[3]
+                wgtf = i[4]
         if id == 0:
             error_exit((self.type, self.tb))
+
+        # Calculate IS weight
+        wgt *= wgtf
+        # hack to get half-ton rounding up
+        wgt *= 2
+        wgt = ceil(wgt)
+        wgt /= 2
+        self.wgt = wgt
 
     # Return earliest year armor is available
     def get_structure_year(self):
         return self.year
+
+    # Return armor weight
+    def get_structure_weight(self):
+        return self.wgt
 
 
 

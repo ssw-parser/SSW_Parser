@@ -393,7 +393,7 @@ print "Motive: ", mech.motive, mech.mechtype
 if (mech.omni == "TRUE"):
     print "Omni mech"
 date = get_comp_year(mech.structure.get_structure_year, date)
-print "Structure: ", mech.structure.type
+print "Structure: ", mech.structure.type, mech.structure.wgt, "tons"
 print "-2-----------------------------"
 mech.engine.print_report(mech.weight)
 #print "Gyro Def BV: ", mech.weight * parse_gyroBV(mech.engine.gyro, gyrolist)
