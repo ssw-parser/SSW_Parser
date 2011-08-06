@@ -14,14 +14,14 @@ def gettext(nodes):
 # An omni loadout
 
 class Loadout:
-    def __init__(self, a4, a5, ap, name):
+    def __init__(self, weight, a4, a5, ap, name):
         self.artemis4 = a4
         self.artemis5 = a5
         self.apollo = ap
         self.name = name
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
-        self.jump = 0
+        self.jj = JumpJets(weight, 0, "")
 
 
 # A mech class with data read from SSW xml data for use in various
@@ -170,7 +170,7 @@ class Mech:
                 name = lo.attributes["name"].value
 
                 # Construct current loadout
-                current = Loadout(a4, a5, ap, name)
+                current = Loadout(self.weight, a4, a5, ap, name)
 
                 # Get BV.
                 for battv in lo.getElementsByTagName('battle_value'):
@@ -178,9 +178,10 @@ class Mech:
 
                 # Get jumpjets
                 for jj in lo.getElementsByTagName('jumpjets'):
-                    current.jump = int(jj.attributes["number"].value)
+                    jump = int(jj.attributes["number"].value)
                     jnode = jj.getElementsByTagName("type")[0]
-                    current.jjtype = gettext(jnode.childNodes)
+                    jjtype = gettext(jnode.childNodes)
+                    current.jj = JumpJets(self.weight, jump, jjtype)
 
                 # Get heat sinks
                 for hs in lo.getElementsByTagName('heatsinks'):

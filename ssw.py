@@ -13,18 +13,6 @@ from defensive import *
 from error import *
 from movement import *
 
-# Parse a component list
-def parse_comp(mechitem, clist, date):
-    id = 0
-    for i in clist.list:
-        if mechitem == i.name:
-            if date < i.year:
-                date = i.year
-            id = 1
-    if id == 0:
-        error_exit(clist.name)
-    return date
-
 # Check for earliest year
 def get_comp_year(call, date):
     year = call();
@@ -315,9 +303,9 @@ def parse_omni(mech, date):
             print "-----------------"
             print "Config: ", i.name
             print "BV: ", i.BV
-            if (i.jump):
-                d = parse_comp(i.jjtype, jumpjetlist, d)
-                print "Jump: ", i.jump, i.jjtype
+            if (i.jj.get_jump()):
+                d = get_comp_year(i.jj.get_year, d)
+                print "Jump: ", i.jj.get_jump(), i.jj.jjtype
             if (i.heatsinks.nr):
                 d = get_comp_year(mech.heatsinks.get_year, d)
                 print i.heatsinks.nr, i.heatsinks.type
