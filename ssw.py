@@ -244,27 +244,27 @@ def parse_gear(mech, date):
 
 
     # Check heat
-    if mech.hstype == "Single Heat Sink":
-        hbal = lheat - mech.heatsinks
+    if mech.heatsinks.type == "Single Heat Sink":
+        hbal = lheat - mech.heatsinks.nr
         if (hbal > 4):
             st1 = "WARNING: Long range weapons overheats a lot!"
             st2 = "  Overheat: " + str(hbal)
             warnings.add((st1, st2))
             print_warning((st1, st2))
-        hbal = mheat - mech.heatsinks
+        hbal = mheat - mech.heatsinks.nr
         if (hbal > 4):
             st1 = "WARNING: Medium range weapons overheats a lot!"
             st2 = "  Overheat: " + str(hbal)
             warnings.add((st1, st2))
             print_warning((st1, st2))
-    elif mech.hstype == "Double Heat Sink":
-        hbal = lheat - 2 * mech.heatsinks
+    elif mech.heatsinks.type == "Double Heat Sink":
+        hbal = lheat - 2 * mech.heatsinks.nr
         if (hbal > 4):
             st1 = "WARNING: Long range weapons overheats a lot!"
             st2 = "  Overheat: " + str(hbal)
             warnings.add((st1, st2))
             print_warning((st1, st2))
-        hbal = mheat - 2 * mech.heatsinks
+        hbal = mheat - 2 * mech.heatsinks.nr
         if (hbal > 4):
             st1 = "WARNING: Medium range weapons overheats a lot!"
             st2 = "  Overheat: " + str(hbal)
@@ -331,9 +331,6 @@ def parse_omni(mech, date):
         print "-----------------"
 
 
-# initialize gearlist
-heatsinklist = Heatsinklist()
-
 # Read file
 fsock = open(sys.argv[1])
 xmldoc = minidom.parse(fsock)
@@ -372,8 +369,8 @@ if mech.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)
 print "-3-----------------------------"
-date = parse_comp(mech.hstype, heatsinklist, date)
-print mech.heatsinks, mech.hstype
+date = get_comp_year(mech.heatsinks.get_year, date)
+print mech.heatsinks.type, mech.heatsinks.nr
 print "-4-----------------------------"
 date = get_comp_year(mech.armor.get_year, date)
 #speed = mech.engine.erating/mech.weight

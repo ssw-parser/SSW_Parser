@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from math import ceil
+from error import *
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -191,8 +192,15 @@ equipment = [["A-Pod", 1, 3055, 0],
              # Experimental
              ["Electronic Warfare Equipment", 39, 3025, 0]]
 
-heatsink = [["Single Heat Sink", 2022],
-            ["Double Heat Sink", 2567]]
+# Info on heatsink types
+#
+# Name, techbase, year
+#
+# Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+#
+heatsink = [["Single Heat Sink", 2, 2022],
+            ["Double Heat Sink", 0, 2567],
+            ["Double Heat Sink", 1, 2567]]
 
 # Not used.
 missile_ench = [["Artemis IV", 2598],
@@ -203,6 +211,30 @@ physical = [["Hatchet", 3022, 1.5, (lambda x : x / 5)],
             ["Sword", 3058, 1.725, (lambda x : x / 10 + 1)],
             ["Claws", 3060, 1.275, (lambda x : ceil(x / 7))],
             ["Mace", 3061, 1.0, (lambda x : ceil(x / 4))]]
+
+class Heatsinks:
+    def __init__(self, hstype, tb, nr):
+        self.type = hstype
+        self.tb = int(tb)
+        self.nr = nr
+
+        # Check for heatsink type, save data
+        id = 0
+        for i in heatsink:
+            if (i[0] == self.type and i[1] == self.tb):
+                id = 1
+                self.year = i[2]
+        if id == 0:
+            error_exit((self.type, self.tb))
+
+    # Return earliest year heatsink is available
+    def get_year(self):
+        return self.year
+
+    # Return heatsink weight
+    # 1 ton/sink, 10 free
+    def get_weight(self):
+        return self.nr - 10
 
 class Weaponlist:
     def __init__(self):
@@ -269,19 +301,6 @@ class Equipment:
 
     def add_ammo(self, amount):
         self.ammocount = self.ammocount + amount
-
-# A simple component requiring only name and year info
-class Component:
-    def __init__(self, cinfo):
-        self.name = cinfo[0]
-        self.year = cinfo[1]
-
-class Heatsinklist:
-    def __init__(self):
-        self.list = []
-        for s in heatsink:
-            self.list.append(Component(s))
-        self.name = "heatsink"
 
 class Physicallist:
     def __init__(self):

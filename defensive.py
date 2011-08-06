@@ -119,8 +119,8 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
 
 # A class to hold info about the internal stucture
 class IS:
-    def __init__(self, type, tb, weight):
-        self.type = type
+    def __init__(self, istype, tb, weight):
+        self.type = istype
         self.tb = int(tb)
         wgt = weight
 

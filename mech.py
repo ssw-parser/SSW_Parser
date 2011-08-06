@@ -3,6 +3,7 @@
 from xml.dom import minidom
 from defensive import *
 from movement import *
+from gear import *
 
 # Get a text node data
 def gettext(nodes):
@@ -136,10 +137,12 @@ class Mech:
 
                 # Get heat sinks
                 for hs in blo.getElementsByTagName('heatsinks'):
-                    self.heatsinks = int(hs.attributes["number"].value)
+                    heatsinks = int(hs.attributes["number"].value)
+                    hsbase = hs.attributes["techbase"].value
                     hnode = hs.getElementsByTagName("type")[0]
-                    self.hstype = gettext(hnode.childNodes)
-                    
+                    hstype = gettext(hnode.childNodes)
+                    self.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
+
                 # Get equipment
                 self.equip = []
                 self.equiprear = []
