@@ -191,12 +191,6 @@ equipment = [["A-Pod", 1, 3055, 0],
              # Experimental
              ["Electronic Warfare Equipment", 39, 3025, 0]]
 
-# Name, year, BV multiplier
-#
-# Missing: Industrial
-structure = [["Standard Structure", 2439, 1.0],
-             ["Endo-Steel", 2487, 1.0]]
-
 cockpit = [["Standard Cockpit", 2300],
            ["Small Cockpit", 3067]]
 
@@ -284,19 +278,6 @@ class Component:
     def __init__(self, cinfo):
         self.name = cinfo[0]
         self.year = cinfo[1]
-
-class Structlist:
-    def __init__(self):
-        self.list = []
-        for s in structure:
-            self.list.append(Structure(s))
-        self.name = "structure"
-
-class Structure:
-    def __init__(self, sinfo):
-        self.name = sinfo[0]
-        self.year = sinfo[1]
-        self.BVmult = sinfo[2]
 
 class Cockpitlist:
     def __init__(self):

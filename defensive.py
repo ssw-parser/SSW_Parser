@@ -87,6 +87,18 @@ legIS = {
     100 : 21
     }
 
+# Info on internal structure types
+#
+# Name, techbase, year, BV multiplier
+#
+# Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+#
+# Missing: Industrial
+structure = [["Standard Structure", 2, 2439, 1.0],
+             ["Endo-Steel", 0, 2487, 1.0],
+             ["Endo-Steel", 1, 2487, 1.0]]
+
+
 # Info on armor types
 #
 # Name, techbase, year, BV multiplier, armor multiplier
@@ -103,6 +115,29 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
          # No year given for primitive armor, assume it becomes available
          # same year as the Mackie
          ["Primitive Armor", 0, 2439, 1.0, 0.67]]
+
+
+# A class to hold info about the internal stucture
+class IS:
+    def __init__(self, type, tb):
+        self.type = type
+        self.tb = int(tb)
+
+        # Check for legal structure type, save data
+        id = 0
+        for i in structure:
+            if (i[0] == self.type and i[1] == self.tb):
+                id = 1
+                self.year = i[2]
+                self.isBV = i[3]
+        if id == 0:
+            error_exit((self.type, self.tb))
+
+    # Return earliest year armor is available
+    def get_structure_year(self):
+        return self.year
+
+
 
 # A class to hold info about the armor in one location
 class Armor_loc:

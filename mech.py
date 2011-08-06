@@ -61,10 +61,12 @@ class Mech:
             for mt in mmech.getElementsByTagName('motive_type'):
                 self.motive = gettext(mt.childNodes)
 
-            # Get internal structure type, TODO: base
+            # Get internal structure type
             for stru in mmech.getElementsByTagName('structure'):
+                sbase = int(stru.attributes["techbase"].value)
                 snode = stru.getElementsByTagName("type")[0]
-                self.structure = gettext(snode.childNodes)
+                stype = gettext(snode.childNodes)
+                self.structure = IS(stype, sbase)
            
             # Get engine data
             for eng in mmech.getElementsByTagName('engine'):

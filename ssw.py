@@ -368,7 +368,6 @@ def parse_omni(mech, date):
 
 
 # initialize gearlist
-structlist = Structlist()
 cockpitlist = Cockpitlist()
 heatsinklist = Heatsinklist()
 
@@ -393,8 +392,8 @@ print "Weight: ", mech.weight
 print "Motive: ", mech.motive, mech.mechtype
 if (mech.omni == "TRUE"):
     print "Omni mech"
-date = parse_comp(mech.structure, structlist, date)
-print "Structure: ", mech.structure
+date = get_comp_year(mech.structure.get_structure_year, date)
+print "Structure: ", mech.structure.type
 print "-2-----------------------------"
 mech.engine.print_report(mech.weight)
 #print "Gyro Def BV: ", mech.weight * parse_gyroBV(mech.engine.gyro, gyrolist)
