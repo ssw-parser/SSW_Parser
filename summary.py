@@ -7,8 +7,8 @@ import sys
 import string
 from xml.dom import minidom
 from mech import *
-from armor import *
-from engine import *
+from defensive import *
+from movement import *
 
 # If first argument is -f, read input list from file,
 if sys.argv[1] == "-f":

@@ -9,9 +9,9 @@ from xml.dom import minidom
 from math import ceil
 from mech import *
 from gear import *
-from armor import *
+from defensive import *
 from error import *
-from engine import *
+from movement import *
 
 # Parse a component list
 def parse_comp(mechitem, clist, date):

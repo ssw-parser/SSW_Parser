@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 from xml.dom import minidom
-from armor import *
-from engine import *
+from defensive import *
+from movement import *
 
 # Get a text node data
 def gettext(nodes):
