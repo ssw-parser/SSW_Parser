@@ -360,7 +360,7 @@ print "-2-----------------------------"
 mech.engine.print_report(mech.weight)
 date = get_comp_year(mech.engine.get_engine_year, date)
 date = get_comp_year(mech.engine.get_gyro_year, date)
-if mech.engine.jump > 0:
+if mech.engine.jj.get_jump() > 0:
     date = get_comp_year(mech.engine.get_jj_year, date)
 date = get_comp_year(mech.cockpit.get_year, date)
 date = parse_console(mech, date)
@@ -410,8 +410,8 @@ print "BV/ton: ", float(mech.BV)/float(mech.weight)
 
 # Figure out best speed
 speed = mech.engine.erating/mech.weight
-if mech.engine.jump > speed:
-    mspd = mech.engine.jump
+if mech.engine.jj.get_jump() > speed:
+    mspd = mech.engine.jj.get_jump()
 else:
     mspd = speed
 

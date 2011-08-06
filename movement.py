@@ -411,6 +411,50 @@ class Cockpit:
     def get_weight(self):
         return self.wgt
 
+class JumpJets:
+    def __init__(self, weight, jump, jjtype):
+        self.weight = weight # Mech weight, not JJ weight
+        self.jump = jump
+        self.jjtype = jjtype
+
+        # Check for legal jump-jet type, if jump-jets are mounted, save data
+        if self.jump > 0:
+            id = 0
+            for i in jumpjet:
+                if i[0] == self.jjtype:
+                    id = 1
+                    self.jjyear = i[1]
+            if id == 0:
+                error_exit(self.jjtype)
+
+    # Return earliest year jumpjet is available
+    def get_year(self):
+        return self.jjyear
+
+    def get_weight(self):
+        if self.jump == 0:
+            return 0
+        if self.weight < 60:
+            base = 0.5
+        elif self.weight < 90:
+            base = 1.0
+        else:
+            base = 2.0
+        if self.jjtype == "Standard Jump Jet":
+            base = base * 1.0
+        elif self.jjtype == "Improved Jump Jet":
+            base = base * 2.0
+        else:
+            error_exit(self.jjtype)
+        return base * self.jump
+
+
+    # Return distance
+    def get_jump(self):
+        return self.jump
+
+
+
 # A class to hold motive info for a mech
 #
 # Note that this class is not intended to track pod-mounted jump-jets
@@ -422,8 +466,7 @@ class Motive:
         self.eb = int(ebase)
         self.gtype = gtype
         self.gb = int(gbase)
-        self.jump = jump
-        self.jjtype = jjtype
+        self.jj = JumpJets(weight, jump, jjtype)
         self.enhancement = enh
         self.etb = int(etb)
         self.speed = self.erating / weight
@@ -455,17 +498,6 @@ class Motive:
         if id == 0:
             error_exit((self.gtype, self.gb))
 
-        # Check for legal jump-jet type, if jump-jets are mounted, save data
-        if self.jump > 0:
-            id = 0
-            for i in jumpjet:
-                if i[0] == self.jjtype:
-                    id = 1
-                    self.jjyear = i[1]
-            if id == 0:
-                error_exit(self.jjtype)
-
-
         # Check for legal enhancement type, save data
         id = 0
         for i in enhancement:
@@ -488,7 +520,7 @@ class Motive:
 
     # Return earliest year jumpjet is available
     def get_jj_year(self):
-        return self.jjyear
+        return self.jj.get_year()
 
     # Return earliest year enhancement is available
     def get_enh_year(self):
@@ -508,12 +540,12 @@ class Motive:
             rstr = str(rspeed) + "[" + str(rspeed2) + "]"
         else:
             rstr = str(rspeed)
-        string = ("%s/%s/%d" % (wstr, rstr, self.jump))
+        string = ("%s/%s/%d" % (wstr, rstr, self.jj.get_jump()))
         return string
 
     def parse_speed(self, weight):
         # Bigger of ground speed and jump range
-        speed = max((self.erating/weight, self.jump))
+        speed = max((self.erating/weight, self.jj.get_jump()))
         # Light
         if (speed < 6 and weight < 40):
             st = ("WARNING: Mech is too slow for its weight class!")
@@ -542,22 +574,8 @@ class Motive:
         base_weight = ceil(float(self.erating) / 100.0)
         return self.gweightm * base_weight
 
-    def get_jj_weight(self, weight):
-        if self.jump == 0:
-            return 0
-        if weight < 60:
-            base = 0.5
-        elif weight < 90:
-            base = 1.0
-        else:
-            base = 2.0
-        if self.jjtype == "Standard Jump Jet":
-            base = base * 1.0
-        elif self.jjtype == "Improved Jump Jet":
-            base = base * 2.0
-        else:
-            error_exit(self.jjtype)
-        return base * self.jump
+    def get_jj_weight(self):
+        return self.jj.get_weight()
 
     def get_enh_weight(self):
         return self.enhweight
@@ -571,10 +589,10 @@ class Motive:
             redweight = weight
 
         rrating = redweight * (self.erating / weight)
-        rmotive = Motive(redweight, self.etype, rrating, self.eb, self.gtype, self.gb, self.jump, self.jjtype, self.enhancement, self.etb)
+        rmotive = Motive(redweight, self.etype, rrating, self.eb, self.gtype, self.gb, self.jj.get_jump(), self.jj.jjtype, self.enhancement, self.etb)
         neweight = rmotive.get_engine_weight()
         ngweight = rmotive.get_gyro_weight()
-        njweight = rmotive.get_jj_weight(redweight)
+        njweight = rmotive.get_jj_weight()
         nenhweight = rmotive.get_enh_weight()
         return (neweight + ngweight + njweight + nenhweight)
 
@@ -591,9 +609,9 @@ class Motive:
         self.parse_speed(weight)
         gweight = self.get_gyro_weight()
         print self.gtype, gweight, "tons"
-        jweight = self.get_jj_weight(weight)
-        if self.jump > 0:
-            print "Fixed jump: ", self.jump, self.jjtype, jweight, "tons"
+        jweight = self.get_jj_weight()
+        if self.jj.get_jump() > 0:
+            print "Fixed jump: ", self.jj.get_jump(), self.jj.jjtype, jweight, "tons"
         enhweight = self.get_enh_weight()
         print "Enhancement: ", self.enhancement, enhweight, "tons"
         tweight = eweight + gweight + jweight + enhweight
