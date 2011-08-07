@@ -348,7 +348,8 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
           ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : lgtengine[x])],
           ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])],
           # Assume same year as Mackie
-          ["Primitive Fusion Engine", 2, 2439, 1.0, (lambda x : stdengine[x])]]
+          ["Primitive Fusion Engine", 2, 2439, 1.0,
+           (lambda x : stdengine[ceil((x * 1.2)/5)*5])]]
 
 # Gyro types
 #
@@ -587,7 +588,14 @@ class Motive:
         return self.eweight
 
     def get_gyro_weight(self):
-        base_weight = ceil(float(self.erating) / 100.0)
+        rating = self.erating
+        # Hack: Make sure Primitive Engines get right gyro weight
+        if self.etype == "Primitive Fusion Engine":
+            rating *= 1.2
+            rating /= 5.0
+            rating = ceil(rating)
+            rating *= 5
+        base_weight = ceil(float(rating) / 100.0)
         return self.gweightm * base_weight
 
     def get_jj_weight(self):
@@ -642,4 +650,3 @@ class Motive:
 
 # TODO: TO stuff: XXL, and Large engines
 # TODO: BV related stuff
-# TODO: Weight of primitive engines
