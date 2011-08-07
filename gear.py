@@ -215,10 +215,10 @@ missile_ench = [["Artemis IV", 2598],
                 ["Apollo", 3071]]
 
 # Name, year, BV multiplier, damage formula
-physical = [["Hatchet", 3022, 1.5, (lambda x : x / 5)],
-            ["Sword", 3058, 1.725, (lambda x : x / 10 + 1)],
-            ["Claws", 3060, 1.275, (lambda x : ceil(x / 7))],
-            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4))]]
+physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5)), (lambda x : ceil(x / 15))],
+            ["Sword", 3058, 1.725, (lambda x : ceil(x / 10) + 1), (lambda x : ceil(x / 20))],
+            ["Claws", 3060, 1.275, (lambda x : ceil(x / 7)), (lambda x : ceil(x / 15))],
+            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4)), (lambda x : ceil(x / 10))]]
 
 class Heatsinks:
     def __init__(self, hstype, tb, nr):
@@ -331,6 +331,7 @@ class Physical:
         self.year = pinfo[1]
         self.BVmult = pinfo[2]
         self.dam = pinfo[3]
+        self.weight = pinfo[4]
         self.count = 0
 
     def addone(self):
@@ -340,7 +341,7 @@ class Physical:
 #
 # Take in lists of front and rear facing gears
 class Gear:
-    def __init__(self, equip, equiprear):
+    def __init__(self, weight, equip, equiprear):
         self.equip = equip
         self.equiprear = equiprear
 
@@ -359,6 +360,7 @@ class Gear:
         self.a_weight = 0.0
         self.o_weight = 0.0
         self.d_weight = 0.0
+        self.p_weight = 0.0
 
         # Count gear
         for name in self.equip:
@@ -397,6 +399,7 @@ class Gear:
                 if (name[0] == p.name and name[1] == 'physical'):
                     p.addone()
                     id = 1
+                    self.p_weight += p.weight(weight)
                     self.phys = 1
 
             for a in self.ammolist.list:
@@ -430,16 +433,21 @@ class Gear:
     def get_a_weight(self):
         return self.a_weight
 
-    # Get ammo weight
+    # Get offensive gear weight
     def get_o_weight(self):
         return self.o_weight
 
-    # Get ammo weight
+    # Get defensive gear weight
     def get_d_weight(self):
         return self.d_weight
+
+    # Get physical weapon weight
+    def get_p_weight(self):
+        return self.p_weight
 
 # TODO:
 # - Physical, artemis weight
 # - Handle targeting computers and their weight better
 # - rest of ammo
 # - handle shared IS & Clan ammo
+# - Make AMS ammo count as defensive
