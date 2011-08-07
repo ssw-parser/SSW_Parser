@@ -144,8 +144,8 @@ class Mech:
                     self.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
 
                 # Get equipment
-                self.equip = []
-                self.equiprear = []
+                equip = []
+                equiprear = []
 
                 for node in blo.getElementsByTagName('equipment'):
                     nnode = node.getElementsByTagName("name")[0]
@@ -154,12 +154,14 @@ class Mech:
                     typ = gettext(tnode.childNodes)
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
-                        self.equiprear.append((name[4:],typ))
+                        equiprear.append((name[4:],typ))
                     else:
                         # Save in a tuple with name and type
-                        self.equip.append((name,typ))
+                        equip.append((name,typ))
 
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
+
+            self.gear = Gear(equip, equiprear)
 
             # Get omni loadouts
             self.loads = []
@@ -192,8 +194,8 @@ class Mech:
                     current.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
                     
                 # Get equipment
-                current.equip = []
-                current.equiprear = []
+                equip = []
+                equiprear = []
 
                 for node in lo.getElementsByTagName('equipment'):
                     nnode = node.getElementsByTagName("name")[0]
@@ -202,10 +204,12 @@ class Mech:
                     typ = gettext(tnode.childNodes)
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
-                        current.equiprear.append((name[4:],typ))
+                        equiprear.append((name[4:],typ))
                     else:
                         # Save in a tuple with name and type
-                        current.equip.append((name,typ))
+                        equip.append((name,typ))
+
+                current.gear = Gear(equip, equiprear)
 
 
                 self.loads.append(current)

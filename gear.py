@@ -320,4 +320,12 @@ class Physical:
     def addone(self):
         self.count = self.count + 1
 
+# Store Gear
+#
+# Take in lists of front and rear facing gears
+class Gear:
+    def __init__(self, equip, equiprear):
+        self.equip = equip
+        self.equiprear = equiprear
+
 

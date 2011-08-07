@@ -41,7 +41,7 @@ def parse_gear(mech, date):
     phys = 0
 
     # Count gear
-    for name in mech.equip:
+    for name in mech.gear.equip:
         # Go through weapon list
         id = 0
         for w in weaponlist.list:
@@ -73,7 +73,7 @@ def parse_gear(mech, date):
             print "Unidentified:", name
             error_exit("gear")
 
-    for name in mech.equiprear:
+    for name in mech.gear.equiprear:
         # Go through weapon list
         id = 0
         for w in weaponlist.list:
@@ -221,14 +221,14 @@ def parse_gear(mech, date):
             sbv = sbv + p.count * dam * p.BVmult
 
     # Check TSM & physical combo
-    if (phys == 1 and mech.engine.enhancement != "TSM"):
-        st1 = "WARNING: Physical weapon mounted without TSM!"
-        warnings.add((st1,))
-        print_warning((st1,))
-    elif (phys == 0 and mech.engine.enhancement == "TSM"):
-        st1 = "WARNING: TSM mounted without Physical weapon!"
-        warnings.add((st1,))
-        print_warning((st1,))
+#    if (phys == 1 and mech.engine.enhancement != "TSM"):
+#        st1 = "WARNING: Physical weapon mounted without TSM!"
+#        warnings.add((st1,))
+#        print_warning((st1,))
+#    elif (phys == 0 and mech.engine.enhancement == "TSM"):
+#        st1 = "WARNING: TSM mounted without Physical weapon!"
+#        warnings.add((st1,))
+#        print_warning((st1,))
 
 
     # Check heat
