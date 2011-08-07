@@ -30,71 +30,17 @@ def parse_gear(mech, date):
     sbf = 0
     lheat = 0
     mheat = 0
-    # We need to create local lists for avoid trouble with Omni-mechs
-    weaponlist = Weaponlist()
-    equiplist = Equiplist()
-    physicallist = Physicallist()
-    ammolist = Ammolist()
-    # Keep track of tarcomp
-    tarcomp = 0
-    # Mech has a physical weapon?
-    phys = 0
-
-    # Count gear
-    for name in mech.gear.equip:
-        # Go through weapon list
-        id = 0
-        for w in weaponlist.list:
-            if name[0] == w.name:
-                w.addone()
-                id = 1
-        # Handle non-weapon equipment
-        # HACK: Handle CASE, Tarcomp
-        for e in equiplist.list:
-            if (name[0] == e.name and 
-                (name[1] == 'equipment' or name[1] == 'CASE' or
-                 name[1] == 'TargetingComputer')):
-                e.addone()
-                id = 1
-                # TODO: Clan tarcomp
-                if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
-                    tarcomp = 1
-        for p in physicallist.list:
-            if (name[0] == p.name and name[1] == 'physical'):
-                p.addone()
-                id = 1
-                phys = 1
-        for a in ammolist.list:
-            if (name[0] == a.name and name[1] == 'ammunition'):
-                a.addone()
-                id = 1
-        # Not found
-        if id == 0:
-            print "Unidentified:", name
-            error_exit("gear")
-
-    for name in mech.gear.equiprear:
-        # Go through weapon list
-        id = 0
-        for w in weaponlist.list:
-            if name[0] == w.name:
-                w.addone_rear()
-                id = 1
-        # Not found
-        if (id == 0):
-            print "Unidentified:", name
-            error_exit("gear")
 
     # Add ammo to weapon
-    for a in ammolist.list:
+    for a in mech.gear.ammolist.list:
         if a.count > 0:
             id = 0
-            for w in weaponlist.list:
+            for w in mech.gear.weaponlist.list:
                 if w.name == a.wname:
                     w.add_ammo(a.count * a.amount)
                     id = 1
             # We need to do equipment also due to AMS
-            for e in equiplist.list:
+            for e in mech.gear.equiplist.list:
                 if e.name == a.wname:
                     e.add_ammo(a.count * a.amount)
                     id = 1
@@ -103,7 +49,7 @@ def parse_gear(mech, date):
                 error_exit("weapon")
 
     # Deal with ammo issues
-    for w in weaponlist.list:
+    for w in mech.gear.weaponlist.list:
         if ((w.count > 0 or w.countrear > 0) and w.useammo > 0):
             # Sum up weapons
             total = w.count + w.countrear
@@ -121,7 +67,7 @@ def parse_gear(mech, date):
                 st3 = "  Ammo Supply: " + str(ApW)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
-    for e in equiplist.list:
+    for e in mech.gear.equiplist.list:
         if (e.count > 0 and e.useammo > 0):
             # Sum up weapons
             total = e.count
@@ -141,7 +87,7 @@ def parse_gear(mech, date):
                 print_warning((st1, st2, st3))
 
     # Print used weapons
-    for w in weaponlist.list:
+    for w in mech.gear.weaponlist.list:
         if (w.count > 0 or w.countrear > 0):
             # Check for inefficient weapons
             if ((w.BV/w.weight) < 10.0):
@@ -172,7 +118,7 @@ def parse_gear(mech, date):
                     mheat = mheat + w.count * w.BF[0]
                 elif w.range == "S":
                     sbv = sbv + w.count * w.BV * 1.2
-            elif (tarcomp == 1 and w.enhance =="T"):
+            elif (mech.gear.tarcomp == 1 and w.enhance =="T"):
                 if w.range == "L":
                     lbv = lbv + w.count * w.BV * 1.25
                     lheat = lheat + w.count * w.BF[0]
@@ -195,7 +141,7 @@ def parse_gear(mech, date):
             lbf = lbf + w.BF[3] * w.count
 
     # Print used equipment
-    for e in equiplist.list:
+    for e in mech.gear.equiplist.list:
         if e.count > 0:
             # calculate earliest date
             if date < e.year:
@@ -207,7 +153,7 @@ def parse_gear(mech, date):
 
 
     # Print used physicals
-    for p in physicallist.list:
+    for p in mech.gear.physicallist.list:
         if p.count > 0:
             # calculate earliest date
             if date < p.year:
@@ -221,11 +167,11 @@ def parse_gear(mech, date):
             sbv = sbv + p.count * dam * p.BVmult
 
     # Check TSM & physical combo
-#    if (phys == 1 and mech.engine.enhancement != "TSM"):
+#    if (mech.gear.phys == 1 and mech.engine.enhancement != "TSM"):
 #        st1 = "WARNING: Physical weapon mounted without TSM!"
 #        warnings.add((st1,))
 #        print_warning((st1,))
-#    elif (phys == 0 and mech.engine.enhancement == "TSM"):
+#    elif (mech.gear.phys == 0 and mech.engine.enhancement == "TSM"):
 #        st1 = "WARNING: TSM mounted without Physical weapon!"
 #        warnings.add((st1,))
 #        print_warning((st1,))

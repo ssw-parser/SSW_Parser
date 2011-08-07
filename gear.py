@@ -149,6 +149,8 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45],
         ["(IS) @ AC/10", "(IS) Autocannon/10", 10],
         ["(IS) @ AC/20", "(IS) Autocannon/20", 5],
         ["@ Gauss Rifle", "(IS) Gauss Rifle", 8],
+        ["(IS) @ LB 5-X AC (Slug)", "(IS) LB 5-X AC", 20],
+        ["(IS) @ LB 5-X AC (Cluster)", "(IS) LB 5-X AC", 20],
         ["(IS) @ LB 10-X AC (Slug)", "(IS) LB 10-X AC", 10],
         ["(IS) @ LB 10-X AC (Cluster)", "(IS) LB 10-X AC", 10],
         ["@ Machine Gun", "(IS) Machine Gun", 200],
@@ -166,6 +168,7 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45],
         ["@ SRM-4", "(IS) SRM-4", 25],
         ["@ SRM-6", "(IS) SRM-6", 15],
         ["@ SRM-6 (Artemis IV Capable)", "(IS) SRM-6", 15],
+        ["(IS) @ MRM-20", "(IS) MRM-20", 12],
         ["(IS) @ Streak SRM-2", "(IS) Streak SRM-2", 50],
         ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12]]
 
@@ -328,4 +331,58 @@ class Gear:
         self.equip = equip
         self.equiprear = equiprear
 
+        # We need to create local lists for avoid trouble with Omni-mechs
+        self.weaponlist = Weaponlist()
+        self.equiplist = Equiplist()
+        self.physicallist = Physicallist()
+        self.ammolist = Ammolist()
+        # Keep track of tarcomp
+        self.tarcomp = 0
+        # Mech has a physical weapon?
+        self.phys = 0
+
+        # Count gear
+        for name in self.equip:
+            # Go through weapon list
+            id = 0
+            for w in self.weaponlist.list:
+                if name[0] == w.name:
+                    w.addone()
+                    id = 1
+            # Handle non-weapon equipment
+            # HACK: Handle CASE, Tarcomp
+            for e in self.equiplist.list:
+                if (name[0] == e.name and 
+                    (name[1] == 'equipment' or name[1] == 'CASE' or
+                     name[1] == 'TargetingComputer')):
+                    e.addone()
+                    id = 1
+                    # TODO: Clan tarcomp
+                    if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
+                        self.tarcomp = 1
+            for p in self.physicallist.list:
+                if (name[0] == p.name and name[1] == 'physical'):
+                    p.addone()
+                    id = 1
+                    self.phys = 1
+            for a in self.ammolist.list:
+                if (name[0] == a.name and name[1] == 'ammunition'):
+                    a.addone()
+                    id = 1
+            # Not found
+            if id == 0:
+                print "Unidentified:", name
+                error_exit("gear")
+
+        for name in self.equiprear:
+            # Go through weapon list
+            id = 0
+            for w in self.weaponlist.list:
+                if name[0] == w.name:
+                    w.addone_rear()
+                    id = 1
+            # Not found
+            if (id == 0):
+                print "Unidentified:", name
+                error_exit("gear")
 
