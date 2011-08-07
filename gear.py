@@ -344,7 +344,8 @@ class Physical:
 #
 # Take in lists of front and rear facing gears
 class Gear:
-    def __init__(self, weight, equip, equiprear):
+    def __init__(self, weight, a4, equip, equiprear):
+        self.a4 = a4 # Artemis IV
         self.equip = equip
         self.equiprear = equiprear
 
@@ -374,6 +375,9 @@ class Gear:
                     w.addone()
                     self.w_weight += w.weight
                     id = 1
+                    # Artemis IV
+                    if (self.a4 == "TRUE" and w.enhance == "A"):
+                        self.w_weight += 1
 
             # Handle non-weapon equipment
             # HACK: Handle CASE

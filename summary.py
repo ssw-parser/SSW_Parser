@@ -22,7 +22,7 @@ if sys.argv[1] == "-f":
 else:
     file_list = sys.argv[1:]
 
-print "Name                       Wgt Movement    Armor  BV"
+print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"
 # Loop over input
 for i in file_list:
     # Read file

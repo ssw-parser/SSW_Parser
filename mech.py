@@ -161,7 +161,7 @@ class Mech:
 
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
 
-            self.gear = Gear(self.weight, equip, equiprear)
+            self.gear = Gear(self.weight, self.artemis4, equip, equiprear)
 
             # Get omni loadouts
             self.loads = []
@@ -209,7 +209,7 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name,typ))
 
-                current.gear = Gear(self.weight, equip, equiprear)
+                current.gear = Gear(self.weight, a4, equip, equiprear)
 
 
                 self.loads.append(current)
@@ -222,12 +222,20 @@ class Mech:
         motive += self.engine.get_enh_weight()
         motive += self.cockpit.get_weight()
         mratio = float(motive) / float(self.weight) * 100
+        m2 = mratio - 33.3
+        m3 = "   "
+        if (m2 > 0):
+            m3 = "M:" + str(int(m2))
 
         # Defensive stuff
         defensive = self.structure.get_weight()
         defensive += self.armor.get_weight()
         defensive += self.gear.get_d_weight()
         dratio = float(defensive) / float(self.weight) * 100
+        d2 = dratio - 33.3
+        d3 = "   "
+        if (d2 > 0):
+            d3 = "D:" + str(int(d2))
 
         # Offensive stuff
         # Heat sinks
@@ -243,11 +251,20 @@ class Mech:
         # Command console
         offensive += self.cockpit.get_c_weight()
         oratio = float(offensive) / float(self.weight) * 100
+        o2 = oratio - 33.3
+        o3 = "   "
+        if (o2 > 0):
+            o3 = "O:" + str(int(o2))
 
         # leftover
         left = self.weight - motive - defensive - offensive
         if (short):
-            return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" % (mratio, dratio, oratio, left))
+            # Only show leftover if there is something to show
+            if (left):
+                return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" % (mratio, dratio, oratio, left))
+            else:
+#                return ("%2.1f%% %2.1f%% %2.1f%%" % (mratio, dratio, oratio))
+                return ("%s %s %s" % (m3, d3, o3))
         else:
             print ("Total weight    : %3.1ft" % (self.weight))
             print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))
