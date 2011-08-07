@@ -390,8 +390,10 @@ cockpit = [["Standard Cockpit", 2300, 3],
 
 # A class to hold cockpit info
 class Cockpit:
-    def __init__(self, ctype):
+    def __init__(self, ctype, console):
         self.type = ctype
+        self.console = console
+        self.c_weight = 0
 
         # Check for legal cockpit type, save data
         id = 0
@@ -403,6 +405,14 @@ class Cockpit:
         if id == 0:
             error_exit((self.type))
 
+        # Hack: Add console year
+        if (self.console == "TRUE" and self.year < 2631):
+            self.year == 2631
+
+        # Hack: Add console weight
+        if self.console == "TRUE":
+            self.c_weight = 3
+
     # Return earliest year cockpit is available
     def get_year(self):
         return self.year
@@ -410,6 +420,10 @@ class Cockpit:
     # Return weight
     def get_weight(self):
         return self.wgt
+
+    # Return console weight
+    def get_c_weight(self):
+        return self.c_weight
 
 class JumpJets:
     def __init__(self, weight, jump, jjtype):

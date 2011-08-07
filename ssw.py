@@ -309,7 +309,7 @@ if mech.engine.jj.get_jump() > 0:
 date = get_comp_year(mech.cockpit.get_year, date)
 date = parse_console(mech, date)
 print mech.cockpit.type, mech.cockpit.get_weight()
-if mech.console == "TRUE":
+if mech.cokpit.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)
 print "-3-----------------------------"

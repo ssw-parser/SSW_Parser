@@ -83,9 +83,9 @@ class Mech:
             # Get cockpit
             for cpt in mmech.getElementsByTagName('cockpit'):
                 cnode = cpt.getElementsByTagName("type")[0]
-                self.console = cnode.attributes["commandconsole"].value
+                console = cnode.attributes["commandconsole"].value
                 cockpit = gettext(cnode.childNodes)
-                self.cockpit = Cockpit(cockpit)
+                self.cockpit = Cockpit(cockpit, console)
 
             # Get enhancement
             for enh in mmech.getElementsByTagName('enhancement'):
@@ -215,25 +215,35 @@ class Mech:
                 self.loads.append(current)
 
     def weight_summary(self, short):
-        # motive stuff
+        # Motive stuff
         motive = self.engine.get_engine_weight()
         motive += self.engine.get_gyro_weight()
         motive += self.engine.get_jj_weight()
         motive += self.engine.get_enh_weight()
         motive += self.cockpit.get_weight()
         mratio = float(motive) / float(self.weight) * 100
-        # defensive stuff
+
+        # Defensive stuff
         defensive = self.structure.get_weight()
         defensive += self.armor.get_weight()
         defensive += self.gear.get_d_weight()
         dratio = float(defensive) / float(self.weight) * 100
-        # offensive stuff
+
+        # Offensive stuff
+        # Heat sinks
         offensive = self.heatsinks.get_weight()
+        # Weapons
         offensive += self.gear.get_w_weight()
+        # Ammo
         offensive += self.gear.get_a_weight()
+        # Offensive gear
         offensive += self.gear.get_o_weight()
+        # Physical weapons
         offensive += self.gear.get_p_weight()
+        # Command console
+        offensive += self.cockpit.get_c_weight()
         oratio = float(offensive) / float(self.weight) * 100
+
         # leftover
         left = self.weight - motive - defensive - offensive
         if (short):
