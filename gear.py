@@ -172,28 +172,33 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(IS) @ Streak SRM-2", "(IS) Streak SRM-2", 50, 1],
         ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12, 1]]
 
-# Equipment
+# Equipment, spilt into offensive, and defensive
 #
-# Name, BV, year, uses ammo rate
+# Name, BV, year, uses ammo rate, weight
 #
 # TODO: lTAG
-equipment = [["A-Pod", 1, 3055, 0],
-             ["B-Pod", 2, 3069, 0],
-             ["(IS) Anti-Missile System", 32, 2617, 1],
-             ["Guardian ECM Suite", 61, 2597, 0],
-             ["Beagle Active Probe", 10, 2576, 0],
-             ["C3 Computer (Slave)", 0, 3050, 0],
-             ["C3 Computer (Master)", 0, 3050, 0],
-             ["Improved C3 Computer", 0, 3062, 0],
-             ["TAG", 0, 2600, 0],
-             ["ECM Suite", 61, 2597, 0], # Clan
-             ["Active Probe", 12, 2576, 0], # Clan
-             ["(CL) Anti-Missile System", 32, 2617, 1],
-             ["CASE", 0, 2476, 0], # HACK: CASE
-             ["(IS) Targeting Computer", 0, 3062, 0],
-             ["(CL) Targeting Computer", 0, 2860, 0], # HACK: Tarcomp
-             # Experimental
-             ["Electronic Warfare Equipment", 39, 3025, 0]]
+o_equipment = [["C3 Computer (Slave)", 0, 3050, 0, 1],
+               ["C3 Computer (Master)", 0, 3050, 0, 5],
+               ["Improved C3 Computer", 0, 3062, 0, 2.5],
+               ["TAG", 0, 2600, 0, 1]]
+
+d_equipment = [["A-Pod", 1, 3055, 0, 0.5],
+               ["B-Pod", 2, 3069, 0, 1],
+               ["(IS) Anti-Missile System", 32, 2617, 1, 0.5],
+               ["Guardian ECM Suite", 61, 2597, 0, 1.5],
+               ["Beagle Active Probe", 10, 2576, 0, 1.5],
+               ["ECM Suite", 61, 2597, 0, 1], # Clan
+               ["Active Probe", 12, 2576, 0, 1], # Clan
+               ["(CL) Anti-Missile System", 32, 2617, 1, 0.5],
+               ["CASE", 0, 2476, 0, 0.5], # HACK: CASE
+               # Experimental
+               ["Electronic Warfare Equipment", 39, 3025, 0, 7.5]]
+
+# Targeting computers, currently not used
+#
+# TODO: fix this
+tarcomps = [["(IS) Targeting Computer", 0, 3062, 0],
+            ["(CL) Targeting Computer", 0, 2860, 0]]
 
 # Info on heatsink types
 #
@@ -285,10 +290,16 @@ class Ammo:
     def addone(self):
         self.count = self.count + 1
 
-class Equiplist:
+class O_Equiplist:
     def __init__(self):
         self.list = []
-        for e in equipment:
+        for e in o_equipment:
+            self.list.append(Equipment(e))
+
+class D_Equiplist:
+    def __init__(self):
+        self.list = []
+        for e in d_equipment:
             self.list.append(Equipment(e))
 
 class Equipment:
@@ -297,6 +308,7 @@ class Equipment:
         self.BV = ginfo[1]
         self.year = ginfo[2]
         self.useammo = ginfo[3]
+        self.weight = ginfo[4]
         self.count = 0
         self.ammocount = 0
 
@@ -334,7 +346,8 @@ class Gear:
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist()
-        self.equiplist = Equiplist()
+        self.o_equiplist = O_Equiplist()
+        self.d_equiplist = D_Equiplist()
         self.physicallist = Physicallist()
         self.ammolist = Ammolist()
         # Keep track of tarcomp
@@ -344,6 +357,8 @@ class Gear:
         # Gear weight
         self.w_weight = 0.0
         self.a_weight = 0.0
+        self.o_weight = 0.0
+        self.d_weight = 0.0
 
         # Count gear
         for name in self.equip:
@@ -354,22 +369,36 @@ class Gear:
                     w.addone()
                     self.w_weight += w.weight
                     id = 1
+
             # Handle non-weapon equipment
-            # HACK: Handle CASE, Tarcomp
-            for e in self.equiplist.list:
+            # HACK: Handle CASE
+            for e in self.o_equiplist.list:
                 if (name[0] == e.name and 
-                    (name[1] == 'equipment' or name[1] == 'CASE' or
-                     name[1] == 'TargetingComputer')):
+                    (name[1] == 'equipment' or name[1] == 'CASE')):
                     e.addone()
+                    self.o_weight += e.weight
                     id = 1
-                    # TODO: Clan tarcomp
-                    if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
-                        self.tarcomp = 1
+
+            # Hack, handle targeting computer
+            if ((name[0] == "(IS) Targeting Computer" or name[0] == "(CL) Targeting Computer") and name[1] =='TargetingComputer'):
+                self.tarcomp = 1
+                id = 1
+
+            # Handle non-weapon equipment
+            # HACK: Handle CASE
+            for e in self.d_equiplist.list:
+                if (name[0] == e.name and 
+                    (name[1] == 'equipment' or name[1] == 'CASE')):
+                    e.addone()
+                    self.d_weight += e.weight
+                    id = 1
+
             for p in self.physicallist.list:
                 if (name[0] == p.name and name[1] == 'physical'):
                     p.addone()
                     id = 1
                     self.phys = 1
+
             for a in self.ammolist.list:
                 if (name[0] == a.name and name[1] == 'ammunition'):
                     a.addone()
@@ -401,8 +430,16 @@ class Gear:
     def get_a_weight(self):
         return self.a_weight
 
+    # Get ammo weight
+    def get_o_weight(self):
+        return self.o_weight
+
+    # Get ammo weight
+    def get_d_weight(self):
+        return self.d_weight
+
 # TODO:
-# - Equipment, physical weight
+# - Physical, artemis weight
+# - Handle targeting computers and their weight better
 # - rest of ammo
 # - handle shared IS & Clan ammo
-# - defensive equipment

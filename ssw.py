@@ -39,8 +39,8 @@ def parse_gear(mech, date):
                 if w.name == a.wname:
                     w.add_ammo(a.count * a.amount)
                     id = 1
-            # We need to do equipment also due to AMS
-            for e in mech.gear.equiplist.list:
+            # We need to do defensive equipment also due to AMS
+            for e in mech.gear.d_equiplist.list:
                 if e.name == a.wname:
                     e.add_ammo(a.count * a.amount)
                     id = 1
@@ -67,7 +67,7 @@ def parse_gear(mech, date):
                 st3 = "  Ammo Supply: " + str(ApW)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
-    for e in mech.gear.equiplist.list:
+    for e in mech.gear.d_equiplist.list:
         if (e.count > 0 and e.useammo > 0):
             # Sum up weapons
             total = e.count
@@ -141,7 +141,17 @@ def parse_gear(mech, date):
             lbf = lbf + w.BF[3] * w.count
 
     # Print used equipment
-    for e in mech.gear.equiplist.list:
+    for e in mech.gear.o_equiplist.list:
+        if e.count > 0:
+            # calculate earliest date
+            if date < e.year:
+                date = e.year
+
+            report = str(e.count)
+            report = report + " " + e.name
+            print report
+
+    for e in mech.gear.d_equiplist.list:
         if e.count > 0:
             # calculate earliest date
             if date < e.year:
