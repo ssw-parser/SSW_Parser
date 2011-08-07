@@ -340,6 +340,8 @@ class Gear:
         self.tarcomp = 0
         # Mech has a physical weapon?
         self.phys = 0
+        # Gear weight
+        self.w_weight = 0.0
 
         # Count gear
         for name in self.equip:
@@ -348,6 +350,7 @@ class Gear:
             for w in self.weaponlist.list:
                 if name[0] == w.name:
                     w.addone()
+                    self.w_weight += w.weight
                     id = 1
             # Handle non-weapon equipment
             # HACK: Handle CASE, Tarcomp
@@ -380,9 +383,19 @@ class Gear:
             for w in self.weaponlist.list:
                 if name[0] == w.name:
                     w.addone_rear()
+                    self.w_weight += w.weight
                     id = 1
             # Not found
             if (id == 0):
                 print "Unidentified:", name
                 error_exit("gear")
 
+    # Get weapons weight
+    def get_w_weight(self):
+        return self.w_weight
+
+# TODO:
+# - Equipment, ammo, physical weight
+# - rest of ammo
+# - handle shared IS & Clan ammo
+# - defensive equipment

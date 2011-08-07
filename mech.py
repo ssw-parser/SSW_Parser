@@ -228,6 +228,7 @@ class Mech:
         dratio = float(defensive) / float(self.weight) * 100
         # offensive stuff
         offensive = self.heatsinks.get_weight()
+        offensive += self.gear.get_w_weight()
         oratio = float(offensive) / float(self.weight) * 100
         # leftover
         left = self.weight - motive - defensive - offensive
