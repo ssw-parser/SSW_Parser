@@ -214,7 +214,7 @@ class Mech:
 
                 self.loads.append(current)
 
-    def weight_summary(self):
+    def weight_summary(self, short):
         # motive stuff
         motive = self.engine.get_engine_weight()
         motive += self.engine.get_gyro_weight()
@@ -236,8 +236,13 @@ class Mech:
         oratio = float(offensive) / float(self.weight) * 100
         # leftover
         left = self.weight - motive - defensive - offensive
-        print ("Total weight    : %3.1ft" % (self.weight))
-        print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))
-        print ("Defensive weight: %3.1ft %2.1f%%" % (defensive, dratio))
-        print ("Offensive weight: %3.1ft %2.1f%%" % (offensive, oratio))
-        print ("Other           : %3.1ft" % (left))
+        if (short):
+            return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" % (mratio, dratio, oratio, left))
+        else:
+            print ("Total weight    : %3.1ft" % (self.weight))
+            print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))
+            print ("Defensive weight: %3.1ft %2.1f%%" % (defensive, dratio))
+            print ("Offensive weight: %3.1ft %2.1f%%" % (offensive, oratio))
+            print ("Other           : %3.1ft" % (left))
+            return
+

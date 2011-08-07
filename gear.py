@@ -180,7 +180,10 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
 o_equipment = [["C3 Computer (Slave)", 0, 3050, 0, 1],
                ["C3 Computer (Master)", 0, 3050, 0, 5],
                ["Improved C3 Computer", 0, 3062, 0, 2.5],
-               ["TAG", 0, 2600, 0, 1]]
+               ["TAG", 0, 2600, 0, 1],
+               # Experimental
+               ["Collapsible Command Module (CCM)", 0, 2710, 0, 16]]
+
 
 d_equipment = [["A-Pod", 1, 3055, 0, 0.5],
                ["B-Pod", 2, 3069, 0, 1],

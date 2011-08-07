@@ -37,4 +37,6 @@ for i in file_list:
     move = mech.engine.get_move_string()
     armor = mech.armor.get_armor_percent()
     BV = mech.BV
-    print ("%-26s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
+    percent = mech.weight_summary(True)
+#    print ("%-26s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
+    print ("%-26s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))
