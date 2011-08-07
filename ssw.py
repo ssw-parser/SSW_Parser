@@ -173,7 +173,7 @@ def parse_gear(mech, date):
             report = report + " " + p.name
             dam = p.dam(mech.weight)
             print report
-            print p.name, "Damage", dam
+            print p.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
             sbv = sbv + p.count * dam * p.BVmult
 
     # Check TSM & physical combo
@@ -242,13 +242,6 @@ def parse_artemis(mech, date):
             date = 3071
     return date
 
-# Handle commando console
-def parse_console(mech, date):
-    if mech.console == "TRUE":
-        if date < 2631:
-            date = 2631
-    return date
-
 # Handle omni-mechs
 def parse_omni(mech, date):
     if mech.omni == "TRUE":
@@ -307,9 +300,8 @@ date = get_comp_year(mech.engine.get_gyro_year, date)
 if mech.engine.jj.get_jump() > 0:
     date = get_comp_year(mech.engine.get_jj_year, date)
 date = get_comp_year(mech.cockpit.get_year, date)
-date = parse_console(mech, date)
 print mech.cockpit.type, mech.cockpit.get_weight()
-if mech.cokpit.console == "TRUE":
+if mech.cockpit.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)
 print "-3-----------------------------"

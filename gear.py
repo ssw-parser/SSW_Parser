@@ -402,7 +402,8 @@ class Gear:
                 if (name[0] == p.name and name[1] == 'physical'):
                     p.addone()
                     id = 1
-                    self.p_weight += p.weight(weight)
+                    # Use float to avoid rounding errors
+                    self.p_weight += p.weight(float(weight))
                     self.phys = 1
 
             for a in self.ammolist.list:
