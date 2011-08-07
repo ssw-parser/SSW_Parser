@@ -140,37 +140,37 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, [1, 1.32, 2, 2, 2]],
 
 # Ammo
 #
-# Name, weapon, ammount
+# Name, weapon, ammount, weight
 #
 # TODO: Vehicle flamer
 # TODO: Advanced weapons
-ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45],
-        ["(IS) @ AC/5", "(IS) Autocannon/5", 20],
-        ["(IS) @ AC/10", "(IS) Autocannon/10", 10],
-        ["(IS) @ AC/20", "(IS) Autocannon/20", 5],
-        ["@ Gauss Rifle", "(IS) Gauss Rifle", 8],
-        ["(IS) @ LB 5-X AC (Slug)", "(IS) LB 5-X AC", 20],
-        ["(IS) @ LB 5-X AC (Cluster)", "(IS) LB 5-X AC", 20],
-        ["(IS) @ LB 10-X AC (Slug)", "(IS) LB 10-X AC", 10],
-        ["(IS) @ LB 10-X AC (Cluster)", "(IS) LB 10-X AC", 10],
-        ["@ Machine Gun", "(IS) Machine Gun", 200],
-        ["@ Machine Gun (1/2)", "(IS) Machine Gun", 100],
-        ["(IS) @ Ultra AC/5", "(IS) Ultra AC/5", 20],
-        ["(IS) @ Plasma Rifle", "(IS) Plasma Rifle", 10],
-        ["(IS) @ LRM-5", "(IS) LRM-5", 24],
-        ["(IS) @ LRM-10", "(IS) LRM-10", 12],
-        ["(IS) @ LRM-15", "(IS) LRM-15", 8],
-        ["(IS) @ LRM-20", "(IS) LRM-20", 6],
-        ["(IS) @ LRM-5 (Artemis IV Capable)", "(IS) LRM-5", 24],
-        ["(IS) @ LRM-10 (Artemis IV Capable)", "(IS) LRM-10", 12],
-        ["(IS) @ LRM-15 (Artemis IV Capable)", "(IS) LRM-15", 8],
-        ["@ SRM-2", "(IS) SRM-2", 50],
-        ["@ SRM-4", "(IS) SRM-4", 25],
-        ["@ SRM-6", "(IS) SRM-6", 15],
-        ["@ SRM-6 (Artemis IV Capable)", "(IS) SRM-6", 15],
-        ["(IS) @ MRM-20", "(IS) MRM-20", 12],
-        ["(IS) @ Streak SRM-2", "(IS) Streak SRM-2", 50],
-        ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12]]
+ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
+        ["(IS) @ AC/5", "(IS) Autocannon/5", 20, 1],
+        ["(IS) @ AC/10", "(IS) Autocannon/10", 10, 1],
+        ["(IS) @ AC/20", "(IS) Autocannon/20", 5, 1],
+        ["@ Gauss Rifle", "(IS) Gauss Rifle", 8, 1],
+        ["(IS) @ LB 5-X AC (Slug)", "(IS) LB 5-X AC", 20, 1],
+        ["(IS) @ LB 5-X AC (Cluster)", "(IS) LB 5-X AC", 20, 1],
+        ["(IS) @ LB 10-X AC (Slug)", "(IS) LB 10-X AC", 10, 1],
+        ["(IS) @ LB 10-X AC (Cluster)", "(IS) LB 10-X AC", 10, 1],
+        ["@ Machine Gun", "(IS) Machine Gun", 200, 1],
+        ["@ Machine Gun (1/2)", "(IS) Machine Gun", 100, 0.5],
+        ["(IS) @ Ultra AC/5", "(IS) Ultra AC/5", 20, 1],
+        ["(IS) @ Plasma Rifle", "(IS) Plasma Rifle", 10, 1],
+        ["(IS) @ LRM-5", "(IS) LRM-5", 24, 1],
+        ["(IS) @ LRM-10", "(IS) LRM-10", 12, 1],
+        ["(IS) @ LRM-15", "(IS) LRM-15", 8, 1],
+        ["(IS) @ LRM-20", "(IS) LRM-20", 6, 1],
+        ["(IS) @ LRM-5 (Artemis IV Capable)", "(IS) LRM-5", 24, 1],
+        ["(IS) @ LRM-10 (Artemis IV Capable)", "(IS) LRM-10", 12, 1],
+        ["(IS) @ LRM-15 (Artemis IV Capable)", "(IS) LRM-15", 8, 1],
+        ["@ SRM-2", "(IS) SRM-2", 50, 1],
+        ["@ SRM-4", "(IS) SRM-4", 25, 1],
+        ["@ SRM-6", "(IS) SRM-6", 15, 1],
+        ["@ SRM-6 (Artemis IV Capable)", "(IS) SRM-6", 15, 1],
+        ["(IS) @ MRM-20", "(IS) MRM-20", 12, 1],
+        ["(IS) @ Streak SRM-2", "(IS) Streak SRM-2", 50, 1],
+        ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12, 1]]
 
 # Equipment
 #
@@ -279,6 +279,7 @@ class Ammo:
         self.name = ginfo[0]
         self.wname = ginfo[1]
         self.amount = ginfo[2]
+        self.weight = ginfo[3]
         self.count = 0
 
     def addone(self):
@@ -342,6 +343,7 @@ class Gear:
         self.phys = 0
         # Gear weight
         self.w_weight = 0.0
+        self.a_weight = 0.0
 
         # Count gear
         for name in self.equip:
@@ -371,6 +373,7 @@ class Gear:
             for a in self.ammolist.list:
                 if (name[0] == a.name and name[1] == 'ammunition'):
                     a.addone()
+                    self.a_weight += a.weight
                     id = 1
             # Not found
             if id == 0:
@@ -394,8 +397,12 @@ class Gear:
     def get_w_weight(self):
         return self.w_weight
 
+    # Get ammo weight
+    def get_a_weight(self):
+        return self.a_weight
+
 # TODO:
-# - Equipment, ammo, physical weight
+# - Equipment, physical weight
 # - rest of ammo
 # - handle shared IS & Clan ammo
 # - defensive equipment

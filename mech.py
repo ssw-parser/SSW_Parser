@@ -229,6 +229,7 @@ class Mech:
         # offensive stuff
         offensive = self.heatsinks.get_weight()
         offensive += self.gear.get_w_weight()
+        offensive += self.gear.get_a_weight()
         oratio = float(offensive) / float(self.weight) * 100
         # leftover
         left = self.weight - motive - defensive - offensive
