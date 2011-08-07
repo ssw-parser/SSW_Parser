@@ -454,7 +454,6 @@ class Gear:
         return self.p_weight
 
 # TODO:
-# - Physical, artemis weight
 # - Handle targeting computers and their weight better
 # - rest of ammo
 # - handle shared IS & Clan ammo

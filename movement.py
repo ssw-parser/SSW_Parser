@@ -384,7 +384,9 @@ enhancement = [["---", 2, 0, (lambda x : 0)], #None
 # Name, techbase, year, weight
 #
 cockpit = [["Standard Cockpit", 2300, 3],
-           ["Small Cockpit", 3067, 2]]
+           ["Small Cockpit", 3067, 2],
+          # Assume same year as Mackie
+           ["Primitive Cockpit", 2439, 5]]
 
 
 

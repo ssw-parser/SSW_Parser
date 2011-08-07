@@ -96,7 +96,10 @@ legIS = {
 # Missing: Industrial
 structure = [["Standard Structure", 2, 2439, 1.0, 0.1],
              ["Endo-Steel", 0, 2487, 1.0, 0.05],
-             ["Endo-Steel", 1, 2487, 1.0, 0.05]]
+             ["Endo-Steel", 1, 2487, 1.0, 0.05],
+             # No year given for primitive structure,
+             # assume it becomes available the same year as the Mackie
+             ["Primitive Structure", 0, 2439, 1.0, 0.1]]
 
 
 # Info on armor types
@@ -113,7 +116,7 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
          ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24],
          ["Stealth Armor", 0, 3063, 1.0, 1.0],
          # No year given for primitive armor, assume it becomes available
-         # same year as the Mackie
+         # the same year as the Mackie
          ["Primitive Armor", 0, 2439, 1.0, 0.67]]
 
 
