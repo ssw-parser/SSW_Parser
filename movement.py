@@ -604,6 +604,12 @@ class Motive:
     def get_enh_weight(self):
         return self.enhweight
 
+    def get_engine_BVmod(self):
+        return self.eBV
+
+    def get_gyro_BVmod(self):
+        return self.gBV
+
     # Used to check if more equipment weight becomes available if the
     # weight is reduced by 5 tons
     def get_reduced_weight(self, weight):
@@ -649,4 +655,3 @@ class Motive:
             print_warning((st,))
 
 # TODO: TO stuff: XXL, and Large engines
-# TODO: BV related stuff

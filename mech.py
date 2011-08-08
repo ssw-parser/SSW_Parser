@@ -67,7 +67,7 @@ class Mech:
                 sbase = int(stru.attributes["techbase"].value)
                 snode = stru.getElementsByTagName("type")[0]
                 stype = gettext(snode.childNodes)
-                self.structure = IS(stype, sbase, self.weight)
+                self.structure = IS(stype, sbase, self.weight, self.motive)
            
             # Get engine data
             for eng in mmech.getElementsByTagName('engine'):
@@ -213,6 +213,20 @@ class Mech:
 
 
                 self.loads.append(current)
+
+    def def_BV(self):
+        dBV = 0.0
+        # Armor
+        dBV += self.armor.get_armor_BV()
+        # Internal
+        dBV += self.structure.get_BV_factor() * self.engine.get_engine_BVmod()
+        # Gyro
+        dBV += self.weight * self.engine.get_gyro_BVmod()
+        # Defensive equipment: TODO
+
+        # Explosive: TODO, requires location tracking
+
+        # Defensive factor: TODO
 
     def weight_summary(self, short):
         # Motive stuff

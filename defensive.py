@@ -122,7 +122,7 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
 
 # A class to hold info about the internal stucture
 class IS:
-    def __init__(self, istype, tb, weight):
+    def __init__(self, istype, tb, weight, motive):
         self.type = istype
         self.tb = int(tb)
         wgt = weight
@@ -146,15 +146,37 @@ class IS:
         wgt /= 2
         self.wgt = wgt
 
-    # Return earliest year armor is available
+        # Calculate IS points
+        self.points = 0
+
+        # Head always have 3 IS
+        self.points += 3
+
+        # Otherwise get from table
+        self.points += ctIS[weight];
+        self.points += stIS[weight] * 2;
+        self.points += legIS[weight] * 2;
+
+        # The arms/front legs need to check if mech is Biped or Quad
+        if motive == "Quad":
+            self.points += legIS[weight] * 2;
+        elif motive == "Biped":
+            self.points += armIS[weight] * 2;
+        else:
+            error_exit(mech.motive)
+
+
+    # Return earliest year structure is available
     def get_year(self):
         return self.year
 
-    # Return armor weight
+    # Return structure weight
     def get_weight(self):
         return self.wgt
 
-
+    # Return IS BV factor
+    def get_BV_factor(self):
+        return self.points * 1.5 * self.isBV
 
 # A class to hold info about the armor in one location
 class Armor_loc:
