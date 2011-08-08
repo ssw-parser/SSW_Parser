@@ -175,6 +175,8 @@ class Mech:
                 current = Loadout(self.weight, a4, a5, ap, name)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.heatsinks
+                # Use base config jump-jets if not overriden
+                current.jj = self.engine.jj
 
                 # Get BV.
                 for battv in lo.getElementsByTagName('battle_value'):
