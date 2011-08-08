@@ -33,14 +33,16 @@ def parse_gear(mech, date):
         if a.count > 0:
             id = 0
             for w in mech.gear.weaponlist.list:
-                if w.name == a.wname:
-                    w.add_ammo(a.count * a.amount)
-                    id = 1
+                for i in a.wname:
+                    if w.name == i:
+                        w.add_ammo(a.count * a.amount)
+                        id = 1
             # We need to do defensive equipment also due to AMS
             for e in mech.gear.d_equiplist.list:
-                if e.name == a.wname:
-                    e.add_ammo(a.count * a.amount)
-                    id = 1
+                for i in a.wname:
+                    if e.name == i:
+                        e.add_ammo(a.count * a.amount)
+                        id = 1
             if (id == 0):
                 print "ERROR: Unknown weapon:", a.wname
                 error_exit("weapon")
