@@ -170,6 +170,8 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["@ SRM-6 (Artemis IV Capable)", "(IS) SRM-6", 15, 1],
         ["(IS) @ MRM-20", "(IS) MRM-20", 12, 1],
         ["(IS) @ Streak SRM-2", "(IS) Streak SRM-2", 50, 1],
+        ["(IS) @ Streak SRM-4", "(IS) Streak SRM-4", 25, 1],
+        ["(IS) @ Narc (Homing)", "(IS) Narc Missile Beacon", 6, 1],
         ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12, 1]]
 
 # Equipment, spilt into offensive, and defensive
@@ -365,6 +367,8 @@ class Gear:
         self.o_weight = 0.0
         self.d_weight = 0.0
         self.p_weight = 0.0
+        # Weight of targeting computer weapons
+        self.tcw_weight = 0.0
 
         # Count gear
         for name in self.equip:
@@ -374,6 +378,8 @@ class Gear:
                 if name[0] == w.name:
                     w.addone()
                     self.w_weight += w.weight
+                    if w.enhance == "T":
+                        self.tcw_weight += w.weight
                     id = 1
                     # Artemis IV
                     if (self.a4 == "TRUE" and w.enhance == "A"):
@@ -389,8 +395,11 @@ class Gear:
                     id = 1
 
             # Hack, handle targeting computer
-            if ((name[0] == "(IS) Targeting Computer" or name[0] == "(CL) Targeting Computer") and name[1] =='TargetingComputer'):
+            if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
                 self.tarcomp = 1
+                id = 1
+            if (name[0] == "(CL) Targeting Computer" and name[1] =='TargetingComputer'):
+                self.tarcomp = 2
                 id = 1
 
             # Handle non-weapon equipment
@@ -431,11 +440,22 @@ class Gear:
                 if name[0] == w.name:
                     w.addone_rear()
                     self.w_weight += w.weight
+                    if w.enhance == "T":
+                        self.tcw_weight += w.weight
                     id = 1
+                    # Artemis IV
+                    if (self.a4 == "TRUE" and w.enhance == "A"):
+                        self.w_weight += 1
             # Not found
             if (id == 0):
                 print "Unidentified:", name
                 error_exit("gear")
+
+        # Calculate tarcomp weight
+        if self.tarcomp == 1:  #IS
+            self.o_weight += ceil(self.tcw_weight / 4.0)
+        if self.tarcomp == 2:  #Clan
+            self.o_weight += ceil(self.tcw_weight / 5.0)
 
     # Get weapons weight
     def get_w_weight(self):
@@ -458,7 +478,7 @@ class Gear:
         return self.p_weight
 
 # TODO:
-# - Handle targeting computers and their weight better
+# - tarcomp year, and other years
 # - rest of ammo
 # - handle shared IS & Clan ammo
-# - Make AMS ammo count as defensive
+# - Make AMS ammo count as defensive BV wise
