@@ -413,7 +413,11 @@ class Gear:
             for a in self.ammolist.list:
                 if (name[0] == a.name and name[1] == 'ammunition'):
                     a.addone()
-                    self.a_weight += a.weight
+                    # Special case, AMS ammo count as defensive equipment
+                    if (name[0] == "(IS) @ Anti-Missile System"):
+                        self.d_weight += a.weight
+                    else:
+                        self.a_weight += a.weight
                     id = 1
             # Not found
             if id == 0:
