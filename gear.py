@@ -12,7 +12,7 @@ from error import *
 # To be loaded into the gear class
 #
 # TODO1: IS: Flamer (Vehicle), HMG
-# Clan: LB2, LB20, UAC20, HMG, Flamer, Flamer (Vehicle), SRM2, SRM4
+# Clan: LB2, LB20, UAC20, HMG, Flamer (Vehicle), SRM2
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
 # TODO3: Artemis IV versions
 weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
@@ -108,7 +108,7 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) Machine Gun", 5, "S", "", 1900, 1, 0.25, 0],
            # HMG
            ["(CL) MG Array (3 Heavy Machine Gun)", 12.06, "S", "", 3069, 3, 1.75, 0],
-           # Flamer
+           ["(CL) Flamer", 6, "S", "", 2025, 0, 0.5, 3],
            # Flamer (Vehicle)
            ["(CL) ER Micro Laser", 7, "M", "T", 3060, 0, 0.25, 1],
            ["(CL) ER Small Laser", 31, "M", "T", 2825, 0, 0.5, 2],
@@ -132,7 +132,7 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) LRM-15", 164, "L", "A", 2400, 1, 3.5, 5],
            ["(CL) LRM-20", 220, "L", "A", 2400, 1, 5, 6],
            # SRM2
-           # SRM4
+           ["(CL) SRM-4", 39, "M", "A", 2370, 1, 1, 3],
            ["(CL) SRM-6", 59, "M", "A", 2370, 1, 1.5, 4],
            ["(CL) Streak SRM-2", 40, "M", "", 2647, 1, 1, 2],
            ["(CL) Streak SRM-4", 79, "M", "", 2826, 1, 2, 3],
@@ -185,6 +185,16 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(IS) @ Narc (Homing)", "(IS) Narc Missile Beacon", 6, 1],
         ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12, 1],
         # Clan
+        ["(CL) @ Ultra AC/10", "(CL) Ultra AC/10", 10, 1],
+        ["(CL) @ ATM-3", "(CL) ATM-3", 20, 1],
+        ["(CL) @ ATM-9", "(CL) ATM-9", 7, 1],
+        ["(CL) @ ATM-9 (ER)", "(CL) ATM-9", 7, 1],
+        ["(CL) @ ATM-9 (HE)", "(CL) ATM-9", 7, 1],
+        ["(CL) @ LRM-5", "(CL) LRM-5", 24, 1],
+        ["(CL) @ LRM-10", "(CL) LRM-10", 12, 1],
+        ["(CL) @ LRM-15", "(CL) LRM-15", 8, 1],
+        ["(CL) @ Streak SRM-4", "(CL) Streak SRM-4", 25, 1],
+        ["(CL) @ Streak SRM-6", "(CL) Streak SRM-6", 15, 1],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", "(IS) Arrow IV Missile", 5, 1]]
 
