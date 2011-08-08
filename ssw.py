@@ -25,9 +25,6 @@ def parse_gear(mech, date):
     lbv = 0
     mbv = 0
     sbv = 0
-    lbf = 0
-    mbf = 0
-    sbf = 0
     lheat = 0
     mheat = 0
 
@@ -112,33 +109,30 @@ def parse_gear(mech, date):
             if (mech.artemis4 == "TRUE" and w.enhance == "A"):
                 if w.range == "L":
                     lbv = lbv + w.count * w.BV * 1.2
-                    lheat = lheat + w.count * w.BF[0]
+                    lheat = lheat + w.count * w.heat
                 elif w.range == "M":
                     mbv = mbv + w.count * w.BV * 1.2
-                    mheat = mheat + w.count * w.BF[0]
+                    mheat = mheat + w.count * w.heat
                 elif w.range == "S":
                     sbv = sbv + w.count * w.BV * 1.2
-            elif (mech.gear.tarcomp == 1 and w.enhance =="T"):
+            elif (mech.gear.tarcomp > 0 and w.enhance =="T"):
                 if w.range == "L":
                     lbv = lbv + w.count * w.BV * 1.25
-                    lheat = lheat + w.count * w.BF[0]
+                    lheat = lheat + w.count * w.heat
                 elif w.range == "M":
                     mbv = mbv + w.count * w.BV * 1.25
-                    mheat = mheat + w.count * w.BF[0]
+                    mheat = mheat + w.count * w.heat
                 elif w.range == "S":
                     sbv = sbv + w.count * w.BV * 1.25
             else:
                 if w.range == "L":
                     lbv = lbv + w.count * w.BV
-                    lheat = lheat + w.count * w.BF[0]
+                    lheat = lheat + w.count * w.heat
                 elif w.range == "M":
                     mbv = mbv + w.count * w.BV
-                    mheat = mheat + w.count * w.BF[0]
+                    mheat = mheat + w.count * w.heat
                 elif w.range == "S":
                     sbv = sbv + w.count * w.BV
-            sbf = sbf + w.BF[1] * w.count
-            mbf = mbf + w.BF[2] * w.count
-            lbf = lbf + w.BF[3] * w.count
 
     # Print used equipment
     for e in mech.gear.o_equiplist.list:
@@ -221,7 +215,6 @@ def parse_gear(mech, date):
     print "LR BV: ", lbv
     print "MR BV: ", mbv
     print "SR BV: ", sbv
-    print "BF balance: ", sbf, mbf, lbf
 
     if lbv >= (mbv + sbv):
         return ("Long-Range", date)
