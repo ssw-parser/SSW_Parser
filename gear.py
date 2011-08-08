@@ -93,6 +93,8 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(IS) Medium Variable Speed Pulse Laser", 56, "M", "T", 3072, 0, 4, 7],
            ["(IS) Large X-Pulse Laser", 178, "M", "T", 3057, 0, 7, 14],
            ["(IS) Bombast Laser", 137, "M", "T", 3064, 0, 7, 12],
+           ["(IS) Thunderbolt-15", 229, "L", "", 3072, 1, 11, 7],
+           ["(IS) Enhanced LRM-5", 52, "L", "A", 3058, 1, 3, 2],
            # Clan
            # LB 2
            ["(CL) LB 5-X AC", 93, "L", "T", 2825, 1, 7, 1],
@@ -199,8 +201,12 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(IS) @ MML-3 (SRM)", ["(IS) MML-3"], 33, 1],
         ["(IS) @ MML-7 (LRM)", ["(IS) MML-7"], 17, 1],
         ["(IS) @ MML-7 (SRM)", ["(IS) MML-7"], 14, 1],
+        ["(IS) @ MML-3 (LRM Artemis IV Capable)", ["(IS) MML-3"], 40, 1],
+        ["(IS) @ MML-3 (SRM Artemis IV Capable)", ["(IS) MML-3"], 33, 1],
         ["(IS) @ MRM-10", ["(IS) MRM-10"], 24, 1],
         ["(IS) @ MRM-20", ["(IS) MRM-20"], 12, 1],
+        ["(IS) @ MRM-30", ["(IS) MRM-30"], 8, 1],
+        ["(IS) @ MRM-40", ["(IS) MRM-40"], 6, 1],
         ["@ SRM-2", ["(IS) SRM-2", "(CL) SRM-2"], 50, 1],
         ["@ SRM-4", ["(IS) SRM-4", "(CL) SRM-4"], 25, 1],
         ["@ SRM-6", ["(IS) SRM-6", "(CL) SRM-6"], 15, 1],
@@ -211,7 +217,12 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(IS) @ Streak SRM-6", ["(IS) Streak SRM-6"], 15, 1],
         ["(IS) @ Narc (Homing)", ["(IS) Narc Missile Beacon"], 6, 1],
         ["(IS) @ Anti-Missile System", ["(IS) Anti-Missile System"], 12, 1],
+        # Advanced
+        ["(IS) @ Thunderbolt-15", ["(IS) Thunderbolt-15"], 4, 1],
+        ["(IS) @ NLRM-5", ["(IS) Enhanced LRM-5"], 24, 1],
         # Clan
+        ["(CL) @ LB 10-X AC (Slug)", ["(CL) LB 10-X AC"], 10, 1],
+        ["(CL) @ LB 10-X AC (Cluster)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ Ultra AC/2", ["(CL) Ultra AC/2"], 45, 1],
         ["(CL) @ Ultra AC/5", ["(CL) Ultra AC/5"], 20, 1],
         ["(CL) @ Ultra AC/10", ["(CL) Ultra AC/10"], 10, 1],
@@ -234,6 +245,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ Anti-Missile System", ["(CL) Anti-Missile System"], 24, 1],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", ["(IS) Arrow IV Missile"], 5, 1],
+        ["(IS) @ Arrow IV (Homing)", ["(IS) Arrow IV Missile"], 5, 1],
         ["(CL) @ Arrow IV (Homing)", ["(CL) Arrow IV Missile"], 5, 1]]
 
 # Equipment, spilt into offensive, and defensive
@@ -246,7 +258,8 @@ o_equipment = [["C3 Computer (Slave)", 0, 3050, 0, 1],
                ["Improved C3 Computer", 0, 3062, 0, 2.5],
                ["TAG", 0, 2600, 0, 1],
                # Experimental
-               ["Collapsible Command Module (CCM)", 0, 2710, 0, 16]]
+               ["Collapsible Command Module (CCM)", 0, 2710, 0, 16],
+               ["Coolant Pod", 0, 3049, 0, 1]]
 
 
 d_equipment = [["A-Pod", 1, 3055, 0, 0.5],
@@ -578,3 +591,4 @@ class Gear:
 # - tarcomp year, and other years
 # - rest of ammo
 # - Make AMS ammo count as defensive BV wise
+# - Coolant pod heat effect, coolant pod explosive effect
