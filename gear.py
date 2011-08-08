@@ -164,13 +164,21 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(IS) @ LB 20-X AC (Slug)", ["(IS) LB 20-X AC"], 5, 1],
         ["(IS) @ LB 20-X AC (Cluster)", ["(IS) LB 20-X AC"], 5, 1],
         ["@ Light Machine Gun",
-         ["(IS) Light Machine Gun", "(CL) Light Machine Gun"], 200, 1],
+         ["(IS) Light Machine Gun", "(CL) Light Machine Gun",
+          "(IS) MG Array (2 Light Machine Gun)",
+          "(IS) MG Array (3 Light Machine Gun)",
+          "(IS) MG Array (4 Light Machine Gun)"], 200, 1],
         ["@ Light Machine Gun (1/2)",
-         ["(IS) Light Machine Gun", "(CL) Light Machine Gun"], 100, 0.5],
+         ["(IS) Light Machine Gun", "(CL) Light Machine Gun",
+          "(IS) MG Array (2 Light Machine Gun)",
+          "(IS) MG Array (3 Light Machine Gun)",
+          "(IS) MG Array (4 Light Machine Gun)"], 100, 0.5],
         ["@ Machine Gun",
-         ["(IS) Machine Gun", "(CL) Machine Gun"], 200, 1],
+         ["(IS) Machine Gun", "(CL) Machine Gun",
+          "(IS) MG Array (4 Machine Gun)"], 200, 1],
         ["@ Machine Gun (1/2)",
-         ["(IS) Machine Gun", "(CL) Machine Gun"], 100, 0.5],
+         ["(IS) Machine Gun", "(CL) Machine Gun",
+          "(IS) MG Array (4 Machine Gun)"], 100, 0.5],
         ["(IS) @ Rotary AC/5", ["(IS) Rotary AC/5"], 20, 1],
         ["(IS) @ Ultra AC/5", ["(IS) Ultra AC/5"], 20, 1],
         ["(IS) @ Ultra AC/10", ["(IS) Ultra AC/10"], 10, 1],
@@ -547,5 +555,4 @@ class Gear:
 # TODO:
 # - tarcomp year, and other years
 # - rest of ammo
-# - handle MG array ammo
 # - Make AMS ammo count as defensive BV wise
