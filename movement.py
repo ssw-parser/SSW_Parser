@@ -654,4 +654,6 @@ class Motive:
             warnings.add((st,))
             print_warning((st,))
 
-# TODO: TO stuff: XXL, and Large engines
+# TODO:
+# - TO stuff: XXL, and Large engines
+# - Move warnings.add & print_warning stuff outside

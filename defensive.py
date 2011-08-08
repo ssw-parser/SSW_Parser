@@ -385,6 +385,6 @@ class Armor:
 
 # TODO: Tactical operations armor
 # TODO: track crit slots used?
-
+# - Move warnings.add & print_warning stuff outside
 
 

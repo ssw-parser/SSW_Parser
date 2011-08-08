@@ -503,6 +503,27 @@ class Gear:
         if self.tarcomp == 2:  #Clan
             self.o_weight += ceil(self.tcw_weight / 5.0)
 
+        # Add ammo to weapon
+        for a in self.ammolist.list:
+            if a.count > 0:
+                id = 0
+                for w in self.weaponlist.list:
+                    for i in a.wname:
+                        if w.name == i:
+                            w.add_ammo(a.count * a.amount)
+                            id = 1
+                # We need to do defensive equipment also due to AMS
+                for e in self.d_equiplist.list:
+                    for i in a.wname:
+                        if e.name == i:
+                            e.add_ammo(a.count * a.amount)
+                            id = 1
+                if (id == 0):
+                    print "ERROR: Unknown weapon:", a.wname
+                    error_exit("weapon")
+
+
+
     # Get weapons weight
     def get_w_weight(self):
         return self.w_weight
