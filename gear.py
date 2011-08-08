@@ -552,6 +552,15 @@ class Gear:
     def get_p_weight(self):
         return self.p_weight
 
+    # Get defensive gear BV
+    def get_def_BV(self):
+        BV = 0.0
+        for e in self.d_equiplist.list:
+            if (e.count > 0):
+                BV += e.count * e.BV
+        # TODO AMS ammo
+        return BV
+
 # TODO:
 # - tarcomp year, and other years
 # - rest of ammo
