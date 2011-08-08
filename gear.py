@@ -12,7 +12,7 @@ from error import *
 # To be loaded into the gear class
 #
 # TODO1: IS: Flamer (Vehicle), HMG
-# Clan: LB2, LB20, UAC20, HMG, Flamer (Vehicle), SRM2
+# Clan: LB2, LB20, HMG, Flamer (Vehicle)
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
 # TODO3: Artemis IV versions
 weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
@@ -98,7 +98,7 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) Ultra AC/2", 62, "L", "T", 2827, 2, 5, 2],
            ["(CL) Ultra AC/5", 122, "L", "T", 2640, 2, 8, 2],
            ["(CL) Ultra AC/10", 210, "L", "T", 2825, 2, 10, 6],
-           # UAC 20
+           ["(CL) Ultra AC/20", 335, "M", "T", 2825, 2, 12, 14],
            ["(CL) AP Gauss Rifle", 21, "M", "T", 3069, 1, 0.5, 1],
            ["(CL) Gauss Rifle", 320, "L", "T", 2590, 1, 12, 1],
            ["(CL) Hyper Assault Gauss 20", 267, "L", "T", 3068, 1, 10, 4],
@@ -131,12 +131,14 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) LRM-10", 109, "L", "A", 2400, 1, 2.5, 4],
            ["(CL) LRM-15", 164, "L", "A", 2400, 1, 3.5, 5],
            ["(CL) LRM-20", 220, "L", "A", 2400, 1, 5, 6],
-           # SRM2
+           ["(CL) SRM-2", 21, "M", "A", 2370, 1, 0.5, 2],
            ["(CL) SRM-4", 39, "M", "A", 2370, 1, 1, 3],
            ["(CL) SRM-6", 59, "M", "A", 2370, 1, 1.5, 4],
            ["(CL) Streak SRM-2", 40, "M", "", 2647, 1, 1, 2],
            ["(CL) Streak SRM-4", 79, "M", "", 2826, 1, 2, 3],
            ["(CL) Streak SRM-6", 118, "M", "", 2826, 1, 3, 4],
+           ["(CL) Streak SRM-4 (OS)", 16, "M", "", 2826, 0, 2.5, 3],
+           ["(CL) Narc Missile Beacon", 30, "M", "", 2587, 1, 2, 0],
            # Artillery
            ["(IS) Arrow IV Missile", 240, "L", "", 2600, 1, 15, 10],
            ["(CL) Arrow IV Missile", 240, "L", "", 2600, 1, 12, 10]]
@@ -161,6 +163,8 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(IS) @ LB 10-X AC (Cluster)", "(IS) LB 10-X AC", 10, 1],
         ["(IS) @ LB 20-X AC (Slug)", "(IS) LB 20-X AC", 5, 1],
         ["(IS) @ LB 20-X AC (Cluster)", "(IS) LB 20-X AC", 5, 1],
+        ["@ Light Machine Gun", "(CL) Light Machine Gun", 200, 1],
+        ["@ Light Machine Gun (1/2)", "(CL) Light Machine Gun", 100, 0.5],
         ["@ Machine Gun", "(IS) Machine Gun", 200, 1],
         ["@ Machine Gun (1/2)", "(IS) Machine Gun", 100, 0.5],
         ["(IS) @ Rotary AC/5", "(IS) Rotary AC/5", 20, 1],
@@ -186,8 +190,10 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(IS) @ Narc (Homing)", "(IS) Narc Missile Beacon", 6, 1],
         ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12, 1],
         # Clan
+        ["(CL) @ Ultra AC/2", "(CL) Ultra AC/2", 45, 1],
         ["(CL) @ Ultra AC/5", "(CL) Ultra AC/5", 20, 1],
         ["(CL) @ Ultra AC/10", "(CL) Ultra AC/10", 10, 1],
+        ["(CL) @ Ultra AC/20", "(CL) Ultra AC/20", 5, 1],
         ["(CL) @ ATM-3", "(CL) ATM-3", 20, 1],
         ["(CL) @ ATM-6", "(CL) ATM-6", 10, 1],
         ["(CL) @ ATM-6 (ER)", "(CL) ATM-6", 10, 1],
@@ -198,8 +204,11 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(CL) @ LRM-5", "(CL) LRM-5", 24, 1],
         ["(CL) @ LRM-10", "(CL) LRM-10", 12, 1],
         ["(CL) @ LRM-15", "(CL) LRM-15", 8, 1],
+        ["(CL) @ Streak SRM-2", "(CL) Streak SRM-2", 50, 1],
         ["(CL) @ Streak SRM-4", "(CL) Streak SRM-4", 25, 1],
         ["(CL) @ Streak SRM-6", "(CL) Streak SRM-6", 15, 1],
+        ["(CL) @ Narc (Homing)", "(CL) Narc Missile Beacon", 6, 1],
+        ["(CL) @ Anti-Missile System", "(CL) Anti-Missile System", 24, 1],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", "(IS) Arrow IV Missile", 5, 1],
         ["(CL) @ Arrow IV (Homing)", "(CL) Arrow IV Missile", 5, 1]]
@@ -455,6 +464,8 @@ class Gear:
                     a.addone()
                     # Special case, AMS ammo count as defensive equipment
                     if (name[0] == "(IS) @ Anti-Missile System"):
+                        self.d_weight += a.weight
+                    elif (name[0] == "(CL) @ Anti-Missile System"):
                         self.d_weight += a.weight
                     else:
                         self.a_weight += a.weight
