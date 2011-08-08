@@ -138,7 +138,8 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) Streak SRM-4", 79, "M", "", 2826, 1, 2, 3],
            ["(CL) Streak SRM-6", 118, "M", "", 2826, 1, 3, 4],
            # Artillery
-           ["(IS) Arrow IV Missile", 240, "L", "", 2600, 1, 15, 10]]
+           ["(IS) Arrow IV Missile", 240, "L", "", 2600, 1, 15, 10],
+           ["(CL) Arrow IV Missile", 240, "L", "", 2600, 1, 12, 10]]
 
 
 # Ammo
@@ -185,8 +186,12 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(IS) @ Narc (Homing)", "(IS) Narc Missile Beacon", 6, 1],
         ["(IS) @ Anti-Missile System", "(IS) Anti-Missile System", 12, 1],
         # Clan
+        ["(CL) @ Ultra AC/5", "(CL) Ultra AC/5", 20, 1],
         ["(CL) @ Ultra AC/10", "(CL) Ultra AC/10", 10, 1],
         ["(CL) @ ATM-3", "(CL) ATM-3", 20, 1],
+        ["(CL) @ ATM-6", "(CL) ATM-6", 10, 1],
+        ["(CL) @ ATM-6 (ER)", "(CL) ATM-6", 10, 1],
+        ["(CL) @ ATM-6 (HE)", "(CL) ATM-6", 10, 1],
         ["(CL) @ ATM-9", "(CL) ATM-9", 7, 1],
         ["(CL) @ ATM-9 (ER)", "(CL) ATM-9", 7, 1],
         ["(CL) @ ATM-9 (HE)", "(CL) ATM-9", 7, 1],
@@ -196,7 +201,8 @@ ammo = [["(IS) @ AC/2", "(IS) Autocannon/2", 45, 1],
         ["(CL) @ Streak SRM-4", "(CL) Streak SRM-4", 25, 1],
         ["(CL) @ Streak SRM-6", "(CL) Streak SRM-6", 15, 1],
         # Artillery
-        ["(IS) @ Arrow IV (Non-Homing)", "(IS) Arrow IV Missile", 5, 1]]
+        ["(IS) @ Arrow IV (Non-Homing)", "(IS) Arrow IV Missile", 5, 1],
+        ["(CL) @ Arrow IV (Homing)", "(CL) Arrow IV Missile", 5, 1]]
 
 # Equipment, spilt into offensive, and defensive
 #
@@ -218,6 +224,7 @@ d_equipment = [["A-Pod", 1, 3055, 0, 0.5],
                ["Beagle Active Probe", 10, 2576, 0, 1.5],
                ["ECM Suite", 61, 2597, 0, 1], # Clan
                ["Active Probe", 12, 2576, 0, 1], # Clan
+               ["Light Active Probe", 7, 2576, 0, 0.5], # No year found
                ["(CL) Anti-Missile System", 32, 2617, 1, 0.5],
                ["CASE", 0, 2476, 0, 0.5], # HACK: CASE
                # Experimental
