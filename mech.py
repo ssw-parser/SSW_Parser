@@ -173,6 +173,8 @@ class Mech:
 
                 # Construct current loadout
                 current = Loadout(self.weight, a4, a5, ap, name)
+                # Use base config heatsinks if not overriden
+                current.heatsinks = self.heatsinks
 
                 # Get BV.
                 for battv in lo.getElementsByTagName('battle_value'):
