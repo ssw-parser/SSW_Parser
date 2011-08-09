@@ -12,7 +12,7 @@ from error import *
 # To be loaded into the gear class
 #
 # TODO1: IS: Flamer (Vehicle), HMG
-# Clan: LB2, LB20, HMG, Flamer (Vehicle)
+# Clan: LB20, HMG, Flamer (Vehicle)
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
 # TODO3: Artemis IV versions
 weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
@@ -96,12 +96,12 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(IS) Thunderbolt-15", 229, "L", "", 3072, 1, 11, 7],
            ["(IS) Enhanced LRM-5", 52, "L", "A", 3058, 1, 3, 2],
            # Clan
-           # LB 2
+           ["(CL) LB 2-X AC", 47, "L", "T", 2826, 1, 5, 1],
            ["(CL) LB 5-X AC", 93, "L", "T", 2825, 1, 7, 1],
            ["(CL) LB 10-X AC", 148, "L", "T", 2595, 1, 10, 2],
            # LB 20
            ["(CL) Ultra AC/2", 62, "L", "T", 2827, 2, 5, 2],
-           ["(CL) Ultra AC/5", 122, "L", "T", 2640, 2, 8, 2],
+           ["(CL) Ultra AC/5", 122, "L", "T", 2640, 2, 7, 2],
            ["(CL) Ultra AC/10", 210, "L", "T", 2825, 2, 10, 6],
            ["(CL) Ultra AC/20", 335, "M", "T", 2825, 2, 12, 14],
            ["(CL) AP Gauss Rifle", 21, "M", "T", 3069, 1, 0.5, 1],
@@ -110,9 +110,17 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) Hyper Assault Gauss 30", 401, "L", "T", 3068, 1, 13, 6],
            ["(CL) Hyper Assault Gauss 40", 535, "L", "T", 3069, 1, 16, 8],
            ["(CL) Light Machine Gun", 5, "M", "", 3060, 1, 0.25, 0],
+           # LMG 2
+           ["(CL) MG Array (3 Light Machine Gun)", 10.05, "M", "", 3069, 3, 1, 0],
+           # LMG 4
            ["(CL) Machine Gun", 5, "S", "", 1900, 1, 0.25, 0],
+           # MG 2
+           # MG 3
+           ["(CL) MG Array (4 Machine Gun)", 13.4, "S", "", 3069, 4, 1.25, 0],
            # HMG
+           # HMG 2
            ["(CL) MG Array (3 Heavy Machine Gun)", 12.06, "S", "", 3069, 3, 1.75, 0],
+           # HMG 4
            ["(CL) Flamer", 6, "S", "", 2025, 0, 0.5, 3],
            # Flamer (Vehicle)
            ["(CL) ER Micro Laser", 7, "M", "T", 3060, 0, 0.25, 1],
@@ -172,18 +180,22 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
          ["(IS) Light Machine Gun", "(CL) Light Machine Gun",
           "(IS) MG Array (2 Light Machine Gun)",
           "(IS) MG Array (3 Light Machine Gun)",
-          "(IS) MG Array (4 Light Machine Gun)"], 200, 1],
+          "(IS) MG Array (4 Light Machine Gun)",
+          "(CL) MG Array (3 Light Machine Gun)"], 200, 1],
         ["@ Light Machine Gun (1/2)",
          ["(IS) Light Machine Gun", "(CL) Light Machine Gun",
           "(IS) MG Array (2 Light Machine Gun)",
           "(IS) MG Array (3 Light Machine Gun)",
-          "(IS) MG Array (4 Light Machine Gun)"], 100, 0.5],
+          "(IS) MG Array (4 Light Machine Gun)",
+          "(CL) MG Array (3 Light Machine Gun)"], 100, 0.5],
         ["@ Machine Gun",
          ["(IS) Machine Gun", "(CL) Machine Gun",
-          "(IS) MG Array (4 Machine Gun)"], 200, 1],
+          "(IS) MG Array (4 Machine Gun)",
+          "(CL) MG Array (4 Machine Gun)"], 200, 1],
         ["@ Machine Gun (1/2)",
          ["(IS) Machine Gun", "(CL) Machine Gun",
-          "(IS) MG Array (4 Machine Gun)"], 100, 0.5],
+          "(IS) MG Array (4 Machine Gun)",
+          "(CL) MG Array (4 Machine Gun)"], 100, 0.5],
         ["(IS) @ Rotary AC/2", ["(IS) Rotary AC/2"], 45, 1],
         ["(IS) @ Rotary AC/5", ["(IS) Rotary AC/5"], 20, 1],
         ["(IS) @ Ultra AC/5", ["(IS) Ultra AC/5"], 20, 1],
@@ -221,6 +233,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(IS) @ Thunderbolt-15", ["(IS) Thunderbolt-15"], 4, 1],
         ["(IS) @ NLRM-5", ["(IS) Enhanced LRM-5"], 24, 1],
         # Clan
+        ["(CL) @ LB 2-X AC (Cluster)", ["(CL) LB 2-X AC"], 45, 1],
         ["(CL) @ LB 10-X AC (Slug)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ LB 10-X AC (Cluster)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ Ultra AC/2", ["(CL) Ultra AC/2"], 45, 1],
@@ -234,6 +247,9 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ ATM-9", ["(CL) ATM-9"], 7, 1],
         ["(CL) @ ATM-9 (ER)", ["(CL) ATM-9"], 7, 1],
         ["(CL) @ ATM-9 (HE)", ["(CL) ATM-9"], 7, 1],
+        ["(CL) @ ATM-12", ["(CL) ATM-12"], 5, 1],
+        ["(CL) @ ATM-12 (ER)", ["(CL) ATM-12"], 5, 1],
+        ["(CL) @ ATM-12 (HE)", ["(CL) ATM-12"], 5, 1],
         ["(CL) @ LRM-5", ["(CL) LRM-5"], 24, 1],
         ["(CL) @ LRM-10", ["(CL) LRM-10"], 12, 1],
         ["(CL) @ LRM-15", ["(CL) LRM-15"], 8, 1],
