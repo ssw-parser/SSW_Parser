@@ -11,8 +11,7 @@ from error import *
 #
 # To be loaded into the gear class
 #
-# TODO1: IS: Flamer (Vehicle), HMG
-# Clan: LB20, Flamer (Vehicle)
+# TODO1: IS: Flamer (Vehicle), HMG,  Clan: Flamer (Vehicle)
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
 # Clan: 2 HMG, 4 HMG, 2 LMG, 4 LMG, 2 MG, 3 MG
 # TODO3: Artemis IV versions
@@ -100,7 +99,7 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) LB 2-X AC", 47, "L", "T", 2826, 1, 5, 1],
            ["(CL) LB 5-X AC", 93, "L", "T", 2825, 1, 7, 1],
            ["(CL) LB 10-X AC", 148, "L", "T", 2595, 1, 10, 2],
-           # LB 20
+           ["(CL) LB 20-X AC", 237, "M", "T", 2826, 1, 12, 6],
            ["(CL) Ultra AC/2", 62, "L", "T", 2827, 2, 5, 2],
            ["(CL) Ultra AC/5", 122, "L", "T", 2640, 2, 7, 2],
            ["(CL) Ultra AC/10", 210, "L", "T", 2825, 2, 10, 6],
@@ -254,6 +253,8 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ LB 5-X AC (Cluster)", ["(CL) LB 5-X AC"], 20, 1],
         ["(CL) @ LB 10-X AC (Slug)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ LB 10-X AC (Cluster)", ["(CL) LB 10-X AC"], 10, 1],
+        ["(CL) @ LB 20-X AC (Slug)", ["(CL) LB 20-X AC"], 5, 1],
+        ["(CL) @ LB 20-X AC (Cluster)", ["(CL) LB 20-X AC"], 5, 1],
         ["(CL) @ Ultra AC/2", ["(CL) Ultra AC/2"], 45, 1],
         ["(CL) @ Ultra AC/5", ["(CL) Ultra AC/5"], 20, 1],
         ["(CL) @ Ultra AC/10", ["(CL) Ultra AC/10"], 10, 1],
@@ -261,6 +262,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ AP Gauss Rifle", ["(CL) AP Gauss Rifle"], 40, 1],
         ["(CL) @ Hyper Assault Gauss 20", ["(CL) Hyper Assault Gauss 20"], 6, 1],
         ["(CL) @ Hyper Assault Gauss 30", ["(CL) Hyper Assault Gauss 30"], 4, 1],
+        ["(CL) @ Hyper Assault Gauss 40", ["(CL) Hyper Assault Gauss 40"], 3, 1],
         ["(CL) @ Plasma Cannon", ["(CL) Plasma Cannon"], 10, 1],
         ["(CL) @ ATM-3", ["(CL) ATM-3"], 20, 1],
         ["(CL) @ ATM-6", ["(CL) ATM-6"], 10, 1],
@@ -279,6 +281,8 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ LRM-10 (Artemis IV Capable)", ["(CL) LRM-10"], 12, 1],
         ["(CL) @ LRM-15 (Artemis IV Capable)", ["(CL) LRM-15"], 8, 1],
         ["(CL) @ LRM-20 (Artemis IV Capable)", ["(CL) LRM-20"], 6, 1],
+        ["(CL) @ LRM-15 (Artemis V)", ["(CL) LRM-15"], 8, 1],        
+        ["(CL) @ LRM-20 (Artemis V)", ["(CL) LRM-20"], 6, 1],        
         ["(CL) @ Streak SRM-2", ["(CL) Streak SRM-2"], 50, 1],
         ["(CL) @ Streak SRM-4", ["(CL) Streak SRM-4"], 25, 1],
         ["(CL) @ Streak SRM-6", ["(CL) Streak SRM-6"], 15, 1],
@@ -343,11 +347,15 @@ heatsink = [["Single Heat Sink", 2, 2022],
 missile_ench = [["Artemis IV", 2598],
                 ["Apollo", 3071]]
 
-# Name, year, BV multiplier, damage formula
+# Melee weapons
+#
+# Name, year, BV multiplier, damage formula, weight
+#
 physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5)), (lambda x : ceil(x / 15))],
             ["Sword", 3058, 1.725, (lambda x : ceil(x / 10) + 1), (lambda x : ceil(x / 20))],
             ["Claws", 3060, 1.275, (lambda x : ceil(x / 7)), (lambda x : ceil(x / 15))],
-            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4)), (lambda x : ceil(x / 10))]]
+            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4)), (lambda x : ceil(x / 10))],
+            ["Talons", 3072, 1.0, (lambda x : ceil((x / 5) * 1.5)), (lambda x : ceil(x / 15))]]
 
 class Heatsinks:
     def __init__(self, hstype, tb, nr):
