@@ -12,8 +12,9 @@ from error import *
 # To be loaded into the gear class
 #
 # TODO1: IS: Flamer (Vehicle), HMG
-# Clan: LB20, HMG, Flamer (Vehicle)
+# Clan: LB20, Flamer (Vehicle)
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
+# Clan: 2 HMG, 4 HMG, 2 LMG, 4 LMG, 2 MG, 3 MG
 # TODO3: Artemis IV versions
 weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(IS) Autocannon/5", 70, "L", "T", 2250, 1, 8, 1],
@@ -117,7 +118,7 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            # MG 2
            # MG 3
            ["(CL) MG Array (4 Machine Gun)", 13.4, "S", "", 3069, 4, 1.25, 0],
-           # HMG
+           ["(CL) Heavy Machine Gun", 6, "S", "", 3059, 1, 0.5, 0],
            # HMG 2
            ["(CL) MG Array (3 Heavy Machine Gun)", 12.06, "S", "", 3069, 3, 1.75, 0],
            # HMG 4
@@ -154,7 +155,11 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) Narc Missile Beacon", 30, "M", "", 2587, 1, 2, 0],
            # Advanced Weapons
            ["(CL) Rotary AC/2", 161, "L", "T", 3073, 6, 8, 6],
+           ["(CL) Rotary AC/5", 345, "L", "T", 3073, 6, 10, 6],
            ["(CL) Improved Heavy Medium Laser", 93, "M", "T", 3069, 0, 1, 7],
+           ["(CL) ER Medium Pulse Laser", 117, "M", "T", 3057, 0, 2, 6],
+           ["(CL) ER Small Pulse Laser", 36, "M", "T", 3057, 0, 1.5, 3],
+           ["(CL) Mech Mortar 8", 114, "L", "", 2840, 1, 5, 10],
            # Artillery
            ["(IS) Arrow IV Missile", 240, "L", "", 2600, 1, 15, 10],
            ["(CL) Arrow IV Missile", 240, "L", "", 2600, 1, 12, 10]]
@@ -199,6 +204,10 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
          ["(IS) Machine Gun", "(CL) Machine Gun",
           "(IS) MG Array (4 Machine Gun)",
           "(CL) MG Array (4 Machine Gun)"], 100, 0.5],
+        ["@ Heavy Machine Gun",
+         ["(CL) Heavy Machine Gun",
+          "(IS) MG Array (3 Heavy Machine Gun)",
+          "(CL) MG Array (3 Heavy Machine Gun)"], 100, 1],
         ["(IS) @ Rotary AC/2", ["(IS) Rotary AC/2"], 45, 1],
         ["(IS) @ Rotary AC/5", ["(IS) Rotary AC/5"], 20, 1],
         ["(IS) @ Ultra AC/5", ["(IS) Ultra AC/5"], 20, 1],
@@ -241,6 +250,8 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         # Clan
         ["(CL) @ LB 2-X AC (Slug)", ["(CL) LB 2-X AC"], 45, 1],
         ["(CL) @ LB 2-X AC (Cluster)", ["(CL) LB 2-X AC"], 45, 1],
+        ["(CL) @ LB 5-X AC (Slug)", ["(CL) LB 5-X AC"], 20, 1],
+        ["(CL) @ LB 5-X AC (Cluster)", ["(CL) LB 5-X AC"], 20, 1],
         ["(CL) @ LB 10-X AC (Slug)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ LB 10-X AC (Cluster)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ Ultra AC/2", ["(CL) Ultra AC/2"], 45, 1],
@@ -249,6 +260,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ Ultra AC/20", ["(CL) Ultra AC/20"], 5, 1],
         ["(CL) @ AP Gauss Rifle", ["(CL) AP Gauss Rifle"], 40, 1],
         ["(CL) @ Hyper Assault Gauss 20", ["(CL) Hyper Assault Gauss 20"], 6, 1],
+        ["(CL) @ Hyper Assault Gauss 30", ["(CL) Hyper Assault Gauss 30"], 4, 1],
         ["(CL) @ Plasma Cannon", ["(CL) Plasma Cannon"], 10, 1],
         ["(CL) @ ATM-3", ["(CL) ATM-3"], 20, 1],
         ["(CL) @ ATM-6", ["(CL) ATM-6"], 10, 1],
@@ -274,6 +286,8 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ Anti-Missile System", ["(CL) Anti-Missile System"], 24, 1],
         # Advanced
         ["(CL) @ Rotary AC/2", ["(CL) Rotary AC/2"], 45, 1],
+        ["(CL) @ Rotary AC/5", ["(CL) Rotary AC/5"], 20, 1],
+        ["(CL) @ 'Mech Mortar 8 (Anti-Personnel)", ["(CL) Mech Mortar 8"], 4, 1],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", ["(IS) Arrow IV Missile"], 5, 1],
         ["(IS) @ Arrow IV (Homing)", ["(IS) Arrow IV Missile"], 5, 1],
