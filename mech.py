@@ -276,6 +276,7 @@ class Mech:
 
         # leftover
         left = self.weight - motive - defensive - offensive
+        assert left >= 0.0, "Mech is overweight!"
         if (short):
             # Only show leftover if there is something to show
             if (left):

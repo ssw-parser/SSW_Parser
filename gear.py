@@ -152,6 +152,9 @@ weapons = [["(IS) Autocannon/2", 37, "L", "T", 2300, 1, 6, 1],
            ["(CL) Streak SRM-6", 118, "M", "", 2826, 1, 3, 4],
            ["(CL) Streak SRM-4 (OS)", 16, "M", "", 2826, 0, 2.5, 3],
            ["(CL) Narc Missile Beacon", 30, "M", "", 2587, 1, 2, 0],
+           # Advanced Weapons
+           ["(CL) Rotary AC/2", 161, "L", "T", 3073, 6, 8, 6],
+           ["(CL) Improved Heavy Medium Laser", 93, "M", "T", 3069, 0, 1, 7],
            # Artillery
            ["(IS) Arrow IV Missile", 240, "L", "", 2600, 1, 15, 10],
            ["(CL) Arrow IV Missile", 240, "L", "", 2600, 1, 12, 10]]
@@ -213,6 +216,8 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(IS) @ MML-3 (SRM)", ["(IS) MML-3"], 33, 1],
         ["(IS) @ MML-7 (LRM)", ["(IS) MML-7"], 17, 1],
         ["(IS) @ MML-7 (SRM)", ["(IS) MML-7"], 14, 1],
+        ["(IS) @ MML-9 (LRM)", ["(IS) MML-9"], 13, 1],
+        ["(IS) @ MML-9 (SRM)", ["(IS) MML-9"], 11, 1],
         ["(IS) @ MML-3 (LRM Artemis IV Capable)", ["(IS) MML-3"], 40, 1],
         ["(IS) @ MML-3 (SRM Artemis IV Capable)", ["(IS) MML-3"], 33, 1],
         ["(IS) @ MRM-10", ["(IS) MRM-10"], 24, 1],
@@ -228,11 +233,13 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(IS) @ Streak SRM-4", ["(IS) Streak SRM-4"], 25, 1],
         ["(IS) @ Streak SRM-6", ["(IS) Streak SRM-6"], 15, 1],
         ["(IS) @ Narc (Homing)", ["(IS) Narc Missile Beacon"], 6, 1],
+        ["(IS) @ iNarc (Homing)", ["(IS) iNarc Launcher"], 4, 1],
         ["(IS) @ Anti-Missile System", ["(IS) Anti-Missile System"], 12, 1],
         # Advanced
         ["(IS) @ Thunderbolt-15", ["(IS) Thunderbolt-15"], 4, 1],
         ["(IS) @ NLRM-5", ["(IS) Enhanced LRM-5"], 24, 1],
         # Clan
+        ["(CL) @ LB 2-X AC (Slug)", ["(CL) LB 2-X AC"], 45, 1],
         ["(CL) @ LB 2-X AC (Cluster)", ["(CL) LB 2-X AC"], 45, 1],
         ["(CL) @ LB 10-X AC (Slug)", ["(CL) LB 10-X AC"], 10, 1],
         ["(CL) @ LB 10-X AC (Cluster)", ["(CL) LB 10-X AC"], 10, 1],
@@ -240,6 +247,9 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ Ultra AC/5", ["(CL) Ultra AC/5"], 20, 1],
         ["(CL) @ Ultra AC/10", ["(CL) Ultra AC/10"], 10, 1],
         ["(CL) @ Ultra AC/20", ["(CL) Ultra AC/20"], 5, 1],
+        ["(CL) @ AP Gauss Rifle", ["(CL) AP Gauss Rifle"], 40, 1],
+        ["(CL) @ Hyper Assault Gauss 20", ["(CL) Hyper Assault Gauss 20"], 6, 1],
+        ["(CL) @ Plasma Cannon", ["(CL) Plasma Cannon"], 10, 1],
         ["(CL) @ ATM-3", ["(CL) ATM-3"], 20, 1],
         ["(CL) @ ATM-6", ["(CL) ATM-6"], 10, 1],
         ["(CL) @ ATM-6 (ER)", ["(CL) ATM-6"], 10, 1],
@@ -253,12 +263,17 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
         ["(CL) @ LRM-5", ["(CL) LRM-5"], 24, 1],
         ["(CL) @ LRM-10", ["(CL) LRM-10"], 12, 1],
         ["(CL) @ LRM-15", ["(CL) LRM-15"], 8, 1],
+        ["(CL) @ LRM-20", ["(CL) LRM-20"], 6, 1],
         ["(CL) @ LRM-10 (Artemis IV Capable)", ["(CL) LRM-10"], 12, 1],
+        ["(CL) @ LRM-15 (Artemis IV Capable)", ["(CL) LRM-15"], 8, 1],
+        ["(CL) @ LRM-20 (Artemis IV Capable)", ["(CL) LRM-20"], 6, 1],
         ["(CL) @ Streak SRM-2", ["(CL) Streak SRM-2"], 50, 1],
         ["(CL) @ Streak SRM-4", ["(CL) Streak SRM-4"], 25, 1],
         ["(CL) @ Streak SRM-6", ["(CL) Streak SRM-6"], 15, 1],
         ["(CL) @ Narc (Homing)", ["(CL) Narc Missile Beacon"], 6, 1],
         ["(CL) @ Anti-Missile System", ["(CL) Anti-Missile System"], 24, 1],
+        # Advanced
+        ["(CL) @ Rotary AC/2", ["(CL) Rotary AC/2"], 45, 1],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", ["(IS) Arrow IV Missile"], 5, 1],
         ["(IS) @ Arrow IV (Homing)", ["(IS) Arrow IV Missile"], 5, 1],
@@ -268,11 +283,11 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
 #
 # Name, BV, year, uses ammo rate, weight
 #
-# TODO: lTAG
 o_equipment = [["C3 Computer (Slave)", 0, 3050, 0, 1],
                ["C3 Computer (Master)", 0, 3050, 0, 5],
                ["Improved C3 Computer", 0, 3062, 0, 2.5],
                ["TAG", 0, 2600, 0, 1],
+               ["Light TAG", 0, 3054, 0, 0.5],
                # Experimental
                ["Collapsible Command Module (CCM)", 0, 2710, 0, 16],
                ["Coolant Pod", 0, 3049, 0, 1]]
@@ -291,7 +306,8 @@ d_equipment = [["A-Pod", 1, 3055, 0, 0.5],
                # Experimental
                ["Angel ECM", 100, 3057, 0, 2],
                ["Bloodhound Active Probe", 25, 3058, 0, 2],
-               ["Electronic Warfare Equipment", 39, 3025, 0, 7.5]]
+               ["Electronic Warfare Equipment", 39, 3025, 0, 7.5],
+               ["(CL) CASE II", 0, 3062, 0, 0.5]]
 
 # Targeting computers, currently not used
 #
@@ -500,7 +516,7 @@ class Gear:
             # HACK: Handle CASE
             for e in self.d_equiplist.list:
                 if (name[0] == e.name and 
-                    (name[1] == 'equipment' or name[1] == 'CASE')):
+                    (name[1] == 'equipment' or name[1] == 'CASE' or name[1] == 'CASEII')):
                     e.addone()
                     self.d_weight += e.weight
                     id = 1
