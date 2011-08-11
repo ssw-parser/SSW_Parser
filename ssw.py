@@ -70,7 +70,7 @@ def parse_gear(mech, date):
     for w in mech.gear.weaponlist.list:
         if (w.count > 0 or w.countrear > 0):
             # Check for inefficient weapons
-            if ((w.BV/w.weight) < 10.0):
+            if ((w.BV[0]/w.weight) < 10.0):
                 st1 = "WARNING: Ineffient weapon mounted!"
                 st2 = "  Weapon: " + w.name
                 warnings.add((st1, st2))
@@ -91,31 +91,31 @@ def parse_gear(mech, date):
             # Also count heat
             if (mech.artemis4 == "TRUE" and w.enhance == "A"):
                 if w.range == "L":
-                    lbv = lbv + w.count * w.BV * 1.2
+                    lbv = lbv + w.count * w.BV[0] * 1.2
                     lheat = lheat + w.count * w.heat
                 elif w.range == "M":
-                    mbv = mbv + w.count * w.BV * 1.2
+                    mbv = mbv + w.count * w.BV[0] * 1.2
                     mheat = mheat + w.count * w.heat
                 elif w.range == "S":
-                    sbv = sbv + w.count * w.BV * 1.2
+                    sbv = sbv + w.count * w.BV[0] * 1.2
             elif (mech.gear.tarcomp > 0 and w.enhance =="T"):
                 if w.range == "L":
-                    lbv = lbv + w.count * w.BV * 1.25
+                    lbv = lbv + w.count * w.BV[0] * 1.25
                     lheat = lheat + w.count * w.heat
                 elif w.range == "M":
-                    mbv = mbv + w.count * w.BV * 1.25
+                    mbv = mbv + w.count * w.BV[0] * 1.25
                     mheat = mheat + w.count * w.heat
                 elif w.range == "S":
-                    sbv = sbv + w.count * w.BV * 1.25
+                    sbv = sbv + w.count * w.BV[0] * 1.25
             else:
                 if w.range == "L":
-                    lbv = lbv + w.count * w.BV
+                    lbv = lbv + w.count * w.BV[0]
                     lheat = lheat + w.count * w.heat
                 elif w.range == "M":
-                    mbv = mbv + w.count * w.BV
+                    mbv = mbv + w.count * w.BV[0]
                     mheat = mheat + w.count * w.heat
                 elif w.range == "S":
-                    sbv = sbv + w.count * w.BV
+                    sbv = sbv + w.count * w.BV[0]
 
     # Print used equipment
     for e in mech.gear.o_equiplist.list:
