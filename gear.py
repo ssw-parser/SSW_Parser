@@ -360,13 +360,14 @@ tarcomps = [["(IS) Targeting Computer", 0, 3062, 0],
 
 # Info on heatsink types
 #
-# Name, techbase, year
+# Name, techbase, year, sinking capability
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-heatsink = [["Single Heat Sink", 2, 2022],
-            ["Double Heat Sink", 0, 2567],
-            ["Double Heat Sink", 1, 2567]]
+heatsink = [["Single Heat Sink", 2, 2022, 1],
+            ["Double Heat Sink", 0, 2567, 2],
+            ["Double Heat Sink", 1, 2567, 2],
+            ["Laser Heat Sink", 1, 3051, 2]]
 
 # Not used.
 missile_ench = [["Artemis IV", 2598],
@@ -394,6 +395,7 @@ class Heatsinks:
             if (i[0] == self.type and i[1] == self.tb):
                 id = 1
                 self.year = i[2]
+                self.cap = i[3]
         if id == 0:
             error_exit((self.type, self.tb))
 
@@ -405,6 +407,10 @@ class Heatsinks:
     # 1 ton/sink, 10 free
     def get_weight(self):
         return self.nr - 10
+
+    # Return sinking capability
+    def get_sink(self):
+        return self.nr * self.cap
 
 class Weaponlist:
     def __init__(self):

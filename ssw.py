@@ -165,34 +165,18 @@ def parse_gear(mech, date):
 
 
     # Check heat
-    if mech.heatsinks.type == "Single Heat Sink":
-        hbal = lheat - mech.heatsinks.nr
-        if (hbal > 4):
-            st1 = "WARNING: Long range weapons overheats a lot!"
-            st2 = "  Overheat: " + str(hbal)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        hbal = mheat - mech.heatsinks.nr
-        if (hbal > 4):
-            st1 = "WARNING: Medium range weapons overheats a lot!"
-            st2 = "  Overheat: " + str(hbal)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-    elif mech.heatsinks.type == "Double Heat Sink":
-        hbal = lheat - 2 * mech.heatsinks.nr
-        if (hbal > 4):
-            st1 = "WARNING: Long range weapons overheats a lot!"
-            st2 = "  Overheat: " + str(hbal)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-        hbal = mheat - 2 * mech.heatsinks.nr
-        if (hbal > 4):
-            st1 = "WARNING: Medium range weapons overheats a lot!"
-            st2 = "  Overheat: " + str(hbal)
-            warnings.add((st1, st2))
-            print_warning((st1, st2))
-    else:
-        error_exit(mech.hstype)
+    hbal = lheat - mech.heatsinks.get_sink()
+    if (hbal > 4):
+        st1 = "WARNING: Long range weapons overheats a lot!"
+        st2 = "  Overheat: " + str(hbal)
+        warnings.add((st1, st2))
+        print_warning((st1, st2))
+    hbal = mheat - mech.heatsinks.get_sink()
+    if (hbal > 4):
+        st1 = "WARNING: Medium range weapons overheats a lot!"
+        st2 = "  Overheat: " + str(hbal)
+        warnings.add((st1, st2))
+        print_warning((st1, st2))
         
 
     print "LR BV: ", lbv
