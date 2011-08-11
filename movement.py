@@ -2,6 +2,7 @@
 
 from math import ceil
 from error import *
+from util import *
 
 # Engine and other propulsion related stuff, like fixed jumpjets and gyros.
 
@@ -349,7 +350,7 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
           ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])],
           # Assume same year as Mackie
           ["Primitive Fusion Engine", 2, 2439, 1.0,
-           (lambda x : stdengine[ceil((x * 1.2)/5)*5])]]
+           (lambda x : stdengine[ceil_5(x * 1.2)])]]
 
 # Gyro types
 #
@@ -592,9 +593,7 @@ class Motive:
         # Hack: Make sure Primitive Engines get right gyro weight
         if self.etype == "Primitive Fusion Engine":
             rating *= 1.2
-            rating /= 5.0
-            rating = ceil(rating)
-            rating *= 5
+            rating = ceil_5(rating)
         base_weight = ceil(float(rating) / 100.0)
         return self.gweightm * base_weight
 

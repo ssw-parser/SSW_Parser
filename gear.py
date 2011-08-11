@@ -2,6 +2,7 @@
 
 from math import ceil
 from error import *
+from util import *
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -369,7 +370,7 @@ missile_ench = [["Artemis IV", 2598],
 # Name, year, BV multiplier, damage formula, weight
 #
 physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5)), (lambda x : ceil(x / 15))],
-            ["Sword", 3058, 1.725, (lambda x : ceil(x / 10) + 1), (lambda x : ceil(x / 20))],
+            ["Sword", 3058, 1.725, (lambda x : ceil(x / 10) + 1), (lambda x : ceil_05(x / 20))],
             ["Claws", 3060, 1.275, (lambda x : ceil(x / 7)), (lambda x : ceil(x / 15))],
             ["Mace", 3061, 1.0, (lambda x : ceil(x / 4)), (lambda x : ceil(x / 10))],
             ["Talons", 3072, 1.0, (lambda x : ceil((x / 5) * 1.5)), (lambda x : ceil(x / 15))]]

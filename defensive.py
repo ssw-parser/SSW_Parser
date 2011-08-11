@@ -2,6 +2,7 @@
 
 from math import ceil
 from error import *
+from util import *
 
 # Armor related stuff
 
@@ -141,9 +142,7 @@ class IS:
         # Calculate IS weight
         wgt *= wgtf
         # hack to get half-ton rounding up
-        wgt *= 2
-        wgt = ceil(wgt)
-        wgt /= 2
+        wgt = ceil_05(wgt)
         self.wgt = wgt
 
         # Calculate IS points
@@ -287,9 +286,7 @@ class Armor:
     def get_weight(self):
         wgt = self.total.a / (16 * self.arMult)
         # hack to get half-ton rounding up
-        wgt *= 2
-        wgt = ceil(wgt)
-        wgt /= 2
+        wgt = ceil_05(wgt)
         return wgt
 
     # Return armor percent
