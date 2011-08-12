@@ -171,13 +171,13 @@ def parse_gear(mech, date):
 
 # HACK: Handle this better
 def parse_artemis(mech, date):
-    if mech.artemis4 == "TRUE":
+    if mech.load.artemis4 == "TRUE":
         if date < 2598:
             date = 2598
     # HACK: We class artemis V as unknown for now
-    if mech.artemis5 == "TRUE":
+    if mech.load.artemis5 == "TRUE":
         error_exit("fire_control")
-    if mech.apollo == "TRUE":
+    if mech.load.apollo == "TRUE":
         if date < 3071:
             date = 3071
     return date
@@ -245,8 +245,8 @@ if mech.cockpit.console == "TRUE":
     print "Command Console"
 date = get_comp_year(mech.engine.get_enh_year, date)
 print "-3-----------------------------"
-date = get_comp_year(mech.heatsinks.get_year, date)
-print mech.heatsinks.type, mech.heatsinks.nr
+date = get_comp_year(mech.load.heatsinks.get_year, date)
+print mech.load.heatsinks.type, mech.load.heatsinks.nr
 print "-4-----------------------------"
 date = get_comp_year(mech.armor.get_year, date)
 #speed = mech.engine.erating/mech.weight
@@ -271,21 +271,21 @@ if (mech.omni == "TRUE"):
 # Check for Artemis IV, Apollo
 # TODO: Move to parse_gear
 date = parse_artemis(mech, date)
-if mech.artemis4 == "TRUE":
+if mech.load.artemis4 == "TRUE":
     print "Artemis IV"
-if mech.apollo == "TRUE":
+if mech.load.apollo == "TRUE":
     print "Apollo"
 print "==============================="
-mech.def_BV(True)
+mech.def_BV(mech.load.gear, True)
 print "-------------------------------"
-mech.off_BV(True)
+mech.off_BV(mech.load.gear, True)
 print "-------------------------------"
 print "BV: ", mech.BV
 print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
 print "==============================="
 
 # Gear
-(rnge, date) = parse_gear(mech, date)
+(rnge, date) = parse_gear(mech.load, date)
 
 # Figure out best speed
 speed = mech.engine.erating/mech.weight

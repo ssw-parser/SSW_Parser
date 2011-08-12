@@ -15,6 +15,7 @@ def gettext(nodes):
 
 class Loadout:
     def __init__(self, weight, a4, a5, ap, name):
+        self.weight = weight # Save weight just in case
         self.artemis4 = a4
         self.artemis5 = a5
         self.apollo = ap
@@ -125,9 +126,9 @@ class Mech:
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
-                self.artemis4 = blo.attributes["fcsa4"].value
-                self.artemis5 = blo.attributes["fcsa5"].value
-                self.apollo = blo.attributes["fcsapollo"].value
+                a4 = blo.attributes["fcsa4"].value
+                a5 = blo.attributes["fcsa5"].value
+                ap = blo.attributes["fcsapollo"].value
 
                 # Get jumpjets
                 for jj in blo.getElementsByTagName('jumpjets'):
@@ -141,7 +142,6 @@ class Mech:
                     hsbase = hs.attributes["techbase"].value
                     hnode = hs.getElementsByTagName("type")[0]
                     hstype = gettext(hnode.childNodes)
-                    self.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
 
                 # Get equipment
                 equip = []
@@ -161,7 +161,10 @@ class Mech:
 
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
 
-            self.gear = Gear(self.weight, self.artemis4, equip, equiprear)
+            # Construct current loadout
+            self.load = Loadout(self.weight, a4, a5, ap, "BASE")
+            self.load.gear = Gear(self.weight, a4, equip, equiprear)
+            self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
 
             # Get omni loadouts
             self.loads = []
@@ -174,7 +177,7 @@ class Mech:
                 # Construct current loadout
                 current = Loadout(self.weight, a4, a5, ap, name)
                 # Use base config heatsinks if not overriden
-                current.heatsinks = self.heatsinks
+                current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
                 current.jj = self.engine.jj
 
@@ -218,7 +221,7 @@ class Mech:
 
                 self.loads.append(current)
 
-    def def_BV(self, printq):
+    def def_BV(self, gear, printq):
         dBV = 0.0
         # Armor
         cur = self.armor.get_armor_BV()
@@ -236,7 +239,7 @@ class Mech:
         if (printq):
             print "Gyro Def BV: ", cur
         # Defensive equipment
-        cur = self.gear.get_def_BV()
+        cur = gear.get_def_BV()
         dBV += cur
         if (printq):
             print "Equipment Def BV: ", cur
@@ -244,20 +247,20 @@ class Mech:
 
         # Defensive factor: TODO
 
-    def off_BV(self, printq):
+    def off_BV(self, gear, printq):
         oBV = 0.0
         w_list = []
-        for w in self.gear.weaponlist.list:
+        for w in gear.weaponlist.list:
             if w.count > 0:
                 i = w.count
-                BV = w.get_BV(self.gear.tarcomp, self.artemis4)
+                BV = w.get_BV(gear.tarcomp, self.load.artemis4)
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
 
             if w.countrear > 0:
                 i = w.count
-                BV = w.get_BV(self.gear.tarcomp, self.artemis4) / 2.0
+                BV = w.get_BV(gear.tarcomp, self.load.artemis4) / 2.0
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
@@ -285,7 +288,7 @@ class Mech:
         # Defensive stuff
         defensive = self.structure.get_weight()
         defensive += self.armor.get_weight()
-        defensive += self.gear.get_d_weight()
+        defensive += self.load.gear.get_d_weight()
         dratio = float(defensive) / float(self.weight) * 100
         d2 = dratio - 33.3
         d3 = "   "
@@ -294,15 +297,15 @@ class Mech:
 
         # Offensive stuff
         # Heat sinks
-        offensive = self.heatsinks.get_weight()
+        offensive = self.load.heatsinks.get_weight()
         # Weapons
-        offensive += self.gear.get_w_weight()
+        offensive += self.load.gear.get_w_weight()
         # Ammo
-        offensive += self.gear.get_a_weight()
+        offensive += self.load.gear.get_a_weight()
         # Offensive gear
-        offensive += self.gear.get_o_weight()
+        offensive += self.load.gear.get_o_weight()
         # Physical weapons
-        offensive += self.gear.get_p_weight()
+        offensive += self.load.gear.get_p_weight()
         # Command console
         offensive += self.cockpit.get_c_weight()
         oratio = float(offensive) / float(self.weight) * 100
