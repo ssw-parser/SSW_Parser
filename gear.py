@@ -571,6 +571,8 @@ class Gear:
         self.p_weight = 0.0
         # Weight of targeting computer weapons
         self.tcw_weight = 0.0
+        # Track explosive ammo by locations
+        self.exp_ammo = {}
 
         # Count gear
         for name in self.equip:
@@ -632,6 +634,11 @@ class Gear:
                     else:
                         self.a_weight += a.weight
                     id = 1
+                    # Add explosive ammo to location
+                    if a.explosive == "X":
+                        expl = self.exp_ammo.get(name[2], 0)
+                        expl += 1
+                        self.exp_ammo[name[2]] = expl
             # Not found
             if id == 0:
                 print "Unidentified:", name

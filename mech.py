@@ -154,12 +154,14 @@ class Mech:
                     name = gettext(nnode.childNodes)
                     tnode = node.getElementsByTagName("type")[0]
                     typ = gettext(tnode.childNodes)
+                    lnode = node.getElementsByTagName("location")[0]
+                    loc = gettext(lnode.childNodes)
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
-                        equiprear.append((name[4:],typ))
+                        equiprear.append((name[4:],typ,loc))
                     else:
                         # Save in a tuple with name and type
-                        equip.append((name,typ))
+                        equip.append((name,typ,loc))
 
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
