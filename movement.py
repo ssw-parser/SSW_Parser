@@ -544,47 +544,6 @@ class Motive:
     def get_enh_year(self):
         return self.enhyear
 
-    def get_move_string(self):
-        if self.enhancement == "TSM":
-            wstr = str(self.speed) + "[" + str(self.speed + 1) + "]"
-        else:
-            wstr = str(self.speed)
-        rspeed = int(ceil(self.speed * 1.5))
-        if self.enhancement == "TSM":
-            rspeed2 = int(ceil((self.speed + 1) * 1.5))
-            rstr = str(rspeed) + "[" + str(rspeed2) + "]"
-        elif self.enhancement == "MASC":
-            rspeed2 = int(ceil(self.speed * 2.0))
-            rstr = str(rspeed) + "[" + str(rspeed2) + "]"
-        else:
-            rstr = str(rspeed)
-        string = ("%s/%s/%d" % (wstr, rstr, self.jj.get_jump()))
-        return string
-
-    def parse_speed(self, weight):
-        # Bigger of ground speed and jump range
-        speed = max((self.erating/weight, self.jj.get_jump()))
-        # Light
-        if (speed < 6 and weight < 40):
-            st = ("WARNING: Mech is too slow for its weight class!")
-            warnings.add((st,))
-            print_warning((st,))
-        # Medium
-        elif (speed < 5 and weight < 60):
-            st = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((st,))
-            print_warning((st,))
-        # Heavy
-        elif (speed < 4 and weight < 80):
-            st = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((st,))
-            print_warning((st,))
-        # Assault
-        elif (speed < 3):
-            st = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((st,))
-            print_warning((st,))
-
     def get_engine_weight(self):
         return self.eweight
 
@@ -608,50 +567,6 @@ class Motive:
 
     def get_gyro_BVmod(self):
         return self.gBV
-
-    # Used to check if more equipment weight becomes available if the
-    # weight is reduced by 5 tons
-    def get_reduced_weight(self, weight):
-        if (weight > 20):
-            redweight = weight - 5
-        else:
-            redweight = weight
-
-        rrating = redweight * (self.erating / weight)
-        rmotive = Motive(redweight, self.etype, rrating, self.eb, self.gtype, self.gb, self.jj.get_jump(), self.jj.jjtype, self.enhancement, self.etb)
-        neweight = rmotive.get_engine_weight()
-        ngweight = rmotive.get_gyro_weight()
-        njweight = rmotive.get_jj_weight()
-        nenhweight = rmotive.get_enh_weight()
-        return (neweight + ngweight + njweight + nenhweight)
-
-    def print_report(self, weight):
-        eweight = self.get_engine_weight()
-        eratio = float(eweight) / float(weight)
-        print "Engine: ", self.etype, self.erating, eweight, "tons", int(eratio * 100), "%"
-        if (eratio > 0.4):
-            st = "WARNING: Very heavy engine!"
-            st2 = "  Mounting LFE or XLFE suggested."
-            warnings.add((st, st2))
-            print_warning((st, st2))
-        print "Speed: " + self.get_move_string()
-        self.parse_speed(weight)
-        gweight = self.get_gyro_weight()
-        print self.gtype, gweight, "tons"
-        jweight = self.get_jj_weight()
-        if self.jj.get_jump() > 0:
-            print "Fixed jump: ", self.jj.get_jump(), self.jj.jjtype, jweight, "tons"
-        enhweight = self.get_enh_weight()
-        print "Enhancement: ", self.enhancement, enhweight, "tons"
-        tweight = eweight + gweight + jweight + enhweight
-        tratio = float(tweight) / float(weight)
-        print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
-        rweight = self.get_reduced_weight(weight)
-        print "Motive weight if 5 tons lighter: ", rweight, "tons"
-        if (tweight - rweight > 5.0):
-            st = "WARNING: Reducing total mass would allow for more gear!"
-            warnings.add((st,))
-            print_warning((st,))
 
 # TODO:
 # - TO stuff: XXL, and Large engines

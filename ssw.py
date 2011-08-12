@@ -234,11 +234,11 @@ if (mech.omni == "TRUE"):
 date = get_comp_year(mech.structure.get_year, date)
 print "Structure: ", mech.structure.type, mech.structure.get_weight(), "tons"
 print "-2-----------------------------"
-mech.engine.print_report(mech.weight)
+mech.print_engine_report(mech.weight)
 date = get_comp_year(mech.engine.get_engine_year, date)
 date = get_comp_year(mech.engine.get_gyro_year, date)
-if mech.engine.jj.get_jump() > 0:
-    date = get_comp_year(mech.engine.get_jj_year, date)
+if mech.load.jj.get_jump() > 0:
+    date = get_comp_year(mech.load.jj.get_year, date)
 date = get_comp_year(mech.cockpit.get_year, date)
 print mech.cockpit.type, mech.cockpit.get_weight()
 if mech.cockpit.console == "TRUE":

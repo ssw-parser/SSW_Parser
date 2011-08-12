@@ -34,7 +34,7 @@ for i in file_list:
     mech = Mech(xmldoc)
 
     name_str = mech.name + " " + mech.model
-    move = mech.engine.get_move_string()
+    move = mech.get_move_string()
     armor = mech.armor.get_armor_percent()
     BV = mech.BV
     percent = mech.weight_summary(True)

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from xml.dom import minidom
+from error import *
 from defensive import *
 from movement import *
 from gear import *
@@ -269,8 +270,9 @@ class Mech:
         w_list.sort()
         w_list.reverse()
 
-        for i in w_list:
-            print i
+        if (printq):
+            for i in w_list:
+                print i
 
     def weight_summary(self, short):
         # Motive stuff
@@ -331,4 +333,94 @@ class Mech:
             print ("Offensive weight: %3.1ft %2.1f%%" % (offensive, oratio))
             print ("Other           : %3.1ft" % (left))
             return
+
+
+    def get_move_string(self):
+        spd = self.engine.speed
+        if self.engine.enhancement == "TSM":
+            wstr = str(spd) + "[" + str(spd + 1) + "]"
+        else:
+            wstr = str(spd)
+        rspeed = int(ceil(spd * 1.5))
+        if self.engine.enhancement == "TSM":
+            rspeed2 = int(ceil((spd + 1) * 1.5))
+            rstr = str(rspeed) + "[" + str(rspeed2) + "]"
+        elif self.engine.enhancement == "MASC":
+            rspeed2 = int(ceil(spd * 2.0))
+            rstr = str(rspeed) + "[" + str(rspeed2) + "]"
+        else:
+            rstr = str(rspeed)
+        string = ("%s/%s/%d" % (wstr, rstr, self.load.jj.get_jump()))
+        return string
+
+    def parse_speed(self, weight):
+        spd = self.engine.speed
+        # Bigger of ground speed and jump range
+        speed = max((spd, self.load.jj.get_jump()))
+        # Light
+        if (speed < 6 and weight < 40):
+            st = ("WARNING: Mech is too slow for its weight class!")
+            warnings.add((st,))
+            print_warning((st,))
+        # Medium
+        elif (speed < 5 and weight < 60):
+            st = "WARNING: Mech is too slow for its weight class!"
+            warnings.add((st,))
+            print_warning((st,))
+        # Heavy
+        elif (speed < 4 and weight < 80):
+            st = "WARNING: Mech is too slow for its weight class!"
+            warnings.add((st,))
+            print_warning((st,))
+        # Assault
+        elif (speed < 3):
+            st = "WARNING: Mech is too slow for its weight class!"
+            warnings.add((st,))
+            print_warning((st,))
+
+    # Used to check if more equipment weight becomes available if the
+    # weight is reduced by 5 tons
+    def get_reduced_weight(self, weight):
+        if (weight > 20):
+            redweight = weight - 5
+        else:
+            redweight = weight
+
+        rrating = redweight * (self.engine.erating / weight)
+        rmotive = Motive(redweight, self.engine.etype, rrating, self.engine.eb, self.engine.gtype, self.engine.gb, self.load.jj.get_jump(), self.load.jj.jjtype, self.engine.enhancement, self.engine.etb)
+        neweight = rmotive.get_engine_weight()
+        ngweight = rmotive.get_gyro_weight()
+        njweight = rmotive.get_jj_weight()
+        nenhweight = rmotive.get_enh_weight()
+        return (neweight + ngweight + njweight + nenhweight)
+
+
+
+    def print_engine_report(self, weight):
+        eweight = self.engine.get_engine_weight()
+        eratio = float(eweight) / float(weight)
+        print "Engine: ", self.engine.etype, self.engine.erating, eweight, "tons", int(eratio * 100), "%"
+        if (eratio > 0.4):
+            st = "WARNING: Very heavy engine!"
+            st2 = "  Mounting LFE or XLFE suggested."
+            warnings.add((st, st2))
+            print_warning((st, st2))
+        print "Speed: " + self.get_move_string()
+        self.parse_speed(weight)
+        gweight = self.engine.get_gyro_weight()
+        print self.engine.gtype, gweight, "tons"
+        jweight = self.load.jj.get_weight()
+        if self.load.jj.get_jump() > 0:
+            print "Fixed jump: ", self.load.jj.get_jump(), self.load.jj.jjtype, jweight, "tons"
+        enhweight = self.engine.get_enh_weight()
+        print "Enhancement: ", self.engine.enhancement, enhweight, "tons"
+        tweight = eweight + gweight + jweight + enhweight
+        tratio = float(tweight) / float(weight)
+        print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
+        rweight = self.get_reduced_weight(weight)
+        print "Motive weight if 5 tons lighter: ", rweight, "tons"
+        if (tweight - rweight > 5.0):
+            st = "WARNING: Reducing total mass would allow for more gear!"
+            warnings.add((st,))
+            print_warning((st,))
 
