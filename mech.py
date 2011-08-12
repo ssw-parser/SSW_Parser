@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from xml.dom import minidom
+from math import ceil, pow
 from error import *
 from defensive import *
 from movement import *
@@ -317,6 +318,15 @@ class Mech:
         if (printq):
             print "Weight BV: ", wf
         oBV += wf
+
+        # speed factor
+        sf = self.engine.get_max_run() + ceil(load.jj.get_jump() / 2.0)
+        if (printq):
+            print "Speed Factor: ", sf
+        asf = ((sf - 5.0) / 10.0) + 1.0 
+        osf = round(pow(asf, 1.2), 2)
+        if (printq):
+            print "Offensive Speed Factor: ", osf
 
     def weight_summary(self, short):
         # Motive stuff
