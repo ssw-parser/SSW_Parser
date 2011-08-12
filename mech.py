@@ -160,12 +160,13 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name,typ))
 
-            self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enhancement, etb)
+            self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
             # Construct current loadout
             self.load = Loadout(self.weight, a4, a5, ap, "BASE")
             self.load.gear = Gear(self.weight, a4, equip, equiprear)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
+            self.load.jj = JumpJets(self.weight, jump, jjtype)
 
             # Get omni loadouts
             self.loads = []
@@ -180,7 +181,7 @@ class Mech:
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
-                current.jj = self.engine.jj
+                current.jj = self.load.jj
 
                 # Get BV.
                 for battv in lo.getElementsByTagName('battle_value'):
@@ -278,7 +279,7 @@ class Mech:
         # Motive stuff
         motive = self.engine.get_engine_weight()
         motive += self.engine.get_gyro_weight()
-        motive += self.engine.get_jj_weight()
+        motive += self.load.jj.get_weight()
         motive += self.engine.get_enh_weight()
         motive += self.cockpit.get_weight()
         mratio = float(motive) / float(self.weight) * 100
@@ -378,24 +379,6 @@ class Mech:
             warnings.add((st,))
             print_warning((st,))
 
-    # Used to check if more equipment weight becomes available if the
-    # weight is reduced by 5 tons
-    def get_reduced_weight(self, weight):
-        if (weight > 20):
-            redweight = weight - 5
-        else:
-            redweight = weight
-
-        rrating = redweight * (self.engine.erating / weight)
-        rmotive = Motive(redweight, self.engine.etype, rrating, self.engine.eb, self.engine.gtype, self.engine.gb, self.load.jj.get_jump(), self.load.jj.jjtype, self.engine.enhancement, self.engine.etb)
-        neweight = rmotive.get_engine_weight()
-        ngweight = rmotive.get_gyro_weight()
-        njweight = rmotive.get_jj_weight()
-        nenhweight = rmotive.get_enh_weight()
-        return (neweight + ngweight + njweight + nenhweight)
-
-
-
     def print_engine_report(self, weight):
         eweight = self.engine.get_engine_weight()
         eratio = float(eweight) / float(weight)
@@ -417,10 +400,4 @@ class Mech:
         tweight = eweight + gweight + jweight + enhweight
         tratio = float(tweight) / float(weight)
         print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
-        rweight = self.get_reduced_weight(weight)
-        print "Motive weight if 5 tons lighter: ", rweight, "tons"
-        if (tweight - rweight > 5.0):
-            st = "WARNING: Reducing total mass would allow for more gear!"
-            warnings.add((st,))
-            print_warning((st,))
 

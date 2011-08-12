@@ -289,8 +289,8 @@ print "==============================="
 
 # Figure out best speed
 speed = mech.engine.erating/mech.weight
-if mech.engine.jj.get_jump() > speed:
-    mspd = mech.engine.jj.get_jump()
+if mech.load.jj.get_jump() > speed:
+    mspd = mech.load.jj.get_jump()
 else:
     mspd = speed
 

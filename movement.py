@@ -475,16 +475,13 @@ class JumpJets:
 
 # A class to hold motive info for a mech
 #
-# Note that this class is not intended to track pod-mounted jump-jets
-#
 class Motive:
-    def __init__(self, weight, etype, erating, ebase, gtype, gbase, jump, jjtype, enh, etb):
+    def __init__(self, weight, etype, erating, ebase, gtype, gbase, enh, etb):
         self.etype = etype
         self.erating = erating
         self.eb = int(ebase)
         self.gtype = gtype
         self.gb = int(gbase)
-        self.jj = JumpJets(weight, jump, jjtype)
         self.enhancement = enh
         self.etb = int(etb)
         self.speed = self.erating / weight
@@ -536,10 +533,6 @@ class Motive:
     def get_gyro_year(self):
         return self.gyear
 
-    # Return earliest year jumpjet is available
-    def get_jj_year(self):
-        return self.jj.get_year()
-
     # Return earliest year enhancement is available
     def get_enh_year(self):
         return self.enhyear
@@ -556,9 +549,6 @@ class Motive:
         base_weight = ceil(float(rating) / 100.0)
         return self.gweightm * base_weight
 
-    def get_jj_weight(self):
-        return self.jj.get_weight()
-
     def get_enh_weight(self):
         return self.enhweight
 
@@ -570,4 +560,4 @@ class Motive:
 
 # TODO:
 # - TO stuff: XXL, and Large engines
-# - Move warnings.add & print_warning stuff outside
+# - Add get jump heat function
