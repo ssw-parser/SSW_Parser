@@ -254,6 +254,7 @@ class Mech:
         oBV = 0.0
         BWBR = 0.0
         heat = 0
+        ammo_BV = 0.0
 
         move_heat = max(2, load.jj.get_heat())
         heat_eff = 6 + load.heatsinks.get_sink() - move_heat
@@ -276,6 +277,9 @@ class Mech:
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
+
+            # Count possible Ammo BV
+            ammo_BV += w.get_ammo_BV()
 
         # Physical weapons
         for w in load.gear.physicallist.list:
@@ -308,7 +312,10 @@ class Mech:
             print "BWBR", BWBR
         oBV = BWBR
 
-        # TODO: Ammo & other non-heat gear
+        # Ammo & TODO: other non-heat gear
+        oBV += ammo_BV
+        if (printq):
+            print "Ammo BV: ", ammo_BV
 
         # Tonnage (physical)
         if (self.engine.enhancement == "TSM"):
@@ -319,6 +326,10 @@ class Mech:
             print "Weight BV: ", wf
         oBV += wf
 
+        # total
+        if (printq):
+            print "Total Base Offensive: ", oBV
+
         # speed factor
         sf = self.engine.get_max_run() + ceil(load.jj.get_jump() / 2.0)
         if (printq):
@@ -327,6 +338,12 @@ class Mech:
         osf = round(pow(asf, 1.2), 2)
         if (printq):
             print "Offensive Speed Factor: ", osf
+
+        # Final result
+        oBV *= osf
+        if (printq):
+            print "Offensive BV: ", oBV
+        return oBV
 
     def weight_summary(self, short):
         # Motive stuff
