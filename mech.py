@@ -244,6 +244,31 @@ class Mech:
 
         # Defensive factor: TODO
 
+    def off_BV(self, printq):
+        oBV = 0.0
+        w_list = []
+        for w in self.gear.weaponlist.list:
+            if w.count > 0:
+                i = w.count
+                BV = w.get_BV(self.gear.tarcomp, self.artemis4)
+                while (i):
+                    w_list.append((BV, w.heat, w.name))
+                    i -= 1
+
+            if w.countrear > 0:
+                i = w.count
+                BV = w.get_BV(self.gear.tarcomp, self.artemis4) / 2.0
+                while (i):
+                    w_list.append((BV, w.heat, w.name))
+                    i -= 1
+
+        # Sort list, from largest BV to smallest
+        w_list.sort()
+        w_list.reverse()
+
+        for i in w_list:
+            print i
+
     def weight_summary(self, short):
         # Motive stuff
         motive = self.engine.get_engine_weight()

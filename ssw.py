@@ -277,6 +277,9 @@ if mech.apollo == "TRUE":
     print "Apollo"
 print "==============================="
 mech.def_BV(True)
+print "-------------------------------"
+mech.off_BV(True)
+print "-------------------------------"
 print "BV: ", mech.BV
 print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
 print "==============================="
