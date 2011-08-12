@@ -226,7 +226,7 @@ class Mech:
         dBV += self.structure.get_BV_factor() * self.engine.get_engine_BVmod()
         # Gyro
         dBV += self.weight * self.engine.get_gyro_BVmod()
-        # Defensive equipment: TODO
+        # Defensive equipment
         dBV += self.gear.get_def_BV()
         # Explosive: TODO, requires location tracking
 

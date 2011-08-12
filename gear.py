@@ -327,31 +327,31 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1],
 #
 # Name, BV, year, uses ammo rate, weight
 #
-o_equipment = [["C3 Computer (Slave)", 0, 3050, 0, 1],
-               ["C3 Computer (Master)", 0, 3050, 0, 5],
-               ["Improved C3 Computer", 0, 3062, 0, 2.5],
-               ["TAG", 0, 2600, 0, 1],
-               ["Light TAG", 0, 3054, 0, 0.5],
+o_equipment = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1],
+               ["C3 Computer (Master)", [0, 0], 3050, 0, 5],
+               ["Improved C3 Computer", [0, 0], 3062, 0, 2.5],
+               ["TAG", [0, 0], 2600, 0, 1],
+               ["Light TAG", [0, 0], 3054, 0, 0.5],
                # Experimental
-               ["Collapsible Command Module (CCM)", 0, 2710, 0, 16],
-               ["Coolant Pod", 0, 3049, 0, 1]]
+               ["Collapsible Command Module (CCM)", [0, 0], 2710, 0, 16],
+               ["Coolant Pod", [0, 0], 3049, 0, 1]]
 
 
-d_equipment = [["A-Pod", 1, 3055, 0, 0.5],
-               ["B-Pod", 2, 3069, 0, 1],
-               ["(IS) Anti-Missile System", 32, 2617, 1, 0.5],
-               ["Guardian ECM Suite", 61, 2597, 0, 1.5],
-               ["Beagle Active Probe", 10, 2576, 0, 1.5],
-               ["ECM Suite", 61, 2597, 0, 1], # Clan
-               ["Active Probe", 12, 2576, 0, 1], # Clan
-               ["Light Active Probe", 7, 2576, 0, 0.5], # No year found
-               ["(CL) Anti-Missile System", 32, 2617, 1, 0.5],
-               ["CASE", 0, 2476, 0, 0.5], # HACK: CASE
+d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5],
+               ["B-Pod", [2, 0], 3069, 0, 1],
+               ["(IS) Anti-Missile System", [32, 11], 2617, 1, 0.5],
+               ["Guardian ECM Suite", [61, 0], 2597, 0, 1.5],
+               ["Beagle Active Probe", [10, 0], 2576, 0, 1.5],
+               ["ECM Suite", [61, 0], 2597, 0, 1], # Clan
+               ["Active Probe", [12, 0], 2576, 0, 1], # Clan
+               ["Light Active Probe", [7, 0], 2576, 0, 0.5], # No year found
+               ["(CL) Anti-Missile System", [32, 22], 2617, 1, 0.5],
+               ["CASE", [0, 0], 2476, 0, 0.5], # HACK: CASE
                # Experimental
-               ["Angel ECM", 100, 3057, 0, 2],
-               ["Bloodhound Active Probe", 25, 3058, 0, 2],
-               ["Electronic Warfare Equipment", 39, 3025, 0, 7.5],
-               ["(CL) CASE II", 0, 3062, 0, 0.5]]
+               ["Angel ECM", [100, 0], 3057, 0, 2],
+               ["Bloodhound Active Probe", [25, 0], 3058, 0, 2],
+               ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5],
+               ["(CL) CASE II", [0, 0], 3062, 0, 0.5]]
 
 # Targeting computers, currently not used
 #
@@ -669,12 +669,21 @@ class Gear:
         BV = 0.0
         for e in self.d_equiplist.list:
             if (e.count > 0):
-                BV += e.count * e.BV
-        # TODO AMS ammo
+                BV_gear = e.count * e.BV[0]
+                BV += BV_gear
+                # Handle AMS ammo (and possible other ammo)
+                if (e.BV[1] > 0 and e.ammocount > 0):
+                    BV_ammo = e.BV[1] * e.ammocount
+                    # Disallow ammo BV to be greater than that of
+                    # the system itself
+                    if BV_ammo > BV_gear:
+                        BV_ammo = BV_gear
+                    BV += BV_ammo
         return BV
 
 # TODO:
 # - tarcomp year, and other years
 # - rest of ammo
-# - Make AMS ammo count as defensive BV wise
 # - Coolant pod heat effect, coolant pod explosive effect
+# - integrate Artemis V and Apollo, and do it better with Artemis IV
+# - Weapon BV function
