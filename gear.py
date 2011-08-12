@@ -446,6 +446,14 @@ class Weapon:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
+    # Get the BV of an INDIVIDUAL weapon, not all of them
+    def get_BV(self, tarcomp, a4):
+        BV = self.BV[0]
+        if (tarcomp > 0 and self.enhance == "T"):
+            BV *= 1.25
+        if (a4 == "TRUE" and self.enhance == "A"):
+            BV *= 1.2
+        return BV
 
 class Ammolist:
     def __init__(self):

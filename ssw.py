@@ -87,35 +87,15 @@ def parse_gear(mech, date):
                 report = report + ", " + str(w.countrear) + "(R) "
             report = report + " " + w.name
             print report
-            # Get BV balance, Artemis first, then tarcomp, no enhancement last
-            # Also count heat
-            if (mech.artemis4 == "TRUE" and w.enhance == "A"):
-                if w.range == "L":
-                    lbv = lbv + w.count * w.BV[0] * 1.2
-                    lheat = lheat + w.count * w.heat
-                elif w.range == "M":
-                    mbv = mbv + w.count * w.BV[0] * 1.2
-                    mheat = mheat + w.count * w.heat
-                elif w.range == "S":
-                    sbv = sbv + w.count * w.BV[0] * 1.2
-            elif (mech.gear.tarcomp > 0 and w.enhance =="T"):
-                if w.range == "L":
-                    lbv = lbv + w.count * w.BV[0] * 1.25
-                    lheat = lheat + w.count * w.heat
-                elif w.range == "M":
-                    mbv = mbv + w.count * w.BV[0] * 1.25
-                    mheat = mheat + w.count * w.heat
-                elif w.range == "S":
-                    sbv = sbv + w.count * w.BV[0] * 1.25
-            else:
-                if w.range == "L":
-                    lbv = lbv + w.count * w.BV[0]
-                    lheat = lheat + w.count * w.heat
-                elif w.range == "M":
-                    mbv = mbv + w.count * w.BV[0]
-                    mheat = mheat + w.count * w.heat
-                elif w.range == "S":
-                    sbv = sbv + w.count * w.BV[0]
+            # Get BV balance, also count heat
+            if w.range == "L":
+                lbv = lbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4)
+                lheat = lheat + w.count * w.heat
+            elif w.range == "M":
+                mbv = mbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4)
+                mheat = mheat + w.count * w.heat
+            elif w.range == "S":
+                sbv = sbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4)
 
     # Print used equipment
     for e in mech.gear.o_equiplist.list:
