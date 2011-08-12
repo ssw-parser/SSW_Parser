@@ -447,6 +447,7 @@ class Weapon:
         self.ammo_ton += count
 
     # Get the BV of an INDIVIDUAL weapon, not all of them
+    # TODO: Artemis V, Apollo
     def get_BV(self, tarcomp, a4):
         BV = self.BV[0]
         if (tarcomp > 0 and self.enhance == "T"):
@@ -454,6 +455,22 @@ class Weapon:
         if (a4 == "TRUE" and self.enhance == "A"):
             BV *= 1.2
         return BV
+
+
+    # Get the BV of the total ammo
+    def get_ammo_BV(self):
+        BV_ammo = 0
+        # Here we use BV of the unmodified weapons
+        BV_weapons = self.BV[0] * self.count
+        # Handle ammo
+        if (self.BV[1] > 0 and self.ammocount > 0):
+            BV_ammo = self.BV[1] * self.ammo_ton
+            # Disallow ammo BV to be greater than that of
+            # the weapon itself
+            if BV_ammo > BV_weapons:
+                BV_ammo = BV_weapons
+        return BV_ammo
+
 
 class Ammolist:
     def __init__(self):
