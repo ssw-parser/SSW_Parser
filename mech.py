@@ -218,16 +218,28 @@ class Mech:
 
                 self.loads.append(current)
 
-    def def_BV(self):
+    def def_BV(self, printq):
         dBV = 0.0
         # Armor
-        dBV += self.armor.get_armor_BV()
+        cur = self.armor.get_armor_BV()
+        dBV += cur
+        if (printq):
+            print "Armor Def BV: ", cur
         # Internal
-        dBV += self.structure.get_BV_factor() * self.engine.get_engine_BVmod()
+        cur = self.structure.get_BV_factor() * self.engine.get_engine_BVmod()
+        dBV += cur
+        if (printq):
+            print "Internal Def BV: ", cur
         # Gyro
-        dBV += self.weight * self.engine.get_gyro_BVmod()
+        cur = self.weight * self.engine.get_gyro_BVmod()
+        dBV += cur
+        if (printq):
+            print "Gyro Def BV: ", cur
         # Defensive equipment
-        dBV += self.gear.get_def_BV()
+        cur = self.gear.get_def_BV()
+        dBV += cur
+        if (printq):
+            print "Equipment Def BV: ", cur
         # Explosive: TODO, requires location tracking
 
         # Defensive factor: TODO

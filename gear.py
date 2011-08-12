@@ -432,6 +432,7 @@ class Weapon:
         self.count = 0
         self.countrear = 0
         self.ammocount = 0
+        self.ammo_ton = 0
 
     def addone(self):
         self.count = self.count + 1
@@ -439,8 +440,12 @@ class Weapon:
     def addone_rear(self):
         self.countrear = self.countrear + 1
 
-    def add_ammo(self, amount):
+    # We need to track tonnage and rounds separately due to BV
+    # calculations and how MML ammo works
+    def add_ammo(self, count, amount):
         self.ammocount = self.ammocount + amount
+        self.ammo_ton += count
+
 
 class Ammolist:
     def __init__(self):
@@ -480,12 +485,16 @@ class Equipment:
         self.weight = ginfo[4]
         self.count = 0
         self.ammocount = 0
+        self.ammo_ton = 0
 
     def addone(self):
         self.count = self.count + 1
 
-    def add_ammo(self, amount):
+    # We need to track tonnage and rounds separately due to BV
+    # calculations and how MML ammo works
+    def add_ammo(self, count, amount):
         self.ammocount = self.ammocount + amount
+        self.ammo_ton += count
 
 class Physicallist:
     def __init__(self):
@@ -630,13 +639,13 @@ class Gear:
                 for w in self.weaponlist.list:
                     for i in a.wname:
                         if w.name == i:
-                            w.add_ammo(a.count * a.amount)
+                            w.add_ammo(a.count, a.count * a.amount)
                             id = 1
                 # We need to do defensive equipment also due to AMS
                 for e in self.d_equiplist.list:
                     for i in a.wname:
                         if e.name == i:
-                            e.add_ammo(a.count * a.amount)
+                            e.add_ammo(a.count, a.count * a.amount)
                             id = 1
                 if (id == 0):
                     print "ERROR: Unknown weapon:", a.wname
@@ -673,7 +682,7 @@ class Gear:
                 BV += BV_gear
                 # Handle AMS ammo (and possible other ammo)
                 if (e.BV[1] > 0 and e.ammocount > 0):
-                    BV_ammo = e.BV[1] * e.ammocount
+                    BV_ammo = e.BV[1] * e.ammo_ton
                     # Disallow ammo BV to be greater than that of
                     # the system itself
                     if BV_ammo > BV_gear:

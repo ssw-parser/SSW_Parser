@@ -283,7 +283,6 @@ date = get_comp_year(mech.armor.get_year, date)
 #    wgt = mech.weight
 wgt = mech.weight
 mech.armor.parse_armor()
-print "Armor Def BV: ", mech.armor.get_armor_BV()
 print "-5-----------------------------"
 if (mech.omni == "TRUE"):
     print "WARNING: Omni mech, results might be garbage."
@@ -296,10 +295,11 @@ if mech.artemis4 == "TRUE":
     print "Artemis IV"
 if mech.apollo == "TRUE":
     print "Apollo"
-
+print "==============================="
+mech.def_BV(True)
 print "BV: ", mech.BV
- 
-print "BV/ton: ", float(mech.BV)/float(mech.weight)
+print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
+print "==============================="
 
 # Gear
 (rnge, date) = parse_gear(mech, date)
