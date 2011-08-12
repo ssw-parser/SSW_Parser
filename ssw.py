@@ -144,6 +144,10 @@ def parse_gear(mech, date):
 #        print_warning((st1,))
 
 
+    # Explosive ammo
+    for i in mech.gear.exp_ammo.keys():
+        print "Explosive: ", i, mech.gear.exp_ammo[i]
+
     # Check heat
     hbal = lheat - mech.heatsinks.get_sink()
     if (hbal > 4):

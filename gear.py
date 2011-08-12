@@ -573,6 +573,7 @@ class Gear:
         self.tcw_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
+        self.case = {}
 
         # Count gear
         for name in self.equip:
@@ -609,11 +610,21 @@ class Gear:
             # Handle non-weapon equipment
             # HACK: Handle CASE
             for e in self.d_equiplist.list:
-                if (name[0] == e.name and 
-                    (name[1] == 'equipment' or name[1] == 'CASE' or name[1] == 'CASEII')):
+                # non-CASE
+                if (name[0] == e.name and name[1] == 'equipment'):
                     e.addone()
                     self.d_weight += e.weight
                     id = 1
+                # CASE
+                if (name[0] == e.name and 
+                    (name[1] == 'CASE' or name[1] == 'CASEII')):
+                    e.addone()
+                    self.d_weight += e.weight
+                    id = 1
+                    # Save CASE status
+                    self.case[name[2]] = name[0]
+
+
 
             for p in self.physicallist.list:
                 if (name[0] == p.name and name[1] == 'physical'):
@@ -725,6 +736,61 @@ class Gear:
                         BV_ammo = BV_gear
                     BV += BV_ammo
         return BV
+
+    # Return how much BV is reduced by explosive ammo
+    def get_ammo_exp_BV(self, engine, techbase):
+        neg_BV = 0.0
+        # Check each ammo location
+        for i in self.exp_ammo.keys():
+            # Head and center torso always
+            if i == "HD":
+                neg_BV -= 15.0 * self.exp_ammo[i]
+            elif i == "CT":
+                neg_BV -= 15.0 * self.exp_ammo[i]
+            # So are legs
+            elif (i == "LL" or i == "RL"):
+                neg_BV -= 15.0 * self.exp_ammo[i]
+            # Side torsos depends on several factors
+            elif (i == "LT" or i == "RT"):
+                # Inner Sphere XL Engines means that side torsos are vulnerable
+                if (engine.etype == "XL Engine" and engine.eb == 0):
+                    neg_BV -= 15.0 * self.exp_ammo[i]
+                # Otherwise we check for CASE if we use Inner Sphere tech
+                # Clan mechs are assumed to use Clan CASE
+                elif (techbase == "Inner Sphere"):
+                    cas = self.case.get(i, "")
+                    # No CASE
+                    if (cas != "CASE" or cas != "CASEII"):
+                        neg_BV -= 15.0 * self.exp_ammo[i]
+            # Arms are complicated
+            elif (i == "LA"):
+                # Inner Sphere XL Engines means that side torsos are vulnerable
+                if (engine.etype == "XL Engine" and engine.eb == 0):
+                    neg_BV -= 15.0 * self.exp_ammo[i]
+                # Otherwise we check for CASE if we use Inner Sphere tech
+                # Clan mechs are assumed to use Clan CASE
+                elif (techbase == "Inner Sphere"):
+                    cas = self.case.get(i, "")
+                    # we can use torso CASE
+                    cas2 = self.case.get("LT", "")
+                    # No CASE
+                    if (cas != "CASE" or cas != "CASEII" or cas2 != "CASE" or cas2 != "CASEII"):
+                        neg_BV -= 15.0 * self.exp_ammo[i]
+            elif (i == "RA"):
+                # Inner Sphere XL Engines means that side torsos are vulnerable
+                if (engine.etype == "XL Engine" and engine.eb == 0):
+                    neg_BV -= 15.0 * self.exp_ammo[i]
+                # Otherwise we check for CASE if we use Inner Sphere tech
+                # Clan mechs are assumed to use Clan CASE
+                elif (techbase == "Inner Sphere"):
+                    cas = self.case.get(i, "")
+                    # we can use torso CASE
+                    cas2 = self.case.get("RT", "")
+                    # No CASE
+                    if (cas != "CASE" or cas != "CASEII" or cas2 != "CASE" or cas2 != "CASEII"):
+                        neg_BV -= 15.0 * self.exp_ammo[i]
+
+        return neg_BV
 
 # TODO:
 # - tarcomp year, artemis year, and other years
