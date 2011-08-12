@@ -716,8 +716,8 @@ class Gear:
         return BV
 
 # TODO:
-# - tarcomp year, and other years
+# - tarcomp year, artemis year, and other years
 # - rest of ammo
 # - Coolant pod heat effect, coolant pod explosive effect
 # - integrate Artemis V and Apollo, and do it better with Artemis IV
-# - Weapon BV function
+# - Adjust streak and OS heat, see TM page 303

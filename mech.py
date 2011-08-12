@@ -223,7 +223,7 @@ class Mech:
 
                 self.loads.append(current)
 
-    def def_BV(self, gear, printq):
+    def def_BV(self, load, printq):
         dBV = 0.0
         # Armor
         cur = self.armor.get_armor_BV()
@@ -241,7 +241,7 @@ class Mech:
         if (printq):
             print "Gyro Def BV: ", cur
         # Defensive equipment
-        cur = gear.get_def_BV()
+        cur = load.gear.get_def_BV()
         dBV += cur
         if (printq):
             print "Equipment Def BV: ", cur
@@ -249,20 +249,26 @@ class Mech:
 
         # Defensive factor: TODO
 
-    def off_BV(self, gear, printq):
+    def off_BV(self, load, printq):
         oBV = 0.0
+
+        move_heat = max(2, load.jj.get_heat())
+        heat_eff = 6 + load.heatsinks.get_sink() - move_heat
+        if (printq):
+            print "Heat Efficiency", heat_eff
+
         w_list = []
-        for w in gear.weaponlist.list:
+        for w in load.gear.weaponlist.list:
             if w.count > 0:
                 i = w.count
-                BV = w.get_BV(gear.tarcomp, self.load.artemis4)
+                BV = w.get_BV(load.gear.tarcomp, load.artemis4)
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
 
             if w.countrear > 0:
                 i = w.count
-                BV = w.get_BV(gear.tarcomp, self.load.artemis4) / 2.0
+                BV = w.get_BV(load.gear.tarcomp, load.artemis4) / 2.0
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1

@@ -276,9 +276,9 @@ if mech.load.artemis4 == "TRUE":
 if mech.load.apollo == "TRUE":
     print "Apollo"
 print "==============================="
-mech.def_BV(mech.load.gear, True)
+mech.def_BV(mech.load, True)
 print "-------------------------------"
-mech.off_BV(mech.load.gear, True)
+mech.off_BV(mech.load, True)
 print "-------------------------------"
 print "BV: ", mech.BV
 print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))

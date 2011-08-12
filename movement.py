@@ -365,10 +365,10 @@ gyro = [["Standard Gyro", 2, 2439, 0.5, 1.0],
 
 # Jump-jet types
 #
-# Name, year
+# Name, year, heat generated
 #
-jumpjet = [["Standard Jump Jet", 2471],
-           ["Improved Jump Jet", 3069]]
+jumpjet = [["Standard Jump Jet", 2471, 1],
+           ["Improved Jump Jet", 3069, 0.5]]
 
 # Myomer enhancement types
 #
@@ -442,6 +442,7 @@ class JumpJets:
                 if i[0] == self.jjtype:
                     id = 1
                     self.jjyear = i[1]
+                    self.heat = i[2]
             if id == 0:
                 error_exit(self.jjtype)
 
@@ -466,11 +467,18 @@ class JumpJets:
             error_exit(self.jjtype)
         return base * self.jump
 
-
     # Return distance
     def get_jump(self):
         return self.jump
 
+    # Get jumping heat, minimum 3
+    def get_heat(self):
+        # No jump jets generate no heat
+        if self.jump == 0:
+            return 0
+        else:
+            heat = ceil(self.jump * self.heat)
+            return max(3, heat)
 
 
 # A class to hold motive info for a mech
