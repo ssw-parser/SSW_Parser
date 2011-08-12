@@ -305,6 +305,18 @@ class Mech:
                 print i
         if (printq):
             print "BWBR", BWBR
+        oBV = BWBR
+
+        # TODO: Ammo & other non-heat gear
+
+        # Tonnage (physical)
+        if (self.engine.enhancement == "TSM"):
+            wf = self.weight * 1.5
+        else:
+            wf = self.weight
+        if (printq):
+            print "Weight BV: ", wf
+        oBV += wf
 
     def weight_summary(self, short):
         # Motive stuff
