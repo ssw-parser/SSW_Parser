@@ -9,7 +9,7 @@ from util import *
 
 # Weapons in the order of name, BV[main, ammo], range,
 # enhancement(A=artemis, T=tarcomp P=apollo),
-# year, uses ammo rate?, weight, heat
+# year, uses ammo rate?, weight, heat(as used for BV calcs)
 #
 # To be loaded into the gear class
 #
@@ -79,16 +79,16 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1],
            ["(IS) MRM-20", [112, 14], "M", "P", 3058, 1, 7, 6],
            ["(IS) MRM-30", [168, 21], "M", "P", 3058, 1, 10, 10],
            ["(IS) MRM-40", [224, 28], "M", "P", 3058, 1, 12, 12],
-           ["(IS) Rocket Launcher 10", [18, 0], "L", "", 3064, 0, 0.5, 3],
-           ["(IS) Rocket Launcher 15", [23, 0], "M", "", 3064, 0, 1, 4],
-           ["(IS) Rocket Launcher 20", [24, 0], "M", "", 3064, 0, 1.5, 5],
+           ["(IS) Rocket Launcher 10", [18, 0], "L", "", 3064, 0, 0.5, 0.75],
+           ["(IS) Rocket Launcher 15", [23, 0], "M", "", 3064, 0, 1, 1],
+           ["(IS) Rocket Launcher 20", [24, 0], "M", "", 3064, 0, 1.5, 1.25],
            ["(IS) SRM-2", [21, 3], "M", "A", 2370, 1, 1, 2],
            ["(IS) SRM-4", [39, 5], "M", "A", 2370, 1, 2, 3],
            ["(IS) SRM-6", [59, 7], "M", "A", 2370, 1, 3, 4],
-           ["(IS) Streak SRM-2", [30, 4], "M", "", 2647, 1, 1.5, 2],
-           ["(IS) Streak SRM-4", [59, 7], "M", "", 3058, 1, 3, 3],
-           ["(IS) Streak SRM-6", [89, 11], "M", "", 3058, 1, 4.5, 4],
-           ["(IS) Streak SRM-2 (OS)", [6, 0], "M", "", 2676, 0, 2, 2],
+           ["(IS) Streak SRM-2", [30, 4], "M", "", 2647, 1, 1.5, 1],
+           ["(IS) Streak SRM-4", [59, 7], "M", "", 3058, 1, 3, 1.5],
+           ["(IS) Streak SRM-6", [89, 11], "M", "", 3058, 1, 4.5, 2],
+           ["(IS) Streak SRM-2 (OS)", [6, 0], "M", "", 2676, 0, 2, 0.5],
            ["(IS) Narc Missile Beacon", [30, 0], "M", "", 2587, 1, 3, 0],
            ["(IS) iNarc Launcher", [75, 0], "M", "", 3062, 1, 5, 0],
            # Advanced Weapons
@@ -153,10 +153,10 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1],
            ["(CL) SRM-2", [21, 3], "M", "A", 2370, 1, 0.5, 2],
            ["(CL) SRM-4", [39, 5], "M", "A", 2370, 1, 1, 3],
            ["(CL) SRM-6", [59, 7], "M", "A", 2370, 1, 1.5, 4],
-           ["(CL) Streak SRM-2", [40, 5], "M", "", 2647, 1, 1, 2],
-           ["(CL) Streak SRM-4", [79, 10], "M", "", 2826, 1, 2, 3],
-           ["(CL) Streak SRM-6", [118, 15], "M", "", 2826, 1, 3, 4],
-           ["(CL) Streak SRM-4 (OS)", [16, 0], "M", "", 2826, 0, 2.5, 3],
+           ["(CL) Streak SRM-2", [40, 5], "M", "", 2647, 1, 1, 1],
+           ["(CL) Streak SRM-4", [79, 10], "M", "", 2826, 1, 2, 1.5],
+           ["(CL) Streak SRM-6", [118, 15], "M", "", 2826, 1, 3, 2],
+           ["(CL) Streak SRM-4 (OS)", [16, 0], "M", "", 2826, 0, 2.5, 0.75],
            ["(CL) Narc Missile Beacon", [30, 0], "M", "", 2587, 1, 2, 0],
            # Advanced Weapons
            ["(CL) Rotary AC/2", [161, 20], "L", "T", 3073, 6, 8, 6],
