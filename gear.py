@@ -378,11 +378,11 @@ missile_ench = [["Artemis IV", 2598],
 #
 # Name, year, BV multiplier, damage formula, weight
 #
-physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5)), (lambda x : ceil(x / 15))],
-            ["Sword", 3058, 1.725, (lambda x : ceil(x / 10) + 1), (lambda x : ceil_05(x / 20))],
-            ["Claws", 3060, 1.275, (lambda x : ceil(x / 7)), (lambda x : ceil(x / 15))],
-            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4)), (lambda x : ceil(x / 10))],
-            ["Talons", 3072, 1.0, (lambda x : ceil((x / 5) * 1.5)), (lambda x : ceil(x / 15))]]
+physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(x / 15.0))],
+            ["Sword", 3058, 1.725, (lambda x : ceil(x / 10.0) + 1), (lambda x : ceil_05(x / 20.0))],
+            ["Claws", 3060, 1.275, (lambda x : ceil(x / 7.0)), (lambda x : ceil(x / 15.0))],
+            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4.0)), (lambda x : ceil(x / 10.0))],
+            ["Talons", 3072, 1.0, (lambda x : ceil((x / 5.0) * 1.5)), (lambda x : ceil(x / 15.0))]]
 
 class Heatsinks:
     def __init__(self, hstype, tb, nr):
@@ -539,6 +539,9 @@ class Physical:
 
     def addone(self):
         self.count = self.count + 1
+
+    def get_BV(self, weight):
+        return self.dam(weight) * self.BVmult
 
 # Store Gear
 #

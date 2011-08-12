@@ -251,6 +251,8 @@ class Mech:
 
     def off_BV(self, load, printq):
         oBV = 0.0
+        BWBR = 0.0
+        heat = 0
 
         move_heat = max(2, load.jj.get_heat())
         heat_eff = 6 + load.heatsinks.get_sink() - move_heat
@@ -258,6 +260,7 @@ class Mech:
             print "Heat Efficiency", heat_eff
 
         w_list = []
+        # Weapons
         for w in load.gear.weaponlist.list:
             if w.count > 0:
                 i = w.count
@@ -273,13 +276,35 @@ class Mech:
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
 
+        # Physical weapons
+        for w in load.gear.physicallist.list:
+            if w.count > 0:
+                i = w.count
+                BV = w.get_BV(self.weight)
+                while (i):
+                    w_list.append((BV, 0, w.name))
+                    i -= 1
+
         # Sort list, from largest BV to smallest
         w_list.sort()
         w_list.reverse()
 
-        if (printq):
-            for i in w_list:
+        # Calculate weapon BV
+        over = 0
+        for i in w_list:
+            if (over > 0 and i[1] > 0):
+                BWBR += i[0] / 2.0
+                heat += i[1]
+            else:
+                BWBR += i[0]
+                heat += i[1]
+            # We have to much heat, halve future weapon BV
+            if heat >= heat_eff:
+                over = 1
+            if (printq):
                 print i
+        if (printq):
+            print "BWBR", BWBR
 
     def weight_summary(self, short):
         # Motive stuff
