@@ -228,6 +228,7 @@ class Mech:
 
                 self.loads.append(current)
 
+    # Get target modifier from movement, see Total Warfare for details
     def get_move_target_modifier(self, load):
         run_speed = self.engine.get_max_run()
         jump_speed = load.jj.get_jump()
@@ -266,6 +267,7 @@ class Mech:
 
         return max(j_mod, r_mod)
 
+    # Get defensive BV
     def def_BV(self, load, printq):
         dBV = 0.0
         # Armor
@@ -311,7 +313,7 @@ class Mech:
         return dBV
 
 
-
+    # Get offensive BV
     def off_BV(self, load, printq):
         oBV = 0.0
         BWBR = 0.0
@@ -333,8 +335,9 @@ class Mech:
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
 
+            # Rear-facing weapons counts as half
             if w.countrear > 0:
-                i = w.count
+                i = w.countrear
                 BV = w.get_BV(load.gear.tarcomp, load.artemis4) / 2.0
                 while (i):
                     w_list.append((BV, w.heat, w.name))
@@ -406,6 +409,13 @@ class Mech:
         if (printq):
             print "Offensive BV: ", oBV
         return oBV
+
+    def get_BV(self, load):
+        BV = round(self.off_BV(load, False) + self.def_BV(load, False))
+        if BV != self.BV:
+            print self.name, self.model, BV, self.BV
+        assert BV == self.BV, "Error in BV calculation!"
+        return BV
 
     def weight_summary(self, short):
         # Motive stuff
