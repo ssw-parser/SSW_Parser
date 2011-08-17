@@ -460,8 +460,8 @@ class Weapon:
     # Get the BV of the total ammo
     def get_ammo_BV(self):
         BV_ammo = 0
-        # Here we use BV of the unmodified weapons
-        BV_weapons = self.BV[0] * self.count
+        # Here we use BV of the unmodified weapons, of both facing
+        BV_weapons = self.BV[0] * (self.count + self.countrear)
         # Handle ammo
         if (self.BV[1] > 0 and self.ammocount > 0):
             BV_ammo = self.BV[1] * self.ammo_ton
@@ -469,6 +469,7 @@ class Weapon:
             # the weapon itself
             if BV_ammo > BV_weapons:
                 BV_ammo = BV_weapons
+
         return BV_ammo
 
 
