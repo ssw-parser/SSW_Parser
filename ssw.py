@@ -89,13 +89,13 @@ def parse_gear(mech, date):
             print report
             # Get BV balance, also count heat
             if w.range == "L":
-                lbv = lbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4)
+                lbv = lbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4, mech.artemis5, mech.apollo)
                 lheat = lheat + w.count * w.heat
             elif w.range == "M":
-                mbv = mbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4)
+                mbv = mbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4, mech.artemis5, mech.apollo)
                 mheat = mheat + w.count * w.heat
             elif w.range == "S":
-                sbv = sbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4)
+                sbv = sbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4, mech.artemis5, mech.apollo)
 
     # Print used equipment
     for e in mech.gear.o_equiplist.list:

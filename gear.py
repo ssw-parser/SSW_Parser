@@ -448,12 +448,16 @@ class Weapon:
 
     # Get the BV of an INDIVIDUAL weapon, not all of them
     # TODO: Artemis V, Apollo
-    def get_BV(self, tarcomp, a4):
+    def get_BV(self, tarcomp, a4, a5, ap):
         BV = self.BV[0]
         if (tarcomp > 0 and self.enhance == "T"):
             BV *= 1.25
         if (a4 == "TRUE" and self.enhance == "A"):
             BV *= 1.2
+        elif (a5 == "TRUE" and self.enhance == "A"):
+            BV *= 1.3
+        if (ap == "TRUE" and self.enhance == "P"):
+            BV *= 1.15
         return BV
 
 
@@ -549,8 +553,10 @@ class Physical:
 #
 # Take in lists of front and rear facing gears
 class Gear:
-    def __init__(self, weight, a4, equip, equiprear):
+    def __init__(self, weight, a4, a5, ap, equip, equiprear):
         self.a4 = a4 # Artemis IV
+        self.a5 = a5 # Artemis V
+        self.ap = ap # Apollo
         self.equip = equip
         self.equiprear = equiprear
 
@@ -589,6 +595,12 @@ class Gear:
                     id = 1
                     # Artemis IV
                     if (self.a4 == "TRUE" and w.enhance == "A"):
+                        self.w_weight += 1
+                    # Artemis V
+                    elif (self.a5 == "TRUE" and w.enhance == "A"):
+                        self.w_weight += 1.5
+                    # Apollo
+                    if (self.ap == "TRUE" and w.enhance == "P"):
                         self.w_weight += 1
 
             # Handle non-weapon equipment
@@ -668,6 +680,12 @@ class Gear:
                     id = 1
                     # Artemis IV
                     if (self.a4 == "TRUE" and w.enhance == "A"):
+                        self.w_weight += 1
+                    # Artemis V
+                    elif (self.a5 == "TRUE" and w.enhance == "A"):
+                        self.w_weight += 1.5
+                    # Apollo
+                    if (self.ap == "TRUE" and w.enhance == "P"):
                         self.w_weight += 1
             # Not found
             if (id == 0):
@@ -797,5 +815,5 @@ class Gear:
 # - tarcomp year, artemis year, and other years
 # - rest of ammo
 # - Coolant pod heat effect, coolant pod explosive effect
-# - integrate Artemis V and Apollo, and do it better with Artemis IV
+# - Integrate fire control systems better (a4, a5, ap, tarcomp)
 # - Adjust streak and OS heat, see TM page 303

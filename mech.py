@@ -167,7 +167,7 @@ class Mech:
 
             # Construct current loadout
             self.load = Loadout(self.weight, a4, a5, ap, "BASE")
-            self.load.gear = Gear(self.weight, a4, equip, equiprear)
+            self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
 
@@ -223,7 +223,7 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name,typ,loc))
 
-                current.gear = Gear(self.weight, a4, equip, equiprear)
+                current.gear = Gear(self.weight, a4, a5, ap, equip, equiprear)
 
 
                 self.loads.append(current)
@@ -330,7 +330,7 @@ class Mech:
         for w in load.gear.weaponlist.list:
             if w.count > 0:
                 i = w.count
-                BV = w.get_BV(load.gear.tarcomp, load.artemis4)
+                BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo)
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
@@ -338,7 +338,7 @@ class Mech:
             # Rear-facing weapons counts as half
             if w.countrear > 0:
                 i = w.countrear
-                BV = w.get_BV(load.gear.tarcomp, load.artemis4) / 2.0
+                BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo) / 2.0
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
