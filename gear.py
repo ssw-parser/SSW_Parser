@@ -686,13 +686,13 @@ class Gear:
                 for w in self.weaponlist.list:
                     for i in a.wname:
                         if w.name == i:
-                            w.add_ammo(a.count, a.count * a.amount)
+                            w.add_ammo(a.count * a.weight, a.count * a.amount)
                             id = 1
                 # We need to do defensive equipment also due to AMS
                 for e in self.d_equiplist.list:
                     for i in a.wname:
                         if e.name == i:
-                            e.add_ammo(a.count, a.count * a.amount)
+                            e.add_ammo(a.count * a.weight, a.count * a.amount)
                             id = 1
                 if (id == 0):
                     print "ERROR: Unknown weapon:", a.wname
