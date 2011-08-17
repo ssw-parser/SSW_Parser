@@ -761,7 +761,7 @@ class Gear:
                 elif (techbase == "Inner Sphere"):
                     cas = self.case.get(i, "")
                     # No CASE
-                    if (cas != "CASE" or cas != "CASEII"):
+                    if (cas != "CASE" and cas != "CASEII"):
                         neg_BV -= 15.0 * self.exp_ammo[i]
             # Arms are complicated
             elif (i == "LA"):
@@ -775,7 +775,7 @@ class Gear:
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
-                    if (cas != "CASE" or cas != "CASEII" or cas2 != "CASE" or cas2 != "CASEII"):
+                    if ((cas != "CASE" and cas != "CASEII") or (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_BV -= 15.0 * self.exp_ammo[i]
             elif (i == "RA"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
@@ -788,7 +788,7 @@ class Gear:
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
-                    if (cas != "CASE" or cas != "CASEII" or cas2 != "CASE" or cas2 != "CASEII"):
+                    if ((cas != "CASE" and cas != "CASEII") or (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_BV -= 15.0 * self.exp_ammo[i]
 
         return neg_BV
