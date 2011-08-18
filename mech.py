@@ -290,12 +290,16 @@ class Mech:
         dBV += cur
         if (printq):
             print "Equipment Def BV: ", cur
-        # Explosive: TODO: Gauss rifles
+        # Explosive
         cur = load.gear.get_ammo_exp_BV(self.engine, self.techbase)
         dBV += cur
         if (printq):
             print "Explosive Ammo BV: ", cur
-        # Defensive factor: TODO
+        cur = load.gear.get_weapon_exp_BV(self.engine, self.techbase)
+        dBV += cur
+        if (printq):
+            print "Explosive Weapon BV: ", cur
+        # Defensive factor
         mtm = self.get_move_target_modifier(load)
         # Stealth armor adds to to-hit
         if self.armor.atype == "Stealth Armor":
