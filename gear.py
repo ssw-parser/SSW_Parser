@@ -585,6 +585,7 @@ class Gear:
         self.tcw_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
+        self.exp_weapon = {}
         self.case = {}
 
         # Count gear
@@ -610,6 +611,11 @@ class Gear:
                     # Apollo
                     if (self.ap == "TRUE" and w.enhance == "P"):
                         self.w_weight += 1
+                    # Add explosive weapon to location
+                    if w.explosive > 0:
+                        expl = self.exp_weapon.get(name[2], 0)
+                        expl += w.explosive
+                        self.exp_weapon[name[2]] = expl
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
@@ -695,6 +701,11 @@ class Gear:
                     # Apollo
                     if (self.ap == "TRUE" and w.enhance == "P"):
                         self.w_weight += 1
+                    # Add explosive weapon to location
+                    if w.explosive > 0:
+                        expl = self.exp_weapon.get(name[2], 0)
+                        expl += w.explosive
+                        self.exp_weapon[name[2]] = expl
             # Not found
             if (id == 0):
                 print "Unidentified:", name
