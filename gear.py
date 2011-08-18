@@ -431,6 +431,7 @@ class Weapon:
         self.heat = ginfo[7]
         self.count = 0
         self.countrear = 0
+        self.countarm = 0 # We count arm weapons also, to help with BV calcs
         self.ammocount = 0
         self.ammo_ton = 0
 
@@ -439,6 +440,9 @@ class Weapon:
 
     def addone_rear(self):
         self.countrear = self.countrear + 1
+
+    def addone_arm(self):
+        self.countarm = self.countarm + 1
 
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works
@@ -589,6 +593,9 @@ class Gear:
             for w in self.weaponlist.list:
                 if name[0] == w.name:
                     w.addone()
+                    # Arm weapons
+                    if name[2] == "RA" or name[2] == "LA":
+                        w.addone_arm()
                     self.w_weight += w.weight
                     if w.enhance == "T":
                         self.tcw_weight += w.weight
@@ -810,6 +817,24 @@ class Gear:
                         neg_BV -= 15.0 * self.exp_ammo[i]
 
         return neg_BV
+
+    def check_weapon_BV_flip(self):
+        BV_front = 0.0
+        BV_rear = 0.0
+        # Weapons
+        for w in self.weaponlist.list:
+            if (w.count - w.countarm) > 0:
+                BV_front += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap)
+
+            if w.countrear > 0:
+                BV_rear += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap)
+ 
+        if (BV_rear > BV_front):
+            return True
+        else:
+            return False
+        
+
 
 # TODO:
 # - tarcomp year, artemis year, and other years

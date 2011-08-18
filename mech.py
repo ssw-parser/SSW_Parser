@@ -325,12 +325,19 @@ class Mech:
         if (printq):
             print "Heat Efficiency", heat_eff
 
+        # Check for weapon BV flip
+        flip = load.gear.check_weapon_BV_flip()
+
         w_list = []
         # Weapons
         for w in load.gear.weaponlist.list:
             if w.count > 0:
                 i = w.count
-                BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo)
+                if (flip and (i - w.countarm > 0)):
+                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo) / 2.0
+                else:
+                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo)
+
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
@@ -338,7 +345,10 @@ class Mech:
             # Rear-facing weapons counts as half
             if w.countrear > 0:
                 i = w.countrear
-                BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo) / 2.0
+                if (flip):
+                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo)
+                else:
+                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo) / 2.0
                 while (i):
                     w_list.append((BV, w.heat, w.name))
                     i -= 1
