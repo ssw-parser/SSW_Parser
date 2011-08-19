@@ -36,7 +36,11 @@ for i in file_list:
     name_str = mech.name + " " + mech.model
     move = mech.get_move_string()
     armor = mech.armor.get_armor_percent()
-    BV = mech.get_BV(mech.load)
     percent = mech.weight_summary(True)
+    if mech.omni == "TRUE":
+        for i in mech.loads:
+            BV = mech.get_BV(i)
+    else:
+        BV = mech.get_BV(mech.load)
 #    print ("%-26s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
     print ("%-26s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))

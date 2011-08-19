@@ -16,12 +16,13 @@ def gettext(nodes):
 # An omni loadout
 
 class Loadout:
-    def __init__(self, weight, a4, a5, ap, name):
+    def __init__(self, weight, a4, a5, ap, name, BV):
         self.weight = weight # Save weight just in case
         self.artemis4 = a4
         self.artemis5 = a5
         self.apollo = ap
         self.name = name
+        self.BV = BV
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
@@ -260,7 +261,7 @@ class Mech:
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
             # Construct current loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "BASE")
+            self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV)
             self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
@@ -273,16 +274,16 @@ class Mech:
                 ap = lo.attributes["fcsapollo"].value
                 name = lo.attributes["name"].value
 
+                # Get BV.
+                for battv in lo.getElementsByTagName('battle_value'):
+                    BV = int(gettext(battv.childNodes))
+
                 # Construct current loadout
-                current = Loadout(self.weight, a4, a5, ap, name)
+                current = Loadout(self.weight, a4, a5, ap, name, BV)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
                 current.jj = self.load.jj
-
-                # Get BV.
-                for battv in lo.getElementsByTagName('battle_value'):
-                    current.BV = int(gettext(battv.childNodes))
 
                 # Get jumpjets
                 for jj in lo.getElementsByTagName('jumpjets'):
@@ -424,7 +425,7 @@ class Mech:
 
     # Get offensive BV
     def off_BV(self, load, printq):
-        oBV = self.load.off_BV(printq)
+        oBV = load.off_BV(printq)
 
         # Tonnage (physical)
         if (self.engine.enhancement == "TSM"):
@@ -456,9 +457,9 @@ class Mech:
 
     def get_BV(self, load):
         BV = round(self.off_BV(load, False) + self.def_BV(load, False))
-        if BV != self.BV:
-            print self.name, self.model, BV, self.BV
-        assert BV == self.BV, "Error in BV calculation!"
+        if BV != load.BV:
+            print self.name, self.model, load.name, BV, load.BV
+        assert BV == load.BV, "Error in BV calculation!"
         return BV
 
     def weight_summary(self, short):
