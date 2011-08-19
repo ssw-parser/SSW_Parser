@@ -200,7 +200,7 @@ def parse_omni(mech, date):
                 d = get_comp_year(i.jj.get_year, d)
                 print "Jump: ", i.jj.get_jump(), i.jj.jjtype
             if (i.heatsinks.nr):
-                d = get_comp_year(mech.heatsinks.get_year, d)
+                d = get_comp_year(i.heatsinks.get_year, d)
                 print i.heatsinks.nr, i.heatsinks.type
             d = parse_artemis(mech, d)
             if i.artemis4 == "TRUE":
