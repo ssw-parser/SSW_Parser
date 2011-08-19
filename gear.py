@@ -31,16 +31,16 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(IS) Light AC/2", [30, 4], "L", "T", 3068, 1, 4, 1, 0],
            ["(IS) Light AC/5", [62, 8], "M", "T", 3068, 1, 5, 1, 0],
            ["(IS) Light Machine Gun", [5, 1], "M", "", 3068, 1, 0.5, 0, 0],
-           ["(IS) MG Array (2 Light Machine Gun)", [6.7, 1], "M", "", 3068, 2, 1.5, 0, 0],
-           ["(IS) MG Array (3 Light Machine Gun)", [10.05, 1], "M", "", 3068, 3, 2, 0, 0],
-           ["(IS) MG Array (4 Light Machine Gun)", [13.4, 1], "M", "", 3068, 4, 2.5, 0, 0],
+           ["(IS) MG Array (2 Light Machine Gun)", [16.7, 1], "M", "", 3068, 2, 1.5, 0, 0],
+           ["(IS) MG Array (3 Light Machine Gun)", [25.05, 1], "M", "", 3068, 3, 2, 0, 0],
+           ["(IS) MG Array (4 Light Machine Gun)", [33.4, 1], "M", "", 3068, 4, 2.5, 0, 0],
            ["(IS) Machine Gun", [5, 1], "S", "", 1900, 1, 0.5, 0, 0],
            # MG 2
            # MG 3
-           ["(IS) MG Array (4 Machine Gun)", [13.4, 1], "S", "", 3068, 4, 2.5, 0, 0],
+           ["(IS) MG Array (4 Machine Gun)", [33.4, 1], "S", "", 3068, 4, 2.5, 0, 0],
            # HMG
            # HMG 2
-           ["(IS) MG Array (3 Heavy Machine Gun)", [12.06, 1], "S", "", 3068, 3, 3.5, 0, 0],
+           ["(IS) MG Array (3 Heavy Machine Gun)", [30.06, 1], "S", "", 3068, 3, 3.5, 0, 0],
            # HMG 4
            # Nail/rivet
            ["(IS) Rotary AC/2", [118, 15], "L", "T", 3062, 6, 8, 6, 0],
@@ -117,16 +117,16 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(CL) Hyper Assault Gauss 40", [535, 67], "L", "T", 3069, 1, 16, 8, 10],
            ["(CL) Light Machine Gun", [5, 1], "M", "", 3060, 1, 0.25, 0, 0],
            # LMG 2
-           ["(CL) MG Array (3 Light Machine Gun)", [10.05, 1], "M", "", 3069, 3, 1, 0, 0],
+           ["(CL) MG Array (3 Light Machine Gun)", [25.05, 1], "M", "", 3069, 3, 1, 0, 0],
            # LMG 4
            ["(CL) Machine Gun", [5, 1], "S", "", 1900, 1, 0.25, 0, 0],
            # MG 2
            # MG 3
-           ["(CL) MG Array (4 Machine Gun)", [13.4, 1], "S", "", 3069, 4, 1.25, 0, 0],
+           ["(CL) MG Array (4 Machine Gun)", [33.4, 1], "S", "", 3069, 4, 1.25, 0, 0],
            ["(CL) Heavy Machine Gun", [6, 1], "S", "", 3059, 1, 0.5, 0, 0],
            # HMG 2
-           ["(CL) MG Array (3 Heavy Machine Gun)", [12.06, 1], "S", "", 3069, 3, 1.75, 0, 0],
-           ["(CL) MG Array (4 Heavy Machine Gun)", [16.08, 1], "S", "", 3069, 4, 2.25, 0, 0],
+           ["(CL) MG Array (3 Heavy Machine Gun)", [30.06, 1], "S", "", 3069, 3, 1.75, 0, 0],
+           ["(CL) MG Array (4 Heavy Machine Gun)", [40.08, 1], "S", "", 3069, 4, 2.25, 0, 0],
            ["(CL) Flamer", [6, 0], "S", "", 2025, 0, 0.5, 3, 0],
            # Flamer (Vehicle)
            ["(CL) ER Micro Laser", [7, 0], "M", "T", 3060, 0, 0.25, 1, 0],
