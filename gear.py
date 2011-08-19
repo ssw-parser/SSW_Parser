@@ -382,7 +382,9 @@ physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(
             ["Sword", 3058, 1.725, (lambda x : ceil(x / 10.0) + 1), (lambda x : ceil_05(x / 20.0))],
             ["Claws", 3060, 1.275, (lambda x : ceil(x / 7.0)), (lambda x : ceil(x / 15.0))],
             ["Mace", 3061, 1.0, (lambda x : ceil(x / 4.0)), (lambda x : ceil(x / 10.0))],
-            ["Talons", 3072, 1.0, (lambda x : ceil((x / 5.0) * 1.5)), (lambda x : ceil(x / 15.0))]]
+            # Hack: Divide Talons BV multiplier by 2, because it is one item
+            # being split up into two
+            ["Talons", 3072, 1.0, (lambda x : ceil(x / 5.0) / 2.0), (lambda x : ceil(x / 15.0))]]
 
 class Heatsinks:
     def __init__(self, hstype, tb, nr):
