@@ -613,9 +613,16 @@ class Gear:
                         self.w_weight += 1
                     # Add explosive weapon to location
                     if w.explosive > 0:
-                        expl = self.exp_weapon.get(name[2], 0)
-                        expl += w.explosive
-                        self.exp_weapon[name[2]] = expl
+                        # Split weapons
+                        if type(name[2]).__name__ == 'list':
+                            for i in name[2]:
+                                expl = self.exp_weapon.get(i[0], 0)
+                                expl += i[1]
+                                self.exp_weapon[i[0]] = expl
+                        else:
+                            expl = self.exp_weapon.get(name[2], 0)
+                            expl += w.explosive
+                            self.exp_weapon[name[2]] = expl
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
@@ -891,10 +898,10 @@ class Gear:
         # Weapons
         for w in self.weaponlist.list:
             if (w.count - w.countarm) > 0:
-                BV_front += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap)
+                BV_front += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * (w.count - w.countarm)
 
             if w.countrear > 0:
-                BV_rear += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap)
+                BV_rear += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * w.countrear
  
         if (BV_rear > BV_front):
             return True
@@ -908,4 +915,3 @@ class Gear:
 # - rest of ammo
 # - Coolant pod heat effect, coolant pod explosive effect
 # - Integrate fire control systems better (a4, a5, ap, tarcomp)
-# - Adjust streak and OS heat, see TM page 303

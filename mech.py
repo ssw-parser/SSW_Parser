@@ -154,8 +154,19 @@ class Mech:
                     name = gettext(nnode.childNodes)
                     tnode = node.getElementsByTagName("type")[0]
                     typ = gettext(tnode.childNodes)
-                    lnode = node.getElementsByTagName("location")[0]
-                    loc = gettext(lnode.childNodes)
+                    l = node.getElementsByTagName("location")
+                    # Normal case, no split
+                    if (l):
+                        lnode = l[0]
+                        loc = gettext(lnode.childNodes)
+                    # Split location
+                    else:
+                        loc = []
+                        l = node.getElementsByTagName("splitlocation")
+                        for lnode in l:
+                            lnr = int(lnode.attributes["number"].value)
+                            loc_temp = gettext(lnode.childNodes)
+                            loc.append((loc_temp, lnr))
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
                         equiprear.append((name[4:],typ,loc))
