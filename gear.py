@@ -325,33 +325,33 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
 
 # Equipment, spilt into offensive, and defensive
 #
-# Name, BV, year, uses ammo rate, weight
+# Name, BV, year, uses ammo rate, weight, explosive slots
 #
-o_equipment = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1],
-               ["C3 Computer (Master)", [0, 0], 3050, 0, 5],
-               ["Improved C3 Computer", [0, 0], 3062, 0, 2.5],
-               ["TAG", [0, 0], 2600, 0, 1],
-               ["Light TAG", [0, 0], 3054, 0, 0.5],
+o_equipment = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1, 0],
+               ["C3 Computer (Master)", [0, 0], 3050, 0, 5, 0],
+               ["Improved C3 Computer", [0, 0], 3062, 0, 2.5, 0],
+               ["TAG", [0, 0], 2600, 0, 1, 0],
+               ["Light TAG", [0, 0], 3054, 0, 0.5, 0],
                # Experimental
-               ["Collapsible Command Module (CCM)", [0, 0], 2710, 0, 16],
-               ["Coolant Pod", [0, 0], 3049, 0, 1]]
+               ["Collapsible Command Module (CCM)", [0, 0], 2710, 0, 16, 0],
+               ["Coolant Pod", [0, 0], 3049, 0, 1, 1]]
 
 
-d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5],
-               ["B-Pod", [2, 0], 3069, 0, 1],
-               ["(IS) Anti-Missile System", [32, 11], 2617, 1, 0.5],
-               ["Guardian ECM Suite", [61, 0], 2597, 0, 1.5],
-               ["Beagle Active Probe", [10, 0], 2576, 0, 1.5],
-               ["ECM Suite", [61, 0], 2597, 0, 1], # Clan
-               ["Active Probe", [12, 0], 2576, 0, 1], # Clan
-               ["Light Active Probe", [7, 0], 2576, 0, 0.5], # No year found
-               ["(CL) Anti-Missile System", [32, 22], 2617, 1, 0.5],
-               ["CASE", [0, 0], 2476, 0, 0.5], # HACK: CASE
+d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
+               ["B-Pod", [2, 0], 3069, 0, 1, 0],
+               ["(IS) Anti-Missile System", [32, 11], 2617, 1, 0.5, 0],
+               ["Guardian ECM Suite", [61, 0], 2597, 0, 1.5, 0],
+               ["Beagle Active Probe", [10, 0], 2576, 0, 1.5, 0],
+               ["ECM Suite", [61, 0], 2597, 0, 1, 0], # Clan
+               ["Active Probe", [12, 0], 2576, 0, 1, 0], # Clan
+               ["Light Active Probe", [7, 0], 2576, 0, 0.5, 0], # No year found
+               ["(CL) Anti-Missile System", [32, 22], 2617, 1, 0.5, 0],
+               ["CASE", [0, 0], 2476, 0, 0.5, 0], # HACK: CASE
                # Experimental
-               ["Angel ECM", [100, 0], 3057, 0, 2],
-               ["Bloodhound Active Probe", [25, 0], 3058, 0, 2],
-               ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5],
-               ["(CL) CASE II", [0, 0], 3062, 0, 0.5]]
+               ["Angel ECM", [100, 0], 3057, 0, 2, 0],
+               ["Bloodhound Active Probe", [25, 0], 3058, 0, 2, 0],
+               ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5, 0],
+               ["(CL) CASE II", [0, 0], 3062, 0, 0.5, 0]]
 
 # Targeting computers, currently not used
 #
@@ -519,6 +519,7 @@ class Equipment:
         self.year = ginfo[2]
         self.useammo = ginfo[3]
         self.weight = ginfo[4]
+        self.explosive = ginfo[5]
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
@@ -587,6 +588,8 @@ class Gear:
         self.exp_ammo = {}
         self.exp_weapon = {}
         self.case = {}
+        # Track coolant pods
+        self.coolant = 0
 
         # Count gear
         for name in self.equip:
@@ -632,6 +635,14 @@ class Gear:
                     e.addone()
                     self.o_weight += e.weight
                     id = 1
+                    # Hack, coolant pods
+                    if name[0] == "Coolant Pod":
+                        self.coolant += 1
+                    # Add explosive weapon to location
+                    if e.explosive > 0:
+                        expl = self.exp_weapon.get(name[2], 0)
+                        expl += e.explosive
+                        self.exp_weapon[name[2]] = expl
 
             # Hack, handle targeting computer
             if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
@@ -641,6 +652,7 @@ class Gear:
                 self.tarcomp = 2
                 id = 1
 
+
             # Handle non-weapon equipment
             # HACK: Handle CASE
             for e in self.d_equiplist.list:
@@ -649,6 +661,11 @@ class Gear:
                     e.addone()
                     self.d_weight += e.weight
                     id = 1
+                    # Add explosive weapon to location
+                    if e.explosive > 0:
+                        expl = self.exp_weapon.get(name[2], 0)
+                        expl += e.explosive
+                        self.exp_weapon[name[2]] = expl
                 # CASE
                 if (name[0] == e.name and 
                     (name[1] == 'CASE' or name[1] == 'CASEII')):

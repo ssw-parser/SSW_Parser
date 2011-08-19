@@ -28,6 +28,15 @@ class Loadout:
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
 
+    # Get heatsinking capability
+    def get_sink(self):
+        sink = self.heatsinks.get_sink()
+        if self.gear.coolant > 0:
+            cool = ceil(self.heatsinks.nr * (float(self.gear.coolant) / 5.0))
+            if cool > (self.heatsinks.nr * 2):
+                cool = self.heatsinks.nr * 2
+            sink += cool
+        return sink
 
     # Get offensive weapon and ammo BV
     def off_BV(self, printq):
@@ -37,7 +46,7 @@ class Loadout:
         ammo_BV = 0.0
 
         move_heat = max(2, self.jj.get_heat())
-        heat_eff = 6 + self.heatsinks.get_sink() - move_heat
+        heat_eff = 6 + self.get_sink() - move_heat
         if (printq):
             print "Heat Efficiency", heat_eff
 
@@ -458,7 +467,7 @@ class Mech:
         return oBV
 
     def get_BV(self, load):
-        BV = round(self.off_BV(load, False) + self.def_BV(load, False))
+        BV = int(round(self.off_BV(load, False) + self.def_BV(load, False)))
         if BV != load.BV:
             print self.name, self.model, load.name, BV, load.BV
         assert BV == load.BV, "Error in BV calculation!"

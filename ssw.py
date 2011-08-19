@@ -149,13 +149,13 @@ def parse_gear(mech, date):
         print "Explosive: ", i, mech.gear.exp_ammo[i]
 
     # Check heat
-    hbal = lheat - mech.heatsinks.get_sink()
+    hbal = lheat - mech.get_sink()
     if (hbal > 4):
         st1 = "WARNING: Long range weapons overheats a lot!"
         st2 = "  Overheat: " + str(hbal)
         warnings.add((st1, st2))
         print_warning((st1, st2))
-    hbal = mheat - mech.heatsinks.get_sink()
+    hbal = mheat - mech.get_sink()
     if (hbal > 4):
         st1 = "WARNING: Medium range weapons overheats a lot!"
         st2 = "  Overheat: " + str(hbal)
