@@ -301,8 +301,8 @@ class Mech:
                     current.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
                     
                 # Get equipment
-                equip = []
-                equiprear = []
+                equip_l = list(equip)
+                equiprear_l = list(equiprear)
 
                 for node in lo.getElementsByTagName('equipment'):
                     nnode = node.getElementsByTagName("name")[0]
@@ -324,12 +324,12 @@ class Mech:
                             loc.append((loc_temp, lnr))
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
-                        equiprear.append((name[4:],typ,loc))
+                        equiprear_l.append((name[4:],typ,loc))
                     else:
                         # Save in a tuple with name and type
-                        equip.append((name,typ,loc))
+                        equip_l.append((name,typ,loc))
 
-                current.gear = Gear(self.weight, a4, a5, ap, equip, equiprear)
+                current.gear = Gear(self.weight, a4, a5, ap, equip_l, equiprear_l)
 
 
                 self.loads.append(current)

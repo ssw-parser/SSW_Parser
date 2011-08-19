@@ -195,7 +195,7 @@ def parse_omni(mech, date):
             d = date
             print "-----------------"
             print "Config: ", i.name
-            print "BV: ", i.BV
+            print "BV: ", mech.get_BV(i)
             if (i.jj.get_jump()):
                 d = get_comp_year(i.jj.get_year, d)
                 print "Jump: ", i.jj.get_jump(), i.jj.jjtype
