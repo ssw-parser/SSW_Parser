@@ -27,6 +27,89 @@ class Loadout:
         self.jj = JumpJets(weight, 0, "")
 
 
+    # Get offensive weapon and ammo BV
+    def off_BV(self, printq):
+        oBV = 0.0
+        BWBR = 0.0
+        heat = 0
+        ammo_BV = 0.0
+
+        move_heat = max(2, self.jj.get_heat())
+        heat_eff = 6 + self.heatsinks.get_sink() - move_heat
+        if (printq):
+            print "Heat Efficiency", heat_eff
+
+        # Check for weapon BV flip
+        flip = self.gear.check_weapon_BV_flip()
+
+        w_list = []
+        # Weapons
+        for w in self.gear.weaponlist.list:
+            if w.count > 0:
+                i = w.count
+                if (flip and (i - w.countarm > 0)):
+                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
+                else:
+                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
+
+                while (i):
+                    w_list.append((BV, w.heat, w.name))
+                    i -= 1
+
+            # Rear-facing weapons counts as half
+            if w.countrear > 0:
+                i = w.countrear
+                if (flip):
+                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
+                else:
+                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
+                while (i):
+                    w_list.append((BV, w.heat, w.name))
+                    i -= 1
+
+            # Count possible Ammo BV
+            ammo_BV += w.get_ammo_BV()
+
+        # Physical weapons
+        for w in self.gear.physicallist.list:
+            if w.count > 0:
+                i = w.count
+                BV = w.get_BV(self.weight)
+                while (i):
+                    w_list.append((BV, 0, w.name))
+                    i -= 1
+
+        # Sort list, from largest BV to smallest
+        w_list.sort()
+        w_list.reverse()
+
+        # Calculate weapon BV
+        over = 0
+        for i in w_list:
+            if (over > 0 and i[1] > 0):
+                BWBR += i[0] / 2.0
+                heat += i[1]
+            else:
+                BWBR += i[0]
+                heat += i[1]
+            # We have to much heat, halve future weapon BV
+            if heat >= heat_eff:
+                over = 1
+            if (printq):
+                print i
+        if (printq):
+            print "BWBR", BWBR
+        oBV = BWBR
+
+        # Ammo & TODO: other non-heat gear
+        oBV += ammo_BV
+        if (printq):
+            print "Ammo BV: ", ammo_BV
+
+        return oBV
+
+
+
 # A mech class with data read from SSW xml data for use in various
 # applications.
 
@@ -330,82 +413,7 @@ class Mech:
 
     # Get offensive BV
     def off_BV(self, load, printq):
-        oBV = 0.0
-        BWBR = 0.0
-        heat = 0
-        ammo_BV = 0.0
-
-        move_heat = max(2, load.jj.get_heat())
-        heat_eff = 6 + load.heatsinks.get_sink() - move_heat
-        if (printq):
-            print "Heat Efficiency", heat_eff
-
-        # Check for weapon BV flip
-        flip = load.gear.check_weapon_BV_flip()
-
-        w_list = []
-        # Weapons
-        for w in load.gear.weaponlist.list:
-            if w.count > 0:
-                i = w.count
-                if (flip and (i - w.countarm > 0)):
-                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo) / 2.0
-                else:
-                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo)
-
-                while (i):
-                    w_list.append((BV, w.heat, w.name))
-                    i -= 1
-
-            # Rear-facing weapons counts as half
-            if w.countrear > 0:
-                i = w.countrear
-                if (flip):
-                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo)
-                else:
-                    BV = w.get_BV(load.gear.tarcomp, load.artemis4, load.artemis5, load.apollo) / 2.0
-                while (i):
-                    w_list.append((BV, w.heat, w.name))
-                    i -= 1
-
-            # Count possible Ammo BV
-            ammo_BV += w.get_ammo_BV()
-
-        # Physical weapons
-        for w in load.gear.physicallist.list:
-            if w.count > 0:
-                i = w.count
-                BV = w.get_BV(self.weight)
-                while (i):
-                    w_list.append((BV, 0, w.name))
-                    i -= 1
-
-        # Sort list, from largest BV to smallest
-        w_list.sort()
-        w_list.reverse()
-
-        # Calculate weapon BV
-        over = 0
-        for i in w_list:
-            if (over > 0 and i[1] > 0):
-                BWBR += i[0] / 2.0
-                heat += i[1]
-            else:
-                BWBR += i[0]
-                heat += i[1]
-            # We have to much heat, halve future weapon BV
-            if heat >= heat_eff:
-                over = 1
-            if (printq):
-                print i
-        if (printq):
-            print "BWBR", BWBR
-        oBV = BWBR
-
-        # Ammo & TODO: other non-heat gear
-        oBV += ammo_BV
-        if (printq):
-            print "Ammo BV: ", ammo_BV
+        oBV = self.load.off_BV(printq)
 
         # Tonnage (physical)
         if (self.engine.enhancement == "TSM"):
