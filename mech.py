@@ -2,6 +2,7 @@
 
 from xml.dom import minidom
 from math import ceil, pow
+from operator import itemgetter
 from error import *
 from defensive import *
 from movement import *
@@ -80,9 +81,10 @@ class Loadout:
                     w_list.append((BV, 0, w.name))
                     i -= 1
 
-        # Sort list, from largest BV to smallest
-        w_list.sort()
-        w_list.reverse()
+        # Sort list, from largest BV to smallest,
+        # and from lowest heat to highest
+        w_list.sort(key=itemgetter(1)) # secondary by heat
+        w_list.sort(key=itemgetter(0), reverse=True) # primary by BV
 
         # Calculate weapon BV
         over = 0
