@@ -98,6 +98,7 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(IS) Large Variable Speed Pulse Laser", [123, 0], "M", "T", 3070, 0, 9, 10, 0],
            ["(IS) Large X-Pulse Laser", [178, 0], "M", "T", 3057, 0, 7, 14, 0],
            ["(IS) Bombast Laser", [137, 0], "M", "T", 3064, 0, 7, 12, 0],
+           ["(IS) Thunderbolt-5", [64, 8], "L", "", 3072, 1, 3, 3, 0],
            ["(IS) Thunderbolt-15", [229, 29], "L", "", 3072, 1, 11, 7, 0],
            ["(IS) Enhanced LRM-5", [52, 7], "L", "A", 3058, 1, 3, 2, 0],
            ["ER Flamer", [16, 0], "M", "", 3067, 0, 1, 4, 0],
@@ -267,6 +268,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
         ["(IS) @ Anti-Missile System", ["(IS) Anti-Missile System"], 12, 1, "X"],
         # Advanced
         ["(IS) @ Magshot Gauss Rifle", ["(IS) Magshot Gauss Rifle"], 50, 1, ""],
+        ["(IS) @ Thunderbolt-5", ["(IS) Thunderbolt-5"], 12, 1, "X"],
         ["(IS) @ Thunderbolt-15", ["(IS) Thunderbolt-15"], 4, 1, "X"],
         ["(IS) @ NLRM-5", ["(IS) Enhanced LRM-5"], 24, 1, "X"],
         # Clan
@@ -353,6 +355,8 @@ d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
                ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5, 0],
                ["(CL) CASE II", [0, 0], 3062, 0, 0.5, 0]]
 
+d_physical = [["Small Shield", [50, 0], 3067, 0, 2, 0]]
+
 # Targeting computers, currently not used
 #
 # TODO: fix this
@@ -380,11 +384,13 @@ missile_ench = [["Artemis IV", 2598],
 #
 physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(x / 15.0))],
             ["Sword", 3058, 1.725, (lambda x : ceil(x / 10.0) + 1), (lambda x : ceil_05(x / 20.0))],
+            ["Retractable Blade", 2420, 1.725, (lambda x : ceil(x / 10.0)), (lambda x : ceil_05(x / 2.0) + 0.5)], 
             ["Claws", 3060, 1.275, (lambda x : ceil(x / 7.0)), (lambda x : ceil(x / 15.0))],
             ["Mace", 3061, 1.0, (lambda x : ceil(x / 4.0)), (lambda x : ceil(x / 10.0))],
             # Hack: Divide Talons BV multiplier by 2, because it is one item
             # being split up into two
             ["Talons", 3072, 1.0, (lambda x : ceil(x / 5.0) / 2.0), (lambda x : ceil(x / 15.0))]]
+
 
 class Heatsinks:
     def __init__(self, hstype, tb, nr):
@@ -542,6 +548,13 @@ class Physicallist:
             self.list.append(Physical(p))
         self.name = "physcial"
 
+class D_Physicallist:
+    def __init__(self):
+        self.list = []
+        for p in d_physical:
+            self.list.append(Equipment(p))
+        self.name = "physcial"
+
 class Physical:
     def __init__(self, pinfo):
         self.name = pinfo[0]
@@ -573,6 +586,7 @@ class Gear:
         self.o_equiplist = O_Equiplist()
         self.d_equiplist = D_Equiplist()
         self.physicallist = Physicallist()
+        self.d_physicallist = D_Physicallist()
         self.ammolist = Ammolist()
         # Keep track of tarcomp
         self.tarcomp = 0
@@ -687,6 +701,13 @@ class Gear:
                     self.p_weight += p.weight(float(weight))
                     self.phys = 1
 
+            for p in self.d_physicallist.list:
+                # non-CASE
+                if (name[0] == p.name and name[1] == 'physical'):
+                    p.addone()
+                    self.d_weight += p.weight
+                    id = 1
+
             for a in self.ammolist.list:
                 if (name[0] == a.name and name[1] == 'ammunition'):
                     a.addone()
@@ -799,6 +820,10 @@ class Gear:
                     if BV_ammo > BV_gear:
                         BV_ammo = BV_gear
                     BV += BV_ammo
+        for p in self.d_physicallist.list:
+            if (p.count > 0):
+                BV_gear = p.count * p.BV[0]
+                BV += BV_gear
         return BV
 
     # Return how much BV is reduced by explosive ammo

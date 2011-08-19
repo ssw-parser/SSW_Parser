@@ -467,7 +467,11 @@ class Mech:
         return oBV
 
     def get_BV(self, load):
-        BV = int(round(self.off_BV(load, False) + self.def_BV(load, False)))
+        Base_BV = self.off_BV(load, False) + self.def_BV(load, False)
+        if self.cockpit.type == "Small Cockpit":
+            BV = int(round(Base_BV * 0.95))
+        else:
+            BV = int(round(Base_BV))
         if BV != load.BV:
             print self.name, self.model, load.name, BV, load.BV
         assert BV == load.BV, "Error in BV calculation!"
