@@ -171,7 +171,8 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(CL) Mech Mortar 8", [50, 6], "L", "", 2840, 1, 5, 10, 0],
            # Artillery
            ["(IS) Arrow IV Missile", [240, 30], "L", "", 2600, 1, 15, 10, 0],
-           ["(CL) Arrow IV Missile", [240, 30], "L", "", 2600, 1, 12, 10, 0]]
+           ["(CL) Arrow IV Missile", [240, 30], "L", "", 2600, 1, 12, 10, 0],
+           ["(IS) Sniper", [85, 11], "L", "", 1900, 1, 20, 10, 0]]
 
 
 # Ammo
@@ -241,6 +242,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
         ["(IS) @ LRM-10 (Artemis IV Capable)", ["(IS) LRM-10"], 12, 1, "X"],
         ["(IS) @ LRM-15 (Artemis IV Capable)", ["(IS) LRM-15"], 8, 1, "X"],
         ["(IS) @ LRM-20 (Artemis IV Capable)", ["(IS) LRM-20"], 6, 1, "X"],
+        ["(IS) @ LRM-15 (Narc Capable)", ["(IS) LRM-15"], 8, 1, "X"],
         ["(IS) @ MML-3 (LRM)", ["(IS) MML-3"], 40, 1, "X"],
         ["(IS) @ MML-3 (SRM)", ["(IS) MML-3"], 33, 1, "X"],
         ["(IS) @ MML-5 (LRM)", ["(IS) MML-5"], 24, 1, "X"],
@@ -328,7 +330,8 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", ["(IS) Arrow IV Missile"], 5, 1, "X"],
         ["(IS) @ Arrow IV (Homing)", ["(IS) Arrow IV Missile"], 5, 1, "X"],
-        ["(CL) @ Arrow IV (Homing)", ["(CL) Arrow IV Missile"], 5, 1, "X"]]
+        ["(CL) @ Arrow IV (Homing)", ["(CL) Arrow IV Missile"], 5, 1, "X"],
+        ["@ Sniper", ["(IS) Sniper"], 10, 1, "X"]]
 
 # Equipment, spilt into offensive, and defensive
 #
