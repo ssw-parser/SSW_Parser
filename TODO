@@ -1,0 +1,27 @@
+
+Goals:
+
+ssw.py:
+- Additional checking:
+-- torso bombs
+-- OS launchers
+-- ranged weapon heat
+-- melee weapon without TSM
+-- omni fixed heat sinks
+-- good armor 1.1-1.25xIS
+
+summary.py:
+- Separate out omni-loadouts in summary.py
+- List special equipment:
+-- TAG
+-- Narc
+-- C3
+-- ECM
+-- Stealth
+-- Artillery
+-- Command Console
+
+Non-working equipment (bugs):
+- Supercharger
+- Explosive weapons split between CASE and non-CASE
+- Null-sig, Chameleon LPS
