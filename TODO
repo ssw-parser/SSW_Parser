@@ -1,6 +1,6 @@
 
 Goals:
-
+- Mech lists for Klondike, Solaris, 3085*3
 - Track TL, Advanced and Experimental
 - Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
 
@@ -22,5 +22,4 @@ summary.py:
 -- Command Console
 
 Non-working equipment (bugs):
-- Supercharger
-- Explosive weapons split between CASE and non-CASE
+- Supercharger (3075 Medium IS)

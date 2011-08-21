@@ -57,7 +57,7 @@ def print_BV_list(file_list):
     # Print output
     print "Name                       BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # TAG_list output
@@ -96,7 +96,7 @@ def print_TAG_list(file_list):
     print "Mechs with TAG:"
     print "Name                       BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # C3_list output
@@ -135,7 +135,7 @@ def print_C3_list(file_list):
     print "Mechs with C3 Slave:"
     print "Name                       BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # C3 Master list output
@@ -174,7 +174,7 @@ def print_C3M_list(file_list):
     print "Mechs with C3 Master:"
     print "Name                       BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # C3i_list output
@@ -213,7 +213,7 @@ def print_C3i_list(file_list):
     print "Mechs with C3i:"
     print "Name                       BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # Narc_list output
@@ -252,7 +252,7 @@ def print_Narc_list(file_list):
     print "Mechs with Narc:"
     print "Name                       BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # Default output format, in flux
@@ -271,11 +271,11 @@ def print_default(file_list):
             for i in mech.loads:
                 BV = mech.get_BV(i)
                 name_str2 = name_str + i.name
-                print ("%-26s %3s %-11s %4s %4s" % (name_str2, mech.weight, move, armor, BV))
+                print ("%-28s %3s %-11s %4s %4s" % (name_str2, mech.weight, move, armor, BV))
         else:
             BV = mech.get_BV(mech.load)
-            print ("%-26s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
-#        print ("%-26s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))
+            print ("%-28s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
+#        print ("%-28s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))
 
 
 ####################################

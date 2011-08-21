@@ -651,12 +651,32 @@ class Gear:
                         self.has_narc = True
                     # Add explosive weapon to location
                     if w.explosive > 0:
-                        # Split weapons
+                        # Split weapons, assign to innermost
                         if type(name[2]).__name__ == 'list':
+                            j = ""
+                            loc = ""
                             for i in name[2]:
-                                expl = self.exp_weapon.get(i[0], 0)
-                                expl += i[1]
-                                self.exp_weapon[i[0]] = expl
+                                # First part
+                                if (j == ""):
+                                    j = i[0]
+                                    continue
+                                elif (i[0] == "CT" and (j == "RT" or j == "LT")):
+                                    loc = "CT"
+                                elif (j == "CT" and (i[0] == "RT" or i[0] == "LT")):
+                                    loc = "CT"
+                                    print i[0], j
+                                elif (i[0] == "RA" and j == "RT"):
+                                    loc = "RT"
+                                elif (j == "RA" and i[0] == "RT"):
+                                    loc = "RT"
+                                elif (i[0] == "LA" and j == "LT"):
+                                    loc = "LT"
+                                elif (j == "LA" and i[0] == "LT"):
+                                    loc = "LT"
+                            assert loc, "Split weapon location failed!"
+                            expl = self.exp_weapon.get(loc, 0)
+                            expl += w.explosive
+                            self.exp_weapon[loc] = expl
                         else:
                             expl = self.exp_weapon.get(name[2], 0)
                             expl += w.explosive
