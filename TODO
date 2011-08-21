@@ -15,7 +15,6 @@ ssw.py:
 summary.py:
 - Handle command-line switches
 - List special equipment:
--- Narc
 -- ECM
 -- Stealth
 -- Artillery
