@@ -134,6 +134,7 @@ class Mech:
         jjtype = ""
         enhancement = "---"
         etb = 2
+        self.multi = []
  
         # Get top-level stucture data
         for mmech in xmldoc.getElementsByTagName('mech'):
@@ -239,6 +240,11 @@ class Mech:
                     hsbase = hs.attributes["techbase"].value
                     hnode = hs.getElementsByTagName("type")[0]
                     hstype = gettext(hnode.childNodes)
+
+                # Get multi-slot stuff
+                for mlts in blo.getElementsByTagName('multislot'):
+                    slot = mlts.attributes["name"].value
+                    self.multi.append(slot)
 
                 # Get equipment
                 equip = []
@@ -421,6 +427,12 @@ class Mech:
         # Stealth armor adds to to-hit
         if self.armor.atype == "Stealth Armor":
             mtm += 2
+        # Chameleon LPS & Null-sig system
+        for i in self.multi:
+            if i == "Chameleon LPS":
+                mtm += 2
+            elif i == "Null Signature System":
+                mtm += 2
         assert mtm >= 0, "Negative defensive modifier!"
         df = 1.0 + (mtm / 10.0)
         if (printq):

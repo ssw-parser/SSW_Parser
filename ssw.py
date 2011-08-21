@@ -284,7 +284,7 @@ mech.def_BV(mech.load, True)
 print "-------------------------------"
 mech.off_BV(mech.load, True)
 print "-------------------------------"
-print "BV: ", mech.BV
+print "BV: ", mech.get_BV(mech.load)
 print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
 print "==============================="
 

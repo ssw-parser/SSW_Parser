@@ -2,6 +2,7 @@
 Goals:
 
 - Track TL, Advanced and Experimental
+- Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
 
 ssw.py:
 - Additional checking:
@@ -23,4 +24,3 @@ summary.py:
 Non-working equipment (bugs):
 - Supercharger
 - Explosive weapons split between CASE and non-CASE
-- Null-sig, Chameleon LPS
