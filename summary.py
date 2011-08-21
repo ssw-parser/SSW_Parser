@@ -52,6 +52,50 @@ def print_BV_list(file_list):
         print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
+# TAG_list output
+#
+# In the form of name, BV, weight, BV/weight
+# sorted by BV/weight, descending
+#
+def print_TAG_list(file_list):
+    mech_list =[]
+    # Loop over input
+    for i in file_list:
+        # Read file
+        fsock = open(i)
+        xmldoc = minidom.parse(fsock)
+        fsock.close()
+
+        # Get mech
+        mech = Mech(xmldoc)
+
+        # Construct data
+        if mech.omni == "TRUE":
+            for i in mech.loads:
+                name_str = mech.name + " " + mech.model + i.name
+                BV = mech.get_BV(i)
+                weight = mech.weight
+                BV_t = float(BV)/float(weight)
+                if i.gear.has_tag:
+                    mech_list.append((name_str, BV, weight, BV_t))
+        else:
+            name_str = mech.name + " " + mech.model
+            BV = mech.get_BV(mech.load)
+            weight = mech.weight
+            BV_t = float(BV)/float(weight)
+            if mech.load.gear.has_tag:
+                mech_list.append((name_str, BV, weight, BV_t))
+
+    # Sort by BV/ton
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print "Mechs with TAG:"
+    print "Name                       BV   Wgt BV/Wgt"
+    for i in mech_list:
+        print ("%-26s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+
+
 # Default output format, in flux
 def print_default(file_list):
     print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"
@@ -108,6 +152,10 @@ for arg in sys.argv[1:]:
     elif arg == '-b':
         output_type = 'b'
         continue
+    # TAG summary output
+    elif arg == '-t':
+        output_type = 't'
+        continue
     # otherwise read in each argument as a mech file
     else:
         file_list.append(''.join(arg))
@@ -117,6 +165,8 @@ for arg in sys.argv[1:]:
 
 if output_type == 'b':
     print_BV_list(file_list)
+elif output_type == 't':
+    print_TAG_list(file_list)
 else:
     print_default(file_list)
 

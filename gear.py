@@ -617,6 +617,11 @@ class Gear:
         self.case = {}
         # Track coolant pods
         self.coolant = 0
+        self.has_narc = False
+        self.has_tag = False
+        self.has_c3 = False
+        self.has_c3m = False
+        self.has_c3i = False
 
         # Count gear
         for name in self.equip:
@@ -641,6 +646,9 @@ class Gear:
                     # Apollo
                     if (self.ap == "TRUE" and w.enhance == "P"):
                         self.w_weight += 1
+                    # Hack - Narc
+                    if name[0] == "(IS) Narc Missile Beacon" or name[0] == "(IS) iNarc Launcher" or name[0] == "(CL) Narc Missile Beacon":
+                        self.has_narc = True
                     # Add explosive weapon to location
                     if w.explosive > 0:
                         # Split weapons
@@ -665,6 +673,17 @@ class Gear:
                     # Hack, coolant pods
                     if name[0] == "Coolant Pod":
                         self.coolant += 1
+                    # Hack -- C3
+                    elif name[0] == "C3 Computer (Slave)":
+                        self.has_c3 = True
+                    elif name[0] == "C3 Computer (Master)":
+                        self.has_c3m = True
+                        # Master computers can work as TAG
+                        self.has_tag = True
+                    elif name[0] == "Improved C3 Computer":
+                        self.has_c3i = True
+                    elif name [0] == "TAG" or name[0] == "Light TAG":
+                        self.has_tag = True
                     # Add explosive weapon to location
                     if e.explosive > 0:
                         expl = self.exp_weapon.get(name[2], 0)

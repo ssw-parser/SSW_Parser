@@ -15,7 +15,6 @@ ssw.py:
 summary.py:
 - Handle command-line switches
 - List special equipment:
--- TAG
 -- Narc
 -- C3
 -- ECM
