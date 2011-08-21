@@ -1,6 +1,8 @@
 
 Goals:
 
+- Track TL, Advanced and Experimental
+
 ssw.py:
 - Additional checking:
 -- torso bombs
@@ -11,7 +13,7 @@ ssw.py:
 -- good armor 1.1-1.25xIS
 
 summary.py:
-- Separate out omni-loadouts in summary.py
+- Handle command-line switches
 - List special equipment:
 -- TAG
 -- Narc
