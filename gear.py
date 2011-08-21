@@ -622,6 +622,7 @@ class Gear:
         self.has_c3 = False
         self.has_c3m = False
         self.has_c3i = False
+        self.supercharger = False
 
         # Count gear
         for name in self.equip:
@@ -718,6 +719,10 @@ class Gear:
                 self.tarcomp = 2
                 id = 1
 
+            # Hack, supercharger
+            if (name[0] == "Supercharger" and name[1] == "Supercharger"):
+                self.supercharger = True
+                id = 1
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
@@ -1003,9 +1008,3 @@ class Gear:
             return False
         
 
-
-# TODO:
-# - tarcomp year, artemis year, and other years
-# - rest of ammo
-# - Coolant pod heat effect, coolant pod explosive effect
-# - Integrate fire control systems better (a4, a5, ap, tarcomp)

@@ -348,12 +348,31 @@ class Mech:
 
                 current.gear = Gear(self.weight, a4, a5, ap, equip_l, equiprear_l)
 
-
                 self.loads.append(current)
+
+
+    def get_max_run(self):
+        spd = self.engine.speed
+        factor = 1.5
+        if self.engine.enhancement == "TSM":
+            spd += 1
+        elif self.engine.enhancement == "MASC":
+            factor += 0.5
+        if self.load.gear.supercharger:
+            factor += 0.5
+        rspeed = int(ceil(spd * factor))
+#        rspeed = int(ceil(spd * 1.5))
+#        if self.engine.enhancement == "TSM":
+#            rspeed = int(ceil((spd + 1) * 1.5))
+#        elif self.engine.enhancement == "MASC":
+#            rspeed = int(ceil(spd * 2.0))
+        return rspeed
+
+
 
     # Get target modifier from movement, see Total Warfare for details
     def get_move_target_modifier(self, load):
-        run_speed = self.engine.get_max_run()
+        run_speed = self.get_max_run()
         jump_speed = load.jj.get_jump()
 
         if (run_speed < 3):
@@ -464,7 +483,7 @@ class Mech:
             print "Total Base Offensive: ", oBV
 
         # speed factor
-        sf = self.engine.get_max_run() + ceil(load.jj.get_jump() / 2.0)
+        sf = self.get_max_run() + ceil(load.jj.get_jump() / 2.0)
         if (printq):
             print "Speed Factor: ", sf
         asf = ((sf - 5.0) / 10.0) + 1.0 
@@ -496,6 +515,8 @@ class Mech:
         motive += self.load.jj.get_weight()
         motive += self.engine.get_enh_weight()
         motive += self.cockpit.get_weight()
+        if self.load.gear.supercharger:
+            motive += ceil_05(self.engine.get_engine_weight() * 0.1)
         mratio = float(motive) / float(self.weight) * 100
         m2 = mratio - 33.3
         m3 = "   "

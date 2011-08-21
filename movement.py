@@ -565,15 +565,3 @@ class Motive:
 
     def get_gyro_BVmod(self):
         return self.gBV
-
-    def get_max_run(self):
-        spd = self.speed
-        rspeed = int(ceil(spd * 1.5))
-        if self.enhancement == "TSM":
-            rspeed = int(ceil((spd + 1) * 1.5))
-        elif self.enhancement == "MASC":
-            rspeed = int(ceil(spd * 2.0))
-        return rspeed
-
-# TODO:
-# - TO stuff: XXL, and Large engines

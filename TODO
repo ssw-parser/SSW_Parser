@@ -3,6 +3,10 @@ Goals:
 - Mech lists for Klondike, Solaris, 3085*3
 - Track TL, Advanced and Experimental
 - Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
+- missing ammo, missing TO stuff
+- Integrate fire control systems better (a4, a5, ap, tarcomp)
+- Tacops armor
+- move warnings.add & print_warning stuff outside defensive.py
 
 ssw.py:
 - Additional checking:
@@ -21,5 +25,6 @@ summary.py:
 -- Artillery
 -- Command Console
 
-Non-working equipment (bugs):
-- Supercharger (3075 Medium IS)
+stuff to add:
+- TO engines: XXL, and Large
+
