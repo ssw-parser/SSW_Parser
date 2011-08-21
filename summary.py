@@ -31,7 +31,7 @@ def print_BV_list(file_list):
         # Construct data
         if mech.omni == "TRUE":
             for i in mech.loads:
-                name_str = mech.name + " " + mech.model + " " + i.name
+                name_str = mech.name + " " + mech.model + i.name
                 BV = mech.get_BV(i)
                 weight = mech.weight
                 BV_t = float(BV)/float(weight)
@@ -97,7 +97,7 @@ for arg in sys.argv[1:]:
         file_list_raw = f.readlines()
         f.close()
         # Strip out trailing newlines
-        file_list = map(string.strip, file_list_raw)
+        file_list += map(string.strip, file_list_raw)
         file_arg = False
         continue
     # If first argument is -f, read input list from file,
