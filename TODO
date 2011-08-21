@@ -16,7 +16,6 @@ summary.py:
 - Handle command-line switches
 - List special equipment:
 -- Narc
--- C3
 -- ECM
 -- Stealth
 -- Artillery
