@@ -7,6 +7,7 @@ Goals:
 - Integrate fire control systems better (a4, a5, ap, tarcomp)
 - Tacops armor
 - move warnings.add & print_warning stuff outside defensive.py
+- Turret weights
 
 ssw.py:
 - Additional checking:
@@ -26,8 +27,5 @@ summary.py:
 -- Command Console
 
 movement.py:
-- Replace XXL Engine BV factor once ssw uses new one.
-
-stuff to add:
-- TO engines: Large
+- Replace IS XXL Engine BV factor once ssw uses new one.
 

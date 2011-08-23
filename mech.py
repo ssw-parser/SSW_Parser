@@ -279,6 +279,9 @@ class Mech:
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
                         equiprear.append((name[4:],typ,loc))
+                   # Hack -- also check for turreted
+                    elif name[0:4] == "(T) ":
+                         equip.append((name[4:],typ,loc))
                     else:
                         # Save in a tuple with name and type
                         equip.append((name,typ,loc))
@@ -354,6 +357,9 @@ class Mech:
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
                         equiprear_l.append((name[4:],typ,loc))
+                    # Hack -- also check for turreted
+                    elif name[0:4] == "(T) ":
+                         equip_l.append((name[4:],typ,loc))
                     else:
                         # Save in a tuple with name and type
                         equip_l.append((name,typ,loc))
