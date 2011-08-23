@@ -228,6 +228,10 @@ class Mech:
                 a5 = blo.attributes["fcsa5"].value
                 ap = blo.attributes["fcsapollo"].value
 
+                # Get Clan Case
+                for cc in blo.getElementsByTagName('clancase'):
+                    cc = gettext(cc.childNodes)
+
                 # Get jumpjets
                 for jj in blo.getElementsByTagName('jumpjets'):
                     jump = int(jj.attributes["number"].value)
@@ -279,7 +283,7 @@ class Mech:
 
             # Construct current loadout
             self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV)
-            self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear)
+            self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
 
@@ -301,6 +305,10 @@ class Mech:
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
                 current.jj = self.load.jj
+
+                # Get Clan Case
+                for cc in blo.getElementsByTagName('clancase'):
+                    cc = gettext(cc.childNodes)
 
                 # Get jumpjets
                 for jj in lo.getElementsByTagName('jumpjets'):
@@ -346,9 +354,10 @@ class Mech:
                         # Save in a tuple with name and type
                         equip_l.append((name,typ,loc))
 
-                current.gear = Gear(self.weight, a4, a5, ap, equip_l, equiprear_l)
+                current.gear = Gear(self.weight, a4, a5, ap, equip_l, equiprear_l, cc)
 
                 self.loads.append(current)
+                
 
 
     def get_max_run(self):
@@ -433,11 +442,11 @@ class Mech:
         if (printq):
             print "Equipment Def BV: ", cur
         # Explosive
-        cur = load.gear.get_ammo_exp_BV(self.engine, self.techbase)
+        cur = load.gear.get_ammo_exp_BV(self.engine)
         dBV += cur
         if (printq):
             print "Explosive Ammo BV: ", cur
-        cur = load.gear.get_weapon_exp_BV(self.engine, self.techbase)
+        cur = load.gear.get_weapon_exp_BV(self.engine)
         dBV += cur
         if (printq):
             print "Explosive Weapon BV: ", cur

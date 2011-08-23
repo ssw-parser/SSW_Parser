@@ -366,6 +366,7 @@ d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
                ["Angel ECM", [100, 0], 3057, 0, 2, 0],
                ["Bloodhound Active Probe", [25, 0], 3058, 0, 2, 0],
                ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5, 0],
+               ["(IS) CASE II", [0, 0], 3064, 0, 1, 0],
                ["(CL) CASE II", [0, 0], 3062, 0, 0.5, 0]]
 
 d_physical = [["Small Shield", [50, 0], 3067, 0, 2, 0]]
@@ -587,12 +588,13 @@ class Physical:
 #
 # Take in lists of front and rear facing gears
 class Gear:
-    def __init__(self, weight, a4, a5, ap, equip, equiprear):
+    def __init__(self, weight, a4, a5, ap, equip, equiprear, cc):
         self.a4 = a4 # Artemis IV
         self.a5 = a5 # Artemis V
         self.ap = ap # Apollo
         self.equip = equip
         self.equiprear = equiprear
+        self.cc = cc # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist()
@@ -740,13 +742,13 @@ class Gear:
                         expl += e.explosive
                         self.exp_weapon[name[2]] = expl
                 # CASE
-                if (name[0] == e.name and 
+                if (name[0] == e.name and
                     (name[1] == 'CASE' or name[1] == 'CASEII')):
                     e.addone()
                     self.d_weight += e.weight
                     id = 1
                     # Save CASE status
-                    self.case[name[2]] = name[0]
+                    self.case[name[2]] = name[1]
 
 
 
@@ -884,10 +886,11 @@ class Gear:
         return BV
 
     # Return how much BV is reduced by explosive ammo
-    def get_ammo_exp_BV(self, engine, techbase):
+    def get_ammo_exp_BV(self, engine):
         neg_BV = 0.0
         # Check each ammo location
         for i in self.exp_ammo.keys():
+            cas = self.case.get(i, "")
             # Head and center torso always
             if i == "HD":
                 neg_BV -= 15.0 * self.exp_ammo[i]
@@ -899,24 +902,25 @@ class Gear:
             # Side torsos depends on several factors
             elif (i == "LT" or i == "RT"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
-                if (engine.etype == "XL Engine" and engine.eb == 0):
-                    neg_BV -= 15.0 * self.exp_ammo[i]
-                # Otherwise we check for CASE if we use Inner Sphere tech
-                # Clan mechs are assumed to use Clan CASE
-                elif (techbase == "Inner Sphere"):
-                    cas = self.case.get(i, "")
+                if ((engine.etype == "XL Engine" or engine.etype == "XXL Engine")
+                    and engine.eb == 0):
+                    if (cas != "CASEII"):
+                        neg_BV -= 15.0 * self.exp_ammo[i]
+                # Otherwise we check for CASE
+                elif (self.cc == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
                         neg_BV -= 15.0 * self.exp_ammo[i]
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
-                if (engine.etype == "XL Engine" and engine.eb == 0):
-                    neg_BV -= 15.0 * self.exp_ammo[i]
-                # Otherwise we check for CASE if we use Inner Sphere tech
-                # Clan mechs are assumed to use Clan CASE
-                elif (techbase == "Inner Sphere"):
-                    cas = self.case.get(i, "")
+                if ((engine.etype == "XL Engine" or engine.etype == "XXL Engine")
+                    and engine.eb == 0):
+                    print cas
+                    if (cas != "CASEII"):
+                        neg_BV -= 15.0 * self.exp_ammo[i]
+                # Otherwise we check for CASE
+                elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
@@ -924,12 +928,12 @@ class Gear:
                         neg_BV -= 15.0 * self.exp_ammo[i]
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
-                if (engine.etype == "XL Engine" and engine.eb == 0):
-                    neg_BV -= 15.0 * self.exp_ammo[i]
-                # Otherwise we check for CASE if we use Inner Sphere tech
-                # Clan mechs are assumed to use Clan CASE
-                elif (techbase == "Inner Sphere"):
-                    cas = self.case.get(i, "")
+                if ((engine.etype == "XL Engine" or engine.etype == "XXL Engine")
+                    and engine.eb == 0):
+                    if (cas != "CASEII"):
+                        neg_BV -= 15.0 * self.exp_ammo[i]
+                # Otherwise we check for CASE
+                elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
@@ -939,10 +943,11 @@ class Gear:
         return neg_BV
 
     # Return how much BV is reduced by explosive weapons
-    def get_weapon_exp_BV(self, engine, techbase):
+    def get_weapon_exp_BV(self, engine):
         neg_BV = 0.0
         # Check each ammo location
         for i in self.exp_weapon.keys():
+            cas = self.case.get(i, "")
             # Head and center torso always
             if i == "HD":
                 neg_BV -= self.exp_weapon[i]
@@ -954,24 +959,24 @@ class Gear:
             # Side torsos depends on several factors
             elif (i == "LT" or i == "RT"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
-                if (engine.etype == "XL Engine" and engine.eb == 0):
-                    neg_BV -= self.exp_weapon[i]
-                # Otherwise we check for CASE if we use Inner Sphere tech
-                # Clan mechs are assumed to use Clan CASE
-                elif (techbase == "Inner Sphere"):
-                    cas = self.case.get(i, "")
+                if ((engine.etype == "XL Engine" or engine.etype == "XXL Engine")
+                    and engine.eb == 0):
+                    if (cas != "CASEII"):
+                        neg_BV -= self.exp_weapon[i]
+                # Otherwise we check for CASE
+                elif (self.cc == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
                         neg_BV -= self.exp_weapon[i]
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
-                if (engine.etype == "XL Engine" and engine.eb == 0):
-                    neg_BV -= self.exp_weapon[i]
-                # Otherwise we check for CASE if we use Inner Sphere tech
-                # Clan mechs are assumed to use Clan CASE
-                elif (techbase == "Inner Sphere"):
-                    cas = self.case.get(i, "")
+                if ((engine.etype == "XL Engine" or engine.etype == "XXL Engine")
+                    and engine.eb == 0):
+                    if (cas != "CASEII"):
+                        neg_BV -= self.exp_weapon[i]
+                # Otherwise we check for CASE
+                elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
@@ -979,12 +984,12 @@ class Gear:
                         neg_BV -= self.exp_weapon[i]
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
-                if (engine.etype == "XL Engine" and engine.eb == 0):
-                    neg_BV -= self.exp_weapon[i]
-                # Otherwise we check for CASE if we use Inner Sphere tech
-                # Clan mechs are assumed to use Clan CASE
-                elif (techbase == "Inner Sphere"):
-                    cas = self.case.get(i, "")
+                if ((engine.etype == "XL Engine" or engine.etype == "XXL Engine")
+                    and engine.eb == 0):
+                    if (cas != "CASEII"):
+                        neg_BV -= self.exp_weapon[i]
+                # Otherwise we check for CASE
+                elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE

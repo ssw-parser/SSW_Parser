@@ -348,6 +348,9 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
           ["XL Engine", 1, 2579, 0.75, (lambda x : xlengine[x])],
           ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : lgtengine[x])],
           ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])],
+          # Advanced
+          # XXL Engine: Old BV factor 0.5, new 0.25
+          ["XXL Engine", 0, 3055, 0.5, (lambda x : ceil_05(stdengine[x] * 0.333))],
           # Assume same year as Mackie
           ["Primitive Fusion Engine", 2, 2439, 1.0,
            (lambda x : stdengine[ceil_5(x * 1.2)])]]

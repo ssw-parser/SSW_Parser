@@ -25,6 +25,9 @@ summary.py:
 -- Artillery
 -- Command Console
 
+movement.py:
+- Replace XXL Engine BV factor once ssw uses new one.
+
 stuff to add:
-- TO engines: XXL, and Large
+- TO engines: XXL (Clan) and Large
 
