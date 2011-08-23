@@ -170,6 +170,7 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(CL) Improved Heavy Medium Laser", [93, 0], "M", "T", 3069, 0, 1, 7, 2],
            ["(CL) ER Medium Pulse Laser", [117, 0], "M", "T", 3057, 0, 2, 6, 0],
            ["(CL) ER Small Pulse Laser", [36, 0], "M", "T", 3057, 0, 1.5, 3, 0],
+           ["(CL) Streak LRM-10", [173, 22], "L", "", 3057, 1, 5, 2, 0],
            ["(CL) Mech Mortar 8", [50, 6], "L", "", 2840, 1, 5, 10, 0],
            # Artillery
            ["(IS) Arrow IV Missile", [240, 30], "L", "", 2600, 1, 15, 10, 0],
@@ -332,6 +333,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
         ["(CL) @ Rotary AC/2", ["(CL) Rotary AC/2"], 45, 1, "X"],
         ["(CL) @ Rotary AC/5", ["(CL) Rotary AC/5"], 20, 1, "X"],
         ["(CL) @ Protomech AC/4", ["(CL) Protomech AC/4"], 20, 1, "X"],
+        ["(CL) @ Streak LRM-10", ["(CL) Streak LRM-10"], 12, 1, "X"],
         ["(CL) @ 'Mech Mortar 8 (Anti-Personnel)", ["(CL) Mech Mortar 8"], 4, 1, "X"],
         # Artillery
         ["(IS) @ Arrow IV (Non-Homing)", ["(IS) Arrow IV Missile"], 5, 1, "X"],
@@ -348,6 +350,7 @@ o_equipment = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1, 0],
                ["Improved C3 Computer", [0, 0], 3062, 0, 2.5, 0],
                ["TAG", [0, 0], 2600, 0, 1, 0],
                ["Light TAG", [0, 0], 3054, 0, 0.5, 0],
+               ["Cargo, Liquid", [0, 0], 1900, 0, 1, 0],
                # Experimental
                ["Collapsible Command Module (CCM)", [0, 0], 2710, 0, 16, 0],
                ["Coolant Pod", [0, 0], 3049, 0, 1, 1]]
