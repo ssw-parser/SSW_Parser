@@ -465,6 +465,8 @@ class Mech:
                 mtm += 2
             elif i == "Null Signature System":
                 mtm += 2
+            elif i == "Void Signature System":
+                mtm += 3
         assert mtm >= 0, "Negative defensive modifier!"
         df = 1.0 + (mtm / 10.0)
         if (printq):
