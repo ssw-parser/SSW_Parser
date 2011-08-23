@@ -349,8 +349,9 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
           ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : lgtengine[x])],
           ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])],
           # Advanced
-          # XXL Engine: Old BV factor 0.5, new 0.25
+          # XXL Engine (IS): Old BV factor 0.5, new 0.25
           ["XXL Engine", 0, 3055, 0.5, (lambda x : ceil_05(stdengine[x] * 0.333))],
+          ["XXL Engine", 1, 3030, 0.5, (lambda x : ceil_05(stdengine[x] * 0.333))],
           # Assume same year as Mackie
           ["Primitive Fusion Engine", 2, 2439, 1.0,
            (lambda x : stdengine[ceil_5(x * 1.2)])]]
@@ -475,13 +476,17 @@ class JumpJets:
         return self.jump
 
     # Get jumping heat, minimum 3
-    def get_heat(self):
+    def get_heat(self, mech):
         # No jump jets generate no heat
         if self.jump == 0:
             return 0
         else:
             heat = ceil(self.jump * self.heat)
-            return max(3, heat)
+            minimum = 3
+            if mech.engine.etype == "XXL Engine":
+                heat * 2
+                minimum = 6
+            return max(minimum, heat)
 
 
 # A class to hold motive info for a mech

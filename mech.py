@@ -39,13 +39,17 @@ class Loadout:
         return sink
 
     # Get offensive weapon and ammo BV
-    def off_BV(self, printq):
+    def off_BV(self, mech, printq):
         oBV = 0.0
         BWBR = 0.0
         heat = 0
         ammo_BV = 0.0
 
-        move_heat = max(2, self.jj.get_heat())
+        run_heat = 2
+        if (mech.engine.etype == "XXL Engine"):
+            run_heat = 6
+
+        move_heat = max(run_heat, self.jj.get_heat(mech))
         heat_eff = 6 + self.get_sink() - move_heat
         if (printq):
             print "Heat Efficiency", heat_eff
@@ -476,7 +480,7 @@ class Mech:
 
     # Get offensive BV
     def off_BV(self, load, printq):
-        oBV = load.off_BV(printq)
+        oBV = load.off_BV(self, printq)
 
         # Tonnage (physical)
         if (self.engine.enhancement == "TSM"):
