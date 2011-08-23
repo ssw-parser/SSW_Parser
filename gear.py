@@ -367,6 +367,7 @@ d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
                ["Angel ECM", [100, 0], 3057, 0, 2, 0],
                ["Bloodhound Active Probe", [25, 0], 3058, 0, 2, 0],
                ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5, 0],
+               ["(CL) Laser Anti-Missile System", [45, 0], 3048, 0, 1, 0],
                ["(IS) CASE II", [0, 0], 3064, 0, 1, 0],
                ["(CL) CASE II", [0, 0], 3062, 0, 0.5, 0]]
 
