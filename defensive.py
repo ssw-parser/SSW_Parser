@@ -292,8 +292,7 @@ class Armor:
     # Return armor percent
     def get_armor_percent(self):
         ratio = float(self.total.a) / float(self.total.m)
-        msg = str(int(ratio * 100)) + "%"
-        return msg
+        return (ratio * 100)
 
     # Print a report of the armor in a cetain location in the form:
     # Location: armor/max xx%
