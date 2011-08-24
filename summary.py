@@ -29,7 +29,7 @@ def load_mech(file_name):
 # In the form of name, BV, weight, BV/weight
 # sorted by BV/weight, descending
 #
-def print_BV_list(file_list):
+def print_BV_list(file_list, select, header):
     mech_list =[]
     # Loop over input
     for i in file_list:
@@ -43,214 +43,22 @@ def print_BV_list(file_list):
                 BV = mech.get_BV(i)
                 weight = mech.weight
                 BV_t = float(BV)/float(weight)
-                mech_list.append((name_str, BV, weight, BV_t))
+                if select(mech, i):
+			mech_list.append((name_str, BV, weight, BV_t))
         else:
             name_str = mech.name + " " + mech.model
             BV = mech.get_BV(mech.load)
             weight = mech.weight
             BV_t = float(BV)/float(weight)
-            mech_list.append((name_str, BV, weight, BV_t))
+	    if select(mech, mech.load):
+		    mech_list.append((name_str, BV, weight, BV_t))
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "Name                       BV   Wgt BV/Wgt"
-    for i in mech_list:
-        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
-
-
-# TAG_list output
-#
-# In the form of name, BV, weight, BV/weight
-# sorted by BV/weight, descending
-#
-def print_TAG_list(file_list):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                BV_t = float(BV)/float(weight)
-                if i.gear.has_tag:
-                    mech_list.append((name_str, BV, weight, BV_t))
-        else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            BV_t = float(BV)/float(weight)
-            if mech.load.gear.has_tag:
-                mech_list.append((name_str, BV, weight, BV_t))
-
-    # Sort by BV/ton
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "Mechs with TAG:"
-    print "Name                       BV   Wgt BV/Wgt"
-    for i in mech_list:
-        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
-
-
-# C3_list output
-#
-# In the form of name, BV, weight, BV/weight
-# sorted by BV/weight, descending
-#
-def print_C3_list(file_list):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                BV_t = float(BV)/float(weight)
-                if i.gear.has_c3:
-                    mech_list.append((name_str, BV, weight, BV_t))
-        else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            BV_t = float(BV)/float(weight)
-            if mech.load.gear.has_c3:
-                mech_list.append((name_str, BV, weight, BV_t))
-
-    # Sort by BV/ton
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "Mechs with C3 Slave:"
-    print "Name                       BV   Wgt BV/Wgt"
-    for i in mech_list:
-        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
-
-
-# C3 Master list output
-#
-# In the form of name, BV, weight, BV/weight
-# sorted by BV/weight, descending
-#
-def print_C3M_list(file_list):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                BV_t = float(BV)/float(weight)
-                if i.gear.has_c3m:
-                    mech_list.append((name_str, BV, weight, BV_t))
-        else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            BV_t = float(BV)/float(weight)
-            if mech.load.gear.has_c3m:
-                mech_list.append((name_str, BV, weight, BV_t))
-
-    # Sort by BV/ton
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "Mechs with C3 Master:"
-    print "Name                       BV   Wgt BV/Wgt"
-    for i in mech_list:
-        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
-
-
-# C3i_list output
-#
-# In the form of name, BV, weight, BV/weight
-# sorted by BV/weight, descending
-#
-def print_C3i_list(file_list):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                BV_t = float(BV)/float(weight)
-                if i.gear.has_c3i:
-                    mech_list.append((name_str, BV, weight, BV_t))
-        else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            BV_t = float(BV)/float(weight)
-            if mech.load.gear.has_c3i:
-                mech_list.append((name_str, BV, weight, BV_t))
-
-    # Sort by BV/ton
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "Mechs with C3i:"
-    print "Name                       BV   Wgt BV/Wgt"
-    for i in mech_list:
-        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
-
-
-# Narc_list output
-#
-# In the form of name, BV, weight, BV/weight
-# sorted by BV/weight, descending
-#
-def print_Narc_list(file_list):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                BV_t = float(BV)/float(weight)
-                if i.gear.has_narc:
-                    mech_list.append((name_str, BV, weight, BV_t))
-        else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            BV_t = float(BV)/float(weight)
-            if mech.load.gear.has_narc:
-                mech_list.append((name_str, BV, weight, BV_t))
-
-    # Sort by BV/ton
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "Mechs with Narc:"
-    print "Name                       BV   Wgt BV/Wgt"
+    print header
+    print "Name                         BV   Wgt BV/Wgt"
     for i in mech_list:
         print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
@@ -286,6 +94,8 @@ def print_default(file_list):
 file_list = []
 file_arg = False
 output_type = 's'
+select = lambda x, y: True
+header = ""
 
 for arg in sys.argv[1:]:
     # The upcoming argument is a file list, read it in
@@ -308,23 +118,28 @@ for arg in sys.argv[1:]:
         continue
     # TAG summary output
     elif arg == '-t':
-        output_type = 't'
+        select = lambda x, y: y.gear.has_tag
+	header = "Mechs with TAG:"
         continue
     # C3 slave summary output
     elif arg == '-c':
-        output_type = 'c'
+        select = lambda x, y: y.gear.has_c3
+	header = "Mechs with C3 Slave:"
         continue
     # C3 master summary output
     elif arg == '-cm':
-        output_type = 'cm'
+        select = lambda x, y: y.gear.has_c3m
+	header = "Mechs with C3 Master:"
         continue
     # C3i summary output
     elif arg == '-ci':
-        output_type = 'ci'
+        select = lambda x, y: y.gear.has_c3i
+	header = "Mechs with C3i:"
         continue
     # Narc summary output
     elif arg == '-n':
-        output_type = 'n'
+        select = lambda x, y: y.gear.has_narc
+	header = "Mechs with Narc:"
         continue
     # otherwise read in each argument as a mech file
     else:
@@ -334,17 +149,7 @@ for arg in sys.argv[1:]:
 ### Process output ###
 
 if output_type == 'b':
-    print_BV_list(file_list)
-elif output_type == 't':
-    print_TAG_list(file_list)
-elif output_type == 'c':
-    print_C3_list(file_list)
-elif output_type == 'cm':
-    print_C3M_list(file_list)
-elif output_type == 'ci':
-    print_C3i_list(file_list)
-elif output_type == 'n':
-    print_Narc_list(file_list)
+    print_BV_list(file_list, select, header)
 else:
     print_default(file_list)
 

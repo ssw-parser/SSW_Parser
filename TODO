@@ -20,7 +20,7 @@ ssw.py:
 
 summary.py:
 - Handle command-line switches
--- Handle filters better (lambda ?), Clan & IS filters
+-- Clan & IS filters
 - List special equipment:
 -- ECM
 -- Stealth
