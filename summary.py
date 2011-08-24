@@ -44,7 +44,7 @@ def print_BV_list(file_list, select, header):
                 weight = mech.weight
                 BV_t = float(BV)/float(weight)
                 if select(mech, i):
-			mech_list.append((name_str, BV, weight, BV_t))
+                    mech_list.append((name_str, BV, weight, BV_t))
         else:
             name_str = mech.name + " " + mech.model
             BV = mech.get_BV(mech.load)
@@ -75,17 +75,17 @@ def print_default(file_list, select, header):
         name_str = mech.name + " " + mech.model
         move = mech.get_move_string()
         armor = mech.armor.get_armor_percent()
-    #    percent = mech.weight_summary(True)
+        #    percent = mech.weight_summary(True)
         if mech.omni == "TRUE":
             for i in mech.loads:
                 BV = mech.get_BV(i)
                 name_str2 = name_str + i.name
-		if select(mech, i):
-			print ("%-28s %3s %-11s %4s %4s" % (name_str2, mech.weight, move, armor, BV))
+                if select(mech, i):
+                    print ("%-28s %3s %-11s %4s %4s" % (name_str2, mech.weight, move, armor, BV))
         else:
             BV = mech.get_BV(mech.load)
-	    if select(mech, mech.load):
-		    print ("%-28s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
+            if select(mech, mech.load):
+                print ("%-28s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
 #        print ("%-28s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))
 
 
@@ -122,36 +122,42 @@ for arg in sys.argv[1:]:
     # TAG summary output
     elif arg == '-t':
         select = lambda x, y: y.gear.has_tag
-	header = "Mechs with TAG:"
+        header = "Mechs with TAG:"
         continue
     # C3 slave summary output
     elif arg == '-c':
         select = lambda x, y: y.gear.has_c3
-	header = "Mechs with C3 Slave:"
+        header = "Mechs with C3 Slave:"
         continue
     # C3 master summary output
     elif arg == '-cm':
         select = lambda x, y: y.gear.has_c3m
-	header = "Mechs with C3 Master:"
+        header = "Mechs with C3 Master:"
         continue
     # C3i summary output
     elif arg == '-ci':
         select = lambda x, y: y.gear.has_c3i
-	header = "Mechs with C3i:"
+        header = "Mechs with C3i:"
         continue
     # Narc summary output
     elif arg == '-n':
         select = lambda x, y: y.gear.has_narc
-	header = "Mechs with Narc:"
+        header = "Mechs with Narc:"
         continue
     # IS summary output
     elif arg == '-i':
         select = lambda x, y: x.techbase == "Inner Sphere"
         header = "Inner Sphere-tech Mechs:"
         continue
+    # Clan summary output
     elif arg == '-cl':
         select = lambda x, y: x.techbase == "Clan"
         header = "Clan-tech Mechs:"
+        continue
+    # Command console summary output
+    elif arg == '-cc':
+        select = lambda x, y: x.cockpit.console == "TRUE"
+        header = "Mechs with Command Console:"
         continue
     # otherwise read in each argument as a mech file
     else:
