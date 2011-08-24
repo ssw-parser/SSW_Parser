@@ -17,7 +17,7 @@ def gettext(nodes):
 # An omni loadout
 
 class Loadout:
-    def __init__(self, weight, a4, a5, ap, name, BV):
+    def __init__(self, weight, a4, a5, ap, name, BV, partw):
         self.weight = weight # Save weight just in case
         self.artemis4 = a4
         self.artemis5 = a5
@@ -27,16 +27,31 @@ class Loadout:
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
+        self.partw = partw
 
     # Get heatsinking capability
     def get_sink(self):
         sink = self.heatsinks.get_sink()
+        # coolant pods
         if self.gear.coolant > 0:
             cool = ceil(self.heatsinks.nr * (float(self.gear.coolant) / 5.0))
             if cool > (self.heatsinks.nr * 2):
                 cool = self.heatsinks.nr * 2
             sink += cool
+        # Partial Wing
+        if self.partw:
+            sink += 3
         return sink
+
+    def get_jump(self):
+        jump = self.jj.get_jump()
+        # Handle partial wing
+        if jump and self.partw:
+            if self.weight >= 60:
+                jump += 1
+            else:
+                jump += 2
+        return jump
 
     # Get offensive weapon and ammo BV
     def off_BV(self, mech, printq):
@@ -230,6 +245,7 @@ class Mech:
                 a4 = blo.attributes["fcsa4"].value
                 a5 = blo.attributes["fcsa5"].value
                 ap = blo.attributes["fcsapollo"].value
+                partw = False
 
                 # Get Clan Case
                 for cc in blo.getElementsByTagName('clancase'):
@@ -253,6 +269,10 @@ class Mech:
                     slot = mlts.attributes["name"].value
                     self.multi.append(slot)
 
+                # Get partial wing
+                for pw in blo.getElementsByTagName('partialwing'):
+                    partw = True
+                    
                 # Get equipment
                 equip = []
                 equiprear = []
@@ -288,7 +308,7 @@ class Mech:
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
             # Construct current loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV)
+            self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV, partw)
             self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
@@ -306,7 +326,7 @@ class Mech:
                     BV = int(gettext(battv.childNodes))
 
                 # Construct current loadout
-                current = Loadout(self.weight, a4, a5, ap, name, BV)
+                current = Loadout(self.weight, a4, a5, ap, name, BV, partw)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
@@ -391,7 +411,7 @@ class Mech:
     # Get target modifier from movement, see Total Warfare for details
     def get_move_target_modifier(self, load):
         run_speed = self.get_max_run()
-        jump_speed = load.jj.get_jump()
+        jump_speed = load.get_jump()
 
         if (run_speed < 3):
             r_mod = 0
@@ -516,7 +536,7 @@ class Mech:
             print "Total Base Offensive: ", oBV
 
         # speed factor
-        sf = self.get_max_run() + ceil(load.jj.get_jump() / 2.0)
+        sf = self.get_max_run() + ceil(load.get_jump() / 2.0)
         if (printq):
             print "Speed Factor: ", sf
         asf = ((sf - 5.0) / 10.0) + 1.0 
@@ -619,13 +639,13 @@ class Mech:
             rstr = str(rspeed) + "[" + str(rspeed2) + "]"
         else:
             rstr = str(rspeed)
-        string = ("%s/%s/%d" % (wstr, rstr, self.load.jj.get_jump()))
+        string = ("%s/%s/%d" % (wstr, rstr, self.load.get_jump()))
         return string
 
     def parse_speed(self, weight):
         spd = self.engine.speed
         # Bigger of ground speed and jump range
-        speed = max((spd, self.load.jj.get_jump()))
+        speed = max((spd, self.load.get_jump()))
         # Light
         if (speed < 6 and weight < 40):
             st = ("WARNING: Mech is too slow for its weight class!")
@@ -661,8 +681,8 @@ class Mech:
         gweight = self.engine.get_gyro_weight()
         print self.engine.gtype, gweight, "tons"
         jweight = self.load.jj.get_weight()
-        if self.load.jj.get_jump() > 0:
-            print "Fixed jump: ", self.load.jj.get_jump(), self.load.jj.jjtype, jweight, "tons"
+        if self.load.get_jump() > 0:
+            print "Fixed jump: ", self.load.get_jump(), self.load.jj.jjtype, jweight, "tons"
         enhweight = self.engine.get_enh_weight()
         print "Enhancement: ", self.engine.enhancement, enhweight, "tons"
         tweight = eweight + gweight + jweight + enhweight

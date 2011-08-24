@@ -7,7 +7,8 @@ Goals:
 - Integrate fire control systems better (a4, a5, ap, tarcomp)
 - Tacops armor
 - move warnings.add & print_warning stuff outside defensive.py
-- Turret weights
+- Turret year & weights
+- Partial wing year & weight
 
 ssw.py:
 - Additional checking:

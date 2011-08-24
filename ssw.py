@@ -196,9 +196,9 @@ def parse_omni(mech, date):
             print "-----------------"
             print "Config: ", i.name
             print "BV: ", mech.get_BV(i)
-            if (i.jj.get_jump()):
+            if (i.get_jump()):
                 d = get_comp_year(i.jj.get_year, d)
-                print "Jump: ", i.jj.get_jump(), i.jj.jjtype
+                print "Jump: ", i.get_jump(), i.jj.jjtype
             if (i.heatsinks.nr):
                 d = get_comp_year(i.heatsinks.get_year, d)
                 print i.heatsinks.nr, i.heatsinks.type
@@ -241,7 +241,7 @@ print "-2-----------------------------"
 mech.print_engine_report(mech.weight)
 date = get_comp_year(mech.engine.get_engine_year, date)
 date = get_comp_year(mech.engine.get_gyro_year, date)
-if mech.load.jj.get_jump() > 0:
+if mech.load.get_jump() > 0:
     date = get_comp_year(mech.load.jj.get_year, date)
 date = get_comp_year(mech.cockpit.get_year, date)
 print mech.cockpit.type, mech.cockpit.get_weight()
@@ -293,8 +293,8 @@ print "==============================="
 
 # Figure out best speed
 speed = mech.engine.erating/mech.weight
-if mech.load.jj.get_jump() > speed:
-    mspd = mech.load.jj.get_jump()
+if mech.load.get_jump() > speed:
+    mspd = mech.load.get_jump()
 else:
     mspd = speed
 
