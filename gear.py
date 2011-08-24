@@ -921,7 +921,7 @@ class Gear:
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if ((engine.etype == "XL Engine" and engine.eb == 0) or
                     engine.etype == "XXL Engine"):
-                    if (cas != "CASEII"):
+                    if (cas != "CASEII" and self.cc == "FALSE"):
                         neg_BV -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
@@ -934,7 +934,7 @@ class Gear:
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if ((engine.etype == "XL Engine" and engine.eb == 0) or
                     engine.etype == "XXL Engine"):
-                    if (cas != "CASEII"):
+                    if (cas != "CASEII" and self.cc == "FALSE"):
                         neg_BV -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
@@ -977,7 +977,7 @@ class Gear:
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if ((engine.etype == "XL Engine" and engine.eb == 0) or
                     engine.etype == "XXL Engine"):
-                    if (cas != "CASEII"):
+                    if (cas != "CASEII" and self.cc == "FALSE"):
                         neg_BV -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
@@ -990,7 +990,7 @@ class Gear:
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if ((engine.etype == "XL Engine" and engine.eb == 0) or
                     engine.etype == "XXL Engine"):
-                    if (cas != "CASEII"):
+                    if (cas != "CASEII" and self.cc == "FALSE"):
                         neg_BV -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
