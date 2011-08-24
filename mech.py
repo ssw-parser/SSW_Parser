@@ -130,7 +130,6 @@ class Loadout:
 # applications.
 
 class Mech:
-
     def __init__(self, xmldoc):
 
         # Set some data to zero that sometimes will not get set otherwise
@@ -427,6 +426,19 @@ class Mech:
         j_mod += 1
 
         return max(j_mod, r_mod)
+
+    def get_stealth(self):
+        stlth = False
+        for i in self.multi:
+            if i == "Chameleon LPS":
+                stlth = True
+            elif i == "Null Signature System":
+                stlth = True
+            elif i == "Void Signature System":
+                stlth = True
+        if self.armor.atype == "Stealth Armor":
+            stlth = True
+        return stlth 
 
     # Get defensive BV
     def def_BV(self, load, printq):

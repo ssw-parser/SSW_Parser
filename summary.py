@@ -58,9 +58,9 @@ def print_BV_list(file_list, select, header):
 
     # Print output
     print header
-    print "Name                         BV   Wgt BV/Wgt"
+    print "Name                           BV   Wgt BV/Wgt"
     for i in mech_list:
-        print ("%-28s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-30s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
 
 
 # armor_list output
@@ -87,8 +87,13 @@ def print_armor_list(file_list, select, header):
                     e_str = "EXP"
                 else:
                     e_str = ""
+                sth = mech.get_stealth()
+                if sth:
+                    s_str = "STH"
+                else:
+                    s_str = ""
                 if select(mech, i):
-                    mech_list.append((name_str, BV, weight, armor, e_str))
+                    mech_list.append((name_str, BV, weight, armor, e_str, s_str))
         else:
             name_str = mech.name + " " + mech.model
             BV = mech.get_BV(mech.load)
@@ -100,17 +105,22 @@ def print_armor_list(file_list, select, header):
                 e_str = "EXP"
             else:
                 e_str = ""
+            sth = mech.get_stealth()
+            if sth:
+                s_str = "STH"
+            else:
+                s_str = ""
             if select(mech, mech.load):
-                mech_list.append((name_str, BV, weight, armor, e_str))
+                mech_list.append((name_str, BV, weight, armor, e_str, s_str))
 
     # Sort by armor%
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
     print header
-    print "Name                         BV   Wgt Armor% Exp?"
+    print "Name                           BV   Wgt Armr Exp Sth"
     for i in mech_list:
-        print ("%-28s %4d %3d %.0f%% %3s" % (i[0], i[1], i[2], i[3], i[4]))
+        print ("%-30s %4d %3d %.0f%% %3s %3s" % (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 
 # Default output format, in flux
