@@ -64,7 +64,8 @@ def print_BV_list(file_list, select, header):
 
 
 # Default output format, in flux
-def print_default(file_list):
+def print_default(file_list, select, header):
+    print header
     print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"
     # Loop over input
     for i in file_list:
@@ -79,10 +80,12 @@ def print_default(file_list):
             for i in mech.loads:
                 BV = mech.get_BV(i)
                 name_str2 = name_str + i.name
-                print ("%-28s %3s %-11s %4s %4s" % (name_str2, mech.weight, move, armor, BV))
+		if select(mech, i):
+			print ("%-28s %3s %-11s %4s %4s" % (name_str2, mech.weight, move, armor, BV))
         else:
             BV = mech.get_BV(mech.load)
-            print ("%-28s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
+	    if select(mech, mech.load):
+		    print ("%-28s %3s %-11s %4s %4s" % (name_str, mech.weight, move, armor, BV))
 #        print ("%-28s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))
 
 
@@ -151,5 +154,5 @@ for arg in sys.argv[1:]:
 if output_type == 'b':
     print_BV_list(file_list, select, header)
 else:
-    print_default(file_list)
+    print_default(file_list, select, header)
 
