@@ -16,13 +16,13 @@ from movement import *
 # Takes a file name as argument, returns a mech object
 #
 def load_mech(file_name):
-        # Read file
-        fsock = open(file_name)
-        xmldoc = minidom.parse(fsock)
-        fsock.close()
+    # Read file
+    fsock = open(file_name)
+    xmldoc = minidom.parse(fsock)
+    fsock.close()
 
-        # Get mech
-        return Mech(xmldoc)
+    # Get mech
+    return Mech(xmldoc)
 
 # BV_list output
 #
@@ -143,6 +143,15 @@ for arg in sys.argv[1:]:
     elif arg == '-n':
         select = lambda x, y: y.gear.has_narc
 	header = "Mechs with Narc:"
+        continue
+    # IS summary output
+    elif arg == '-i':
+        select = lambda x, y: x.techbase == "Inner Sphere"
+        header = "Inner Sphere-tech Mechs:"
+        continue
+    elif arg == '-cl':
+        select = lambda x, y: x.techbase == "Clan"
+        header = "Clan-tech Mechs:"
         continue
     # otherwise read in each argument as a mech file
     else:

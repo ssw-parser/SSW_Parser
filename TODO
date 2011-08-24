@@ -19,8 +19,6 @@ ssw.py:
 -- good armor 1.1-1.25xIS
 
 summary.py:
-- Handle command-line switches
--- Clan & IS filters
 - List special equipment:
 -- ECM
 -- Stealth
