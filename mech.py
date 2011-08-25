@@ -17,7 +17,7 @@ def gettext(nodes):
 # An omni loadout
 
 class Loadout:
-    def __init__(self, weight, a4, a5, ap, name, BV, partw):
+    def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb):
         self.weight = weight # Save weight just in case
         self.artemis4 = a4
         self.artemis5 = a5
@@ -28,6 +28,7 @@ class Loadout:
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
         self.partw = partw
+        self.jumpb = jumpb
 
     # Get heatsinking capability
     def get_sink(self):
@@ -43,14 +44,18 @@ class Loadout:
             sink += 3
         return sink
 
+    # Get max jumping range
     def get_jump(self):
-        jump = self.jj.get_jump()
+        # Ordinary jump-jets
+        jmp = self.jj.get_jump()
         # Handle partial wing
-        if jump and self.partw:
+        if jmp and self.partw:
             if self.weight >= 60:
-                jump += 1
+                jmp += 1
             else:
-                jump += 2
+                jmp += 2
+        # Mechanical jump boosters
+        jump = max(jmp, self.jumpb)
         return jump
 
     # Get offensive weapon and ammo BV
@@ -246,6 +251,7 @@ class Mech:
                 a5 = blo.attributes["fcsa5"].value
                 ap = blo.attributes["fcsapollo"].value
                 partw = False
+                jumpb = 0
 
                 # Get Clan Case
                 for cc in blo.getElementsByTagName('clancase'):
@@ -272,6 +278,10 @@ class Mech:
                 # Get partial wing
                 for pw in blo.getElementsByTagName('partialwing'):
                     partw = True
+
+                # Get jump booster
+                for jb in blo.getElementsByTagName('jumpbooster'):
+                    jumpb = int(jb.attributes["mp"].value)
                     
                 # Get equipment
                 equip = []
@@ -308,7 +318,7 @@ class Mech:
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
             # Construct current loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV, partw)
+            self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV, partw, jumpb)
             self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
@@ -325,8 +335,12 @@ class Mech:
                 for battv in lo.getElementsByTagName('battle_value'):
                     BV = int(gettext(battv.childNodes))
 
+                # Get jump booster
+                for jb in blo.getElementsByTagName('jumpbooster'):
+                    jumpb = int(hs.attributes["mp"].value)
+                    
                 # Construct current loadout
-                current = Loadout(self.weight, a4, a5, ap, name, BV, partw)
+                current = Loadout(self.weight, a4, a5, ap, name, BV, partw, jumpb)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
