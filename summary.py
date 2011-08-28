@@ -43,24 +43,26 @@ def print_BV_list(file_list, select, header):
                 BV = mech.get_BV(i)
                 weight = mech.weight
                 BV_t = float(BV)/float(weight)
+                pe = mech.get_prod_era()
                 if select(mech, i):
-                    mech_list.append((name_str, BV, weight, BV_t))
+                    mech_list.append((name_str, BV, weight, BV_t, pe))
         else:
             name_str = mech.name + " " + mech.model
             BV = mech.get_BV(mech.load)
             weight = mech.weight
             BV_t = float(BV)/float(weight)
+            pe = mech.get_prod_era()
 	    if select(mech, mech.load):
-		    mech_list.append((name_str, BV, weight, BV_t))
+		    mech_list.append((name_str, BV, weight, BV_t, pe))
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
     print header
-    print "Name                           BV   Wgt BV/Wgt"
+    print "Name                           BV   Wgt BV/Wt Era"
     for i in mech_list:
-        print ("%-30s %4d %3d %.2f" % (i[0], i[1], i[2], i[3]))
+        print ("%-30s %4d %3d %.2f %s" % (i[0], i[1], i[2], i[3], i[4]))
 
 
 # armor_list output

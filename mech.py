@@ -171,6 +171,10 @@ class Mech:
             battv = mmech.getElementsByTagName('battle_value')[0]
             self.BV = int(gettext(battv.childNodes))
 
+            # Get production era
+            pe = mmech.getElementsByTagName('productionera')[0]
+            self.prod_era = int(gettext(pe.childNodes))
+
             # Get mech type (battle, industrial)
             for mt in mmech.getElementsByTagName('mech_type'):
                 self.mechtype = gettext(mt.childNodes)
@@ -401,6 +405,14 @@ class Mech:
 
                 self.loads.append(current)
                 
+
+    def get_prod_era(self):
+        conv = {
+            4 : "Clan",
+            5 : "CW",
+            6 : "Jihad"
+            }
+        return conv[self.prod_era]
 
 
     def get_max_run(self):
