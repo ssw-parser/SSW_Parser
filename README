@@ -1,0 +1,8 @@
+
+The SSW_Parser 'program suite' right now consists of two Python
+programs that reads .ssw mech data files produced by Solaris Skunk Werks:
+- summary.py that takes a list of mechs and output a summary based on
+the command-line switches used.
+- ssw.py that output a more detailed analysis of one mech.
+
+summary.py is quite usable, ssw.py still needs work.
