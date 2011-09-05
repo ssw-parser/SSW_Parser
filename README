@@ -6,3 +6,40 @@ the command-line switches used.
 - ssw.py that output a more detailed analysis of one mech.
 
 summary.py is quite usable, ssw.py still needs work.
+
+=== A brief overview of command-line arguments for summary.py ===
+
+==== Input Switches ====
+-f <file>: Reads a from the file a list of mech .ssw files.
+
+<file>: A file name without switches, is expected to be a valid .ssw
+file.
+
+==== Output Switches ====
+-b: Output that gives a summary of battle values, sorted by BV/ton.
+
+-a: Output that gives a summary of armor status, sorted by percent of
+ maximum armor.
+
+The default output is in flux right now.
+
+==== Filter Switches ====
+Only one of these will be used by the program, so using multiple ones
+is pointless.
+
+-t: Only list mechs that has a TAG, or other gear with the same
+ functionality (C3 Master).
+
+-c: Only list mechs that mounts C3 slaves.
+
+-cm: Only list mechs that mounts C3 masters.
+
+-ci: Only list mechs that mounts C3i.
+
+-n: Only list mechs that mounts Narc launchers.
+
+-i: Only list Inner Sphere techbase mechs.
+
+-cl: Only list Clan techbase mechs.
+
+-cc: Only list mechs with a Command Console.

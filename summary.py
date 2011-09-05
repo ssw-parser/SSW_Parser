@@ -1,9 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
 
-# Prints out a one-line summary of a mech
-# Should later be made able to handle multiple files
-
 #    SSW-file parser: Prints mech summaries
 #    Copyright (C) 2011  Christer Nyfält
 #
@@ -20,6 +17,11 @@
 #    You should have received a copy of the GNU General Public License along
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# Prints out a one-line summary of a mech
+# Should later be made able to handle multiple files
+
+
 
 import sys
 import string
