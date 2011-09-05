@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding: utf-8
 
 #    SSW-file parser: Prints mech summaries
 #    Copyright (C) 2011  Christer Nyfält

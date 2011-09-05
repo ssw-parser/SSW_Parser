@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding: utf-8
 
 # Prints out a one-line summary of a mech
 # Should later be made able to handle multiple files
