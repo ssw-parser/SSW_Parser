@@ -61,6 +61,38 @@ def load_mech(file_name):
     # Get mech
     return Mech(xmldoc)
 
+# Create a list of mechs
+#
+# file_list is the list of files containing mech info
+# select is the selection criteria
+# creator specifies which items should be included
+# Note that item 0 is always supposed to be the name,
+# item 1 is supposed to be BV, and item 2 is supposed to be Weight
+#
+def create_mech_list(file_list, select, creator):
+    mech_list =[]
+    # Loop over input
+    for i in file_list:
+        # Load mech from file
+        mech = load_mech(i)
+
+        # Construct data
+        if mech.omni == "TRUE":
+            for i in mech.loads:
+                item = creator(mech, i)
+                if select(mech, i):
+                    mech_list.append(item)
+        else:
+            item = creator(mech, mech.load)
+            if select(mech, mech.load):
+                mech_list.append(item)
+
+    # Default: Sort by weight, name
+    mech_list.sort(key=itemgetter(0))
+    mech_list.sort(key=itemgetter(2))
+
+    return mech_list
+
 
 ###################################
 ##### Output format functions #####
@@ -80,26 +112,8 @@ def create_BV_list_item(mech, i):
     return (name_str, BV, weight, BV_t, pe)
 
 def print_BV_list(file_list, select, header):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                item = create_BV_list_item(mech, i)
-                if select(mech, i):
-                    mech_list.append(item)
-        else:
-            item = create_BV_list_item(mech, mech.load)
-            if select(mech, mech.load):
-                mech_list.append(item)
-
-    # Default: Sort by weight, name
-    mech_list.sort(key=itemgetter(0))
-    mech_list.sort(key=itemgetter(2))
+    # Build list
+    mech_list = create_mech_list(file_list, select, create_BV_list_item)
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -134,26 +148,8 @@ def create_armor_list_item(mech, i):
     return (name_str, BV, weight, armor, e_str, s_str)
 
 def print_armor_list(file_list, select, header):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                item = create_armor_list_item(mech, i)
-                if select(mech, i):
-                    mech_list.append(item)
-        else:
-            item = create_armor_list_item(mech, mech.load)
-            if select(mech, mech.load):
-                mech_list.append(item)
-
-    # Default: Sort by weight, name
-    mech_list.sort(key=itemgetter(0))
-    mech_list.sort(key=itemgetter(2))
+    # Build list
+    mech_list = create_mech_list(file_list, select, create_armor_list_item)
 
     # Sort by armor%
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -181,26 +177,8 @@ def create_speed_list_item(mech, i):
     return (name_str, BV, weight, spd, walk, run, jump)
 
 def print_speed_list(file_list, select, header):
-    mech_list =[]
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
-
-        # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                item = create_speed_list_item(mech, i)
-                if select(mech, i):
-                    mech_list.append(item)
-        else:
-            item = create_speed_list_item(mech, mech.load)
-            if select(mech, mech.load):
-                mech_list.append(item)
-
-    # Default: Sort by weight, name
-    mech_list.sort(key=itemgetter(0))
-    mech_list.sort(key=itemgetter(2))
+    # Build list
+    mech_list = create_mech_list(file_list, select, create_speed_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
