@@ -347,8 +347,8 @@ class Mech:
 
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
-            # Construct current loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "BASE", self.BV, partw, jumpb, self.prod_era)
+            # Construct current loadout, empty name for base loadout
+            self.load = Loadout(self.weight, a4, a5, ap, "", self.BV, partw, jumpb, self.prod_era)
             self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)

@@ -62,6 +62,14 @@ def load_mech(file_name):
 # In the form of name, BV, weight, BV/weight, Era
 # sorted by BV/weight, descending
 #
+def create_BV_list_item(mech, i):
+    name_str = mech.name + " " + mech.model + i.name
+    BV = mech.get_BV(i)
+    weight = mech.weight
+    BV_t = float(BV)/float(weight)
+    pe = conv_era(i.get_prod_era())
+    return (name_str, BV, weight, BV_t, pe)
+
 def print_BV_list(file_list, select, header):
     mech_list =[]
     # Loop over input
@@ -72,21 +80,13 @@ def print_BV_list(file_list, select, header):
         # Construct data
         if mech.omni == "TRUE":
             for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                BV_t = float(BV)/float(weight)
-                pe = conv_era(i.get_prod_era())
+                item = create_BV_list_item(mech, i)
                 if select(mech, i):
-                    mech_list.append((name_str, BV, weight, BV_t, pe))
+                    mech_list.append(item)
         else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            BV_t = float(BV)/float(weight)
-            pe = conv_era(mech.load.get_prod_era())
+            item = create_BV_list_item(mech, mech.load)
             if select(mech, mech.load):
-                mech_list.append((name_str, BV, weight, BV_t, pe))
+                mech_list.append(item)
 
     # Default: Sort by weight, name
     mech_list.sort(key=itemgetter(0))
@@ -107,6 +107,23 @@ def print_BV_list(file_list, select, header):
 # In the form of name, BV, weight, Armor%, Explosive, Stealth
 # sorted by armor%, descending
 #
+def create_armor_list_item(mech, i):
+    name_str = mech.name + " " + mech.model + i.name
+    BV = mech.get_BV(i)
+    weight = mech.weight
+    armor = mech.armor.get_armor_percent()
+    exp = i.gear.get_ammo_exp_BV(mech.engine) + i.gear.get_weapon_exp_BV(mech.engine)
+    if exp < 0:
+        e_str = "EXP"
+    else:
+        e_str = ""
+    sth = mech.get_stealth()
+    if sth:
+        s_str = "STH"
+    else:
+        s_str = ""
+    return (name_str, BV, weight, armor, e_str, s_str)
+
 def print_armor_list(file_list, select, header):
     mech_list =[]
     # Loop over input
@@ -117,39 +134,13 @@ def print_armor_list(file_list, select, header):
         # Construct data
         if mech.omni == "TRUE":
             for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                armor = mech.armor.get_armor_percent()
-                exp = i.gear.get_ammo_exp_BV(mech.engine) + i.gear.get_weapon_exp_BV(mech.engine)
-                if exp < 0:
-                    e_str = "EXP"
-                else:
-                    e_str = ""
-                sth = mech.get_stealth()
-                if sth:
-                    s_str = "STH"
-                else:
-                    s_str = ""
+                item = create_armor_list_item(mech, i)
                 if select(mech, i):
-                    mech_list.append((name_str, BV, weight, armor, e_str, s_str))
+                    mech_list.append(item)
         else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            armor = mech.armor.get_armor_percent()
-            exp = mech.load.gear.get_ammo_exp_BV(mech.engine) + mech.load.gear.get_weapon_exp_BV(mech.engine)
-            if exp < 0:
-                e_str = "EXP"
-            else:
-                e_str = ""
-            sth = mech.get_stealth()
-            if sth:
-                s_str = "STH"
-            else:
-                s_str = ""
+            item = create_armor_list_item(mech, mech.load)
             if select(mech, mech.load):
-                mech_list.append((name_str, BV, weight, armor, e_str, s_str))
+                mech_list.append(item)
 
     # Default: Sort by weight, name
     mech_list.sort(key=itemgetter(0))
@@ -170,6 +161,16 @@ def print_armor_list(file_list, select, header):
 # In the form of name, BV, weight, speed
 # sorted by speed, descending
 #
+def create_speed_list_item(mech, i):
+    name_str = mech.name + " " + mech.model + i.name
+    BV = mech.get_BV(i)
+    weight = mech.weight
+    walk = mech.get_walk()
+    run = mech.get_run()
+    jump = i.get_jump()
+    spd = max(walk, jump)
+    return (name_str, BV, weight, spd, walk, run, jump)
+
 def print_speed_list(file_list, select, header):
     mech_list =[]
     # Loop over input
@@ -180,25 +181,13 @@ def print_speed_list(file_list, select, header):
         # Construct data
         if mech.omni == "TRUE":
             for i in mech.loads:
-                name_str = mech.name + " " + mech.model + i.name
-                BV = mech.get_BV(i)
-                weight = mech.weight
-                walk = mech.get_walk()
-                run = mech.get_run()
-                jump = i.get_jump()
-                spd = max(walk, jump)
+                item = create_speed_list_item(mech, i)
                 if select(mech, i):
-                    mech_list.append((name_str, BV, weight, spd, walk, run, jump))
+                    mech_list.append(item)
         else:
-            name_str = mech.name + " " + mech.model
-            BV = mech.get_BV(mech.load)
-            weight = mech.weight
-            walk = mech.get_walk()
-            run = mech.get_run()
-            jump = mech.load.get_jump()
-            spd = max(walk, jump)
+            item = create_speed_list_item(mech, mech.load)
             if select(mech, mech.load):
-                mech_list.append((name_str, BV, weight, spd, walk, run, jump))
+                mech_list.append(item)
 
     # Default: Sort by weight, name
     mech_list.sort(key=itemgetter(0))
@@ -215,6 +204,7 @@ def print_speed_list(file_list, select, header):
 
 
 # Default output format, in flux
+# outdated code, rewrite
 def print_default(file_list, select, header):
     print header
     print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"
