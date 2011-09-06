@@ -28,7 +28,7 @@ summary.py:
 -- Artillery
 - Count and list specific weapon types
 - Allow comments in mech lists
-- Allow multiple filters
+- Allow multiple filters and get the headers right
 - Add missing eras: AoW, SL, Rep, DA
 
 movement.py:

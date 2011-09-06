@@ -74,7 +74,7 @@ def load_mech(file_name):
 # Note that item 0 is always supposed to be the name,
 # item 1 is supposed to be BV, and item 2 is supposed to be Weight
 #
-def create_mech_list(file_list, select, creator):
+def create_mech_list(file_list, select_l, creator):
     mech_list =[]
     # Loop over input
     for i in file_list:
@@ -84,11 +84,25 @@ def create_mech_list(file_list, select, creator):
         # Construct data
         if mech.omni == "TRUE":
             for i in mech.loads:
-                if select(mech, i):
+                sel = True
+                # Go through the list of selections
+                for select in select_l:
+                    if select(mech, i) and sel:
+                        sel = True
+                    else:
+                        sel = False
+                if sel:
                     item = creator(mech, i)
                     mech_list.append(item)
         else:
-            if select(mech, mech.load):
+            sel = True
+            # Go through the list of selections
+            for select in select_l:
+                if select(mech, mech.load) and sel:
+                    sel = True
+                else:
+                    sel = False
+            if sel:
                 item = creator(mech, mech.load)
                 mech_list.append(item)
 
@@ -116,9 +130,9 @@ def create_BV_list_item(mech, i):
     pe = conv_era(i.get_prod_era())
     return (name_str, BV, weight, BV_t, pe)
 
-def print_BV_list(file_list, select, header):
+def print_BV_list(file_list, select_l, header):
     # Build list
-    mech_list = create_mech_list(file_list, select, create_BV_list_item)
+    mech_list = create_mech_list(file_list, select_l, create_BV_list_item)
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -152,9 +166,9 @@ def create_armor_list_item(mech, i):
         s_str = ""
     return (name_str, BV, weight, armor, e_str, s_str)
 
-def print_armor_list(file_list, select, header):
+def print_armor_list(file_list, select_l, header):
     # Build list
-    mech_list = create_mech_list(file_list, select, create_armor_list_item)
+    mech_list = create_mech_list(file_list, select_l, create_armor_list_item)
 
     # Sort by armor%
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -181,9 +195,9 @@ def create_speed_list_item(mech, i):
     spd = max(walk, jump)
     return (name_str, BV, weight, spd, walk, run, jump)
 
-def print_speed_list(file_list, select, header):
+def print_speed_list(file_list, select_l, header):
     # Build list
-    mech_list = create_mech_list(file_list, select, create_speed_list_item)
+    mech_list = create_mech_list(file_list, select_l, create_speed_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -198,7 +212,7 @@ def print_speed_list(file_list, select, header):
 # Default output format, in flux
 #
 # TODO: outdated code, rewrite
-def print_default(file_list, select, header):
+def print_default(file_list, select_l, header):
     print header
     print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"
     # Loop over input
@@ -234,6 +248,8 @@ era_arg = False
 speed_arg = False
 output_type = ''
 select = lambda x, y: True
+select_l = []
+select_l.append(select)
 header = ""
 
 for arg in sys.argv[1:]:
@@ -253,7 +269,7 @@ for arg in sys.argv[1:]:
     # The upcoming argument is an era
     elif (era_arg):
         era = int(arg)
-        select = lambda x, y: (y.get_prod_era() <= era)
+        select_l.append(lambda x, y: (y.get_prod_era() <= era))
         header = ("Mechs available at era %s:" % conv_era(era))
         era_arg = False
         continue
@@ -261,7 +277,7 @@ for arg in sys.argv[1:]:
     # The upcoming argument is a speed
     elif (speed_arg):
         spd = int(arg)
-        select = lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd)
+        select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
         header = ("Mechs with at least speed %d:" % spd)
         speed_arg = False
         continue
@@ -289,42 +305,42 @@ for arg in sys.argv[1:]:
     ### Selectors ###
     # TAG filter
     elif arg == '-t':
-        select = lambda x, y: y.gear.has_tag
+        select_l.append(lambda x, y: y.gear.has_tag)
         header = "Mechs with TAG:"
         continue
     # C3 slave filter
     elif arg == '-c':
-        select = lambda x, y: y.gear.has_c3
+        select_l.append(lambda x, y: y.gear.has_c3)
         header = "Mechs with C3 Slave:"
         continue
     # C3 master filter
     elif arg == '-cm':
-        select = lambda x, y: y.gear.has_c3m
+        select_l.append(lambda x, y: y.gear.has_c3m)
         header = "Mechs with C3 Master:"
         continue
     # C3i filter
     elif arg == '-ci':
-        select = lambda x, y: y.gear.has_c3i
+        select_l.append(lambda x, y: y.gear.has_c3i)
         header = "Mechs with C3i:"
         continue
     # Narc filter
     elif arg == '-n':
-        select = lambda x, y: y.gear.has_narc
+        select_l.append(lambda x, y: y.gear.has_narc)
         header = "Mechs with Narc:"
         continue
     # IS filter
     elif arg == '-i':
-        select = lambda x, y: x.techbase == "Inner Sphere"
+        select_l.append(lambda x, y: x.techbase == "Inner Sphere")
         header = "Inner Sphere-tech Mechs:"
         continue
     # Clan filter
     elif arg == '-cl':
-        select = lambda x, y: x.techbase == "Clan"
+        select_l.append(lambda x, y: x.techbase == "Clan")
         header = "Clan-tech Mechs:"
         continue
     # Command console filter
     elif arg == '-cc':
-        select = lambda x, y: x.cockpit.console == "TRUE"
+        select_l.append(lambda x, y: x.cockpit.console == "TRUE")
         header = "Mechs with Command Console:"
         continue
     # Era filter
@@ -343,11 +359,11 @@ for arg in sys.argv[1:]:
 ### Process output ###
 
 if output_type == 'b':
-    print_BV_list(file_list, select, header)
+    print_BV_list(file_list, select_l, header)
 elif output_type == 'a':
-    print_armor_list(file_list, select, header)
+    print_armor_list(file_list, select_l, header)
 elif output_type == 's':
-    print_speed_list(file_list, select, header)
+    print_speed_list(file_list, select_l, header)
 else:
-    print_default(file_list, select, header)
+    print_default(file_list, select_l, header)
 
