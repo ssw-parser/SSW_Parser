@@ -45,3 +45,6 @@ is pointless.
 -cl: Only list Clan techbase mechs.
 
 -cc: Only list mechs with a Command Console.
+
+-e <d>: Only list mechs that are available during era <d>. Where <d>
+ can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad

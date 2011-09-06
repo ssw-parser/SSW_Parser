@@ -67,14 +67,7 @@ class Loadout:
 
     # Get production era
     def get_prod_era(self):
-        conv = {
-            2 : "SW-E",
-            3 : "SW-L",
-            4 : "Clan",
-            5 : "CW",
-            6 : "Jihad"
-            }
-        return conv[self.prod_era]
+        return self.prod_era
 
 
     # Get max jumping range
@@ -442,16 +435,6 @@ class Mech:
 
                 self.loads.append(current)
                 
-
-    def get_prod_era(self):
-        conv = {
-            2 : "SW-E",
-            3 : "SW-L",
-            4 : "Clan",
-            5 : "CW",
-            6 : "Jihad"
-            }
-        return conv[self.prod_era]
 
     # Get walk speed
     def get_walk(self):

@@ -31,6 +31,19 @@ from mech import *
 from defensive import *
 from movement import *
 
+
+# Convert era to string
+def conv_era(era):
+    conv = {
+        2 : "SW-E",
+        3 : "SW-L",
+        4 : "Clan",
+        5 : "CW",
+        6 : "Jihad"
+        }
+    return conv[era]
+    
+
 # Load mech from file
 #
 # Takes a file name as argument, returns a mech object
@@ -63,7 +76,7 @@ def print_BV_list(file_list, select, header):
                 BV = mech.get_BV(i)
                 weight = mech.weight
                 BV_t = float(BV)/float(weight)
-                pe = i.get_prod_era()
+                pe = conv_era(i.get_prod_era())
                 if select(mech, i):
                     mech_list.append((name_str, BV, weight, BV_t, pe))
         else:
@@ -71,7 +84,7 @@ def print_BV_list(file_list, select, header):
             BV = mech.get_BV(mech.load)
             weight = mech.weight
             BV_t = float(BV)/float(weight)
-            pe = mech.get_prod_era()
+            pe = conv_era(mech.load.get_prod_era())
             if select(mech, mech.load):
                 mech_list.append((name_str, BV, weight, BV_t, pe))
 
@@ -234,11 +247,15 @@ def print_default(file_list, select, header):
 ### Handle arguments ###
 file_list = []
 file_arg = False
+era_arg = False
+speed_arg = False
 output_type = 's'
 select = lambda x, y: True
 header = ""
 
 for arg in sys.argv[1:]:
+
+    ### Handle multi-arg switches ###
     # The upcoming argument is a file list, read it in
     if (file_arg):
         in_file = arg
@@ -249,6 +266,16 @@ for arg in sys.argv[1:]:
         file_list += map(string.strip, file_list_raw)
         file_arg = False
         continue
+
+    # The upcoming argument is an era
+    elif (era_arg):
+        era = int(arg)
+        select = lambda x, y: (y.get_prod_era() <= era)
+        header = ("Mechs available at era %s:" % conv_era(era))
+        era_arg = False
+        continue
+
+    ### Input switches ###
     # If first argument is -f, read input list from file,
     elif arg == "-f":
         file_arg = True
@@ -269,45 +296,49 @@ for arg in sys.argv[1:]:
         continue
 
     ### Selectors ###
-    # TAG summary output
+    # TAG filter
     elif arg == '-t':
         select = lambda x, y: y.gear.has_tag
         header = "Mechs with TAG:"
         continue
-    # C3 slave summary output
+    # C3 slave filter
     elif arg == '-c':
         select = lambda x, y: y.gear.has_c3
         header = "Mechs with C3 Slave:"
         continue
-    # C3 master summary output
+    # C3 master filter
     elif arg == '-cm':
         select = lambda x, y: y.gear.has_c3m
         header = "Mechs with C3 Master:"
         continue
-    # C3i summary output
+    # C3i filter
     elif arg == '-ci':
         select = lambda x, y: y.gear.has_c3i
         header = "Mechs with C3i:"
         continue
-    # Narc summary output
+    # Narc filter
     elif arg == '-n':
         select = lambda x, y: y.gear.has_narc
         header = "Mechs with Narc:"
         continue
-    # IS summary output
+    # IS filter
     elif arg == '-i':
         select = lambda x, y: x.techbase == "Inner Sphere"
         header = "Inner Sphere-tech Mechs:"
         continue
-    # Clan summary output
+    # Clan filter
     elif arg == '-cl':
         select = lambda x, y: x.techbase == "Clan"
         header = "Clan-tech Mechs:"
         continue
-    # Command console summary output
+    # Command console filter
     elif arg == '-cc':
         select = lambda x, y: x.cockpit.console == "TRUE"
         header = "Mechs with Command Console:"
+        continue
+    # Era filter
+    elif arg == '-e':
+        era_arg = True
         continue
     # otherwise read in each argument as a mech file
     else:
