@@ -63,7 +63,7 @@ def print_BV_list(file_list, select, header):
                 BV = mech.get_BV(i)
                 weight = mech.weight
                 BV_t = float(BV)/float(weight)
-                pe = mech.get_prod_era()
+                pe = i.get_prod_era()
                 if select(mech, i):
                     mech_list.append((name_str, BV, weight, BV_t, pe))
         else:

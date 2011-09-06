@@ -29,6 +29,8 @@ summary.py:
 - Count and list specific weapon types
 - Allow comments in mech lists
 - Filter according to Era
+- Speed display, sorted by speed
+- Sort default by tonnage?
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.
