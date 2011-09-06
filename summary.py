@@ -130,12 +130,19 @@ def create_BV_list_item(mech, i):
     pe = conv_era(i.get_prod_era())
     return (name_str, BV, weight, BV_t, pe)
 
-def print_BV_list(file_list, select_l, header):
+def print_BV_list(file_list, select_l, header_l):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_BV_list_item)
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Construct header
+    header = "Mechs "
+    for h in header_l:
+        header += h
+        header += ", "
+    header += ":"
 
     # Print output
     print header
@@ -166,12 +173,19 @@ def create_armor_list_item(mech, i):
         s_str = ""
     return (name_str, BV, weight, armor, e_str, s_str)
 
-def print_armor_list(file_list, select_l, header):
+def print_armor_list(file_list, select_l, header_l):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_armor_list_item)
 
     # Sort by armor%
     mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Construct header
+    header = "Mechs "
+    for h in header_l:
+        header += h
+        header += ", "
+    header += ":"
 
     # Print output
     print header
@@ -195,12 +209,19 @@ def create_speed_list_item(mech, i):
     spd = max(walk, jump)
     return (name_str, BV, weight, spd, walk, run, jump)
 
-def print_speed_list(file_list, select_l, header):
+def print_speed_list(file_list, select_l, header_l):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_speed_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Construct header
+    header = "Mechs "
+    for h in header_l:
+        header += h
+        header += ", "
+    header += ":"
 
     # Print output
     print header
@@ -250,7 +271,7 @@ output_type = ''
 select = lambda x, y: True
 select_l = []
 select_l.append(select)
-header = ""
+header_l = []
 
 for arg in sys.argv[1:]:
 
@@ -270,7 +291,7 @@ for arg in sys.argv[1:]:
     elif (era_arg):
         era = int(arg)
         select_l.append(lambda x, y: (y.get_prod_era() <= era))
-        header = ("Mechs available at era %s:" % conv_era(era))
+        header_l.append(("available at era %s" % conv_era(era)))
         era_arg = False
         continue
 
@@ -278,7 +299,7 @@ for arg in sys.argv[1:]:
     elif (speed_arg):
         spd = int(arg)
         select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
-        header = ("Mechs with at least speed %d:" % spd)
+        header_l.append(("with at least speed %d" % spd))
         speed_arg = False
         continue
 
@@ -306,42 +327,42 @@ for arg in sys.argv[1:]:
     # TAG filter
     elif arg == '-t':
         select_l.append(lambda x, y: y.gear.has_tag)
-        header = "Mechs with TAG:"
+        header_l.append("with TAG")
         continue
     # C3 slave filter
     elif arg == '-c':
         select_l.append(lambda x, y: y.gear.has_c3)
-        header = "Mechs with C3 Slave:"
+        header_l.append("with C3 Slave")
         continue
     # C3 master filter
     elif arg == '-cm':
         select_l.append(lambda x, y: y.gear.has_c3m)
-        header = "Mechs with C3 Master:"
+        header_l.append("with C3 Master")
         continue
     # C3i filter
     elif arg == '-ci':
         select_l.append(lambda x, y: y.gear.has_c3i)
-        header = "Mechs with C3i:"
+        header_l.append("with C3i")
         continue
     # Narc filter
     elif arg == '-n':
         select_l.append(lambda x, y: y.gear.has_narc)
-        header = "Mechs with Narc:"
+        header_l.append("with Narc")
         continue
     # IS filter
     elif arg == '-i':
         select_l.append(lambda x, y: x.techbase == "Inner Sphere")
-        header = "Inner Sphere-tech Mechs:"
+        header_l.append("Inner Sphere-tech")
         continue
     # Clan filter
     elif arg == '-cl':
         select_l.append(lambda x, y: x.techbase == "Clan")
-        header = "Clan-tech Mechs:"
+        header_l.append("Clan-tech")
         continue
     # Command console filter
     elif arg == '-cc':
         select_l.append(lambda x, y: x.cockpit.console == "TRUE")
-        header = "Mechs with Command Console:"
+        header_l.append("with Command Console")
         continue
     # Era filter
     elif arg == '-e':
@@ -359,11 +380,11 @@ for arg in sys.argv[1:]:
 ### Process output ###
 
 if output_type == 'b':
-    print_BV_list(file_list, select_l, header)
+    print_BV_list(file_list, select_l, header_l)
 elif output_type == 'a':
-    print_armor_list(file_list, select_l, header)
+    print_armor_list(file_list, select_l, header_l)
 elif output_type == 's':
-    print_speed_list(file_list, select_l, header)
+    print_speed_list(file_list, select_l, header_l)
 else:
-    print_default(file_list, select_l, header)
+    print_default(file_list, select_l, header_l)
 
