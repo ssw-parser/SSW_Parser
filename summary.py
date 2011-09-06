@@ -19,9 +19,6 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # Prints out a one-line summary of a mech
-# Should later be made able to handle multiple files
-
-
 
 import sys
 import string
@@ -32,7 +29,14 @@ from defensive import *
 from movement import *
 
 
+#############################
+##### Utility functions #####
+#############################
+
 # Convert era to string
+#
+# TODO: Add missing eras: AoW, SL, Rep, DA
+#
 def conv_era(era):
     conv = {
         2 : "SW-E",
@@ -56,6 +60,11 @@ def load_mech(file_name):
 
     # Get mech
     return Mech(xmldoc)
+
+
+###################################
+##### Output format functions #####
+###################################
 
 # BV_list output
 #
@@ -204,7 +213,8 @@ def print_speed_list(file_list, select, header):
 
 
 # Default output format, in flux
-# outdated code, rewrite
+#
+# TODO: outdated code, rewrite
 def print_default(file_list, select, header):
     print header
     print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"

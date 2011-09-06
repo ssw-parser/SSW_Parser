@@ -1,11 +1,13 @@
 
 The SSW_Parser 'program suite' right now consists of two Python
 programs that reads .ssw mech data files produced by Solaris Skunk Werks:
+
 - summary.py that takes a list of mechs and output a summary based on
 the command-line switches used.
+
 - ssw.py that output a more detailed analysis of one mech.
 
-summary.py is quite usable, ssw.py still needs work.
+summary.py is quite usable, ssw.py is quite raw and still needs work.
 
 === A brief overview of command-line arguments for summary.py ===
 
@@ -47,4 +49,6 @@ is pointless.
 -cc: Only list mechs with a Command Console.
 
 -e <d>: Only list mechs that are available during era <d>. Where <d>
- can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad
+ can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad.
+
+-sf <d>: Only list mechs at least as fast as <d>.
