@@ -249,7 +249,7 @@ file_list = []
 file_arg = False
 era_arg = False
 speed_arg = False
-output_type = 's'
+output_type = ''
 select = lambda x, y: True
 header = ""
 
@@ -273,6 +273,14 @@ for arg in sys.argv[1:]:
         select = lambda x, y: (y.get_prod_era() <= era)
         header = ("Mechs available at era %s:" % conv_era(era))
         era_arg = False
+        continue
+
+    # The upcoming argument is a speed
+    elif (speed_arg):
+        spd = int(arg)
+        select = lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd)
+        header = ("Mechs with at least speed %d:" % spd)
+        speed_arg = False
         continue
 
     ### Input switches ###
@@ -339,6 +347,10 @@ for arg in sys.argv[1:]:
     # Era filter
     elif arg == '-e':
         era_arg = True
+        continue
+    # Speed filter
+    elif arg == '-sf':
+        speed_arg = True
         continue
     # otherwise read in each argument as a mech file
     else:

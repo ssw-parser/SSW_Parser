@@ -28,7 +28,7 @@ summary.py:
 -- Artillery
 - Count and list specific weapon types
 - Allow comments in mech lists
-- Speed filter
+- Allow multiple filters
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.
