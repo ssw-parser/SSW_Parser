@@ -61,6 +61,11 @@ def load_mech(file_name):
     # Get mech
     return Mech(xmldoc)
 
+
+###############################
+##### Mech entry creation #####
+###############################
+
 # Create a list of mechs
 #
 # file_list is the list of files containing mech info
@@ -79,12 +84,12 @@ def create_mech_list(file_list, select, creator):
         # Construct data
         if mech.omni == "TRUE":
             for i in mech.loads:
-                item = creator(mech, i)
                 if select(mech, i):
+                    item = creator(mech, i)
                     mech_list.append(item)
         else:
-            item = creator(mech, mech.load)
             if select(mech, mech.load):
+                item = creator(mech, mech.load)
                 mech_list.append(item)
 
     # Default: Sort by weight, name
