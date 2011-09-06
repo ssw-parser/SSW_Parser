@@ -21,6 +21,8 @@ file.
 -a: Output that gives a summary of armor status, sorted by percent of
  maximum armor.
 
+-s: Output that gives a summary of speed, sorted by speed.
+
 The default output is in flux right now.
 
 ==== Filter Switches ====

@@ -453,7 +453,18 @@ class Mech:
             }
         return conv[self.prod_era]
 
+    # Get walk speed
+    def get_walk(self):
+        return self.engine.speed
 
+    # Get standard running speed, with no modifiers
+    def get_run(self):
+        spd = self.engine.speed
+        factor = 1.5
+        rspeed = int(ceil(spd * factor))
+        return rspeed
+
+    # Get maximum running speed
     def get_max_run(self):
         spd = self.engine.speed
         factor = 1.5

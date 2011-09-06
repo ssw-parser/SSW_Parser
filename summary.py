@@ -46,7 +46,7 @@ def load_mech(file_name):
 
 # BV_list output
 #
-# In the form of name, BV, weight, BV/weight
+# In the form of name, BV, weight, BV/weight, Era
 # sorted by BV/weight, descending
 #
 def print_BV_list(file_list, select, header):
@@ -87,8 +87,8 @@ def print_BV_list(file_list, select, header):
 
 # armor_list output
 #
-# In the form of name, BV, weight, BV/weight
-# sorted by BV/weight, descending
+# In the form of name, BV, weight, Armor%, Explosive, Stealth
+# sorted by armor%, descending
 #
 def print_armor_list(file_list, select, header):
     mech_list =[]
@@ -120,7 +120,6 @@ def print_armor_list(file_list, select, header):
             name_str = mech.name + " " + mech.model
             BV = mech.get_BV(mech.load)
             weight = mech.weight
-            BV_t = float(BV)/float(weight)
             armor = mech.armor.get_armor_percent()
             exp = mech.load.gear.get_ammo_exp_BV(mech.engine) + mech.load.gear.get_weapon_exp_BV(mech.engine)
             if exp < 0:
@@ -143,6 +142,51 @@ def print_armor_list(file_list, select, header):
     print "Name                           BV   Wgt Armr Exp Sth"
     for i in mech_list:
         print ("%-30s %4d %3d %.0f%% %3s %3s" % (i[0], i[1], i[2], i[3], i[4], i[5]))
+
+
+# speed_list output
+#
+# In the form of name, BV, weight, speed
+# sorted by armor%, descending
+#
+def print_speed_list(file_list, select, header):
+    mech_list =[]
+    # Loop over input
+    for i in file_list:
+        # Load mech from file
+        mech = load_mech(i)
+
+        # Construct data
+        if mech.omni == "TRUE":
+            for i in mech.loads:
+                name_str = mech.name + " " + mech.model + i.name
+                BV = mech.get_BV(i)
+                weight = mech.weight
+                walk = mech.get_walk()
+                run = mech.get_run()
+                jump = i.get_jump()
+                spd = max(walk, jump)
+                if select(mech, i):
+                    mech_list.append((name_str, BV, weight, spd, walk, run, jump))
+        else:
+            name_str = mech.name + " " + mech.model
+            BV = mech.get_BV(mech.load)
+            weight = mech.weight
+            walk = mech.get_walk()
+            run = mech.get_run()
+            jump = mech.load.get_jump()
+            spd = max(walk, jump)
+            if select(mech, mech.load):
+                mech_list.append((name_str, BV, weight, spd, walk, run, jump))
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    print "Name                           BV   Wgt Speed"
+    for i in mech_list:
+        print ("%-30s %4d %3d %2d/%2d/%2d" % (i[0], i[1], i[2], i[4], i[5], i[6]))
 
 
 # Default output format, in flux
@@ -197,6 +241,8 @@ for arg in sys.argv[1:]:
     elif arg == "-f":
         file_arg = True
         continue
+
+    ### Output types ###
     # BV summary output
     elif arg == '-b':
         output_type = 'b'
@@ -205,6 +251,12 @@ for arg in sys.argv[1:]:
     elif arg == '-a':
         output_type = 'a'
         continue
+    # Speed summary output
+    elif arg == '-s':
+        output_type = 's'
+        continue
+
+    ### Selectors ###
     # TAG summary output
     elif arg == '-t':
         select = lambda x, y: y.gear.has_tag
@@ -256,6 +308,8 @@ if output_type == 'b':
     print_BV_list(file_list, select, header)
 elif output_type == 'a':
     print_armor_list(file_list, select, header)
+elif output_type == 's':
+    print_speed_list(file_list, select, header)
 else:
     print_default(file_list, select, header)
 
