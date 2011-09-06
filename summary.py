@@ -72,8 +72,12 @@ def print_BV_list(file_list, select, header):
             weight = mech.weight
             BV_t = float(BV)/float(weight)
             pe = mech.get_prod_era()
-	    if select(mech, mech.load):
-		    mech_list.append((name_str, BV, weight, BV_t, pe))
+            if select(mech, mech.load):
+                mech_list.append((name_str, BV, weight, BV_t, pe))
+
+    # Default: Sort by weight, name
+    mech_list.sort(key=itemgetter(0))
+    mech_list.sort(key=itemgetter(2))
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -134,6 +138,10 @@ def print_armor_list(file_list, select, header):
             if select(mech, mech.load):
                 mech_list.append((name_str, BV, weight, armor, e_str, s_str))
 
+    # Default: Sort by weight, name
+    mech_list.sort(key=itemgetter(0))
+    mech_list.sort(key=itemgetter(2))
+
     # Sort by armor%
     mech_list.sort(key=itemgetter(3), reverse=True)
 
@@ -147,7 +155,7 @@ def print_armor_list(file_list, select, header):
 # speed_list output
 #
 # In the form of name, BV, weight, speed
-# sorted by armor%, descending
+# sorted by speed, descending
 #
 def print_speed_list(file_list, select, header):
     mech_list =[]
@@ -178,6 +186,10 @@ def print_speed_list(file_list, select, header):
             spd = max(walk, jump)
             if select(mech, mech.load):
                 mech_list.append((name_str, BV, weight, spd, walk, run, jump))
+
+    # Default: Sort by weight, name
+    mech_list.sort(key=itemgetter(0))
+    mech_list.sort(key=itemgetter(2))
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
