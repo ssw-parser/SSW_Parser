@@ -142,7 +142,8 @@ def print_BV_list(file_list, select_l, header_l):
     for h in header_l:
         header += h
         header += ", "
-    header += ":"
+    # Clean up end
+    header = header[:-2] + ":"
 
     # Print output
     print header
@@ -185,7 +186,8 @@ def print_armor_list(file_list, select_l, header_l):
     for h in header_l:
         header += h
         header += ", "
-    header += ":"
+    # Clean up end
+    header = header[:-2] + ":"
 
     # Print output
     print header
@@ -221,7 +223,8 @@ def print_speed_list(file_list, select_l, header_l):
     for h in header_l:
         header += h
         header += ", "
-    header += ":"
+    # Clean up end
+    header = header[:-2] + ":"
 
     # Print output
     print header
@@ -232,30 +235,34 @@ def print_speed_list(file_list, select_l, header_l):
 
 # Default output format, in flux
 #
-# TODO: outdated code, rewrite
-def print_default(file_list, select_l, header):
-    print header
-    print "Name                       Wgt Movement    Armor  BV Mot   Def   Off"
-    # Loop over input
-    for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
+def create_def_list_item(mech, i):
+    name_str = mech.name + " " + mech.model + i.name
+    BV = mech.get_BV(i)
+    weight = mech.weight
+    move = mech.get_move_string()
+    armor = mech.armor.get_armor_percent()
+#    percent = mech.weight_summary(True)
+    return (name_str, BV, weight, move, armor)
 
-        name_str = mech.name + " " + mech.model
-        move = mech.get_move_string()
-        armor = mech.armor.get_armor_percent()
-        #    percent = mech.weight_summary(True)
-        if mech.omni == "TRUE":
-            for i in mech.loads:
-                BV = mech.get_BV(i)
-                name_str2 = name_str + i.name
-                if select(mech, i):
-                    print ("%-28s %3s %-11s %.2f%% %4s" % (name_str2, mech.weight, move, armor, BV))
-        else:
-            BV = mech.get_BV(mech.load)
-            if select(mech, mech.load):
-                print ("%-28s %3s %-11s %.2f%% %4s" % (name_str, mech.weight, move, armor, BV))
-#        print ("%-28s %3s %-11s %4s %4s %s" % (name_str, mech.weight, move, armor, BV, percent))
+
+def print_default(file_list, select_l, header_l):
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_def_list_item)
+
+    # Construct header
+    header = "Mechs "
+    for h in header_l:
+        header += h
+        header += ", "
+    # Clean up end
+    header = header[:-2] + ":"
+
+    # Print output
+    print header
+    print "Name                         Wgt Movement    Armor  BV   Mot   Def   Off"
+    for i in mech_list:
+        print ("%-28s %3s %-11s %.2f%% %4s" % (i[0], i[2], i[3], i[4], i[1]))
+#        print ("%-28s %3s %-11s %.2f%% %4s %s" % (i[0], i[2], i[3], i[4], i[1], i[5]))
 
 
 ####################################
