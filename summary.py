@@ -124,7 +124,7 @@ def create_mech_list(file_list, select_l, creator):
 
 # BV_list output
 #
-# In the form of name, weight, BV, BV/weight, Era
+# In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
 # sorted by BV/weight, descending
 #
 def create_BV_list_item(mech, i):
@@ -132,8 +132,12 @@ def create_BV_list_item(mech, i):
     BV = mech.get_BV(i)
     weight = mech.weight
     BV_t = float(BV)/float(weight)
-    pe = conv_era(i.get_prod_era())
-    return (name_str, weight, BV, BV_t, pe)
+    BV_d = mech.def_BV(i, False)
+    BV_o = mech.off_BV(i, False)
+    cp = ""
+    if mech.cockpit.type == "Small Cockpit":
+        cp = "SML"
+    return (name_str, weight, BV, BV_t, BV_d, BV_o, cp)
 
 def print_BV_list(file_list, select_l, header_l):
     # Build list
@@ -152,9 +156,9 @@ def print_BV_list(file_list, select_l, header_l):
 
     # Print output
     print header
-    print "Name                          Tons BV   BV/Wt Era"
+    print "Name                          Tons BV    BV/Wt  defBV   offBV   cpit"
     for i in mech_list:
-        print ("%-30s %3d %4d %.2f %s" % (i[0], i[1], i[2], i[3], i[4]))
+        print ("%-30s %3d %4d  %5.2f  %7.2f %7.2f %s" % (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
 # armor_list output

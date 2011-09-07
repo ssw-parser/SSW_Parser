@@ -33,7 +33,6 @@ summary.py:
 - Allow comments in mech lists
 - Clean up filter header, create header function
 - Add missing eras: AoW, SL, Rep, DA
-- BV display: print offensive & defensive BV, remove era.
 - Make default display more like MUL: Add rules.
 
 movement.py:
