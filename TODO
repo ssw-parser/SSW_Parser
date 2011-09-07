@@ -1,7 +1,6 @@
 
 PRIORITY:
 - Track TL, Advanced and Experimental
-- Track source (RS)
 
 Goals:
 - Mech lists for Klondike, Solaris, 3085*2 (cutting edge, ONN)
@@ -35,7 +34,7 @@ summary.py:
 - Clean up filter header, create header function
 - Add missing eras: AoW, SL, Rep, DA
 - BV display: print offensive & defensive BV, remove era.
-- Make default display more like MUL: Add source and rules.
+- Make default display more like MUL: Add rules.
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.

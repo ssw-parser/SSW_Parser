@@ -238,14 +238,17 @@ def print_speed_list(file_list, select_l, header_l):
         print ("%-30s %3d %4d %2d/%2d/%2d" % (i[0], i[1], i[2], i[4], i[5], i[6]))
 
 
-# Default output format, in flux
+# Default output format
+#
+# In the form of name, weight, BV, source, era
 #
 def create_def_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
+    source = i.source
     pe = conv_era(i.get_prod_era())
-    return (name_str, weight, BV, pe)
+    return (name_str, weight, BV, source, pe)
 
 
 def print_default(file_list, select_l, header_l):
@@ -262,9 +265,9 @@ def print_default(file_list, select_l, header_l):
 
     # Print output
     print header
-    print "Name                          Tons BV   Era"
+    print "Name                          Tons BV   Source   Era"
     for i in mech_list:
-        print ("%-30s %3d %4d %s" % (i[0], i[1], i[2], i[3]))
+        print ("%-30s %3d %4d %-8s %s" % (i[0], i[1], i[2], i[3], i[4]))
 
 
 ####################################

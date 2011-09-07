@@ -37,7 +37,7 @@ def gettext(nodes):
 # An omni loadout
 
 class Loadout:
-    def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb, prod_era):
+    def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb, prod_era, source):
         self.weight = weight # Save weight just in case
         self.artemis4 = a4
         self.artemis5 = a5
@@ -50,6 +50,7 @@ class Loadout:
         self.partw = partw
         self.jumpb = jumpb
         self.prod_era = prod_era
+        self.source = source
 
     # Get heatsinking capability
     def get_sink(self):
@@ -283,6 +284,10 @@ class Mech:
                 partw = False
                 jumpb = 0
 
+                # Get source
+                sr = blo.getElementsByTagName('source')[0]
+                source = gettext(sr.childNodes)
+
                 # Get Clan Case
                 for cc in blo.getElementsByTagName('clancase'):
                     cc = gettext(cc.childNodes)
@@ -348,7 +353,7 @@ class Mech:
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "", self.BV, partw, jumpb, self.prod_era)
+            self.load = Loadout(self.weight, a4, a5, ap, "", self.BV, partw, jumpb, self.prod_era, source)
             self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
@@ -360,6 +365,10 @@ class Mech:
                 a5 = lo.attributes["fcsa5"].value
                 ap = lo.attributes["fcsapollo"].value
                 name = lo.attributes["name"].value
+
+                # Get source
+                sr = lo.getElementsByTagName('source')[0]
+                source = gettext(sr.childNodes)
 
                 # Get production era
                 pe = lo.getElementsByTagName('loadout_productionera')[0]
@@ -374,7 +383,7 @@ class Mech:
                     jumpb = int(hs.attributes["mp"].value)
                     
                 # Construct current loadout
-                current = Loadout(self.weight, a4, a5, ap, name, BV, partw, jumpb, prod_era)
+                current = Loadout(self.weight, a4, a5, ap, name, BV, partw, jumpb, prod_era, source)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
