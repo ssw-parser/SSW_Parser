@@ -244,10 +244,8 @@ def create_def_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
-    move = mech.get_move_string()
-    armor = mech.armor.get_armor_percent()
-#    percent = mech.weight_summary(True)
-    return (name_str, weight, BV, move, armor)
+    pe = conv_era(i.get_prod_era())
+    return (name_str, weight, BV, pe)
 
 
 def print_default(file_list, select_l, header_l):
@@ -264,10 +262,9 @@ def print_default(file_list, select_l, header_l):
 
     # Print output
     print header
-    print "Name                          Tons BV   Movement    Armor  Mot   Def   Off"
+    print "Name                          Tons BV   Era"
     for i in mech_list:
-        print ("%-30s %3d %4d %-11s %.0f%%" % (i[0], i[1], i[2], i[3], i[4]))
-#        print ("%-30s %3d %4d %-11s %.0f%% %s" % (i[0], i[1], i[2], i[3], i[4], i[5]))
+        print ("%-30s %3d %4d %s" % (i[0], i[1], i[2], i[3]))
 
 
 ####################################

@@ -1,7 +1,10 @@
 
+PRIORITY:
+- Track TL, Advanced and Experimental
+- Track source (RS)
+
 Goals:
 - Mech lists for Klondike, Solaris, 3085*2 (cutting edge, ONN)
-- Track TL, Advanced and Experimental
 - Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
 - missing ammo, missing TO stuff
 - Integrate fire control systems better (a4, a5, ap, tarcomp)
@@ -31,8 +34,8 @@ summary.py:
 - Allow comments in mech lists
 - Clean up filter header, create header function
 - Add missing eras: AoW, SL, Rep, DA
-- print offensive & defensive BV?
-- Make default display more like MUL
+- BV display: print offensive & defensive BV, remove era.
+- Make default display more like MUL: Add source and rules.
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.
