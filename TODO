@@ -27,10 +27,12 @@ summary.py:
 -- Stealth
 -- Artillery
 - Count and list specific weapon types
+-- Count number of LRM tubes
 - Allow comments in mech lists
-- Clean up filter header
+- Clean up filter header, create header function
 - Add missing eras: AoW, SL, Rep, DA
 - print offensive & defensive BV?
+- Make default display more like MUL
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.
