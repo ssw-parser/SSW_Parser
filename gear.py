@@ -656,21 +656,36 @@ class Gear:
         self.has_c3m = False
         self.has_c3i = False
         self.supercharger = False
+        # Track LRM tubes (IS, Clan, NLRM, MMLs)
+        # no ATMs, no streaks and no ELRMs
+        # only launchers that can use special ammo
+        self.LRMs = 0
 
-        # Count gear
+        ### Count gear ###
         for name in self.equip:
+            ### Weapons ###
             # Go through weapon list
             id = 0
             for w in self.weaponlist.list:
+                # Weapon identified
                 if name[0] == w.name:
+                    # Add weapon
                     w.addone()
+
                     # Arm weapons
                     if name[2] == "RA" or name[2] == "LA":
                         w.addone_arm()
+
+                    # track weapons weight
                     self.w_weight += w.weight
+                    # track weight for targeting computer
                     if w.enhance == "T":
                         self.tcw_weight += w.weight
+
+                    # We have found a valid weapon
                     id = 1
+
+                    # Missile fire control systems require extra weight
                     # Artemis IV
                     if (self.a4 == "TRUE" and w.enhance == "A"):
                         self.w_weight += 1
@@ -680,9 +695,33 @@ class Gear:
                     # Apollo
                     if (self.ap == "TRUE" and w.enhance == "P"):
                         self.w_weight += 1
-                    # Hack - Narc
+                    # Hack - track Narc
                     if name[0] == "(IS) Narc Missile Beacon" or name[0] == "(IS) iNarc Launcher" or name[0] == "(CL) Narc Missile Beacon":
                         self.has_narc = True
+
+                    # Count LRM tubes that can fire special ammo
+                    # Missing: NLRM-10, NLRM-15, NLRM-20
+                    if name[0] == "(IS) MML-3":
+                        self.LRMs += 3
+
+                    if name[0] == "(IS) LRM-5" or name[0] == "(CL) LRM-5" or name[0] == "(IS) MML-5" or name[0] == "(IS) Enhanced LRM-5":
+                        self.LRMs += 5
+
+                    if name[0] == "(IS) MML-7":
+                        self.LRMs += 7
+
+                    if name[0] == "(IS) MML-9":
+                        self.LRMs += 9
+
+                    if name[0] == "(IS) LRM-10" or name[0] == "(CL) LRM-10":
+                        self.LRMs += 10
+
+                    if name[0] == "(IS) LRM-15" or name[0] == "(CL) LRM-15":
+                        self.LRMs += 15
+
+                    if name[0] == "(IS) LRM-20" or name[0] == "(CL) LRM-20":
+                        self.LRMs += 20
+
                     # Add explosive weapon to location
                     if w.explosive > 0:
                         # Split weapons, assign to innermost
@@ -711,6 +750,7 @@ class Gear:
                             expl = self.exp_weapon.get(loc, 0)
                             expl += w.explosive
                             self.exp_weapon[loc] = expl
+                        # No split, easy to handle
                         else:
                             expl = self.exp_weapon.get(name[2], 0)
                             expl += w.explosive
