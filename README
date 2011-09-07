@@ -25,7 +25,9 @@ file.
 
 -s: Output that gives a summary of speed, sorted by speed.
 
-The default output is in flux right now.
+-l: Output that gives a summary of lrm tubes, sorted by tubes.
+
+The default output (no switch) is modeled after the MUL.
 
 ==== Filter Switches ====
 Only one of these will be used by the program, so using multiple ones

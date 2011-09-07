@@ -29,7 +29,6 @@ summary.py:
 -- Stealth
 -- Artillery
 - Count and list specific weapon types
--- Count number of LRM tubes
 - Allow comments in mech lists
 - Add missing eras: AoW, SL, Rep, DA
 - Make default display more like MUL: Add rules.

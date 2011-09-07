@@ -235,6 +235,32 @@ def print_speed_list(file_list, select_l, header):
         print ("%-30s %3d %4d %2d/%2d/%2d" % (i[0], i[1], i[2], i[4], i[5], i[6]))
 
 
+# missile_list output
+#
+# In the form of name, weight, BV, LRM tubes
+# sorted by LRM tubes, descending
+#
+def create_missile_list_item(mech, i):
+    name_str = mech.name + " " + mech.model + i.name
+    BV = mech.get_BV(i)
+    weight = mech.weight
+    lrm = i.gear.LRMs
+    return (name_str, weight, BV, lrm)
+
+def print_missile_list(file_list, select_l, header):
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_missile_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    print "Name                          Tons BV   LRM tubes"
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d" % (i[0], i[1], i[2], i[3]))
+
+
 # Default output format
 #
 # In the form of name, weight, BV, source, era
@@ -324,6 +350,11 @@ for arg in sys.argv[1:]:
         output_type = 's'
         continue
 
+    # LRM summary output
+    elif arg == '-l':
+        output_type = 'l'
+        continue
+
     ### Selectors ###
     # TAG filter
     elif arg == '-t':
@@ -389,6 +420,8 @@ elif output_type == 'a':
     print_armor_list(file_list, select_l, header)
 elif output_type == 's':
     print_speed_list(file_list, select_l, header)
+elif output_type == 'l':
+    print_missile_list(file_list, select_l, header)
 else:
     print_default(file_list, select_l, header)
 
