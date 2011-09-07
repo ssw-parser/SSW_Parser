@@ -62,6 +62,23 @@ def load_mech(file_name):
     return Mech(xmldoc)
 
 
+# Construct filter header
+#
+def create_header(header_l):
+    # Start with Mechs
+    header = "Mechs "
+
+    # Add specific filter description(s)
+    for h in header_l:
+        header += h
+        header += ", "
+
+    # Clean up end
+    header = header[:-2] + ":"
+
+    return header
+
+
 ###############################
 ##### Mech entry creation #####
 ###############################
@@ -139,20 +156,12 @@ def create_BV_list_item(mech, i):
         cp = "SML"
     return (name_str, weight, BV, BV_t, BV_d, BV_o, cp)
 
-def print_BV_list(file_list, select_l, header_l):
+def print_BV_list(file_list, select_l, header):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_BV_list_item)
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Construct header
-    header = "Mechs "
-    for h in header_l:
-        header += h
-        header += ", "
-    # Clean up end
-    header = header[:-2] + ":"
 
     # Print output
     print header
@@ -183,26 +192,18 @@ def create_armor_list_item(mech, i):
         s_str = ""
     return (name_str, weight, BV, armor, e_str, s_str)
 
-def print_armor_list(file_list, select_l, header_l):
+def print_armor_list(file_list, select_l, header):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_armor_list_item)
 
     # Sort by armor%
     mech_list.sort(key=itemgetter(3), reverse=True)
 
-    # Construct header
-    header = "Mechs "
-    for h in header_l:
-        header += h
-        header += ", "
-    # Clean up end
-    header = header[:-2] + ":"
-
     # Print output
     print header
     print "Name                          Tons BV   Armr Exp Sth"
     for i in mech_list:
-        print ("%-30s %3d %4d %.0f%% %3s %3s" % (i[0], i[1], i[2], i[3], i[4], i[5]))
+        print ("%-30s %3d %4d %3.0f%% %3s %3s" % (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 
 # speed_list output
@@ -220,20 +221,12 @@ def create_speed_list_item(mech, i):
     spd = max(walk, jump)
     return (name_str, weight, BV, spd, walk, run, jump)
 
-def print_speed_list(file_list, select_l, header_l):
+def print_speed_list(file_list, select_l, header):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_speed_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Construct header
-    header = "Mechs "
-    for h in header_l:
-        header += h
-        header += ", "
-    # Clean up end
-    header = header[:-2] + ":"
 
     # Print output
     print header
@@ -255,17 +248,9 @@ def create_def_list_item(mech, i):
     return (name_str, weight, BV, source, pe)
 
 
-def print_default(file_list, select_l, header_l):
+def print_default(file_list, select_l, header):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_def_list_item)
-
-    # Construct header
-    header = "Mechs "
-    for h in header_l:
-        header += h
-        header += ", "
-    # Clean up end
-    header = header[:-2] + ":"
 
     # Print output
     print header
@@ -395,12 +380,15 @@ for arg in sys.argv[1:]:
 
 ### Process output ###
 
+# Construct header
+header = create_header(header_l)
+
 if output_type == 'b':
-    print_BV_list(file_list, select_l, header_l)
+    print_BV_list(file_list, select_l, header)
 elif output_type == 'a':
-    print_armor_list(file_list, select_l, header_l)
+    print_armor_list(file_list, select_l, header)
 elif output_type == 's':
-    print_speed_list(file_list, select_l, header_l)
+    print_speed_list(file_list, select_l, header)
 else:
-    print_default(file_list, select_l, header_l)
+    print_default(file_list, select_l, header)
 
