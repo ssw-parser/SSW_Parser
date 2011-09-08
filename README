@@ -54,3 +54,7 @@ is pointless.
  can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad.
 
 -sf <d>: Only list mechs at least as fast as <d>.
+
+-lrm <d>: Only list mechs with at least <d> LRM tubes. Enhanced LRMs
+ and MMLs count, Extended LRMs does not. Basically only tubes that
+ can use standard LRM ammo variantions.

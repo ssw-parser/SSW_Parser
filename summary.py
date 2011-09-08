@@ -165,9 +165,9 @@ def print_BV_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV    BV/Wt  defBV   offBV   cpit"
+    print "Name                          Tons BV    BV/Wt | defBV   offBV   cpit"
     for i in mech_list:
-        print ("%-30s %3d %4d  %5.2f  %7.2f %7.2f %s" % (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d  %5.2f | %7.2f %7.2f %s" % (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
 # armor_list output
@@ -294,6 +294,7 @@ file_list = []
 file_arg = False
 era_arg = False
 speed_arg = False
+lrm_arg = False
 output_type = ''
 select = lambda x, y: True
 select_l = []
@@ -328,6 +329,14 @@ for arg in sys.argv[1:]:
         select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
         header_l.append(("with at least speed %d" % spd))
         speed_arg = False
+        continue
+
+    # The upcoming argument is a lrm tube count
+    elif (lrm_arg):
+        lrm = int(arg)
+        select_l.append(lambda x, y: (y.gear.LRMs >= lrm))
+        header_l.append(("with at least %d lrm tubes" % lrm))
+        lrm_arg = False
         continue
 
     ### Input switches ###
@@ -403,6 +412,10 @@ for arg in sys.argv[1:]:
     # Speed filter
     elif arg == '-sf':
         speed_arg = True
+        continue
+    # Speed filter
+    elif arg == '-lrm':
+        lrm_arg = True
         continue
     # otherwise read in each argument as a mech file
     else:
