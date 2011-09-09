@@ -33,6 +33,8 @@ summary.py:
 - Add missing eras: AoW, SL, Rep, DA
 - Make default display more like MUL: Add rules.
 -- Rules level filter.
+- Speed listing:
+-- Show superchargers
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.

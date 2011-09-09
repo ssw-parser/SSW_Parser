@@ -208,7 +208,7 @@ def print_armor_list(file_list, select_l, header):
 
 # speed_list output
 #
-# In the form of name, weight, BV, speed
+# In the form of name, weight, BV, speed, myomer enhancement
 # sorted by speed, descending
 #
 def create_speed_list_item(mech, i):
@@ -219,7 +219,10 @@ def create_speed_list_item(mech, i):
     run = mech.get_run()
     jump = i.get_jump()
     spd = max(walk, jump)
-    return (name_str, weight, BV, spd, walk, run, jump)
+    enh = mech.engine.enhancement
+    if enh == "---":
+        enh = ""
+    return (name_str, weight, BV, spd, walk, run, jump, enh)
 
 def print_speed_list(file_list, select_l, header):
     # Build list
@@ -230,9 +233,9 @@ def print_speed_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV    Speed"
+    print "Name                          Tons BV    Speed   Enh"
     for i in mech_list:
-        print ("%-30s %3d %4d %2d/%2d/%2d" % (i[0], i[1], i[2], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %2d/%2d/%2d %-4s" % (i[0], i[1], i[2], i[4], i[5], i[6], i[7]))
 
 
 # missile_list output
