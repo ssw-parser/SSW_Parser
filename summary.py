@@ -241,7 +241,7 @@ def print_speed_list(file_list, select_l, header):
 
 # missile_list output
 #
-# In the form of name, weight, BV, LRM tubes
+# In the form of name, weight, BV, LRM tubes, Artemis
 # sorted by LRM tubes, descending
 #
 def create_missile_list_item(mech, i):
@@ -249,7 +249,13 @@ def create_missile_list_item(mech, i):
     BV = mech.get_BV(i)
     weight = mech.weight
     lrm = i.gear.LRMs
-    return (name_str, weight, BV, lrm)
+    if i.gear.a4 == "TRUE":
+        art = "AIV"
+    elif i.gear.a5 == "TRUE":
+        art = "AV"
+    else:
+        art = ""
+    return (name_str, weight, BV, lrm, art)
 
 def print_missile_list(file_list, select_l, header):
     # Build list
@@ -260,9 +266,9 @@ def print_missile_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   LRM tubes"
+    print "Name                          Tons BV   LRM Artemis"
     for i in mech_list:
-        print ("%-30s %3d %4d %3d" % (i[0], i[1], i[2], i[3]))
+        print ("%-30s %3d %4d %3d %3s" % (i[0], i[1], i[2], i[3], i[4]))
 
 
 # Default output format
