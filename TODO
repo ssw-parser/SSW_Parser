@@ -1,6 +1,7 @@
 
 PRIORITY:
 - Track TL, Advanced and Experimental
+- Law of Demeter, avoid accessing low-level object data
 
 Goals:
 - Mech lists for Klondike, Solaris, 3085*2 (cutting edge, ONN)
@@ -29,12 +30,15 @@ summary.py:
 -- Stealth
 -- Artillery
 - Count and list specific weapon types
+-- Head-capper list: AC20, UAC20, LB20, GR, HGR, HPPC, HLL, cERPPC,
+   iHGR, BinL, iHLL, TB15, TB20
 - Allow comments in mech lists
-- Add missing eras: AoW, SL, Rep, DA
+- Add missing eras: SL, Rep, DA
 - Make default display more like MUL: Add rules.
 -- Rules level filter.
 - Speed listing:
--- Show superchargers
+-- Show superchargers, UMU, liquid cargo for space
+- Filter by source
 
 movement.py:
 - Replace IS XXL Engine BV factor once ssw uses new one.

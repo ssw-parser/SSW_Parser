@@ -35,10 +35,11 @@ from movement import *
 
 # Convert era to string
 #
-# TODO: Add missing eras: AoW, SL, Rep, DA
+# TODO: Add missing eras: SL, Rep, DA
 #
 def conv_era(era):
     conv = {
+        0 : "AoW",
         2 : "SW-E",
         3 : "SW-L",
         4 : "Clan",
