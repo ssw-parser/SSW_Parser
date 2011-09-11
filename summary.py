@@ -73,8 +73,8 @@ def create_header(header_l):
     header = "Mechs "
 
     # Add specific filter description(s)
-    for h in header_l:
-        header += h
+    for h_item in header_l:
+        header += h_item
         header += ", "
 
     # Clean up end
@@ -144,19 +144,22 @@ def create_mech_list(file_list, select_l, creator):
 # second item as weight
 # third item as BV
 
-def create_BV_list_item(mech, i):
+def create_bv_list_item(mech, i):
+    """
+    Compile info used by print_BV_list()
+    """
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
-    BV_t = float(BV)/float(weight)
-    BV_d = mech.def_BV(i, False)
-    BV_o = mech.off_BV(i, False)
-    cp = ""
+    bv_ton = float(BV)/float(weight)
+    bv_def = mech.def_BV(i, False)
+    bv_off = mech.off_BV(i, False)
+    cockp = ""
     if mech.cockpit.type == "Small Cockpit":
-        cp = "SML"
-    return (name_str, weight, BV, BV_t, BV_d, BV_o, cp)
+        cockp = "SML"
+    return (name_str, weight, BV, bv_ton, bv_def, bv_off, cockp)
 
-def print_BV_list(file_list, select_l, header):
+def print_bv_list(file_list, select_l, header):
     """
     BV_list output
 
@@ -165,7 +168,7 @@ def print_BV_list(file_list, select_l, header):
     """
 
     # Build list
-    mech_list = create_mech_list(file_list, select_l, create_BV_list_item)
+    mech_list = create_mech_list(file_list, select_l, create_bv_list_item)
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -179,6 +182,9 @@ def print_BV_list(file_list, select_l, header):
 
 
 def create_armor_list_item(mech, i):
+    """
+    Compile info used by print_armor_list()
+    """
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
@@ -197,12 +203,12 @@ def create_armor_list_item(mech, i):
     else:
         s_str = ""
     # Armor points
-    ap = mech.armor.total.a
-    mp = mech.armor.total.m
+    arm_p = mech.armor.total.a
+    max_p = mech.armor.total.m
     # Armor weight
     wgt = mech.armor.get_weight()
 
-    return (name_str, weight, BV, armor, e_str, s_str, ap, mp, wgt)
+    return (name_str, weight, BV, armor, e_str, s_str, arm_p, max_p, wgt)
 
 def print_armor_list(file_list, select_l, header):
     """
@@ -227,6 +233,9 @@ def print_armor_list(file_list, select_l, header):
 
 
 def create_speed_list_item(mech, i):
+    """
+    Compile info used by print_speed_list()
+    """
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
@@ -261,6 +270,9 @@ def print_speed_list(file_list, select_l, header):
 
 
 def create_missile_list_item(mech, i):
+    """
+    Compile info used by print_missile_list()
+    """
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
@@ -294,12 +306,15 @@ def print_missile_list(file_list, select_l, header):
 
 
 def create_def_list_item(mech, i):
+    """
+    Compile info used by print_default()
+    """
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
     source = i.source
-    pe = conv_era(i.get_prod_era())
-    return (name_str, weight, BV, source, pe)
+    prod_era = conv_era(i.get_prod_era())
+    return (name_str, weight, BV, source, prod_era)
 
 
 def print_default(file_list, select_l, header):
@@ -470,7 +485,7 @@ def main():
     header = create_header(header_l)
 
     if output_type == 'b':
-        print_BV_list(file_list, select_l, header)
+        print_bv_list(file_list, select_l, header)
     elif output_type == 'a':
         print_armor_list(file_list, select_l, header)
     elif output_type == 's':
