@@ -18,26 +18,28 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Prints out a one-line summary of a mech
+"""
+Prints out a one-line summary of a mech
+"""
 
 import sys
 import string
 from xml.dom import minidom
 from operator import itemgetter
-from mech import *
-from defensive import *
-from movement import *
+from mech import Mech
 
 
 #############################
 ##### Utility functions #####
 #############################
 
-# Convert era to string
 #
 # TODO: Add missing eras: SL, Rep, DA
 #
 def conv_era(era):
+    """
+    Convert era to string
+    """
     conv = {
         0 : "AoW",
         2 : "SW-E",
@@ -49,11 +51,12 @@ def conv_era(era):
     return conv[era]
     
 
-# Load mech from file
-#
-# Takes a file name as argument, returns a mech object
-#
 def load_mech(file_name):
+    """
+    Load mech from file
+
+    Takes a file name as argument, returns a mech object
+    """
     # Read file
     fsock = open(file_name)
     xmldoc = minidom.parse(fsock)
@@ -63,9 +66,10 @@ def load_mech(file_name):
     return Mech(xmldoc)
 
 
-# Construct filter header
-#
 def create_header(header_l):
+    """
+    Construct filter header
+    """
     # Start with Mechs
     header = "Mechs "
 
@@ -84,16 +88,17 @@ def create_header(header_l):
 ##### Mech entry creation #####
 ###############################
 
-# Create a list of mechs
-#
-# file_list is the list of files containing mech info
-# select is the selection criteria
-# creator specifies which items should be included
-# Note that item 0 is always supposed to be the name,
-# item 1 is supposed to be Weight, and item 2 is supposed to be BV
-#
 def create_mech_list(file_list, select_l, creator):
-    mech_list =[]
+    """
+    Create a list of mechs
+
+    file_list is the list of files containing mech info
+    select is the selection criteria
+    creator specifies which items should be included
+    Note that item 0 is always supposed to be the name,
+    item 1 is supposed to be Weight, and item 2 is supposed to be BV
+    """
+    mech_list = []
     # Loop over input
     for i in file_list:
         # Load mech from file
@@ -140,11 +145,6 @@ def create_mech_list(file_list, select_l, creator):
 # second item as weight
 # third item as BV
 
-# BV_list output
-#
-# In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
-# sorted by BV/weight, descending
-#
 def create_BV_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
@@ -158,6 +158,13 @@ def create_BV_list_item(mech, i):
     return (name_str, weight, BV, BV_t, BV_d, BV_o, cp)
 
 def print_BV_list(file_list, select_l, header):
+    """
+    BV_list output
+
+    In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
+    sorted by BV/weight, descending
+    """
+
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_BV_list_item)
 
@@ -168,36 +175,44 @@ def print_BV_list(file_list, select_l, header):
     print header
     print "Name                          Tons BV    BV/Wt | defBV   offBV   cpit"
     for i in mech_list:
-        print ("%-30s %3d %4d  %5.2f | %7.2f %7.2f %s" % (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d  %5.2f | %7.2f %7.2f %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
-# armor_list output
-#
-# In the form of name, weight, BV, Armor%, Explosive, Stealth
-# sorted by armor%, descending
-#
 def create_armor_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
     weight = mech.weight
+    # Armor coverage relative to maximum
     armor = mech.armor.get_armor_percent()
+    # Check for explosive stuff that can disable the mech
     exp = i.gear.get_ammo_exp_BV(mech.engine) + i.gear.get_weapon_exp_BV(mech.engine)
     if exp < 0:
         e_str = "EXP"
     else:
         e_str = ""
+    # Check for a stealth system
     sth = mech.get_stealth()
     if sth:
         s_str = "STH"
     else:
         s_str = ""
+    # Armor points
     ap = mech.armor.total.a
     mp = mech.armor.total.m
+    # Armor weight
     wgt = mech.armor.get_weight()
 
     return (name_str, weight, BV, armor, e_str, s_str, ap, mp, wgt)
 
 def print_armor_list(file_list, select_l, header):
+    """
+    armor_list output
+
+    In the form of name, weight, BV, Armor%, Explosive, Stealth, points/max,
+    armor tonnage
+    sorted by armor%, descending
+    """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_armor_list_item)
 
@@ -208,14 +223,10 @@ def print_armor_list(file_list, select_l, header):
     print header
     print "Name                          Tons BV   Armr Exp Sth | Points  Tons"
     for i in mech_list:
-        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft" % (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]))
+        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft" % 
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]))
 
 
-# speed_list output
-#
-# In the form of name, weight, BV, speed, myomer enhancement
-# sorted by speed, descending
-#
 def create_speed_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
@@ -230,6 +241,12 @@ def create_speed_list_item(mech, i):
     return (name_str, weight, BV, spd, walk, run, jump, enh)
 
 def print_speed_list(file_list, select_l, header):
+    """
+    speed_list output
+
+    In the form of name, weight, BV, speed, myomer enhancement
+    sorted by speed, descending
+    """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_speed_list_item)
 
@@ -240,14 +257,10 @@ def print_speed_list(file_list, select_l, header):
     print header
     print "Name                          Tons BV    Speed   Enh"
     for i in mech_list:
-        print ("%-30s %3d %4d %2d/%2d/%2d %-4s" % (i[0], i[1], i[2], i[4], i[5], i[6], i[7]))
+        print ("%-30s %3d %4d %2d/%2d/%2d %-4s" % 
+               (i[0], i[1], i[2], i[4], i[5], i[6], i[7]))
 
 
-# missile_list output
-#
-# In the form of name, weight, BV, LRM tubes, Artemis
-# sorted by LRM tubes, descending
-#
 def create_missile_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
@@ -262,6 +275,12 @@ def create_missile_list_item(mech, i):
     return (name_str, weight, BV, lrm, art)
 
 def print_missile_list(file_list, select_l, header):
+    """
+    missile_list output
+
+    In the form of name, weight, BV, LRM tubes, Artemis
+    sorted by LRM tubes, descending
+    """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_missile_list_item)
 
@@ -275,10 +294,6 @@ def print_missile_list(file_list, select_l, header):
         print ("%-30s %3d %4d %3d %3s" % (i[0], i[1], i[2], i[3], i[4]))
 
 
-# Default output format
-#
-# In the form of name, weight, BV, source, era
-#
 def create_def_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_BV(i)
@@ -289,6 +304,12 @@ def create_def_list_item(mech, i):
 
 
 def print_default(file_list, select_l, header):
+    """
+    Default output format
+
+    In the form of name, weight, BV, source, era
+    Intended to conform to the MUL format
+    """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_def_list_item)
 
