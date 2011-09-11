@@ -22,7 +22,7 @@
 
 from math import ceil
 from error import *
-from util import *
+from util import ceil_05
 
 # Armor related stuff
 
@@ -141,8 +141,10 @@ armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
          ["Primitive Armor", 0, 2439, 1.0, 0.67]]
 
 
-# A class to hold info about the internal stucture
 class IS:
+    """
+    A class to hold info about the internal stucture
+    """
     def __init__(self, istype, tb, weight, motive):
         self.type = istype
         self.tb = int(tb)
@@ -172,54 +174,70 @@ class IS:
         self.points += 3
 
         # Otherwise get from table
-        self.points += ctIS[weight];
-        self.points += stIS[weight] * 2;
-        self.points += legIS[weight] * 2;
+        self.points += ctIS[weight]
+        self.points += stIS[weight] * 2
+        self.points += legIS[weight] * 2
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.points += legIS[weight] * 2;
+            self.points += legIS[weight] * 2
         elif motive == "Biped":
-            self.points += armIS[weight] * 2;
+            self.points += armIS[weight] * 2
         else:
-            error_exit(mech.motive)
+            error_exit(motive)
 
 
-    # Return earliest year structure is available
     def get_year(self):
+        """
+        Return earliest year structure is available
+        """
         return self.year
 
-    # Return structure weight
     def get_weight(self):
+        """
+        Return structure weight
+        """
         return self.wgt
 
-    # Return IS BV factor
     def get_BV_factor(self):
+        """
+        Return IS BV factor
+        """
         return self.points * 1.5 * self.isBV
 
-# A class to hold info about the armor in one location
 class Armor_loc:
+    """
+    A class to hold info about the armor in one location
+    """
     def __init__(self, loc_name, armor, maximum):
         self.l_name = loc_name
         self.a = armor
         self.m = maximum
         assert self.a <= self.m, "More than maximum armor!"
 
-    # Check if armor is at least value
     def check_value(self, value):
+        """
+        Check if armor is at least value
+        """
         return self.a >= value
 
-    # Check if armor is at least percent of max
     def check_percent(self, percent):
+        """
+        Check if armor is at least percent of max
+        """
         return (self.a >= self.m * percent)
 
-    # Used if an report of armor value should be added to warnings
     def get_warning_string(self):
+        """
+        Used if an report of armor value should be added to warnings
+        """
         st = "  " + self.l_name + " armor: " + str(self.a)
         return st
 
-# A class to hold armor info for a mech
 class Armor:
+    """
+    A class to hold armor info for a mech
+    """
     def __init__(self, weight, motive, atype, tb,
                  hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl):
         # Save type of armor
@@ -245,78 +263,88 @@ class Armor:
         # Otherwise 2 times Internal Structure
         # We store three different values for each torso part
         # to simplify the interface. Front, rear and total
-        self.ctf = Armor_loc("Center Torso front", ct, ctIS[weight] * 2);
-        self.ctr = Armor_loc("Center Torso rear", ctr, ctIS[weight] * 2);
-        self.ct = Armor_loc("Center Torso total", ct + ctr, ctIS[weight] * 2);
-        self.ltf = Armor_loc("Left Torso front", lt, stIS[weight] * 2);
-        self.ltr = Armor_loc("Left Torso rear", ltr, stIS[weight] * 2);
-        self.lt = Armor_loc("Left Torso total", lt + ltr, stIS[weight] * 2);
-        self.rtf = Armor_loc("Right Torso front", rt, stIS[weight] * 2);
-        self.rtr = Armor_loc("Right Torso rear", rtr, stIS[weight] * 2);
-        self.rt = Armor_loc("Right Torso total", rt + rtr, stIS[weight] * 2);
+        self.ctf = Armor_loc("Center Torso front", ct, ctIS[weight] * 2)
+        self.ctr = Armor_loc("Center Torso rear", ctr, ctIS[weight] * 2)
+        self.ct = Armor_loc("Center Torso total", ct + ctr, ctIS[weight] * 2)
+        self.ltf = Armor_loc("Left Torso front", lt, stIS[weight] * 2)
+        self.ltr = Armor_loc("Left Torso rear", ltr, stIS[weight] * 2)
+        self.lt = Armor_loc("Left Torso total", lt + ltr, stIS[weight] * 2)
+        self.rtf = Armor_loc("Right Torso front", rt, stIS[weight] * 2)
+        self.rtr = Armor_loc("Right Torso rear", rtr, stIS[weight] * 2)
+        self.rt = Armor_loc("Right Torso total", rt + rtr, stIS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.la = Armor_loc("Front Left Leg", la, legIS[weight] * 2);
+            self.la = Armor_loc("Front Left Leg", la, legIS[weight] * 2)
         elif motive == "Biped":
-            self.la = Armor_loc("Left Arm", la, armIS[weight] * 2);
+            self.la = Armor_loc("Left Arm", la, armIS[weight] * 2)
         else:
-            error_exit(mech.motive)
+            error_exit(motive)
 
         if motive == "Quad":
-            self.ra = Armor_loc("Front Right Leg", ra, legIS[weight] * 2);
+            self.ra = Armor_loc("Front Right Leg", ra, legIS[weight] * 2)
         elif motive == "Biped":
-            self.ra = Armor_loc("Right Arm", ra, armIS[weight] * 2);
+            self.ra = Armor_loc("Right Arm", ra, armIS[weight] * 2)
         else:
-            error_exit(mech.motive)
+            error_exit(motive)
 
         if motive == "Quad":
-            self.ll = Armor_loc("Rear Left Leg", ll, legIS[weight] * 2);
+            self.ll = Armor_loc("Rear Left Leg", ll, legIS[weight] * 2)
         elif motive == "Biped":
-            self.ll = Armor_loc("Left Leg", ll, legIS[weight] * 2);
+            self.ll = Armor_loc("Left Leg", ll, legIS[weight] * 2)
         else:
-            error_exit(mech.motive)
+            error_exit(motive)
 
         if motive == "Quad":
-            self.rl = Armor_loc("Rear Right Leg", rl, legIS[weight] * 2);
+            self.rl = Armor_loc("Rear Right Leg", rl, legIS[weight] * 2)
         elif motive == "Biped":
-            self.rl = Armor_loc("Right Leg", rl, legIS[weight] * 2);
+            self.rl = Armor_loc("Right Leg", rl, legIS[weight] * 2)
         else:
-            error_exit(mech.motive)
+            error_exit(motive)
 
         # Last sum up total
         armortotal = self.hd.a + self.ct.a + self.lt.a + self.rt.a + self.la.a + self.ra.a + self.ll.a + self.rl.a
         maxtotal = self.hd.m + self.ct.m + self.lt.m + self.rt.m + self.la.m + self.ra.m + self.ll.m + self.rl.m
-        self.total = Armor_loc("Total", armortotal, maxtotal);
+        self.total = Armor_loc("Total", armortotal, maxtotal)
 
         # Store potential falling damage
         self.fall_dam = ceil(weight / 10.0)
 
 
-    # Return armor BV
     def get_armor_BV(self):
+        """
+        Return armor BV
+        """
         return (self.arBV * 2.5 * self.total.a)
        
 
-    # Return earliest year armor is available
     def get_year(self):
+        """
+        Return earliest year armor is available
+        """
         return self.year
 
-    # Return armor weight
     def get_weight(self):
+        """
+        Return armor weight
+        """
         wgt = self.total.a / (16 * self.arMult)
         # hack to get half-ton rounding up
         wgt = ceil_05(wgt)
         return wgt
 
-    # Return armor percent
     def get_armor_percent(self):
+        """
+        Return armor percent
+        """
         ratio = float(self.total.a) / float(self.total.m)
         return (ratio * 100)
 
-    # Print a report of the armor in a cetain location in the form:
-    # Location: armor/max xx%
     def print_report(self, armor):
+        """
+        Print a report of the armor in a cetain location in the form:
+        Location: armor/max xx%
+        """
         ratio = float(armor.a) / float(armor.m)
         msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.a, armor.m, int(ratio * 100)))
         print msg
@@ -329,17 +357,21 @@ class Armor:
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
-    # Falling damage armor report
     def report_fall(self, a_loc):
+        """
+        Falling damage armor report
+        """
         if (a_loc.a < self.fall_dam):
             st1 = "WARNING: Falling damage might go internal on " + a_loc.l_name + " armor!"
             st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.a)
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
-    # Standard armor location report, should be used in most cases
-    # Considers an armor value of less than 50% of max to be too weak
     def report_standard(self, a_loc):
+        """
+        Standard armor location report, should be used in most cases
+        Considers an armor value of less than 50% of max to be too weak
+        """
         self.print_report(a_loc)
         if (not a_loc.check_percent(0.5)):
             st1 = "WARNING: Weak " + a_loc.l_name + " armor!"
@@ -377,8 +409,6 @@ class Armor:
         self.print_report(self.rt)
 
     def armor_total_report(self):
-        # Commented out calculates tonnage with standard armor
-        #    print atype, armor, "pts", int(round(float(armor)/30))
         if self.tb == 0:
             base = "(Inner Sphere)"
         elif self.tb == 1:
