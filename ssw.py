@@ -279,7 +279,7 @@ if mech.cockpit.console == "TRUE":
 date = get_comp_year(mech.engine.get_enh_year, date)
 print "-3-----------------------------"
 date = get_comp_year(mech.load.heatsinks.get_year, date)
-print mech.load.heatsinks.type, mech.load.heatsinks.nr
+print mech.load.heatsinks.type, mech.load.heatsinks.number
 print "-4-----------------------------"
 date = get_comp_year(mech.armor.get_year, date)
 #speed = mech.engine.erating/mech.weight

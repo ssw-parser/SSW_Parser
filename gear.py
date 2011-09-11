@@ -37,7 +37,7 @@ from util import ceil_05
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
 # Clan: 2 HMG, 2 LMG, 4 LMG, 2 MG, 3 MG
 # TODO3: Artemis IV versions
-weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
+WEAPONS = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(IS) Autocannon/5", [70, 9], "L", "T", 2250, 1, 8, 1, 0],
            ["(IS) Autocannon/10", [123, 15], "M", "T", 2460, 1, 12, 3, 0],
            ["(IS) Autocannon/20", [178, 22], "M", "T", 2500, 1, 14, 7, 0],
@@ -206,7 +206,7 @@ weapons = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
 #
 # TODO: Vehicle flamer
 # TODO: Advanced weapons
-ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
+AMMO = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
         ["(IS) @ AC/5", ["(IS) Autocannon/5"], 20, 1, "X"],
         ["(IS) @ AC/10", ["(IS) Autocannon/10"], 10, 1, "X"],
         ["(IS) @ AC/20", ["(IS) Autocannon/20"], 5, 1, "X"],
@@ -368,7 +368,7 @@ ammo = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
 #
 # Name, BV, year, uses ammo rate, weight, explosive slots
 #
-o_equipment = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1, 0],
+O_EQUIPMENT = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1, 0],
                ["C3 Computer (Master)", [0, 0], 3050, 0, 5, 0],
                ["Improved C3 Computer", [0, 0], 3062, 0, 2.5, 0],
                ["TAG", [0, 0], 2600, 0, 1, 0],
@@ -379,7 +379,7 @@ o_equipment = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1, 0],
                ["Coolant Pod", [0, 0], 3049, 0, 1, 1]]
 
 
-d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
+D_EQUIPMENT = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
                ["B-Pod", [2, 0], 3069, 0, 1, 0],
                ["(IS) Anti-Missile System", [32, 11], 2617, 1, 0.5, 0],
                ["Guardian ECM Suite", [61, 0], 2597, 0, 1.5, 0],
@@ -397,7 +397,7 @@ d_equipment = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
                ["(IS) CASE II", [0, 0], 3064, 0, 1, 0],
                ["(CL) CASE II", [0, 0], 3062, 0, 0.5, 0]]
 
-d_physical = [["Small Shield", [50, 0], 3067, 0, 2, 0]]
+D_PHYSICAL = [["Small Shield", [50, 0], 3067, 0, 2, 0]]
 
 # Targeting computers, currently not used
 #
@@ -424,7 +424,7 @@ missile_ench = [["Artemis IV", 2598],
 #
 # Name, year, BV multiplier, damage formula, weight
 #
-physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(x / 15.0))],
+PHYSICAL = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(x / 15.0))],
             ["Sword", 3058, 1.725, (lambda x : ceil(x / 10.0) + 1), (lambda x : ceil_05(x / 20.0))],
             ["Retractable Blade", 2420, 1.725, (lambda x : ceil(x / 10.0)), (lambda x : ceil_05(x / 2.0) + 0.5)], 
             ["Claws", 3060, 1.275, (lambda x : ceil(x / 7.0)), (lambda x : ceil(x / 15.0))],
@@ -436,20 +436,23 @@ physical = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(
 
 
 class Heatsinks:
-    def __init__(self, hstype, tb, nr):
+    """
+    Heatsinks for a mech
+    """
+    def __init__(self, hstype, tech_b, number):
         self.type = hstype
-        self.tb = int(tb)
-        self.nr = nr
+        self.tech_b = int(tech_b)
+        self.number = number
 
         # Check for heatsink type, save data
-        id = 0
+        ident = False
         for i in heatsink:
-            if (i[0] == self.type and i[1] == self.tb):
-                id = 1
+            if (i[0] == self.type and i[1] == self.tech_b):
+                ident = True
                 self.year = i[2]
                 self.cap = i[3]
-        if id == 0:
-            error_exit((self.type, self.tb))
+        if ident == False:
+            error_exit((self.type, self.tech_b))
 
     def get_year(self):
         """
@@ -462,19 +465,19 @@ class Heatsinks:
         Return heatsink weight
         1 ton/sink, 10 free
         """
-        return self.nr - 10
+        return self.number - 10
 
     def get_sink(self):
         """
         Return sinking capability
         """
-        return self.nr * self.cap
+        return self.number * self.cap
 
 class Weaponlist:
     def __init__(self):
         self.list = []
-        for w in weapons:
-            self.list.append(Weapon(w))
+        for weap in WEAPONS:
+            self.list.append(Weapon(weap))
 
 class Weapon:
     def __init__(self, ginfo):
@@ -494,32 +497,45 @@ class Weapon:
         self.ammo_ton = 0
 
     def addone(self):
+        """
+        Add a normal-front facing weapon
+        """
         self.count = self.count + 1
 
     def addone_rear(self):
+        """
+        Add a rear-facing weapon
+        """
         self.countrear = self.countrear + 1
 
     def addone_arm(self):
+        """
+        Add a weapon to arms.
+        Note that addone needs also to be called
+        """
         self.countarm = self.countarm + 1
 
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works
     def add_ammo(self, count, amount):
+        """
+        Add ammo for the weapon
+        """
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-    def get_BV(self, tarcomp, a4, a5, ap):
+    def get_BV(self, tarcomp, art4, art5, apollo):
         """
         Get the BV of an INDIVIDUAL weapon, not all of them
         """
         BV = self.BV[0]
         if (tarcomp > 0 and self.enhance == "T"):
             BV *= 1.25
-        if (a4 == "TRUE" and self.enhance == "A"):
+        if (art4 == "TRUE" and self.enhance == "A"):
             BV *= 1.2
-        elif (a5 == "TRUE" and self.enhance == "A"):
+        elif (art5 == "TRUE" and self.enhance == "A"):
             BV *= 1.3
-        if (ap == "TRUE" and self.enhance == "P"):
+        if (apollo == "TRUE" and self.enhance == "P"):
             BV *= 1.15
         return BV
 
@@ -528,25 +544,25 @@ class Weapon:
         """
         Get the BV of the total ammo
         """
-        BV_ammo = 0
+        bv_ammo = 0
         # Here we use BV of the unmodified weapons, of both facing
         BV_weapons = self.BV[0] * (self.count + self.countrear)
         # Handle ammo
         if (self.BV[1] > 0 and self.ammocount > 0):
-            BV_ammo = self.BV[1] * self.ammo_ton
+            bv_ammo = self.BV[1] * self.ammo_ton
             # Disallow ammo BV to be greater than that of
             # the weapon itself
-            if BV_ammo > BV_weapons:
-                BV_ammo = BV_weapons
+            if bv_ammo > BV_weapons:
+                bv_ammo = BV_weapons
 
-        return BV_ammo
+        return bv_ammo
 
 
 class Ammolist:
     def __init__(self):
         self.list = []
-        for a in ammo:
-            self.list.append(Ammo(a))
+        for ammo in AMMO:
+            self.list.append(Ammo(ammo))
 
 class Ammo:
     def __init__(self, ginfo):
@@ -563,14 +579,14 @@ class Ammo:
 class O_Equiplist:
     def __init__(self):
         self.list = []
-        for e in o_equipment:
-            self.list.append(Equipment(e))
+        for equip in O_EQUIPMENT:
+            self.list.append(Equipment(equip))
 
 class D_Equiplist:
     def __init__(self):
         self.list = []
-        for e in d_equipment:
-            self.list.append(Equipment(e))
+        for equip in D_EQUIPMENT:
+            self.list.append(Equipment(equip))
 
 class Equipment:
     def __init__(self, ginfo):
@@ -596,14 +612,14 @@ class Equipment:
 class Physicallist:
     def __init__(self):
         self.list = []
-        for p in physical:
+        for p in PHYSICAL:
             self.list.append(Physical(p))
         self.name = "physcial"
 
 class D_Physicallist:
     def __init__(self):
         self.list = []
-        for p in d_physical:
+        for p in D_PHYSICAL:
             self.list.append(Equipment(p))
         self.name = "physcial"
 
