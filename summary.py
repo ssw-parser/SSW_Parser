@@ -23,7 +23,6 @@ Prints out a one-line summary of a mech
 """
 
 import sys
-import string
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
@@ -346,7 +345,8 @@ for arg in sys.argv[1:]:
         file_list_raw = f.readlines()
         f.close()
         # Strip out trailing newlines
-        file_list += map(string.strip, file_list_raw)
+        for file_name in file_list_raw:
+            file_list.append(file_name.strip())
         file_arg = False
         continue
 
