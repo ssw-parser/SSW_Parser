@@ -203,8 +203,8 @@ def create_armor_list_item(mech, i):
     else:
         s_str = ""
     # Armor points
-    arm_p = mech.armor.total.a
-    max_p = mech.armor.total.m
+    arm_p = mech.armor.total.arm
+    max_p = mech.armor.total.max
     # Armor weight
     wgt = mech.armor.get_weight()
 

@@ -18,17 +18,19 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+"""
+Mech internal structure and armor classes
+"""
 
 
 from math import ceil
 from error import *
 from util import ceil_05
 
-# Armor related stuff
 
 # These four tables lists internal structure for each weight class in
 # 1st: center torso, 2nd: side torsos, 3rd: arms, and 4th: legs
-ctIS = {
+CT_IS = {
     20 : 6,
     25 : 8,
     30 : 10,
@@ -48,7 +50,7 @@ ctIS = {
     100 : 31
     }
 
-stIS = {
+ST_IS = {
     20 : 5,
     25 : 6,
     30 : 7,
@@ -68,7 +70,7 @@ stIS = {
     100 : 21
     }
 
-armIS = {
+ARM_IS = {
     20 : 3,
     25 : 4,
     30 : 5,
@@ -88,7 +90,7 @@ armIS = {
     100 : 17
     }
 
-legIS = {
+LEG_IS = {
     20 : 4,
     25 : 6,
     30 : 7,
@@ -115,7 +117,7 @@ legIS = {
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: Industrial
-structure = [["Standard Structure", 2, 2439, 1.0, 0.1],
+STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1],
              ["Endo-Steel", 0, 2487, 1.0, 0.05],
              ["Endo-Steel", 1, 2487, 1.0, 0.05],
              # No year given for primitive structure,
@@ -130,7 +132,7 @@ structure = [["Standard Structure", 2, 2439, 1.0, 0.1],
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
-armor = [["Standard Armor", 2, 2470, 1.0, 1.0],
+ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0],
          ["Ferro-Fibrous", 0, 2571, 1.0, 1.12],
          ["Ferro-Fibrous", 1, 2571, 1.0, 1.2],
          ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06],
@@ -145,21 +147,21 @@ class IS:
     """
     A class to hold info about the internal stucture
     """
-    def __init__(self, istype, tb, weight, motive):
+    def __init__(self, istype, tech_base, weight, motive):
         self.type = istype
-        self.tb = int(tb)
+        self.tech_base = int(tech_base)
         wgt = weight
 
         # Check for legal structure type, save data
-        id = 0
-        for i in structure:
-            if (i[0] == self.type and i[1] == self.tb):
-                id = 1
+        ident = False
+        for i in STRUCTURE:
+            if (i[0] == self.type and i[1] == self.tech_base):
+                ident = True
                 self.year = i[2]
                 self.isBV = i[3]
                 wgtf = i[4]
-        if id == 0:
-            error_exit((self.type, self.tb))
+        if ident == False:
+            error_exit((self.type, self.tech_base))
 
         # Calculate IS weight
         wgt *= wgtf
@@ -174,15 +176,15 @@ class IS:
         self.points += 3
 
         # Otherwise get from table
-        self.points += ctIS[weight]
-        self.points += stIS[weight] * 2
-        self.points += legIS[weight] * 2
+        self.points += CT_IS[weight]
+        self.points += ST_IS[weight] * 2
+        self.points += LEG_IS[weight] * 2
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.points += legIS[weight] * 2
+            self.points += LEG_IS[weight] * 2
         elif motive == "Biped":
-            self.points += armIS[weight] * 2
+            self.points += ARM_IS[weight] * 2
         else:
             error_exit(motive)
 
@@ -211,50 +213,50 @@ class Armor_loc:
     """
     def __init__(self, loc_name, armor, maximum):
         self.l_name = loc_name
-        self.a = armor
-        self.m = maximum
-        assert self.a <= self.m, "More than maximum armor!"
+        self.arm = armor
+        self.max = maximum
+        assert self.arm <= self.max, "More than maximum armor!"
 
     def check_value(self, value):
         """
         Check if armor is at least value
         """
-        return self.a >= value
+        return self.arm >= value
 
     def check_percent(self, percent):
         """
         Check if armor is at least percent of max
         """
-        return (self.a >= self.m * percent)
+        return (self.arm >= self.max * percent)
 
     def get_warning_string(self):
         """
         Used if an report of armor value should be added to warnings
         """
-        st = "  " + self.l_name + " armor: " + str(self.a)
+        st = "  " + self.l_name + " armor: " + str(self.arm)
         return st
 
 class Armor:
     """
     A class to hold armor info for a mech
     """
-    def __init__(self, weight, motive, atype, tb,
+    def __init__(self, weight, motive, atype, tech_base,
                  hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl):
         # Save type of armor
         self.atype = atype
         # and its techbase
-        self.tb = int(tb)
+        self.tech_base = int(tech_base)
 
         # Check for legal armor type, save data
-        id = 0
-        for i in armor:
-            if (i[0] == self.atype and i[1] == self.tb):
-                id = 1
+        ident = False
+        for i in ARMOR:
+            if (i[0] == self.atype and i[1] == self.tech_base):
+                ident = True
                 self.year = i[2]
                 self.arBV = i[3]
                 self.arMult = i[4]
-        if id == 0:
-            error_exit((self.atype, self.tb))
+        if ident == False:
+            error_exit((self.atype, self.tech_base))
 
 
         # Head always have max 9 armor
@@ -263,48 +265,48 @@ class Armor:
         # Otherwise 2 times Internal Structure
         # We store three different values for each torso part
         # to simplify the interface. Front, rear and total
-        self.ctf = Armor_loc("Center Torso front", ct, ctIS[weight] * 2)
-        self.ctr = Armor_loc("Center Torso rear", ctr, ctIS[weight] * 2)
-        self.ct = Armor_loc("Center Torso total", ct + ctr, ctIS[weight] * 2)
-        self.ltf = Armor_loc("Left Torso front", lt, stIS[weight] * 2)
-        self.ltr = Armor_loc("Left Torso rear", ltr, stIS[weight] * 2)
-        self.lt = Armor_loc("Left Torso total", lt + ltr, stIS[weight] * 2)
-        self.rtf = Armor_loc("Right Torso front", rt, stIS[weight] * 2)
-        self.rtr = Armor_loc("Right Torso rear", rtr, stIS[weight] * 2)
-        self.rt = Armor_loc("Right Torso total", rt + rtr, stIS[weight] * 2)
+        self.ctf = Armor_loc("Center Torso front", ct, CT_IS[weight] * 2)
+        self.ctr = Armor_loc("Center Torso rear", ctr, CT_IS[weight] * 2)
+        self.ct = Armor_loc("Center Torso total", ct + ctr, CT_IS[weight] * 2)
+        self.ltf = Armor_loc("Left Torso front", lt, ST_IS[weight] * 2)
+        self.ltr = Armor_loc("Left Torso rear", ltr, ST_IS[weight] * 2)
+        self.lt = Armor_loc("Left Torso total", lt + ltr, ST_IS[weight] * 2)
+        self.rtf = Armor_loc("Right Torso front", rt, ST_IS[weight] * 2)
+        self.rtr = Armor_loc("Right Torso rear", rtr, ST_IS[weight] * 2)
+        self.rt = Armor_loc("Right Torso total", rt + rtr, ST_IS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.la = Armor_loc("Front Left Leg", la, legIS[weight] * 2)
+            self.la = Armor_loc("Front Left Leg", la, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.la = Armor_loc("Left Arm", la, armIS[weight] * 2)
+            self.la = Armor_loc("Left Arm", la, ARM_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.ra = Armor_loc("Front Right Leg", ra, legIS[weight] * 2)
+            self.ra = Armor_loc("Front Right Leg", ra, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.ra = Armor_loc("Right Arm", ra, armIS[weight] * 2)
+            self.ra = Armor_loc("Right Arm", ra, ARM_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.ll = Armor_loc("Rear Left Leg", ll, legIS[weight] * 2)
+            self.ll = Armor_loc("Rear Left Leg", ll, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.ll = Armor_loc("Left Leg", ll, legIS[weight] * 2)
+            self.ll = Armor_loc("Left Leg", ll, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.rl = Armor_loc("Rear Right Leg", rl, legIS[weight] * 2)
+            self.rl = Armor_loc("Rear Right Leg", rl, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.rl = Armor_loc("Right Leg", rl, legIS[weight] * 2)
+            self.rl = Armor_loc("Right Leg", rl, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
         # Last sum up total
-        armortotal = self.hd.a + self.ct.a + self.lt.a + self.rt.a + self.la.a + self.ra.a + self.ll.a + self.rl.a
-        maxtotal = self.hd.m + self.ct.m + self.lt.m + self.rt.m + self.la.m + self.ra.m + self.ll.m + self.rl.m
+        armortotal = self.hd.arm + self.ct.arm + self.lt.arm + self.rt.arm + self.la.arm + self.ra.arm + self.ll.arm + self.rl.arm
+        maxtotal = self.hd.max + self.ct.max + self.lt.max + self.rt.max + self.la.max + self.ra.max + self.ll.max + self.rl.max
         self.total = Armor_loc("Total", armortotal, maxtotal)
 
         # Store potential falling damage
@@ -315,7 +317,7 @@ class Armor:
         """
         Return armor BV
         """
-        return (self.arBV * 2.5 * self.total.a)
+        return (self.arBV * 2.5 * self.total.arm)
        
 
     def get_year(self):
@@ -328,7 +330,7 @@ class Armor:
         """
         Return armor weight
         """
-        wgt = self.total.a / (16 * self.arMult)
+        wgt = self.total.arm / (16 * self.arMult)
         # hack to get half-ton rounding up
         wgt = ceil_05(wgt)
         return wgt
@@ -337,7 +339,7 @@ class Armor:
         """
         Return armor percent
         """
-        ratio = float(self.total.a) / float(self.total.m)
+        ratio = float(self.total.arm) / float(self.total.max)
         return (ratio * 100)
 
     def print_report(self, armor):
@@ -345,8 +347,8 @@ class Armor:
         Print a report of the armor in a cetain location in the form:
         Location: armor/max xx%
         """
-        ratio = float(armor.a) / float(armor.m)
-        msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.a, armor.m, int(ratio * 100)))
+        ratio = float(armor.arm) / float(armor.max)
+        msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.arm, armor.max, int(ratio * 100)))
         print msg
 
     def head_report(self):
@@ -361,9 +363,9 @@ class Armor:
         """
         Falling damage armor report
         """
-        if (a_loc.a < self.fall_dam):
+        if (a_loc.arm < self.fall_dam):
             st1 = "WARNING: Falling damage might go internal on " + a_loc.l_name + " armor!"
-            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.a)
+            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.arm)
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
@@ -409,11 +411,11 @@ class Armor:
         self.print_report(self.rt)
 
     def armor_total_report(self):
-        if self.tb == 0:
+        if self.tech_base == 0:
             base = "(Inner Sphere)"
-        elif self.tb == 1:
+        elif self.tech_base == 1:
             base = "(Clan)"
-        elif self.tb == 2:
+        elif self.tech_base == 2:
             base = ""
         print str(self.get_weight()) + " tons " + self.atype + " " + base
         self.print_report(self.total)
