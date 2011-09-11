@@ -191,7 +191,11 @@ def create_armor_list_item(mech, i):
         s_str = "STH"
     else:
         s_str = ""
-    return (name_str, weight, BV, armor, e_str, s_str)
+    ap = mech.armor.total.a
+    mp = mech.armor.total.m
+    wgt = mech.armor.get_weight()
+
+    return (name_str, weight, BV, armor, e_str, s_str, ap, mp, wgt)
 
 def print_armor_list(file_list, select_l, header):
     # Build list
@@ -202,9 +206,9 @@ def print_armor_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Armr Exp Sth"
+    print "Name                          Tons BV   Armr Exp Sth | Points  Tons"
     for i in mech_list:
-        print ("%-30s %3d %4d %3.0f%% %3s %3s" % (i[0], i[1], i[2], i[3], i[4], i[5]))
+        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft" % (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]))
 
 
 # speed_list output
