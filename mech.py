@@ -569,12 +569,12 @@ class Mech:
         """
         dbv = 0.0
         # Armor
-        cur = self.armor.get_armor_BV()
+        cur = self.armor.get_armor_bv()
         dbv += cur
         if (printq):
             print "Armor Def BV: ", cur
         # Internal
-        cur = self.structure.get_BV_factor() * self.engine.get_engine_bv_mod()
+        cur = self.structure.get_bv_factor() * self.engine.get_engine_bv_mod()
         dbv += cur
         if (printq):
             print "Internal Def BV: ", cur

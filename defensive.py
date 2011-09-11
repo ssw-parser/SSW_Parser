@@ -201,7 +201,7 @@ class IS:
         """
         return self.wgt
 
-    def get_BV_factor(self):
+    def get_bv_factor(self):
         """
         Return IS BV factor
         """
@@ -313,7 +313,7 @@ class Armor:
         self.fall_dam = ceil(weight / 10.0)
 
 
-    def get_armor_BV(self):
+    def get_armor_bv(self):
         """
         Return armor BV
         """
@@ -352,6 +352,9 @@ class Armor:
         print msg
 
     def head_report(self):
+        """
+        Head armor report
+        """
         self.print_report(self.hd)
         if (not self.hd.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
@@ -384,6 +387,9 @@ class Armor:
         self.report_fall(a_loc)
 
     def center_torso_report(self):
+        """
+        Center torso armor report
+        """
         # Standard for front armor
         self.report_standard(self.ctf)
         # Only falling damage check for rear
@@ -393,6 +399,9 @@ class Armor:
         self.print_report(self.ct)
 
     def left_torso_report(self):
+        """
+        Left torso armor report
+        """
         # Standard for front armor
         self.report_standard(self.ltf)
         # Only falling damage check for rear
@@ -402,6 +411,9 @@ class Armor:
         self.print_report(self.lt)
 
     def right_torso_report(self):
+        """
+        Right torso armor report
+        """
         # Standard for front armor
         self.report_standard(self.rtf)
         # Only falling damage check for rear
@@ -411,6 +423,9 @@ class Armor:
         self.print_report(self.rt)
 
     def armor_total_report(self):
+        """
+        Report total armor
+        """
         if self.tech_base == 0:
             base = "(Inner Sphere)"
         elif self.tech_base == 1:
