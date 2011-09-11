@@ -323,153 +323,162 @@ def print_default(file_list, select_l, header):
 ##### Main program starts here #####
 ####################################
 
+def main():
 ### Handle arguments ###
-file_list = []
-file_arg = False
-era_arg = False
-speed_arg = False
-lrm_arg = False
-output_type = ''
-select = lambda x, y: True
-select_l = []
-select_l.append(select)
-header_l = []
+    file_list = []
+    file_arg = False
+    era_arg = False
+    speed_arg = False
+    lrm_arg = False
+    output_type = ''
+    select = lambda x, y: True
+    select_l = []
+    select_l.append(select)
+    header_l = []
 
-for arg in sys.argv[1:]:
+    for arg in sys.argv[1:]:
 
     ### Handle multi-arg switches ###
-    # The upcoming argument is a file list, read it in
-    if (file_arg):
-        in_file = arg
-        f = open(in_file)
-        file_list_raw = f.readlines()
-        f.close()
-        # Strip out trailing newlines
-        for file_name in file_list_raw:
-            file_list.append(file_name.strip())
-        file_arg = False
-        continue
 
-    # The upcoming argument is an era
-    elif (era_arg):
-        era = int(arg)
-        select_l.append(lambda x, y: (y.get_prod_era() <= era))
-        header_l.append(("available at era %s" % conv_era(era)))
-        era_arg = False
-        continue
+        # The upcoming argument is a file list, read it in
+        if (file_arg):
+            in_file = arg
+            f = open(in_file)
+            file_list_raw = f.readlines()
+            f.close()
+            # Strip out trailing newlines
+            for file_name in file_list_raw:
+                file_list.append(file_name.strip())
+            file_arg = False
+            continue
 
-    # The upcoming argument is a speed
-    elif (speed_arg):
-        spd = int(arg)
-        select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
-        header_l.append(("with at least speed %d" % spd))
-        speed_arg = False
-        continue
+        # The upcoming argument is an era
+        elif (era_arg):
+            era = int(arg)
+            select_l.append(lambda x, y: (y.get_prod_era() <= era))
+            header_l.append(("available at era %s" % conv_era(era)))
+            era_arg = False
+            continue
 
-    # The upcoming argument is a lrm tube count
-    elif (lrm_arg):
-        lrm = int(arg)
-        select_l.append(lambda x, y: (y.gear.LRMs >= lrm))
-        header_l.append(("with at least %d lrm tubes" % lrm))
-        lrm_arg = False
-        continue
+        # The upcoming argument is a speed
+        elif (speed_arg):
+            spd = int(arg)
+            select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+            header_l.append(("with at least speed %d" % spd))
+            speed_arg = False
+            continue
+
+        # The upcoming argument is a lrm tube count
+        elif (lrm_arg):
+            lrm = int(arg)
+            select_l.append(lambda x, y: (y.gear.LRMs >= lrm))
+            header_l.append(("with at least %d lrm tubes" % lrm))
+            lrm_arg = False
+            continue
 
     ### Input switches ###
-    # If first argument is -f, read input list from file,
-    elif arg == "-f":
-        file_arg = True
-        continue
+
+        # If first argument is -f, read input list from file,
+        elif arg == "-f":
+            file_arg = True
+            continue
 
     ### Output types ###
-    # BV summary output
-    elif arg == '-b':
-        output_type = 'b'
-        continue
-    # Armor summary output
-    elif arg == '-a':
-        output_type = 'a'
-        continue
-    # Speed summary output
-    elif arg == '-s':
-        output_type = 's'
-        continue
 
-    # LRM summary output
-    elif arg == '-l':
-        output_type = 'l'
-        continue
+        # BV summary output
+        elif arg == '-b':
+            output_type = 'b'
+            continue
+
+        # Armor summary output
+        elif arg == '-a':
+            output_type = 'a'
+            continue
+
+        # Speed summary output
+        elif arg == '-s':
+            output_type = 's'
+            continue
+
+        # LRM summary output
+        elif arg == '-l':
+            output_type = 'l'
+            continue
 
     ### Selectors ###
-    # TAG filter
-    elif arg == '-t':
-        select_l.append(lambda x, y: y.gear.has_tag)
-        header_l.append("with TAG")
-        continue
-    # C3 slave filter
-    elif arg == '-c':
-        select_l.append(lambda x, y: y.gear.has_c3)
-        header_l.append("with C3 Slave")
-        continue
-    # C3 master filter
-    elif arg == '-cm':
-        select_l.append(lambda x, y: y.gear.has_c3m)
-        header_l.append("with C3 Master")
-        continue
-    # C3i filter
-    elif arg == '-ci':
-        select_l.append(lambda x, y: y.gear.has_c3i)
-        header_l.append("with C3i")
-        continue
-    # Narc filter
-    elif arg == '-n':
-        select_l.append(lambda x, y: y.gear.has_narc)
-        header_l.append("with Narc")
-        continue
-    # IS filter
-    elif arg == '-i':
-        select_l.append(lambda x, y: x.techbase == "Inner Sphere")
-        header_l.append("Inner Sphere-tech")
-        continue
-    # Clan filter
-    elif arg == '-cl':
-        select_l.append(lambda x, y: x.techbase == "Clan")
-        header_l.append("Clan-tech")
-        continue
-    # Command console filter
-    elif arg == '-cc':
-        select_l.append(lambda x, y: x.cockpit.console == "TRUE")
-        header_l.append("with Command Console")
-        continue
-    # Era filter
-    elif arg == '-e':
-        era_arg = True
-        continue
-    # Speed filter
-    elif arg == '-sf':
-        speed_arg = True
-        continue
-    # Speed filter
-    elif arg == '-lrm':
-        lrm_arg = True
-        continue
-    # otherwise read in each argument as a mech file
-    else:
-        file_list.append(''.join(arg))
-        print file_list
+
+        # TAG filter
+        elif arg == '-t':
+            select_l.append(lambda x, y: y.gear.has_tag)
+            header_l.append("with TAG")
+            continue
+        # C3 slave filter
+        elif arg == '-c':
+            select_l.append(lambda x, y: y.gear.has_c3)
+            header_l.append("with C3 Slave")
+            continue
+        # C3 master filter
+        elif arg == '-cm':
+            select_l.append(lambda x, y: y.gear.has_c3m)
+            header_l.append("with C3 Master")
+            continue
+        # C3i filter
+        elif arg == '-ci':
+            select_l.append(lambda x, y: y.gear.has_c3i)
+            header_l.append("with C3i")
+            continue
+        # Narc filter
+        elif arg == '-n':
+            select_l.append(lambda x, y: y.gear.has_narc)
+            header_l.append("with Narc")
+            continue
+        # IS filter
+        elif arg == '-i':
+            select_l.append(lambda x, y: x.techbase == "Inner Sphere")
+            header_l.append("Inner Sphere-tech")
+            continue
+        # Clan filter
+        elif arg == '-cl':
+            select_l.append(lambda x, y: x.techbase == "Clan")
+            header_l.append("Clan-tech")
+            continue
+        # Command console filter
+        elif arg == '-cc':
+            select_l.append(lambda x, y: x.cockpit.console == "TRUE")
+            header_l.append("with Command Console")
+            continue
+        # Era filter
+        elif arg == '-e':
+            era_arg = True
+            continue
+        # Speed filter
+        elif arg == '-sf':
+            speed_arg = True
+            continue
+        # Speed filter
+        elif arg == '-lrm':
+            lrm_arg = True
+            continue
+        # otherwise read in each argument as a mech file
+        else:
+            file_list.append(''.join(arg))
+            print file_list
 
 ### Process output ###
 
-# Construct header
-header = create_header(header_l)
+    # Construct header
+    header = create_header(header_l)
 
-if output_type == 'b':
-    print_BV_list(file_list, select_l, header)
-elif output_type == 'a':
-    print_armor_list(file_list, select_l, header)
-elif output_type == 's':
-    print_speed_list(file_list, select_l, header)
-elif output_type == 'l':
-    print_missile_list(file_list, select_l, header)
-else:
-    print_default(file_list, select_l, header)
+    if output_type == 'b':
+        print_BV_list(file_list, select_l, header)
+    elif output_type == 'a':
+        print_armor_list(file_list, select_l, header)
+    elif output_type == 's':
+        print_speed_list(file_list, select_l, header)
+    elif output_type == 'l':
+        print_missile_list(file_list, select_l, header)
+    else:
+        print_default(file_list, select_l, header)
 
+if __name__ == "__main__":
+    main()
