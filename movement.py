@@ -700,3 +700,18 @@ class Motive:
         Get BV factor for gyro
         """
         return self.gyro_bv
+
+    def vulnerable(self):
+        """
+        Returns false if CASE protects from engine shutdown,
+        true if explosions in a side torso causes shutdown
+        """
+        # Inner Sphere XL engines are vulnerable
+        if self.etype == "XL Engine" and self.e_base == 0:
+            return True
+        # and so is all XXL engines
+        elif self.etype == "XXL Engine":
+            return True
+        # the rest are safe
+        else:
+            return False
