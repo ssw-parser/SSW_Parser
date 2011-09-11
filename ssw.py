@@ -19,29 +19,30 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-
-# Analyze and print out some data about a mech.
-# Takes a SSW file as argument.
-# Uses external file mech.py to read in data.
+"""
+Analyze and print out some data about a mech.
+Takes a SSW file as argument.
+Uses external file mech.py to read in data.
+"""
 
 import sys
 from xml.dom import minidom
-from math import ceil
-from mech import *
-from gear import *
-from defensive import *
+from mech import Mech
 from error import *
-from movement import *
 
-# Check for earliest year
 def get_comp_year(call, date):
-    year = call();
+    """
+    Check for earliest year
+    """
+    year = call()
     if date < year:
         date = year
     return date
 
-# Parse an equipment node
 def parse_gear(mech, date):
+    """
+    Parse an equipment node
+    """
     lbv = 0
     mbv = 0
     sbv = 0
@@ -49,22 +50,22 @@ def parse_gear(mech, date):
     mheat = 0
 
     # Deal with ammo issues
-    for w in mech.gear.weaponlist.list:
-        if ((w.count > 0 or w.countrear > 0) and w.useammo > 0):
+    for weap in mech.gear.weaponlist.list:
+        if ((weap.count > 0 or weap.countrear > 0) and weap.useammo > 0):
             # Sum up weapons
-            total = w.count + w.countrear
-            ammo = w.ammocount
-            ApW = float(ammo) / float(total * w.useammo)
-            if (ApW < 15.0):
+            total = weap.count + weap.countrear
+            ammo = weap.ammocount
+            ammo_per_weapon = float(ammo) / float(total * weap.useammo)
+            if (ammo_per_weapon < 15.0):
                 st1 = "WARNING: Ammo supply low!"
-                st2 = "  Weapon: " + str(w.name)
-                st3 = "  Ammo Supply: " + str(ApW)
+                st2 = "  Weapon: " + str(weap.name)
+                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
-            elif (ApW > 50.0):
+            elif (ammo_per_weapon > 50.0):
                 st1 = "WARNING: Ammo supply high!"
-                st2 = "  Weapon: " + str(w.name)
-                st3 = "  Ammo Supply: " + str(ApW)
+                st2 = "  Weapon: " + str(weap.name)
+                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
     for e in mech.gear.d_equiplist.list:
@@ -72,50 +73,56 @@ def parse_gear(mech, date):
             # Sum up weapons
             total = e.count
             ammo = e.ammocount
-            ApW = float(ammo) / float(total * e.useammo)
-            if (ApW < 15.0):
+            ammo_per_weapon = float(ammo) / float(total * e.useammo)
+            if (ammo_per_weapon < 15.0):
                 st1 = "WARNING: Ammo supply low!"
                 st2 = "  Weapon: " + str(e.name)
-                st3 = "  Ammo Supply: " + str(ApW)
+                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
-            elif (ApW > 50.0):
+            elif (ammo_per_weapon > 50.0):
                 st1 = "WARNING: Ammo supply high!"
                 st2 = "  Weapon: " + str(e.name)
-                st3 = "  Ammo Supply: " + str(ApW)
+                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
 
     # Print used weapons
-    for w in mech.gear.weaponlist.list:
-        if (w.count > 0 or w.countrear > 0):
+    for weap in mech.gear.weaponlist.list:
+        if (weap.count > 0 or weap.countrear > 0):
             # Check for inefficient weapons
-            if ((w.BV[0]/w.weight) < 10.0):
+            if ((weap.BV[0]/weap.weight) < 10.0):
                 st1 = "WARNING: Ineffient weapon mounted!"
-                st2 = "  Weapon: " + w.name
+                st2 = "  Weapon: " + weap.name
                 warnings.add((st1, st2))
                 print_warning((st1, st2))
 
             # calculate earliest date
-            if date < w.year:
-                date = w.year
+            if date < weap.year:
+                date = weap.year
 
-            report = str(w.count)
+            report = str(weap.count)
             # If there is rear-mounted stuff, only list them, do not count for
             # evaluation
-            if w.countrear > 0:
-                report = report + ", " + str(w.countrear) + "(R) "
-            report = report + " " + w.name
+            if weap.countrear > 0:
+                report = report + ", " + str(weap.countrear) + "(R) "
+            report = report + " " + weap.name
             print report
             # Get BV balance, also count heat
-            if w.range == "L":
-                lbv = lbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4, mech.artemis5, mech.apollo)
-                lheat = lheat + w.count * w.heat
-            elif w.range == "M":
-                mbv = mbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4, mech.artemis5, mech.apollo)
-                mheat = mheat + w.count * w.heat
-            elif w.range == "S":
-                sbv = sbv + w.count * w.get_BV(mech.gear.tarcomp, mech.artemis4, mech.artemis5, mech.apollo)
+            if weap.range == "L":
+                lbv = lbv + weap.count * weap.get_BV(mech.gear.tarcomp,
+                                               mech.artemis4, mech.artemis5,
+                                               mech.apollo)
+                lheat = lheat + weap.count * weap.heat
+            elif weap.range == "M":
+                mbv = mbv + weap.count * weap.get_BV(mech.gear.tarcomp,
+                                               mech.artemis4, mech.artemis5,
+                                               mech.apollo)
+                mheat = mheat + weap.count * weap.heat
+            elif weap.range == "S":
+                sbv = sbv + weap.count * weap.get_BV(mech.gear.tarcomp,
+                                               mech.artemis4, mech.artemis5,
+                                               mech.apollo)
 
     # Print used equipment
     for e in mech.gear.o_equiplist.list:
@@ -140,18 +147,18 @@ def parse_gear(mech, date):
 
 
     # Print used physicals
-    for p in mech.gear.physicallist.list:
-        if p.count > 0:
+    for phys in mech.gear.physicallist.list:
+        if phys.count > 0:
             # calculate earliest date
-            if date < p.year:
-                date = p.year
+            if date < phys.year:
+                date = phys.year
 
-            report = str(p.count)
-            report = report + " " + p.name
-            dam = p.dam(mech.weight)
+            report = str(phys.count)
+            report = report + " " + phys.name
+            dam = phys.dam(mech.weight)
             print report
-            print p.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
-            sbv = sbv + p.count * dam * p.BVmult
+            print phys.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
+            sbv = sbv + phys.count * dam * phys.BVmult
 
     # Check TSM & physical combo
 #    if (mech.gear.phys == 1 and mech.engine.enhancement != "TSM"):
@@ -206,8 +213,10 @@ def parse_artemis(mech, date):
             date = 3071
     return date
 
-# Handle omni-mechs
 def parse_omni(mech, date):
+    """
+    Handle omni-mechs
+    """
     if mech.omni == "TRUE":
         print "-----------------"
         print "Omni Loadouts"
