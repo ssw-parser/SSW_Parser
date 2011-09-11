@@ -18,17 +18,20 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
+"""
+Contains objects related to moving a mech: cockpit, engine, gyro, myomer
+jumpjets
+"""
 
 from math import ceil
-from error import *
-from util import *
+from error import error_exit
+from util import ceil_05, ceil_5
 
 # Engine and other propulsion related stuff, like fixed jumpjets and gyros.
 
 # The following tables contain the engine weight for each rating
 
-stdengine = {
+STD_ENGINE = {
     10 : 0.5,
     15 : 0.5,
     20 : 0.5,
@@ -130,7 +133,7 @@ stdengine = {
     500 : 462.5
 }
 
-lgtengine = {
+LGT_ENGINE = {
     10 : 0.5,
     15 : 0.5,
     20 : 0.5,
@@ -232,7 +235,7 @@ lgtengine = {
     500 : 347.0
 }
 
-xlengine = {
+XL_ENGINE = {
     10 : 0.5,
     15 : 0.5,
     20 : 0.5,
@@ -334,7 +337,7 @@ xlengine = {
     500 : 231.5
 }
 
-cmpengine = {
+CMP_ENGINE = {
     10 : 1.0,
     15 : 1.0,
     20 : 1.0,
@@ -423,18 +426,20 @@ cmpengine = {
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
 # Missing: ICE, Fuel Cell, Fission
-engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
-          ["XL Engine", 0, 2579, 0.5, (lambda x : xlengine[x])],
-          ["XL Engine", 1, 2579, 0.75, (lambda x : xlengine[x])],
-          ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : lgtengine[x])],
-          ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : cmpengine[x])],
+ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x])],
+          ["XL Engine", 0, 2579, 0.5, (lambda x : XL_ENGINE[x])],
+          ["XL Engine", 1, 2579, 0.75, (lambda x : XL_ENGINE[x])],
+          ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : LGT_ENGINE[x])],
+          ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : CMP_ENGINE[x])],
           # Advanced
           # XXL Engine (IS): Old BV factor 0.5, new 0.25
-          ["XXL Engine", 0, 3055, 0.5, (lambda x : ceil_05(stdengine[x] * 0.333))],
-          ["XXL Engine", 1, 3030, 0.5, (lambda x : ceil_05(stdengine[x] * 0.333))],
+          ["XXL Engine", 0, 3055, 0.5,
+           (lambda x : ceil_05(STD_ENGINE[x] * 0.333))],
+          ["XXL Engine", 1, 3030, 0.5,
+           (lambda x : ceil_05(STD_ENGINE[x] * 0.333))],
           # Assume same year as Mackie
           ["Primitive Fusion Engine", 2, 2439, 1.0,
-           (lambda x : stdengine[ceil_5(x * 1.2)])]]
+           (lambda x : STD_ENGINE[ceil_5(x * 1.2)])]]
 
 # Gyro types
 #
@@ -442,7 +447,7 @@ engine = [["Fusion Engine", 2, 2021, 1.0, (lambda x : stdengine[x])],
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-gyro = [["Standard Gyro", 2, 2439, 0.5, 1.0],
+GYRO = [["Standard Gyro", 2, 2439, 0.5, 1.0],
         ["Extra-Light Gyro", 0, 3067, 0.5, 0.5],
         ["Heavy-Duty Gyro", 0, 3067, 1.0, 2.0],
         ["Compact Gyro", 0, 3068, 0.5, 1.5]]
@@ -451,7 +456,7 @@ gyro = [["Standard Gyro", 2, 2439, 0.5, 1.0],
 #
 # Name, year, heat generated
 #
-jumpjet = [["Standard Jump Jet", 2471, 1],
+JUMP_JET = [["Standard Jump Jet", 2471, 1],
            ["Improved Jump Jet", 3069, 0.5]]
 
 # Myomer enhancement types
@@ -460,7 +465,7 @@ jumpjet = [["Standard Jump Jet", 2471, 1],
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-enhancement = [["---", 2, 0, (lambda x : 0)], #None
+ENHANCEMENT = [["---", 2, 0, (lambda x : 0)], #None
                ["MASC", 0, 2740, (lambda x : round(x * 0.05))],
                ["MASC", 1, 2740, (lambda x : round(x * 0.04))],
                ["TSM", 0, 3050, (lambda x : 0)]]
@@ -469,7 +474,7 @@ enhancement = [["---", 2, 0, (lambda x : 0)], #None
 #
 # Name, techbase, year, weight
 #
-cockpit = [["Standard Cockpit", 2300, 3],
+COCKPIT = [["Standard Cockpit", 2300, 3],
            ["Small Cockpit", 3067, 2],
           # Assume same year as Mackie
            ["Primitive Cockpit", 2439, 5]]
@@ -486,13 +491,13 @@ class Cockpit:
         self.c_weight = 0
 
         # Check for legal cockpit type, save data
-        id = 0
-        for i in cockpit:
+        ident = False
+        for i in COCKPIT:
             if (i[0] == self.type):
-                id = 1
+                ident = True
                 self.year = i[1]
                 self.wgt = i[2]
-        if id == 0:
+        if ident == False:
             error_exit((self.type))
 
         # Hack: Add console year
@@ -522,6 +527,9 @@ class Cockpit:
         return self.c_weight
 
 class JumpJets:
+    """
+    A class to hold info about jump-jets
+    """
     def __init__(self, weight, jump, jjtype):
         self.weight = weight # Mech weight, not JJ weight
         self.jump = jump
@@ -529,13 +537,13 @@ class JumpJets:
 
         # Check for legal jump-jet type, if jump-jets are mounted, save data
         if self.jump > 0:
-            id = 0
-            for i in jumpjet:
+            ident = False
+            for i in JUMP_JET:
                 if i[0] == self.jjtype:
-                    id = 1
+                    ident = True
                     self.jjyear = i[1]
                     self.heat = i[2]
-            if id == 0:
+            if ident == False:
                 error_exit(self.jjtype)
 
     def get_year(self):
@@ -606,35 +614,35 @@ class Motive:
         # assume that the weight of these engines are incorrect
 
         # Check for legal engine type, save data
-        id = 0
-        for i in engine:
+        ident = False
+        for i in ENGINE:
             if (i[0] == self.etype and i[1] == self.eb):
-                id = 1
+                ident = True
                 self.eyear = i[2]
                 self.eBV = i[3]
                 self.eweight = i[4](self.erating)
-        if id == 0:
+        if ident == False:
             error_exit((self.etype, self.eb))
 
         # Check for legal gyro type, save data
-        id = 0
-        for i in gyro:
+        ident = False
+        for i in GYRO:
             if (i[0] == self.gtype and i[1] == self.gb):
-                id = 1
+                ident = True
                 self.gyear = i[2]
                 self.gBV = i[3]
                 self.gweightm = i[4]
-        if id == 0:
+        if ident == False:
             error_exit((self.gtype, self.gb))
 
         # Check for legal enhancement type, save data
-        id = 0
-        for i in enhancement:
+        ident = False
+        for i in ENHANCEMENT:
             if (i[0] == self.enhancement and i[1] == self.etb):
-                id = 1
+                ident = True
                 self.enhyear = i[2]
                 self.enhweight = i[3](weight)
-        if id == 0:
+        if ident == False:
             error_exit((self.enhancement, self.etb))
 
 
@@ -682,7 +690,13 @@ class Motive:
         return self.enhweight
 
     def get_engine_BVmod(self):
+        """
+        Get BV factor for engine
+        """
         return self.eBV
 
     def get_gyro_BVmod(self):
+        """
+        Get BV factor for gyro
+        """
         return self.gBV
