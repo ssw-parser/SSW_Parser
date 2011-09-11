@@ -22,7 +22,7 @@
 
 from math import ceil
 from error import *
-from util import *
+from util import ceil_05
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -628,13 +628,13 @@ class Gear:
 
     Take in lists of front and rear facing gears
     """
-    def __init__(self, weight, a4, a5, ap, equip, equiprear, cc):
-        self.a4 = a4 # Artemis IV
-        self.a5 = a5 # Artemis V
-        self.ap = ap # Apollo
+    def __init__(self, weight, art4, art5, apollo, equip, equiprear, clan_case):
+        self.a4 = art4 # Artemis IV
+        self.a5 = art5 # Artemis V
+        self.ap = apollo # Apollo
         self.equip = equip
         self.equiprear = equiprear
-        self.cc = cc # Clan CASE
+        self.cc = clan_case # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist()
@@ -676,7 +676,7 @@ class Gear:
         for name in self.equip:
             ### Weapons ###
             # Go through weapon list
-            id = 0
+            ident = False
             for w in self.weaponlist.list:
                 # Weapon identified
                 if name[0] == w.name:
@@ -694,7 +694,7 @@ class Gear:
                         self.tcw_weight += w.weight
 
                     # We have found a valid weapon
-                    id = 1
+                    ident = True
 
                     # Missile fire control systems require extra weight
                     # Artemis IV
@@ -774,7 +774,7 @@ class Gear:
                     (name[1] == 'equipment' or name[1] == 'CASE')):
                     e.addone()
                     self.o_weight += e.weight
-                    id = 1
+                    ident = True
                     # Hack, coolant pods
                     if name[0] == "Coolant Pod":
                         self.coolant += 1
@@ -798,15 +798,15 @@ class Gear:
             # Hack, handle targeting computer
             if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
                 self.tarcomp = 1
-                id = 1
+                ident = True
             if (name[0] == "(CL) Targeting Computer" and name[1] =='TargetingComputer'):
                 self.tarcomp = 2
-                id = 1
+                ident = True
 
             # Hack, supercharger
             if (name[0] == "Supercharger" and name[1] == "Supercharger"):
                 self.supercharger = True
-                id = 1
+                ident = True
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
@@ -815,7 +815,7 @@ class Gear:
                 if (name[0] == e.name and name[1] == 'equipment'):
                     e.addone()
                     self.d_weight += e.weight
-                    id = 1
+                    ident = True
                     # Add explosive weapon to location
                     if e.explosive > 0:
                         expl = self.exp_weapon.get(name[2], 0)
@@ -826,7 +826,7 @@ class Gear:
                     (name[1] == 'CASE' or name[1] == 'CASEII')):
                     e.addone()
                     self.d_weight += e.weight
-                    id = 1
+                    ident = True
                     # Save CASE status
                     self.case[name[2]] = name[1]
 
@@ -835,7 +835,7 @@ class Gear:
             for p in self.physicallist.list:
                 if (name[0] == p.name and name[1] == 'physical'):
                     p.addone()
-                    id = 1
+                    ident = True
                     # Use float to avoid rounding errors
                     self.p_weight += p.weight(float(weight))
                     self.phys = 1
@@ -845,7 +845,7 @@ class Gear:
                 if (name[0] == p.name and name[1] == 'physical'):
                     p.addone()
                     self.d_weight += p.weight
-                    id = 1
+                    ident = True
 
             for a in self.ammolist.list:
                 if (name[0] == a.name and name[1] == 'ammunition'):
@@ -857,14 +857,14 @@ class Gear:
                         self.d_weight += a.weight
                     else:
                         self.a_weight += a.weight
-                    id = 1
+                    ident = True
                     # Add explosive ammo to location
                     if a.explosive == "X":
                         expl = self.exp_ammo.get(name[2], 0)
                         expl += 1
                         self.exp_ammo[name[2]] = expl
             # Not found
-            if id == 0:
+            if ident == False:
                 print "Unidentified:", name
                 error_exit("gear")
 
@@ -958,147 +958,150 @@ class Gear:
         """
         Get defensive gear BV
         """
-        BV = 0.0
-        for e in self.d_equiplist.list:
-            if (e.count > 0):
-                BV_gear = e.count * e.BV[0]
-                BV += BV_gear
+        batt_val = 0.0
+        for equip in self.d_equiplist.list:
+            if (equip.count > 0):
+                bv_gear = equip.count * equip.BV[0]
+                batt_val += bv_gear
                 # Handle AMS ammo (and possible other ammo)
-                if (e.BV[1] > 0 and e.ammocount > 0):
-                    BV_ammo = e.BV[1] * e.ammo_ton
+                if (equip.BV[1] > 0 and equip.ammocount > 0):
+                    bv_ammo = equip.BV[1] * equip.ammo_ton
                     # Disallow ammo BV to be greater than that of
                     # the system itself
-                    if BV_ammo > BV_gear:
-                        BV_ammo = BV_gear
-                    BV += BV_ammo
-        for p in self.d_physicallist.list:
-            if (p.count > 0):
-                BV_gear = p.count * p.BV[0]
-                BV += BV_gear
-        return BV
+                    if bv_ammo > bv_gear:
+                        bv_ammo = bv_gear
+                    batt_val += bv_ammo
+        for phys in self.d_physicallist.list:
+            if (phys.count > 0):
+                bv_gear = phys.count * phys.BV[0]
+                batt_val += bv_gear
+        return batt_val
 
     def get_ammo_exp_BV(self, engine):
         """
         Return how much BV is reduced by explosive ammo
         """
-        neg_BV = 0.0
+        neg_bv = 0.0
         # Check each ammo location
         for i in self.exp_ammo.keys():
             cas = self.case.get(i, "")
             # Head and center torso always
             if i == "HD":
-                neg_BV -= 15.0 * self.exp_ammo[i]
+                neg_bv -= 15.0 * self.exp_ammo[i]
             elif i == "CT":
-                neg_BV -= 15.0 * self.exp_ammo[i]
+                neg_bv -= 15.0 * self.exp_ammo[i]
             # So are legs
             elif (i == "LL" or i == "RL" or i == "RLL" or i == "RRL"):
-                neg_BV -= 15.0 * self.exp_ammo[i]
+                neg_bv -= 15.0 * self.exp_ammo[i]
             # Side torsos depends on several factors
             elif (i == "LT" or i == "RT"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII"):
-                        neg_BV -= 15.0 * self.exp_ammo[i]
+                        neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
-                        neg_BV -= 15.0 * self.exp_ammo[i]
+                        neg_bv -= 15.0 * self.exp_ammo[i]
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII" and self.cc == "FALSE"):
-                        neg_BV -= 15.0 * self.exp_ammo[i]
+                        neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
-                        neg_BV -= 15.0 * self.exp_ammo[i]
+                        neg_bv -= 15.0 * self.exp_ammo[i]
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII" and self.cc == "FALSE"):
-                        neg_BV -= 15.0 * self.exp_ammo[i]
+                        neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
-                        neg_BV -= 15.0 * self.exp_ammo[i]
+                        neg_bv -= 15.0 * self.exp_ammo[i]
 
-        return neg_BV
+        return neg_bv
 
     def get_weapon_exp_BV(self, engine):
         """
         Return how much BV is reduced by explosive weapons
         """
-        neg_BV = 0.0
+        neg_bv = 0.0
         # Check each ammo location
         for i in self.exp_weapon.keys():
             cas = self.case.get(i, "")
             # Head and center torso always
             if i == "HD":
-                neg_BV -= self.exp_weapon[i]
+                neg_bv -= self.exp_weapon[i]
             elif i == "CT":
-                neg_BV -= self.exp_weapon[i]
+                neg_bv -= self.exp_weapon[i]
             # So are legs
             elif (i == "LL" or i == "RL" or i == "RLL" or i == "RRL"):
-                neg_BV -= self.exp_weapon[i]
+                neg_bv -= self.exp_weapon[i]
             # Side torsos depends on several factors
             elif (i == "LT" or i == "RT"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII"):
-                        neg_BV -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
-                        neg_BV -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon[i]
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII" and self.cc == "FALSE"):
-                        neg_BV -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
-                        neg_BV -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon[i]
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII" and self.cc == "FALSE"):
-                        neg_BV -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.cc == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
-                        neg_BV -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon[i]
 
-        return neg_BV
+        return neg_bv
 
     def check_weapon_BV_flip(self):
-        BV_front = 0.0
-        BV_rear = 0.0
+        """
+        Check if front and rear weapons needs to be flipped for BV calculations
+        """
+        bv_front = 0.0
+        bv_rear = 0.0
         # Weapons
-        for w in self.weaponlist.list:
-            if (w.count - w.countarm) > 0:
-                BV_front += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * (w.count - w.countarm)
+        for weap in self.weaponlist.list:
+            if (weap.count - weap.countarm) > 0:
+                bv_front += weap.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * (weap.count - weap.countarm)
 
-            if w.countrear > 0:
-                BV_rear += w.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * w.countrear
+            if weap.countrear > 0:
+                bv_rear += weap.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * weap.countrear
  
-        if (BV_rear > BV_front):
+        if (bv_rear > bv_front):
             return True
         else:
             return False
