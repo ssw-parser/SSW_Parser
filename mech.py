@@ -22,7 +22,7 @@
 Contains the master class for a mech, and its loadouts
 """
 
-from math import ceil, pow
+from math import ceil
 from operator import itemgetter
 from error import *
 from defensive import IS, Armor
@@ -43,7 +43,8 @@ class Loadout:
     """
     An omni loadout
     """
-    def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb, prod_era, source):
+    def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb,
+                 prod_era, source):
         self.weight = weight # Save weight just in case
         self.artemis4 = a4
         self.artemis5 = a5
@@ -124,9 +125,11 @@ class Loadout:
             if weap.count > 0:
                 i = weap.count
                 if (flip and (i - weap.countarm > 0)):
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                                     self.artemis5, self.apollo) / 2.0
                 else:
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                                     self.artemis5, self.apollo)
 
                 while (i):
                     w_list.append((BV, weap.heat, weap.name))
@@ -136,9 +139,11 @@ class Loadout:
             if weap.countrear > 0:
                 i = weap.countrear
                 if (flip):
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                                     self.artemis5, self.apollo)
                 else:
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                                     self.artemis5, self.apollo) / 2.0
                 while (i):
                     w_list.append((BV, weap.heat, weap.name))
                     i -= 1
@@ -288,7 +293,8 @@ class Mech:
                 anode = arm.getElementsByTagName("rl")[0]
                 rl = int(gettext(anode.childNodes))
                 self.armor = Armor(self.weight, self.motive, armortype, atbase,
-                                   hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl)
+                                   hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll,
+                                   rl)
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
@@ -364,10 +370,12 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name, typ, loc))
 
-            self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
+            self.engine = Motive(self.weight, etype, erating, ebase,
+                                 gtype, gbase, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "", self.BV, partw, jumpb, self.prod_era, source)
+            self.load = Loadout(self.weight, a4, a5, ap, "", self.BV,
+                                partw, jumpb, self.prod_era, source)
             self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
@@ -397,7 +405,8 @@ class Mech:
                     jumpb = int(hs.attributes["mp"].value)
                     
                 # Construct current loadout
-                current = Loadout(self.weight, a4, a5, ap, name, BV, partw, jumpb, prod_era, source)
+                current = Loadout(self.weight, a4, a5, ap, name, BV,
+                                  partw, jumpb, prod_era, source)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
@@ -454,7 +463,8 @@ class Mech:
                         # Save in a tuple with name and type
                         equip_l.append((name, typ, loc))
 
-                current.gear = Gear(self.weight, a4, a5, ap, equip_l, equiprear_l, cc)
+                current.gear = Gear(self.weight, a4, a5, ap,
+                                    equip_l, equiprear_l, cc)
 
                 self.loads.append(current)
                 
@@ -651,11 +661,11 @@ class Mech:
         """
         Get the BV a specific loadout. Use mech.load if not an omni.
         """
-        Base_BV = self.off_BV(load, False) + self.def_BV(load, False)
+        Base_bv = self.off_BV(load, False) + self.def_BV(load, False)
         if self.cockpit.type == "Small Cockpit":
-            BV = int(round(Base_BV * 0.95))
+            BV = int(round(Base_bv * 0.95))
         else:
-            BV = int(round(Base_BV))
+            BV = int(round(Base_bv))
         if BV != load.BV:
             print self.name, self.model, load.name, BV, load.BV
         assert BV == load.BV, "Error in BV calculation!"
@@ -674,20 +684,20 @@ class Mech:
         if self.load.gear.supercharger:
             motive += ceil_05(self.engine.get_engine_weight() * 0.1)
         mratio = float(motive) / float(self.weight) * 100
-        m2 = mratio - 33.3
-        m3 = "   "
-        if (m2 > 0):
-            m3 = "M:" + str(int(m2))
+        m_diff = mratio - 33.3
+        m_str = "   "
+        if (m_diff > 0):
+            m_str = "M:" + str(int(m_diff))
 
         # Defensive stuff
         defensive = self.structure.get_weight()
         defensive += self.armor.get_weight()
         defensive += self.load.gear.get_d_weight()
         dratio = float(defensive) / float(self.weight) * 100
-        d2 = dratio - 33.3
-        d3 = "   "
-        if (d2 > 0):
-            d3 = "D:" + str(int(d2))
+        d_diff = dratio - 33.3
+        d_str = "   "
+        if (d_diff > 0):
+            d_str = "D:" + str(int(d_diff))
 
         # Offensive stuff
         # Heat sinks
@@ -703,10 +713,10 @@ class Mech:
         # Command console
         offensive += self.cockpit.get_c_weight()
         oratio = float(offensive) / float(self.weight) * 100
-        o2 = oratio - 33.3
-        o3 = "   "
-        if (o2 > 0):
-            o3 = "O:" + str(int(o2))
+        o_diff = oratio - 33.3
+        o_str = "   "
+        if (o_diff > 0):
+            o_str = "O:" + str(int(o_diff))
 
         # leftover
         left = self.weight - motive - defensive - offensive
@@ -714,10 +724,11 @@ class Mech:
         if (short):
             # Only show leftover if there is something to show
             if (left):
-                return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" % (mratio, dratio, oratio, left))
+                return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" %
+                        (mratio, dratio, oratio, left))
             else:
 #                return ("%2.1f%% %2.1f%% %2.1f%%" % (mratio, dratio, oratio))
-                return ("%s %s %s" % (m3, d3, o3))
+                return ("%s %s %s" % (m_str, d_str, o_str))
         else:
             print ("Total weight    : %3.1ft" % (self.weight))
             print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))
@@ -781,10 +792,10 @@ class Mech:
         eratio = float(eweight) / float(weight)
         print "Engine: ", self.engine.etype, self.engine.erating, eweight, "tons", int(eratio * 100), "%"
         if (eratio > 0.4):
-            st = "WARNING: Very heavy engine!"
-            st2 = "  Mounting LFE or XLFE suggested."
-            warnings.add((st, st2))
-            print_warning((st, st2))
+            msg = "WARNING: Very heavy engine!"
+            msg2 = "  Mounting LFE or XLFE suggested."
+            warnings.add((msg, msg2))
+            print_warning((msg, msg2))
         print "Speed: " + self.get_move_string()
         self.parse_speed(weight)
         gweight = self.engine.get_gyro_weight()
