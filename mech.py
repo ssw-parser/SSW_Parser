@@ -18,7 +18,9 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
+"""
+Contains the master class for a mech, and its loadouts
+"""
 
 from math import ceil, pow
 from operator import itemgetter
@@ -26,6 +28,7 @@ from error import *
 from defensive import IS, Armor
 from movement import Cockpit, JumpJets, Motive
 from gear import Gear, Heatsinks
+from util import ceil_05
 
 def gettext(nodes):
     """
@@ -98,10 +101,10 @@ class Loadout:
         """
         Get offensive weapon and ammo BV
         """
-        oBV = 0.0
+        obv = 0.0
         BWBR = 0.0
         heat = 0
-        ammo_BV = 0.0
+        ammo_bv = 0.0
 
         run_heat = 2
         if (mech.engine.etype == "XXL Engine"):
@@ -117,39 +120,39 @@ class Loadout:
 
         w_list = []
         # Weapons
-        for w in self.gear.weaponlist.list:
-            if w.count > 0:
-                i = w.count
-                if (flip and (i - w.countarm > 0)):
-                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
+        for weap in self.gear.weaponlist.list:
+            if weap.count > 0:
+                i = weap.count
+                if (flip and (i - weap.countarm > 0)):
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
                 else:
-                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
 
                 while (i):
-                    w_list.append((BV, w.heat, w.name))
+                    w_list.append((BV, weap.heat, weap.name))
                     i -= 1
 
             # Rear-facing weapons counts as half
-            if w.countrear > 0:
-                i = w.countrear
+            if weap.countrear > 0:
+                i = weap.countrear
                 if (flip):
-                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo)
                 else:
-                    BV = w.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
+                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4, self.artemis5, self.apollo) / 2.0
                 while (i):
-                    w_list.append((BV, w.heat, w.name))
+                    w_list.append((BV, weap.heat, weap.name))
                     i -= 1
 
             # Count possible Ammo BV
-            ammo_BV += w.get_ammo_BV()
+            ammo_bv += weap.get_ammo_BV()
 
         # Physical weapons
-        for w in self.gear.physicallist.list:
-            if w.count > 0:
-                i = w.count
-                BV = w.get_BV(self.weight)
+        for weap in self.gear.physicallist.list:
+            if weap.count > 0:
+                i = weap.count
+                BV = weap.get_BV(self.weight)
                 while (i):
-                    w_list.append((BV, 0, w.name))
+                    w_list.append((BV, 0, weap.name))
                     i -= 1
 
         # Sort list, from largest BV to smallest,
@@ -173,14 +176,14 @@ class Loadout:
                 print i
         if (printq):
             print "BWBR", BWBR
-        oBV = BWBR
+        obv = BWBR
 
         # Ammo & TODO: other non-heat gear
-        oBV += ammo_BV
+        obv += ammo_bv
         if (printq):
-            print "Ammo BV: ", ammo_BV
+            print "Ammo BV: ", ammo_bv
 
-        return oBV
+        return obv
 
 
 
@@ -535,6 +538,9 @@ class Mech:
         return max(j_mod, r_mod)
 
     def get_stealth(self):
+        """
+        Returns true if the mech mounts a stealth system
+        """
         stlth = False
         for i in self.multi:
             if i == "Chameleon LPS":
@@ -551,34 +557,34 @@ class Mech:
         """
         Get defensive BV
         """
-        dBV = 0.0
+        dbv = 0.0
         # Armor
         cur = self.armor.get_armor_BV()
-        dBV += cur
+        dbv += cur
         if (printq):
             print "Armor Def BV: ", cur
         # Internal
         cur = self.structure.get_BV_factor() * self.engine.get_engine_BVmod()
-        dBV += cur
+        dbv += cur
         if (printq):
             print "Internal Def BV: ", cur
         # Gyro
         cur = self.weight * self.engine.get_gyro_BVmod()
-        dBV += cur
+        dbv += cur
         if (printq):
             print "Gyro Def BV: ", cur
         # Defensive equipment
         cur = load.gear.get_def_BV()
-        dBV += cur
+        dbv += cur
         if (printq):
             print "Equipment Def BV: ", cur
         # Explosive
         cur = load.gear.get_ammo_exp_BV(self.engine)
-        dBV += cur
+        dbv += cur
         if (printq):
             print "Explosive Ammo BV: ", cur
         cur = load.gear.get_weapon_exp_BV(self.engine)
-        dBV += cur
+        dbv += cur
         if (printq):
             print "Explosive Weapon BV: ", cur
         # Defensive factor
@@ -595,53 +601,56 @@ class Mech:
             elif i == "Void Signature System":
                 mtm += 3
         assert mtm >= 0, "Negative defensive modifier!"
-        df = 1.0 + (mtm / 10.0)
+        def_factor = 1.0 + (mtm / 10.0)
         if (printq):
             print "Target modifier: ", mtm
-            print "Defensive Faction: ", df
+            print "Defensive Faction: ", def_factor
 
         # Final result
-        dBV *= df
+        dbv *= def_factor
         if (printq):
-            print "Defensive BV: ", dBV
-        return dBV
+            print "Defensive BV: ", dbv
+        return dbv
 
 
     def off_BV(self, load, printq):
         """
         Get offensive BV
         """
-        oBV = load.off_BV(self, printq)
+        obv = load.off_BV(self, printq)
 
         # Tonnage (physical)
         if (self.engine.enhancement == "TSM"):
-            wf = self.weight * 1.5
+            weight_factor = self.weight * 1.5
         else:
-            wf = self.weight
+            weight_factor = self.weight
         if (printq):
-            print "Weight BV: ", wf
-        oBV += wf
+            print "Weight BV: ", weight_factor
+        obv += weight_factor
 
         # total
         if (printq):
-            print "Total Base Offensive: ", oBV
+            print "Total Base Offensive: ", obv
 
         # speed factor
-        sf = self.get_max_run() + ceil(load.get_jump() / 2.0)
+        speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
         if (printq):
-            print "Speed Factor: ", sf
-        asf = ((sf - 5.0) / 10.0) + 1.0 
-        osf = round(pow(asf, 1.2), 2)
+            print "Speed Factor: ", speed_factor
+        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0 
+        off_speed_factor = round(pow(adj_sf, 1.2), 2)
         if (printq):
-            print "Offensive Speed Factor: ", osf
+            print "Offensive Speed Factor: ", off_speed_factor
 
         # Final result
-        oBV *= osf
+        obv *= off_speed_factor
         if (printq):
-            print "Offensive BV: ", oBV
-        return oBV
+            print "Offensive BV: ", obv
+        return obv
 
     def get_BV(self, load):
+        """
+        Get the BV a specific loadout. Use mech.load if not an omni.
+        """
         Base_BV = self.off_BV(load, False) + self.def_BV(load, False)
         if self.cockpit.type == "Small Cockpit":
             BV = int(round(Base_BV * 0.95))
@@ -653,6 +662,9 @@ class Mech:
         return BV
 
     def weight_summary(self, short):
+        """
+        Create a report on what the mech spends its tonnage on
+        """
         # Motive stuff
         motive = self.engine.get_engine_weight()
         motive += self.engine.get_gyro_weight()
@@ -716,6 +728,9 @@ class Mech:
 
 
     def get_move_string(self):
+        """
+        Create a full movement string with TSM and MASC effects
+        """
         spd = self.engine.speed
         if self.engine.enhancement == "TSM":
             wstr = str(spd) + "[" + str(spd + 1) + "]"
@@ -734,29 +749,32 @@ class Mech:
         return string
 
     def parse_speed(self, weight):
+        """
+        Check if a mech is too slow for its weight class
+        """
         spd = self.engine.speed
         # Bigger of ground speed and jump range
         speed = max((spd, self.load.get_jump()))
         # Light
         if (speed < 6 and weight < 40):
-            st = ("WARNING: Mech is too slow for its weight class!")
-            warnings.add((st,))
-            print_warning((st,))
+            msg = ("WARNING: Mech is too slow for its weight class!")
+            warnings.add((msg,))
+            print_warning((msg,))
         # Medium
         elif (speed < 5 and weight < 60):
-            st = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((st,))
-            print_warning((st,))
+            msg = "WARNING: Mech is too slow for its weight class!"
+            warnings.add((msg,))
+            print_warning((msg,))
         # Heavy
         elif (speed < 4 and weight < 80):
-            st = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((st,))
-            print_warning((st,))
+            msg = "WARNING: Mech is too slow for its weight class!"
+            warnings.add((msg,))
+            print_warning((msg,))
         # Assault
         elif (speed < 3):
-            st = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((st,))
-            print_warning((st,))
+            msg = "WARNING: Mech is too slow for its weight class!"
+            warnings.add((msg,))
+            print_warning((msg,))
 
     def print_engine_report(self, weight):
         eweight = self.engine.get_engine_weight()
