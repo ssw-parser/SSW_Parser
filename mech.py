@@ -66,9 +66,9 @@ class Loadout:
         sink = self.heatsinks.get_sink()
         # coolant pods
         if self.gear.coolant > 0:
-            cool = ceil(self.heatsinks.nr * (float(self.gear.coolant) / 5.0))
-            if cool > (self.heatsinks.nr * 2):
-                cool = self.heatsinks.nr * 2
+            cool = ceil(self.heatsinks.number * (float(self.gear.coolant) / 5.0))
+            if cool > (self.heatsinks.number * 2):
+                cool = self.heatsinks.number * 2
             sink += cool
         # Partial Wing
         if self.partw:

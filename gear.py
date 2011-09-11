@@ -474,12 +474,18 @@ class Heatsinks:
         return self.number * self.cap
 
 class Weaponlist:
+    """
+    Store the list with weapons
+    """
     def __init__(self):
         self.list = []
         for weap in WEAPONS:
             self.list.append(Weapon(weap))
 
 class Weapon:
+    """
+    An individual weapon type
+    """
     def __init__(self, ginfo):
         self.name = ginfo[0]
         self.BV = ginfo[1]
@@ -528,16 +534,16 @@ class Weapon:
         """
         Get the BV of an INDIVIDUAL weapon, not all of them
         """
-        BV = self.BV[0]
+        batt_val = self.BV[0]
         if (tarcomp > 0 and self.enhance == "T"):
-            BV *= 1.25
+            batt_val *= 1.25
         if (art4 == "TRUE" and self.enhance == "A"):
-            BV *= 1.2
+            batt_val *= 1.2
         elif (art5 == "TRUE" and self.enhance == "A"):
-            BV *= 1.3
+            batt_val *= 1.3
         if (apollo == "TRUE" and self.enhance == "P"):
-            BV *= 1.15
-        return BV
+            batt_val *= 1.15
+        return batt_val
 
 
     def get_ammo_BV(self):
@@ -559,12 +565,18 @@ class Weapon:
 
 
 class Ammolist:
+    """
+    Store the list with weapon types
+    """
     def __init__(self):
         self.list = []
         for ammo in AMMO:
             self.list.append(Ammo(ammo))
 
 class Ammo:
+    """
+    An individual ammo type
+    """
     def __init__(self, ginfo):
         self.name = ginfo[0]
         self.wname = ginfo[1]
@@ -577,18 +589,27 @@ class Ammo:
         self.count = self.count + 1
 
 class O_Equiplist:
+    """
+    Store the list with offensive equipment types
+    """
     def __init__(self):
         self.list = []
         for equip in O_EQUIPMENT:
             self.list.append(Equipment(equip))
 
 class D_Equiplist:
+    """
+    Store the list with defensive equipment types
+    """
     def __init__(self):
         self.list = []
         for equip in D_EQUIPMENT:
             self.list.append(Equipment(equip))
 
 class Equipment:
+    """
+    An equipment type
+    """
     def __init__(self, ginfo):
         self.name = ginfo[0]
         self.BV = ginfo[1]
@@ -624,6 +645,9 @@ class D_Physicallist:
         self.name = "physcial"
 
 class Physical:
+    """
+    A individual physical weapon type
+    """
     def __init__(self, pinfo):
         self.name = pinfo[0]
         self.year = pinfo[1]
@@ -886,14 +910,14 @@ class Gear:
 
         for name in self.equiprear:
             # Go through weapon list
-            id = 0
+            ident = False
             for w in self.weaponlist.list:
                 if name[0] == w.name:
                     w.addone_rear()
                     self.w_weight += w.weight
                     if w.enhance == "T":
                         self.tcw_weight += w.weight
-                    id = 1
+                    ident = True
                     # Artemis IV
                     if (self.a4 == "TRUE" and w.enhance == "A"):
                         self.w_weight += 1
@@ -909,7 +933,7 @@ class Gear:
                         expl += w.explosive
                         self.exp_weapon[name[2]] = expl
             # Not found
-            if (id == 0):
+            if (ident == False):
                 print "Unidentified:", name
                 error_exit("gear")
 
@@ -922,19 +946,19 @@ class Gear:
         # Add ammo to weapon
         for a in self.ammolist.list:
             if a.count > 0:
-                id = 0
+                ident = False
                 for w in self.weaponlist.list:
                     for i in a.wname:
                         if w.name == i:
                             w.add_ammo(a.count * a.weight, a.count * a.amount)
-                            id = 1
+                            ident = True
                 # We need to do defensive equipment also due to AMS
                 for e in self.d_equiplist.list:
                     for i in a.wname:
                         if e.name == i:
                             e.add_ammo(a.count * a.weight, a.count * a.amount)
-                            id = 1
-                if (id == 0):
+                            ident = True
+                if (ident == False):
                     print "ERROR: Unknown weapon:", a.wname
                     error_exit("weapon")
 
