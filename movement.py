@@ -476,8 +476,10 @@ cockpit = [["Standard Cockpit", 2300, 3],
 
 
 
-# A class to hold cockpit info
 class Cockpit:
+    """
+    A class to hold cockpit info
+    """
     def __init__(self, ctype, console):
         self.type = ctype
         self.console = console
@@ -495,22 +497,28 @@ class Cockpit:
 
         # Hack: Add console year
         if (self.console == "TRUE" and self.year < 2631):
-            self.year == 2631
+            self.year = 2631
 
         # Hack: Add console weight
         if self.console == "TRUE":
             self.c_weight = 3
 
-    # Return earliest year cockpit is available
     def get_year(self):
+        """
+        Return earliest year cockpit is available
+        """
         return self.year
 
-    # Return weight
     def get_weight(self):
+        """
+        Return weight
+        """
         return self.wgt
 
-    # Return console weight
     def get_c_weight(self):
+        """
+        Return console weight
+        """
         return self.c_weight
 
 class JumpJets:
@@ -530,11 +538,16 @@ class JumpJets:
             if id == 0:
                 error_exit(self.jjtype)
 
-    # Return earliest year jumpjet is available
     def get_year(self):
+        """
+        Return earliest year jumpjet is available
+        """
         return self.jjyear
 
     def get_weight(self):
+        """
+        Get weight of jumpjets
+        """
         if self.jump == 0:
             return 0
         if self.weight < 60:
@@ -551,12 +564,16 @@ class JumpJets:
             error_exit(self.jjtype)
         return base * self.jump
 
-    # Return distance
     def get_jump(self):
+        """
+        Return distance
+        """
         return self.jump
 
-    # Get jumping heat, minimum 3
     def get_heat(self, mech):
+        """
+        Get jumping heat, minimum 3
+        """
         # No jump jets generate no heat
         if self.jump == 0:
             return 0
@@ -564,14 +581,15 @@ class JumpJets:
             heat = ceil(self.jump * self.heat)
             minimum = 3
             if mech.engine.etype == "XXL Engine":
-                heat * 2
+                heat *= 2
                 minimum = 6
             return max(minimum, heat)
 
 
-# A class to hold motive info for a mech
-#
 class Motive:
+    """
+    A class to hold motive info for a mech (engine, gyro, myomer ehancement)
+    """
     def __init__(self, weight, etype, erating, ebase, gtype, gbase, enh, etb):
         self.etype = etype
         self.erating = erating
@@ -621,22 +639,34 @@ class Motive:
 
 
 
-    # Return earliest year engine is available
     def get_engine_year(self):
+        """
+        Return earliest year engine is available
+        """
         return self.eyear
 
-    # Return earliest year gyro is available
     def get_gyro_year(self):
+        """
+        Return earliest year gyro is available
+        """
         return self.gyear
 
-    # Return earliest year enhancement is available
     def get_enh_year(self):
+        """
+        Return earliest year enhancement is available
+        """
         return self.enhyear
 
     def get_engine_weight(self):
+        """
+        Return weight of engine
+        """
         return self.eweight
 
     def get_gyro_weight(self):
+        """
+        Return weight of gyro
+        """
         rating = self.erating
         # Hack: Make sure Primitive Engines get right gyro weight
         if self.etype == "Primitive Fusion Engine":
@@ -646,6 +676,9 @@ class Motive:
         return self.gweightm * base_weight
 
     def get_enh_weight(self):
+        """
+        Return weight of myomer enhancement
+        """
         return self.enhweight
 
     def get_engine_BVmod(self):
