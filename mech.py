@@ -20,23 +20,26 @@
 
 
 
-from xml.dom import minidom
 from math import ceil, pow
 from operator import itemgetter
 from error import *
-from defensive import *
-from movement import *
-from gear import *
+from defensive import IS, Armor
+from movement import Cockpit, JumpJets, Motive
+from gear import Gear, Heatsinks
 
-# Get a text node data
 def gettext(nodes):
+    """
+    Get a text node data
+    """
     for node in nodes:
         if node.nodeType == node.TEXT_NODE:
             return node.data  
 
-# An omni loadout
 
 class Loadout:
+    """
+    An omni loadout
+    """
     def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb, prod_era, source):
         self.weight = weight # Save weight just in case
         self.artemis4 = a4
@@ -52,8 +55,10 @@ class Loadout:
         self.prod_era = prod_era
         self.source = source
 
-    # Get heatsinking capability
     def get_sink(self):
+        """
+        Get heatsinking capability
+        """
         sink = self.heatsinks.get_sink()
         # coolant pods
         if self.gear.coolant > 0:
@@ -66,13 +71,17 @@ class Loadout:
             sink += 3
         return sink
 
-    # Get production era
     def get_prod_era(self):
+        """
+        Get production era
+        """
         return self.prod_era
 
 
-    # Get max jumping range
     def get_jump(self):
+        """
+        Get max jumping range
+        """
         # Ordinary jump-jets
         jmp = self.jj.get_jump()
         # Handle partial wing
@@ -85,8 +94,10 @@ class Loadout:
         jump = max(jmp, self.jumpb)
         return jump
 
-    # Get offensive weapon and ammo BV
     def off_BV(self, mech, printq):
+        """
+        Get offensive weapon and ammo BV
+        """
         oBV = 0.0
         BWBR = 0.0
         heat = 0
@@ -342,13 +353,13 @@ class Mech:
                             loc.append((loc_temp, lnr))
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
-                        equiprear.append((name[4:],typ,loc))
+                        equiprear.append((name[4:], typ, loc))
                    # Hack -- also check for turreted
                     elif name[0:4] == "(T) ":
-                         equip.append((name[4:],typ,loc))
+                        equip.append((name[4:], typ, loc))
                     else:
                         # Save in a tuple with name and type
-                        equip.append((name,typ,loc))
+                        equip.append((name, typ, loc))
 
             self.engine = Motive(self.weight, etype, erating, ebase, gtype, gbase, enhancement, etb)
 
@@ -432,32 +443,38 @@ class Mech:
                             loc.append((loc_temp, lnr))
                     # Check for rear-mounted stuff
                     if name[0:4] == "(R) ":
-                        equiprear_l.append((name[4:],typ,loc))
+                        equiprear_l.append((name[4:], typ, loc))
                     # Hack -- also check for turreted
                     elif name[0:4] == "(T) ":
-                         equip_l.append((name[4:],typ,loc))
+                        equip_l.append((name[4:], typ, loc))
                     else:
                         # Save in a tuple with name and type
-                        equip_l.append((name,typ,loc))
+                        equip_l.append((name, typ, loc))
 
                 current.gear = Gear(self.weight, a4, a5, ap, equip_l, equiprear_l, cc)
 
                 self.loads.append(current)
                 
 
-    # Get walk speed
     def get_walk(self):
+        """
+        Get walk speed
+        """
         return self.engine.speed
 
-    # Get standard running speed, with no modifiers
     def get_run(self):
+        """
+        Get standard running speed, with no modifiers
+        """
         spd = self.engine.speed
         factor = 1.5
         rspeed = int(ceil(spd * factor))
         return rspeed
 
-    # Get maximum running speed
     def get_max_run(self):
+        """
+        Get maximum running speed
+        """
         spd = self.engine.speed
         factor = 1.5
         if self.engine.enhancement == "TSM":
@@ -476,8 +493,10 @@ class Mech:
 
 
 
-    # Get target modifier from movement, see Total Warfare for details
     def get_move_target_modifier(self, load):
+        """
+        Get target modifier from movement, see Total Warfare for details
+        """
         run_speed = self.get_max_run()
         jump_speed = load.get_jump()
 
@@ -528,8 +547,10 @@ class Mech:
             stlth = True
         return stlth 
 
-    # Get defensive BV
     def def_BV(self, load, printq):
+        """
+        Get defensive BV
+        """
         dBV = 0.0
         # Armor
         cur = self.armor.get_armor_BV()
@@ -586,8 +607,10 @@ class Mech:
         return dBV
 
 
-    # Get offensive BV
     def off_BV(self, load, printq):
+        """
+        Get offensive BV
+        """
         oBV = load.off_BV(self, printq)
 
         # Tonnage (physical)
