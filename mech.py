@@ -564,12 +564,12 @@ class Mech:
         if (printq):
             print "Armor Def BV: ", cur
         # Internal
-        cur = self.structure.get_BV_factor() * self.engine.get_engine_BVmod()
+        cur = self.structure.get_BV_factor() * self.engine.get_engine_bv_mod()
         dbv += cur
         if (printq):
             print "Internal Def BV: ", cur
         # Gyro
-        cur = self.weight * self.engine.get_gyro_BVmod()
+        cur = self.weight * self.engine.get_gyro_bv_mod()
         dbv += cur
         if (printq):
             print "Gyro Def BV: ", cur

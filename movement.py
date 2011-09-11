@@ -601,9 +601,9 @@ class Motive:
     def __init__(self, weight, etype, erating, ebase, gtype, gbase, enh, etb):
         self.etype = etype
         self.erating = erating
-        self.eb = int(ebase)
+        self.e_base = int(ebase)
         self.gtype = gtype
-        self.gb = int(gbase)
+        self.g_base = int(gbase)
         self.enhancement = enh
         self.etb = int(etb)
         self.speed = self.erating / weight
@@ -616,24 +616,24 @@ class Motive:
         # Check for legal engine type, save data
         ident = False
         for i in ENGINE:
-            if (i[0] == self.etype and i[1] == self.eb):
+            if (i[0] == self.etype and i[1] == self.e_base):
                 ident = True
                 self.eyear = i[2]
-                self.eBV = i[3]
+                self.eng_bv = i[3]
                 self.eweight = i[4](self.erating)
         if ident == False:
-            error_exit((self.etype, self.eb))
+            error_exit((self.etype, self.e_base))
 
         # Check for legal gyro type, save data
         ident = False
         for i in GYRO:
-            if (i[0] == self.gtype and i[1] == self.gb):
+            if (i[0] == self.gtype and i[1] == self.g_base):
                 ident = True
                 self.gyear = i[2]
-                self.gBV = i[3]
+                self.gyro_bv = i[3]
                 self.gweightm = i[4]
         if ident == False:
-            error_exit((self.gtype, self.gb))
+            error_exit((self.gtype, self.g_base))
 
         # Check for legal enhancement type, save data
         ident = False
@@ -689,14 +689,14 @@ class Motive:
         """
         return self.enhweight
 
-    def get_engine_BVmod(self):
+    def get_engine_bv_mod(self):
         """
         Get BV factor for engine
         """
-        return self.eBV
+        return self.eng_bv
 
-    def get_gyro_BVmod(self):
+    def get_gyro_bv_mod(self):
         """
         Get BV factor for gyro
         """
-        return self.gBV
+        return self.gyro_bv
