@@ -451,17 +451,23 @@ class Heatsinks:
         if id == 0:
             error_exit((self.type, self.tb))
 
-    # Return earliest year heatsink is available
     def get_year(self):
+        """
+        Return earliest year heatsink is available
+        """
         return self.year
 
-    # Return heatsink weight
-    # 1 ton/sink, 10 free
     def get_weight(self):
+        """
+        Return heatsink weight
+        1 ton/sink, 10 free
+        """
         return self.nr - 10
 
-    # Return sinking capability
     def get_sink(self):
+        """
+        Return sinking capability
+        """
         return self.nr * self.cap
 
 class Weaponlist:
@@ -502,9 +508,10 @@ class Weapon:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-    # Get the BV of an INDIVIDUAL weapon, not all of them
-    # TODO: Artemis V, Apollo
     def get_BV(self, tarcomp, a4, a5, ap):
+        """
+        Get the BV of an INDIVIDUAL weapon, not all of them
+        """
         BV = self.BV[0]
         if (tarcomp > 0 and self.enhance == "T"):
             BV *= 1.25
@@ -517,8 +524,10 @@ class Weapon:
         return BV
 
 
-    # Get the BV of the total ammo
     def get_ammo_BV(self):
+        """
+        Get the BV of the total ammo
+        """
         BV_ammo = 0
         # Here we use BV of the unmodified weapons, of both facing
         BV_weapons = self.BV[0] * (self.count + self.countrear)
@@ -613,10 +622,12 @@ class Physical:
     def get_BV(self, weight):
         return self.dam(weight) * self.BVmult
 
-# Store Gear
-#
-# Take in lists of front and rear facing gears
 class Gear:
+    """
+    Store Gear
+
+    Take in lists of front and rear facing gears
+    """
     def __init__(self, weight, a4, a5, ap, equip, equiprear, cc):
         self.a4 = a4 # Artemis IV
         self.a5 = a5 # Artemis V
@@ -913,28 +924,40 @@ class Gear:
 
 
 
-    # Get weapons weight
     def get_w_weight(self):
+        """
+        Get weapons weight
+        """
         return self.w_weight
 
-    # Get ammo weight
     def get_a_weight(self):
+        """
+        Get ammo weight
+        """
         return self.a_weight
 
-    # Get offensive gear weight
     def get_o_weight(self):
+        """
+        Get offensive gear weight
+        """
         return self.o_weight
 
-    # Get defensive gear weight
     def get_d_weight(self):
+        """
+        Get defensive gear weight
+        """
         return self.d_weight
 
-    # Get physical weapon weight
     def get_p_weight(self):
+        """
+        Get physical weapon weight
+        """
         return self.p_weight
 
-    # Get defensive gear BV
     def get_def_BV(self):
+        """
+        Get defensive gear BV
+        """
         BV = 0.0
         for e in self.d_equiplist.list:
             if (e.count > 0):
@@ -954,8 +977,10 @@ class Gear:
                 BV += BV_gear
         return BV
 
-    # Return how much BV is reduced by explosive ammo
     def get_ammo_exp_BV(self, engine):
+        """
+        Return how much BV is reduced by explosive ammo
+        """
         neg_BV = 0.0
         # Check each ammo location
         for i in self.exp_ammo.keys():
@@ -1010,8 +1035,10 @@ class Gear:
 
         return neg_BV
 
-    # Return how much BV is reduced by explosive weapons
     def get_weapon_exp_BV(self, engine):
+        """
+        Return how much BV is reduced by explosive weapons
+        """
         neg_BV = 0.0
         # Check each ammo location
         for i in self.exp_weapon.keys():
