@@ -125,10 +125,10 @@ class Loadout:
             if weap.count > 0:
                 i = weap.count
                 if (flip and (i - weap.countarm > 0)):
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo) / 2.0
                 else:
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo)
 
                 while (i):
@@ -139,10 +139,10 @@ class Loadout:
             if weap.countrear > 0:
                 i = weap.countrear
                 if (flip):
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo)
                 else:
-                    BV = weap.get_BV(self.gear.tarcomp, self.artemis4,
+                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo) / 2.0
                 while (i):
                     w_list.append((BV, weap.heat, weap.name))
@@ -155,7 +155,7 @@ class Loadout:
         for weap in self.gear.physicallist.list:
             if weap.count > 0:
                 i = weap.count
-                BV = weap.get_BV(self.weight)
+                BV = weap.get_bv(self.weight)
                 while (i):
                     w_list.append((BV, 0, weap.name))
                     i -= 1
@@ -584,7 +584,7 @@ class Mech:
         if (printq):
             print "Gyro Def BV: ", cur
         # Defensive equipment
-        cur = load.gear.get_def_BV()
+        cur = load.gear.get_def_bv()
         dbv += cur
         if (printq):
             print "Equipment Def BV: ", cur
@@ -657,7 +657,7 @@ class Mech:
             print "Offensive BV: ", obv
         return obv
 
-    def get_BV(self, load):
+    def get_bv(self, load):
         """
         Get the BV a specific loadout. Use mech.load if not an omni.
         """

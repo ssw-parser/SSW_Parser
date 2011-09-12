@@ -92,7 +92,7 @@ def parse_gear(mech, date):
     for weap in mech.gear.weaponlist.list:
         if (weap.count > 0 or weap.countrear > 0):
             # Check for inefficient weapons
-            if ((weap.BV[0]/weap.weight) < 10.0):
+            if ((weap.batt_val[0]/weap.weight) < 10.0):
                 st1 = "WARNING: Ineffient weapon mounted!"
                 st2 = "  Weapon: " + weap.name
                 warnings.add((st1, st2))
@@ -111,17 +111,17 @@ def parse_gear(mech, date):
             print report
             # Get BV balance, also count heat
             if weap.range == "L":
-                lbv = lbv + weap.count * weap.get_BV(mech.gear.tarcomp,
+                lbv = lbv + weap.count * weap.get_bv(mech.gear.tarcomp,
                                                mech.artemis4, mech.artemis5,
                                                mech.apollo)
                 lheat = lheat + weap.count * weap.heat
             elif weap.range == "M":
-                mbv = mbv + weap.count * weap.get_BV(mech.gear.tarcomp,
+                mbv = mbv + weap.count * weap.get_bv(mech.gear.tarcomp,
                                                mech.artemis4, mech.artemis5,
                                                mech.apollo)
                 mheat = mheat + weap.count * weap.heat
             elif weap.range == "S":
-                sbv = sbv + weap.count * weap.get_BV(mech.gear.tarcomp,
+                sbv = sbv + weap.count * weap.get_bv(mech.gear.tarcomp,
                                                mech.artemis4, mech.artemis5,
                                                mech.apollo)
 
@@ -228,7 +228,7 @@ def parse_omni(mech, date):
             year = date
             print "-----------------"
             print "Config: ", i.name
-            print "BV: ", mech.get_BV(i)
+            print "BV: ", mech.get_bv(i)
             if (i.get_jump()):
                 year = get_comp_year(i.jj.get_year, year)
                 print "Jump: ", i.get_jump(), i.jj.jjtype
@@ -319,7 +319,7 @@ def main():
     print "-------------------------------"
     mech.off_BV(mech.load, True)
     print "-------------------------------"
-    print "BV: ", mech.get_BV(mech.load)
+    print "BV: ", mech.get_bv(mech.load)
     print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
     print "==============================="
 

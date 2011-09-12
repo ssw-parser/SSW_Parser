@@ -488,7 +488,7 @@ class Weapon:
     """
     def __init__(self, ginfo):
         self.name = ginfo[0]
-        self.BV = ginfo[1]
+        self.batt_val = ginfo[1]
         self.range = ginfo[2]
         self.enhance = ginfo[3]
         self.year = ginfo[4]
@@ -530,11 +530,11 @@ class Weapon:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-    def get_BV(self, tarcomp, art4, art5, apollo):
+    def get_bv(self, tarcomp, art4, art5, apollo):
         """
         Get the BV of an INDIVIDUAL weapon, not all of them
         """
-        batt_val = self.BV[0]
+        batt_val = self.batt_val[0]
         if (tarcomp > 0 and self.enhance == "T"):
             batt_val *= 1.25
         if (art4 == "TRUE" and self.enhance == "A"):
@@ -552,14 +552,14 @@ class Weapon:
         """
         bv_ammo = 0
         # Here we use BV of the unmodified weapons, of both facing
-        BV_weapons = self.BV[0] * (self.count + self.countrear)
+        bv_weapons = self.batt_val[0] * (self.count + self.countrear)
         # Handle ammo
-        if (self.BV[1] > 0 and self.ammocount > 0):
-            bv_ammo = self.BV[1] * self.ammo_ton
+        if (self.batt_val[1] > 0 and self.ammocount > 0):
+            bv_ammo = self.batt_val[1] * self.ammo_ton
             # Disallow ammo BV to be greater than that of
             # the weapon itself
-            if bv_ammo > BV_weapons:
-                bv_ammo = BV_weapons
+            if bv_ammo > bv_weapons:
+                bv_ammo = bv_weapons
 
         return bv_ammo
 
@@ -657,9 +657,15 @@ class Physical:
         self.count = 0
 
     def addone(self):
+        """
+        Add a physical weapon
+        """
         self.count = self.count + 1
 
-    def get_BV(self, weight):
+    def get_bv(self, weight):
+        """
+        Get BV of physical weapon
+        """
         return self.dam(weight) * self.bv_mult
 
 class Gear:
@@ -669,9 +675,9 @@ class Gear:
     Take in lists of front and rear facing gears
     """
     def __init__(self, weight, art4, art5, apollo, equip, equiprear, clan_case):
-        self.a4 = art4 # Artemis IV
-        self.a5 = art5 # Artemis V
-        self.ap = apollo # Apollo
+        self.art4 = art4 # Artemis IV
+        self.art5 = art5 # Artemis V
+        self.apollo = apollo # Apollo
         self.equip = equip
         self.equiprear = equiprear
         self.cc = clan_case # Clan CASE
@@ -710,7 +716,7 @@ class Gear:
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
-        self.LRMs = 0
+        self.lrms = 0
 
         ### Count gear ###
         for name in self.equip:
@@ -738,13 +744,13 @@ class Gear:
 
                     # Missile fire control systems require extra weight
                     # Artemis IV
-                    if (self.a4 == "TRUE" and weap.enhance == "A"):
+                    if (self.art4 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1
                     # Artemis V
-                    elif (self.a5 == "TRUE" and weap.enhance == "A"):
+                    elif (self.art5 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1.5
                     # Apollo
-                    if (self.ap == "TRUE" and weap.enhance == "P"):
+                    if (self.apollo == "TRUE" and weap.enhance == "P"):
                         self.w_weight += 1
                     # Hack - track Narc
                     if name[0] == "(IS) Narc Missile Beacon" or name[0] == "(IS) iNarc Launcher" or name[0] == "(CL) Narc Missile Beacon":
@@ -753,25 +759,25 @@ class Gear:
                     # Count LRM tubes that can fire special ammo
                     # Missing: NLRM-10, NLRM-15, NLRM-20
                     if name[0] == "(IS) MML-3":
-                        self.LRMs += 3
+                        self.lrms += 3
 
                     if name[0] == "(IS) LRM-5" or name[0] == "(CL) LRM-5" or name[0] == "(IS) MML-5" or name[0] == "(IS) Enhanced LRM-5":
-                        self.LRMs += 5
+                        self.lrms += 5
 
                     if name[0] == "(IS) MML-7":
-                        self.LRMs += 7
+                        self.lrms += 7
 
                     if name[0] == "(IS) MML-9":
-                        self.LRMs += 9
+                        self.lrms += 9
 
                     if name[0] == "(IS) LRM-10" or name[0] == "(CL) LRM-10":
-                        self.LRMs += 10
+                        self.lrms += 10
 
                     if name[0] == "(IS) LRM-15" or name[0] == "(CL) LRM-15":
-                        self.LRMs += 15
+                        self.lrms += 15
 
                     if name[0] == "(IS) LRM-20" or name[0] == "(CL) LRM-20":
-                        self.LRMs += 20
+                        self.lrms += 20
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:
@@ -919,13 +925,13 @@ class Gear:
                         self.tcw_weight += weap.weight
                     ident = True
                     # Artemis IV
-                    if (self.a4 == "TRUE" and weap.enhance == "A"):
+                    if (self.art4 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1
                     # Artemis V
-                    elif (self.a5 == "TRUE" and weap.enhance == "A"):
+                    elif (self.art5 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1.5
                     # Apollo
-                    if (self.ap == "TRUE" and weap.enhance == "P"):
+                    if (self.apollo == "TRUE" and weap.enhance == "P"):
                         self.w_weight += 1
                     # Add explosive weapon to location
                     if weap.explosive > 0:
@@ -994,7 +1000,7 @@ class Gear:
         """
         return self.p_weight
 
-    def get_def_BV(self):
+    def get_def_bv(self):
         """
         Get defensive gear BV
         """
@@ -1136,10 +1142,10 @@ class Gear:
         # Weapons
         for weap in self.weaponlist.list:
             if (weap.count - weap.countarm) > 0:
-                bv_front += weap.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * (weap.count - weap.countarm)
+                bv_front += weap.get_bv(self.tarcomp, self.art4, self.art5, self.apollo) * (weap.count - weap.countarm)
 
             if weap.countrear > 0:
-                bv_rear += weap.get_BV(self.tarcomp, self.a4, self.a5, self.ap) * weap.countrear
+                bv_rear += weap.get_bv(self.tarcomp, self.art4, self.art5, self.apollo) * weap.countrear
  
         if (bv_rear > bv_front):
             return True

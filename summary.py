@@ -149,7 +149,7 @@ def create_bv_list_item(mech, i):
     Compile info used by print_BV_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_BV(i)
+    BV = mech.get_bv(i)
     weight = mech.weight
     bv_ton = float(BV)/float(weight)
     bv_def = mech.def_BV(i, False)
@@ -186,7 +186,7 @@ def create_armor_list_item(mech, i):
     Compile info used by print_armor_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_BV(i)
+    BV = mech.get_bv(i)
     weight = mech.weight
     # Armor coverage relative to maximum
     armor = mech.armor.get_armor_percent()
@@ -237,7 +237,7 @@ def create_speed_list_item(mech, i):
     Compile info used by print_speed_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_BV(i)
+    BV = mech.get_bv(i)
     weight = mech.weight
     walk = mech.get_walk()
     run = mech.get_run()
@@ -274,7 +274,7 @@ def create_missile_list_item(mech, i):
     Compile info used by print_missile_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_BV(i)
+    BV = mech.get_bv(i)
     weight = mech.weight
     lrm = i.gear.LRMs
     if i.gear.a4 == "TRUE":
@@ -310,7 +310,7 @@ def create_def_list_item(mech, i):
     Compile info used by print_default()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_BV(i)
+    BV = mech.get_bv(i)
     weight = mech.weight
     source = i.source
     prod_era = conv_era(i.get_prod_era())
