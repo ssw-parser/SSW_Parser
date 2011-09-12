@@ -149,7 +149,7 @@ class Loadout:
                     i -= 1
 
             # Count possible Ammo BV
-            ammo_bv += weap.get_ammo_BV()
+            ammo_bv += weap.get_ammo_bv()
 
         # Physical weapons
         for weap in self.gear.physicallist.list:

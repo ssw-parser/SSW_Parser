@@ -402,7 +402,7 @@ D_PHYSICAL = [["Small Shield", [50, 0], 3067, 0, 2, 0]]
 # Targeting computers, currently not used
 #
 # TODO: fix this
-tarcomps = [["(IS) Targeting Computer", 0, 3062, 0],
+TARCOMPS = [["(IS) Targeting Computer", 0, 3062, 0],
             ["(CL) Targeting Computer", 0, 2860, 0]]
 
 # Info on heatsink types
@@ -411,13 +411,13 @@ tarcomps = [["(IS) Targeting Computer", 0, 3062, 0],
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-heatsink = [["Single Heat Sink", 2, 2022, 1],
+HEATSINK = [["Single Heat Sink", 2, 2022, 1],
             ["Double Heat Sink", 0, 2567, 2],
             ["Double Heat Sink", 1, 2567, 2],
             ["Laser Heat Sink", 1, 3051, 2]]
 
 # Not used.
-missile_ench = [["Artemis IV", 2598],
+MISSILE_ENCH = [["Artemis IV", 2598],
                 ["Apollo", 3071]]
 
 # Melee weapons
@@ -446,7 +446,7 @@ class Heatsinks:
 
         # Check for heatsink type, save data
         ident = False
-        for i in heatsink:
+        for i in HEATSINK:
             if (i[0] == self.type and i[1] == self.tech_b):
                 ident = True
                 self.year = i[2]
@@ -546,7 +546,7 @@ class Weapon:
         return batt_val
 
 
-    def get_ammo_BV(self):
+    def get_ammo_bv(self):
         """
         Get the BV of the total ammo
         """
@@ -612,7 +612,7 @@ class Equipment:
     """
     def __init__(self, ginfo):
         self.name = ginfo[0]
-        self.BV = ginfo[1]
+        self.batt_val = ginfo[1]
         self.year = ginfo[2]
         self.useammo = ginfo[3]
         self.weight = ginfo[4]
@@ -622,15 +622,24 @@ class Equipment:
         self.ammo_ton = 0
 
     def addone(self):
+        """
+        Add one piece of equipment
+        """
         self.count = self.count + 1
 
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works
     def add_ammo(self, count, amount):
+        """
+        Add ammo to equipment
+        """
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
 class Physicallist:
+    """
+    Store list with physical weapons
+    """
     def __init__(self):
         self.list = []
         for phys in PHYSICAL:
@@ -638,6 +647,9 @@ class Physicallist:
         self.name = "physcial"
 
 class DefPhysicallist:
+    """
+    Store list with defensive physical items
+    """
     def __init__(self):
         self.list = []
         for phys in D_PHYSICAL:
@@ -753,7 +765,9 @@ class Gear:
                     if (self.apollo == "TRUE" and weap.enhance == "P"):
                         self.w_weight += 1
                     # Hack - track Narc
-                    if name[0] == "(IS) Narc Missile Beacon" or name[0] == "(IS) iNarc Launcher" or name[0] == "(CL) Narc Missile Beacon":
+                    if (name[0] == "(IS) Narc Missile Beacon" or
+                        name[0] == "(IS) iNarc Launcher" or
+                        name[0] == "(CL) Narc Missile Beacon"):
                         self.has_narc = True
 
                     # Count LRM tubes that can fire special ammo
@@ -761,7 +775,9 @@ class Gear:
                     if name[0] == "(IS) MML-3":
                         self.lrms += 3
 
-                    if name[0] == "(IS) LRM-5" or name[0] == "(CL) LRM-5" or name[0] == "(IS) MML-5" or name[0] == "(IS) Enhanced LRM-5":
+                    if (name[0] == "(IS) LRM-5" or name[0] == "(CL) LRM-5" or
+                        name[0] == "(IS) MML-5" or
+                        name[0] == "(IS) Enhanced LRM-5"):
                         self.lrms += 5
 
                     if name[0] == "(IS) MML-7":
@@ -790,9 +806,11 @@ class Gear:
                                 if (j == ""):
                                     j = i[0]
                                     continue
-                                elif (i[0] == "CT" and (j == "RT" or j == "LT")):
+                                elif (i[0] == "CT" and
+                                      (j == "RT" or j == "LT")):
                                     loc = "CT"
-                                elif (j == "CT" and (i[0] == "RT" or i[0] == "LT")):
+                                elif (j == "CT" and
+                                      (i[0] == "RT" or i[0] == "LT")):
                                     loc = "CT"
                                     print i[0], j
                                 elif (i[0] == "RA" and j == "RT"):
@@ -842,10 +860,12 @@ class Gear:
                         self.exp_weapon[name[2]] = expl
 
             # Hack, handle targeting computer
-            if (name[0] == "(IS) Targeting Computer" and name[1] =='TargetingComputer'):
+            if (name[0] == "(IS) Targeting Computer" and
+                name[1] =='TargetingComputer'):
                 self.tarcomp = 1
                 ident = True
-            if (name[0] == "(CL) Targeting Computer" and name[1] =='TargetingComputer'):
+            if (name[0] == "(CL) Targeting Computer" and
+                name[1] =='TargetingComputer'):
                 self.tarcomp = 2
                 ident = True
 
@@ -956,13 +976,15 @@ class Gear:
                 for weap in self.weaponlist.list:
                     for i in ammo.wname:
                         if weap.name == i:
-                            weap.add_ammo(ammo.count * ammo.weight, ammo.count * ammo.amount)
+                            weap.add_ammo(ammo.count * ammo.weight,
+                                          ammo.count * ammo.amount)
                             ident = True
                 # We need to do defensive equipment also due to AMS
                 for equip in self.d_equiplist.list:
                     for i in ammo.wname:
                         if equip.name == i:
-                            equip.add_ammo(ammo.count * ammo.weight, ammo.count * ammo.amount)
+                            equip.add_ammo(ammo.count * ammo.weight,
+                                           ammo.count * ammo.amount)
                             ident = True
                 if (ident == False):
                     print "ERROR: Unknown weapon:", ammo.wname
@@ -1007,11 +1029,11 @@ class Gear:
         batt_val = 0.0
         for equip in self.d_equiplist.list:
             if (equip.count > 0):
-                bv_gear = equip.count * equip.BV[0]
+                bv_gear = equip.count * equip.batt_val[0]
                 batt_val += bv_gear
                 # Handle AMS ammo (and possible other ammo)
-                if (equip.BV[1] > 0 and equip.ammocount > 0):
-                    bv_ammo = equip.BV[1] * equip.ammo_ton
+                if (equip.batt_val[1] > 0 and equip.ammocount > 0):
+                    bv_ammo = equip.batt_val[1] * equip.ammo_ton
                     # Disallow ammo BV to be greater than that of
                     # the system itself
                     if bv_ammo > bv_gear:
@@ -1019,7 +1041,7 @@ class Gear:
                     batt_val += bv_ammo
         for phys in self.d_physicallist.list:
             if (phys.count > 0):
-                bv_gear = phys.count * phys.BV[0]
+                bv_gear = phys.count * phys.batt_val[0]
                 batt_val += bv_gear
         return batt_val
 
@@ -1061,7 +1083,8 @@ class Gear:
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
-                    if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
+                    if ((cas != "CASE" and cas != "CASEII") and
+                        (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= 15.0 * self.exp_ammo[i]
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
@@ -1073,7 +1096,8 @@ class Gear:
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
-                    if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
+                    if ((cas != "CASE" and cas != "CASEII") and
+                        (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= 15.0 * self.exp_ammo[i]
 
         return neg_bv
@@ -1116,7 +1140,8 @@ class Gear:
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
-                    if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
+                    if ((cas != "CASE" and cas != "CASEII") and
+                        (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= self.exp_weapon[i]
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
@@ -1128,7 +1153,8 @@ class Gear:
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
-                    if ((cas != "CASE" and cas != "CASEII") and (cas2 != "CASE" and cas2 != "CASEII")):
+                    if ((cas != "CASE" and cas != "CASEII") and
+                        (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= self.exp_weapon[i]
 
         return neg_bv
@@ -1142,10 +1168,12 @@ class Gear:
         # Weapons
         for weap in self.weaponlist.list:
             if (weap.count - weap.countarm) > 0:
-                bv_front += weap.get_bv(self.tarcomp, self.art4, self.art5, self.apollo) * (weap.count - weap.countarm)
+                bv_front += weap.get_bv(self.tarcomp, self.art4, self.art5,
+                                        self.apollo) * (weap.count - weap.countarm)
 
             if weap.countrear > 0:
-                bv_rear += weap.get_bv(self.tarcomp, self.art4, self.art5, self.apollo) * weap.countrear
+                bv_rear += weap.get_bv(self.tarcomp, self.art4, self.art5,
+                                       self.apollo) * weap.countrear
  
         if (bv_rear > bv_front):
             return True
