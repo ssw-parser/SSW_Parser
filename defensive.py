@@ -158,7 +158,7 @@ class IS:
             if (i[0] == self.type and i[1] == self.tech_base):
                 ident = True
                 self.year = i[2]
-                self.isBV = i[3]
+                self.is_bv = i[3]
                 wgtf = i[4]
         if ident == False:
             error_exit((self.type, self.tech_base))
@@ -205,9 +205,9 @@ class IS:
         """
         Return IS BV factor
         """
-        return self.points * 1.5 * self.isBV
+        return self.points * 1.5 * self.is_bv
 
-class Armor_loc:
+class ArmorLoc:
     """
     A class to hold info about the armor in one location
     """
@@ -233,8 +233,8 @@ class Armor_loc:
         """
         Used if an report of armor value should be added to warnings
         """
-        st = "  " + self.l_name + " armor: " + str(self.arm)
-        return st
+        msg = "  " + self.l_name + " armor: " + str(self.arm)
+        return msg
 
 class Armor:
     """
@@ -253,61 +253,61 @@ class Armor:
             if (i[0] == self.atype and i[1] == self.tech_base):
                 ident = True
                 self.year = i[2]
-                self.arBV = i[3]
-                self.arMult = i[4]
+                self.armor_bv = i[3]
+                self.armor_multipler = i[4]
         if ident == False:
             error_exit((self.atype, self.tech_base))
 
 
         # Head always have max 9 armor
-        self.hd = Armor_loc("Head", hd, 9)
+        self.head = ArmorLoc("Head", hd, 9)
 
         # Otherwise 2 times Internal Structure
         # We store three different values for each torso part
         # to simplify the interface. Front, rear and total
-        self.ctf = Armor_loc("Center Torso front", ct, CT_IS[weight] * 2)
-        self.ctr = Armor_loc("Center Torso rear", ctr, CT_IS[weight] * 2)
-        self.ct = Armor_loc("Center Torso total", ct + ctr, CT_IS[weight] * 2)
-        self.ltf = Armor_loc("Left Torso front", lt, ST_IS[weight] * 2)
-        self.ltr = Armor_loc("Left Torso rear", ltr, ST_IS[weight] * 2)
-        self.lt = Armor_loc("Left Torso total", lt + ltr, ST_IS[weight] * 2)
-        self.rtf = Armor_loc("Right Torso front", rt, ST_IS[weight] * 2)
-        self.rtr = Armor_loc("Right Torso rear", rtr, ST_IS[weight] * 2)
-        self.rt = Armor_loc("Right Torso total", rt + rtr, ST_IS[weight] * 2)
+        self.ctf = ArmorLoc("Center Torso front", ct, CT_IS[weight] * 2)
+        self.ctr = ArmorLoc("Center Torso rear", ctr, CT_IS[weight] * 2)
+        self.ct = ArmorLoc("Center Torso total", ct + ctr, CT_IS[weight] * 2)
+        self.ltf = ArmorLoc("Left Torso front", lt, ST_IS[weight] * 2)
+        self.ltr = ArmorLoc("Left Torso rear", ltr, ST_IS[weight] * 2)
+        self.lt = ArmorLoc("Left Torso total", lt + ltr, ST_IS[weight] * 2)
+        self.rtf = ArmorLoc("Right Torso front", rt, ST_IS[weight] * 2)
+        self.rtr = ArmorLoc("Right Torso rear", rtr, ST_IS[weight] * 2)
+        self.rt = ArmorLoc("Right Torso total", rt + rtr, ST_IS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.la = Armor_loc("Front Left Leg", la, LEG_IS[weight] * 2)
+            self.l_arm = ArmorLoc("Front Left Leg", la, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.la = Armor_loc("Left Arm", la, ARM_IS[weight] * 2)
+            self.l_arm = ArmorLoc("Left Arm", la, ARM_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.ra = Armor_loc("Front Right Leg", ra, LEG_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Front Right Leg", ra, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.ra = Armor_loc("Right Arm", ra, ARM_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Right Arm", ra, ARM_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.ll = Armor_loc("Rear Left Leg", ll, LEG_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Rear Left Leg", ll, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.ll = Armor_loc("Left Leg", ll, LEG_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Left Leg", ll, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.rl = Armor_loc("Rear Right Leg", rl, LEG_IS[weight] * 2)
+            self.r_leg = ArmorLoc("Rear Right Leg", rl, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.rl = Armor_loc("Right Leg", rl, LEG_IS[weight] * 2)
+            self.r_leg = ArmorLoc("Right Leg", rl, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
         # Last sum up total
-        armortotal = self.hd.arm + self.ct.arm + self.lt.arm + self.rt.arm + self.la.arm + self.ra.arm + self.ll.arm + self.rl.arm
-        maxtotal = self.hd.max + self.ct.max + self.lt.max + self.rt.max + self.la.max + self.ra.max + self.ll.max + self.rl.max
-        self.total = Armor_loc("Total", armortotal, maxtotal)
+        armortotal = self.head.arm + self.ct.arm + self.lt.arm + self.rt.arm + self.l_arm.arm + self.r_arm.arm + self.l_leg.arm + self.r_leg.arm
+        maxtotal = self.head.max + self.ct.max + self.lt.max + self.rt.max + self.l_arm.max + self.r_arm.max + self.l_leg.max + self.r_leg.max
+        self.total = ArmorLoc("Total", armortotal, maxtotal)
 
         # Store potential falling damage
         self.fall_dam = ceil(weight / 10.0)
@@ -317,7 +317,7 @@ class Armor:
         """
         Return armor BV
         """
-        return (self.arBV * 2.5 * self.total.arm)
+        return (self.armor_bv * 2.5 * self.total.arm)
        
 
     def get_year(self):
@@ -330,7 +330,7 @@ class Armor:
         """
         Return armor weight
         """
-        wgt = self.total.arm / (16 * self.arMult)
+        wgt = self.total.arm / (16 * self.armor_multipler)
         # hack to get half-ton rounding up
         wgt = ceil_05(wgt)
         return wgt
@@ -348,17 +348,18 @@ class Armor:
         Location: armor/max xx%
         """
         ratio = float(armor.arm) / float(armor.max)
-        msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.arm, armor.max, int(ratio * 100)))
+        msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.arm, armor.max,
+                                          int(ratio * 100)))
         print msg
 
     def head_report(self):
         """
         Head armor report
         """
-        self.print_report(self.hd)
-        if (not self.hd.check_value(8)):
+        self.print_report(self.head)
+        if (not self.head.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
-            st2 = self.hd.get_warning_string()
+            st2 = self.head.get_warning_string()
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
@@ -441,9 +442,9 @@ class Armor:
         self.center_torso_report()
         self.left_torso_report()
         self.right_torso_report()
-        self.report_standard(self.ll)
-        self.report_standard(self.rl)
-        self.report_standard(self.la)
-        self.report_standard(self.ra)
+        self.report_standard(self.l_leg)
+        self.report_standard(self.r_leg)
+        self.report_standard(self.l_arm)
+        self.report_standard(self.r_arm)
 
 
