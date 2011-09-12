@@ -796,8 +796,6 @@ class Gyro(Item):
     """
     def __init__(self, etype, erating, gtype, gbase):
         # We need engine info for calculations
-        self.etype = etype
-        self.erating = erating
         self.gtype = gtype
         self.g_base = int(gbase)
 
@@ -808,10 +806,19 @@ class Gyro(Item):
                 ident = True
                 self.gyear = i[2]
                 self.gyro_bv = i[3]
-                self.gweightm = i[4]
+                gweightm = i[4]
                 self.r_level = i[5]
         if ident == False:
             error_exit((self.gtype, self.g_base))
+
+        # Calculate weight
+        rating = erating
+        # Hack: Make sure Primitive Engines get right gyro weight
+        if etype == "Primitive Fusion Engine":
+            rating *= 1.2
+            rating = ceil_5(rating)
+        base_weight = ceil(float(rating) / 100.0)
+        self.weight = gweightm * base_weight
 
     def get_type(self):
         """
@@ -835,14 +842,7 @@ class Gyro(Item):
         """
         Return weight of gyro
         """
-        # TODO: Calculate weight at creation
-        rating = self.erating
-        # Hack: Make sure Primitive Engines get right gyro weight
-        if self.etype == "Primitive Fusion Engine":
-            rating *= 1.2
-            rating = ceil_5(rating)
-        base_weight = ceil(float(rating) / 100.0)
-        return self.gweightm * base_weight
+        return self.weight
 
     def get_bv_mod(self):
         """
