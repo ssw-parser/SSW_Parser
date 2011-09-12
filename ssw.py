@@ -286,7 +286,7 @@ def main():
     date = get_comp_year(mech.enhancement.get_year, date)
     print "-3-----------------------------"
     date = get_comp_year(mech.load.heatsinks.get_year, date)
-    print mech.load.heatsinks.type, mech.load.heatsinks.number
+    print mech.load.heatsinks.get_type(), mech.load.heatsinks.number
     print "-4-----------------------------"
     date = get_comp_year(mech.armor.get_year, date)
 #speed = mech.engine.erating/mech.weight

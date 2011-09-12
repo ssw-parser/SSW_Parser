@@ -457,6 +457,12 @@ class Heatsinks(Item):
         if ident == False:
             error_exit((self.type, self.tech_b))
 
+    def get_type(self):
+        """
+        Return heat-sink type
+        """
+        return self.type
+
     def get_rules_level(self):
         """
         Return armor rules level
