@@ -12,7 +12,6 @@ Goals:
 - move warnings.add & print_warning stuff outside defensive.py
 - Turret year & weights
 - Things that needs to become real items:
--- Partial wing year & weight
 -- Null sig, chameleon, void sig year
  
 

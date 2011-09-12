@@ -646,6 +646,47 @@ class JumpBoosters(Item):
         return self.jump
 
 
+class PartialWing(Item):
+    """
+    A class to hold information about partial wings
+    """
+    def __init__(self, weight, wing):
+        self.weight = weight # Mech weight, not JJ weight
+        self.wing = wing # Bool: Do we mount a partial wing?
+
+    def get_rules_level(self):
+        """
+        Partial wing are advanced rules
+        """
+        if self.wing:
+            return 1
+        else:
+            return 0
+
+    def get_year(self):
+        """
+        Partial wing becomes advanced rules in 3083
+        """
+        if self.wing:
+            return 3085
+        else:
+            return 0
+
+    def get_weight(self):
+        """
+        Get weight of partial wing
+        """
+        if self.wing:
+            return ceil_05(0.05 * self.weight)
+        else:
+            return 0
+
+    def has_wing(self):
+        """
+        Return true if we have a wing 
+        """
+        return self.wing
+
 class Enhancement(Item):
     """
     A class to hold information about myomer enhancements

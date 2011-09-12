@@ -26,7 +26,8 @@ from math import ceil
 from operator import itemgetter
 from error import *
 from defensive import IS, Armor
-from movement import Cockpit, JumpJets, JumpBoosters, Enhancement, Motive
+from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
+from movement import Enhancement, Motive
 from gear import Gear, Heatsinks
 from util import ceil_05
 
@@ -54,7 +55,7 @@ class Loadout:
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
-        self.partw = partw
+        self.partw = PartialWing(weight, partw)
         self.jumpb = JumpBoosters(weight, jumpb)
         self.prod_era = prod_era
         self.source = source
@@ -71,7 +72,7 @@ class Loadout:
                 cool = self.heatsinks.number * 2
             sink += cool
         # Partial Wing
-        if self.partw:
+        if self.partw.has_wing():
             sink += 3
         return sink
 
@@ -89,7 +90,7 @@ class Loadout:
         # Ordinary jump-jets
         jmp = self.jj.get_jump()
         # Handle partial wing
-        if jmp and self.partw:
+        if jmp and self.partw.has_wing():
             if self.weight >= 60:
                 jmp += 1
             else:
