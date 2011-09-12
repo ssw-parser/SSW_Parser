@@ -243,7 +243,7 @@ def create_speed_list_item(mech, i):
     run = mech.get_run()
     jump = i.get_jump()
     spd = max(walk, jump)
-    enh = mech.engine.enhancement
+    enh = mech.enhancement.enhancement
     if enh == "---":
         enh = ""
     return (name_str, weight, BV, spd, walk, run, jump, enh)

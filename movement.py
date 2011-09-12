@@ -589,18 +589,65 @@ class JumpJets(Item):
             return max(minimum, heat)
 
 
+class Enhancement(Item):
+    """
+    A class to hold information about myomer enhancements
+    """
+    def __init__(self, weight, enh, etb):
+        self.enhancement = enh
+        self.etb = int(etb)
+
+        # Check for legal enhancement type, save data
+        ident = False
+        for i in ENHANCEMENT:
+            if (i[0] == self.enhancement and i[1] == self.etb):
+                ident = True
+                self.enhyear = i[2]
+                self.enhweight = i[3](weight)
+        if ident == False:
+            error_exit((self.enhancement, self.etb))
+
+    def get_year(self):
+        """
+        Return earliest year enhancement is available
+        """
+        return self.enhyear
+
+    def get_weight(self):
+        """
+        Return weight of myomer enhancement
+        """
+        return self.enhweight
+
+    def is_tsm(self):
+        """
+        Check if the enhancemetn is TSM
+        """
+        if self.enhancement == "TSM":
+            return True
+        else:
+            return False
+
+    def is_masc(self):
+        """
+        Check if the enhancement is MASC
+        """
+        if self.enhancement == "MASC":
+            return True
+        else:
+            return False
+
+
 class Motive:
     """
-    A class to hold motive info for a mech (engine, gyro, myomer ehancement)
+    A class to hold motive info for a mech (engine, gyro)
     """
-    def __init__(self, weight, etype, erating, ebase, gtype, gbase, enh, etb):
+    def __init__(self, weight, etype, erating, ebase, gtype, gbase):
         self.etype = etype
         self.erating = erating
         self.e_base = int(ebase)
         self.gtype = gtype
         self.g_base = int(gbase)
-        self.enhancement = enh
-        self.etb = int(etb)
         self.speed = self.erating / weight
         # A note on primitive engines:
         # It seems like using engine rating directly does give
@@ -630,16 +677,6 @@ class Motive:
         if ident == False:
             error_exit((self.gtype, self.g_base))
 
-        # Check for legal enhancement type, save data
-        ident = False
-        for i in ENHANCEMENT:
-            if (i[0] == self.enhancement and i[1] == self.etb):
-                ident = True
-                self.enhyear = i[2]
-                self.enhweight = i[3](weight)
-        if ident == False:
-            error_exit((self.enhancement, self.etb))
-
 
 
     def get_engine_year(self):
@@ -653,12 +690,6 @@ class Motive:
         Return earliest year gyro is available
         """
         return self.gyear
-
-    def get_enh_year(self):
-        """
-        Return earliest year enhancement is available
-        """
-        return self.enhyear
 
     def get_engine_weight(self):
         """
@@ -677,12 +708,6 @@ class Motive:
             rating = ceil_5(rating)
         base_weight = ceil(float(rating) / 100.0)
         return self.gweightm * base_weight
-
-    def get_enh_weight(self):
-        """
-        Return weight of myomer enhancement
-        """
-        return self.enhweight
 
     def get_engine_bv_mod(self):
         """

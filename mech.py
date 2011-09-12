@@ -26,7 +26,7 @@ from math import ceil
 from operator import itemgetter
 from error import *
 from defensive import IS, Armor
-from movement import Cockpit, JumpJets, Motive
+from movement import Cockpit, JumpJets, Enhancement, Motive
 from gear import Gear, Heatsinks
 from util import ceil_05
 
@@ -371,7 +371,8 @@ class Mech:
                         equip.append((name, typ, loc))
 
             self.engine = Motive(self.weight, etype, erating, ebase,
-                                 gtype, gbase, enhancement, etb)
+                                 gtype, gbase)
+            self.enhancement = Enhancement(self.weight, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
             self.load = Loadout(self.weight, a4, a5, ap, "", self.BV,
@@ -490,9 +491,9 @@ class Mech:
         """
         spd = self.engine.speed
         factor = 1.5
-        if self.engine.enhancement == "TSM":
+        if self.enhancement.is_tsm():
             spd += 1
-        elif self.engine.enhancement == "MASC":
+        elif self.enhancement.is_masc():
             factor += 0.5
         if self.load.gear.supercharger:
             factor += 0.5
@@ -630,7 +631,7 @@ class Mech:
         obv = load.off_bv(self, printq)
 
         # Tonnage (physical)
-        if (self.engine.enhancement == "TSM"):
+        if (self.enhancement.is_tsm()):
             weight_factor = self.weight * 1.5
         else:
             weight_factor = self.weight
@@ -679,7 +680,7 @@ class Mech:
         motive = self.engine.get_engine_weight()
         motive += self.engine.get_gyro_weight()
         motive += self.load.jj.get_weight()
-        motive += self.engine.get_enh_weight()
+        motive += self.enhancement.get_weight()
         motive += self.cockpit.get_weight()
         if self.load.gear.supercharger:
             motive += ceil_05(self.engine.get_engine_weight() * 0.1)
@@ -741,15 +742,15 @@ class Mech:
         Create a full movement string with TSM and MASC effects
         """
         spd = self.engine.speed
-        if self.engine.enhancement == "TSM":
+        if self.enhancement.is_tsm():
             wstr = str(spd) + "[" + str(spd + 1) + "]"
         else:
             wstr = str(spd)
         rspeed = int(ceil(spd * 1.5))
-        if self.engine.enhancement == "TSM":
+        if self.enhancement.is_tsm():
             rspeed2 = int(ceil((spd + 1) * 1.5))
             rstr = str(rspeed) + "[" + str(rspeed2) + "]"
-        elif self.engine.enhancement == "MASC":
+        elif self.enhancement.is_masc():
             rspeed2 = int(ceil(spd * 2.0))
             rstr = str(rspeed) + "[" + str(rspeed2) + "]"
         else:
@@ -804,8 +805,8 @@ class Mech:
         jweight = self.load.jj.get_weight()
         if self.load.get_jump() > 0:
             print "Fixed jump: ", self.load.get_jump(), self.load.jj.jjtype, jweight, "tons"
-        enhweight = self.engine.get_enh_weight()
-        print "Enhancement: ", self.engine.enhancement, enhweight, "tons"
+        enhweight = self.enhancement.get_weight()
+        print "Enhancement: ", self.enhancement.enhancement, enhweight, "tons"
         tweight = eweight + gweight + jweight + enhweight
         tratio = float(tweight) / float(weight)
         print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"

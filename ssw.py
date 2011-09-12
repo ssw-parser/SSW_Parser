@@ -282,7 +282,7 @@ def main():
     print mech.cockpit.type, mech.cockpit.get_weight()
     if mech.cockpit.console == "TRUE":
         print "Command Console"
-    date = get_comp_year(mech.engine.get_enh_year, date)
+    date = get_comp_year(mech.enhancement.get_year, date)
     print "-3-----------------------------"
     date = get_comp_year(mech.load.heatsinks.get_year, date)
     print mech.load.heatsinks.type, mech.load.heatsinks.number
