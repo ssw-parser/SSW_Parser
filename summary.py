@@ -275,10 +275,10 @@ def create_missile_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.name
     BV = mech.get_bv(i)
     weight = mech.weight
-    lrm = i.gear.LRMs
-    if i.gear.a4 == "TRUE":
+    lrm = i.gear.lrms
+    if i.gear.art4 == "TRUE":
         art = "AIV"
-    elif i.gear.a5 == "TRUE":
+    elif i.gear.art5 == "TRUE":
         art = "AV"
     else:
         art = ""
@@ -385,7 +385,7 @@ def main():
         # The upcoming argument is a lrm tube count
         elif (lrm_arg):
             lrm = int(arg)
-            select_l.append(lambda x, y: (y.gear.LRMs >= lrm))
+            select_l.append(lambda x, y: (y.gear.lrms >= lrm))
             header_l.append(("with at least %d lrm tubes" % lrm))
             lrm_arg = False
             continue
