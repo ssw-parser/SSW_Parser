@@ -28,6 +28,12 @@ class Item:
     all item types.
     """
 
+    def get_type(self):
+        """
+        Return a string containing the type of the item
+        """
+        raise NotImplementedError
+
     def get_rules_level(self):
         """
         Return rules level
@@ -50,3 +56,9 @@ class Item:
         Returns the weight of the item
         """
         raise NotImplementedError
+
+    def summary_string(self):
+        """
+        Returns a summary string with type and weight
+        """
+        return self.get_type() + " " + str(self.get_weight()) + " tons"

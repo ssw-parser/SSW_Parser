@@ -271,7 +271,7 @@ def main():
     if (mech.omni == "TRUE"):
         print "Omni mech"
     date = get_comp_year(mech.structure.get_year, date)
-    print "Structure: ", mech.structure.type, mech.structure.get_weight(), "tons"
+    print "Structure: ", mech.structure.summary_string()
     print "-2-----------------------------"
     mech.print_engine_report(mech.weight)
     date = get_comp_year(mech.engine.get_engine_year, date)
@@ -279,7 +279,8 @@ def main():
     if mech.load.jj.get_jump() > 0:
         date = get_comp_year(mech.load.jj.get_year, date)
     date = get_comp_year(mech.cockpit.get_year, date)
-    print mech.cockpit.type, mech.cockpit.get_weight()
+#    print mech.cockpit.get_type(), mech.cockpit.get_weight()
+    print mech.cockpit.summary_string()
     if mech.cockpit.console == "TRUE":
         print "Command Console"
     date = get_comp_year(mech.enhancement.get_year, date)
@@ -320,7 +321,7 @@ def main():
     mech.off_bv(mech.load, True)
     print "-------------------------------"
     print "BV: ", mech.get_bv(mech.load)
-    print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
+    print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
     print "==============================="
 
     # Gear

@@ -191,6 +191,11 @@ class IS(Item):
         else:
             error_exit(motive)
 
+    def get_type(self):
+        """
+        Return internal structure type
+        """
+        return self.type
 
     def get_rules_level(self):
         """
@@ -334,6 +339,12 @@ class Armor(Item):
         """
         return (self.armor_bv * 2.5 * self.total.arm)
        
+
+    def get_type(self):
+        """
+        Return armor type
+        """
+        return self.atype
 
     def get_rules_level(self):
         """

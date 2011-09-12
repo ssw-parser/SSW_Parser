@@ -509,6 +509,13 @@ class Cockpit(Item):
         if self.console == "TRUE":
             self.c_weight = 3
 
+    def get_type(self):
+        """
+        Return cockpit type
+        TODO: Command console
+        """
+        return self.type
+
     def get_rules_level(self):
         """
         Standard and small cockpits are tournament legal
@@ -551,6 +558,12 @@ class JumpJets(Item):
                     self.heat = i[2]
             if ident == False:
                 error_exit(self.jjtype)
+
+    def get_type(self):
+        """
+        Return jump-jet type
+        """
+        return self.jjtype
 
     def get_rules_level(self):
         """
@@ -614,6 +627,12 @@ class JumpBoosters(Item):
         self.weight = weight # Mech weight, not JJ weight
         self.jump = jump
 
+    def get_type(self):
+        """
+        Return type
+        """
+        return "Mechanical jump boosters"
+
     def get_rules_level(self):
         """
         Jump boosters are advanced rules
@@ -653,6 +672,12 @@ class PartialWing(Item):
     def __init__(self, weight, wing):
         self.weight = weight # Mech weight, not JJ weight
         self.wing = wing # Bool: Do we mount a partial wing?
+
+    def get_type(self):
+        """
+        Return partial wing
+        """
+        return "Partial Wing"
 
     def get_rules_level(self):
         """
@@ -704,6 +729,15 @@ class Enhancement(Item):
                 self.enhweight = i[3](weight)
         if ident == False:
             error_exit((self.enhancement, self.etb))
+
+    def get_type(self):
+        """
+        Return jump-jet type
+        """
+        if self.enhancement == "---":
+            return ""
+        else:
+            return self.enhancement
 
     def get_rules_level(self):
         """

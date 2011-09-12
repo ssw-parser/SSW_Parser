@@ -809,9 +809,9 @@ class Mech:
         print self.engine.gtype, gweight, "tons"
         jweight = self.load.jj.get_weight()
         if self.load.get_jump() > 0:
-            print "Fixed jump: ", self.load.get_jump(), self.load.jj.jjtype, jweight, "tons"
+            print "Fixed jump: ", self.load.get_jump(), self.load.jj.summary_string()
         enhweight = self.enhancement.get_weight()
-        print "Enhancement: ", self.enhancement.enhancement, enhweight, "tons"
+        print "Enhancement: ", self.enhancement.summary_string()
         tweight = eweight + gweight + jweight + enhweight
         tratio = float(tweight) / float(weight)
         print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
