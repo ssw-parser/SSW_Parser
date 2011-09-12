@@ -112,35 +112,37 @@ LEG_IS = {
 
 # Info on internal structure types
 #
-# Name, techbase, year, BV multiplier, weight factor
+# Name, techbase, year, BV multiplier, weight factor, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+# Where rules level is 0 = TL, 1 = advanced, 2 = experimental
 #
 # Missing: Industrial
-STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1],
-             ["Endo-Steel", 0, 2487, 1.0, 0.05],
-             ["Endo-Steel", 1, 2487, 1.0, 0.05],
+STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
+             ["Endo-Steel", 0, 2487, 1.0, 0.05, 0],
+             ["Endo-Steel", 1, 2487, 1.0, 0.05, 0],
              # No year given for primitive structure,
              # assume it becomes available the same year as the Mackie
-             ["Primitive Structure", 0, 2439, 1.0, 0.1]]
+             ["Primitive Structure", 0, 2439, 1.0, 0.1, 0]]
 
 
 # Info on armor types
 #
-# Name, techbase, year, BV multiplier, armor multiplier
+# Name, techbase, year, BV multiplier, armor multiplier, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+# Where rules level is 0 = TL, 1 = advanced, 2 = experimental
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
-ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0],
-         ["Ferro-Fibrous", 0, 2571, 1.0, 1.12],
-         ["Ferro-Fibrous", 1, 2571, 1.0, 1.2],
-         ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06],
-         ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24],
-         ["Stealth Armor", 0, 3063, 1.0, 1.0],
+ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0, 0],
+         ["Ferro-Fibrous", 0, 2571, 1.0, 1.12, 0],
+         ["Ferro-Fibrous", 1, 2571, 1.0, 1.2, 0],
+         ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06, 0],
+         ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24, 0],
+         ["Stealth Armor", 0, 3063, 1.0, 1.0, 0],
          # No year given for primitive armor, assume it becomes available
          # the same year as the Mackie
-         ["Primitive Armor", 0, 2439, 1.0, 0.67]]
+         ["Primitive Armor", 0, 2439, 1.0, 0.67, 0]]
 
 
 class IS(Item):
@@ -160,6 +162,7 @@ class IS(Item):
                 self.year = i[2]
                 self.is_bv = i[3]
                 wgtf = i[4]
+                self.r_level = i[5]
         if ident == False:
             error_exit((self.type, self.tech_base))
 
@@ -188,6 +191,13 @@ class IS(Item):
         else:
             error_exit(motive)
 
+
+    def get_rules_level(self):
+        """
+        Return armor rules level
+        0 = tournament legal, 1 = advanced, 2 = experimental
+        """
+        return self.r_level
 
     def get_year(self):
         """
@@ -256,6 +266,7 @@ class Armor(Item):
                 self.year = i[2]
                 self.armor_bv = i[3]
                 self.armor_multipler = i[4]
+                self.r_level = i[5]
         if ident == False:
             error_exit((self.atype, self.tech_base))
 
@@ -323,6 +334,13 @@ class Armor(Item):
         """
         return (self.armor_bv * 2.5 * self.total.arm)
        
+
+    def get_rules_level(self):
+        """
+        Return armor rules level
+        0 = tournament legal, 1 = advanced, 2 = experimental
+        """
+        return self.r_level
 
     def get_year(self):
         """

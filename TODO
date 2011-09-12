@@ -10,10 +10,13 @@ Goals:
 - Integrate fire control systems better (a4, a5, ap, tarcomp)
 - Tacops armor
 - move warnings.add & print_warning stuff outside defensive.py
-- Null sig, chameleon, void sig year
 - Turret year & weights
-- Partial wing year & weight
-- Jump booster year & weight
+- Things that needs to become real items:
+-- Partial wing year & weight
+-- Jump booster year & weight
+-- Null sig, chameleon, void sig year
+ 
+
 
 ssw.py:
 - Additional checking:

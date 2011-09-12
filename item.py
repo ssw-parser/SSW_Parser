@@ -28,6 +28,15 @@ class Item:
     all item types.
     """
 
+    def get_rules_level(self):
+        """
+        Return rules level
+        0 = Tournament legal,
+        1 = Advanced,
+        2 = Experimental
+        """
+        raise NotImplementedError
+
     def get_year(self):
         """
         Returns the earliest year the item is available

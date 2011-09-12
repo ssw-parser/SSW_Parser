@@ -473,7 +473,7 @@ ENHANCEMENT = [["---", 2, 0, (lambda x : 0)], #None
 
 # Cockpit types
 #
-# Name, techbase, year, weight
+# Name, year, weight
 #
 COCKPIT = [["Standard Cockpit", 2300, 3],
            ["Small Cockpit", 3067, 2],
@@ -509,6 +509,17 @@ class Cockpit(Item):
         if self.console == "TRUE":
             self.c_weight = 3
 
+    def get_rules_level(self):
+        """
+        Standard and small cockpits are tournament legal
+        Command console is advanced
+        Assume primitive is tournament legal
+        """
+        if self.console == "TRUE":
+            return 1
+        else:
+            return 0
+
     def get_year(self):
         """
         Return earliest year cockpit is available
@@ -540,6 +551,12 @@ class JumpJets(Item):
                     self.heat = i[2]
             if ident == False:
                 error_exit(self.jjtype)
+
+    def get_rules_level(self):
+        """
+        Everything is tournament legal
+        """
+        return 0
 
     def get_year(self):
         """
@@ -606,6 +623,12 @@ class Enhancement(Item):
                 self.enhweight = i[3](weight)
         if ident == False:
             error_exit((self.enhancement, self.etb))
+
+    def get_rules_level(self):
+        """
+        Everything is tournament legal
+        """
+        return 0
 
     def get_year(self):
         """
