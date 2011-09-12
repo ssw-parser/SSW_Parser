@@ -21,7 +21,7 @@
 
 
 from math import ceil
-from error import *
+from error import error_exit
 from util import ceil_05
 from item import Item
 
@@ -596,6 +596,9 @@ class Ammo:
         self.count = 0
 
     def addone(self):
+        """
+        Add one ammo item
+        """
         self.count = self.count + 1
 
 class OffEquiplist:

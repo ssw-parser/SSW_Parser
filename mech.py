@@ -44,14 +44,14 @@ class Loadout:
     """
     An omni loadout
     """
-    def __init__(self, weight, a4, a5, ap, name, BV, partw, jumpb,
+    def __init__(self, weight, art4, art5, apollo, name, batt_val, partw, jumpb,
                  prod_era, source):
         self.weight = weight # Save weight just in case
-        self.artemis4 = a4
-        self.artemis5 = a5
-        self.apollo = ap
+        self.artemis4 = art4
+        self.artemis5 = art5
+        self.apollo = apollo
         self.name = name
-        self.BV = BV
+        self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
@@ -67,7 +67,8 @@ class Loadout:
         sink = self.heatsinks.get_sink()
         # coolant pods
         if self.gear.coolant > 0:
-            cool = ceil(self.heatsinks.number * (float(self.gear.coolant) / 5.0))
+            cool = ceil(self.heatsinks.number *
+                        (float(self.gear.coolant) / 5.0))
             if cool > (self.heatsinks.number * 2):
                 cool = self.heatsinks.number * 2
             sink += cool
@@ -126,27 +127,27 @@ class Loadout:
             if weap.count > 0:
                 i = weap.count
                 if (flip and (i - weap.countarm > 0)):
-                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
+                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo) / 2.0
                 else:
-                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
+                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo)
 
                 while (i):
-                    w_list.append((BV, weap.heat, weap.name))
+                    w_list.append((batt_val, weap.heat, weap.name))
                     i -= 1
 
             # Rear-facing weapons counts as half
             if weap.countrear > 0:
                 i = weap.countrear
                 if (flip):
-                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
+                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo)
                 else:
-                    BV = weap.get_bv(self.gear.tarcomp, self.artemis4,
+                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo) / 2.0
                 while (i):
-                    w_list.append((BV, weap.heat, weap.name))
+                    w_list.append((batt_val, weap.heat, weap.name))
                     i -= 1
 
             # Count possible Ammo BV
@@ -156,9 +157,9 @@ class Loadout:
         for weap in self.gear.physicallist.list:
             if weap.count > 0:
                 i = weap.count
-                BV = weap.get_bv(self.weight)
+                batt_val = weap.get_bv(self.weight)
                 while (i):
-                    w_list.append((BV, 0, weap.name))
+                    w_list.append((batt_val, 0, weap.name))
                     i -= 1
 
         # Sort list, from largest BV to smallest,
@@ -216,7 +217,7 @@ class Mech:
             # Get BV. Should give prime variant BV for Omni-mechs
             # get first instance only to avoid problems with Omni-mechs
             battv = mmech.getElementsByTagName('battle_value')[0]
-            self.BV = int(gettext(battv.childNodes))
+            self.batt_val = int(gettext(battv.childNodes))
 
             # Get production era
             pe = mmech.getElementsByTagName('productionera')[0]
@@ -299,9 +300,9 @@ class Mech:
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
-                a4 = blo.attributes["fcsa4"].value
-                a5 = blo.attributes["fcsa5"].value
-                ap = blo.attributes["fcsapollo"].value
+                art4 = blo.attributes["fcsa4"].value
+                art5 = blo.attributes["fcsa5"].value
+                apollo = blo.attributes["fcsapollo"].value
                 partw = False
                 jumpb = 0
 
@@ -376,18 +377,20 @@ class Mech:
             self.enhancement = Enhancement(self.weight, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
-            self.load = Loadout(self.weight, a4, a5, ap, "", self.BV,
+            self.load = Loadout(self.weight, art4, art5, apollo, "",
+                                self.batt_val,
                                 partw, jumpb, self.prod_era, source)
-            self.load.gear = Gear(self.weight, a4, a5, ap, equip, equiprear, cc)
+            self.load.gear = Gear(self.weight, art4, art5, apollo,
+                                  equip, equiprear, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
 
             # Get omni loadouts
             self.loads = []
             for lo in mmech.getElementsByTagName('loadout'):
-                a4 = lo.attributes["fcsa4"].value
-                a5 = lo.attributes["fcsa5"].value
-                ap = lo.attributes["fcsapollo"].value
+                art4 = lo.attributes["fcsa4"].value
+                art5 = lo.attributes["fcsa5"].value
+                apollo = lo.attributes["fcsapollo"].value
                 name = lo.attributes["name"].value
 
                 # Get source
@@ -400,14 +403,15 @@ class Mech:
 
                 # Get BV.
                 for battv in lo.getElementsByTagName('battle_value'):
-                    BV = int(gettext(battv.childNodes))
+                    batt_val = int(gettext(battv.childNodes))
 
                 # Get jump booster
                 for jb in blo.getElementsByTagName('jumpbooster'):
                     jumpb = int(hs.attributes["mp"].value)
                     
                 # Construct current loadout
-                current = Loadout(self.weight, a4, a5, ap, name, BV,
+                current = Loadout(self.weight, art4, art5, apollo, name,
+                                  batt_val,
                                   partw, jumpb, prod_era, source)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
@@ -465,7 +469,7 @@ class Mech:
                         # Save in a tuple with name and type
                         equip_l.append((name, typ, loc))
 
-                current.gear = Gear(self.weight, a4, a5, ap,
+                current.gear = Gear(self.weight, art4, art5, apollo,
                                     equip_l, equiprear_l, cc)
 
                 self.loads.append(current)
@@ -668,9 +672,9 @@ class Mech:
             batt_val = int(round(base_bv * 0.95))
         else:
             batt_val = int(round(base_bv))
-        if batt_val != load.BV:
-            print self.name, self.model, load.name, batt_val, load.BV
-        assert batt_val == load.BV, "Error in BV calculation!"
+        if batt_val != load.batt_val:
+            print self.name, self.model, load.name, batt_val, load.batt_val
+        assert batt_val == load.batt_val, "Error in BV calculation!"
         return batt_val
 
     def weight_summary(self, short):
