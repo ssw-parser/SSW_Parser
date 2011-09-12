@@ -169,7 +169,7 @@ class IS(Item):
                 self.is_bv = i[3]
                 wgtf = i[4]
                 self.r_level = i[5]
-        if ident == False:
+        if not ident:
             error_exit((self.type, self.tech_base))
 
         # Calculate IS weight
@@ -278,7 +278,7 @@ class Armor(Item):
                 self.armor_bv = i[3]
                 self.armor_multipler = i[4]
                 self.r_level = i[5]
-        if ident == False:
+        if not ident:
             error_exit((self.atype, self.tech_base))
 
 

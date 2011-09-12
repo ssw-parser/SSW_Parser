@@ -509,7 +509,7 @@ class Cockpit(Item):
                 self.year = i[1]
                 self.wgt = i[2]
                 self.r_level = i[3]
-        if ident == False:
+        if not ident:
             error_exit((self.type))
 
         # Hack: Add console year
@@ -568,7 +568,7 @@ class JumpJets(Item):
                     self.jjyear = i[1]
                     self.heat = i[2]
                     self.r_level = i[3]
-            if ident == False:
+            if not ident:
                 error_exit(self.jjtype)
 
     def get_type(self):
@@ -739,7 +739,7 @@ class Enhancement(Item):
                 ident = True
                 self.enhyear = i[2]
                 self.enhweight = i[3](weight)
-        if ident == False:
+        if not ident:
             error_exit((self.enhancement, self.etb))
 
     def get_type(self):
@@ -808,7 +808,7 @@ class Gyro(Item):
                 self.gyro_bv = i[3]
                 gweightm = i[4]
                 self.r_level = i[5]
-        if ident == False:
+        if not ident:
             error_exit((self.gtype, self.g_base))
 
         # Calculate weight
@@ -875,7 +875,7 @@ class Engine(Item):
                 self.eng_bv = i[3]
                 self.eweight = i[4](self.erating)
                 self.r_level = i[5]
-        if ident == False:
+        if not ident:
             error_exit((self.etype, self.e_base))
 
 

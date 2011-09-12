@@ -454,7 +454,7 @@ class Heatsinks(Item):
                 self.year = i[2]
                 self.cap = i[3]
                 self.r_level = i[4]
-        if ident == False:
+        if not ident:
             error_exit((self.type, self.tech_b))
 
     def get_type(self):
@@ -949,7 +949,7 @@ class Gear:
                         expl += 1
                         self.exp_ammo[name[2]] = expl
             # Not found
-            if ident == False:
+            if not ident:
                 print "Unidentified:", name
                 error_exit("gear")
 
@@ -978,7 +978,7 @@ class Gear:
                         expl += weap.explosive
                         self.exp_weapon[name[2]] = expl
             # Not found
-            if (ident == False):
+            if (not ident):
                 print "Unidentified:", name
                 error_exit("gear")
 
@@ -1005,7 +1005,7 @@ class Gear:
                             equip.add_ammo(ammo.count * ammo.weight,
                                            ammo.count * ammo.amount)
                             ident = True
-                if (ident == False):
+                if (not ident):
                     print "ERROR: Unknown weapon:", ammo.wname
                     error_exit("weapon")
 
