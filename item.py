@@ -37,9 +37,10 @@ class Item:
     def get_rules_level(self):
         """
         Return rules level
-        0 = Tournament legal,
-        1 = Advanced,
-        2 = Experimental
+        0 = Intro-tech,
+        1 = Tournament legal,
+        2 = Advanced,
+        3 = Experimental
         """
         raise NotImplementedError
 

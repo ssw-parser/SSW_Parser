@@ -1,6 +1,6 @@
 
 PRIORITY:
-- Track TL, Advanced and Experimental
+- Track Intro, TL, Advanced and Experimental
 - Law of Demeter, avoid accessing low-level object data
 
 Goals:

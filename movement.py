@@ -455,10 +455,12 @@ GYRO = [["Standard Gyro", 2, 2439, 0.5, 1.0],
 
 # Jump-jet types
 #
-# Name, year, heat generated
+# Name, year, heat generated, rules level
 #
-JUMP_JET = [["Standard Jump Jet", 2471, 1],
-           ["Improved Jump Jet", 3069, 0.5]]
+# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
+#
+JUMP_JET = [["Standard Jump Jet", 2471, 1, 0],
+           ["Improved Jump Jet", 3069, 0.5, 1]]
 
 # Myomer enhancement types
 #
@@ -473,12 +475,17 @@ ENHANCEMENT = [["---", 2, 0, (lambda x : 0)], #None
 
 # Cockpit types
 #
-# Name, year, weight
+# Name, year, weight, rules level
 #
-COCKPIT = [["Standard Cockpit", 2300, 3],
-           ["Small Cockpit", 3067, 2],
-          # Assume same year as Mackie
-           ["Primitive Cockpit", 2439, 5]]
+# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
+#
+# TODO: figure out rules level for primitive cockpit
+#
+COCKPIT = [["Standard Cockpit", 2300, 3, 0],
+           ["Small Cockpit", 3067, 2, 1],
+           # Assume same year as Mackie
+           # Treat primitive as advanced rules for now
+           ["Primitive Cockpit", 2439, 5, 2]]
 
 
 
@@ -498,6 +505,7 @@ class Cockpit(Item):
                 ident = True
                 self.year = i[1]
                 self.wgt = i[2]
+                self.r_level = i[3]
         if ident == False:
             error_exit((self.type))
 
@@ -518,14 +526,14 @@ class Cockpit(Item):
 
     def get_rules_level(self):
         """
-        Standard and small cockpits are tournament legal
+        Return rules level of cockpit
         Command console is advanced
-        Assume primitive is tournament legal
         """
+        r_lev = self.r_level
         if self.console == "TRUE":
-            return 1
+            return max(2, r_lev)
         else:
-            return 0
+            return r_lev
 
     def get_year(self):
         """
@@ -556,6 +564,7 @@ class JumpJets(Item):
                     ident = True
                     self.jjyear = i[1]
                     self.heat = i[2]
+                    self.r_level = i[3]
             if ident == False:
                 error_exit(self.jjtype)
 
@@ -567,9 +576,9 @@ class JumpJets(Item):
 
     def get_rules_level(self):
         """
-        Everything is tournament legal
+        Return jump-jet rules level
         """
-        return 0
+        return self.r_level
 
     def get_year(self):
         """
@@ -638,7 +647,7 @@ class JumpBoosters(Item):
         Jump boosters are advanced rules
         """
         if self.jump:
-            return 1
+            return 2
         else:
             return 0
 
@@ -684,7 +693,7 @@ class PartialWing(Item):
         Partial wing are advanced rules
         """
         if self.wing:
-            return 1
+            return 2
         else:
             return 0
 
@@ -741,9 +750,12 @@ class Enhancement(Item):
 
     def get_rules_level(self):
         """
-        Everything is tournament legal
+        Everything is tournament legal, none is intro
         """
-        return 0
+        if self.enhancement == "---":
+            return 0
+        else:
+            return 1
 
     def get_year(self):
         """

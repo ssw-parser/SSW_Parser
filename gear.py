@@ -411,12 +411,12 @@ TARCOMPS = [["(IS) Targeting Computer", 0, 3062, 0],
 # Name, techbase, year, sinking capability, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
-# Where rules level is 0 = TL, 1 = advanced, 2 = experimental
+# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
 HEATSINK = [["Single Heat Sink", 2, 2022, 1, 0],
-            ["Double Heat Sink", 0, 2567, 2, 0],
-            ["Double Heat Sink", 1, 2567, 2, 0],
-            ["Laser Heat Sink", 1, 3051, 2, 1]]
+            ["Double Heat Sink", 0, 2567, 2, 1],
+            ["Double Heat Sink", 1, 2567, 2, 1],
+            ["Laser Heat Sink", 1, 3051, 2, 2]]
 
 # Not used.
 MISSILE_ENCH = [["Artemis IV", 2598],
@@ -465,8 +465,8 @@ class Heatsinks(Item):
 
     def get_rules_level(self):
         """
-        Return armor rules level
-        0 = tournament legal, 1 = advanced, 2 = experimental
+        Return heat-sink rules level
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
         """
         return self.r_level
 

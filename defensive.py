@@ -115,15 +115,18 @@ LEG_IS = {
 # Name, techbase, year, BV multiplier, weight factor, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
-# Where rules level is 0 = TL, 1 = advanced, 2 = experimental
+# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
+#
+# TODO: Figure out right rules-level for primitive structure
 #
 # Missing: Industrial
 STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
-             ["Endo-Steel", 0, 2487, 1.0, 0.05, 0],
-             ["Endo-Steel", 1, 2487, 1.0, 0.05, 0],
+             ["Endo-Steel", 0, 2487, 1.0, 0.05, 1],
+             ["Endo-Steel", 1, 2487, 1.0, 0.05, 1],
              # No year given for primitive structure,
              # assume it becomes available the same year as the Mackie
-             ["Primitive Structure", 0, 2439, 1.0, 0.1, 0]]
+             # treat primitive as advanced rules
+             ["Primitive Structure", 0, 2439, 1.0, 0.1, 2]]
 
 
 # Info on armor types
@@ -131,18 +134,21 @@ STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
 # Name, techbase, year, BV multiplier, armor multiplier, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
-# Where rules level is 0 = TL, 1 = advanced, 2 = experimental
+# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
+#
+# TODO: Figure out right rules-level for primitive armor
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
 ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0, 0],
-         ["Ferro-Fibrous", 0, 2571, 1.0, 1.12, 0],
-         ["Ferro-Fibrous", 1, 2571, 1.0, 1.2, 0],
-         ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06, 0],
-         ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24, 0],
-         ["Stealth Armor", 0, 3063, 1.0, 1.0, 0],
+         ["Ferro-Fibrous", 0, 2571, 1.0, 1.12, 1],
+         ["Ferro-Fibrous", 1, 2571, 1.0, 1.2, 1],
+         ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06, 1],
+         ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24, 1],
+         ["Stealth Armor", 0, 3063, 1.0, 1.0, 1],
          # No year given for primitive armor, assume it becomes available
          # the same year as the Mackie
-         ["Primitive Armor", 0, 2439, 1.0, 0.67, 0]]
+         # treat primitive as advanced rules
+         ["Primitive Armor", 0, 2439, 1.0, 0.67, 2]]
 
 
 class IS(Item):
@@ -200,7 +206,7 @@ class IS(Item):
     def get_rules_level(self):
         """
         Return armor rules level
-        0 = tournament legal, 1 = advanced, 2 = experimental
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
         """
         return self.r_level
 
@@ -349,7 +355,7 @@ class Armor(Item):
     def get_rules_level(self):
         """
         Return armor rules level
-        0 = tournament legal, 1 = advanced, 2 = experimental
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
         """
         return self.r_level
 
