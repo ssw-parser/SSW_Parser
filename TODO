@@ -26,7 +26,6 @@ ssw.py:
 - Move date calculations completely to mech.py (and its sub-classes)
 
 summary.py:
-- Use argparse
 - List special equipment:
 -- ECM
 -- Stealth

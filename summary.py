@@ -22,7 +22,6 @@
 Prints out a one-line summary of a mech
 """
 
-import sys
 import argparse
 from xml.dom import minidom
 from operator import itemgetter
@@ -377,114 +376,32 @@ def main():
                         help='Select mechs with at least speed <n>')
     parser.add_argument('-lrm', action='store', default = 0, type=int,
                         help='Select mechs with at least <n> lrms')
+    # Default: one filename
+    parser.add_argument('file', nargs='*')
 
     args = parser.parse_args()
-    print args.f
-    print args
 
-    # Old argument code
+    # Create lists
     file_list = []
-    file_arg = False
-    era_arg = False
-    speed_arg = False
-    lrm_arg = False
     select = lambda x, y: True
     select_l = []
     select_l.append(select)
     header_l = []
 
-    for arg in sys.argv[1:]:
+    ### Create file_list ###
 
-    ### Handle multi-arg switches ###
-
-        # The upcoming argument is a file list, read it in
-        if (file_arg):
-            in_file = arg
-            f = open(in_file)
-            file_list_raw = f.readlines()
-            f.close()
+    # We have a single file name
+    if args.file:
+        file_list = args.file
+    # Default case, we supplied a list with -f option
+    else:
+        for file_n in args.f:
+            f_handle = open(file_n)
+            file_list_raw = f_handle.readlines()
+            f_handle.close()
             # Strip out trailing newlines
             for file_name in file_list_raw:
                 file_list.append(file_name.strip())
-            file_arg = False
-            continue
-
-        # The upcoming argument is an era
-        elif (era_arg):
-            era_arg = False
-            continue
-
-        # The upcoming argument is a speed
-        elif (speed_arg):
-            speed_arg = False
-            continue
-
-        # The upcoming argument is a lrm tube count
-        elif (lrm_arg):
-            lrm_arg = False
-            continue
-
-    ### Input switches ###
-
-        # If first argument is -f, read input list from file,
-        elif arg == "-f":
-            file_arg = True
-            continue
-
-    ### Output types ###
-
-        # Skip output types, handled type argparse
-        elif arg == '-b':
-            continue
-        elif arg == '-a':
-            continue
-        elif arg == '-s':
-            continue
-        elif arg == '-l':
-            continue
-
-    ### Selectors ###
-
-        # TAG filter
-        elif arg == '-t':
-            continue
-        # C3 slave filter
-        elif arg == '-c':
-            continue
-        # C3 master filter
-        elif arg == '-cm':
-            continue
-        # C3i filter
-        elif arg == '-ci':
-            continue
-        # Narc filter
-        elif arg == '-n':
-            continue
-        # IS filter
-        elif arg == '-i':
-            continue
-        # Clan filter
-        elif arg == '-cl':
-            continue
-        # Command console filter
-        elif arg == '-cc':
-            continue
-        # Era filter
-        elif arg == '-e':
-            era_arg = True
-            continue
-        # Speed filter
-        elif arg == '-sf':
-            speed_arg = True
-            continue
-        # Speed filter
-        elif arg == '-lrm':
-            lrm_arg = True
-            continue
-        # otherwise read in each argument as a mech file
-        else:
-            file_list.append(''.join(arg))
-            print file_list
 
     ### Activate selectors ###
 
