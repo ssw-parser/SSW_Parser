@@ -68,21 +68,22 @@ def parse_gear(mech, date):
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
-    for e in mech.gear.d_equiplist.list:
-        if (e.count > 0 and e.useammo > 0):
+
+    for equip in mech.gear.d_equiplist.list:
+        if (equip.count > 0 and equip.useammo > 0):
             # Sum up weapons
-            total = e.count
-            ammo = e.ammocount
-            ammo_per_weapon = float(ammo) / float(total * e.useammo)
+            total = equip.count
+            ammo = equip.ammocount
+            ammo_per_weapon = float(ammo) / float(total * equip.useammo)
             if (ammo_per_weapon < 15.0):
                 st1 = "WARNING: Ammo supply low!"
-                st2 = "  Weapon: " + str(e.name)
+                st2 = "  Weapon: " + str(equip.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
             elif (ammo_per_weapon > 50.0):
                 st1 = "WARNING: Ammo supply high!"
-                st2 = "  Weapon: " + str(e.name)
+                st2 = "  Weapon: " + str(equip.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
@@ -125,24 +126,24 @@ def parse_gear(mech, date):
                                                mech.apollo)
 
     # Print used equipment
-    for e in mech.gear.o_equiplist.list:
-        if e.count > 0:
+    for equip in mech.gear.o_equiplist.list:
+        if equip.count > 0:
             # calculate earliest date
-            if date < e.year:
-                date = e.year
+            if date < equip.year:
+                date = equip.year
 
-            report = str(e.count)
-            report = report + " " + e.name
+            report = str(equip.count)
+            report = report + " " + equip.name
             print report
 
-    for e in mech.gear.d_equiplist.list:
-        if e.count > 0:
+    for equip in mech.gear.d_equiplist.list:
+        if equip.count > 0:
             # calculate earliest date
-            if date < e.year:
-                date = e.year
+            if date < equip.year:
+                date = equip.year
 
-            report = str(e.count)
-            report = report + " " + e.name
+            report = str(equip.count)
+            report = report + " " + equip.name
             print report
 
 
@@ -202,6 +203,9 @@ def parse_gear(mech, date):
 
 # HACK: Handle this better
 def parse_artemis(mech, date):
+    """
+    Handle missile fire control system
+    """
     if mech.load.artemis4 == "TRUE":
         if date < 2598:
             date = 2598
@@ -221,23 +225,23 @@ def parse_omni(mech, date):
         print "-----------------"
         print "Omni Loadouts"
         for i in mech.loads:
-            d = date
+            year = date
             print "-----------------"
             print "Config: ", i.name
             print "BV: ", mech.get_BV(i)
             if (i.get_jump()):
-                d = get_comp_year(i.jj.get_year, d)
+                year = get_comp_year(i.jj.get_year, year)
                 print "Jump: ", i.get_jump(), i.jj.jjtype
             if (i.heatsinks.nr):
-                d = get_comp_year(i.heatsinks.get_year, d)
+                year = get_comp_year(i.heatsinks.get_year, year)
                 print i.heatsinks.nr, i.heatsinks.type
-            d = parse_artemis(mech, d)
+            year = parse_artemis(mech, year)
             if i.artemis4 == "TRUE":
                 print "Artemis IV"
             if i.apollo == "TRUE":
                 print "Apollo"
-            (rnge, d) = parse_gear(i, d)
-            print "Earliest Year: ", d
+            (rnge, year) = parse_gear(i, year)
+            print "Earliest Year: ", year
         print "-----------------"
 
 

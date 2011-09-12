@@ -23,6 +23,7 @@ ssw.py:
 -- melee weapon without TSM
 -- omni fixed heat sinks
 -- good armor 1.1-1.25xIS
+- Move date calculations completely to mech.py (and its sub-classes)
 
 summary.py:
 - List special equipment:
