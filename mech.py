@@ -26,7 +26,7 @@ from math import ceil
 from operator import itemgetter
 from error import *
 from defensive import IS, Armor
-from movement import Cockpit, JumpJets, Enhancement, Motive
+from movement import Cockpit, JumpJets, JumpBoosters, Enhancement, Motive
 from gear import Gear, Heatsinks
 from util import ceil_05
 
@@ -55,7 +55,7 @@ class Loadout:
         self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
         self.jj = JumpJets(weight, 0, "")
         self.partw = partw
-        self.jumpb = jumpb
+        self.jumpb = JumpBoosters(weight, jumpb)
         self.prod_era = prod_era
         self.source = source
 
@@ -95,7 +95,7 @@ class Loadout:
             else:
                 jmp += 2
         # Mechanical jump boosters
-        jump = max(jmp, self.jumpb)
+        jump = max(jmp, self.jumpb.get_jump())
         return jump
 
     def off_bv(self, mech, printq):

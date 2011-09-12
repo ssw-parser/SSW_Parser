@@ -606,6 +606,46 @@ class JumpJets(Item):
             return max(minimum, heat)
 
 
+class JumpBoosters(Item):
+    """
+    A class to hold info about jump booster
+    """
+    def __init__(self, weight, jump):
+        self.weight = weight # Mech weight, not JJ weight
+        self.jump = jump
+
+    def get_rules_level(self):
+        """
+        Jump boosters are advanced rules
+        """
+        if self.jump:
+            return 1
+        else:
+            return 0
+
+    def get_year(self):
+        """
+        Jump-boosters becomes advanced rules in 3083
+        """
+        if self.jump:
+            return 3083
+        else:
+            return 0
+
+    def get_weight(self):
+        """
+        Get weight of jump-boosters
+        """
+        base = ceil_05(0.05 * self.weight)
+        return base * self.jump
+
+    def get_jump(self):
+        """
+        Return distance
+        """
+        return self.jump
+
+
 class Enhancement(Item):
     """
     A class to hold information about myomer enhancements
