@@ -27,7 +27,7 @@ from operator import itemgetter
 from error import *
 from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
-from movement import Enhancement, Motive
+from movement import Enhancement, Gyro, Motive
 from gear import Gear, Heatsinks
 from util import ceil_05
 
@@ -372,8 +372,8 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name, typ, loc))
 
-            self.engine = Motive(self.weight, etype, erating, ebase,
-                                 gtype, gbase)
+            self.engine = Motive(self.weight, etype, erating, ebase)
+            self.gyro = Gyro(etype, erating, gtype, gbase)
             self.enhancement = Enhancement(self.weight, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
@@ -585,7 +585,7 @@ class Mech:
         if (printq):
             print "Internal Def BV: ", cur
         # Gyro
-        cur = self.weight * self.engine.get_gyro_bv_mod()
+        cur = self.weight * self.gyro.get_bv_mod()
         dbv += cur
         if (printq):
             print "Gyro Def BV: ", cur
@@ -683,7 +683,7 @@ class Mech:
         """
         # Motive stuff
         motive = self.engine.get_engine_weight()
-        motive += self.engine.get_gyro_weight()
+        motive += self.gyro.get_weight()
         motive += self.load.jj.get_weight()
         motive += self.enhancement.get_weight()
         motive += self.cockpit.get_weight()
@@ -805,8 +805,8 @@ class Mech:
             print_warning((msg, msg2))
         print "Speed: " + self.get_move_string()
         self.parse_speed(weight)
-        gweight = self.engine.get_gyro_weight()
-        print self.engine.gtype, gweight, "tons"
+        gweight = self.gyro.get_weight()
+        print self.gyro.summary_string()
         jweight = self.load.jj.get_weight()
         if self.load.get_jump() > 0:
             print "Fixed jump: ", self.load.get_jump(), self.load.jj.summary_string()

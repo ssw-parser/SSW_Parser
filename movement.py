@@ -20,7 +20,7 @@
 
 """
 Contains objects related to moving a mech: cockpit, engine, gyro, myomer,
-jumpjets, partial wing, jump boosters
+jumpjets, partial wing, jump boosters.
 """
 
 from math import ceil
@@ -444,14 +444,15 @@ ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x])],
 
 # Gyro types
 #
-# Name, techbase, year, BV multiplier, weight multiplier
+# Name, techbase, year, BV multiplier, weight multiplier, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-GYRO = [["Standard Gyro", 2, 2439, 0.5, 1.0],
-        ["Extra-Light Gyro", 0, 3067, 0.5, 0.5],
-        ["Heavy-Duty Gyro", 0, 3067, 1.0, 2.0],
-        ["Compact Gyro", 0, 3068, 0.5, 1.5]]
+GYRO = [["Standard Gyro", 2, 2439, 0.5, 1.0, 0],
+        ["Extra-Light Gyro", 0, 3067, 0.5, 0.5, 1],
+        ["Heavy-Duty Gyro", 0, 3067, 1.0, 2.0, 1],
+        ["Compact Gyro", 0, 3068, 0.5, 1.5, 1]]
 
 # Jump-jet types
 #
@@ -741,7 +742,7 @@ class Enhancement(Item):
 
     def get_type(self):
         """
-        Return jump-jet type
+        Return myomer enhancement type
         """
         if self.enhancement == "---":
             return ""
@@ -787,18 +788,76 @@ class Enhancement(Item):
         else:
             return False
 
+class Gyro(Item):
+    """
+    A class to hold gyroscope information
+    """
+    def __init__(self, etype, erating, gtype, gbase):
+        # We need engine info for calculations
+        self.etype = etype
+        self.erating = erating
+        self.gtype = gtype
+        self.g_base = int(gbase)
+
+        # Check for legal gyro type, save data
+        ident = False
+        for i in GYRO:
+            if (i[0] == self.gtype and i[1] == self.g_base):
+                ident = True
+                self.gyear = i[2]
+                self.gyro_bv = i[3]
+                self.gweightm = i[4]
+                self.r_level = i[5]
+        if ident == False:
+            error_exit((self.gtype, self.g_base))
+
+    def get_type(self):
+        """
+        Return gyro type
+        """
+        return self.gtype
+
+    def get_rules_level(self):
+        """
+        Return gyro rules level
+        """
+        return self.r_level
+
+    def get_year(self):
+        """
+        Return earliest year gyro is available
+        """
+        return self.gyear
+
+    def get_weight(self):
+        """
+        Return weight of gyro
+        """
+        # TODO: Calculate weight at creation
+        rating = self.erating
+        # Hack: Make sure Primitive Engines get right gyro weight
+        if self.etype == "Primitive Fusion Engine":
+            rating *= 1.2
+            rating = ceil_5(rating)
+        base_weight = ceil(float(rating) / 100.0)
+        return self.gweightm * base_weight
+
+    def get_bv_mod(self):
+        """
+        Get BV factor for gyro
+        """
+        return self.gyro_bv
+
 
 class Motive:
     """
     A class to hold motive info for a mech (engine, gyro)
     """
     # TODO: Split into engine and gyro
-    def __init__(self, weight, etype, erating, ebase, gtype, gbase):
+    def __init__(self, weight, etype, erating, ebase):
         self.etype = etype
         self.erating = erating
         self.e_base = int(ebase)
-        self.gtype = gtype
-        self.g_base = int(gbase)
         self.speed = self.erating / weight
         # A note on primitive engines:
         # It seems like using engine rating directly does give
@@ -817,18 +876,6 @@ class Motive:
         if ident == False:
             error_exit((self.etype, self.e_base))
 
-        # Check for legal gyro type, save data
-        ident = False
-        for i in GYRO:
-            if (i[0] == self.gtype and i[1] == self.g_base):
-                ident = True
-                self.gyear = i[2]
-                self.gyro_bv = i[3]
-                self.gweightm = i[4]
-        if ident == False:
-            error_exit((self.gtype, self.g_base))
-
-
 
     def get_engine_year(self):
         """
@@ -836,41 +883,17 @@ class Motive:
         """
         return self.eyear
 
-    def get_gyro_year(self):
-        """
-        Return earliest year gyro is available
-        """
-        return self.gyear
-
     def get_engine_weight(self):
         """
         Return weight of engine
         """
         return self.eweight
 
-    def get_gyro_weight(self):
-        """
-        Return weight of gyro
-        """
-        rating = self.erating
-        # Hack: Make sure Primitive Engines get right gyro weight
-        if self.etype == "Primitive Fusion Engine":
-            rating *= 1.2
-            rating = ceil_5(rating)
-        base_weight = ceil(float(rating) / 100.0)
-        return self.gweightm * base_weight
-
     def get_engine_bv_mod(self):
         """
         Get BV factor for engine
         """
         return self.eng_bv
-
-    def get_gyro_bv_mod(self):
-        """
-        Get BV factor for gyro
-        """
-        return self.gyro_bv
 
     def vulnerable(self):
         """
