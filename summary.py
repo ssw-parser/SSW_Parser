@@ -353,7 +353,6 @@ def main():
                         dest = 'output', const = 'l')
     args = parser.parse_args()
     print args.f
-    print args
 
     # Old argument code
     file_list = []
@@ -361,7 +360,6 @@ def main():
     era_arg = False
     speed_arg = False
     lrm_arg = False
-    output_type = ''
     select = lambda x, y: True
     select_l = []
     select_l.append(select)
@@ -416,24 +414,14 @@ def main():
 
     ### Output types ###
 
-        # BV summary output
+        # Skip output types, handled type argparse
         elif arg == '-b':
-            output_type = 'b'
             continue
-
-        # Armor summary output
         elif arg == '-a':
-            output_type = 'a'
             continue
-
-        # Speed summary output
         elif arg == '-s':
-            output_type = 's'
             continue
-
-        # LRM summary output
         elif arg == '-l':
-            output_type = 'l'
             continue
 
     ### Selectors ###
@@ -500,13 +488,13 @@ def main():
     # Construct header
     header = create_header(header_l)
 
-    if output_type == 'b':
+    if args.output == 'b':
         print_bv_list(file_list, select_l, header)
-    elif output_type == 'a':
+    elif args.output == 'a':
         print_armor_list(file_list, select_l, header)
-    elif output_type == 's':
+    elif args.output == 's':
         print_speed_list(file_list, select_l, header)
-    elif output_type == 'l':
+    elif args.output == 'l':
         print_missile_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
