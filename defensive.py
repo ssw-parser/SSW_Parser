@@ -241,7 +241,8 @@ class Armor:
     A class to hold armor info for a mech
     """
     def __init__(self, weight, motive, atype, tech_base,
-                 head, c_torso, ctr, l_torso, ltr, r_torso, rtr, l_arm, r_arm, l_leg, r_leg):
+                 head, c_torso, ctr, l_torso, ltr, r_torso, rtr, l_arm, r_arm,
+                 l_leg, r_leg):
         # Save type of armor
         self.atype = atype
         # and its techbase
@@ -267,13 +268,16 @@ class Armor:
         # to simplify the interface. Front, rear and total
         self.ctf = ArmorLoc("Center Torso front", c_torso, CT_IS[weight] * 2)
         self.ctr = ArmorLoc("Center Torso rear", ctr, CT_IS[weight] * 2)
-        self.c_torso = ArmorLoc("Center Torso total", c_torso + ctr, CT_IS[weight] * 2)
+        self.c_torso = ArmorLoc("Center Torso total", c_torso + ctr,
+                                CT_IS[weight] * 2)
         self.ltf = ArmorLoc("Left Torso front", l_torso, ST_IS[weight] * 2)
         self.ltr = ArmorLoc("Left Torso rear", ltr, ST_IS[weight] * 2)
-        self.l_torso = ArmorLoc("Left Torso total", l_torso + ltr, ST_IS[weight] * 2)
+        self.l_torso = ArmorLoc("Left Torso total", l_torso + ltr,
+                                ST_IS[weight] * 2)
         self.rtf = ArmorLoc("Right Torso front", r_torso, ST_IS[weight] * 2)
         self.rtr = ArmorLoc("Right Torso rear", rtr, ST_IS[weight] * 2)
-        self.r_torso = ArmorLoc("Right Torso total", r_torso + rtr, ST_IS[weight] * 2)
+        self.r_torso = ArmorLoc("Right Torso total", r_torso + rtr,
+                                ST_IS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
@@ -437,6 +441,9 @@ class Armor:
         self.print_report(self.total)
 
     def parse_armor(self):
+        """
+        Print out all armor reports
+        """
         self.armor_total_report()
         self.head_report()
         self.center_torso_report()
