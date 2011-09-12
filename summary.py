@@ -371,6 +371,12 @@ def main():
                         help='Select Clan tech mechs')
     parser.add_argument('-cc', action='store_true',
                         help='Select mechs with Command Console')
+    parser.add_argument('-e', action='store', default = 99, type=int,
+                        help='Select mechs up to era <n>')
+    parser.add_argument('-sf', action='store', default = 0, type=int,
+                        help='Select mechs with at least speed <n>')
+    parser.add_argument('-lrm', action='store', default = 0, type=int,
+                        help='Select mechs with at least <n> lrms')
 
     args = parser.parse_args()
     print args.f
@@ -405,25 +411,16 @@ def main():
 
         # The upcoming argument is an era
         elif (era_arg):
-            era = int(arg)
-            select_l.append(lambda x, y: (y.get_prod_era() <= era))
-            header_l.append(("available at era %s" % conv_era(era)))
             era_arg = False
             continue
 
         # The upcoming argument is a speed
         elif (speed_arg):
-            spd = int(arg)
-            select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
-            header_l.append(("with at least speed %d" % spd))
             speed_arg = False
             continue
 
         # The upcoming argument is a lrm tube count
         elif (lrm_arg):
-            lrm = int(arg)
-            select_l.append(lambda x, y: (y.gear.lrms >= lrm))
-            header_l.append(("with at least %d lrm tubes" % lrm))
             lrm_arg = False
             continue
 
@@ -456,13 +453,13 @@ def main():
             continue
         # C3 master filter
         elif arg == '-cm':
-             continue
+            continue
         # C3i filter
         elif arg == '-ci':
             continue
         # Narc filter
         elif arg == '-n':
-             continue
+            continue
         # IS filter
         elif arg == '-i':
             continue
@@ -523,6 +520,21 @@ def main():
     if args.cc:
         select_l.append(lambda x, y: x.cockpit.console == "TRUE")
         header_l.append("with Command Console")
+    # Era
+    if args.e < 99:
+        era = args.e
+        select_l.append(lambda x, y: (y.get_prod_era() <= era))
+        header_l.append(("available at era %s" % conv_era(era)))
+    # Speed
+    if args.sf > 0:
+        spd = args.sf
+        select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+        header_l.append(("with at least speed %d" % spd))
+    # LRMs
+    if args.lrm > 0:
+        lrm = args.lrm
+        select_l.append(lambda x, y: (y.gear.lrms >= lrm))
+        header_l.append(("with at least %d lrm tubes" % lrm))
 
 
     ### Process output ###
