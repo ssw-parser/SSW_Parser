@@ -241,7 +241,7 @@ class Armor:
     A class to hold armor info for a mech
     """
     def __init__(self, weight, motive, atype, tech_base,
-                 hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl):
+                 head, c_torso, ctr, l_torso, ltr, r_torso, rtr, l_arm, r_arm, l_leg, r_leg):
         # Save type of armor
         self.atype = atype
         # and its techbase
@@ -260,53 +260,53 @@ class Armor:
 
 
         # Head always have max 9 armor
-        self.head = ArmorLoc("Head", hd, 9)
+        self.head = ArmorLoc("Head", head, 9)
 
         # Otherwise 2 times Internal Structure
         # We store three different values for each torso part
         # to simplify the interface. Front, rear and total
-        self.ctf = ArmorLoc("Center Torso front", ct, CT_IS[weight] * 2)
+        self.ctf = ArmorLoc("Center Torso front", c_torso, CT_IS[weight] * 2)
         self.ctr = ArmorLoc("Center Torso rear", ctr, CT_IS[weight] * 2)
-        self.ct = ArmorLoc("Center Torso total", ct + ctr, CT_IS[weight] * 2)
-        self.ltf = ArmorLoc("Left Torso front", lt, ST_IS[weight] * 2)
+        self.c_torso = ArmorLoc("Center Torso total", c_torso + ctr, CT_IS[weight] * 2)
+        self.ltf = ArmorLoc("Left Torso front", l_torso, ST_IS[weight] * 2)
         self.ltr = ArmorLoc("Left Torso rear", ltr, ST_IS[weight] * 2)
-        self.lt = ArmorLoc("Left Torso total", lt + ltr, ST_IS[weight] * 2)
-        self.rtf = ArmorLoc("Right Torso front", rt, ST_IS[weight] * 2)
+        self.l_torso = ArmorLoc("Left Torso total", l_torso + ltr, ST_IS[weight] * 2)
+        self.rtf = ArmorLoc("Right Torso front", r_torso, ST_IS[weight] * 2)
         self.rtr = ArmorLoc("Right Torso rear", rtr, ST_IS[weight] * 2)
-        self.rt = ArmorLoc("Right Torso total", rt + rtr, ST_IS[weight] * 2)
+        self.r_torso = ArmorLoc("Right Torso total", r_torso + rtr, ST_IS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.l_arm = ArmorLoc("Front Left Leg", la, LEG_IS[weight] * 2)
+            self.l_arm = ArmorLoc("Front Left Leg", l_arm, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.l_arm = ArmorLoc("Left Arm", la, ARM_IS[weight] * 2)
+            self.l_arm = ArmorLoc("Left Arm", l_arm, ARM_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.r_arm = ArmorLoc("Front Right Leg", ra, LEG_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Front Right Leg", r_arm, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.r_arm = ArmorLoc("Right Arm", ra, ARM_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Right Arm", r_arm, ARM_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.l_leg = ArmorLoc("Rear Left Leg", ll, LEG_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Rear Left Leg", l_leg, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.l_leg = ArmorLoc("Left Leg", ll, LEG_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Left Leg", l_leg, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
         if motive == "Quad":
-            self.r_leg = ArmorLoc("Rear Right Leg", rl, LEG_IS[weight] * 2)
+            self.r_leg = ArmorLoc("Rear Right Leg", r_leg, LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.r_leg = ArmorLoc("Right Leg", rl, LEG_IS[weight] * 2)
+            self.r_leg = ArmorLoc("Right Leg", r_leg, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
         # Last sum up total
-        armortotal = self.head.arm + self.ct.arm + self.lt.arm + self.rt.arm + self.l_arm.arm + self.r_arm.arm + self.l_leg.arm + self.r_leg.arm
-        maxtotal = self.head.max + self.ct.max + self.lt.max + self.rt.max + self.l_arm.max + self.r_arm.max + self.l_leg.max + self.r_leg.max
+        armortotal = self.head.arm + self.c_torso.arm + self.l_torso.arm + self.r_torso.arm + self.l_arm.arm + self.r_arm.arm + self.l_leg.arm + self.r_leg.arm
+        maxtotal = self.head.max + self.c_torso.max + self.l_torso.max + self.r_torso.max + self.l_arm.max + self.r_arm.max + self.l_leg.max + self.r_leg.max
         self.total = ArmorLoc("Total", armortotal, maxtotal)
 
         # Store potential falling damage
@@ -397,7 +397,7 @@ class Armor:
         self.print_report(self.ctr)
         self.report_fall(self.ctr)
         # No checks for total armor
-        self.print_report(self.ct)
+        self.print_report(self.c_torso)
 
     def left_torso_report(self):
         """
@@ -409,7 +409,7 @@ class Armor:
         self.print_report(self.ltr)
         self.report_fall(self.ltr)
         # No checks for total armor
-        self.print_report(self.lt)
+        self.print_report(self.l_torso)
 
     def right_torso_report(self):
         """
@@ -421,7 +421,7 @@ class Armor:
         self.print_report(self.rtr)
         self.report_fall(self.rtr)
         # No checks for total armor
-        self.print_report(self.rt)
+        self.print_report(self.r_torso)
 
     def armor_total_report(self):
         """
