@@ -422,25 +422,27 @@ CMP_ENGINE = {
 
 # Engine types
 #
-# Name, techbase, year, BV multiplier, weight
+# Name, techbase, year, BV multiplier, weight, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
 # Missing: ICE, Fuel Cell, Fission
-ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x])],
-          ["XL Engine", 0, 2579, 0.5, (lambda x : XL_ENGINE[x])],
-          ["XL Engine", 1, 2579, 0.75, (lambda x : XL_ENGINE[x])],
-          ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : LGT_ENGINE[x])],
-          ["Compact Fusion Engine", 0, 3068, 1.0, (lambda x : CMP_ENGINE[x])],
+ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x]), 0],
+          ["XL Engine", 0, 2579, 0.5, (lambda x : XL_ENGINE[x]), 1],
+          ["XL Engine", 1, 2579, 0.75, (lambda x : XL_ENGINE[x]), 1],
+          ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : LGT_ENGINE[x]), 1],
+          ["Compact Fusion Engine", 0, 3068, 1.0,
+           (lambda x : CMP_ENGINE[x]), 1],
           # Advanced
           # XXL Engine (IS): Old BV factor 0.5, new 0.25
           ["XXL Engine", 0, 3055, 0.5,
-           (lambda x : ceil_05(STD_ENGINE[x] * 0.333))],
+           (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
           ["XXL Engine", 1, 3030, 0.5,
-           (lambda x : ceil_05(STD_ENGINE[x] * 0.333))],
+           (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
           # Assume same year as Mackie
           ["Primitive Fusion Engine", 2, 2439, 1.0,
-           (lambda x : STD_ENGINE[ceil_5(x * 1.2)])]]
+           (lambda x : STD_ENGINE[ceil_5(x * 1.2)]), 2]]
 
 # Gyro types
 #
@@ -872,9 +874,26 @@ class Engine(Item):
                 self.eyear = i[2]
                 self.eng_bv = i[3]
                 self.eweight = i[4](self.erating)
+                self.r_level = i[5]
         if ident == False:
             error_exit((self.etype, self.e_base))
 
+
+    def get_type(self):
+        """
+        Return engine type
+        """
+        return self.etype
+
+    def get_rules_level(self):
+        """
+        Return engine rules level
+        """
+        r_lev = self.r_level
+        # Large engines are advanced
+        if self.erating > 400:
+            r_lev = max(r_lev, 2)
+        return r_lev
 
     def get_year(self):
         """

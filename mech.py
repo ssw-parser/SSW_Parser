@@ -797,7 +797,7 @@ class Mech:
         """
         eweight = self.engine.get_weight()
         eratio = float(eweight) / float(weight)
-        print "Engine: ", self.engine.etype, self.engine.erating, eweight, "tons", int(eratio * 100), "%"
+        print "Engine: ", self.engine.get_type(), self.engine.erating, eweight, "tons", int(eratio * 100), "%"
         if (eratio > 0.4):
             msg = "WARNING: Very heavy engine!"
             msg2 = "  Mounting LFE or XLFE suggested."
