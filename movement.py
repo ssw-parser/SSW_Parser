@@ -849,11 +849,10 @@ class Gyro(Item):
         return self.gyro_bv
 
 
-class Motive:
+class Engine(Item):
     """
-    A class to hold motive info for a mech (engine, gyro)
+    A class to hold engine info for a mech
     """
-    # TODO: Split into engine and gyro
     def __init__(self, weight, etype, erating, ebase):
         self.etype = etype
         self.erating = erating
@@ -877,19 +876,19 @@ class Motive:
             error_exit((self.etype, self.e_base))
 
 
-    def get_engine_year(self):
+    def get_year(self):
         """
         Return earliest year engine is available
         """
         return self.eyear
 
-    def get_engine_weight(self):
+    def get_weight(self):
         """
         Return weight of engine
         """
         return self.eweight
 
-    def get_engine_bv_mod(self):
+    def get_bv_mod(self):
         """
         Get BV factor for engine
         """

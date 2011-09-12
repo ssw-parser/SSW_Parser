@@ -27,7 +27,7 @@ from operator import itemgetter
 from error import *
 from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
-from movement import Enhancement, Gyro, Motive
+from movement import Enhancement, Gyro, Engine
 from gear import Gear, Heatsinks
 from util import ceil_05
 
@@ -372,7 +372,7 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name, typ, loc))
 
-            self.engine = Motive(self.weight, etype, erating, ebase)
+            self.engine = Engine(self.weight, etype, erating, ebase)
             self.gyro = Gyro(etype, erating, gtype, gbase)
             self.enhancement = Enhancement(self.weight, enhancement, etb)
 
@@ -580,7 +580,7 @@ class Mech:
         if (printq):
             print "Armor Def BV: ", cur
         # Internal
-        cur = self.structure.get_bv_factor() * self.engine.get_engine_bv_mod()
+        cur = self.structure.get_bv_factor() * self.engine.get_bv_mod()
         dbv += cur
         if (printq):
             print "Internal Def BV: ", cur
@@ -682,13 +682,13 @@ class Mech:
         Create a report on what the mech spends its tonnage on
         """
         # Motive stuff
-        motive = self.engine.get_engine_weight()
+        motive = self.engine.get_weight()
         motive += self.gyro.get_weight()
         motive += self.load.jj.get_weight()
         motive += self.enhancement.get_weight()
         motive += self.cockpit.get_weight()
         if self.load.gear.supercharger:
-            motive += ceil_05(self.engine.get_engine_weight() * 0.1)
+            motive += ceil_05(self.engine.get_weight() * 0.1)
         mratio = float(motive) / float(self.weight) * 100
         m_diff = mratio - 33.3
         m_str = "   "
@@ -795,7 +795,7 @@ class Mech:
         """
         Print out a report about the mech engine
         """
-        eweight = self.engine.get_engine_weight()
+        eweight = self.engine.get_weight()
         eratio = float(eweight) / float(weight)
         print "Engine: ", self.engine.etype, self.engine.erating, eweight, "tons", int(eratio * 100), "%"
         if (eratio > 0.4):

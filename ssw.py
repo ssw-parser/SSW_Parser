@@ -274,7 +274,7 @@ def main():
     print "Structure: ", mech.structure.summary_string()
     print "-2-----------------------------"
     mech.print_engine_report(mech.weight)
-    date = get_comp_year(mech.engine.get_engine_year, date)
+    date = get_comp_year(mech.engine.get_year, date)
     date = get_comp_year(mech.gyro.get_year, date)
     if mech.load.jj.get_jump() > 0:
         date = get_comp_year(mech.load.jj.get_year, date)

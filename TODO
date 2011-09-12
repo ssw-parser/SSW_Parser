@@ -13,7 +13,6 @@ Goals:
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig year
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
--- Split motive into engine and gyro, and make them Items
 
 
 ssw.py:
