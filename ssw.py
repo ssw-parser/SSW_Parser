@@ -241,47 +241,49 @@ def parse_omni(mech, date):
         print "-----------------"
 
 
-# Read file
-fsock = open(sys.argv[1])
-xmldoc = minidom.parse(fsock)
-fsock.close()
+def main():
 
-# Print raw info for debugging 
-print xmldoc.toxml() 
-print "===BREAK==="
+    # Read file
+    fsock = open(sys.argv[1])
+    xmldoc = minidom.parse(fsock)
+    fsock.close()
 
-# Get mech
-mech = Mech(xmldoc)
-# Count earliest year here
-date = 0
+    # Print raw info for debugging 
+    print xmldoc.toxml() 
+    print "===BREAK==="
 
-print "Name: ", mech.model, mech.name
-mech.weight_summary(False)
+    # Get mech
+    mech = Mech(xmldoc)
+    # Count earliest year here
+    date = 0
 
-print "-1-----------------------------"
-print "Tech: ", mech.techbase
-print "Weight: ", mech.weight
-print "Motive: ", mech.motive, mech.mechtype
-if (mech.omni == "TRUE"):
-    print "Omni mech"
-date = get_comp_year(mech.structure.get_year, date)
-print "Structure: ", mech.structure.type, mech.structure.get_weight(), "tons"
-print "-2-----------------------------"
-mech.print_engine_report(mech.weight)
-date = get_comp_year(mech.engine.get_engine_year, date)
-date = get_comp_year(mech.engine.get_gyro_year, date)
-if mech.load.jj.get_jump() > 0:
-    date = get_comp_year(mech.load.jj.get_year, date)
-date = get_comp_year(mech.cockpit.get_year, date)
-print mech.cockpit.type, mech.cockpit.get_weight()
-if mech.cockpit.console == "TRUE":
-    print "Command Console"
-date = get_comp_year(mech.engine.get_enh_year, date)
-print "-3-----------------------------"
-date = get_comp_year(mech.load.heatsinks.get_year, date)
-print mech.load.heatsinks.type, mech.load.heatsinks.number
-print "-4-----------------------------"
-date = get_comp_year(mech.armor.get_year, date)
+    print "Name: ", mech.model, mech.name
+    mech.weight_summary(False)
+
+    print "-1-----------------------------"
+    print "Tech: ", mech.techbase
+    print "Weight: ", mech.weight
+    print "Motive: ", mech.motive, mech.mechtype
+    if (mech.omni == "TRUE"):
+        print "Omni mech"
+    date = get_comp_year(mech.structure.get_year, date)
+    print "Structure: ", mech.structure.type, mech.structure.get_weight(), "tons"
+    print "-2-----------------------------"
+    mech.print_engine_report(mech.weight)
+    date = get_comp_year(mech.engine.get_engine_year, date)
+    date = get_comp_year(mech.engine.get_gyro_year, date)
+    if mech.load.jj.get_jump() > 0:
+        date = get_comp_year(mech.load.jj.get_year, date)
+    date = get_comp_year(mech.cockpit.get_year, date)
+    print mech.cockpit.type, mech.cockpit.get_weight()
+    if mech.cockpit.console == "TRUE":
+        print "Command Console"
+    date = get_comp_year(mech.engine.get_enh_year, date)
+    print "-3-----------------------------"
+    date = get_comp_year(mech.load.heatsinks.get_year, date)
+    print mech.load.heatsinks.type, mech.load.heatsinks.number
+    print "-4-----------------------------"
+    date = get_comp_year(mech.armor.get_year, date)
 #speed = mech.engine.erating/mech.weight
 #if (speed == 3 and mech.weight < 80):
 #    wgt = 80
@@ -294,44 +296,47 @@ date = get_comp_year(mech.armor.get_year, date)
 #    print "Entering pocket medium mode!"
 #else:
 #    wgt = mech.weight
-wgt = mech.weight
-mech.armor.parse_armor()
-print "-5-----------------------------"
-if (mech.omni == "TRUE"):
-    print "WARNING: Omni mech, results might be garbage."
-#    sys.exit(1)
+    wgt = mech.weight
+    mech.armor.parse_armor()
+    print "-5-----------------------------"
+    if (mech.omni == "TRUE"):
+        print "WARNING: Omni mech, results might be garbage."
+    #    sys.exit(1)
 
-# Check for Artemis IV, Apollo
-# TODO: Move to parse_gear
-date = parse_artemis(mech, date)
-if mech.load.artemis4 == "TRUE":
-    print "Artemis IV"
-if mech.load.apollo == "TRUE":
-    print "Apollo"
-print "==============================="
-mech.def_BV(mech.load, True)
-print "-------------------------------"
-mech.off_BV(mech.load, True)
-print "-------------------------------"
-print "BV: ", mech.get_BV(mech.load)
-print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
-print "==============================="
+    # Check for Artemis IV, Apollo
+    # TODO: Move to parse_gear
+    date = parse_artemis(mech, date)
+    if mech.load.artemis4 == "TRUE":
+        print "Artemis IV"
+    if mech.load.apollo == "TRUE":
+        print "Apollo"
+    print "==============================="
+    mech.def_BV(mech.load, True)
+    print "-------------------------------"
+    mech.off_BV(mech.load, True)
+    print "-------------------------------"
+    print "BV: ", mech.get_BV(mech.load)
+    print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))
+    print "==============================="
 
-# Gear
-(rnge, date) = parse_gear(mech.load, date)
+    # Gear
+    (rnge, date) = parse_gear(mech.load, date)
 
-# Figure out best speed
-speed = mech.engine.erating/mech.weight
-if mech.load.get_jump() > speed:
-    mspd = mech.load.get_jump()
-else:
-    mspd = speed
+    # Figure out best speed
+    speed = mech.engine.erating/mech.weight
+    if mech.load.get_jump() > speed:
+        mspd = mech.load.get_jump()
+    else:
+        mspd = speed
 
-# Print classification
-print mspd, rnge
+    # Print classification
+    print mspd, rnge
 
-# Print time-period
-print "Earliest Year: ", date
+    # Print time-period
+    print "Earliest Year: ", date
 
-parse_omni(mech, date)
-warnings.print_warnings()
+    parse_omni(mech, date)
+    warnings.print_warnings()
+
+if __name__ == "__main__":
+    main()
