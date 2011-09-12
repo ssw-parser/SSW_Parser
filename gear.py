@@ -23,6 +23,7 @@
 from math import ceil
 from error import *
 from util import ceil_05
+from item import Item
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -407,14 +408,15 @@ TARCOMPS = [["(IS) Targeting Computer", 0, 3062, 0],
 
 # Info on heatsink types
 #
-# Name, techbase, year, sinking capability
+# Name, techbase, year, sinking capability, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
+# Where rules level is 0 = TL, 1 = advanced, 2 = experimental
 #
-HEATSINK = [["Single Heat Sink", 2, 2022, 1],
-            ["Double Heat Sink", 0, 2567, 2],
-            ["Double Heat Sink", 1, 2567, 2],
-            ["Laser Heat Sink", 1, 3051, 2]]
+HEATSINK = [["Single Heat Sink", 2, 2022, 1, 0],
+            ["Double Heat Sink", 0, 2567, 2, 0],
+            ["Double Heat Sink", 1, 2567, 2, 0],
+            ["Laser Heat Sink", 1, 3051, 2, 1]]
 
 # Not used.
 MISSILE_ENCH = [["Artemis IV", 2598],
@@ -435,7 +437,7 @@ PHYSICAL = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)), (lambda x : ceil(
             ["Talons", 3072, 1.0, (lambda x : ceil(x / 5.0) / 2.0), (lambda x : ceil(x / 15.0))]]
 
 
-class Heatsinks:
+class Heatsinks(Item):
     """
     Heatsinks for a mech
     """
@@ -451,8 +453,16 @@ class Heatsinks:
                 ident = True
                 self.year = i[2]
                 self.cap = i[3]
+                self.r_level = i[4]
         if ident == False:
             error_exit((self.type, self.tech_b))
+
+    def get_rules_level(self):
+        """
+        Return armor rules level
+        0 = tournament legal, 1 = advanced, 2 = experimental
+        """
+        return self.r_level
 
     def get_year(self):
         """

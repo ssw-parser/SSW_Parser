@@ -7,13 +7,13 @@ Goals:
 - Mech lists for Klondike, Solaris, 3085*2 (cutting edge, ONN)
 - Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
 - missing ammo, missing TO stuff
-- Integrate fire control systems better (a4, a5, ap, tarcomp)
 - Tacops armor
 - move warnings.add & print_warning stuff outside defensive.py
 - Turret year & weights
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig year
- 
+-- Integrate fire control systems better (a4, a5, ap, tarcomp)
+-- Split motive into engine and gyro, and make them Items
 
 
 ssw.py:

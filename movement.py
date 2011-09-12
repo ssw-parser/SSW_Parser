@@ -19,8 +19,8 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
-Contains objects related to moving a mech: cockpit, engine, gyro, myomer
-jumpjets
+Contains objects related to moving a mech: cockpit, engine, gyro, myomer,
+jumpjets, partial wing, jump boosters
 """
 
 from math import ceil
@@ -746,6 +746,7 @@ class Motive:
     """
     A class to hold motive info for a mech (engine, gyro)
     """
+    # TODO: Split into engine and gyro
     def __init__(self, weight, etype, erating, ebase, gtype, gbase):
         self.etype = etype
         self.erating = erating
