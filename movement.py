@@ -26,6 +26,7 @@ jumpjets
 from math import ceil
 from error import error_exit
 from util import ceil_05, ceil_5
+from item import Item
 
 # Engine and other propulsion related stuff, like fixed jumpjets and gyros.
 
@@ -481,7 +482,7 @@ COCKPIT = [["Standard Cockpit", 2300, 3],
 
 
 
-class Cockpit:
+class Cockpit(Item):
     """
     A class to hold cockpit info
     """
@@ -518,15 +519,9 @@ class Cockpit:
         """
         Return weight
         """
-        return self.wgt
+        return self.wgt + self.c_weight
 
-    def get_c_weight(self):
-        """
-        Return console weight
-        """
-        return self.c_weight
-
-class JumpJets:
+class JumpJets(Item):
     """
     A class to hold info about jump-jets
     """

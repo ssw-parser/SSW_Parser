@@ -710,8 +710,6 @@ class Mech:
         offensive += self.load.gear.get_o_weight()
         # Physical weapons
         offensive += self.load.gear.get_p_weight()
-        # Command console
-        offensive += self.cockpit.get_c_weight()
         oratio = float(offensive) / float(self.weight) * 100
         o_diff = oratio - 33.3
         o_str = "   "
