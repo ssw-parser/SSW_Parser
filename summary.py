@@ -152,8 +152,8 @@ def create_bv_list_item(mech, i):
     BV = mech.get_bv(i)
     weight = mech.weight
     bv_ton = float(BV)/float(weight)
-    bv_def = mech.def_BV(i, False)
-    bv_off = mech.off_BV(i, False)
+    bv_def = mech.def_bv(i, False)
+    bv_off = mech.off_bv(i, False)
     cockp = ""
     if mech.cockpit.type == "Small Cockpit":
         cockp = "SML"

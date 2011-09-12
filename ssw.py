@@ -315,9 +315,9 @@ def main():
     if mech.load.apollo == "TRUE":
         print "Apollo"
     print "==============================="
-    mech.def_BV(mech.load, True)
+    mech.def_bv(mech.load, True)
     print "-------------------------------"
-    mech.off_BV(mech.load, True)
+    mech.off_bv(mech.load, True)
     print "-------------------------------"
     print "BV: ", mech.get_bv(mech.load)
     print ("BV/ton: %.2f" % (float(mech.BV)/float(mech.weight)))

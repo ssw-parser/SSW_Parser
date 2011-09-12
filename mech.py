@@ -98,7 +98,7 @@ class Loadout:
         jump = max(jmp, self.jumpb)
         return jump
 
-    def off_BV(self, mech, printq):
+    def off_bv(self, mech, printq):
         """
         Get offensive weapon and ammo BV
         """
@@ -563,7 +563,7 @@ class Mech:
             stlth = True
         return stlth 
 
-    def def_BV(self, load, printq):
+    def def_bv(self, load, printq):
         """
         Get defensive BV
         """
@@ -623,11 +623,11 @@ class Mech:
         return dbv
 
 
-    def off_BV(self, load, printq):
+    def off_bv(self, load, printq):
         """
         Get offensive BV
         """
-        obv = load.off_BV(self, printq)
+        obv = load.off_bv(self, printq)
 
         # Tonnage (physical)
         if (self.engine.enhancement == "TSM"):
@@ -661,15 +661,15 @@ class Mech:
         """
         Get the BV a specific loadout. Use mech.load if not an omni.
         """
-        Base_bv = self.off_BV(load, False) + self.def_BV(load, False)
+        base_bv = self.off_bv(load, False) + self.def_bv(load, False)
         if self.cockpit.type == "Small Cockpit":
-            BV = int(round(Base_bv * 0.95))
+            batt_val = int(round(base_bv * 0.95))
         else:
-            BV = int(round(Base_bv))
-        if BV != load.BV:
-            print self.name, self.model, load.name, BV, load.BV
-        assert BV == load.BV, "Error in BV calculation!"
-        return BV
+            batt_val = int(round(base_bv))
+        if batt_val != load.BV:
+            print self.name, self.model, load.name, batt_val, load.BV
+        assert batt_val == load.BV, "Error in BV calculation!"
+        return batt_val
 
     def weight_summary(self, short):
         """
@@ -788,6 +788,9 @@ class Mech:
             print_warning((msg,))
 
     def print_engine_report(self, weight):
+        """
+        Print out a report about the mech engine
+        """
         eweight = self.engine.get_engine_weight()
         eratio = float(eweight) / float(weight)
         print "Engine: ", self.engine.etype, self.engine.erating, eweight, "tons", int(eratio * 100), "%"
