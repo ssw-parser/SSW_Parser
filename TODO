@@ -38,7 +38,7 @@ summary.py:
 
 - Allow comments in mech lists
 
-- Add missing eras: SL, Rep, DA
+- Add missing eras: Rep, DA
 
 - Make default display more like MUL: Add rules.
 -- Rules level filter.

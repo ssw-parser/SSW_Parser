@@ -33,7 +33,7 @@ from mech import Mech
 #############################
 
 #
-# TODO: Add missing eras: SL, Rep, DA
+# TODO: Add missing eras: Rep, DA
 #
 def conv_era(era):
     """
@@ -41,6 +41,7 @@ def conv_era(era):
     """
     conv = {
         0 : "AoW",
+        1 : "SL",
         2 : "SW-E",
         3 : "SW-L",
         4 : "Clan",
