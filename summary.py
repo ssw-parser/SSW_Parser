@@ -23,6 +23,7 @@ Prints out a one-line summary of a mech
 """
 
 import sys
+import argparse
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
@@ -339,6 +340,22 @@ def print_default(file_list, select_l, header):
 
 def main():
 ### Handle arguments ###
+    # Create parser
+    parser = argparse.ArgumentParser(description='List mech summaries.')
+    parser.add_argument('-f', action='append', help='list of .ssw files')
+    parser.add_argument('-b', action='store_const', help='BV list output',
+                        dest = 'output', const = 'b')
+    parser.add_argument('-a', action='store_const', help='Armor list output',
+                        dest = 'output', const = 'a')
+    parser.add_argument('-s', action='store_const', help='Speed list output',
+                        dest = 'output', const = 's')
+    parser.add_argument('-l', action='store_const', help='LRM list output',
+                        dest = 'output', const = 'l')
+    args = parser.parse_args()
+    print args.f
+    print args
+
+    # Old argument code
     file_list = []
     file_arg = False
     era_arg = False
