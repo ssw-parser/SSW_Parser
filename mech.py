@@ -117,7 +117,7 @@ class Loadout:
             print "Heat Efficiency", heat_eff
 
         # Check for weapon BV flip
-        flip = self.gear.check_weapon_BV_flip()
+        flip = self.gear.check_weapon_bv_flip()
 
         w_list = []
         # Weapons
@@ -589,11 +589,11 @@ class Mech:
         if (printq):
             print "Equipment Def BV: ", cur
         # Explosive
-        cur = load.gear.get_ammo_exp_BV(self.engine)
+        cur = load.gear.get_ammo_exp_bv(self.engine)
         dbv += cur
         if (printq):
             print "Explosive Ammo BV: ", cur
-        cur = load.gear.get_weapon_exp_BV(self.engine)
+        cur = load.gear.get_weapon_exp_bv(self.engine)
         dbv += cur
         if (printq):
             print "Explosive Weapon BV: ", cur

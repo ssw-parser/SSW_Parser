@@ -191,7 +191,7 @@ def create_armor_list_item(mech, i):
     # Armor coverage relative to maximum
     armor = mech.armor.get_armor_percent()
     # Check for explosive stuff that can disable the mech
-    exp = i.gear.get_ammo_exp_BV(mech.engine) + i.gear.get_weapon_exp_BV(mech.engine)
+    exp = i.gear.get_ammo_exp_bv(mech.engine) + i.gear.get_weapon_exp_bv(mech.engine)
     if exp < 0:
         e_str = "EXP"
     else:

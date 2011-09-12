@@ -588,7 +588,7 @@ class Ammo:
     def addone(self):
         self.count = self.count + 1
 
-class O_Equiplist:
+class OffEquiplist:
     """
     Store the list with offensive equipment types
     """
@@ -597,7 +597,7 @@ class O_Equiplist:
         for equip in O_EQUIPMENT:
             self.list.append(Equipment(equip))
 
-class D_Equiplist:
+class DefEquiplist:
     """
     Store the list with defensive equipment types
     """
@@ -633,15 +633,15 @@ class Equipment:
 class Physicallist:
     def __init__(self):
         self.list = []
-        for p in PHYSICAL:
-            self.list.append(Physical(p))
+        for phys in PHYSICAL:
+            self.list.append(Physical(phys))
         self.name = "physcial"
 
-class D_Physicallist:
+class DefPhysicallist:
     def __init__(self):
         self.list = []
-        for p in D_PHYSICAL:
-            self.list.append(Equipment(p))
+        for phys in D_PHYSICAL:
+            self.list.append(Equipment(phys))
         self.name = "physcial"
 
 class Physical:
@@ -651,7 +651,7 @@ class Physical:
     def __init__(self, pinfo):
         self.name = pinfo[0]
         self.year = pinfo[1]
-        self.BVmult = pinfo[2]
+        self.bv_mult = pinfo[2]
         self.dam = pinfo[3]
         self.weight = pinfo[4]
         self.count = 0
@@ -660,7 +660,7 @@ class Physical:
         self.count = self.count + 1
 
     def get_BV(self, weight):
-        return self.dam(weight) * self.BVmult
+        return self.dam(weight) * self.bv_mult
 
 class Gear:
     """
@@ -678,10 +678,10 @@ class Gear:
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist()
-        self.o_equiplist = O_Equiplist()
-        self.d_equiplist = D_Equiplist()
+        self.o_equiplist = OffEquiplist()
+        self.d_equiplist = DefEquiplist()
         self.physicallist = Physicallist()
-        self.d_physicallist = D_Physicallist()
+        self.d_physicallist = DefPhysicallist()
         self.ammolist = Ammolist()
         # Keep track of tarcomp
         self.tarcomp = 0
@@ -717,34 +717,34 @@ class Gear:
             ### Weapons ###
             # Go through weapon list
             ident = False
-            for w in self.weaponlist.list:
+            for weap in self.weaponlist.list:
                 # Weapon identified
-                if name[0] == w.name:
+                if name[0] == weap.name:
                     # Add weapon
-                    w.addone()
+                    weap.addone()
 
                     # Arm weapons
                     if name[2] == "RA" or name[2] == "LA":
-                        w.addone_arm()
+                        weap.addone_arm()
 
                     # track weapons weight
-                    self.w_weight += w.weight
+                    self.w_weight += weap.weight
                     # track weight for targeting computer
-                    if w.enhance == "T":
-                        self.tcw_weight += w.weight
+                    if weap.enhance == "T":
+                        self.tcw_weight += weap.weight
 
                     # We have found a valid weapon
                     ident = True
 
                     # Missile fire control systems require extra weight
                     # Artemis IV
-                    if (self.a4 == "TRUE" and w.enhance == "A"):
+                    if (self.a4 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1
                     # Artemis V
-                    elif (self.a5 == "TRUE" and w.enhance == "A"):
+                    elif (self.a5 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1.5
                     # Apollo
-                    if (self.ap == "TRUE" and w.enhance == "P"):
+                    if (self.ap == "TRUE" and weap.enhance == "P"):
                         self.w_weight += 1
                     # Hack - track Narc
                     if name[0] == "(IS) Narc Missile Beacon" or name[0] == "(IS) iNarc Launcher" or name[0] == "(CL) Narc Missile Beacon":
@@ -774,7 +774,7 @@ class Gear:
                         self.LRMs += 20
 
                     # Add explosive weapon to location
-                    if w.explosive > 0:
+                    if weap.explosive > 0:
                         # Split weapons, assign to innermost
                         if type(name[2]).__name__ == 'list':
                             j = ""
@@ -799,21 +799,21 @@ class Gear:
                                     loc = "LT"
                             assert loc, "Split weapon location failed!"
                             expl = self.exp_weapon.get(loc, 0)
-                            expl += w.explosive
+                            expl += weap.explosive
                             self.exp_weapon[loc] = expl
                         # No split, easy to handle
                         else:
                             expl = self.exp_weapon.get(name[2], 0)
-                            expl += w.explosive
+                            expl += weap.explosive
                             self.exp_weapon[name[2]] = expl
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
-            for e in self.o_equiplist.list:
-                if (name[0] == e.name and 
+            for equip in self.o_equiplist.list:
+                if (name[0] == equip.name and 
                     (name[1] == 'equipment' or name[1] == 'CASE')):
-                    e.addone()
-                    self.o_weight += e.weight
+                    equip.addone()
+                    self.o_weight += equip.weight
                     ident = True
                     # Hack, coolant pods
                     if name[0] == "Coolant Pod":
@@ -830,9 +830,9 @@ class Gear:
                     elif name [0] == "TAG" or name[0] == "Light TAG":
                         self.has_tag = True
                     # Add explosive weapon to location
-                    if e.explosive > 0:
+                    if equip.explosive > 0:
                         expl = self.exp_weapon.get(name[2], 0)
-                        expl += e.explosive
+                        expl += equip.explosive
                         self.exp_weapon[name[2]] = expl
 
             # Hack, handle targeting computer
@@ -850,56 +850,56 @@ class Gear:
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
-            for e in self.d_equiplist.list:
+            for equip in self.d_equiplist.list:
                 # non-CASE
-                if (name[0] == e.name and name[1] == 'equipment'):
-                    e.addone()
-                    self.d_weight += e.weight
+                if (name[0] == equip.name and name[1] == 'equipment'):
+                    equip.addone()
+                    self.d_weight += equip.weight
                     ident = True
                     # Add explosive weapon to location
-                    if e.explosive > 0:
+                    if equip.explosive > 0:
                         expl = self.exp_weapon.get(name[2], 0)
-                        expl += e.explosive
+                        expl += equip.explosive
                         self.exp_weapon[name[2]] = expl
                 # CASE
-                if (name[0] == e.name and
+                if (name[0] == equip.name and
                     (name[1] == 'CASE' or name[1] == 'CASEII')):
-                    e.addone()
-                    self.d_weight += e.weight
+                    equip.addone()
+                    self.d_weight += equip.weight
                     ident = True
                     # Save CASE status
                     self.case[name[2]] = name[1]
 
 
 
-            for p in self.physicallist.list:
-                if (name[0] == p.name and name[1] == 'physical'):
-                    p.addone()
+            for phys in self.physicallist.list:
+                if (name[0] == phys.name and name[1] == 'physical'):
+                    phys.addone()
                     ident = True
                     # Use float to avoid rounding errors
-                    self.p_weight += p.weight(float(weight))
+                    self.p_weight += phys.weight(float(weight))
                     self.phys = 1
 
-            for p in self.d_physicallist.list:
+            for phys in self.d_physicallist.list:
                 # non-CASE
-                if (name[0] == p.name and name[1] == 'physical'):
-                    p.addone()
-                    self.d_weight += p.weight
+                if (name[0] == phys.name and name[1] == 'physical'):
+                    phys.addone()
+                    self.d_weight += phys.weight
                     ident = True
 
-            for a in self.ammolist.list:
-                if (name[0] == a.name and name[1] == 'ammunition'):
-                    a.addone()
+            for ammo in self.ammolist.list:
+                if (name[0] == ammo.name and name[1] == 'ammunition'):
+                    ammo.addone()
                     # Special case, AMS ammo count as defensive equipment
                     if (name[0] == "(IS) @ Anti-Missile System"):
-                        self.d_weight += a.weight
+                        self.d_weight += ammo.weight
                     elif (name[0] == "(CL) @ Anti-Missile System"):
-                        self.d_weight += a.weight
+                        self.d_weight += ammo.weight
                     else:
-                        self.a_weight += a.weight
+                        self.a_weight += ammo.weight
                     ident = True
                     # Add explosive ammo to location
-                    if a.explosive == "X":
+                    if ammo.explosive == "X":
                         expl = self.exp_ammo.get(name[2], 0)
                         expl += 1
                         self.exp_ammo[name[2]] = expl
@@ -911,26 +911,26 @@ class Gear:
         for name in self.equiprear:
             # Go through weapon list
             ident = False
-            for w in self.weaponlist.list:
-                if name[0] == w.name:
-                    w.addone_rear()
-                    self.w_weight += w.weight
-                    if w.enhance == "T":
-                        self.tcw_weight += w.weight
+            for weap in self.weaponlist.list:
+                if name[0] == weap.name:
+                    weap.addone_rear()
+                    self.w_weight += weap.weight
+                    if weap.enhance == "T":
+                        self.tcw_weight += weap.weight
                     ident = True
                     # Artemis IV
-                    if (self.a4 == "TRUE" and w.enhance == "A"):
+                    if (self.a4 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1
                     # Artemis V
-                    elif (self.a5 == "TRUE" and w.enhance == "A"):
+                    elif (self.a5 == "TRUE" and weap.enhance == "A"):
                         self.w_weight += 1.5
                     # Apollo
-                    if (self.ap == "TRUE" and w.enhance == "P"):
+                    if (self.ap == "TRUE" and weap.enhance == "P"):
                         self.w_weight += 1
                     # Add explosive weapon to location
-                    if w.explosive > 0:
+                    if weap.explosive > 0:
                         expl = self.exp_weapon.get(name[2], 0)
-                        expl += w.explosive
+                        expl += weap.explosive
                         self.exp_weapon[name[2]] = expl
             # Not found
             if (ident == False):
@@ -944,22 +944,22 @@ class Gear:
             self.o_weight += ceil(self.tcw_weight / 5.0)
 
         # Add ammo to weapon
-        for a in self.ammolist.list:
-            if a.count > 0:
+        for ammo in self.ammolist.list:
+            if ammo.count > 0:
                 ident = False
-                for w in self.weaponlist.list:
-                    for i in a.wname:
-                        if w.name == i:
-                            w.add_ammo(a.count * a.weight, a.count * a.amount)
+                for weap in self.weaponlist.list:
+                    for i in ammo.wname:
+                        if weap.name == i:
+                            weap.add_ammo(ammo.count * ammo.weight, ammo.count * ammo.amount)
                             ident = True
                 # We need to do defensive equipment also due to AMS
-                for e in self.d_equiplist.list:
-                    for i in a.wname:
-                        if e.name == i:
-                            e.add_ammo(a.count * a.weight, a.count * a.amount)
+                for equip in self.d_equiplist.list:
+                    for i in ammo.wname:
+                        if equip.name == i:
+                            equip.add_ammo(ammo.count * ammo.weight, ammo.count * ammo.amount)
                             ident = True
                 if (ident == False):
-                    print "ERROR: Unknown weapon:", a.wname
+                    print "ERROR: Unknown weapon:", ammo.wname
                     error_exit("weapon")
 
 
@@ -1017,7 +1017,7 @@ class Gear:
                 batt_val += bv_gear
         return batt_val
 
-    def get_ammo_exp_BV(self, engine):
+    def get_ammo_exp_bv(self, engine):
         """
         Return how much BV is reduced by explosive ammo
         """
@@ -1072,7 +1072,7 @@ class Gear:
 
         return neg_bv
 
-    def get_weapon_exp_BV(self, engine):
+    def get_weapon_exp_bv(self, engine):
         """
         Return how much BV is reduced by explosive weapons
         """
@@ -1127,7 +1127,7 @@ class Gear:
 
         return neg_bv
 
-    def check_weapon_BV_flip(self):
+    def check_weapon_bv_flip(self):
         """
         Check if front and rear weapons needs to be flipped for BV calculations
         """
