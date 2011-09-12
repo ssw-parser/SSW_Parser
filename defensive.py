@@ -26,7 +26,7 @@ Mech internal structure and armor classes
 from math import ceil
 from error import *
 from util import ceil_05
-
+from item import Item
 
 # These four tables lists internal structure for each weight class in
 # 1st: center torso, 2nd: side torsos, 3rd: arms, and 4th: legs
@@ -143,7 +143,7 @@ ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0],
          ["Primitive Armor", 0, 2439, 1.0, 0.67]]
 
 
-class IS:
+class IS(Item):
     """
     A class to hold info about the internal stucture
     """
@@ -236,7 +236,7 @@ class ArmorLoc:
         msg = "  " + self.l_name + " armor: " + str(self.arm)
         return msg
 
-class Armor:
+class Armor(Item):
     """
     A class to hold armor info for a mech
     """

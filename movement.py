@@ -484,7 +484,7 @@ COCKPIT = [["Standard Cockpit", 2300, 3],
 
 class Cockpit(Item):
     """
-    A class to hold cockpit info
+    A class to hold cockpit (and command console) info
     """
     def __init__(self, ctype, console):
         self.type = ctype
