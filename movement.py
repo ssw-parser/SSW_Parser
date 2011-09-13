@@ -794,10 +794,10 @@ class Gyro(Item):
     """
     A class to hold gyroscope information
     """
-    def __init__(self, etype, erating, gtype, gbase):
+    def __init__(self, gyr, etype, erating):
         # We need engine info for calculations
-        self.gtype = gtype
-        self.g_base = int(gbase)
+        self.gtype = gettext(gyr.childNodes)
+        self.g_base = int(gyr.attributes["techbase"].value)
 
         # Check for legal gyro type, save data
         ident = False

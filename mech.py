@@ -214,21 +214,21 @@ class Mech:
             self.batt_val = int(gettext(battv.childNodes))
 
             # Get production era
-            pe = mmech.getElementsByTagName('productionera')[0]
-            self.prod_era = int(gettext(pe.childNodes))
+            p_era = mmech.getElementsByTagName('productionera')[0]
+            self.prod_era = int(gettext(p_era.childNodes))
 
             # Get mech type (battle, industrial)
-            for mt in mmech.getElementsByTagName('mech_type'):
-                self.mechtype = gettext(mt.childNodes)
+            for mtyp in mmech.getElementsByTagName('mech_type'):
+                self.mechtype = gettext(mtyp.childNodes)
 
             # Get techbase (IS, Clan)
             # get first instance only to avoid problems with Omni-mechs
-            tb = mmech.getElementsByTagName('techbase')[0]
-            self.techbase = gettext(tb.childNodes)
+            tbas = mmech.getElementsByTagName('techbase')[0]
+            self.techbase = gettext(tbas.childNodes)
 
             # Get motive type (biped, quad)
-            for mt in mmech.getElementsByTagName('motive_type'):
-                self.motive = gettext(mt.childNodes)
+            for mot in mmech.getElementsByTagName('motive_type'):
+                self.motive = gettext(mot.childNodes)
 
             # Get internal structure type
             for stru in mmech.getElementsByTagName('structure'):
@@ -239,10 +239,8 @@ class Mech:
                 self.engine = Engine(eng, self.weight)
 
             # Get gyro
-            for gy in mmech.getElementsByTagName('gyro'):
-                gtype = gettext(gy.childNodes)
-                gbase = int(gy.attributes["techbase"].value)
-                self.gyro = Gyro(self.engine.etype, self.engine.erating, gtype, gbase)
+            for gyr in mmech.getElementsByTagName('gyro'):
+                self.gyro = Gyro(gyr, self.engine.etype, self.engine.erating)
 
             # Get cockpit
             for cpt in mmech.getElementsByTagName('cockpit'):
