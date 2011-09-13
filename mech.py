@@ -105,7 +105,7 @@ class Loadout:
         Get offensive weapon and ammo BV
         """
         obv = 0.0
-        BWBR = 0.0
+        bwbr = 0.0
         heat = 0
         ammo_bv = 0.0
 
@@ -171,10 +171,10 @@ class Loadout:
         over = 0
         for i in w_list:
             if (over > 0 and i[1] > 0):
-                BWBR += i[0] / 2.0
+                bwbr += i[0] / 2.0
                 heat += i[1]
             else:
-                BWBR += i[0]
+                bwbr += i[0]
                 heat += i[1]
             # We have to much heat, halve future weapon BV
             if heat >= heat_eff:
@@ -182,8 +182,8 @@ class Loadout:
             if (printq):
                 print i
         if (printq):
-            print "BWBR", BWBR
-        obv = BWBR
+            print "BWBR", bwbr
+        obv = bwbr
 
         # Ammo & TODO: other non-heat gear
         obv += ammo_bv
@@ -198,6 +198,9 @@ class Loadout:
 # applications.
 
 class Mech:
+    """
+    A master class holding info about a mech.
+    """
     def __init__(self, xmldoc):
 
         # Set some data to zero that sometimes will not get set otherwise
