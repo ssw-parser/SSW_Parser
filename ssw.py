@@ -246,7 +246,9 @@ def parse_omni(mech, date):
 
 
 def main():
-
+    """
+    main() function for ssw.py. Prints out a detailed overview of a mech.
+    """
     # Read file
     fsock = open(sys.argv[1])
     xmldoc = minidom.parse(fsock)
@@ -289,19 +291,6 @@ def main():
     print mech.load.heatsinks.get_type(), mech.load.heatsinks.number
     print "-4-----------------------------"
     date = get_comp_year(mech.armor.get_year, date)
-#speed = mech.engine.erating/mech.weight
-#if (speed == 3 and mech.weight < 80):
-#    wgt = 80
-#    print "Entering pocket assault mode!"
-#elif (speed == 4 and mech.weight < 60):
-#    wgt = 60
-#    print "Entering pocket heavy mode!"
-#elif (speed == 5 and mech.weight < 40):
-#    wgt = 40
-#    print "Entering pocket medium mode!"
-#else:
-#    wgt = mech.weight
-    wgt = mech.weight
     mech.armor.parse_armor()
     print "-5-----------------------------"
     if (mech.omni == "TRUE"):
