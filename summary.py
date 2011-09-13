@@ -150,15 +150,15 @@ def create_bv_list_item(mech, i):
     Compile info used by print_BV_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_bv(i)
+    batt_val = mech.get_bv(i)
     weight = mech.weight
-    bv_ton = float(BV)/float(weight)
+    bv_ton = float(batt_val)/float(weight)
     bv_def = mech.def_bv(i, False)
     bv_off = mech.off_bv(i, False)
     cockp = ""
     if mech.cockpit.type == "Small Cockpit":
         cockp = "SML"
-    return (name_str, weight, BV, bv_ton, bv_def, bv_off, cockp)
+    return (name_str, weight, batt_val, bv_ton, bv_def, bv_off, cockp)
 
 def print_bv_list(file_list, select_l, header):
     """
@@ -187,7 +187,7 @@ def create_armor_list_item(mech, i):
     Compile info used by print_armor_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_bv(i)
+    batt_val = mech.get_bv(i)
     weight = mech.weight
     # Armor coverage relative to maximum
     armor = mech.armor.get_armor_percent()
@@ -209,7 +209,7 @@ def create_armor_list_item(mech, i):
     # Armor weight
     wgt = mech.armor.get_weight()
 
-    return (name_str, weight, BV, armor, e_str, s_str, arm_p, max_p, wgt)
+    return (name_str, weight, batt_val, armor, e_str, s_str, arm_p, max_p, wgt)
 
 def print_armor_list(file_list, select_l, header):
     """
@@ -238,14 +238,14 @@ def create_speed_list_item(mech, i):
     Compile info used by print_speed_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_bv(i)
+    batt_val = mech.get_bv(i)
     weight = mech.weight
     walk = mech.get_walk()
     run = mech.get_run()
     jump = i.get_jump()
     spd = max(walk, jump)
     enh = mech.enhancement.get_type()
-    return (name_str, weight, BV, spd, walk, run, jump, enh)
+    return (name_str, weight, batt_val, spd, walk, run, jump, enh)
 
 def print_speed_list(file_list, select_l, header):
     """
@@ -273,7 +273,7 @@ def create_missile_list_item(mech, i):
     Compile info used by print_missile_list()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_bv(i)
+    batt_val = mech.get_bv(i)
     weight = mech.weight
     lrm = i.gear.lrms
     if i.gear.art4 == "TRUE":
@@ -282,7 +282,7 @@ def create_missile_list_item(mech, i):
         art = "AV"
     else:
         art = ""
-    return (name_str, weight, BV, lrm, art)
+    return (name_str, weight, batt_val, lrm, art)
 
 def print_missile_list(file_list, select_l, header):
     """
@@ -309,11 +309,11 @@ def create_def_list_item(mech, i):
     Compile info used by print_default()
     """
     name_str = mech.name + " " + mech.model + i.name
-    BV = mech.get_bv(i)
+    batt_val = mech.get_bv(i)
     weight = mech.weight
     source = i.source
     prod_era = conv_era(i.get_prod_era())
-    return (name_str, weight, BV, source, prod_era)
+    return (name_str, weight, batt_val, source, prod_era)
 
 
 def print_default(file_list, select_l, header):
@@ -338,6 +338,10 @@ def print_default(file_list, select_l, header):
 ####################################
 
 def main():
+    """
+    main() function for summary.py. Prints out a summary of mechs
+    according to the command-line switches.
+    """
 
     ### Handle arguments ###
 
