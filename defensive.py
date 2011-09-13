@@ -262,13 +262,32 @@ class Armor(Item):
     """
     A class to hold armor info for a mech
     """
-    def __init__(self, weight, motive, atype, tech_base,
-                 head, c_torso, ctr, l_torso, ltr, r_torso, rtr, l_arm, r_arm,
-                 l_leg, r_leg):
-        # Save type of armor
-        self.atype = atype
-        # and its techbase
-        self.tech_base = int(tech_base)
+    def __init__(self, arm, weight, motive):
+        self.tech_base = int(arm.attributes["techbase"].value)
+        anode = arm.getElementsByTagName("type")[0]
+        self.atype = gettext(anode.childNodes)
+        anode = arm.getElementsByTagName("hd")[0]
+        head = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("ct")[0]
+        c_torso = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("ctr")[0]
+        ctr = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("lt")[0]
+        l_torso = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("ltr")[0]
+        ltr = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("rt")[0]
+        r_torso = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("rtr")[0]
+        rtr = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("la")[0]
+        l_arm = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("ra")[0]
+        r_arm = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("ll")[0]
+        l_leg = int(gettext(anode.childNodes))
+        anode = arm.getElementsByTagName("rl")[0]
+        r_leg = int(gettext(anode.childNodes))
 
         # Check for legal armor type, save data
         ident = False

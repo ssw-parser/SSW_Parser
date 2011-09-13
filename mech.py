@@ -230,6 +230,8 @@ class Mech:
             for mot in mmech.getElementsByTagName('motive_type'):
                 self.motive = gettext(mot.childNodes)
 
+            ### Components starts here ###
+
             # Get internal structure type
             for stru in mmech.getElementsByTagName('structure'):
                 self.structure = IS(stru, self.weight, self.motive)
@@ -254,34 +256,7 @@ class Mech:
 
             # Get armor.
             for arm in mmech.getElementsByTagName('armor'):
-                atbase = arm.attributes["techbase"].value
-                anode = arm.getElementsByTagName("type")[0]
-                armortype = gettext(anode.childNodes)
-                anode = arm.getElementsByTagName("hd")[0]
-                hd = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("ct")[0]
-                ct = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("ctr")[0]
-                ctr = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("lt")[0]
-                lt = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("ltr")[0]
-                ltr = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("rt")[0]
-                rt = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("rtr")[0]
-                rtr = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("la")[0]
-                la = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("ra")[0]
-                ra = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("ll")[0]
-                ll = int(gettext(anode.childNodes))
-                anode = arm.getElementsByTagName("rl")[0]
-                rl = int(gettext(anode.childNodes))
-                self.armor = Armor(self.weight, self.motive, armortype, atbase,
-                                   hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll,
-                                   rl)
+                self.armor = Armor(arm, self.weight, self.motive)
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
