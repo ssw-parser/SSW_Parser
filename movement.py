@@ -25,7 +25,7 @@ jumpjets, partial wing, jump boosters.
 
 from math import ceil
 from error import error_exit
-from util import ceil_05, ceil_5
+from util import ceil_05, ceil_5, gettext
 from item import Item
 
 # Engine and other propulsion related stuff, like fixed jumpjets and gyros.
@@ -855,10 +855,10 @@ class Engine(Item):
     """
     A class to hold engine info for a mech
     """
-    def __init__(self, weight, etype, erating, ebase):
-        self.etype = etype
-        self.erating = erating
-        self.e_base = int(ebase)
+    def __init__(self, eng, weight):
+        self.erating = int(eng.attributes["rating"].value)
+        self.e_base = int(eng.attributes["techbase"].value)
+        self.etype = gettext(eng.childNodes)
         self.speed = self.erating / weight
         # A note on primitive engines:
         # It seems like using engine rating directly does give

@@ -236,14 +236,13 @@ class Mech:
            
             # Get engine data
             for eng in mmech.getElementsByTagName('engine'):
-                erating = int(eng.attributes["rating"].value)
-                ebase = int(eng.attributes["techbase"].value)
-                etype = gettext(eng.childNodes)
+                self.engine = Engine(eng, self.weight)
 
             # Get gyro
             for gy in mmech.getElementsByTagName('gyro'):
                 gtype = gettext(gy.childNodes)
                 gbase = int(gy.attributes["techbase"].value)
+                self.gyro = Gyro(self.engine.etype, self.engine.erating, gtype, gbase)
 
             # Get cockpit
             for cpt in mmech.getElementsByTagName('cockpit'):
@@ -363,8 +362,6 @@ class Mech:
                         # Save in a tuple with name and type
                         equip.append((name, typ, loc))
 
-            self.engine = Engine(self.weight, etype, erating, ebase)
-            self.gyro = Gyro(etype, erating, gtype, gbase)
             self.enhancement = Enhancement(self.weight, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
