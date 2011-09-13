@@ -244,10 +244,7 @@ class Mech:
 
             # Get cockpit
             for cpt in mmech.getElementsByTagName('cockpit'):
-                cnode = cpt.getElementsByTagName("type")[0]
-                console = cnode.attributes["commandconsole"].value
-                cockpit = gettext(cnode.childNodes)
-                self.cockpit = Cockpit(cockpit, console)
+                self.cockpit = Cockpit(cpt)
 
             # Get enhancement
             for enh in mmech.getElementsByTagName('enhancement'):

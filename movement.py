@@ -496,9 +496,10 @@ class Cockpit(Item):
     """
     A class to hold cockpit (and command console) info
     """
-    def __init__(self, ctype, console):
-        self.type = ctype
-        self.console = console
+    def __init__(self, cpt):
+        cnode = cpt.getElementsByTagName("type")[0]
+        self.console = cnode.attributes["commandconsole"].value
+        self.type = gettext(cnode.childNodes)
         self.c_weight = 0
 
         # Check for legal cockpit type, save data
