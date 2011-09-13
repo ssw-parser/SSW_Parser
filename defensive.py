@@ -25,7 +25,7 @@ Mech internal structure and armor classes
 
 from math import ceil
 from error import *
-from util import ceil_05
+from util import ceil_05, gettext
 from item import Item
 
 # These four tables lists internal structure for each weight class in
@@ -155,9 +155,10 @@ class IS(Item):
     """
     A class to hold info about the internal stucture
     """
-    def __init__(self, istype, tech_base, weight, motive):
-        self.type = istype
-        self.tech_base = int(tech_base)
+    def __init__(self, stru, weight, motive):
+        self.tech_base = int(stru.attributes["techbase"].value)
+        snode = stru.getElementsByTagName("type")[0]
+        self.type = gettext(snode.childNodes)
         wgt = weight
 
         # Check for legal structure type, save data

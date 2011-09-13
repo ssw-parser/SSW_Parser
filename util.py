@@ -53,3 +53,11 @@ def ceil_5(value):
     calc = ceil(calc)
     calc *= 5
     return calc
+
+def gettext(nodes):
+    """
+    Get a text node data
+    """
+    for node in nodes:
+        if node.nodeType == node.TEXT_NODE:
+            return node.data  

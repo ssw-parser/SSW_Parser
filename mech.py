@@ -29,16 +29,7 @@ from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
 from movement import Enhancement, Gyro, Engine
 from gear import Gear, Heatsinks
-from util import ceil_05
-
-def gettext(nodes):
-    """
-    Get a text node data
-    """
-    for node in nodes:
-        if node.nodeType == node.TEXT_NODE:
-            return node.data  
-
+from util import ceil_05, gettext
 
 class Loadout:
     """
@@ -241,10 +232,7 @@ class Mech:
 
             # Get internal structure type
             for stru in mmech.getElementsByTagName('structure'):
-                sbase = int(stru.attributes["techbase"].value)
-                snode = stru.getElementsByTagName("type")[0]
-                stype = gettext(snode.childNodes)
-                self.structure = IS(stype, sbase, self.weight, self.motive)
+                self.structure = IS(stru, self.weight, self.motive)
            
             # Get engine data
             for eng in mmech.getElementsByTagName('engine'):
