@@ -159,7 +159,7 @@ def parse_gear(mech, date):
             dam = phys.dam(mech.weight)
             print report
             print phys.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
-            sbv = sbv + phys.count * dam * phys.BVmult
+            sbv = sbv + phys.count * phys.get_bv(mech.weight)
 
     # Check TSM & physical combo
 #    if (mech.gear.phys == 1 and mech.engine.enhancement != "TSM"):

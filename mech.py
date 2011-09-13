@@ -253,10 +253,14 @@ class Mech:
                 enode = enh.getElementsByTagName("type")[0]
                 enhancement = gettext(enode.childNodes)
                 etb = int(enh.attributes["techbase"].value)
+ 
+            self.enhancement = Enhancement(self.weight, enhancement, etb)
 
             # Get armor.
             for arm in mmech.getElementsByTagName('armor'):
                 self.armor = Armor(arm, self.weight, self.motive)
+
+            ### Loadout stuff starts here ###
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
@@ -331,8 +335,6 @@ class Mech:
                     else:
                         # Save in a tuple with name and type
                         equip.append((name, typ, loc))
-
-            self.enhancement = Enhancement(self.weight, enhancement, etb)
 
             # Construct current loadout, empty name for base loadout
             self.load = Loadout(self.weight, art4, art5, apollo, "",
