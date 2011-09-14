@@ -777,12 +777,11 @@ class Gear:
 
     Take in lists of front and rear facing gears
     """
-    def __init__(self, weight, art4, art5, apollo, equip, equiprear, clan_case):
+    def __init__(self, weight, art4, art5, apollo, equip, clan_case):
         self.art4 = art4 # Artemis IV
         self.art5 = art5 # Artemis V
         self.apollo = apollo # Apollo
         self.equip = equip
-        self.equiprear = equiprear
         self.cc = clan_case # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
@@ -830,7 +829,10 @@ class Gear:
                 # Weapon identified
                 if name.name == weap.name:
                     # Add weapon
-                    weap.addone()
+                    if name.rear:
+                        weap.addone_rear()
+                    else:
+                        weap.addone()
 
                     # Arm weapons
                     if name.loc == "RA" or name.loc == "LA":
@@ -1022,35 +1024,6 @@ class Gear:
                         self.exp_ammo[name.loc] = expl
             # Not found
             if not ident:
-                print "Unidentified:", name
-                error_exit("gear")
-
-        for name in self.equiprear:
-            # Go through weapon list
-            ident = False
-            for weap in self.weaponlist.list:
-                if name.name == weap.name:
-                    weap.addone_rear()
-                    self.w_weight += weap.weight
-                    if weap.enhance == "T":
-                        self.tcw_weight += weap.weight
-                    ident = True
-                    # Artemis IV
-                    if (self.art4 == "TRUE" and weap.enhance == "A"):
-                        self.w_weight += 1
-                    # Artemis V
-                    elif (self.art5 == "TRUE" and weap.enhance == "A"):
-                        self.w_weight += 1.5
-                    # Apollo
-                    if (self.apollo == "TRUE" and weap.enhance == "P"):
-                        self.w_weight += 1
-                    # Add explosive weapon to location
-                    if weap.explosive > 0:
-                        expl = self.exp_weapon.get(name.loc, 0)
-                        expl += weap.explosive
-                        self.exp_weapon[name.loc] = expl
-            # Not found
-            if (not ident):
                 print "Unidentified:", name
                 error_exit("gear")
 

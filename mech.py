@@ -306,25 +306,16 @@ class Mech:
                     
                 # Get equipment
                 equip = []
-                equiprear = []
-                equip_new = [] # New equipment list
 
                 for node in blo.getElementsByTagName('equipment'):
-                    equip_new.append(Equip(node))
-
-                # Split into two lists
-                for e in equip_new:
-                    if e.rear == True:
-                        equiprear.append(e)
-                    else:
-                        equip.append(e)
+                    equip.append(Equip(node))
 
             # Construct current loadout, empty name for base loadout
             self.load = Loadout(self.weight, art4, art5, apollo, "",
                                 self.batt_val,
                                 partw, jumpb, self.prod_era, source)
             self.load.gear = Gear(self.weight, art4, art5, apollo,
-                                  equip, equiprear, cc)
+                                  equip, cc)
             self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
             self.load.jj = JumpJets(self.weight, jump, jjtype)
 
@@ -381,22 +372,13 @@ class Mech:
                     current.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
                     
                 # Get equipment
-                equip_new = []
                 equip_l = list(equip)
-                equiprear_l = list(equiprear)
 
                 for node in lo.getElementsByTagName('equipment'):
-                    equip_new.append(Equip(node))
-
-                # Split into two lists
-                for e in equip_new:
-                    if e.rear == True:
-                        equiprear_l.append(e)
-                    else:
-                        equip_l.append(e)
+                    equip_l.append(Equip(node))
 
                 current.gear = Gear(self.weight, art4, art5, apollo,
-                                    equip_l, equiprear_l, cc)
+                                    equip_l, cc)
 
                 self.loads.append(current)
                 
