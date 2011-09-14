@@ -28,7 +28,7 @@ from error import *
 from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
 from movement import Enhancement, Gyro, Engine
-from gear import Gear, Heatsinks
+from gear import Gear, Heatsinks, Equip
 from util import ceil_05, gettext
 
 class Loadout:
@@ -307,8 +307,10 @@ class Mech:
                 # Get equipment
                 equip = []
                 equiprear = []
+                equip_new = [] # New equipment list
 
                 for node in blo.getElementsByTagName('equipment'):
+                    equip_new.append(Equip(node))
                     nnode = node.getElementsByTagName("name")[0]
                     name = gettext(nnode.childNodes)
                     tnode = node.getElementsByTagName("type")[0]

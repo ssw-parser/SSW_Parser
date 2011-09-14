@@ -24,7 +24,7 @@ Contains classes for weapons and other gear.
 
 from math import ceil
 from error import error_exit
-from util import ceil_05
+from util import ceil_05, gettext
 from item import Item
 
 # A class to contain data about battlemech gear to allow for clearer code,
@@ -522,6 +522,44 @@ class Heatsinks(Item):
         Return sinking capability
         """
         return self.number * self.cap
+
+
+class Equip:
+    """
+    The new equipment class being tested out
+    """
+    # TODO: Make a real item
+    # TODO: Make this a parent class, and split according to type?
+    def __init__(self, node):
+        nnode = node.getElementsByTagName("name")[0]
+        self.name = gettext(nnode.childNodes)
+        tnode = node.getElementsByTagName("type")[0]
+        self.typ = gettext(tnode.childNodes)
+        self.rear = False
+        self.turret = False
+        lnd = node.getElementsByTagName("location")
+        # Normal case, no split
+        if (lnd):
+            lnode = lnd[0]
+            self.loc = gettext(lnode.childNodes)
+        # Split location
+        else:
+            self.loc = []
+        lnd = node.getElementsByTagName("splitlocation")
+        for lnode in lnd:
+            lnr = int(lnode.attributes["number"].value)
+            loc_temp = gettext(lnode.childNodes)
+            self.loc.append((loc_temp, lnr))
+        # Check for rear-mounted stuff
+        if self.name[0:4] == "(R) ":
+            self.rear = True
+            self.name = self.name[4:]
+        # Hack -- also check for turreted
+        elif self.name[0:4] == "(T) ":
+            self.turret = True
+            self.name = self.name[4:]
+
+
 
 class Weaponlist:
     """
