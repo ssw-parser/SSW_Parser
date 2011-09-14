@@ -828,12 +828,12 @@ class Gear:
             ident = False
             for weap in self.weaponlist.list:
                 # Weapon identified
-                if name[0] == weap.name:
+                if name.name == weap.name:
                     # Add weapon
                     weap.addone()
 
                     # Arm weapons
-                    if name[2] == "RA" or name[2] == "LA":
+                    if name.loc == "RA" or name.loc == "LA":
                         weap.addone_arm()
 
                     # track weapons weight
@@ -856,43 +856,43 @@ class Gear:
                     if (self.apollo == "TRUE" and weap.enhance == "P"):
                         self.w_weight += 1
                     # Hack - track Narc
-                    if (name[0] == "(IS) Narc Missile Beacon" or
-                        name[0] == "(IS) iNarc Launcher" or
-                        name[0] == "(CL) Narc Missile Beacon"):
+                    if (name.name == "(IS) Narc Missile Beacon" or
+                        name.name == "(IS) iNarc Launcher" or
+                        name.name == "(CL) Narc Missile Beacon"):
                         self.has_narc = True
 
                     # Count LRM tubes that can fire special ammo
                     # Missing: NLRM-10, NLRM-15, NLRM-20
-                    if name[0] == "(IS) MML-3":
+                    if name.name == "(IS) MML-3":
                         self.lrms += 3
 
-                    if (name[0] == "(IS) LRM-5" or name[0] == "(CL) LRM-5" or
-                        name[0] == "(IS) MML-5" or
-                        name[0] == "(IS) Enhanced LRM-5"):
+                    if (name.name == "(IS) LRM-5" or name.name == "(CL) LRM-5" or
+                        name.name == "(IS) MML-5" or
+                        name.name == "(IS) Enhanced LRM-5"):
                         self.lrms += 5
 
-                    if name[0] == "(IS) MML-7":
+                    if name.name == "(IS) MML-7":
                         self.lrms += 7
 
-                    if name[0] == "(IS) MML-9":
+                    if name.name == "(IS) MML-9":
                         self.lrms += 9
 
-                    if name[0] == "(IS) LRM-10" or name[0] == "(CL) LRM-10":
+                    if name.name == "(IS) LRM-10" or name.name == "(CL) LRM-10":
                         self.lrms += 10
 
-                    if name[0] == "(IS) LRM-15" or name[0] == "(CL) LRM-15":
+                    if name.name == "(IS) LRM-15" or name.name == "(CL) LRM-15":
                         self.lrms += 15
 
-                    if name[0] == "(IS) LRM-20" or name[0] == "(CL) LRM-20":
+                    if name.name == "(IS) LRM-20" or name.name == "(CL) LRM-20":
                         self.lrms += 20
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:
                         # Split weapons, assign to innermost
-                        if type(name[2]).__name__ == 'list':
+                        if type(name.loc).__name__ == 'list':
                             j = ""
                             loc = ""
-                            for i in name[2]:
+                            for i in name.loc:
                                 # First part
                                 if (j == ""):
                                     j = i[0]
@@ -918,50 +918,50 @@ class Gear:
                             self.exp_weapon[loc] = expl
                         # No split, easy to handle
                         else:
-                            expl = self.exp_weapon.get(name[2], 0)
+                            expl = self.exp_weapon.get(name.loc, 0)
                             expl += weap.explosive
-                            self.exp_weapon[name[2]] = expl
+                            self.exp_weapon[name.loc] = expl
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
             for equip in self.o_equiplist.list:
-                if (name[0] == equip.name and 
-                    (name[1] == 'equipment' or name[1] == 'CASE')):
+                if (name.name == equip.name and 
+                    (name.typ == 'equipment' or name.typ == 'CASE')):
                     equip.addone()
                     self.o_weight += equip.weight
                     ident = True
                     # Hack, coolant pods
-                    if name[0] == "Coolant Pod":
+                    if name.name == "Coolant Pod":
                         self.coolant += 1
                     # Hack -- C3
-                    elif name[0] == "C3 Computer (Slave)":
+                    elif name.name == "C3 Computer (Slave)":
                         self.has_c3 = True
-                    elif name[0] == "C3 Computer (Master)":
+                    elif name.name == "C3 Computer (Master)":
                         self.has_c3m = True
                         # Master computers can work as TAG
                         self.has_tag = True
-                    elif name[0] == "Improved C3 Computer":
+                    elif name.name == "Improved C3 Computer":
                         self.has_c3i = True
-                    elif name [0] == "TAG" or name[0] == "Light TAG":
+                    elif name.name == "TAG" or name.name == "Light TAG":
                         self.has_tag = True
                     # Add explosive weapon to location
                     if equip.explosive > 0:
-                        expl = self.exp_weapon.get(name[2], 0)
+                        expl = self.exp_weapon.get(name.loc, 0)
                         expl += equip.explosive
-                        self.exp_weapon[name[2]] = expl
+                        self.exp_weapon[name.loc] = expl
 
             # Hack, handle targeting computer
-            if (name[0] == "(IS) Targeting Computer" and
-                name[1] =='TargetingComputer'):
+            if (name.name == "(IS) Targeting Computer" and
+                name.typ =='TargetingComputer'):
                 self.tarcomp = 1
                 ident = True
-            if (name[0] == "(CL) Targeting Computer" and
-                name[1] =='TargetingComputer'):
+            if (name.name == "(CL) Targeting Computer" and
+                name.typ =='TargetingComputer'):
                 self.tarcomp = 2
                 ident = True
 
             # Hack, supercharger
-            if (name[0] == "Supercharger" and name[1] == "Supercharger"):
+            if (name.name == "Supercharger" and name.typ == "Supercharger"):
                 self.supercharger = True
                 ident = True
 
@@ -969,28 +969,28 @@ class Gear:
             # HACK: Handle CASE
             for equip in self.d_equiplist.list:
                 # non-CASE
-                if (name[0] == equip.name and name[1] == 'equipment'):
+                if (name.name == equip.name and name.typ == 'equipment'):
                     equip.addone()
                     self.d_weight += equip.weight
                     ident = True
                     # Add explosive weapon to location
                     if equip.explosive > 0:
-                        expl = self.exp_weapon.get(name[2], 0)
+                        expl = self.exp_weapon.get(name.loc, 0)
                         expl += equip.explosive
-                        self.exp_weapon[name[2]] = expl
+                        self.exp_weapon[name.loc] = expl
                 # CASE
-                if (name[0] == equip.name and
-                    (name[1] == 'CASE' or name[1] == 'CASEII')):
+                if (name.name == equip.name and
+                    (name.typ == 'CASE' or name.typ == 'CASEII')):
                     equip.addone()
                     self.d_weight += equip.weight
                     ident = True
                     # Save CASE status
-                    self.case[name[2]] = name[1]
+                    self.case[name.loc] = name.typ
 
 
 
             for phys in self.physicallist.list:
-                if (name[0] == phys.name and name[1] == 'physical'):
+                if (name.name == phys.name and name.typ == 'physical'):
                     phys.addone()
                     ident = True
                     # Use float to avoid rounding errors
@@ -999,27 +999,27 @@ class Gear:
 
             for phys in self.d_physicallist.list:
                 # non-CASE
-                if (name[0] == phys.name and name[1] == 'physical'):
+                if (name.name == phys.name and name.typ == 'physical'):
                     phys.addone()
                     self.d_weight += phys.weight
                     ident = True
 
             for ammo in self.ammolist.list:
-                if (name[0] == ammo.name and name[1] == 'ammunition'):
+                if (name.name == ammo.name and name.typ == 'ammunition'):
                     ammo.addone()
                     # Special case, AMS ammo count as defensive equipment
-                    if (name[0] == "(IS) @ Anti-Missile System"):
+                    if (name.name == "(IS) @ Anti-Missile System"):
                         self.d_weight += ammo.weight
-                    elif (name[0] == "(CL) @ Anti-Missile System"):
+                    elif (name.name == "(CL) @ Anti-Missile System"):
                         self.d_weight += ammo.weight
                     else:
                         self.a_weight += ammo.weight
                     ident = True
                     # Add explosive ammo to location
                     if ammo.explosive == "X":
-                        expl = self.exp_ammo.get(name[2], 0)
+                        expl = self.exp_ammo.get(name.loc, 0)
                         expl += 1
-                        self.exp_ammo[name[2]] = expl
+                        self.exp_ammo[name.loc] = expl
             # Not found
             if not ident:
                 print "Unidentified:", name
@@ -1029,7 +1029,7 @@ class Gear:
             # Go through weapon list
             ident = False
             for weap in self.weaponlist.list:
-                if name[0] == weap.name:
+                if name.name == weap.name:
                     weap.addone_rear()
                     self.w_weight += weap.weight
                     if weap.enhance == "T":
@@ -1046,9 +1046,9 @@ class Gear:
                         self.w_weight += 1
                     # Add explosive weapon to location
                     if weap.explosive > 0:
-                        expl = self.exp_weapon.get(name[2], 0)
+                        expl = self.exp_weapon.get(name.loc, 0)
                         expl += weap.explosive
-                        self.exp_weapon[name[2]] = expl
+                        self.exp_weapon[name.loc] = expl
             # Not found
             if (not ident):
                 print "Unidentified:", name

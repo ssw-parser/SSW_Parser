@@ -311,32 +311,13 @@ class Mech:
 
                 for node in blo.getElementsByTagName('equipment'):
                     equip_new.append(Equip(node))
-                    nnode = node.getElementsByTagName("name")[0]
-                    name = gettext(nnode.childNodes)
-                    tnode = node.getElementsByTagName("type")[0]
-                    typ = gettext(tnode.childNodes)
-                    l = node.getElementsByTagName("location")
-                    # Normal case, no split
-                    if (l):
-                        lnode = l[0]
-                        loc = gettext(lnode.childNodes)
-                    # Split location
+
+                # Split into two lists
+                for e in equip_new:
+                    if e.rear == True:
+                        equiprear.append(e)
                     else:
-                        loc = []
-                        l = node.getElementsByTagName("splitlocation")
-                        for lnode in l:
-                            lnr = int(lnode.attributes["number"].value)
-                            loc_temp = gettext(lnode.childNodes)
-                            loc.append((loc_temp, lnr))
-                    # Check for rear-mounted stuff
-                    if name[0:4] == "(R) ":
-                        equiprear.append((name[4:], typ, loc))
-                   # Hack -- also check for turreted
-                    elif name[0:4] == "(T) ":
-                        equip.append((name[4:], typ, loc))
-                    else:
-                        # Save in a tuple with name and type
-                        equip.append((name, typ, loc))
+                        equip.append(e)
 
             # Construct current loadout, empty name for base loadout
             self.load = Loadout(self.weight, art4, art5, apollo, "",
@@ -400,36 +381,19 @@ class Mech:
                     current.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
                     
                 # Get equipment
+                equip_new = []
                 equip_l = list(equip)
                 equiprear_l = list(equiprear)
 
                 for node in lo.getElementsByTagName('equipment'):
-                    nnode = node.getElementsByTagName("name")[0]
-                    name = gettext(nnode.childNodes)
-                    tnode = node.getElementsByTagName("type")[0]
-                    typ = gettext(tnode.childNodes)
-                    l = node.getElementsByTagName("location")
-                    # Normal case, no split
-                    if (l):
-                        lnode = l[0]
-                        loc = gettext(lnode.childNodes)
-                    # Split location
+                    equip_new.append(Equip(node))
+
+                # Split into two lists
+                for e in equip_new:
+                    if e.rear == True:
+                        equiprear_l.append(e)
                     else:
-                        loc = []
-                        l = node.getElementsByTagName("splitlocation")
-                        for lnode in l:
-                            lnr = int(lnode.attributes["number"].value)
-                            loc_temp = gettext(lnode.childNodes)
-                            loc.append((loc_temp, lnr))
-                    # Check for rear-mounted stuff
-                    if name[0:4] == "(R) ":
-                        equiprear_l.append((name[4:], typ, loc))
-                    # Hack -- also check for turreted
-                    elif name[0:4] == "(T) ":
-                        equip_l.append((name[4:], typ, loc))
-                    else:
-                        # Save in a tuple with name and type
-                        equip_l.append((name, typ, loc))
+                        equip_l.append(e)
 
                 current.gear = Gear(self.weight, art4, art5, apollo,
                                     equip_l, equiprear_l, cc)

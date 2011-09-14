@@ -232,9 +232,9 @@ def parse_omni(mech, date):
             if (i.get_jump()):
                 year = get_comp_year(i.jj.get_year, year)
                 print "Jump: ", i.get_jump(), i.jj.jjtype
-            if (i.heatsinks.nr):
+            if (i.heatsinks.number):
                 year = get_comp_year(i.heatsinks.get_year, year)
-                print i.heatsinks.nr, i.heatsinks.type
+                print i.heatsinks.number, i.heatsinks.type
             year = parse_artemis(mech, year)
             if i.artemis4 == "TRUE":
                 print "Artemis IV"
@@ -309,8 +309,9 @@ def main():
     print "-------------------------------"
     mech.off_bv(mech.load, True)
     print "-------------------------------"
-    print "BV: ", mech.get_bv(mech.load)
-    print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
+    if not mech.omni == "TRUE":
+        print "BV: ", mech.get_bv(mech.load)
+        print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
     print "==============================="
 
     # Gear
