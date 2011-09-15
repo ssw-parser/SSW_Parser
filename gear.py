@@ -24,7 +24,7 @@ Contains classes for weapons and other gear.
 
 from math import ceil
 from error import error_exit
-from util import ceil_05, gettext
+from util import ceil_05, gettext, get_child_data
 from item import Item
 
 # A class to contain data about battlemech gear to allow for clearer code,
@@ -484,8 +484,7 @@ class Heatsinks(Item):
         else:
             self.number = int(heat.attributes["number"].value)
             self.tech_b = int(heat.attributes["techbase"].value)
-            hnode = heat.getElementsByTagName("type")[0]
-            self.type = gettext(hnode.childNodes)
+            self.type = get_child_data(heat, "type")
         
         # Check for heatsink type, save data
         ident = False
@@ -538,10 +537,8 @@ class Equip:
     # TODO: Make a real item
     # TODO: Make this a parent class, and split according to type?
     def __init__(self, node):
-        nnode = node.getElementsByTagName("name")[0]
-        self.name = gettext(nnode.childNodes)
-        tnode = node.getElementsByTagName("type")[0]
-        self.typ = gettext(tnode.childNodes)
+        self.name = get_child_data(node, "name")
+        self.typ = get_child_data(node, "type")
         self.rear = False
         self.turret = False
         lnd = node.getElementsByTagName("location")
