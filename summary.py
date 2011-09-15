@@ -334,16 +334,14 @@ def print_default(file_list, select_l, header):
         print ("%-30s %3d %4d %-8s %s" % (i[0], i[1], i[2], i[3], i[4]))
 
 
-####################################
-##### Main program starts here #####
-####################################
+##################################
+##### Define argument parser #####
+##################################
 
-def main():
+def parse_arg():
     """
-    main() function for summary.py. Prints out a summary of mechs
-    according to the command-line switches.
+    Defines and parses command-line arguments
     """
-
     ### Handle arguments ###
 
     # Create parser
@@ -384,7 +382,20 @@ def main():
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+####################################
+##### Main program starts here #####
+####################################
+
+def main():
+    """
+    main() function for summary.py. Prints out a summary of mechs
+    according to the command-line switches.
+    """
+    # Parse arguments
+    args = parse_arg()
 
     # Create lists
     file_list = []

@@ -27,6 +27,8 @@ class Item:
     A base class supposed to contains the interface elements shared by
     all item types.
     """
+    def __init__(self):
+        pass
 
     def get_type(self):
         """
