@@ -217,7 +217,7 @@ def parse_artemis(mech, date):
             date = 3071
     return date
 
-def parse_omni(mech, date):
+def parse_omni(mech, date, mspd):
     """
     Handle omni-mechs
     """
@@ -242,6 +242,7 @@ def parse_omni(mech, date):
                 print "Apollo"
             (rnge, year) = parse_gear(i, year)
             print "Earliest Year: ", year
+            print mspd, rnge
         print "-----------------"
 
 
@@ -330,7 +331,7 @@ def main():
     # Print time-period
     print "Earliest Year: ", date
 
-    parse_omni(mech, date)
+    parse_omni(mech, date, mspd)
     warnings.print_warnings()
 
 if __name__ == "__main__":

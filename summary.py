@@ -32,9 +32,6 @@ from mech import Mech
 ##### Utility functions #####
 #############################
 
-#
-# TODO: Add missing eras: Rep, DA
-#
 def conv_era(era):
     """
     Convert era to string
@@ -46,7 +43,9 @@ def conv_era(era):
         3 : "SW-L",
         4 : "Clan",
         5 : "CW",
-        6 : "Jihad"
+        6 : "Jihad",
+        7 : "Rep",
+        8 : "DA"
         }
     return conv[era]
     
