@@ -28,7 +28,7 @@ Uses external file mech.py to read in data.
 import sys
 from xml.dom import minidom
 from mech import Mech
-from error import *
+from error import print_warning, warnings
 
 def get_comp_year(call, date):
     """
@@ -209,9 +209,9 @@ def parse_artemis(mech, date):
     if mech.load.artemis4 == "TRUE":
         if date < 2598:
             date = 2598
-    # HACK: We class artemis V as unknown for now
     if mech.load.artemis5 == "TRUE":
-        error_exit("fire_control")
+        if date < 3085:
+            date = 3085
     if mech.load.apollo == "TRUE":
         if date < 3071:
             date = 3071
