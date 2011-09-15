@@ -39,7 +39,6 @@ from item import Item
 # TODO1: IS: Flamer (Vehicle), HMG,  Clan: Flamer (Vehicle)
 # TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
 # Clan: 2 HMG, 2 LMG, 4 LMG, 2 MG, 3 MG
-# TODO3: Artemis IV versions
 WEAPONS = [["(IS) Autocannon/2", [37, 5], "L", "T", 2300, 1, 6, 1, 0],
            ["(IS) Autocannon/5", [70, 9], "L", "T", 2250, 1, 8, 1, 0],
            ["(IS) Autocannon/10", [123, 15], "M", "T", 2460, 1, 12, 3, 0],
@@ -476,6 +475,7 @@ class Heatsinks(Item):
     Heatsinks for a mech
     """
     def __init__(self, heat):
+        Item.__init__(self)
         # Handle default
         if heat is None:
             self.number = 0
@@ -786,7 +786,7 @@ class Gear:
         self.art5 = art5 # Artemis V
         self.apollo = apollo # Apollo
         self.equip = equip
-        self.cc = clan_case # Clan CASE
+        self.c_case = clan_case # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist()
@@ -872,7 +872,8 @@ class Gear:
                     if name.name == "(IS) MML-3":
                         self.lrms += 3
 
-                    if (name.name == "(IS) LRM-5" or name.name == "(CL) LRM-5" or
+                    if (name.name == "(IS) LRM-5" or
+                        name.name == "(CL) LRM-5" or
                         name.name == "(IS) MML-5" or
                         name.name == "(IS) Enhanced LRM-5"):
                         self.lrms += 5
@@ -1136,7 +1137,7 @@ class Gear:
                     if (cas != "CASEII"):
                         neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
-                elif (self.cc == "FALSE"):
+                elif (self.c_case == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
                         neg_bv -= 15.0 * self.exp_ammo[i]
@@ -1144,10 +1145,10 @@ class Gear:
             elif (i == "LA" or i == "FLL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.cc == "FALSE"):
+                    if (cas != "CASEII" and self.c_case == "FALSE"):
                         neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
-                elif (self.cc == "FALSE"):
+                elif (self.c_case == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
@@ -1157,10 +1158,10 @@ class Gear:
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.cc == "FALSE"):
+                    if (cas != "CASEII" and self.c_case == "FALSE"):
                         neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
-                elif (self.cc == "FALSE"):
+                elif (self.c_case == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
@@ -1193,7 +1194,7 @@ class Gear:
                     if (cas != "CASEII"):
                         neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
-                elif (self.cc == "FALSE"):
+                elif (self.c_case == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
                         neg_bv -= self.exp_weapon[i]
@@ -1201,10 +1202,10 @@ class Gear:
             elif (i == "LA" or i == "FLL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.cc == "FALSE"):
+                    if (cas != "CASEII" and self.c_case == "FALSE"):
                         neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
-                elif (self.cc == "FALSE"):
+                elif (self.c_case == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("LT", "")
                     # No CASE
@@ -1214,10 +1215,10 @@ class Gear:
             elif (i == "RA" or i == "FRL"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.cc == "FALSE"):
+                    if (cas != "CASEII" and self.c_case == "FALSE"):
                         neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
-                elif (self.cc == "FALSE"):
+                elif (self.c_case == "FALSE"):
                     # we can use torso CASE
                     cas2 = self.case.get("RT", "")
                     # No CASE
@@ -1237,7 +1238,8 @@ class Gear:
         for weap in self.weaponlist.list:
             if (weap.count - weap.countarm) > 0:
                 bv_front += weap.get_bv(self.tarcomp, self.art4, self.art5,
-                                        self.apollo) * (weap.count - weap.countarm)
+                                        self.apollo) * (weap.count -
+                                                        weap.countarm)
 
             if weap.countrear > 0:
                 bv_rear += weap.get_bv(self.tarcomp, self.art4, self.art5,
