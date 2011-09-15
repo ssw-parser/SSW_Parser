@@ -25,7 +25,7 @@ Mech internal structure and armor classes
 
 from math import ceil
 from error import *
-from util import ceil_05, gettext
+from util import ceil_05, get_child_data
 from item import Item
 
 # These four tables lists internal structure for each weight class in
@@ -157,8 +157,7 @@ class IS(Item):
     """
     def __init__(self, stru, weight, motive):
         self.tech_base = int(stru.attributes["techbase"].value)
-        snode = stru.getElementsByTagName("type")[0]
-        self.type = gettext(snode.childNodes)
+        self.type = get_child_data(stru, "type")
         wgt = weight
 
         # Check for legal structure type, save data
@@ -264,30 +263,18 @@ class Armor(Item):
     """
     def __init__(self, arm, weight, motive):
         self.tech_base = int(arm.attributes["techbase"].value)
-        anode = arm.getElementsByTagName("type")[0]
-        self.atype = gettext(anode.childNodes)
-        anode = arm.getElementsByTagName("hd")[0]
-        head = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("ct")[0]
-        c_torso = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("ctr")[0]
-        ctr = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("lt")[0]
-        l_torso = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("ltr")[0]
-        ltr = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("rt")[0]
-        r_torso = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("rtr")[0]
-        rtr = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("la")[0]
-        l_arm = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("ra")[0]
-        r_arm = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("ll")[0]
-        l_leg = int(gettext(anode.childNodes))
-        anode = arm.getElementsByTagName("rl")[0]
-        r_leg = int(gettext(anode.childNodes))
+        self.atype = get_child_data(arm, "type")
+        head = int(get_child_data(arm, "hd"))
+        c_torso = int(get_child_data(arm, "ct"))
+        ctr = int(get_child_data(arm, "ctr"))
+        l_torso = int(get_child_data(arm, "lt"))
+        ltr = int(get_child_data(arm, "ltr"))
+        r_torso = int(get_child_data(arm, "rt"))
+        rtr = int(get_child_data(arm, "rtr"))
+        l_arm = int(get_child_data(arm, "la"))
+        r_arm = int(get_child_data(arm, "ra"))
+        l_leg = int(get_child_data(arm, "ll"))
+        r_leg = int(get_child_data(arm, "rl"))
 
         # Check for legal armor type, save data
         ident = False

@@ -29,7 +29,7 @@ from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
 from movement import Enhancement, Gyro, Engine
 from gear import Gear, Heatsinks, Equip
-from util import ceil_05, gettext, get_child, get_child_data
+from util import ceil_05, get_child, get_child_data
 
 class Loadout:
     """
@@ -43,12 +43,10 @@ class Loadout:
         self.name = name
 
         # Get source
-        sour = load.getElementsByTagName('source')[0]
-        self.source = gettext(sour.childNodes)
+        self.source = get_child_data(load, 'source')
 
         # Get Clan Case
-        for clc in load.getElementsByTagName('clancase'):
-            clanc = gettext(clc.childNodes)
+        clanc = get_child_data(load, 'clancase')
 
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
