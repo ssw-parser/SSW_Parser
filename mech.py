@@ -35,19 +35,16 @@ class Loadout:
     """
     An omni loadout
     """
-    def __init__(self, load, weight, art4, art5, apollo, name, batt_val, partw,
-                 prod_era, equip):
+    def __init__(self, load, weight, name, batt_val, partw, prod_era, equip):
         self.weight = weight # Save weight just in case
-        self.artemis4 = art4
-        self.artemis5 = art5
-        self.apollo = apollo
+        self.artemis4 = load.attributes["fcsa4"].value
+        self.artemis5 = load.attributes["fcsa5"].value
+        self.apollo = load.attributes["fcsapollo"].value
         self.name = name
-
 
         # Get source
         sour = load.getElementsByTagName('source')[0]
         self.source = gettext(sour.childNodes)
-
 
         # Get Clan Case
         for clc in load.getElementsByTagName('clancase'):
@@ -68,7 +65,8 @@ class Loadout:
 
         self.prod_era = prod_era
 
-        self.gear = Gear(weight, art4, art5, apollo, equip, cc)
+        self.gear = Gear(weight, self.artemis4, self.artemis5, self.apollo,
+                         equip, cc)
 
 
 
@@ -278,9 +276,6 @@ class Mech:
 
             # Get baseloadout
             for blo in mmech.getElementsByTagName('baseloadout'):
-                art4 = blo.attributes["fcsa4"].value
-                art5 = blo.attributes["fcsa5"].value
-                apollo = blo.attributes["fcsapollo"].value
                 partw = False
 
                 # Get jumpjets
@@ -308,37 +303,32 @@ class Mech:
                     equip.append(Equip(node))
 
             # Construct current loadout, empty name for base loadout
-            self.load = Loadout(blo, self.weight, art4, art5, apollo, "",
-                                self.batt_val,
+            self.load = Loadout(blo, self.weight, "", self.batt_val,
                                 partw, self.prod_era, equip)
             self.load.heatsinks = heatsinks
             self.load.jjets = jjets
 
             # Get omni loadouts
             self.loads = []
-            for lo in mmech.getElementsByTagName('loadout'):
-                art4 = lo.attributes["fcsa4"].value
-                art5 = lo.attributes["fcsa5"].value
-                apollo = lo.attributes["fcsapollo"].value
-                name = lo.attributes["name"].value
+            for load in mmech.getElementsByTagName('loadout'):
+                name = load.attributes["name"].value
 
                 # Get production era
-                pre = lo.getElementsByTagName('loadout_productionera')[0]
+                pre = load.getElementsByTagName('loadout_productionera')[0]
                 prod_era = int(gettext(pre.childNodes))
 
                 # Get BV.
-                for battv in lo.getElementsByTagName('battle_value'):
+                for battv in load.getElementsByTagName('battle_value'):
                     batt_val = int(gettext(battv.childNodes))
 
                 # Get equipment
                 equip_l = list(equip)
 
-                for node in lo.getElementsByTagName('equipment'):
+                for node in load.getElementsByTagName('equipment'):
                     equip_l.append(Equip(node))
 
                 # Construct current loadout
-                current = Loadout(lo, self.weight, art4, art5, apollo, name,
-                                  batt_val,
+                current = Loadout(load, self.weight, name, batt_val,
                                   partw, prod_era, equip_l)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
@@ -346,11 +336,11 @@ class Mech:
                 current.jjets = self.load.jjets
 
                 # Get jumpjets
-                for jets in lo.getElementsByTagName('jumpjets'):
+                for jets in load.getElementsByTagName('jumpjets'):
                     current.jjets = JumpJets(jets, self.weight)
 
                 # Get heat sinks
-                for heat in lo.getElementsByTagName('heatsinks'):
+                for heat in load.getElementsByTagName('heatsinks'):
                     current.heatsinks = Heatsinks(heat)
                     
                 self.loads.append(current)
