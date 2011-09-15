@@ -24,7 +24,7 @@ Mech internal structure and armor classes
 
 
 from math import ceil
-from error import *
+from error import error_exit, print_warning, warnings
 from util import ceil_05, get_child_data
 from item import Item
 
@@ -257,6 +257,16 @@ class ArmorLoc:
         msg = "  " + self.l_name + " armor: " + str(self.arm)
         return msg
 
+    def get_report(self):
+        """
+        Print a report of the armor in a cetain location in the form:
+        Location: armor/max xx%
+        """
+        ratio = float(self.arm) / float(self.max)
+        msg = ("%-18s: %3d/%3d %3d %%" % (self.l_name, self.arm, self.max,
+                                          int(ratio * 100)))
+        return msg
+
 class Armor(Item):
     """
     A class to hold armor info for a mech
@@ -338,8 +348,12 @@ class Armor(Item):
             error_exit(motive)
 
         # Last sum up total
-        armortotal = self.head.arm + self.c_torso.arm + self.l_torso.arm + self.r_torso.arm + self.l_arm.arm + self.r_arm.arm + self.l_leg.arm + self.r_leg.arm
-        maxtotal = self.head.max + self.c_torso.max + self.l_torso.max + self.r_torso.max + self.l_arm.max + self.r_arm.max + self.l_leg.max + self.r_leg.max
+        armortotal = (self.head.arm + self.c_torso.arm + self.l_torso.arm +
+                      self.r_torso.arm + self.l_arm.arm + self.r_arm.arm +
+                      self.l_leg.arm + self.r_leg.arm)
+        maxtotal = (self.head.max + self.c_torso.max + self.l_torso.max +
+                    self.r_torso.max + self.l_arm.max + self.r_arm.max +
+                    self.l_leg.max + self.r_leg.max)
         self.total = ArmorLoc("Total", armortotal, maxtotal)
 
         # Store potential falling damage
@@ -388,21 +402,11 @@ class Armor(Item):
         ratio = float(self.total.arm) / float(self.total.max)
         return (ratio * 100)
 
-    def print_report(self, armor):
-        """
-        Print a report of the armor in a cetain location in the form:
-        Location: armor/max xx%
-        """
-        ratio = float(armor.arm) / float(armor.max)
-        msg = ("%-18s: %3d/%3d %3d %%" % (armor.l_name, armor.arm, armor.max,
-                                          int(ratio * 100)))
-        print msg
-
     def head_report(self):
         """
         Head armor report
         """
-        self.print_report(self.head)
+        print self.head.get_report()
         if (not self.head.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
             st2 = self.head.get_warning_string()
@@ -414,8 +418,10 @@ class Armor(Item):
         Falling damage armor report
         """
         if (a_loc.arm < self.fall_dam):
-            st1 = "WARNING: Falling damage might go internal on " + a_loc.l_name + " armor!"
-            st2 = "  Damage: " + str(self.fall_dam) + ", armor: " + str(a_loc.arm)
+            st1 = ("WARNING: Falling damage might go internal on " +
+                   a_loc.l_name + " armor!")
+            st2 = ("  Damage: " + str(self.fall_dam) + ", armor: " +
+                   str(a_loc.arm))
             warnings.add((st1, st2))
             print_warning((st1, st2))
 
@@ -424,7 +430,7 @@ class Armor(Item):
         Standard armor location report, should be used in most cases
         Considers an armor value of less than 50% of max to be too weak
         """
-        self.print_report(a_loc)
+        print a_loc.get_report()
         if (not a_loc.check_percent(0.5)):
             st1 = "WARNING: Weak " + a_loc.l_name + " armor!"
             st2 = a_loc.get_warning_string()
@@ -440,10 +446,10 @@ class Armor(Item):
         # Standard for front armor
         self.report_standard(self.ctf)
         # Only falling damage check for rear
-        self.print_report(self.ctr)
+        print self.ctr.get_report()
         self.report_fall(self.ctr)
         # No checks for total armor
-        self.print_report(self.c_torso)
+        print self.c_torso.get_report()
 
     def left_torso_report(self):
         """
@@ -452,10 +458,10 @@ class Armor(Item):
         # Standard for front armor
         self.report_standard(self.ltf)
         # Only falling damage check for rear
-        self.print_report(self.ltr)
+        print self.ltr.get_report()
         self.report_fall(self.ltr)
         # No checks for total armor
-        self.print_report(self.l_torso)
+        print self.l_torso.get_report()
 
     def right_torso_report(self):
         """
@@ -464,10 +470,10 @@ class Armor(Item):
         # Standard for front armor
         self.report_standard(self.rtf)
         # Only falling damage check for rear
-        self.print_report(self.rtr)
+        self.rtr.get_report()
         self.report_fall(self.rtr)
         # No checks for total armor
-        self.print_report(self.r_torso)
+        self.r_torso.get_report()
 
     def armor_total_report(self):
         """
@@ -480,7 +486,7 @@ class Armor(Item):
         elif self.tech_base == 2:
             base = ""
         print str(self.get_weight()) + " tons " + self.atype + " " + base
-        self.print_report(self.total)
+        print self.total.get_report()
 
     def parse_armor(self):
         """
