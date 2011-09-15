@@ -36,7 +36,7 @@ class Loadout:
     An omni loadout
     """
     def __init__(self, load, weight, art4, art5, apollo, name, batt_val, partw,
-                 prod_era):
+                 prod_era, equip):
         self.weight = weight # Save weight just in case
         self.artemis4 = art4
         self.artemis5 = art5
@@ -47,6 +47,11 @@ class Loadout:
         # Get source
         sour = load.getElementsByTagName('source')[0]
         self.source = gettext(sour.childNodes)
+
+
+        # Get Clan Case
+        for clc in load.getElementsByTagName('clancase'):
+            cc = gettext(clc.childNodes)
 
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
@@ -62,6 +67,10 @@ class Loadout:
         self.jumpb = JumpBoosters(weight, jumpb)
 
         self.prod_era = prod_era
+
+        self.gear = Gear(weight, art4, art5, apollo, equip, cc)
+
+
 
     def get_sink(self):
         """
@@ -274,10 +283,6 @@ class Mech:
                 apollo = blo.attributes["fcsapollo"].value
                 partw = False
 
-                # Get Clan Case
-                for clc in blo.getElementsByTagName('clancase'):
-                    cc = gettext(clc.childNodes)
-
                 # Get jumpjets
                 jjets = JumpJets(None, self.weight)
                 for jets in blo.getElementsByTagName('jumpjets'):
@@ -305,9 +310,7 @@ class Mech:
             # Construct current loadout, empty name for base loadout
             self.load = Loadout(blo, self.weight, art4, art5, apollo, "",
                                 self.batt_val,
-                                partw, self.prod_era)
-            self.load.gear = Gear(self.weight, art4, art5, apollo,
-                                  equip, cc)
+                                partw, self.prod_era, equip)
             self.load.heatsinks = heatsinks
             self.load.jjets = jjets
 
@@ -327,18 +330,20 @@ class Mech:
                 for battv in lo.getElementsByTagName('battle_value'):
                     batt_val = int(gettext(battv.childNodes))
 
+                # Get equipment
+                equip_l = list(equip)
+
+                for node in lo.getElementsByTagName('equipment'):
+                    equip_l.append(Equip(node))
+
                 # Construct current loadout
                 current = Loadout(lo, self.weight, art4, art5, apollo, name,
                                   batt_val,
-                                  partw, prod_era)
+                                  partw, prod_era, equip_l)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
                 current.jjets = self.load.jjets
-
-                # Get Clan Case
-                for clc in lo.getElementsByTagName('clancase'):
-                    cc = gettext(clc.childNodes)
 
                 # Get jumpjets
                 for jets in lo.getElementsByTagName('jumpjets'):
@@ -348,15 +353,6 @@ class Mech:
                 for heat in lo.getElementsByTagName('heatsinks'):
                     current.heatsinks = Heatsinks(heat)
                     
-                # Get equipment
-                equip_l = list(equip)
-
-                for node in lo.getElementsByTagName('equipment'):
-                    equip_l.append(Equip(node))
-
-                current.gear = Gear(self.weight, art4, art5, apollo,
-                                    equip_l, cc)
-
                 self.loads.append(current)
                 
 
