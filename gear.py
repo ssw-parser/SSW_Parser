@@ -475,11 +475,18 @@ class Heatsinks(Item):
     """
     Heatsinks for a mech
     """
-    def __init__(self, hstype, tech_b, number):
-        self.type = hstype
-        self.tech_b = int(tech_b)
-        self.number = number
-
+    def __init__(self, heat):
+        # Handle default
+        if heat is None:
+            self.number = 0
+            self.tech_b = 2
+            self.type = "Single Heat Sink"
+        else:
+            self.number = int(heat.attributes["number"].value)
+            self.tech_b = int(heat.attributes["techbase"].value)
+            hnode = heat.getElementsByTagName("type")[0]
+            self.type = gettext(hnode.childNodes)
+        
         # Check for heatsink type, save data
         ident = False
         for i in HEATSINK:

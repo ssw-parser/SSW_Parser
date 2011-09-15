@@ -44,7 +44,7 @@ class Loadout:
         self.name = name
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
-        self.heatsinks = Heatsinks("Single Heat Sink", "2", 0)
+        self.heatsinks = Heatsinks(None)
         self.jj = JumpJets(weight, 0, "")
         self.partw = PartialWing(weight, partw)
         self.jumpb = JumpBoosters(weight, jumpb)
@@ -285,11 +285,8 @@ class Mech:
                     jjtype = gettext(jnode.childNodes)
 
                 # Get heat sinks
-                for hs in blo.getElementsByTagName('heatsinks'):
-                    heatsinks = int(hs.attributes["number"].value)
-                    hsbase = hs.attributes["techbase"].value
-                    hnode = hs.getElementsByTagName("type")[0]
-                    hstype = gettext(hnode.childNodes)
+                for heat in blo.getElementsByTagName('heatsinks'):
+                    heatsinks = Heatsinks(heat)
 
                 # Get multi-slot stuff
                 for mlts in blo.getElementsByTagName('multislot'):
@@ -316,7 +313,7 @@ class Mech:
                                 partw, jumpb, self.prod_era, source)
             self.load.gear = Gear(self.weight, art4, art5, apollo,
                                   equip, cc)
-            self.load.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
+            self.load.heatsinks = heatsinks
             self.load.jj = JumpJets(self.weight, jump, jjtype)
 
             # Get omni loadouts
@@ -364,12 +361,8 @@ class Mech:
                     current.jj = JumpJets(self.weight, jump, jjtype)
 
                 # Get heat sinks
-                for hs in lo.getElementsByTagName('heatsinks'):
-                    heatsinks = int(hs.attributes["number"].value)
-                    hsbase = hs.attributes["techbase"].value
-                    hnode = hs.getElementsByTagName("type")[0]
-                    hstype = gettext(hnode.childNodes)
-                    current.heatsinks = Heatsinks(hstype, hsbase, heatsinks)
+                for heat in lo.getElementsByTagName('heatsinks'):
+                    current.heatsinks = Heatsinks(heat)
                     
                 # Get equipment
                 equip_l = list(equip)
