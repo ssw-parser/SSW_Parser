@@ -195,10 +195,6 @@ class Mech:
     def __init__(self, xmldoc):
 
         # Set some data to zero that sometimes will not get set otherwise
-        jump = 0
-        jjtype = ""
-        enhancement = "---"
-        etb = 2
         self.multi = []
  
         # Get top-level stucture data
@@ -249,12 +245,9 @@ class Mech:
                 self.cockpit = Cockpit(cpt)
 
             # Get enhancement
+            self.enhancement = Enhancement(None, self.weight)
             for enh in mmech.getElementsByTagName('enhancement'):
-                enode = enh.getElementsByTagName("type")[0]
-                enhancement = gettext(enode.childNodes)
-                etb = int(enh.attributes["techbase"].value)
- 
-            self.enhancement = Enhancement(self.weight, enhancement, etb)
+                self.enhancement = Enhancement(enh, self.weight)
 
             # Get armor.
             for arm in mmech.getElementsByTagName('armor'):
@@ -271,12 +264,12 @@ class Mech:
                 jumpb = 0
 
                 # Get source
-                sr = blo.getElementsByTagName('source')[0]
-                source = gettext(sr.childNodes)
+                sour = blo.getElementsByTagName('source')[0]
+                source = gettext(sour.childNodes)
 
                 # Get Clan Case
-                for cc in blo.getElementsByTagName('clancase'):
-                    cc = gettext(cc.childNodes)
+                for clc in blo.getElementsByTagName('clancase'):
+                    cc = gettext(clc.childNodes)
 
                 # Get jumpjets
                 jjets = JumpJets(None, self.weight)
@@ -297,8 +290,8 @@ class Mech:
                     partw = True
 
                 # Get jump booster
-                for jb in blo.getElementsByTagName('jumpbooster'):
-                    jumpb = int(jb.attributes["mp"].value)
+                for jbo in blo.getElementsByTagName('jumpbooster'):
+                    jumpb = int(jbo.attributes["mp"].value)
                     
                 # Get equipment
                 equip = []
@@ -324,20 +317,20 @@ class Mech:
                 name = lo.attributes["name"].value
 
                 # Get source
-                sr = lo.getElementsByTagName('source')[0]
-                source = gettext(sr.childNodes)
+                sour = lo.getElementsByTagName('source')[0]
+                source = gettext(sour.childNodes)
 
                 # Get production era
-                pe = lo.getElementsByTagName('loadout_productionera')[0]
-                prod_era = int(gettext(pe.childNodes))
+                pre = lo.getElementsByTagName('loadout_productionera')[0]
+                prod_era = int(gettext(pre.childNodes))
 
                 # Get BV.
                 for battv in lo.getElementsByTagName('battle_value'):
                     batt_val = int(gettext(battv.childNodes))
 
                 # Get jump booster
-                for jb in blo.getElementsByTagName('jumpbooster'):
-                    jumpb = int(jb.attributes["mp"].value)
+                for jbo in lo.getElementsByTagName('jumpbooster'):
+                    jumpb = int(jbo.attributes["mp"].value)
                     
                 # Construct current loadout
                 current = Loadout(self.weight, art4, art5, apollo, name,
@@ -349,8 +342,8 @@ class Mech:
                 current.jjets = self.load.jjets
 
                 # Get Clan Case
-                for cc in blo.getElementsByTagName('clancase'):
-                    cc = gettext(cc.childNodes)
+                for clc in lo.getElementsByTagName('clancase'):
+                    cc = gettext(clc.childNodes)
 
                 # Get jumpjets
                 for jets in lo.getElementsByTagName('jumpjets'):

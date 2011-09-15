@@ -735,9 +735,14 @@ class Enhancement(Item):
     """
     A class to hold information about myomer enhancements
     """
-    def __init__(self, weight, enh, etb):
-        self.enhancement = enh
-        self.etb = int(etb)
+    def __init__(self, enh, weight):
+        if enh is None:
+            self.etb = 2
+            self.enhancement = "---"
+        else:
+            enode = enh.getElementsByTagName("type")[0]
+            self.enhancement = gettext(enode.childNodes)
+            self.etb = int(enh.attributes["techbase"].value)
 
         # Check for legal enhancement type, save data
         ident = False
