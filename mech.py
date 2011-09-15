@@ -48,7 +48,7 @@ class Loadout:
 
         # Get Clan Case
         for clc in load.getElementsByTagName('clancase'):
-            cc = gettext(clc.childNodes)
+            clanc = gettext(clc.childNodes)
 
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
@@ -66,7 +66,7 @@ class Loadout:
         self.prod_era = prod_era
 
         self.gear = Gear(weight, self.artemis4, self.artemis5, self.apollo,
-                         equip, cc)
+                         equip, clanc)
 
 
 
@@ -233,8 +233,8 @@ class Mech:
             self.prod_era = int(gettext(p_era.childNodes))
 
             # Get mech type (battle, industrial)
-            for mtyp in mmech.getElementsByTagName('mech_type'):
-                self.mechtype = gettext(mtyp.childNodes)
+            mtyp = mmech.getElementsByTagName('mech_type')[0]
+            self.mechtype = gettext(mtyp.childNodes)
 
             # Get techbase (IS, Clan)
             # get first instance only to avoid problems with Omni-mechs
@@ -242,8 +242,8 @@ class Mech:
             self.techbase = gettext(tbas.childNodes)
 
             # Get motive type (biped, quad)
-            for mot in mmech.getElementsByTagName('motive_type'):
-                self.motive = gettext(mot.childNodes)
+            mot = mmech.getElementsByTagName('motive_type')[0]
+            self.motive = gettext(mot.childNodes)
 
             ### Components starts here ###
 
@@ -293,7 +293,7 @@ class Mech:
                     self.multi.append(slot)
 
                 # Get partial wing
-                for pw in blo.getElementsByTagName('partialwing'):
+                for paw in blo.getElementsByTagName('partialwing'):
                     partw = True
 
                 # Get equipment
