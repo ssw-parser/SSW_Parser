@@ -24,7 +24,7 @@ Contains the master class for a mech, and its loadouts
 
 from math import ceil
 from operator import itemgetter
-from error import *
+from error import print_warning, warnings
 from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
 from movement import Enhancement, Gyro, Engine
@@ -266,31 +266,31 @@ class Mech:
             ### Loadout stuff starts here ###
 
             # Get baseloadout
-            for blo in mmech.getElementsByTagName('baseloadout'):
-                partw = False
+            blo = mmech.getElementsByTagName('baseloadout')[0]
+            partw = False
 
-                # Get jumpjets, needs for loop
-                jjets = JumpJets(None, self.weight)
-                for jets in blo.getElementsByTagName('jumpjets'):
-                    jjets = JumpJets(jets, self.weight)
+            # Get jumpjets, needs for loop
+            jjets = JumpJets(None, self.weight)
+            for jets in blo.getElementsByTagName('jumpjets'):
+                jjets = JumpJets(jets, self.weight)
 
-                # Get heat sinks
-                heatsinks = Heatsinks(get_child(blo, 'heatsinks'))
+            # Get heat sinks
+            heatsinks = Heatsinks(get_child(blo, 'heatsinks'))
 
-                # Get multi-slot stuff
-                for mlts in blo.getElementsByTagName('multislot'):
-                    slot = mlts.attributes["name"].value
-                    self.multi.append(slot)
+            # Get multi-slot stuff
+            for mlts in blo.getElementsByTagName('multislot'):
+                slot = mlts.attributes["name"].value
+                self.multi.append(slot)
 
-                # Get partial wing
-                for paw in blo.getElementsByTagName('partialwing'):
-                    partw = True
+            # Get partial wing
+            for paw in blo.getElementsByTagName('partialwing'):
+                partw = True
 
-                # Get equipment
-                equip = []
+            # Get equipment
+            equip = []
 
-                for node in blo.getElementsByTagName('equipment'):
-                    equip.append(Equip(node))
+            for node in blo.getElementsByTagName('equipment'):
+                equip.append(Equip(node))
 
             # Construct current loadout, empty name for base loadout
             self.load = Loadout(blo, self.weight, "", self.batt_val,
