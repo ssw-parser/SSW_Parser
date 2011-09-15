@@ -338,7 +338,7 @@ class Mech:
 
                 # Get jump booster
                 for jb in blo.getElementsByTagName('jumpbooster'):
-                    jumpb = int(hs.attributes["mp"].value)
+                    jumpb = int(jb.attributes["mp"].value)
                     
                 # Construct current loadout
                 current = Loadout(self.weight, art4, art5, apollo, name,
