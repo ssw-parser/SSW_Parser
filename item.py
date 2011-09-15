@@ -42,7 +42,8 @@ class Item:
         0 = Intro-tech,
         1 = Tournament legal,
         2 = Advanced,
-        3 = Experimental
+        3 = Experimental,
+        4 = Primitive (special)
         """
         raise NotImplementedError
 

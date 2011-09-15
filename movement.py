@@ -425,7 +425,8 @@ CMP_ENGINE = {
 # Name, techbase, year, BV multiplier, weight, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
-# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
+# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
+# 4 = primitive
 #
 # Missing: ICE, Fuel Cell, Fission
 ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x]), 0],
@@ -442,7 +443,7 @@ ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x]), 0],
            (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
           # Assume same year as Mackie
           ["Primitive Fusion Engine", 2, 2439, 1.0,
-           (lambda x : STD_ENGINE[ceil_5(x * 1.2)]), 2]]
+           (lambda x : STD_ENGINE[ceil_5(x * 1.2)]), 4]]
 
 # Gyro types
 #
@@ -480,15 +481,13 @@ ENHANCEMENT = [["---", 2, 0, (lambda x : 0)], #None
 #
 # Name, year, weight, rules level
 #
-# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
-#
-# TODO: figure out rules level for primitive cockpit
+# Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
+# 4 = primitive
 #
 COCKPIT = [["Standard Cockpit", 2300, 3, 0],
            ["Small Cockpit", 3067, 2, 1],
            # Assume same year as Mackie
-           # Treat primitive as advanced rules for now
-           ["Primitive Cockpit", 2439, 5, 2]]
+           ["Primitive Cockpit", 2439, 5, 4]]
 
 
 
@@ -497,6 +496,7 @@ class Cockpit(Item):
     A class to hold cockpit (and command console) info
     """
     def __init__(self, cpt):
+        Item.__init__(self)
         cnode = cpt.getElementsByTagName("type")[0]
         self.console = cnode.attributes["commandconsole"].value
         self.type = gettext(cnode.childNodes)
@@ -556,6 +556,7 @@ class JumpJets(Item):
     A class to hold info about jump-jets
     """
     def __init__(self, jets, weight):
+        Item.__init__(self)
         self.weight = weight # Mech weight, not JJ weight
         # Handle default
         if jets is None:
@@ -643,6 +644,7 @@ class JumpBoosters(Item):
     A class to hold info about jump booster
     """
     def __init__(self, weight, jump):
+        Item.__init__(self)
         self.weight = weight # Mech weight, not JJ weight
         self.jump = jump
 
@@ -689,6 +691,7 @@ class PartialWing(Item):
     A class to hold information about partial wings
     """
     def __init__(self, weight, wing):
+        Item.__init__(self)
         self.weight = weight # Mech weight, not JJ weight
         self.wing = wing # Bool: Do we mount a partial wing?
 
@@ -736,6 +739,7 @@ class Enhancement(Item):
     A class to hold information about myomer enhancements
     """
     def __init__(self, enh, weight):
+        Item.__init__(self)
         if enh is None:
             self.etb = 2
             self.enhancement = "---"
@@ -807,6 +811,7 @@ class Gyro(Item):
     A class to hold gyroscope information
     """
     def __init__(self, gyr, etype, erating):
+        Item.__init__(self)
         # We need engine info for calculations
         self.gtype = gettext(gyr.childNodes)
         self.g_base = int(gyr.attributes["techbase"].value)
@@ -868,6 +873,7 @@ class Engine(Item):
     A class to hold engine info for a mech
     """
     def __init__(self, eng, weight):
+        Item.__init__(self)
         self.erating = int(eng.attributes["rating"].value)
         self.e_base = int(eng.attributes["techbase"].value)
         self.etype = gettext(eng.childNodes)

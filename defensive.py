@@ -115,9 +115,8 @@ LEG_IS = {
 # Name, techbase, year, BV multiplier, weight factor, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
-# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
-#
-# TODO: Figure out right rules-level for primitive structure
+# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
+# 4 = primitive
 #
 # Missing: Industrial
 STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
@@ -125,8 +124,7 @@ STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
              ["Endo-Steel", 1, 2487, 1.0, 0.05, 1],
              # No year given for primitive structure,
              # assume it becomes available the same year as the Mackie
-             # treat primitive as advanced rules
-             ["Primitive Structure", 0, 2439, 1.0, 0.1, 2]]
+             ["Primitive Structure", 0, 2439, 1.0, 0.1, 4]]
 
 
 # Info on armor types
@@ -134,9 +132,8 @@ STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
 # Name, techbase, year, BV multiplier, armor multiplier, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
-# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
-#
-# TODO: Figure out right rules-level for primitive armor
+# Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
+# 4 = primitive
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
 ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0, 0],
@@ -147,8 +144,7 @@ ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0, 0],
          ["Stealth Armor", 0, 3063, 1.0, 1.0, 1],
          # No year given for primitive armor, assume it becomes available
          # the same year as the Mackie
-         # treat primitive as advanced rules
-         ["Primitive Armor", 0, 2439, 1.0, 0.67, 2]]
+         ["Primitive Armor", 0, 2439, 1.0, 0.67, 4]]
 
 
 class IS(Item):
@@ -156,6 +152,7 @@ class IS(Item):
     A class to hold info about the internal stucture
     """
     def __init__(self, stru, weight, motive):
+        Item.__init__(self)
         self.tech_base = int(stru.attributes["techbase"].value)
         self.type = get_child_data(stru, "type")
         wgt = weight
@@ -272,6 +269,7 @@ class Armor(Item):
     A class to hold armor info for a mech
     """
     def __init__(self, arm, weight, motive):
+        Item.__init__(self)
         self.tech_base = int(arm.attributes["techbase"].value)
         self.atype = get_child_data(arm, "type")
         head = int(get_child_data(arm, "hd"))
