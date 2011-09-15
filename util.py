@@ -61,3 +61,10 @@ def gettext(nodes):
     for node in nodes:
         if node.nodeType == node.TEXT_NODE:
             return node.data  
+
+def get_child_data(parent, name):
+    """
+    Get first child node data
+    """
+    child = parent.getElementsByTagName(name)[0]
+    return gettext(child.childNodes)

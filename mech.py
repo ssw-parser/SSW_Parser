@@ -29,7 +29,7 @@ from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
 from movement import Enhancement, Gyro, Engine
 from gear import Gear, Heatsinks, Equip
-from util import ceil_05, gettext
+from util import ceil_05, gettext, get_child_data
 
 class Loadout:
     """
@@ -225,52 +225,47 @@ class Mech:
 
             # Get BV. Should give prime variant BV for Omni-mechs
             # get first instance only to avoid problems with Omni-mechs
-            battv = mmech.getElementsByTagName('battle_value')[0]
-            self.batt_val = int(gettext(battv.childNodes))
+            self.batt_val = int(get_child_data(mmech, 'battle_value'))
 
             # Get production era
-            p_era = mmech.getElementsByTagName('productionera')[0]
-            self.prod_era = int(gettext(p_era.childNodes))
+            self.prod_era = int(get_child_data(mmech, 'productionera'))
 
             # Get mech type (battle, industrial)
-            mtyp = mmech.getElementsByTagName('mech_type')[0]
-            self.mechtype = gettext(mtyp.childNodes)
+            self.mechtype = get_child_data(mmech, 'mech_type')
 
             # Get techbase (IS, Clan)
             # get first instance only to avoid problems with Omni-mechs
-            tbas = mmech.getElementsByTagName('techbase')[0]
-            self.techbase = gettext(tbas.childNodes)
+            self.techbase = get_child_data(mmech, 'techbase')
 
             # Get motive type (biped, quad)
-            mot = mmech.getElementsByTagName('motive_type')[0]
-            self.motive = gettext(mot.childNodes)
+            self.motive = get_child_data(mmech, 'motive_type')
 
             ### Components starts here ###
 
             # Get internal structure type
-            for stru in mmech.getElementsByTagName('structure'):
-                self.structure = IS(stru, self.weight, self.motive)
+            stru = mmech.getElementsByTagName('structure')[0]
+            self.structure = IS(stru, self.weight, self.motive)
            
             # Get engine data
-            for eng in mmech.getElementsByTagName('engine'):
-                self.engine = Engine(eng, self.weight)
+            eng = mmech.getElementsByTagName('engine')[0]
+            self.engine = Engine(eng, self.weight)
 
             # Get gyro
-            for gyr in mmech.getElementsByTagName('gyro'):
-                self.gyro = Gyro(gyr, self.engine.etype, self.engine.erating)
+            gyr = mmech.getElementsByTagName('gyro')[0]
+            self.gyro = Gyro(gyr, self.engine.etype, self.engine.erating)
 
             # Get cockpit
-            for cpt in mmech.getElementsByTagName('cockpit'):
-                self.cockpit = Cockpit(cpt)
+            cpt = mmech.getElementsByTagName('cockpit')[0]
+            self.cockpit = Cockpit(cpt)
 
-            # Get enhancement
+            # Get enhancement, needs for loop
             self.enhancement = Enhancement(None, self.weight)
             for enh in mmech.getElementsByTagName('enhancement'):
                 self.enhancement = Enhancement(enh, self.weight)
 
             # Get armor.
-            for arm in mmech.getElementsByTagName('armor'):
-                self.armor = Armor(arm, self.weight, self.motive)
+            arm = mmech.getElementsByTagName('armor')[0]
+            self.armor = Armor(arm, self.weight, self.motive)
 
             ### Loadout stuff starts here ###
 
@@ -278,14 +273,14 @@ class Mech:
             for blo in mmech.getElementsByTagName('baseloadout'):
                 partw = False
 
-                # Get jumpjets
+                # Get jumpjets, needs for loop
                 jjets = JumpJets(None, self.weight)
                 for jets in blo.getElementsByTagName('jumpjets'):
                     jjets = JumpJets(jets, self.weight)
 
                 # Get heat sinks
-                for heat in blo.getElementsByTagName('heatsinks'):
-                    heatsinks = Heatsinks(heat)
+                heat = blo.getElementsByTagName('heatsinks')[0]
+                heatsinks = Heatsinks(heat)
 
                 # Get multi-slot stuff
                 for mlts in blo.getElementsByTagName('multislot'):
@@ -314,12 +309,10 @@ class Mech:
                 name = load.attributes["name"].value
 
                 # Get production era
-                pre = load.getElementsByTagName('loadout_productionera')[0]
-                prod_era = int(gettext(pre.childNodes))
+                prod_era = int(get_child_data(load, 'loadout_productionera'))
 
                 # Get BV.
-                for battv in load.getElementsByTagName('battle_value'):
-                    batt_val = int(gettext(battv.childNodes))
+                batt_val = int(get_child_data(load, 'battle_value'))
 
                 # Get equipment
                 equip_l = list(equip)
