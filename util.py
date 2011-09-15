@@ -23,6 +23,7 @@ Utility functions
 
 ceil_05 rounds up to nearest half-ton
 ceil_5 rounds up to nearest five ton
+gettext, get_child, and get_child_data are used for parsing xml
 """
 
 from math import ceil
@@ -61,6 +62,12 @@ def gettext(nodes):
     for node in nodes:
         if node.nodeType == node.TEXT_NODE:
             return node.data  
+
+def get_child(parent, name):
+    """
+    Get first child node
+    """
+    return parent.getElementsByTagName(name)[0]
 
 def get_child_data(parent, name):
     """

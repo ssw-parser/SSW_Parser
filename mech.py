@@ -29,7 +29,7 @@ from defensive import IS, Armor
 from movement import Cockpit, JumpJets, JumpBoosters, PartialWing
 from movement import Enhancement, Gyro, Engine
 from gear import Gear, Heatsinks, Equip
-from util import ceil_05, gettext, get_child_data
+from util import ceil_05, gettext, get_child, get_child_data
 
 class Loadout:
     """
@@ -243,20 +243,18 @@ class Mech:
             ### Components starts here ###
 
             # Get internal structure type
-            stru = mmech.getElementsByTagName('structure')[0]
-            self.structure = IS(stru, self.weight, self.motive)
+            self.structure = IS(get_child(mmech, 'structure'),
+                                self.weight, self.motive)
            
             # Get engine data
-            eng = mmech.getElementsByTagName('engine')[0]
-            self.engine = Engine(eng, self.weight)
+            self.engine = Engine(get_child(mmech, 'engine'), self.weight)
 
             # Get gyro
-            gyr = mmech.getElementsByTagName('gyro')[0]
-            self.gyro = Gyro(gyr, self.engine.etype, self.engine.erating)
+            self.gyro = Gyro(get_child(mmech, 'gyro'),
+                             self.engine.etype, self.engine.erating)
 
             # Get cockpit
-            cpt = mmech.getElementsByTagName('cockpit')[0]
-            self.cockpit = Cockpit(cpt)
+            self.cockpit = Cockpit(get_child(mmech, 'cockpit'))
 
             # Get enhancement, needs for loop
             self.enhancement = Enhancement(None, self.weight)
@@ -264,8 +262,8 @@ class Mech:
                 self.enhancement = Enhancement(enh, self.weight)
 
             # Get armor.
-            arm = mmech.getElementsByTagName('armor')[0]
-            self.armor = Armor(arm, self.weight, self.motive)
+            self.armor = Armor(get_child(mmech, 'armor'),
+                               self.weight, self.motive)
 
             ### Loadout stuff starts here ###
 
@@ -279,8 +277,7 @@ class Mech:
                     jjets = JumpJets(jets, self.weight)
 
                 # Get heat sinks
-                heat = blo.getElementsByTagName('heatsinks')[0]
-                heatsinks = Heatsinks(heat)
+                heatsinks = Heatsinks(get_child(blo, 'heatsinks'))
 
                 # Get multi-slot stuff
                 for mlts in blo.getElementsByTagName('multislot'):
