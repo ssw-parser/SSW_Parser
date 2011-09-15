@@ -555,10 +555,16 @@ class JumpJets(Item):
     """
     A class to hold info about jump-jets
     """
-    def __init__(self, weight, jump, jjtype):
+    def __init__(self, jets, weight):
         self.weight = weight # Mech weight, not JJ weight
-        self.jump = jump
-        self.jjtype = jjtype
+        # Handle default
+        if jets is None:
+            self.jump = 0
+            self.jjtype = ""
+        else:
+            self.jump = int(jets.attributes["number"].value)
+            jnode = jets.getElementsByTagName("type")[0]
+            self.jjtype = gettext(jnode.childNodes)
 
         # Check for legal jump-jet type, if jump-jets are mounted, save data
         if self.jump > 0:

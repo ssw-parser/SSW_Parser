@@ -230,8 +230,8 @@ def parse_omni(mech, date):
             print "Config: ", i.name
             print "BV: ", mech.get_bv(i)
             if (i.get_jump()):
-                year = get_comp_year(i.jj.get_year, year)
-                print "Jump: ", i.get_jump(), i.jj.jjtype
+                year = get_comp_year(i.jjets.get_year, year)
+                print "Jump: ", i.get_jump(), i.jjets.jjtype
             if (i.heatsinks.number):
                 year = get_comp_year(i.heatsinks.get_year, year)
                 print i.heatsinks.number, i.heatsinks.type
@@ -278,8 +278,8 @@ def main():
     mech.print_engine_report(mech.weight)
     date = get_comp_year(mech.engine.get_year, date)
     date = get_comp_year(mech.gyro.get_year, date)
-    if mech.load.jj.get_jump() > 0:
-        date = get_comp_year(mech.load.jj.get_year, date)
+    if mech.load.jjets.get_jump() > 0:
+        date = get_comp_year(mech.load.jjets.get_year, date)
     date = get_comp_year(mech.cockpit.get_year, date)
 #    print mech.cockpit.get_type(), mech.cockpit.get_weight()
     print mech.cockpit.summary_string()

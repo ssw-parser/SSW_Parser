@@ -45,7 +45,7 @@ class Loadout:
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks(None)
-        self.jj = JumpJets(weight, 0, "")
+        self.jjets = JumpJets(None, weight)
         self.partw = PartialWing(weight, partw)
         self.jumpb = JumpBoosters(weight, jumpb)
         self.prod_era = prod_era
@@ -80,7 +80,7 @@ class Loadout:
         Get max jumping range
         """
         # Ordinary jump-jets
-        jmp = self.jj.get_jump()
+        jmp = self.jjets.get_jump()
         # Handle partial wing
         if jmp and self.partw.has_wing():
             if self.weight >= 60:
@@ -104,7 +104,7 @@ class Loadout:
         if (mech.engine.etype == "XXL Engine"):
             run_heat = 6
 
-        move_heat = max(run_heat, self.jj.get_heat(mech))
+        move_heat = max(run_heat, self.jjets.get_heat(mech))
         heat_eff = 6 + self.get_sink() - move_heat
         if (printq):
             print "Heat Efficiency", heat_eff
@@ -279,10 +279,9 @@ class Mech:
                     cc = gettext(cc.childNodes)
 
                 # Get jumpjets
-                for jj in blo.getElementsByTagName('jumpjets'):
-                    jump = int(jj.attributes["number"].value)
-                    jnode = jj.getElementsByTagName("type")[0]
-                    jjtype = gettext(jnode.childNodes)
+                jjets = JumpJets(None, self.weight)
+                for jets in blo.getElementsByTagName('jumpjets'):
+                    jjets = JumpJets(jets, self.weight)
 
                 # Get heat sinks
                 for heat in blo.getElementsByTagName('heatsinks'):
@@ -314,7 +313,7 @@ class Mech:
             self.load.gear = Gear(self.weight, art4, art5, apollo,
                                   equip, cc)
             self.load.heatsinks = heatsinks
-            self.load.jj = JumpJets(self.weight, jump, jjtype)
+            self.load.jjets = jjets
 
             # Get omni loadouts
             self.loads = []
@@ -347,18 +346,15 @@ class Mech:
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
-                current.jj = self.load.jj
+                current.jjets = self.load.jjets
 
                 # Get Clan Case
                 for cc in blo.getElementsByTagName('clancase'):
                     cc = gettext(cc.childNodes)
 
                 # Get jumpjets
-                for jj in lo.getElementsByTagName('jumpjets'):
-                    jump = int(jj.attributes["number"].value)
-                    jnode = jj.getElementsByTagName("type")[0]
-                    jjtype = gettext(jnode.childNodes)
-                    current.jj = JumpJets(self.weight, jump, jjtype)
+                for jets in lo.getElementsByTagName('jumpjets'):
+                    current.jjets = JumpJets(jets, self.weight)
 
                 # Get heat sinks
                 for heat in lo.getElementsByTagName('heatsinks'):
@@ -585,7 +581,7 @@ class Mech:
         # Motive stuff
         motive = self.engine.get_weight()
         motive += self.gyro.get_weight()
-        motive += self.load.jj.get_weight()
+        motive += self.load.jjets.get_weight()
         motive += self.enhancement.get_weight()
         motive += self.cockpit.get_weight()
         if self.load.gear.supercharger:
@@ -708,9 +704,9 @@ class Mech:
         self.parse_speed(weight)
         gweight = self.gyro.get_weight()
         print self.gyro.summary_string()
-        jweight = self.load.jj.get_weight()
+        jweight = self.load.jjets.get_weight()
         if self.load.get_jump() > 0:
-            print "Fixed jump: ", self.load.get_jump(), self.load.jj.summary_string()
+            print "Fixed jump: ", self.load.get_jump(), self.load.jjets.summary_string()
         enhweight = self.enhancement.get_weight()
         print "Enhancement: ", self.enhancement.summary_string()
         tweight = eweight + gweight + jweight + enhweight
