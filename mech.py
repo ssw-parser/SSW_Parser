@@ -25,9 +25,7 @@ Contains the master class for a mech
 from math import ceil
 from error import print_warning, warnings
 from defensive import IS, Armor
-from movement import Cockpit, JumpJets
-from movement import Enhancement, Gyro, Engine
-from gear import Heatsinks, Equip
+from movement import Cockpit, Enhancement, Gyro, Engine
 from util import ceil_05, get_child, get_child_data
 from loadout import Baseloadout, Loadout
 
@@ -107,28 +105,16 @@ class Mech:
             for paw in blo.getElementsByTagName('partialwing'):
                 partw = True
 
-            # Get equipment
-            equip = []
-
-            for node in blo.getElementsByTagName('equipment'):
-                equip.append(Equip(node))
-
             # Construct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self.weight, self.batt_val,
-                                partw, self.prod_era, equip)
+                                    partw, self.prod_era)
 
             # Get omni loadouts
             self.loads = []
             for load in mmech.getElementsByTagName('loadout'):
  
-                # Get equipment
-                equip_l = list(equip)
-
-                for node in load.getElementsByTagName('equipment'):
-                    equip_l.append(Equip(node))
-
                 # Construct current loadout
-                current = Loadout(load, self.load, self.weight, partw, equip_l)
+                current = Loadout(load, self.load, self.weight, partw)
 
                 self.loads.append(current)
                 

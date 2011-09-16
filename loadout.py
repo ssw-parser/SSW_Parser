@@ -25,7 +25,7 @@ Contains mech loadouts
 from math import ceil
 from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
-from gear import Gear, Heatsinks
+from gear import Equip, Gear, Heatsinks
 from util import get_child, get_child_data
 
 class Load:
@@ -201,8 +201,16 @@ class Baseloadout(Load):
     """
     An base omni loadout
     """
-    def __init__(self, load, weight, batt_val, partw, prod_era, equip):
-        Load.__init__(self, load, weight, "", batt_val, partw, prod_era, equip)
+    def __init__(self, load, weight, batt_val, partw, prod_era):
+
+        # Get equipment
+        self.equip = []
+
+        for node in load.getElementsByTagName('equipment'):
+            self.equip.append(Equip(node))
+
+        Load.__init__(self, load, weight, "", batt_val, partw, prod_era,
+                      self.equip)
 
         # Get jumpjets, needs for loop
         self.jjets = JumpJets(None, self.weight)
@@ -213,13 +221,11 @@ class Baseloadout(Load):
         self.heatsinks = Heatsinks(get_child(load, 'heatsinks'))
 
 
-
-
 class Loadout(Load):
     """
     An omni loadout
     """
-    def __init__(self, load, base, weight, partw, equip):
+    def __init__(self, load, base, weight, partw):
         name = load.attributes["name"].value
 
         # Get production era
@@ -228,8 +234,14 @@ class Loadout(Load):
         # Get BV.
         batt_val = int(get_child_data(load, 'battle_value'))
 
+        # Get equipment
+        self.equip = list(base.equip)
+
+        for node in load.getElementsByTagName('equipment'):
+            self.equip.append(Equip(node))
+
         Load.__init__(self, load, weight, name, batt_val, partw, prod_era,
-                      equip)
+                      self.equip)
         # These needs to be set after call to Load
 
         # Use base config heatsinks if not overriden
@@ -245,3 +257,4 @@ class Loadout(Load):
         for heat in load.getElementsByTagName('heatsinks'):
             self.heatsinks = Heatsinks(heat)
                     
+
