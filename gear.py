@@ -395,36 +395,42 @@ AMMO = [["(IS) @ AC/2", ["(IS) Autocannon/2"], 45, 1, "X"],
 #
 # Name, BV, year, uses ammo rate, weight, explosive slots
 #
-O_EQUIPMENT = [["C3 Computer (Slave)", [0, 0], 3050, 0, 1, 0],
-               ["C3 Computer (Master)", [0, 0], 3050, 0, 5, 0],
-               ["Improved C3 Computer", [0, 0], 3062, 0, 2.5, 0],
-               ["TAG", [0, 0], 2600, 0, 1, 0],
-               ["Light TAG", [0, 0], 3054, 0, 0.5, 0],
-               ["Cargo, Liquid", [0, 0], 1900, 0, 1, 0],
-               # Experimental
-               ["Collapsible Command Module (CCM)", [0, 0], 2710, 0, 16, 0],
-               ["Coolant Pod", [0, 0], 3049, 0, 1, 1]]
+O_EQUIPMENT = {
+    "C3 Computer (Slave)" : [[0, 0], 3050, 0, 1, 0],
+    "C3 Computer (Master)" : [[0, 0], 3050, 0, 5, 0],
+    "Improved C3 Computer" : [[0, 0], 3062, 0, 2.5, 0],
+    "TAG" : [[0, 0], 2600, 0, 1, 0],
+    "Light TAG" : [[0, 0], 3054, 0, 0.5, 0],
+    "Cargo, Liquid" : [[0, 0], 1900, 0, 1, 0],
+    # Experimental
+    "Collapsible Command Module (CCM)" : [[0, 0], 2710, 0, 16, 0],
+    "Coolant Pod" : [[0, 0], 3049, 0, 1, 1]
+    }
 
 
-D_EQUIPMENT = [["A-Pod", [1, 0], 3055, 0, 0.5, 0],
-               ["B-Pod", [2, 0], 3069, 0, 1, 0],
-               ["(IS) Anti-Missile System", [32, 11], 2617, 1, 0.5, 0],
-               ["Guardian ECM Suite", [61, 0], 2597, 0, 1.5, 0],
-               ["Beagle Active Probe", [10, 0], 2576, 0, 1.5, 0],
-               ["ECM Suite", [61, 0], 2597, 0, 1, 0], # Clan
-               ["Active Probe", [12, 0], 2576, 0, 1, 0], # Clan
-               ["Light Active Probe", [7, 0], 2576, 0, 0.5, 0], # No year found
-               ["(CL) Anti-Missile System", [32, 22], 2617, 1, 0.5, 0],
-               ["CASE", [0, 0], 2476, 0, 0.5, 0], # HACK: CASE
-               # Experimental
-               ["Angel ECM", [100, 0], 3057, 0, 2, 0],
-               ["Bloodhound Active Probe", [25, 0], 3058, 0, 2, 0],
-               ["Electronic Warfare Equipment", [39, 0], 3025, 0, 7.5, 0],
-               ["(CL) Laser Anti-Missile System", [45, 0], 3048, 0, 1, 0],
-               ["(IS) CASE II", [0, 0], 3064, 0, 1, 0],
-               ["(CL) CASE II", [0, 0], 3062, 0, 0.5, 0]]
+D_EQUIPMENT = {
+    "A-Pod" : [[1, 0], 3055, 0, 0.5, 0],
+    "B-Pod" : [[2, 0], 3069, 0, 1, 0],
+    "(IS) Anti-Missile System" : [[32, 11], 2617, 1, 0.5, 0],
+    "Guardian ECM Suite" : [[61, 0], 2597, 0, 1.5, 0],
+    "Beagle Active Probe" : [[10, 0], 2576, 0, 1.5, 0],
+    "ECM Suite" : [[61, 0], 2597, 0, 1, 0], # Clan
+    "Active Probe" : [[12, 0], 2576, 0, 1, 0], # Clan
+    "Light Active Probe" : [[7, 0], 2576, 0, 0.5, 0], # No year found
+    "(CL) Anti-Missile System" : [[32, 22], 2617, 1, 0.5, 0],
+    "CASE" : [[0, 0], 2476, 0, 0.5, 0], # HACK: CASE
+    # Experimental
+    "Angel ECM" : [[100, 0], 3057, 0, 2, 0],
+    "Bloodhound Active Probe" : [[25, 0], 3058, 0, 2, 0],
+    "Electronic Warfare Equipment" : [[39, 0], 3025, 0, 7.5, 0],
+    "(CL) Laser Anti-Missile System" : [[45, 0], 3048, 0, 1, 0],
+    "(IS) CASE II" : [[0, 0], 3064, 0, 1, 0],
+    "(CL) CASE II" : [[0, 0], 3062, 0, 0.5, 0]
+    }
 
-D_PHYSICAL = [["Small Shield", [50, 0], 3067, 0, 2, 0]]
+D_PHYSICAL ={
+    "Small Shield" : [[50, 0], 3067, 0, 2, 0]
+    }
 
 # Targeting computers, currently not used
 #
@@ -530,13 +536,14 @@ class Heatsinks(Item):
         return self.number * self.cap
 
 
-class Equip:
+class Equip(Item):
     """
     The new equipment class being tested out
     """
     # TODO: Make a real item
     # TODO: Make this a parent class, and split according to type?
     def __init__(self, node):
+        Item.__init__(self)
         self.name = get_child_data(node, "name")
         self.typ = get_child_data(node, "type")
         self.rear = False
@@ -562,6 +569,13 @@ class Equip:
         elif self.name[0:4] == "(T) ":
             self.turret = True
             self.name = self.name[4:]
+
+
+    def get_type(self):
+        """
+        Return equipment name
+        """
+        return self.name
 
 
 
@@ -689,8 +703,8 @@ class OffEquiplist:
     """
     def __init__(self):
         self.list = []
-        for equip in O_EQUIPMENT:
-            self.list.append(Equipment(equip))
+        for equip in O_EQUIPMENT.keys():
+            self.list.append(Equipment(equip, O_EQUIPMENT))
 
 class DefEquiplist:
     """
@@ -698,20 +712,20 @@ class DefEquiplist:
     """
     def __init__(self):
         self.list = []
-        for equip in D_EQUIPMENT:
-            self.list.append(Equipment(equip))
+        for equip in D_EQUIPMENT.keys():
+            self.list.append(Equipment(equip, D_EQUIPMENT))
 
 class Equipment:
     """
     An equipment type
     """
-    def __init__(self, ginfo):
-        self.name = ginfo[0]
-        self.batt_val = ginfo[1]
-        self.year = ginfo[2]
-        self.useammo = ginfo[3]
-        self.weight = ginfo[4]
-        self.explosive = ginfo[5]
+    def __init__(self, key, dic):
+        self.name = key
+        self.batt_val = dic[key][0]
+        self.year = dic[key][1]
+        self.useammo = dic[key][2]
+        self.weight = dic[key][3]
+        self.explosive = dic[key][4]
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
@@ -747,8 +761,8 @@ class DefPhysicallist:
     """
     def __init__(self):
         self.list = []
-        for phys in D_PHYSICAL:
-            self.list.append(Equipment(phys))
+        for phys in D_PHYSICAL.keys():
+            self.list.append(Equipment(phys, D_PHYSICAL))
         self.name = "physcial"
 
 class Physical:
