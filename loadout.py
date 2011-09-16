@@ -28,9 +28,9 @@ from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Gear, Heatsinks
 from util import get_child_data
 
-class Loadout:
+class Load:
     """
-    An omni loadout
+    Parent class for omni loadouts
     """
     def __init__(self, load, weight, name, batt_val, partw, prod_era, equip):
         self.weight = weight # Save weight just in case
@@ -197,5 +197,18 @@ class Loadout:
 
         return obv
 
+class Baseloadout(Load):
+    """
+    An base omni loadout
+    """
+    def __init__(self, load, weight, batt_val, partw, prod_era, equip):
+        Load.__init__(self, load, weight, "", batt_val, partw, prod_era, equip)
 
 
+class Loadout(Load):
+    """
+    An omni loadout
+    """
+    def __init__(self, load, weight, batt_val, partw, prod_era, equip):
+        name = load.attributes["name"].value
+        Load.__init__(self, load, weight, name, batt_val, partw, prod_era, equip)

@@ -29,7 +29,7 @@ from movement import Cockpit, JumpJets
 from movement import Enhancement, Gyro, Engine
 from gear import Heatsinks, Equip
 from util import ceil_05, get_child, get_child_data
-from loadout import Loadout
+from loadout import Baseloadout, Loadout
 
 # A mech class with data read from SSW xml data for use in various
 # applications.
@@ -122,7 +122,7 @@ class Mech:
                 equip.append(Equip(node))
 
             # Construct current loadout, empty name for base loadout
-            self.load = Loadout(blo, self.weight, "", self.batt_val,
+            self.load = Baseloadout(blo, self.weight, self.batt_val,
                                 partw, self.prod_era, equip)
             self.load.heatsinks = heatsinks
             self.load.jjets = jjets
@@ -130,8 +130,7 @@ class Mech:
             # Get omni loadouts
             self.loads = []
             for load in mmech.getElementsByTagName('loadout'):
-                name = load.attributes["name"].value
-
+ 
                 # Get production era
                 prod_era = int(get_child_data(load, 'loadout_productionera'))
 
@@ -145,7 +144,7 @@ class Mech:
                     equip_l.append(Equip(node))
 
                 # Construct current loadout
-                current = Loadout(load, self.weight, name, batt_val,
+                current = Loadout(load, self.weight, batt_val,
                                   partw, prod_era, equip_l)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
