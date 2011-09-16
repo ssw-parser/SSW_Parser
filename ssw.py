@@ -282,14 +282,11 @@ def main():
     if mech.load.jjets.get_jump() > 0:
         date = get_comp_year(mech.load.jjets.get_year, date)
     date = get_comp_year(mech.cockpit.get_year, date)
-#    print mech.cockpit.get_type(), mech.cockpit.get_weight()
     print mech.cockpit.summary_string()
-    if mech.cockpit.console == "TRUE":
-        print "Command Console"
     date = get_comp_year(mech.enhancement.get_year, date)
     print "-3-----------------------------"
     date = get_comp_year(mech.load.heatsinks.get_year, date)
-    print mech.load.heatsinks.get_type(), mech.load.heatsinks.number
+    print mech.load.heatsinks.summary_string()
     print "-4-----------------------------"
     date = get_comp_year(mech.armor.get_year, date)
     mech.armor.parse_armor()

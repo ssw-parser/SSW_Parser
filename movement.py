@@ -524,9 +524,11 @@ class Cockpit(Item):
     def get_type(self):
         """
         Return cockpit type
-        TODO: Command console
         """
-        return self.type
+        msg = self.type
+        if self.console == "TRUE":
+            msg += " (Command Console)"
+        return msg
 
     def get_rules_level(self):
         """

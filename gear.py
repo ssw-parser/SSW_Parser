@@ -511,7 +511,7 @@ class Heatsinks(Item):
         """
         Return heat-sink type
         """
-        return self.type
+        return str(self.number) + " " + self.type
 
     def get_rules_level(self):
         """
