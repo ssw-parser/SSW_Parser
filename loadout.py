@@ -209,6 +209,14 @@ class Loadout(Load):
     """
     An omni loadout
     """
-    def __init__(self, load, weight, batt_val, partw, prod_era, equip):
+    def __init__(self, load, weight, partw, equip):
         name = load.attributes["name"].value
-        Load.__init__(self, load, weight, name, batt_val, partw, prod_era, equip)
+
+        # Get production era
+        prod_era = int(get_child_data(load, 'loadout_productionera'))
+
+        # Get BV.
+        batt_val = int(get_child_data(load, 'battle_value'))
+
+        Load.__init__(self, load, weight, name, batt_val, partw, prod_era,
+                      equip)

@@ -131,12 +131,6 @@ class Mech:
             self.loads = []
             for load in mmech.getElementsByTagName('loadout'):
  
-                # Get production era
-                prod_era = int(get_child_data(load, 'loadout_productionera'))
-
-                # Get BV.
-                batt_val = int(get_child_data(load, 'battle_value'))
-
                 # Get equipment
                 equip_l = list(equip)
 
@@ -144,8 +138,7 @@ class Mech:
                     equip_l.append(Equip(node))
 
                 # Construct current loadout
-                current = Loadout(load, self.weight, batt_val,
-                                  partw, prod_era, equip_l)
+                current = Loadout(load, self.weight, partw, equip_l)
                 # Use base config heatsinks if not overriden
                 current.heatsinks = self.load.heatsinks
                 # Use base config jump-jets if not overriden
