@@ -98,14 +98,6 @@ class Mech:
             blo = mmech.getElementsByTagName('baseloadout')[0]
             partw = False
 
-            # Get jumpjets, needs for loop
-            jjets = JumpJets(None, self.weight)
-            for jets in blo.getElementsByTagName('jumpjets'):
-                jjets = JumpJets(jets, self.weight)
-
-            # Get heat sinks
-            heatsinks = Heatsinks(get_child(blo, 'heatsinks'))
-
             # Get multi-slot stuff
             for mlts in blo.getElementsByTagName('multislot'):
                 slot = mlts.attributes["name"].value
@@ -124,8 +116,6 @@ class Mech:
             # Construct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self.weight, self.batt_val,
                                 partw, self.prod_era, equip)
-            self.load.heatsinks = heatsinks
-            self.load.jjets = jjets
 
             # Get omni loadouts
             self.loads = []
@@ -138,20 +128,8 @@ class Mech:
                     equip_l.append(Equip(node))
 
                 # Construct current loadout
-                current = Loadout(load, self.weight, partw, equip_l)
-                # Use base config heatsinks if not overriden
-                current.heatsinks = self.load.heatsinks
-                # Use base config jump-jets if not overriden
-                current.jjets = self.load.jjets
+                current = Loadout(load, self.load, self.weight, partw, equip_l)
 
-                # Get jumpjets
-                for jets in load.getElementsByTagName('jumpjets'):
-                    current.jjets = JumpJets(jets, self.weight)
-
-                # Get heat sinks
-                for heat in load.getElementsByTagName('heatsinks'):
-                    current.heatsinks = Heatsinks(heat)
-                    
                 self.loads.append(current)
                 
 

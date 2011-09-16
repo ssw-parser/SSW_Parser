@@ -26,7 +26,7 @@ from math import ceil
 from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Gear, Heatsinks
-from util import get_child_data
+from util import get_child, get_child_data
 
 class Load:
     """
@@ -204,12 +204,22 @@ class Baseloadout(Load):
     def __init__(self, load, weight, batt_val, partw, prod_era, equip):
         Load.__init__(self, load, weight, "", batt_val, partw, prod_era, equip)
 
+        # Get jumpjets, needs for loop
+        self.jjets = JumpJets(None, self.weight)
+        for jets in load.getElementsByTagName('jumpjets'):
+            self.jjets = JumpJets(jets, self.weight)
+
+        # Get heat sinks
+        self.heatsinks = Heatsinks(get_child(load, 'heatsinks'))
+
+
+
 
 class Loadout(Load):
     """
     An omni loadout
     """
-    def __init__(self, load, weight, partw, equip):
+    def __init__(self, load, base, weight, partw, equip):
         name = load.attributes["name"].value
 
         # Get production era
@@ -220,3 +230,18 @@ class Loadout(Load):
 
         Load.__init__(self, load, weight, name, batt_val, partw, prod_era,
                       equip)
+        # These needs to be set after call to Load
+
+        # Use base config heatsinks if not overriden
+        self.heatsinks = base.heatsinks
+        # Use base config jump-jets if not overriden
+        self.jjets = base.jjets
+
+        # Get jumpjets
+        for jets in load.getElementsByTagName('jumpjets'):
+            self.jjets = JumpJets(jets, self.weight)
+
+        # Get heat sinks
+        for heat in load.getElementsByTagName('heatsinks'):
+            self.heatsinks = Heatsinks(heat)
+                    
