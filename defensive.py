@@ -369,7 +369,13 @@ class Armor(Item):
         """
         Return armor type
         """
-        return self.atype
+        if self.tech_base == 0:
+            base = "(IS)"
+        elif self.tech_base == 1:
+            base = "(Clan)"
+        elif self.tech_base == 2:
+            base = ""
+        return self.atype + " " + base
 
     def get_rules_level(self):
         """
@@ -477,13 +483,7 @@ class Armor(Item):
         """
         Report total armor
         """
-        if self.tech_base == 0:
-            base = "(Inner Sphere)"
-        elif self.tech_base == 1:
-            base = "(Clan)"
-        elif self.tech_base == 2:
-            base = ""
-        print str(self.get_weight()) + " tons " + self.atype + " " + base
+        print self.summary_string()
         print self.total.get_report()
 
     def parse_armor(self):

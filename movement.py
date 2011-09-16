@@ -585,7 +585,7 @@ class JumpJets(Item):
         """
         Return jump-jet type
         """
-        return self.jjtype
+        return str(self.jump) + " " + self.jjtype
 
     def get_rules_level(self):
         """
@@ -903,7 +903,7 @@ class Engine(Item):
         """
         Return engine type
         """
-        return self.etype
+        return str(self.erating) + " " + self.etype
 
     def get_rules_level(self):
         """

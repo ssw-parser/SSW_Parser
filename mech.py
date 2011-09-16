@@ -656,7 +656,7 @@ class Mech:
         """
         eweight = self.engine.get_weight()
         eratio = float(eweight) / float(weight)
-        print "Engine: ", self.engine.get_type(), self.engine.erating, eweight, "tons", int(eratio * 100), "%"
+        print "Engine: ", self.engine.summary_string(), int(eratio * 100), "%"
         if (eratio > 0.4):
             msg = "WARNING: Very heavy engine!"
             msg2 = "  Mounting LFE or XLFE suggested."
@@ -668,7 +668,7 @@ class Mech:
         print self.gyro.summary_string()
         jweight = self.load.jjets.get_weight()
         if self.load.get_jump() > 0:
-            print "Fixed jump: ", self.load.get_jump(), self.load.jjets.summary_string()
+            print "Fixed jump: ", self.load.jjets.summary_string()
         enhweight = self.enhancement.get_weight()
         print "Enhancement: ", self.enhancement.summary_string()
         tweight = eweight + gweight + jweight + enhweight
