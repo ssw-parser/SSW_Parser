@@ -496,22 +496,24 @@ MISSILE_ENCH = [["Artemis IV", 2598],
 #
 # Name, year, BV multiplier, damage formula, weight
 #
-PHYSICAL = [["Hatchet", 3022, 1.5, (lambda x : ceil(x / 5.0)),
-             (lambda x : ceil(x / 15.0))],
-            ["Sword", 3058, 1.725, (lambda x : ceil(x / 10.0) + 1),
-             (lambda x : ceil_05(x / 20.0))],
-            ["Retractable Blade", 2420, 1.725, (lambda x : ceil(x / 10.0)),
-             (lambda x : ceil_05(x / 2.0) + 0.5)], 
-            ["Claws", 3060, 1.275, (lambda x : ceil(x / 7.0)),
-             (lambda x : ceil(x / 15.0))],
-            ["Mace", 3061, 1.0, (lambda x : ceil(x / 4.0)),
-             (lambda x : ceil(x / 10.0))],
-            ["Lance", 3064, 1.0, (lambda x : ceil(x / 5.0)),
-             (lambda x : ceil_05(x / 20.0))],
-            # Hack: Divide Talons BV multiplier by 2, because it is one item
-            # being split up into two
-            ["Talons", 3072, 1.0, (lambda x : ceil(x / 5.0) / 2.0),
-             (lambda x : ceil(x / 15.0))]]
+PHYSICAL = {
+    "Hatchet" : [3022, 1.5, (lambda x : ceil(x / 5.0)),
+                 (lambda x : ceil(x / 15.0))],
+    "Sword" : [3058, 1.725, (lambda x : ceil(x / 10.0) + 1),
+               (lambda x : ceil_05(x / 20.0))],
+    "Retractable Blade" : [2420, 1.725, (lambda x : ceil(x / 10.0)),
+                           (lambda x : ceil_05(x / 2.0) + 0.5)], 
+    "Claws" : [3060, 1.275, (lambda x : ceil(x / 7.0)),
+               (lambda x : ceil(x / 15.0))],
+    "Mace" : [3061, 1.0, (lambda x : ceil(x / 4.0)),
+              (lambda x : ceil(x / 10.0))],
+    "Lance" : [3064, 1.0, (lambda x : ceil(x / 5.0)),
+               (lambda x : ceil_05(x / 20.0))],
+    # Hack: Divide Talons BV multiplier by 2, because it is one item
+    # being split up into two
+    "Talons" : [3072, 1.0, (lambda x : ceil(x / 5.0) / 2.0),
+                (lambda x : ceil(x / 15.0))]
+    }
 
 
 class Heatsinks(Item):
@@ -802,7 +804,7 @@ class Physicallist:
     """
     def __init__(self):
         self.list = []
-        for phys in PHYSICAL:
+        for phys in PHYSICAL.keys():
             self.list.append(Physical(phys))
         self.name = "physcial"
 
@@ -820,12 +822,12 @@ class Physical:
     """
     A individual physical weapon type
     """
-    def __init__(self, pinfo):
-        self.name = pinfo[0]
-        self.year = pinfo[1]
-        self.bv_mult = pinfo[2]
-        self.dam = pinfo[3]
-        self.weight = pinfo[4]
+    def __init__(self, key):
+        self.name = key
+        self.year = PHYSICAL[key][0]
+        self.bv_mult = PHYSICAL[key][1]
+        self.dam = PHYSICAL[key][2]
+        self.weight = PHYSICAL[key][3]
         self.count = 0
 
     def addone(self):
