@@ -649,7 +649,6 @@ class Weapon:
         self.batt_val = WEAPONS[key][0]
         self.range = WEAPONS[key][1]
         self.enhance = WEAPONS[key][2]
-        self.year = WEAPONS[key][3]
         self.useammo = WEAPONS[key][4]
         self.weight = WEAPONS[key][5]
         self.heat = WEAPONS[key][6]
@@ -774,7 +773,6 @@ class Equipment:
     def __init__(self, key, dic):
         self.name = key
         self.batt_val = dic[key][0]
-        self.year = dic[key][1]
         self.useammo = dic[key][2]
         self.weight = dic[key][3]
         self.explosive = dic[key][4]
@@ -823,7 +821,6 @@ class Physical:
     """
     def __init__(self, key):
         self.name = key
-        self.year = PHYSICAL[key][0]
         self.bv_mult = PHYSICAL[key][1]
         self.dam = PHYSICAL[key][2]
         self.weight = PHYSICAL[key][3]

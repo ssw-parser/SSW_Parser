@@ -98,10 +98,6 @@ def parse_gear(mech, date):
                 warnings.add((st1, st2))
                 print_warning((st1, st2))
 
-            # calculate earliest date
-            if date < weap.year:
-                date = weap.year
-
             report = str(weap.count)
             # If there is rear-mounted stuff, only list them, do not count for
             # evaluation
@@ -125,23 +121,21 @@ def parse_gear(mech, date):
                                                mech.artemis4, mech.artemis5,
                                                mech.apollo)
 
+    # Calculate year
+    for item in mech.gear.equip:
+        if date < item.get_year():
+            date = item.get_year()
+        
+
     # Print used equipment
     for equip in mech.gear.o_equiplist.list:
         if equip.count > 0:
-            # calculate earliest date
-            if date < equip.year:
-                date = equip.year
-
             report = str(equip.count)
             report = report + " " + equip.name
             print report
 
     for equip in mech.gear.d_equiplist.list:
         if equip.count > 0:
-            # calculate earliest date
-            if date < equip.year:
-                date = equip.year
-
             report = str(equip.count)
             report = report + " " + equip.name
             print report
@@ -150,10 +144,6 @@ def parse_gear(mech, date):
     # Print used physicals
     for phys in mech.gear.physicallist.list:
         if phys.count > 0:
-            # calculate earliest date
-            if date < phys.year:
-                date = phys.year
-
             report = str(phys.count)
             report = report + " " + phys.name
             dam = phys.dam(mech.weight)
