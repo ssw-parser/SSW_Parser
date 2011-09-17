@@ -227,7 +227,7 @@ def parse_omni(mech, date, mspd):
         for i in mech.loads:
             year = date
             print "-----------------"
-            print "Config: ", i.name
+            print "Config: ", i.get_name()
             print "BV: ", mech.get_bv(i)
             if (i.get_jump()):
                 year = get_comp_year(i.jjets.get_year, year)

@@ -32,12 +32,11 @@ class Load:
     """
     Parent class for omni loadouts
     """
-    def __init__(self, load, weight, name, batt_val, partw, prod_era, equip):
+    def __init__(self, load, weight, batt_val, partw, prod_era, equip):
         self.weight = weight # Save weight just in case
         self.artemis4 = load.attributes["fcsa4"].value
         self.artemis5 = load.attributes["fcsa5"].value
         self.apollo = load.attributes["fcsapollo"].value
-        self.name = name
 
         # Get source
         self.source = get_child_data(load, 'source')
@@ -64,6 +63,11 @@ class Load:
                          equip, clanc)
 
 
+    def get_name(self):
+        """
+        Return the name of the Loadout, if any
+        """
+        raise NotImplementedError
 
     def get_sink(self):
         """
@@ -209,7 +213,7 @@ class Baseloadout(Load):
         for node in load.getElementsByTagName('equipment'):
             self.equip.append(Equip(node))
 
-        Load.__init__(self, load, weight, "", batt_val, partw, prod_era,
+        Load.__init__(self, load, weight, batt_val, partw, prod_era,
                       self.equip)
 
         # Get jumpjets, needs for loop
@@ -220,13 +224,18 @@ class Baseloadout(Load):
         # Get heat sinks
         self.heatsinks = Heatsinks(get_child(load, 'heatsinks'))
 
+    def get_name(self):
+        """
+        Return empty string for name
+        """
+        return ""
 
 class Loadout(Load):
     """
     An omni loadout
     """
     def __init__(self, load, base, weight, partw):
-        name = load.attributes["name"].value
+        self.name = load.attributes["name"].value
 
         # Get production era
         prod_era = int(get_child_data(load, 'loadout_productionera'))
@@ -240,7 +249,7 @@ class Loadout(Load):
         for node in load.getElementsByTagName('equipment'):
             self.equip.append(Equip(node))
 
-        Load.__init__(self, load, weight, name, batt_val, partw, prod_era,
+        Load.__init__(self, load, weight, batt_val, partw, prod_era,
                       self.equip)
         # These needs to be set after call to Load
 
@@ -256,5 +265,10 @@ class Loadout(Load):
         # Get heat sinks
         for heat in load.getElementsByTagName('heatsinks'):
             self.heatsinks = Heatsinks(heat)
-                    
+
+    def get_name(self):
+        """
+        Return configuration name
+        """
+        return self.name
 
