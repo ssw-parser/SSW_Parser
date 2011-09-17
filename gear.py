@@ -623,14 +623,13 @@ class Equip(Item):
             return EQUIPMENT[self.name][1]
         elif self.typ == "TargetingComputer":
             return TARCOMPS[self.name][1]
-        # TODO: Ammo year
+        # TODO: Ammo year, ignore for now
         elif self.typ == "ammunition":
             return 0
-#        elif self.typ == "physical":
-#            return 
+        elif self.typ == "physical":
+            return PHYSICAL[self.name][0]
         else:
-            pass
-#            return WEAPONS[name][3]
+            return WEAPONS[self.name][3]
 
 class Weaponlist:
     """
