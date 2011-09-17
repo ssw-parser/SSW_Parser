@@ -432,15 +432,49 @@ D_EQUIPMENT = {
     "(CL) CASE II" : [[0, 0], 3062, 0, 0.5, 0]
     }
 
+EQUIPMENT = {
+    "C3 Computer (Slave)" : [[0, 0], 3050, 0, 1, 0],
+    "C3 Computer (Master)" : [[0, 0], 3050, 0, 5, 0],
+    "Improved C3 Computer" : [[0, 0], 3062, 0, 2.5, 0],
+    "TAG" : [[0, 0], 2600, 0, 1, 0],
+    "Light TAG" : [[0, 0], 3054, 0, 0.5, 0],
+    "Cargo, Liquid" : [[0, 0], 1900, 0, 1, 0],
+    # Experimental
+    "Collapsible Command Module (CCM)" : [[0, 0], 2710, 0, 16, 0],
+    "Coolant Pod" : [[0, 0], 3049, 0, 1, 1],
+
+    "A-Pod" : [[1, 0], 3055, 0, 0.5, 0],
+    "B-Pod" : [[2, 0], 3069, 0, 1, 0],
+    "(IS) Anti-Missile System" : [[32, 11], 2617, 1, 0.5, 0],
+    "Guardian ECM Suite" : [[61, 0], 2597, 0, 1.5, 0],
+    "Beagle Active Probe" : [[10, 0], 2576, 0, 1.5, 0],
+    "ECM Suite" : [[61, 0], 2597, 0, 1, 0], # Clan
+    "Active Probe" : [[12, 0], 2576, 0, 1, 0], # Clan
+    "Light Active Probe" : [[7, 0], 2576, 0, 0.5, 0], # No year found
+    "(CL) Anti-Missile System" : [[32, 22], 2617, 1, 0.5, 0],
+    "CASE" : [[0, 0], 2476, 0, 0.5, 0], # HACK: CASE
+    # Experimental
+    "Angel ECM" : [[100, 0], 3057, 0, 2, 0],
+    "Bloodhound Active Probe" : [[25, 0], 3058, 0, 2, 0],
+    "Electronic Warfare Equipment" : [[39, 0], 3025, 0, 7.5, 0],
+    "(CL) Laser Anti-Missile System" : [[45, 0], 3048, 0, 1, 0],
+    "(IS) CASE II" : [[0, 0], 3064, 0, 1, 0],
+    "(CL) CASE II" : [[0, 0], 3062, 0, 0.5, 0]
+    }
+
 D_PHYSICAL = {
     "Small Shield" : [[50, 0], 3067, 0, 2, 0]
     }
 
-# Targeting computers, currently not used
+# Targeting computers
+#
+# ?, year, ?
 #
 # TODO: fix this
-TARCOMPS = [["(IS) Targeting Computer", 0, 3062, 0],
-            ["(CL) Targeting Computer", 0, 2860, 0]]
+TARCOMPS = {
+    "(IS) Targeting Computer" : [0, 3062, 0],
+    "(CL) Targeting Computer" : [0, 2860, 0]
+    }
 
 # Info on heatsink types
 #
@@ -581,7 +615,20 @@ class Equip(Item):
         """
         return self.name
 
-
+    def get_year(self):
+        if (self.typ == "equipment" or self.typ == "CASE" or
+            self.typ == "CASEII"):
+            return EQUIPMENT[self.name][1]
+        elif self.typ == "TargetingComputer":
+            return TARCOMPS[self.name][1]
+        # TODO: Ammo year
+        elif self.typ == "ammunition":
+            return 0
+#        elif self.typ == "physical":
+#            return 
+        else:
+            pass
+#            return WEAPONS[name][3]
 
 class Weaponlist:
     """
