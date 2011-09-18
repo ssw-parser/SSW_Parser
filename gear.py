@@ -631,6 +631,21 @@ class Equip(Item):
         else:
             return WEAPONS[self.name][3]
 
+    def get_weight(self):
+        # TODO: Artemis & friends weight
+        # Tarcomp
+        # Physical parameter
+        if (self.typ == "equipment" or self.typ == "CASE" or
+            self.typ == "CASEII"):
+            return EQUIPMENT[self.name][3]
+        elif self.typ == "ammunition":
+            return AMMO[self.name][2]
+        elif self.typ == "physical":
+            return PHYSICAL[self.name][3](mech.weight)
+        else:
+            return WEAPONS[self.name][5]
+            
+
 class Weaponlist:
     """
     Store the list with weapons
