@@ -479,12 +479,12 @@ EQUIPMENT = {
 
 # Targeting computers
 #
-# ?, year, ?
+# rules level, year, ?
 #
 # TODO: fix this
 TARCOMPS = {
-    "(IS) Targeting Computer" : [0, 3062, 0],
-    "(CL) Targeting Computer" : [0, 2860, 0]
+    "(IS) Targeting Computer" : [1, 3062, 0],
+    "(CL) Targeting Computer" : [1, 2860, 0]
     }
 
 # Info on heatsink types
@@ -627,6 +627,18 @@ class Equip(Item):
         Return equipment name
         """
         return self.name
+
+    def get_rules_level(self):
+        """
+        Return rules level of equipment piece
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
+        """
+        if (self.typ == "equipment" or self.typ == "CASE" or
+            self.typ == "CASEII"):
+            return EQUIPMENT[self.name][1]
+        elif self.typ == "TargetingComputer":
+            return TARCOMPS[self.name][0]
+        # TODO: ammunition, physical weapons, weapons
 
     def get_year(self):
         if (self.typ == "equipment" or self.typ == "CASE" or
