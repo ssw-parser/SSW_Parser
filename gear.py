@@ -651,7 +651,8 @@ class Equip(Item):
             return 0
         elif self.typ == "physical":
             return PHYSICAL[self.name][0]
-        else:
+        elif (self.typ == "missile" or self.typ == "ballistic" or
+              self.typ == "energy"):
             return WEAPONS[self.name][3]
 
     def get_weight(self):
@@ -665,8 +666,12 @@ class Equip(Item):
             return AMMO[self.name][2]
         elif self.typ == "physical":
             return PHYSICAL[self.name][3](mech.weight)
-        else:
+        elif (self.typ == "missile" or self.typ == "ballistic" or
+              self.typ == "energy"):
             return WEAPONS[self.name][5]
+        else:
+            print "Unknown item", self.name, self.typ
+            raise NotImplementedError
             
 
 class Weaponlist:
