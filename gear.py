@@ -1013,7 +1013,7 @@ class Gear:
                 if (name.name == equip.name and 
                     (name.typ == 'equipment' or name.typ == 'CASE')):
                     equip.addone()
-                    self.o_weight += equip.weight
+                    self.o_weight += name.get_weight()
                     ident = True
                     # Hack, coolant pods
                     if name.name == "Coolant Pod":
@@ -1056,7 +1056,7 @@ class Gear:
                 # non-CASE
                 if (name.name == equip.name and name.typ == 'equipment'):
                     equip.addone()
-                    self.d_weight += equip.weight
+                    self.d_weight += name.get_weight()
                     ident = True
                     # Add explosive weapon to location
                     if equip.explosive > 0:
@@ -1067,7 +1067,7 @@ class Gear:
                 if (name.name == equip.name and
                     (name.typ == 'CASE' or name.typ == 'CASEII')):
                     equip.addone()
-                    self.d_weight += equip.weight
+                    self.d_weight += name.get_weight()
                     ident = True
                     # Save CASE status
                     self.case[name.loc] = name.typ
@@ -1094,11 +1094,11 @@ class Gear:
                     ammo.addone()
                     # Special case, AMS ammo count as defensive equipment
                     if (name.name == "(IS) @ Anti-Missile System"):
-                        self.d_weight += ammo.weight
+                        self.d_weight += name.get_weight()
                     elif (name.name == "(CL) @ Anti-Missile System"):
-                        self.d_weight += ammo.weight
+                        self.d_weight += name.get_weight()
                     else:
-                        self.a_weight += ammo.weight
+                        self.a_weight += name.get_weight()
                     ident = True
                     # Add explosive ammo to location
                     if ammo.explosive == "X":
