@@ -440,38 +440,41 @@ D_PHYSICAL = {
 
 # Equipment, not split
 #
-# Name : BV, year, weight, uses ammo rate, explosive slots
+# Name : BV, rules level, year, weight, uses ammo rate, explosive slots
+#
+# Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
+# 3 = experimental, 4 = primitive
 #
 # Note that a different order is used compared to the other tables
 #
 EQUIPMENT = {
-    "C3 Computer (Slave)" : [[0, 0], 3050, 1, 0, 0],
-    "C3 Computer (Master)" : [[0, 0], 3050, 5, 0, 0],
-    "Improved C3 Computer" : [[0, 0], 3062, 2.5, 0, 0],
-    "TAG" : [[0, 0], 2600, 1, 0, 0],
-    "Light TAG" : [[0, 0], 3054, 0.5, 0, 0],
-    "Cargo, Liquid" : [[0, 0], 1900, 1, 0, 0],
+    "C3 Computer (Slave)" : [[0, 0], 1, 3050, 1, 0, 0],
+    "C3 Computer (Master)" : [[0, 0], 1, 3050, 5, 0, 0],
+    "Improved C3 Computer" : [[0, 0], 1, 3062, 2.5, 0, 0],
+    "TAG" : [[0, 0], 1, 2600, 1, 0, 0],
+    "Light TAG" : [[0, 0], 1, 3054, 0.5, 0, 0],
+    "Cargo, Liquid" : [[0, 0], 1, 1900, 1, 0, 0],
     # Experimental
-    "Collapsible Command Module (CCM)" : [[0, 0], 2710, 16, 0, 0],
-    "Coolant Pod" : [[0, 0], 3049, 1, 0, 1],
+    "Collapsible Command Module (CCM)" : [[0, 0], 3, 2710, 16, 0, 0],
+    "Coolant Pod" : [[0, 0], 2, 3079, 1, 0, 1],
 
-    "A-Pod" : [[1, 0], 3055, 0.5, 0, 0],
-    "B-Pod" : [[2, 0], 3069, 1, 0, 0],
-    "(IS) Anti-Missile System" : [[32, 11], 2617, 0.5, 1, 0],
-    "Guardian ECM Suite" : [[61, 0], 2597, 1.5, 0, 0],
-    "Beagle Active Probe" : [[10, 0], 2576, 1.5, 0, 0],
-    "ECM Suite" : [[61, 0], 2597, 1, 0, 0], # Clan
-    "Active Probe" : [[12, 0], 2576, 1, 0, 0], # Clan
-    "Light Active Probe" : [[7, 0], 2576, 0.5, 0, 0], # No year found
-    "(CL) Anti-Missile System" : [[32, 22], 2617, 0.5, 1, 0],
-    "CASE" : [[0, 0], 2476, 0.5, 0, 0], # HACK: CASE
+    "A-Pod" : [[1, 0], 1, 3055, 0.5, 0, 0],
+    "B-Pod" : [[2, 0], 1, 3069, 1, 0, 0],
+    "(IS) Anti-Missile System" : [[32, 11], 1, 2617, 0.5, 1, 0],
+    "Guardian ECM Suite" : [[61, 0], 1, 2597, 1.5, 0, 0],
+    "Beagle Active Probe" : [[10, 0], 1, 2576, 1.5, 0, 0],
+    "ECM Suite" : [[61, 0], 1, 2597, 1, 0, 0], # Clan
+    "Active Probe" : [[12, 0], 1, 2576, 1, 0, 0], # Clan
+    "Light Active Probe" : [[7, 0], 1, 2576, 0.5, 0, 0], # No year found
+    "(CL) Anti-Missile System" : [[32, 22], 1, 2617, 0.5, 1, 0],
+    "CASE" : [[0, 0], 1, 2476, 0.5, 0, 0], # HACK: CASE
     # Experimental
-    "Angel ECM" : [[100, 0], 3057, 2, 0, 0],
-    "Bloodhound Active Probe" : [[25, 0], 3058, 2, 0, 0],
-    "Electronic Warfare Equipment" : [[39, 0], 3025, 7.5, 0, 0],
-    "(CL) Laser Anti-Missile System" : [[45, 0], 3048, 1, 0, 0],
-    "(IS) CASE II" : [[0, 0], 3064, 1, 0, 0],
-    "(CL) CASE II" : [[0, 0], 3062, 0.5, 0, 0]
+    "Angel ECM" : [[100, 0], 2, 3080, 2, 0, 0],
+    "Bloodhound Active Probe" : [[25, 0], 2, 3082, 2, 0, 0],
+    "Electronic Warfare Equipment" : [[39, 0], 3, 3025, 7.5, 0, 0],
+    "(CL) Laser Anti-Missile System" : [[45, 0], 2, 3079, 1, 0, 0],
+    "(IS) CASE II" : [[0, 0], 2, 3082, 1, 0, 0],
+    "(CL) CASE II" : [[0, 0], 2, 3082, 0.5, 0, 0]
     }
 
 # Targeting computers
@@ -628,7 +631,7 @@ class Equip(Item):
     def get_year(self):
         if (self.typ == "equipment" or self.typ == "CASE" or
             self.typ == "CASEII"):
-            return EQUIPMENT[self.name][1]
+            return EQUIPMENT[self.name][2]
         elif self.typ == "TargetingComputer":
             return TARCOMPS[self.name][1]
         # TODO: Ammo year, ignore for now
@@ -645,7 +648,7 @@ class Equip(Item):
         # Physical parameter
         if (self.typ == "equipment" or self.typ == "CASE" or
             self.typ == "CASEII"):
-            return EQUIPMENT[self.name][2]
+            return EQUIPMENT[self.name][3]
         elif self.typ == "ammunition":
             return AMMO[self.name][2]
         elif self.typ == "physical":
