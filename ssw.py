@@ -28,7 +28,7 @@ Uses external file mech.py to read in data.
 import sys
 from xml.dom import minidom
 from mech import Mech
-from error import print_warning, warnings
+from error import print_warning
 
 def get_comp_year(call, date):
     """
@@ -60,13 +60,11 @@ def parse_gear(mech, date):
                 st1 = "WARNING: Ammo supply low!"
                 st2 = "  Weapon: " + str(weap.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
             elif (ammo_per_weapon > 50.0):
                 st1 = "WARNING: Ammo supply high!"
                 st2 = "  Weapon: " + str(weap.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
 
     for equip in mech.gear.d_equiplist.list:
@@ -79,13 +77,11 @@ def parse_gear(mech, date):
                 st1 = "WARNING: Ammo supply low!"
                 st2 = "  Weapon: " + str(equip.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
             elif (ammo_per_weapon > 50.0):
                 st1 = "WARNING: Ammo supply high!"
                 st2 = "  Weapon: " + str(equip.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                warnings.add((st1, st2, st3))
                 print_warning((st1, st2, st3))
 
     # Print used weapons
@@ -95,7 +91,6 @@ def parse_gear(mech, date):
             if ((weap.batt_val[0]/weap.weight) < 10.0):
                 st1 = "WARNING: Ineffient weapon mounted!"
                 st2 = "  Weapon: " + weap.name
-                warnings.add((st1, st2))
                 print_warning((st1, st2))
 
             report = str(weap.count)
@@ -154,11 +149,9 @@ def parse_gear(mech, date):
     # Check TSM & physical combo
 #    if (mech.gear.phys == 1 and mech.engine.enhancement != "TSM"):
 #        st1 = "WARNING: Physical weapon mounted without TSM!"
-#        warnings.add((st1,))
 #        print_warning((st1,))
 #    elif (mech.gear.phys == 0 and mech.engine.enhancement == "TSM"):
 #        st1 = "WARNING: TSM mounted without Physical weapon!"
-#        warnings.add((st1,))
 #        print_warning((st1,))
 
 
@@ -171,13 +164,11 @@ def parse_gear(mech, date):
     if (hbal > 4):
         st1 = "WARNING: Long range weapons overheats a lot!"
         st2 = "  Overheat: " + str(hbal)
-        warnings.add((st1, st2))
         print_warning((st1, st2))
     hbal = mheat - mech.get_sink()
     if (hbal > 4):
         st1 = "WARNING: Medium range weapons overheats a lot!"
         st2 = "  Overheat: " + str(hbal)
-        warnings.add((st1, st2))
         print_warning((st1, st2))
         
 
@@ -319,7 +310,6 @@ def main():
     print "Earliest Year: ", date
 
     parse_omni(mech, date, mspd)
-    warnings.print_warnings()
 
 if __name__ == "__main__":
     main()

@@ -24,7 +24,7 @@ Mech internal structure and armor classes
 
 
 from math import ceil
-from error import error_exit, print_warning, warnings
+from error import error_exit, print_warning
 from util import ceil_05, get_child_data
 from item import Item
 
@@ -402,7 +402,6 @@ class Armor(Item):
         if (not self.head.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
             st2 = self.head.get_warning_string()
-            warnings.add((st1, st2))
             print_warning((st1, st2))
 
     def report_fall(self, a_loc):
@@ -414,7 +413,6 @@ class Armor(Item):
                    a_loc.l_name + " armor!")
             st2 = ("  Damage: " + str(self.fall_dam) + ", armor: " +
                    str(a_loc.arm))
-            warnings.add((st1, st2))
             print_warning((st1, st2))
 
     def report_standard(self, a_loc):
@@ -426,7 +424,6 @@ class Armor(Item):
         if (not a_loc.check_percent(0.5)):
             st1 = "WARNING: Weak " + a_loc.l_name + " armor!"
             st2 = a_loc.get_warning_string()
-            warnings.add((st1, st2))
             print_warning((st1, st2))
         # Also check for falling damage, just in case
         self.report_fall(a_loc)

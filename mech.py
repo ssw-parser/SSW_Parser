@@ -23,7 +23,7 @@ Contains the master class for a mech
 """
 
 from math import ceil
-from error import print_warning, warnings
+from error import print_warning
 from defensive import IS, Armor
 from movement import Cockpit, Enhancement, Gyro, Engine
 from util import ceil_05, get_child, get_child_data
@@ -417,22 +417,18 @@ class Mech:
         # Light
         if (speed < 6 and weight < 40):
             msg = ("WARNING: Mech is too slow for its weight class!")
-            warnings.add((msg,))
             print_warning((msg,))
         # Medium
         elif (speed < 5 and weight < 60):
             msg = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((msg,))
             print_warning((msg,))
         # Heavy
         elif (speed < 4 and weight < 80):
             msg = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((msg,))
             print_warning((msg,))
         # Assault
         elif (speed < 3):
             msg = "WARNING: Mech is too slow for its weight class!"
-            warnings.add((msg,))
             print_warning((msg,))
 
     def print_engine_report(self, weight):
@@ -445,7 +441,6 @@ class Mech:
         if (eratio > 0.4):
             msg = "WARNING: Very heavy engine!"
             msg2 = "  Mounting LFE or XLFE suggested."
-            warnings.add((msg, msg2))
             print_warning((msg, msg2))
         print "Speed: " + self.get_move_string()
         self.parse_speed(weight)
