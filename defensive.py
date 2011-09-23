@@ -299,6 +299,31 @@ class TorsoArmor:
         self.rear = ArmorLoc(loc_name + " rear", rear, maximum)
         self.total = ArmorLoc(loc_name + " total", front + rear, maximum)
 
+    def report(self, fall_dam):
+        """
+        Report for torso armor
+        """
+        # Standard for front armor
+        self.front.report_standard(fall_dam)
+        # Only falling damage check for rear
+        print self.rear.get_report()
+        self.rear.report_fall(fall_dam)
+        # No checks for total armor
+        print self.total.get_report()
+
+    def get_total(self):
+        """
+        Get total armor, both front and rear for this location
+        """
+        return self.total.arm
+
+    def get_max(self):
+        """
+        Get maximum possible armor for this location
+        """
+        return self.total.max
+
+
 class Armor(Item):
     """
     A class to hold armor info for a mech
@@ -358,13 +383,14 @@ class Armor(Item):
             error_exit(motive)
 
         # Last sum up total
-        armortotal = (self.head.arm + self.c_torso.total.arm +
-                      self.l_torso.total.arm +
-                      self.r_torso.total.arm + self.l_arm.arm + self.r_arm.arm +
+        armortotal = (self.head.arm + self.c_torso.get_total() +
+                      self.l_torso.get_total() +
+                      self.r_torso.get_total() + self.l_arm.arm +
+                      self.r_arm.arm +
                       self.l_leg.arm + self.r_leg.arm)
-        maxtotal = (self.head.max + self.c_torso.total.max +
-                    self.l_torso.total.max +
-                    self.r_torso.total.max + self.l_arm.max + self.r_arm.max +
+        maxtotal = (self.head.max + self.c_torso.get_max() +
+                    self.l_torso.get_max() +
+                    self.r_torso.get_max() + self.l_arm.max + self.r_arm.max +
                     self.l_leg.max + self.r_leg.max)
         self.total = ArmorLoc("Total", armortotal, maxtotal)
 
@@ -423,48 +449,14 @@ class Armor(Item):
     def head_report(self):
         """
         Head armor report
+        
+        HACK: Needs special handling
         """
         print self.head.get_report()
         if (not self.head.check_value(8)):
             st1 = "WARNING: 10-points hits will head-cap!"
             st2 = self.head.get_warning_string()
             print_warning((st1, st2))
-
-    def center_torso_report(self):
-        """
-        Center torso armor report
-        """
-        # Standard for front armor
-        self.c_torso.front.report_standard(self.fall_dam)
-        # Only falling damage check for rear
-        print self.c_torso.rear.get_report()
-        self.c_torso.rear.report_fall(self.fall_dam)
-        # No checks for total armor
-        print self.c_torso.total.get_report()
-
-    def left_torso_report(self):
-        """
-        Left torso armor report
-        """
-        # Standard for front armor
-        self.l_torso.front.report_standard(self.fall_dam)
-        # Only falling damage check for rear
-        print self.l_torso.rear.get_report()
-        self.l_torso.rear.report_fall(self.fall_dam)
-        # No checks for total armor
-        print self.l_torso.total.get_report()
-
-    def right_torso_report(self):
-        """
-        Right torso armor report
-        """
-        # Standard for front armor
-        self.r_torso.front.report_standard(self.fall_dam)
-        # Only falling damage check for rear
-        print self.r_torso.rear.get_report()
-        self.r_torso.rear.report_fall(self.fall_dam)
-        # No checks for total armor
-        print self.r_torso.total.get_report()
 
     def armor_total_report(self):
         """
@@ -479,9 +471,9 @@ class Armor(Item):
         """
         self.armor_total_report()
         self.head_report()
-        self.center_torso_report()
-        self.left_torso_report()
-        self.right_torso_report()
+        self.c_torso.report(self.fall_dam)
+        self.l_torso.report(self.fall_dam)
+        self.r_torso.report(self.fall_dam)
         self.l_leg.report_standard(self.fall_dam)
         self.r_leg.report_standard(self.fall_dam)
         self.l_arm.report_standard(self.fall_dam)
