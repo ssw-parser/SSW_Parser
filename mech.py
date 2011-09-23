@@ -464,10 +464,10 @@ class Mech:
 
         # Check for the movement related issues
         if (speed < 5):
-            if not self.armor.get_heavy_ok():
+            if not self.armor.get_heavy_ok(20):
                 return True
         elif (speed < 7):
-            if not self.armor.get_medium_ok():
+            if not self.armor.get_medium_ok(20):
                 return True
         # Everything is fine
         else:
