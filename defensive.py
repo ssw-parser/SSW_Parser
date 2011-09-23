@@ -275,6 +275,21 @@ class ArmorLoc:
                    str(self.arm))
             print_warning((st1, st2))
 
+    def report_standard(self, fall_dam):
+        """
+        Standard armor location report, should be used in most cases
+        Considers an armor value of less than 50% of max to be too weak
+        """
+        print self.get_report()
+        if (not self.check_percent(0.5)):
+            st1 = "WARNING: Weak " + self.l_name + " armor!"
+            st2 = self.get_warning_string()
+            print_warning((st1, st2))
+        # Also check for falling damage, just in case
+        self.report_fall(fall_dam)
+
+
+
 class TorsoArmor:
     """
     A class to hold info about the armor in a torso location
@@ -415,25 +430,12 @@ class Armor(Item):
             st2 = self.head.get_warning_string()
             print_warning((st1, st2))
 
-    def report_standard(self, a_loc):
-        """
-        Standard armor location report, should be used in most cases
-        Considers an armor value of less than 50% of max to be too weak
-        """
-        print a_loc.get_report()
-        if (not a_loc.check_percent(0.5)):
-            st1 = "WARNING: Weak " + a_loc.l_name + " armor!"
-            st2 = a_loc.get_warning_string()
-            print_warning((st1, st2))
-        # Also check for falling damage, just in case
-        a_loc.report_fall(self.fall_dam)
-
     def center_torso_report(self):
         """
         Center torso armor report
         """
         # Standard for front armor
-        self.report_standard(self.c_torso.front)
+        self.c_torso.front.report_standard(self.fall_dam)
         # Only falling damage check for rear
         print self.c_torso.rear.get_report()
         self.c_torso.rear.report_fall(self.fall_dam)
@@ -445,7 +447,7 @@ class Armor(Item):
         Left torso armor report
         """
         # Standard for front armor
-        self.report_standard(self.l_torso.front)
+        self.l_torso.front.report_standard(self.fall_dam)
         # Only falling damage check for rear
         print self.l_torso.rear.get_report()
         self.l_torso.rear.report_fall(self.fall_dam)
@@ -457,7 +459,7 @@ class Armor(Item):
         Right torso armor report
         """
         # Standard for front armor
-        self.report_standard(self.r_torso.front)
+        self.r_torso.front.report_standard(self.fall_dam)
         # Only falling damage check for rear
         print self.r_torso.rear.get_report()
         self.r_torso.rear.report_fall(self.fall_dam)
@@ -480,9 +482,9 @@ class Armor(Item):
         self.center_torso_report()
         self.left_torso_report()
         self.right_torso_report()
-        self.report_standard(self.l_leg)
-        self.report_standard(self.r_leg)
-        self.report_standard(self.l_arm)
-        self.report_standard(self.r_arm)
+        self.l_leg.report_standard(self.fall_dam)
+        self.r_leg.report_standard(self.fall_dam)
+        self.l_arm.report_standard(self.fall_dam)
+        self.r_arm.report_standard(self.fall_dam)
 
 
