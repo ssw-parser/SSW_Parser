@@ -274,7 +274,6 @@ def main():
     print "-5-----------------------------"
     if (mech.omni == "TRUE"):
         print "WARNING: Omni mech, results might be garbage."
-    #    sys.exit(1)
 
     # Check for Artemis IV, Apollo
     # TODO: Move to parse_gear

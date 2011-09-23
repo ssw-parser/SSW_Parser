@@ -264,6 +264,17 @@ class ArmorLoc:
                                           int(ratio * 100)))
         return msg
 
+    def report_fall(self, fall_dam):
+        """
+        Falling damage armor report
+        """
+        if (self.arm < fall_dam):
+            st1 = ("WARNING: Falling damage might go internal on " +
+                   self.l_name + " armor!")
+            st2 = ("  Damage: " + str(fall_dam) + ", armor: " +
+                   str(self.arm))
+            print_warning((st1, st2))
+
 class TorsoArmor:
     """
     A class to hold info about the armor in a torso location
@@ -404,17 +415,6 @@ class Armor(Item):
             st2 = self.head.get_warning_string()
             print_warning((st1, st2))
 
-    def report_fall(self, a_loc):
-        """
-        Falling damage armor report
-        """
-        if (a_loc.arm < self.fall_dam):
-            st1 = ("WARNING: Falling damage might go internal on " +
-                   a_loc.l_name + " armor!")
-            st2 = ("  Damage: " + str(self.fall_dam) + ", armor: " +
-                   str(a_loc.arm))
-            print_warning((st1, st2))
-
     def report_standard(self, a_loc):
         """
         Standard armor location report, should be used in most cases
@@ -426,7 +426,7 @@ class Armor(Item):
             st2 = a_loc.get_warning_string()
             print_warning((st1, st2))
         # Also check for falling damage, just in case
-        self.report_fall(a_loc)
+        a_loc.report_fall(self.fall_dam)
 
     def center_torso_report(self):
         """
@@ -436,7 +436,7 @@ class Armor(Item):
         self.report_standard(self.c_torso.front)
         # Only falling damage check for rear
         print self.c_torso.rear.get_report()
-        self.report_fall(self.c_torso.rear)
+        self.c_torso.rear.report_fall(self.fall_dam)
         # No checks for total armor
         print self.c_torso.total.get_report()
 
@@ -448,7 +448,7 @@ class Armor(Item):
         self.report_standard(self.l_torso.front)
         # Only falling damage check for rear
         print self.l_torso.rear.get_report()
-        self.report_fall(self.l_torso.rear)
+        self.l_torso.rear.report_fall(self.fall_dam)
         # No checks for total armor
         print self.l_torso.total.get_report()
 
@@ -460,7 +460,7 @@ class Armor(Item):
         self.report_standard(self.r_torso.front)
         # Only falling damage check for rear
         print self.r_torso.rear.get_report()
-        self.report_fall(self.r_torso.rear)
+        self.r_torso.rear.report_fall(self.fall_dam)
         # No checks for total armor
         print self.r_torso.total.get_report()
 
