@@ -270,7 +270,7 @@ def main():
     print mech.load.heatsinks.summary_string()
     print "-4-----------------------------"
     date = get_comp_year(mech.armor.get_year, date)
-    mech.armor.parse_armor()
+    mech.parse_armor()
     print "-5-----------------------------"
     if (mech.omni == "TRUE"):
         print "WARNING: Omni mech, results might be garbage."

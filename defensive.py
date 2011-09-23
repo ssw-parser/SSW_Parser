@@ -479,4 +479,26 @@ class Armor(Item):
         self.l_arm.report_standard(self.fall_dam)
         self.r_arm.report_standard(self.fall_dam)
 
+    def get_medium_ok(self):
+        """
+        Does the mech have at least 20 points of armor on center torso,
+        and the legs?
+        """
+        if (self.l_leg.check_value(20) and self.r_leg.check_value(20) and
+            self.c_torso.front.check_value(20)):
+            return True
+        else:
+            return False
 
+    def get_heavy_ok(self):
+        """
+        Does the mech have at least 20 points of armor on all torsos,
+        and all limbs?
+        """
+        if (self.get_medium_ok() and self.l_arm.check_value(20) and
+            self.r_arm.check_value(20) and
+            self.l_torso.front.check_value(20) and
+            self.r_torso.front.check_value(20)):
+            return True
+        else:
+            return False
