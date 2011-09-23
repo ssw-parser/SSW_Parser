@@ -264,6 +264,15 @@ class ArmorLoc:
                                           int(ratio * 100)))
         return msg
 
+class TorsoArmor:
+    """
+    A class to hold info about the armor in a torso location
+    """
+    def __init__(self, loc_name, front, rear, maximum):
+        self.front = ArmorLoc(loc_name + " front", front, maximum)
+        self.rear = ArmorLoc(loc_name + " rear", rear, maximum)
+        self.total = ArmorLoc(loc_name + " total", front + rear, maximum)
+
 class Armor(Item):
     """
     A class to hold armor info for a mech
@@ -301,20 +310,12 @@ class Armor(Item):
         self.head = ArmorLoc("Head", head, 9)
 
         # Otherwise 2 times Internal Structure
-        # We store three different values for each torso part
-        # to simplify the interface. Front, rear and total
-        self.ctf = ArmorLoc("Center Torso front", c_torso, CT_IS[weight] * 2)
-        self.ctr = ArmorLoc("Center Torso rear", ctr, CT_IS[weight] * 2)
-        self.c_torso = ArmorLoc("Center Torso total", c_torso + ctr,
-                                CT_IS[weight] * 2)
-        self.ltf = ArmorLoc("Left Torso front", l_torso, ST_IS[weight] * 2)
-        self.ltr = ArmorLoc("Left Torso rear", ltr, ST_IS[weight] * 2)
-        self.l_torso = ArmorLoc("Left Torso total", l_torso + ltr,
-                                ST_IS[weight] * 2)
-        self.rtf = ArmorLoc("Right Torso front", r_torso, ST_IS[weight] * 2)
-        self.rtr = ArmorLoc("Right Torso rear", rtr, ST_IS[weight] * 2)
-        self.r_torso = ArmorLoc("Right Torso total", r_torso + rtr,
-                                ST_IS[weight] * 2)
+        self.c_torso = TorsoArmor("Center Torso", c_torso, ctr,
+                                  CT_IS[weight] * 2)
+        self.l_torso = TorsoArmor("Left Torso", l_torso, ltr,
+                                  ST_IS[weight] * 2)
+        self.r_torso = TorsoArmor("Right Torso", r_torso, rtr,
+                                  ST_IS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
@@ -331,11 +332,13 @@ class Armor(Item):
             error_exit(motive)
 
         # Last sum up total
-        armortotal = (self.head.arm + self.c_torso.arm + self.l_torso.arm +
-                      self.r_torso.arm + self.l_arm.arm + self.r_arm.arm +
+        armortotal = (self.head.arm + self.c_torso.total.arm +
+                      self.l_torso.total.arm +
+                      self.r_torso.total.arm + self.l_arm.arm + self.r_arm.arm +
                       self.l_leg.arm + self.r_leg.arm)
-        maxtotal = (self.head.max + self.c_torso.max + self.l_torso.max +
-                    self.r_torso.max + self.l_arm.max + self.r_arm.max +
+        maxtotal = (self.head.max + self.c_torso.total.max +
+                    self.l_torso.total.max +
+                    self.r_torso.total.max + self.l_arm.max + self.r_arm.max +
                     self.l_leg.max + self.r_leg.max)
         self.total = ArmorLoc("Total", armortotal, maxtotal)
 
@@ -433,36 +436,36 @@ class Armor(Item):
         Center torso armor report
         """
         # Standard for front armor
-        self.report_standard(self.ctf)
+        self.report_standard(self.c_torso.front)
         # Only falling damage check for rear
-        print self.ctr.get_report()
-        self.report_fall(self.ctr)
+        print self.c_torso.rear.get_report()
+        self.report_fall(self.c_torso.rear)
         # No checks for total armor
-        print self.c_torso.get_report()
+        print self.c_torso.total.get_report()
 
     def left_torso_report(self):
         """
         Left torso armor report
         """
         # Standard for front armor
-        self.report_standard(self.ltf)
+        self.report_standard(self.l_torso.front)
         # Only falling damage check for rear
-        print self.ltr.get_report()
-        self.report_fall(self.ltr)
+        print self.l_torso.rear.get_report()
+        self.report_fall(self.l_torso.rear)
         # No checks for total armor
-        print self.l_torso.get_report()
+        print self.l_torso.total.get_report()
 
     def right_torso_report(self):
         """
         Right torso armor report
         """
         # Standard for front armor
-        self.report_standard(self.rtf)
+        self.report_standard(self.r_torso.front)
         # Only falling damage check for rear
-        self.rtr.get_report()
-        self.report_fall(self.rtr)
+        print self.r_torso.rear.get_report()
+        self.report_fall(self.r_torso.rear)
         # No checks for total armor
-        self.r_torso.get_report()
+        print self.r_torso.total.get_report()
 
     def armor_total_report(self):
         """
