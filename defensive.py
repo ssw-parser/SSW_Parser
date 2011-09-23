@@ -319,28 +319,13 @@ class Armor(Item):
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
             self.l_arm = ArmorLoc("Front Left Leg", l_arm, LEG_IS[weight] * 2)
-        elif motive == "Biped":
-            self.l_arm = ArmorLoc("Left Arm", l_arm, ARM_IS[weight] * 2)
-        else:
-            error_exit(motive)
-
-        if motive == "Quad":
             self.r_arm = ArmorLoc("Front Right Leg", r_arm, LEG_IS[weight] * 2)
-        elif motive == "Biped":
-            self.r_arm = ArmorLoc("Right Arm", r_arm, ARM_IS[weight] * 2)
-        else:
-            error_exit(motive)
-
-        if motive == "Quad":
             self.l_leg = ArmorLoc("Rear Left Leg", l_leg, LEG_IS[weight] * 2)
-        elif motive == "Biped":
-            self.l_leg = ArmorLoc("Left Leg", l_leg, LEG_IS[weight] * 2)
-        else:
-            error_exit(motive)
-
-        if motive == "Quad":
             self.r_leg = ArmorLoc("Rear Right Leg", r_leg, LEG_IS[weight] * 2)
         elif motive == "Biped":
+            self.l_arm = ArmorLoc("Left Arm", l_arm, ARM_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Right Arm", r_arm, ARM_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Left Leg", l_leg, LEG_IS[weight] * 2)
             self.r_leg = ArmorLoc("Right Leg", r_leg, LEG_IS[weight] * 2)
         else:
             error_exit(motive)
