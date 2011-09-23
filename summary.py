@@ -209,7 +209,9 @@ def create_armor_list_item(mech, i):
     # Armor weight
     wgt = mech.armor.get_weight()
     # Warning for low armor-speed problem
-    if mech.speed_armor_warning():
+    if mech.speed_armor_warning(15):
+        warn = "!!"
+    elif mech.speed_armor_warning(20):
         warn = "!"
     else:
         warn = ""

@@ -455,7 +455,7 @@ class Mech:
         tratio = float(tweight) / float(weight)
         print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
 
-    def speed_armor_warning(self):
+    def speed_armor_warning(self, val):
         """
         Returns true if armor in one location is too low for its speed.
         """
@@ -464,10 +464,10 @@ class Mech:
 
         # Check for the movement related issues
         if (speed < 5):
-            if not self.armor.get_heavy_ok(20):
+            if not self.armor.get_heavy_ok(val):
                 return True
         elif (speed < 7):
-            if not self.armor.get_medium_ok(20):
+            if not self.armor.get_medium_ok(val):
                 return True
         # Everything is fine
         else:
@@ -483,7 +483,7 @@ class Mech:
         # Standard armor report
         self.armor.parse_armor()
         # Check for the movement related issues
-        if self.speed_armor_warning():
+        if self.speed_armor_warning(20):
             st1 = "WARNING: Not enough armor for speed!"
             # st2 = self.head.get_warning_string()
             print_warning((st1, ))
