@@ -455,26 +455,36 @@ class Mech:
         tratio = float(tweight) / float(weight)
         print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
 
+    def speed_armor_warning(self):
+        """
+        Returns true if armor in one location is too low for its speed.
+        """
+        # Bigger of ground speed and jump range
+        speed = max((self.engine.speed, self.load.get_jump()))
+
+        # Check for the movement related issues
+        if (speed < 5):
+            if not self.armor.get_heavy_ok():
+                return True
+        elif (speed < 7):
+            if not self.armor.get_medium_ok():
+                return True
+        # Everything is fine
+        else:
+            return False
+
+
     def parse_armor(self):
         """
         Parse the armor of a mech.
 
         Only count fixed jump-jets, due to all configs does not have them.
         """
-        # Bigger of ground speed and jump range
-        speed = max((self.engine.speed, self.load.get_jump()))
-
         # Standard armor report
         self.armor.parse_armor()
         # Check for the movement related issues
-        if (speed < 5):
-            if not self.armor.get_heavy_ok():
-                st1 = "WARNING: Not enough armor for speed!"
-                # st2 = self.head.get_warning_string()
-                print_warning((st1, ))
-        elif (speed < 7):
-            if not self.armor.get_medium_ok():
-                st1 = "WARNING: Not enough armor for speed!"
-                # st2 = self.head.get_warning_string()
-                print_warning((st1, ))
+        if self.speed_armor_warning():
+            st1 = "WARNING: Not enough armor for speed!"
+            # st2 = self.head.get_warning_string()
+            print_warning((st1, ))
 
