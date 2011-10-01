@@ -229,9 +229,10 @@ class ArmorLoc:
     """
     A class to hold info about the armor in one location
     """
-    def __init__(self, loc_name, armor, maximum):
+    def __init__(self, loc_name, armor, i_struct, maximum):
         self.l_name = loc_name
         self.arm = armor
+        self.i_struct = i_struct
         self.max = maximum
         assert self.arm <= self.max, "More than maximum armor!"
 
@@ -246,6 +247,12 @@ class ArmorLoc:
         Check if armor is at least percent of max
         """
         return (self.arm >= self.max * percent)
+
+    def check_armor_is(self, value):
+        """
+        Check if armor and IS is at least value
+        """
+        return ((self.arm + self.i_struct) >= value)
 
     def get_warning_string(self):
         """
@@ -277,12 +284,19 @@ class ArmorLoc:
 
     def report_standard(self, fall_dam):
         """
-        Standard armor location report, should be used in most cases
-        Considers an armor value of less than 50% of max to be too weak
+        Standard armor location report, should be used in most cases.
+        Considers an armor value of less than 50% of max to be too weak.
+        Also considers locations that will get destroyed by 10-point hits
+        too weak.
         """
         print self.get_report()
         if (not self.check_percent(0.5)):
             st1 = "WARNING: Weak " + self.l_name + " armor!"
+            st2 = self.get_warning_string()
+            print_warning((st1, st2))
+        if (not self.check_armor_is(10)):
+            st1 = ("WARNING: 10-pts hits will remove " + self.l_name +
+                   " location!")
             st2 = self.get_warning_string()
             print_warning((st1, st2))
         # Also check for falling damage, just in case
@@ -294,10 +308,11 @@ class TorsoArmor:
     """
     A class to hold info about the armor in a torso location
     """
-    def __init__(self, loc_name, front, rear, maximum):
-        self.front = ArmorLoc(loc_name + " front", front, maximum)
-        self.rear = ArmorLoc(loc_name + " rear", rear, maximum)
-        self.total = ArmorLoc(loc_name + " total", front + rear, maximum)
+    def __init__(self, loc_name, front, rear, i_struct, maximum):
+        self.front = ArmorLoc(loc_name + " front", front, i_struct, maximum)
+        self.rear = ArmorLoc(loc_name + " rear", rear, i_struct, maximum)
+        self.total = ArmorLoc(loc_name + " total", front + rear, i_struct,
+                              maximum)
 
     def report(self, fall_dam):
         """
@@ -358,27 +373,35 @@ class Armor(Item):
 
 
         # Head always have max 9 armor
-        self.head = ArmorLoc("Head", head, 9)
+        self.head = ArmorLoc("Head", head, 3, 9)
 
         # Otherwise 2 times Internal Structure
         self.c_torso = TorsoArmor("Center Torso", c_torso, ctr,
-                                  CT_IS[weight] * 2)
+                                  CT_IS[weight], CT_IS[weight] * 2)
         self.l_torso = TorsoArmor("Left Torso", l_torso, ltr,
-                                  ST_IS[weight] * 2)
+                                  ST_IS[weight], ST_IS[weight] * 2)
         self.r_torso = TorsoArmor("Right Torso", r_torso, rtr,
-                                  ST_IS[weight] * 2)
+                                  ST_IS[weight], ST_IS[weight] * 2)
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
-            self.l_arm = ArmorLoc("Front Left Leg", l_arm, LEG_IS[weight] * 2)
-            self.r_arm = ArmorLoc("Front Right Leg", r_arm, LEG_IS[weight] * 2)
-            self.l_leg = ArmorLoc("Rear Left Leg", l_leg, LEG_IS[weight] * 2)
-            self.r_leg = ArmorLoc("Rear Right Leg", r_leg, LEG_IS[weight] * 2)
+            self.l_arm = ArmorLoc("Front Left Leg", l_arm, LEG_IS[weight],
+                                  LEG_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Front Right Leg", r_arm, LEG_IS[weight],
+                                  LEG_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Rear Left Leg", l_leg, LEG_IS[weight],
+                                  LEG_IS[weight] * 2)
+            self.r_leg = ArmorLoc("Rear Right Leg", r_leg, LEG_IS[weight],
+                                  LEG_IS[weight] * 2)
         elif motive == "Biped":
-            self.l_arm = ArmorLoc("Left Arm", l_arm, ARM_IS[weight] * 2)
-            self.r_arm = ArmorLoc("Right Arm", r_arm, ARM_IS[weight] * 2)
-            self.l_leg = ArmorLoc("Left Leg", l_leg, LEG_IS[weight] * 2)
-            self.r_leg = ArmorLoc("Right Leg", r_leg, LEG_IS[weight] * 2)
+            self.l_arm = ArmorLoc("Left Arm", l_arm, ARM_IS[weight],
+                                  ARM_IS[weight] * 2)
+            self.r_arm = ArmorLoc("Right Arm", r_arm, ARM_IS[weight],
+                                  ARM_IS[weight] * 2)
+            self.l_leg = ArmorLoc("Left Leg", l_leg, LEG_IS[weight],
+                                  LEG_IS[weight] * 2)
+            self.r_leg = ArmorLoc("Right Leg", r_leg, LEG_IS[weight],
+                                  LEG_IS[weight] * 2)
         else:
             error_exit(motive)
 
@@ -392,7 +415,8 @@ class Armor(Item):
                     self.l_torso.get_max() +
                     self.r_torso.get_max() + self.l_arm.max + self.r_arm.max +
                     self.l_leg.max + self.r_leg.max)
-        self.total = ArmorLoc("Total", armortotal, maxtotal)
+        self.total = ArmorLoc("Total", armortotal, (maxtotal - 9) / 2 + 3,
+                              maxtotal)
 
         # Store potential falling damage
         self.fall_dam = ceil(weight / 10.0)
@@ -446,18 +470,6 @@ class Armor(Item):
         ratio = float(self.total.arm) / float(self.total.max)
         return (ratio * 100)
 
-    def head_report(self):
-        """
-        Head armor report
-        
-        HACK: Needs special handling
-        """
-        print self.head.get_report()
-        if (not self.head.check_value(8)):
-            st1 = "WARNING: 10-points hits will head-cap!"
-            st2 = self.head.get_warning_string()
-            print_warning((st1, st2))
-
     def armor_total_report(self):
         """
         Report total armor
@@ -470,7 +482,7 @@ class Armor(Item):
         Print out all armor reports
         """
         self.armor_total_report()
-        self.head_report()
+        self.head.report_standard(self.fall_dam)
         self.c_torso.report(self.fall_dam)
         self.l_torso.report(self.fall_dam)
         self.r_torso.report(self.fall_dam)
