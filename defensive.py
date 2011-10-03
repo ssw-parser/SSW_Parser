@@ -308,11 +308,12 @@ class TorsoArmor:
     """
     A class to hold info about the armor in a torso location
     """
-    def __init__(self, loc_name, front, rear, i_struct, maximum):
-        self.front = ArmorLoc(loc_name + " front", front, i_struct, maximum)
-        self.rear = ArmorLoc(loc_name + " rear", rear, i_struct, maximum)
+    def __init__(self, loc_name, front, rear, i_struct):
+        self.front = ArmorLoc(loc_name + " front", front, i_struct,
+                              i_struct * 2)
+        self.rear = ArmorLoc(loc_name + " rear", rear, i_struct, i_struct * 2)
         self.total = ArmorLoc(loc_name + " total", front + rear, i_struct,
-                              maximum)
+                              i_struct * 2)
 
     def report(self, fall_dam):
         """
@@ -376,12 +377,9 @@ class Armor(Item):
         self.head = ArmorLoc("Head", head, 3, 9)
 
         # Otherwise 2 times Internal Structure
-        self.c_torso = TorsoArmor("Center Torso", c_torso, ctr,
-                                  CT_IS[weight], CT_IS[weight] * 2)
-        self.l_torso = TorsoArmor("Left Torso", l_torso, ltr,
-                                  ST_IS[weight], ST_IS[weight] * 2)
-        self.r_torso = TorsoArmor("Right Torso", r_torso, rtr,
-                                  ST_IS[weight], ST_IS[weight] * 2)
+        self.c_torso = TorsoArmor("Center Torso", c_torso, ctr, CT_IS[weight])
+        self.l_torso = TorsoArmor("Left Torso", l_torso, ltr, ST_IS[weight])
+        self.r_torso = TorsoArmor("Right Torso", r_torso, rtr, ST_IS[weight])
 
         # The arms/front legs need to check if mech is Biped or Quad
         if motive == "Quad":
