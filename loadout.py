@@ -109,6 +109,17 @@ class Load:
         jump = max(jmp, self.jumpb.get_jump())
         return jump
 
+    def get_move_heat(self, mech):
+        """
+        Get maximum heat produced by movement.
+        """
+        run_heat = 2
+        if (mech.engine.etype == "XXL Engine"):
+            run_heat = 6
+
+        move_heat = max(run_heat, self.jjets.get_heat(mech))
+        return move_heat
+
     def off_bv(self, mech, printq):
         """
         Get offensive weapon and ammo BV
@@ -118,12 +129,7 @@ class Load:
         heat = 0
         ammo_bv = 0.0
 
-        run_heat = 2
-        if (mech.engine.etype == "XXL Engine"):
-            run_heat = 6
-
-        move_heat = max(run_heat, self.jjets.get_heat(mech))
-        heat_eff = 6 + self.get_sink() - move_heat
+        heat_eff = 6 + self.get_sink() - self.get_move_heat(mech)
         if (printq):
             print "Heat Efficiency", heat_eff
 
