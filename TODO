@@ -40,6 +40,7 @@ summary.py:
 - Count and list specific weapon types
 -- Head-capper list: AC20, UAC20, LB20, GR, HGR, HPPC, HLL, cERPPC,
    iHGR, BinL, iHLL, TB15, TB20
+-- Sniping weapon list
 
 - Allow comments in mech lists
 

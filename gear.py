@@ -1229,9 +1229,7 @@ class Gear:
         for i in self.exp_ammo.keys():
             cas = self.case.get(i, "")
             # Head and center torso always
-            if i == "HD":
-                neg_bv -= 15.0 * self.exp_ammo[i]
-            elif i == "CT":
+            if (i == "HD" or i == "CT"):
                 neg_bv -= 15.0 * self.exp_ammo[i]
             # So are legs
             elif (i == "LL" or i == "RL" or i == "RLL" or i == "RRL"):
@@ -1286,9 +1284,7 @@ class Gear:
         for i in self.exp_weapon.keys():
             cas = self.case.get(i, "")
             # Head and center torso always
-            if i == "HD":
-                neg_bv -= self.exp_weapon[i]
-            elif i == "CT":
+            if (i == "HD" or i == "CT"):
                 neg_bv -= self.exp_weapon[i]
             # So are legs
             elif (i == "LL" or i == "RL" or i == "RLL" or i == "RRL"):
