@@ -83,6 +83,21 @@ def create_header(header_l):
     return header
 
 
+def armor_letter(percent):
+    """
+    ANS Kamas P81's armor granding system
+    """
+    if percent < 50:
+        return "F"
+    elif percent <= 60:
+        return "D"
+    elif percent <= 75:
+        return "C"
+    elif percent <= 90:
+        return "B"
+    else:
+        return "A"
+
 ###############################
 ##### Mech entry creation #####
 ###############################
@@ -235,10 +250,10 @@ def print_armor_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Armr Exp Sth | Points  Tons Warn"
+    print "Name                          Tons BV   Armr Exp Sth | Points  Tons Warn ANS"
     for i in mech_list:
-        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %1s" % 
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9]))
+        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %2s %1s" % 
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], armor_letter(i[3])))
 
 
 def create_speed_list_item(mech, i):
