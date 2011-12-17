@@ -62,7 +62,8 @@ WEAPONS = {
                                              4, 2.5, 0, 0],
     "(IS) Machine Gun" : [[5, 1], "S", "", 1900, 1, 0.5, 0, 0],
     # MG 2
-    # MG 3
+    "(IS) MG Array (3 Machine Gun)" : [[25.05, 1], "S", "", 3068,
+                                       3, 2, 0, 0],
     "(IS) MG Array (4 Machine Gun)" : [[33.4, 1], "S", "", 3068,
                                        4, 2.5, 0, 0],
     # HMG
@@ -259,10 +260,12 @@ AMMO = {
           "(CL) MG Array (3 Light Machine Gun)"], 100, 0.5, "X"],
     "@ Machine Gun" :
         [["(IS) Machine Gun", "(CL) Machine Gun",
+          "(IS) MG Array (3 Machine Gun)",
           "(IS) MG Array (4 Machine Gun)",
           "(CL) MG Array (4 Machine Gun)"], 200, 1, "X"],
     "@ Machine Gun (1/2)" :
         [["(IS) Machine Gun", "(CL) Machine Gun",
+          "(IS) MG Array (3 Machine Gun)",
           "(IS) MG Array (4 Machine Gun)",
           "(CL) MG Array (4 Machine Gun)"], 100, 0.5, "X"],
     "@ Heavy Machine Gun" :
@@ -1137,7 +1140,7 @@ class Gear:
                         self.exp_ammo[name.loc] = expl
             # Not found
             if not ident:
-                print "Unidentified:", name
+                print "Unidentified:", name.name
                 error_exit("gear")
 
         # Calculate tarcomp weight
