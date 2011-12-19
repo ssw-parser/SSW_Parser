@@ -174,7 +174,7 @@ class Load:
                 i = weap.count
                 batt_val = weap.get_bv(self.weight)
                 while (i):
-                    w_list.append((batt_val, 0, weap.name))
+                    w_list.append((batt_val, weap.heat, weap.name))
                     i -= 1
 
         # Sort list, from largest BV to smallest,

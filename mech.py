@@ -317,7 +317,7 @@ class Mech:
         else:
             batt_val = int(round(base_bv))
         if batt_val != load.batt_val:
-            print self.name, self.model, load.name, batt_val, load.batt_val
+            print self.name, self.model, load.get_name(), batt_val, load.batt_val
         assert batt_val == load.batt_val, "Error in BV calculation!"
         return batt_val
 

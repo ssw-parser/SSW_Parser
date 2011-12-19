@@ -37,7 +37,7 @@ from item import Item
 # To be loaded into the gear class
 #
 # TODO1: IS: Flamer (Vehicle), HMG,  Clan: Flamer (Vehicle)
-# TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG, 3 MG
+# TODO2: IS: MG Arrays: 2 HMG, 4 HMG, 2 MG
 # Clan: 2 HMG, 2 LMG, 4 LMG, 2 MG, 3 MG
 WEAPONS = {
     "(IS) Autocannon/2" : [[37, 5], "L", "T", 2300, 1, 6, 1, 0],
@@ -132,6 +132,7 @@ WEAPONS = {
                                                 0, 4, 7, 0],
     "(IS) Large Variable Speed Pulse Laser" : [[123, 0], "M", "T", 3070,
                                                0, 9, 10, 0],
+    "(IS) Small X-Pulse Laser" : [[21, 0], "M", "T", 3057, 0, 1, 3, 0],
     "(IS) Medium X-Pulse Laser" : [[71, 0], "M", "T", 3057, 0, 2, 6, 0],
     "(IS) Large X-Pulse Laser" : [[178, 0], "M", "T", 3057, 0, 7, 14, 0],
     "(IS) Binary Laser Cannon" : [[222, 0], "M", "T", 2812, 0, 9, 16, 0],
@@ -510,25 +511,28 @@ MISSILE_ENCH = [["Artemis IV", 2598],
 
 # Melee weapons
 #
-# Name, year, BV multiplier, damage formula, weight
+# Name, year, BV multiplier, damage formula, weight, heat
 #
 PHYSICAL = {
-    "Hatchet" : [3022, 1.5, (lambda x : ceil(x / 5.0)),
-                 (lambda x : ceil(x / 15.0))],
-    "Sword" : [3058, 1.725, (lambda x : ceil(x / 10.0) + 1),
-               (lambda x : ceil_05(x / 20.0))],
-    "Retractable Blade" : [2420, 1.725, (lambda x : ceil(x / 10.0)),
-                           (lambda x : ceil_05(x / 2.0) + 0.5)], 
-    "Claws" : [3060, 1.275, (lambda x : ceil(x / 7.0)),
-               (lambda x : ceil(x / 15.0))],
-    "Mace" : [3061, 1.0, (lambda x : ceil(x / 4.0)),
-              (lambda x : ceil(x / 10.0))],
-    "Lance" : [3064, 1.0, (lambda x : ceil(x / 5.0)),
-               (lambda x : ceil_05(x / 20.0))],
+    "Hatchet" : [3022, (lambda x : x * 1.5), (lambda x : ceil(x / 5.0)),
+                 (lambda x : ceil(x / 15.0)), 0],
+    "Sword" : [3058, (lambda x : x * 1.725), (lambda x : ceil(x / 10.0) + 1),
+               (lambda x : ceil_05(x / 20.0)), 0],
+    "Retractable Blade" : [2420, (lambda x : x * 1.725),
+                           (lambda x : ceil(x / 10.0)),
+                           (lambda x : ceil_05(x / 2.0) + 0.5), 0], 
+    "Claws" : [3060, (lambda x : x * 1.275), (lambda x : ceil(x / 7.0)),
+               (lambda x : ceil(x / 15.0)), 0],
+    "Mace" : [3061, (lambda x : x * 1.0), (lambda x : ceil(x / 4.0)),
+              (lambda x : ceil(x / 10.0)), 0],
+    "Lance" : [3064, (lambda x : x * 1.0), (lambda x : ceil(x / 5.0)),
+               (lambda x : ceil_05(x / 20.0)), 0],
+    "Small Vibroblade" : [3065 , (lambda x : 12), (lambda x : 7.0),
+                          (lambda x : 3.0), 3],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
-    "Talons" : [3072, 1.0, (lambda x : ceil(x / 5.0) / 2.0),
-                (lambda x : ceil(x / 15.0))]
+    "Talons" : [3072, (lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
+                (lambda x : ceil(x / 15.0)), 0]
     }
 
 
@@ -872,6 +876,7 @@ class Physical:
         self.bv_mult = PHYSICAL[key][1]
         self.dam = PHYSICAL[key][2]
         self.weight = PHYSICAL[key][3]
+        self.heat = PHYSICAL[key][4]
         self.count = 0
 
     def addone(self):
@@ -884,7 +889,8 @@ class Physical:
         """
         Get BV of physical weapon
         """
-        return self.dam(weight) * self.bv_mult
+        dam = self.dam(weight)
+        return self.bv_mult(dam)
 
 class Gear:
     """
