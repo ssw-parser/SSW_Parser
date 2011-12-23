@@ -42,8 +42,6 @@ summary.py:
    iHGR, BinL, iHLL, TB15, TB20
 -- Sniping weapon list
 
-- Allow comments in mech lists
-
 - Make default display more like MUL: Add rules.
 -- Rules level filter.
 
