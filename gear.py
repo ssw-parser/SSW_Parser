@@ -376,6 +376,7 @@ AMMO = {
     "(CL) @ LRM-10" : [["(CL) LRM-10"], 12, 1, "X"],
     "(CL) @ LRM-15" : [["(CL) LRM-15"], 8, 1, "X"],
     "(CL) @ LRM-20" : [["(CL) LRM-20"], 6, 1, "X"],
+    "(CL) @ LRM-5 (Artemis IV Capable)" : [["(CL) LRM-5"], 24, 1, "X"],
     "(CL) @ LRM-10 (Artemis IV Capable)" : [["(CL) LRM-10"], 12, 1, "X"],
     "(CL) @ LRM-15 (Artemis IV Capable)" : [["(CL) LRM-15"], 8, 1, "X"],
     "(CL) @ LRM-20 (Artemis IV Capable)" : [["(CL) LRM-20"], 6, 1, "X"],
