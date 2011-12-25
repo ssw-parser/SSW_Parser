@@ -322,6 +322,7 @@ AMMO = {
         [["(IS) SRM-4", "(CL) SRM-4"], 25, 1, "X"],
     "@ SRM-6 (Artemis IV Capable)" :
         [["(IS) SRM-6", "(CL) SRM-6"], 15, 1, "X"],
+    "@ SRM-2 (Narc Capable)" : [["(IS) SRM-2", "(CL) SRM-2"], 50, 1, "X"],
     "@ SRM-4 (Narc Capable)" : [["(IS) SRM-4", "(CL) SRM-4"], 25, 1, "X"],
     "@ SRM-6 (Narc Capable)" : [["(IS) SRM-6", "(CL) SRM-6"], 15, 1, "X"],
     "(IS) @ Streak SRM-2" : [["(IS) Streak SRM-2"], 50, 1, "X"],
@@ -384,6 +385,7 @@ AMMO = {
     "(CL) @ LRM-20 (Artemis V)" : [["(CL) LRM-20"], 6, 1, "X"],        
     "(CL) @ LRM-5 (Narc Capable)" : [["(CL) LRM-5"], 24, 1, "X"],
     "(CL) @ LRM-15 (Narc Capable)" : [["(CL) LRM-15"], 8, 1, "X"],
+    "(CL) @ LRM-20 (Narc Capable)" : [["(CL) LRM-20"], 6, 1, "X"],
     "(CL) @ Streak SRM-2" : [["(CL) Streak SRM-2"], 50, 1, "X"],
     "(CL) @ Streak SRM-4" : [["(CL) Streak SRM-4"], 25, 1, "X"],
     "(CL) @ Streak SRM-6" : [["(CL) Streak SRM-6"], 15, 1, "X"],
