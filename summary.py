@@ -174,7 +174,7 @@ def create_bv_list_item(mech, i):
         cockp = "SML"
     return (name_str, weight, batt_val, bv_ton, bv_def, bv_off, cockp)
 
-def print_bv_list(file_list, select_l, header):
+def print_bvt_list(file_list, select_l, header):
     """
     BV_list output
 
@@ -187,6 +187,28 @@ def print_bv_list(file_list, select_l, header):
 
     # Sort by BV/ton
     mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    print "Name                          Tons BV    BV/Wt | defBV   offBV   cpit"
+    for i in mech_list:
+        print ("%-30s %3d %4d  %5.2f | %7.2f %7.2f %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+
+
+def print_bv_list(file_list, select_l, header):
+    """
+    BV_list output
+
+    In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
+    sorted by BV/weight, descending
+    """
+
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_bv_list_item)
+
+    # Sort by BV
+    mech_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
     print header
@@ -371,8 +393,10 @@ def parse_arg():
     # Input argument
     parser.add_argument('-f', action='append', help='list of .ssw files')
     # Output type selection arguments
-    parser.add_argument('-b', action='store_const', help='BV list output',
+    parser.add_argument('-b', action='store_const', help='BV/ton list output',
                         dest = 'output', const = 'b')
+    parser.add_argument('-bv', action='store_const', help='BV list output',
+                        dest = 'output', const = 'bv')
     parser.add_argument('-a', action='store_const', help='Armor list output',
                         dest = 'output', const = 'a')
     parser.add_argument('-s', action='store_const', help='Speed list output',
@@ -500,6 +524,8 @@ def main():
     header = create_header(header_l)
 
     if args.output == 'b':
+        print_bvt_list(file_list, select_l, header)
+    elif args.output == 'bv':
         print_bv_list(file_list, select_l, header)
     elif args.output == 'a':
         print_armor_list(file_list, select_l, header)
