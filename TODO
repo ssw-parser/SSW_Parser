@@ -45,6 +45,8 @@ summary.py:
 - Make default display more like MUL: Add rules.
 -- Rules level filter.
 
+- Add ability to filter out L and XL engines (a cheap mechs only filter.)
+
 - Speed listing:
 -- Show superchargers, UMU, liquid cargo for space
 
