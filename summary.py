@@ -190,7 +190,9 @@ def print_bvt_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV    BV/Wt | defBV   offBV   cpit"
+    header2 = "Name                          "
+    header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
+    print header2
     for i in mech_list:
         print ("%-30s %3d %4d  %5.2f | %7.2f %7.2f %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
@@ -212,7 +214,9 @@ def print_bv_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV    BV/Wt | defBV   offBV   cpit"
+    header2 = "Name                          "
+    header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
+    print header2
     for i in mech_list:
         print ("%-30s %3d %4d  %5.2f | %7.2f %7.2f %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
@@ -265,7 +269,9 @@ def print_armor_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Armr Exp Sth | Points  Tons ANS"
+    header2 = "Name                          "
+    header2 += "Tons BV   Armr Exp Sth | Points  Tons  ANS"
+    print header2
     for i in mech_list:
         print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %1s" % 
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8],
