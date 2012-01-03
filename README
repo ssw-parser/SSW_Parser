@@ -20,6 +20,8 @@ file.
 ==== Output Switches ====
 -b: Output that gives a summary of battle values, sorted by BV/ton.
 
+-bv: Output that gives a summary of battle values, sorted by BV.
+
 -a: Output that gives a summary of armor status, sorted by percent of
  maximum armor.
 
@@ -58,3 +60,5 @@ is pointless.
 -lrm <d>: Only list mechs with at least <d> LRM tubes. Enhanced LRMs
  and MMLs count, Extended LRMs does not. Basically only tubes that
  can use standard LRM ammo variantions.
+
+-npr: Only list non-primitive mechs.

@@ -434,6 +434,8 @@ def parse_arg():
                         help='Select mechs with at least speed <n>')
     parser.add_argument('-lrm', action='store', default = 0, type=int,
                         help='Select mechs with at least <n> lrms')
+    parser.add_argument('-npr', action='store_true',
+                        help='Select non-Primitive mechs')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -525,7 +527,11 @@ def main():
         lrm = args.lrm
         select_l.append(lambda x, y: (y.gear.lrms >= lrm))
         header_l.append(("with at least %d lrm tubes" % lrm))
-
+    # non-primitive
+    if args.npr:
+        select_l.append(lambda x, y:
+                            x.engine.etype != "Primitive Fusion Engine")
+        header_l.append("Non-primitive")
 
     ### Process output ###
 
