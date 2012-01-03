@@ -159,6 +159,8 @@ def create_mech_list(file_list, select_l, creator):
 # second item as weight
 # third item as BV
 
+## BV listings, two different sorting methods
+
 def create_bv_list_item(mech, i):
     """
     Compile info used by print_BV_list()
@@ -222,6 +224,8 @@ def print_bv_list(file_list, select_l, header):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
+## Armor listing
+
 def create_armor_list_item(mech, i):
     """
     Compile info used by print_armor_list()
@@ -278,6 +282,8 @@ def print_armor_list(file_list, select_l, header):
                 armor_letter(i[3])))
 
 
+## Speed listing
+
 def create_speed_list_item(mech, i):
     """
     Compile info used by print_speed_list()
@@ -312,6 +318,7 @@ def print_speed_list(file_list, select_l, header):
         print ("%-30s %3d %4d %2d/%2d/%2d %-4s" % 
                (i[0], i[1], i[2], i[4], i[5], i[6], i[7]))
 
+## LRM tubes listing
 
 def create_missile_list_item(mech, i):
     """
@@ -346,8 +353,10 @@ def print_missile_list(file_list, select_l, header):
     print header
     print "Name                          Tons BV   LRM Artemis"
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %3s" % (i[0], i[1], i[2], i[3], i[4]))
+        print ("%-30s %3d %4d %3d %-3s" % (i[0], i[1], i[2], i[3], i[4]))
 
+
+## Default listing
 
 def create_def_list_item(mech, i):
     """
