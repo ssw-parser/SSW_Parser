@@ -84,7 +84,7 @@ class Load:
         # Partial Wing
         if self.partw.has_wing():
             sink += 3
-        return sink
+        return int(sink)
 
     def get_prod_era(self):
         """
