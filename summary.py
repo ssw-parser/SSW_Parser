@@ -340,7 +340,38 @@ def create_missile_list_item(mech, i):
     mov = str(walk)
     if jump > 0:
         mov += "j"
-    return (name_str, weight, batt_val, lrm, art, l_heat, mov)
+
+    l_str = ""
+    # Missing: NLRM-10, NLRM-15, NLRM-20
+    for weap in i.gear.weaponlist.list:
+        if (weap.name == "(IS) LRM-5" and weap.count > 0):
+            l_str += "i5:" + str(weap.count) + " "
+        elif (weap.name == "(IS) LRM-10" and weap.count > 0):
+            l_str += "i10:" + str(weap.count) + " "
+        elif (weap.name == "(IS) LRM-15" and weap.count > 0):
+            l_str += "i15:" + str(weap.count) + " "
+        elif (weap.name == "(IS) LRM-20" and weap.count > 0):
+            l_str += "i20:" + str(weap.count) + " "
+        elif (weap.name == "(CL) LRM-5" and weap.count > 0):
+            l_str += "c5:" + str(weap.count) + " "
+        elif (weap.name == "(CL) LRM-10" and weap.count > 0):
+            l_str += "c10:" + str(weap.count) + " "
+        elif (weap.name == "(CL) LRM-15" and weap.count > 0):
+            l_str += "c15:" + str(weap.count) + " "
+        elif (weap.name == "(CL) LRM-20" and weap.count > 0):
+            l_str += "c20:" + str(weap.count) + " "
+        elif (weap.name == "(IS) Enhanced LRM-5" and weap.count > 0):
+            l_str += "n5:" + str(weap.count) + " "
+        elif (weap.name == "(IS) MML-3" and weap.count > 0):
+            l_str += "m3:" + str(weap.count) + " "
+        elif (weap.name == "(IS) MML-5" and weap.count > 0):
+            l_str += "m5:" + str(weap.count) + " "
+        elif (weap.name == "(IS) MML-7" and weap.count > 0):
+            l_str += "m7:" + str(weap.count) + " "
+        elif (weap.name == "(IS) MML-9" and weap.count > 0):
+            l_str += "m9:" + str(weap.count) + " "
+
+    return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
 def print_missile_list(file_list, select_l, header):
     """
@@ -359,8 +390,8 @@ def print_missile_list(file_list, select_l, header):
     print header
     print "Name                          Tons BV   LRM Art Heat  Move"
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-3s %-5s %-3s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 ## Default listing
