@@ -38,8 +38,7 @@ summary.py:
 -- Artillery
 
 - Count and list specific weapon types
--- Head-capper list: AC20, UAC20, LB20, GR, HGR, HPPC, HLL, cERPPC,
-   iHGR, BinL, iHLL, TB15, TB20
+-- Head-capper list: iHGR, BinL, iHLL, TB15, TB20
 -- Sniping weapon list
 
 - Make default display more like MUL: Add rules.

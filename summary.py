@@ -563,6 +563,102 @@ def print_snipe_list(file_list, select_l, header):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
+## Head-capper listing
+
+def create_headcap_list_item(mech, i):
+    """
+    Compile info used by print_headcap_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+#    lrm = i.gear.lrms
+#    l_heat = str(i.gear.l_heat) + "/" + str(i.get_sink())
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    l_str = ""
+    cap = 0
+    # Missing: Advanced stuff
+    for weap in i.gear.weaponlist.list:
+        if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
+            l_str += "ac20:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) LB 20-X AC" and weap.count > 0):
+            l_str += "lb20:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Ultra AC/20" and weap.count > 0):
+            l_str += "uac20:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Gauss Rifle" and weap.count > 0):
+            l_str += "gr:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Heavy Gauss Rifle" and weap.count > 0):
+            l_str += "hgr:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Heavy PPC" and weap.count > 0):
+            l_str += "hppc:" + str(weap.count) + " "
+            cap += weap.count
+        elif (weap.name == "(CL) LB 20-X AC" and weap.count > 0):
+            l_str += "clb20:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(CL) Ultra AC/20" and weap.count > 0):
+            l_str += "cuac20:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(CL) Gauss Rifle" and weap.count > 0):
+            l_str += "cgr:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(CL) Heavy Large Laser" and weap.count > 0):
+            l_str += "hll:" + str(weap.count) + " "
+            cap += weap.count
+        elif (weap.name == "(CL) ER PPC" and weap.count > 0):
+            l_str += "ceppc:" + str(weap.count) + " "
+            cap += weap.count
+#        elif (weap.name == "(IS) MML-7" and weap.count > 0):
+#            l_str += "m7:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#        elif (weap.name == "(IS) MML-9" and weap.count > 0):
+#            l_str += "m9:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+
+#Add armor?
+
+    return (name_str, weight, batt_val, cap, mov, l_str)
+
+def print_headcap_list(file_list, select_l, header):
+    """
+    headcap_list output
+
+    In the form of name, weight, BV, LRM tubes, Artemis, Heat, Movement,
+    launcher details
+    sorted by LRM tubes, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_headcap_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    print "Name                          Tons BV   Cap Mov Weapons/turns of fire"
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5]))
+
+
+
 
 ## Default listing
 
@@ -622,6 +718,9 @@ def parse_arg():
                         dest = 'output', const = 'l')
     parser.add_argument('-sn', action='store_const', help='Snipe list output',
                         dest = 'output', const = 'sn')
+    parser.add_argument('-cap', action='store_const',
+                        help='Headcap list output',
+                        dest = 'output', const = 'cap')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -760,6 +859,8 @@ def main():
         print_missile_list(file_list, select_l, header)
     elif args.output == 'sn':
         print_snipe_list(file_list, select_l, header)
+    elif args.output == 'cap':
+        print_headcap_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
