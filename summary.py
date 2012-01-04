@@ -582,7 +582,8 @@ def create_headcap_list_item(mech, i):
 
     l_str = ""
     cap = 0
-    # Missing: Advanced stuff
+    # Missing: iHGR, iHLL, PPC + Cap, HPPC + CAP, ERPPC + Cap
+    # We will ignore the Bombast laser due to its inaccuracy
     for weap in i.gear.weaponlist.list:
         if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
             l_str += "ac20:" + str(weap.count) + "/"
@@ -625,12 +626,22 @@ def create_headcap_list_item(mech, i):
         elif (weap.name == "(CL) ER PPC" and weap.count > 0):
             l_str += "ceppc:" + str(weap.count) + " "
             cap += weap.count
-#        elif (weap.name == "(IS) MML-7" and weap.count > 0):
-#            l_str += "m7:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
-#        elif (weap.name == "(IS) MML-9" and weap.count > 0):
-#            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+        # Advanced weapons
+        elif (weap.name == "(IS) Binary Laser Cannon" and weap.count > 0):
+            l_str += "bl:" + str(weap.count) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Snub-Nose PPC + PPC Capacitor" 
+              and weap.count > 0):
+            l_str += "sn+cap:" + str(weap.count) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Thunderbolt-15" and weap.count > 0):
+            l_str += "tb15:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
+        elif (weap.name == "(IS) Thunderbolt-20" and weap.count > 0):
+            l_str += "tb20:" + str(weap.count) + "/"
+            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            cap += weap.count
 
 #Add armor?
 
