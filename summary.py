@@ -328,13 +328,14 @@ def create_missile_list_item(mech, i):
     batt_val = mech.get_bv(i)
     weight = mech.weight
     lrm = i.gear.lrms
+    l_heat = str(i.gear.l_heat) + "/" + str(i.get_sink())
     if i.gear.art4 == "TRUE":
         art = "AIV"
     elif i.gear.art5 == "TRUE":
         art = "AV"
     else:
         art = ""
-    return (name_str, weight, batt_val, lrm, art)
+    return (name_str, weight, batt_val, lrm, art, l_heat)
 
 def print_missile_list(file_list, select_l, header):
     """
@@ -351,9 +352,10 @@ def print_missile_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   LRM Artemis"
+    print "Name                          Tons BV   LRM Art Heat"
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-3s" % (i[0], i[1], i[2], i[3], i[4]))
+        print ("%-30s %3d %4d %3d %-3s %-5s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 
 ## Default listing

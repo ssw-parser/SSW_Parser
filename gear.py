@@ -945,6 +945,7 @@ class Gear:
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
         self.lrms = 0
+        self.l_heat = 0
 
         ### Count gear ###
         for name in self.equip:
@@ -993,27 +994,34 @@ class Gear:
                     # Missing: NLRM-10, NLRM-15, NLRM-20
                     if name.name == "(IS) MML-3":
                         self.lrms += 3
+                        self.l_heat += weap.heat
 
                     if (name.name == "(IS) LRM-5" or
                         name.name == "(CL) LRM-5" or
                         name.name == "(IS) MML-5" or
                         name.name == "(IS) Enhanced LRM-5"):
                         self.lrms += 5
+                        self.l_heat += weap.heat
 
                     if name.name == "(IS) MML-7":
                         self.lrms += 7
+                        self.l_heat += weap.heat
 
                     if name.name == "(IS) MML-9":
                         self.lrms += 9
+                        self.l_heat += weap.heat
 
                     if name.name == "(IS) LRM-10" or name.name == "(CL) LRM-10":
                         self.lrms += 10
+                        self.l_heat += weap.heat
 
                     if name.name == "(IS) LRM-15" or name.name == "(CL) LRM-15":
                         self.lrms += 15
+                        self.l_heat += weap.heat
 
                     if name.name == "(IS) LRM-20" or name.name == "(CL) LRM-20":
                         self.lrms += 20
+                        self.l_heat += weap.heat
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:
