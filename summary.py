@@ -390,7 +390,8 @@ def print_missile_list(file_list, select_l, header):
     """
     missile_list output
 
-    In the form of name, weight, BV, LRM tubes, Artemis
+    In the form of name, weight, BV, LRM tubes, Artemis, Heat, Movement,
+    launcher details
     sorted by LRM tubes, descending
     """
     # Build list
@@ -405,6 +406,162 @@ def print_missile_list(file_list, select_l, header):
     for i in mech_list:
         print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+## Sniper listing
+
+def create_snipe_list_item(mech, i):
+    """
+    Compile info used by print_missile_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    dam = 0
+    heat = 0
+    l_str = ""
+    # Missing: RAC/2, UAC/2, UAC/5, UAC/10 (IS & Clan)
+    # Missing: HAGs
+    # Missing: Advanced stuff, also: LPPC + Cap
+    # No missiles
+    for weap in i.gear.weaponlist.list:
+        if (weap.name == "(IS) Autocannon/2" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 2 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) Autocannon/5" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 5 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) LB 2-X AC" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 2 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) LB 5-X AC" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 5 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) LB 10-X AC" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 2 * weap.count
+        elif (weap.name == "(IS) Light AC/2" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 2 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) Light Gauss Rifle" and weap.count > 0):
+#            l_str += "i5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 8 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) Gauss Rifle" and weap.count > 0):
+#            l_str += "i10:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 15 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(IS) Heavy Gauss Rifle" and weap.count > 0):
+#            l_str += "i15:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 2 * weap.count
+        elif (weap.name == "(IS) ER Large Laser" and weap.count > 0):
+#            l_str += "i20:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 8 * weap.count
+            heat += 12 * weap.count
+        elif (weap.name == "(IS) Light PPC" and weap.count > 0):
+#            l_str += "c5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 5 * weap.count
+            heat += 5 * weap.count
+        elif (weap.name == "(IS) PPC" and weap.count > 0):
+#            l_str += "c10:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 10 * weap.count
+        elif (weap.name == "(IS) Heavy PPC" and weap.count > 0):
+#            l_str += "c15:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 15 * weap.count
+            heat += 15 * weap.count
+        elif (weap.name == "(IS) ER PPC" and weap.count > 0):
+#            l_str += "c20:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 15 * weap.count
+        # Clan weapons
+        elif (weap.name == "(CL) LB 2-X AC" and weap.count > 0):
+#            l_str += "n5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 2 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(CL) LB 5-X AC" and weap.count > 0):
+#            l_str += "m3:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 5 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(CL) LB 10-X AC" and weap.count > 0):
+#            l_str += "m5:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 2 * weap.count
+        elif (weap.name == "(CL) Gauss Rifle" and weap.count > 0):
+#            l_str += "m7:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 15 * weap.count
+            heat += 1 * weap.count
+        elif (weap.name == "(CL) ER Large Laser" and weap.count > 0):
+#            l_str += "m9:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 12 * weap.count
+        elif (weap.name == "(CL) Large Pulse Laser" and weap.count > 0):
+#            l_str += "m9:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 10 * weap.count
+            heat += 10 * weap.count
+        elif (weap.name == "(CL) ER PPC" and weap.count > 0):
+#            l_str += "m9:" + str(weap.count) + "/"
+#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            dam += 15 * weap.count
+            heat += 15 * weap.count
+
+    l_heat = str(heat) + "/" + str(i.get_sink())
+
+    return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
+
+def print_snipe_list(file_list, select_l, header):
+    """
+    snipe_list output
+
+    In the form of name, weight, BV, LRM tubes
+    sorted by LRM tubes, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_snipe_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    print "Name                          Tons BV   Dam Heat  Mov Lnchrs/turns of fire"
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+
 
 
 ## Default listing
@@ -463,6 +620,8 @@ def parse_arg():
                         dest = 'output', const = 's')
     parser.add_argument('-l', action='store_const', help='LRM list output',
                         dest = 'output', const = 'l')
+    parser.add_argument('-sn', action='store_const', help='Snipe list output',
+                        dest = 'output', const = 'sn')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -599,6 +758,8 @@ def main():
         print_speed_list(file_list, select_l, header)
     elif args.output == 'l':
         print_missile_list(file_list, select_l, header)
+    elif args.output == 'sn':
+        print_snipe_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
