@@ -646,7 +646,12 @@ def create_headcap_list_item(mech, i):
     # Armor coverage relative to maximum
     armor = mech.armor.get_armor_percent()
 
-    return (name_str, weight, batt_val, cap, mov, armor, l_str)
+    # Targeting Computer
+    tc = ""
+    if (i.gear.tarcomp > 0):
+        tc = "X"
+
+    return (name_str, weight, batt_val, cap, mov, armor, tc, l_str)
 
 def print_headcap_list(file_list, select_l, header):
     """
@@ -664,10 +669,10 @@ def print_headcap_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Cap Mov Armr Weapons/turns of fire"
+    print "Name                          Tons BV   Cap Mov Armr TC Weapons/turns of fire"
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-3s %3.0f%% %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %3d %-3s %3.0f%% %-2s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 
