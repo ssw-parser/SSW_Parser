@@ -21,7 +21,7 @@ gear.py:
 - Add rules level for stuff.
 - Move weight calculations.
 
-ssw.py:
+== ssw.py ==
 - Additional checking:
 -- torso bombs
 -- OS launchers
@@ -31,7 +31,7 @@ ssw.py:
 -- good armor 1.1-1.25xIS
 - Move date calculations completely to mech.py (and its sub-classes)
 
-summary.py:
+== summary.py ==
 - List special equipment:
 -- ECM
 -- Stealth
@@ -52,9 +52,14 @@ summary.py:
 - Armor listing:
 -- Armor type
 
+- LRM listing:
+-- Missile boat score: tubes * ammo? Heat? 
+--- Light: 10 tubes, Medium: 20 tubes, Heavy: 30 tubes, Assault: 40 tubes
+--- Average damage
+
 - Filter by source
 
-movement.py:
+== movement.py ==
 - Replace IS XXL Engine BV factor once ssw uses new one.
 
 ===System by ANS Kamas P81===
