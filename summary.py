@@ -800,9 +800,14 @@ def main():
             f_handle.close()
             # Strip out trailing newlines
             for file_name in file_list_raw:
+                fn = file_name.strip()
+                # Ignore empty lines
+                if fn == "":
+                    continue
                 # Ignore comments
-                if file_name[0] != '#':
-                    file_list.append(file_name.strip())
+                if fn[0] == '#':
+                    continue
+                file_list.append(fn)
 
     ### Activate selectors ###
 
