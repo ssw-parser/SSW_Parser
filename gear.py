@@ -240,6 +240,7 @@ AMMO = {
     "@ Gauss Rifle" : [["(IS) Gauss Rifle", "(CL) Gauss Rifle"], 8, 1, ""],
     "(IS) @ Heavy Gauss Rifle" : [["(IS) Heavy Gauss Rifle"], 4, 1, ""],
     "(IS) @ LB 2-X AC (Slug)" : [["(IS) LB 2-X AC"], 45, 1, "X"],
+    "(IS) @ LB 2-X AC (Cluster)" : [["(IS) LB 2-X AC"], 45, 1, "X"],
     "(IS) @ LB 5-X AC (Slug)" : [["(IS) LB 5-X AC"], 20, 1, "X"],
     "(IS) @ LB 5-X AC (Cluster)" : [["(IS) LB 5-X AC"], 20, 1, "X"],
     "(IS) @ LB 10-X AC (Slug)" : [["(IS) LB 10-X AC"], 10, 1, "X"],
