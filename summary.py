@@ -556,7 +556,6 @@ def create_headcap_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
-#    lrm = i.gear.lrms
 #    l_heat = str(i.gear.l_heat) + "/" + str(i.get_sink())
     walk = mech.get_walk()
     jump = i.get_jump()
@@ -566,66 +565,35 @@ def create_headcap_list_item(mech, i):
 
     l_str = ""
     cap = 0
+    # List of headcapper names and shorthand
     # Missing: iHGR, iHLL, PPC + Cap, HPPC + CAP, ERPPC + Cap
     # We will ignore the Bombast laser due to its inaccuracy
+    capper_list = [["(IS) Autocannon/20", "ac20:"],
+                   ["(IS) LB 20-X AC", "lb20:"],
+                   ["(IS) Ultra AC/20", "uac20:"],
+                   ["(IS) Gauss Rifle", "gr:"],
+                   ["(IS) Heavy Gauss Rifle", "hgr:"],
+                   ["(IS) Heavy PPC", "hppc:"],
+                   ["(CL) LB 20-X AC", "clb20:"],
+                   ["(CL) Ultra AC/20", "cuac20:"],
+                   ["(CL) Gauss Rifle", "cgr:"],
+                   ["(CL) Heavy Large Laser", "hll:"],
+                   ["(CL) ER PPC", "ceppc:"],
+                   # Advanced Weapons
+                   ["(IS) Binary Laser Cannon", "bl:"],
+                   ["(IS) Snub-Nose PPC + PPC Capacitor", "sn+cap:"],
+                   ["(IS) Thunderbolt-15", "tb15:"],
+                   ["(IS) Thunderbolt-20", "tb20:"]]
+
     for weap in i.gear.weaponlist.list:
-        if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
-            l_str += "ac20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) LB 20-X AC" and weap.count > 0):
-            l_str += "lb20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Ultra AC/20" and weap.count > 0):
-            l_str += "uac20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Gauss Rifle" and weap.count > 0):
-            l_str += "gr:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Heavy Gauss Rifle" and weap.count > 0):
-            l_str += "hgr:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Heavy PPC" and weap.count > 0):
-            l_str += "hppc:" + str(weap.count) + " "
-            cap += weap.count
-        elif (weap.name == "(CL) LB 20-X AC" and weap.count > 0):
-            l_str += "clb20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(CL) Ultra AC/20" and weap.count > 0):
-            l_str += "cuac20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(CL) Gauss Rifle" and weap.count > 0):
-            l_str += "cgr:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(CL) Heavy Large Laser" and weap.count > 0):
-            l_str += "hll:" + str(weap.count) + " "
-            cap += weap.count
-        elif (weap.name == "(CL) ER PPC" and weap.count > 0):
-            l_str += "ceppc:" + str(weap.count) + " "
-            cap += weap.count
-        # Advanced weapons
-        elif (weap.name == "(IS) Binary Laser Cannon" and weap.count > 0):
-            l_str += "bl:" + str(weap.count) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Snub-Nose PPC + PPC Capacitor" 
-              and weap.count > 0):
-            l_str += "sn+cap:" + str(weap.count) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Thunderbolt-15" and weap.count > 0):
-            l_str += "tb15:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
-        elif (weap.name == "(IS) Thunderbolt-20" and weap.count > 0):
-            l_str += "tb20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-            cap += weap.count
+        for capper in capper_list:
+            if (weap.name == capper[0] and weap.count > 0):
+                if weap.useammo > 0:
+                    l_str += capper[1] + str(weap.count) + "/"
+                    l_str += str(weap.get_ammo_per_weapon()) + " "
+                else:
+                    l_str += capper[1] + str(weap.count) + " "
+                cap += weap.count
 
     # Armor coverage relative to maximum
     armor = mech.armor.get_armor_percent()
