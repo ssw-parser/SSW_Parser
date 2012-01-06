@@ -402,7 +402,9 @@ def print_missile_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
+    header2 = "Name                          "
+    header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
+    print header2
     for i in mech_list:
         print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
@@ -557,7 +559,9 @@ def print_snipe_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Dam Heat  Mov Lnchrs/turns of fire"
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Lnchrs/turns of fire"
+    print header2
     for i in mech_list:
         print ("%-30s %3d %4d %3d %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
@@ -647,11 +651,11 @@ def create_headcap_list_item(mech, i):
     armor = mech.armor.get_armor_percent()
 
     # Targeting Computer
-    tc = ""
+    tarcomp = ""
     if (i.gear.tarcomp > 0):
-        tc = "X"
+        tarcomp = "X"
 
-    return (name_str, weight, batt_val, cap, mov, armor, tc, l_str)
+    return (name_str, weight, batt_val, cap, mov, armor, tarcomp, l_str)
 
 def print_headcap_list(file_list, select_l, header):
     """
@@ -669,7 +673,9 @@ def print_headcap_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Cap Mov Armr TC Weapons/turns of fire"
+    header2 = "Name                          "
+    header2 += "Tons BV   Cap Mov Armr TC Weapons/turns of fire"
+    print header2
     for i in mech_list:
         print ("%-30s %3d %4d %3d %-3s %3.0f%% %-2s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
@@ -800,14 +806,14 @@ def main():
             f_handle.close()
             # Strip out trailing newlines
             for file_name in file_list_raw:
-                fn = file_name.strip()
+                fname = file_name.strip()
                 # Ignore empty lines
-                if fn == "":
+                if fname == "":
                     continue
                 # Ignore comments
-                if fn[0] == '#':
+                if fname[0] == '#':
                     continue
-                file_list.append(fn)
+                file_list.append(fname)
 
     ### Activate selectors ###
 
