@@ -324,6 +324,22 @@ def create_missile_list_item(mech, i):
     """
     Compile info used by print_missile_list()
     """
+    # List of launcher names and shorthand
+    # Missing: NLRM-10, NLRM-15, NLRM-20
+    launcher_list = [["(IS) LRM-5", "i5:"],
+                     ["(IS) LRM-10", "i10:"],
+                     ["(IS) LRM-15", "i15:"],
+                     ["(IS) LRM-20", "i20:"],
+                     ["(CL) LRM-5", "c5:"],
+                     ["(CL) LRM-10", "c10:"],
+                     ["(CL) LRM-15", "c15:"],
+                     ["(CL) LRM-20", "c20:"],
+                     ["(IS) Enhanced LRM-5", "n5:"],
+                     ["(IS) MML-3", "m3:"],
+                     ["(IS) MML-5", "m5:"],
+                     ["(IS) MML-7", "m7:"],
+                     ["(IS) MML-9", "m9:"]]
+
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
@@ -342,48 +358,12 @@ def create_missile_list_item(mech, i):
         mov += "j"
 
     l_str = ""
-    # Missing: NLRM-10, NLRM-15, NLRM-20
     for weap in i.gear.weaponlist.list:
-        if (weap.name == "(IS) LRM-5" and weap.count > 0):
-            l_str += "i5:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) LRM-10" and weap.count > 0):
-            l_str += "i10:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) LRM-15" and weap.count > 0):
-            l_str += "i15:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) LRM-20" and weap.count > 0):
-            l_str += "i20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(CL) LRM-5" and weap.count > 0):
-            l_str += "c5:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(CL) LRM-10" and weap.count > 0):
-            l_str += "c10:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(CL) LRM-15" and weap.count > 0):
-            l_str += "c15:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(CL) LRM-20" and weap.count > 0):
-            l_str += "c20:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) Enhanced LRM-5" and weap.count > 0):
-            l_str += "n5:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) MML-3" and weap.count > 0):
-            l_str += "m3:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) MML-5" and weap.count > 0):
-            l_str += "m5:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) MML-7" and weap.count > 0):
-            l_str += "m7:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-        elif (weap.name == "(IS) MML-9" and weap.count > 0):
-            l_str += "m9:" + str(weap.count) + "/"
-            l_str += str(weap.get_ammo_per_weapon()) + " "
-
+        for launcher in launcher_list:
+            if (weap.name == launcher[0] and weap.count > 0):
+                l_str += launcher[1] + str(weap.count) + "/"
+                l_str += str(weap.get_ammo_per_weapon()) + " "
+                
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
 def print_missile_list(file_list, select_l, header):
