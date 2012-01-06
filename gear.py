@@ -780,6 +780,15 @@ class Weapon:
 
         return bv_ammo
 
+    def get_ammo_per_weapon(self):
+        """
+        Get amount of ammo for each forward-facing weapon
+        """
+        if self.count > 0:
+            return int(float(self.ammocount) / float(self.count))
+        # For no weapons, ammo matters not
+        else:
+            return 0
 
 class Ammolist:
     """

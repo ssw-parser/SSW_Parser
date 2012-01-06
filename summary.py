@@ -346,43 +346,43 @@ def create_missile_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         if (weap.name == "(IS) LRM-5" and weap.count > 0):
             l_str += "i5:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) LRM-10" and weap.count > 0):
             l_str += "i10:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) LRM-15" and weap.count > 0):
             l_str += "i15:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) LRM-20" and weap.count > 0):
             l_str += "i20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(CL) LRM-5" and weap.count > 0):
             l_str += "c5:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(CL) LRM-10" and weap.count > 0):
             l_str += "c10:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(CL) LRM-15" and weap.count > 0):
             l_str += "c15:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(CL) LRM-20" and weap.count > 0):
             l_str += "c20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) Enhanced LRM-5" and weap.count > 0):
             l_str += "n5:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) MML-3" and weap.count > 0):
             l_str += "m3:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) MML-5" and weap.count > 0):
             l_str += "m5:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) MML-7" and weap.count > 0):
             l_str += "m7:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
         elif (weap.name == "(IS) MML-9" and weap.count > 0):
             l_str += "m9:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
 
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
@@ -397,7 +397,7 @@ def print_missile_list(file_list, select_l, header):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_missile_list_item)
 
-    # Sort by speed
+    # Sort by tubes
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
@@ -412,7 +412,7 @@ def print_missile_list(file_list, select_l, header):
 
 def create_snipe_list_item(mech, i):
     """
-    Compile info used by print_missile_list()
+    Compile info used by print_snipe_list()
     """
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
@@ -433,108 +433,108 @@ def create_snipe_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         if (weap.name == "(IS) Autocannon/2" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 2 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) Autocannon/5" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 5 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) LB 2-X AC" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 2 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) LB 5-X AC" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 5 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) LB 10-X AC" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 2 * weap.count
         elif (weap.name == "(IS) Light AC/2" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 2 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) Light Gauss Rifle" and weap.count > 0):
 #            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 8 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) Gauss Rifle" and weap.count > 0):
 #            l_str += "i10:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 15 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(IS) Heavy Gauss Rifle" and weap.count > 0):
 #            l_str += "i15:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 2 * weap.count
         elif (weap.name == "(IS) ER Large Laser" and weap.count > 0):
 #            l_str += "i20:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 8 * weap.count
             heat += 12 * weap.count
         elif (weap.name == "(IS) Light PPC" and weap.count > 0):
 #            l_str += "c5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 5 * weap.count
             heat += 5 * weap.count
         elif (weap.name == "(IS) PPC" and weap.count > 0):
 #            l_str += "c10:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 10 * weap.count
         elif (weap.name == "(IS) Heavy PPC" and weap.count > 0):
 #            l_str += "c15:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 15 * weap.count
             heat += 15 * weap.count
         elif (weap.name == "(IS) ER PPC" and weap.count > 0):
 #            l_str += "c20:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 15 * weap.count
         # Clan weapons
         elif (weap.name == "(CL) LB 2-X AC" and weap.count > 0):
 #            l_str += "n5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 2 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(CL) LB 5-X AC" and weap.count > 0):
 #            l_str += "m3:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 5 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(CL) LB 10-X AC" and weap.count > 0):
 #            l_str += "m5:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 2 * weap.count
         elif (weap.name == "(CL) Gauss Rifle" and weap.count > 0):
 #            l_str += "m7:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 15 * weap.count
             heat += 1 * weap.count
         elif (weap.name == "(CL) ER Large Laser" and weap.count > 0):
 #            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 12 * weap.count
         elif (weap.name == "(CL) Large Pulse Laser" and weap.count > 0):
 #            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 10 * weap.count
             heat += 10 * weap.count
         elif (weap.name == "(CL) ER PPC" and weap.count > 0):
 #            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+#            l_str += str(weap.get_ammo_per_weapon()) + " "
             dam += 15 * weap.count
             heat += 15 * weap.count
 
@@ -587,38 +587,38 @@ def create_headcap_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
             l_str += "ac20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(IS) LB 20-X AC" and weap.count > 0):
             l_str += "lb20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(IS) Ultra AC/20" and weap.count > 0):
             l_str += "uac20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(IS) Gauss Rifle" and weap.count > 0):
             l_str += "gr:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(IS) Heavy Gauss Rifle" and weap.count > 0):
             l_str += "hgr:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(IS) Heavy PPC" and weap.count > 0):
             l_str += "hppc:" + str(weap.count) + " "
             cap += weap.count
         elif (weap.name == "(CL) LB 20-X AC" and weap.count > 0):
             l_str += "clb20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(CL) Ultra AC/20" and weap.count > 0):
             l_str += "cuac20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(CL) Gauss Rifle" and weap.count > 0):
             l_str += "cgr:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(CL) Heavy Large Laser" and weap.count > 0):
             l_str += "hll:" + str(weap.count) + " "
@@ -636,11 +636,11 @@ def create_headcap_list_item(mech, i):
             cap += weap.count
         elif (weap.name == "(IS) Thunderbolt-15" and weap.count > 0):
             l_str += "tb15:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
         elif (weap.name == "(IS) Thunderbolt-20" and weap.count > 0):
             l_str += "tb20:" + str(weap.count) + "/"
-            l_str += str(int(float(weap.ammocount) / float(weap.count))) + " "
+            l_str += str(weap.get_ammo_per_weapon()) + " "
             cap += weap.count
 
     # Armor coverage relative to maximum
@@ -657,9 +657,9 @@ def print_headcap_list(file_list, select_l, header):
     """
     headcap_list output
 
-    In the form of name, weight, BV, LRM tubes, Artemis, Heat, Movement,
-    launcher details
-    sorted by LRM tubes, descending
+    In the form of name, weight, BV, Headcappers, Movement, Armor, Tarcomp
+    weapon details
+    sorted by number of headcappers, descending
     """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_headcap_list_item)
