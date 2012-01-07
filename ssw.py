@@ -28,7 +28,6 @@ Uses external file mech.py to read in data.
 import sys
 from xml.dom import minidom
 from mech import Mech
-from error import print_warning
 
 def get_comp_year(call, date):
     """
@@ -111,17 +110,8 @@ def parse_gear(mech, date):
         print "Explosive: ", i, mech.gear.exp_ammo[i]
 
     # Check heat
-    hbal = lheat - mech.get_sink()
-    if (hbal > 4):
-        st1 = "WARNING: Long range weapons overheats a lot!"
-        st2 = "  Overheat: " + str(hbal)
-        print_warning((st1, st2))
-    hbal = mheat - mech.get_sink()
-    if (hbal > 4):
-        st1 = "WARNING: Medium range weapons overheats a lot!"
-        st2 = "  Overheat: " + str(hbal)
-        print_warning((st1, st2))
-        
+    print "Long range heat: ", lheat, "/", mech.get_sink()
+    print "Medium range heat: ", mheat, "/", mech.get_sink()
 
     print "LR BV: ", lbv
     print "MR BV: ", mbv
