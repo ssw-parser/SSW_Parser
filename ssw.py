@@ -94,12 +94,13 @@ def parse_gear(mech, date):
                 print_warning((st1, st2))
 
             report = str(weap.count)
+            if weap.useammo > 0:
+                report += "/" + str(weap.get_ammo_per_weapon())
             # If there is rear-mounted stuff, only list them, do not count for
             # evaluation
             if weap.countrear > 0:
-                report = report + ", " + str(weap.countrear) + "(R) "
-            report = report + " " + weap.name
-            print report
+                report = report + ", " + str(weap.countrear) + "(R)"
+            print ("%-7s %s" % (report, weap.name))
             # Get BV balance, also count heat
             if weap.range == "L":
                 lbv = lbv + weap.count * weap.get_bv(mech.gear.tarcomp,
