@@ -24,7 +24,7 @@ Mech internal structure and armor classes
 
 
 from math import ceil
-from error import error_exit, print_warning
+from error import error_exit
 from util import ceil_05, get_child_data
 from item import Item
 
@@ -271,37 +271,11 @@ class ArmorLoc:
                                           int(ratio * 100)))
         return msg
 
-    def report_fall(self, fall_dam):
-        """
-        Falling damage armor report
-        """
-        if (self.arm < fall_dam):
-            st1 = ("WARNING: Falling damage might go internal on " +
-                   self.l_name + " armor!")
-            st2 = ("  Damage: " + str(fall_dam) + ", armor: " +
-                   str(self.arm))
-            print_warning((st1, st2))
-
     def report_standard(self, fall_dam):
         """
         Standard armor location report, should be used in most cases.
-        Considers an armor value of less than 50% of max to be too weak.
-        Also considers locations that will get destroyed by 10-point hits
-        too weak.
         """
         print self.get_report()
-        if (not self.check_percent(0.5)):
-            st1 = "WARNING: Weak " + self.l_name + " armor!"
-            st2 = self.get_warning_string()
-            print_warning((st1, st2))
-        if (not self.check_armor_is(10)):
-            st1 = ("WARNING: 10-pts hits will remove " + self.l_name +
-                   " location!")
-            st2 = self.get_warning_string()
-            print_warning((st1, st2))
-        # Also check for falling damage, just in case
-        self.report_fall(fall_dam)
-
 
 
 class TorsoArmor:
@@ -323,7 +297,6 @@ class TorsoArmor:
         self.front.report_standard(fall_dam)
         # Only falling damage check for rear
         print self.rear.get_report()
-        self.rear.report_fall(fall_dam)
         # No checks for total armor
         print self.total.get_report()
 
@@ -489,26 +462,3 @@ class Armor(Item):
         self.l_arm.report_standard(self.fall_dam)
         self.r_arm.report_standard(self.fall_dam)
 
-    def get_medium_ok(self, val):
-        """
-        Does the mech have at least val points of armor on center torso,
-        and the legs?
-        """
-        if (self.l_leg.check_value(val) and self.r_leg.check_value(val) and
-            self.c_torso.front.check_value(val)):
-            return True
-        else:
-            return False
-
-    def get_heavy_ok(self, val):
-        """
-        Does the mech have at least val points of armor on all torsos,
-        and all limbs?
-        """
-        if (self.get_medium_ok(val) and self.l_arm.check_value(val) and
-            self.r_arm.check_value(val) and
-            self.l_torso.front.check_value(val) and
-            self.r_torso.front.check_value(val)):
-            return True
-        else:
-            return False
