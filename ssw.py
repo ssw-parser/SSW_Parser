@@ -56,13 +56,8 @@ def parse_gear(mech, date):
             total = weap.count + weap.countrear
             ammo = weap.ammocount
             ammo_per_weapon = float(ammo) / float(total * weap.useammo)
-            if (ammo_per_weapon < 15.0):
+            if (ammo_per_weapon < 12.0):
                 st1 = "WARNING: Ammo supply low!"
-                st2 = "  Weapon: " + str(weap.name)
-                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                print_warning((st1, st2, st3))
-            elif (ammo_per_weapon > 50.0):
-                st1 = "WARNING: Ammo supply high!"
                 st2 = "  Weapon: " + str(weap.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 print_warning((st1, st2, st3))
@@ -73,13 +68,8 @@ def parse_gear(mech, date):
             total = equip.count
             ammo = equip.ammocount
             ammo_per_weapon = float(ammo) / float(total * equip.useammo)
-            if (ammo_per_weapon < 15.0):
+            if (ammo_per_weapon < 12.0):
                 st1 = "WARNING: Ammo supply low!"
-                st2 = "  Weapon: " + str(equip.name)
-                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                print_warning((st1, st2, st3))
-            elif (ammo_per_weapon > 50.0):
-                st1 = "WARNING: Ammo supply high!"
                 st2 = "  Weapon: " + str(equip.name)
                 st3 = "  Ammo Supply: " + str(ammo_per_weapon)
                 print_warning((st1, st2, st3))
@@ -87,12 +77,6 @@ def parse_gear(mech, date):
     # Print used weapons
     for weap in mech.gear.weaponlist.list:
         if (weap.count > 0 or weap.countrear > 0):
-            # Check for inefficient weapons
-            if ((weap.batt_val[0]/weap.weight) < 10.0):
-                st1 = "WARNING: Ineffient weapon mounted!"
-                st2 = "  Weapon: " + weap.name
-                print_warning((st1, st2))
-
             report = str(weap.count)
             if weap.useammo > 0:
                 report += "/" + str(weap.get_ammo_per_weapon())
