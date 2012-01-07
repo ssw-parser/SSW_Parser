@@ -23,7 +23,6 @@ Contains the master class for a mech
 """
 
 from math import ceil
-from error import print_warning
 from defensive import IS, Armor
 from movement import Cockpit, Enhancement, Gyro, Engine
 from util import ceil_05, get_child, get_child_data
@@ -407,30 +406,6 @@ class Mech:
         string = ("%s/%s/%d" % (wstr, rstr, self.load.get_jump()))
         return string
 
-    def parse_speed(self, weight):
-        """
-        Check if a mech is too slow for its weight class
-        """
-        spd = self.engine.speed
-        # Bigger of ground speed and jump range
-        speed = max((spd, self.load.get_jump()))
-        # Light
-        if (speed < 6 and weight < 40):
-            msg = ("WARNING: Mech is too slow for its weight class!")
-            print_warning((msg,))
-        # Medium
-        elif (speed < 5 and weight < 60):
-            msg = "WARNING: Mech is too slow for its weight class!"
-            print_warning((msg,))
-        # Heavy
-        elif (speed < 4 and weight < 80):
-            msg = "WARNING: Mech is too slow for its weight class!"
-            print_warning((msg,))
-        # Assault
-        elif (speed < 3):
-            msg = "WARNING: Mech is too slow for its weight class!"
-            print_warning((msg,))
-
     def print_engine_report(self, weight):
         """
         Print out a report about the mech engine
@@ -438,12 +413,7 @@ class Mech:
         eweight = self.engine.get_weight()
         eratio = float(eweight) / float(weight)
         print "Engine: ", self.engine.summary_string(), int(eratio * 100), "%"
-        if (eratio > 0.4):
-            msg = "WARNING: Very heavy engine!"
-            msg2 = "  Mounting LFE or XLFE suggested."
-            print_warning((msg, msg2))
         print "Speed: " + self.get_move_string()
-        self.parse_speed(weight)
         gweight = self.gyro.get_weight()
         print self.gyro.summary_string()
         jweight = self.load.jjets.get_weight()
@@ -482,9 +452,4 @@ class Mech:
         """
         # Standard armor report
         self.armor.parse_armor()
-        # Check for the movement related issues
-        if self.speed_armor_warning(20):
-            st1 = "WARNING: Not enough armor for speed!"
-            # st2 = self.head.get_warning_string()
-            print_warning((st1, ))
 
