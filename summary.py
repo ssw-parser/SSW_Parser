@@ -26,7 +26,7 @@ import argparse
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
-
+from weapons import LAUNCHER_LIST
 
 #############################
 ##### Utility functions #####
@@ -324,22 +324,6 @@ def create_missile_list_item(mech, i):
     """
     Compile info used by print_missile_list()
     """
-    # List of launcher names and shorthand
-    # Missing: NLRM-10, NLRM-15, NLRM-20
-    launcher_list = [["(IS) LRM-5", "i5:"],
-                     ["(IS) LRM-10", "i10:"],
-                     ["(IS) LRM-15", "i15:"],
-                     ["(IS) LRM-20", "i20:"],
-                     ["(CL) LRM-5", "c5:"],
-                     ["(CL) LRM-10", "c10:"],
-                     ["(CL) LRM-15", "c15:"],
-                     ["(CL) LRM-20", "c20:"],
-                     ["(IS) Enhanced LRM-5", "n5:"],
-                     ["(IS) MML-3", "m3:"],
-                     ["(IS) MML-5", "m5:"],
-                     ["(IS) MML-7", "m7:"],
-                     ["(IS) MML-9", "m9:"]]
-
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
@@ -359,7 +343,7 @@ def create_missile_list_item(mech, i):
 
     l_str = ""
     for weap in i.gear.weaponlist.list:
-        for launcher in launcher_list:
+        for launcher in LAUNCHER_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
                 l_str += launcher[1] + str(weap.count) + "/"
                 l_str += str(weap.get_ammo_per_weapon()) + " "

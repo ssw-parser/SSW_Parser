@@ -216,6 +216,22 @@ WEAPONS = {
     "(IS) Sniper" : [[85, 11], "L", "", 1900, 1, 20, 10, 0]
     }
 
+# List of launcher names and shorthand
+# Missing: NLRM-10, NLRM-15, NLRM-20
+LAUNCHER_LIST = [["(IS) LRM-5", "i5:"],
+                 ["(IS) LRM-10", "i10:"],
+                 ["(IS) LRM-15", "i15:"],
+                 ["(IS) LRM-20", "i20:"],
+                 ["(CL) LRM-5", "c5:"],
+                 ["(CL) LRM-10", "c10:"],
+                 ["(CL) LRM-15", "c15:"],
+                 ["(CL) LRM-20", "c20:"],
+                 ["(IS) Enhanced LRM-5", "n5:"],
+                 ["(IS) MML-3", "m3:"],
+                 ["(IS) MML-5", "m5:"],
+                 ["(IS) MML-7", "m7:"],
+                 ["(IS) MML-9", "m9:"]]
+
 class Weaponlist:
     """
     Store the list with weapons
