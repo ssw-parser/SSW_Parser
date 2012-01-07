@@ -14,7 +14,7 @@ Goals:
 -- Null sig, chameleon, void sig year
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
-gear.py:
+== gear.py ==
 - Split WEAPONS into weapon types.
 - Merge physical, equipment dictionaries.
 - Supercharger year.
