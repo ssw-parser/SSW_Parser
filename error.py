@@ -32,36 +32,3 @@ def error_exit(msg):
     print "WARNING: Unknown", msg, "!"
     sys.exit(1)
 
-def print_warning(strings):
-    """
-    Print warnings directly
-    """
-    for i in strings:
-        if i != "":
-            print i
-
-class Warnings:
-    """
-    A class to store warning messages
-    """
-    def __init__(self):
-        self.list = []
-
-    def add(self, strings):
-        """
-        Add a warning to the warnings list
-        """
-        self.list.append(strings)
-
-    def print_warnings(self):
-        """
-        Print out all warnings messages
-        """
-        if self.list != []:
-            for i in self.list:
-                for j in i:
-                    if j != "":
-                        print j
-
-# Create global warnings storage
-warnings = Warnings()
