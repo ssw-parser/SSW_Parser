@@ -22,8 +22,6 @@
 Mech internal structure and armor classes
 """
 
-
-from math import ceil
 from error import error_exit
 from util import ceil_05, get_child_data
 from item import Item
@@ -271,12 +269,6 @@ class ArmorLoc:
                                           int(ratio * 100)))
         return msg
 
-    def report_standard(self, fall_dam):
-        """
-        Standard armor location report, should be used in most cases.
-        """
-        print self.get_report()
-
 
 class TorsoArmor:
     """
@@ -289,15 +281,12 @@ class TorsoArmor:
         self.total = ArmorLoc(loc_name + " total", front + rear, i_struct,
                               i_struct * 2)
 
-    def report(self, fall_dam):
+    def report(self):
         """
-        Report for torso armor
+        Report for torso armor: front, rear and total
         """
-        # Standard for front armor
-        self.front.report_standard(fall_dam)
-        # Only falling damage check for rear
+        print self.front.get_report()
         print self.rear.get_report()
-        # No checks for total armor
         print self.total.get_report()
 
     def get_total(self):
@@ -389,10 +378,6 @@ class Armor(Item):
         self.total = ArmorLoc("Total", armortotal, (maxtotal - 9) / 2 + 3,
                               maxtotal)
 
-        # Store potential falling damage
-        self.fall_dam = ceil(weight / 10.0)
-
-
     def get_armor_bv(self):
         """
         Return armor BV
@@ -453,12 +438,12 @@ class Armor(Item):
         Print out all armor reports
         """
         self.armor_total_report()
-        self.head.report_standard(self.fall_dam)
-        self.c_torso.report(self.fall_dam)
-        self.l_torso.report(self.fall_dam)
-        self.r_torso.report(self.fall_dam)
-        self.l_leg.report_standard(self.fall_dam)
-        self.r_leg.report_standard(self.fall_dam)
-        self.l_arm.report_standard(self.fall_dam)
-        self.r_arm.report_standard(self.fall_dam)
+        print self.head.get_report()
+        self.c_torso.report()
+        self.l_torso.report()
+        self.r_torso.report()
+        print self.l_leg.get_report()
+        print self.r_leg.get_report()
+        print self.l_arm.get_report()
+        print self.r_arm.get_report()
 
