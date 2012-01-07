@@ -49,6 +49,7 @@ def parse_gear(mech, date):
     mheat = 0
 
     # Print used weapons
+    print "Nr      Name                 Heat"
     for weap in mech.gear.weaponlist.list:
         if (weap.count > 0 or weap.countrear > 0):
             report = str(weap.count)
@@ -58,7 +59,8 @@ def parse_gear(mech, date):
             # evaluation
             if weap.countrear > 0:
                 report = report + ", " + str(weap.countrear) + "(R)"
-            print ("%-7s %s" % (report, weap.name))
+            print ("%-7s %-20s %d" % 
+                   (report, weap.name, weap.count * weap.heat))
             # Get BV balance, also count heat
             if weap.range == "L":
                 lbv = lbv + weap.count * weap.get_bv(mech.gear.tarcomp,
