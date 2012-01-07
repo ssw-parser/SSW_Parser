@@ -26,7 +26,7 @@ from math import ceil
 from error import error_exit
 from util import ceil_05, gettext, get_child_data
 from item import Item
-from weapons import WEAPONS, Weaponlist
+from weapons import WEAPONS, LAUNCHER_LIST, Weaponlist
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -711,36 +711,10 @@ class Gear:
 
                     # Count LRM tubes that can fire special ammo
                     # Missing: NLRM-10, NLRM-15, NLRM-20
-                    if name.name == "(IS) MML-3":
-                        self.lrms += 3
-                        self.l_heat += weap.heat
-
-                    if (name.name == "(IS) LRM-5" or
-                        name.name == "(CL) LRM-5" or
-                        name.name == "(IS) MML-5" or
-                        name.name == "(IS) Enhanced LRM-5"):
-                        self.lrms += 5
-                        self.l_heat += weap.heat
-
-                    if name.name == "(IS) MML-7":
-                        self.lrms += 7
-                        self.l_heat += weap.heat
-
-                    if name.name == "(IS) MML-9":
-                        self.lrms += 9
-                        self.l_heat += weap.heat
-
-                    if name.name == "(IS) LRM-10" or name.name == "(CL) LRM-10":
-                        self.lrms += 10
-                        self.l_heat += weap.heat
-
-                    if name.name == "(IS) LRM-15" or name.name == "(CL) LRM-15":
-                        self.lrms += 15
-                        self.l_heat += weap.heat
-
-                    if name.name == "(IS) LRM-20" or name.name == "(CL) LRM-20":
-                        self.lrms += 20
-                        self.l_heat += weap.heat
+                    for launcher in LAUNCHER_LIST:
+                        if (name.name == launcher[0]):
+                            self.lrms += launcher[2]
+                            self.l_heat += weap.heat
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:
