@@ -58,7 +58,7 @@ def parse_gear(mech, date):
             # If there is rear-mounted stuff, only list them, do not count for
             # evaluation
             if weap.countrear > 0:
-                report = report + ", " + str(weap.countrear) + "(R)"
+                report += ", " + str(weap.countrear) + "(R)"
             print ("%-7s %-24s %d" % 
                    (report, weap.name, weap.count * weap.heat))
             # Get BV balance, also count heat
@@ -86,22 +86,19 @@ def parse_gear(mech, date):
     # Print used equipment
     for equip in mech.gear.o_equiplist.list:
         if equip.count > 0:
-            report = str(equip.count)
-            report = report + " " + equip.name
+            report = str(equip.count) + " " + equip.name
             print report
 
     for equip in mech.gear.d_equiplist.list:
         if equip.count > 0:
-            report = str(equip.count)
-            report = report + " " + equip.name
+            report = str(equip.count) + " " + equip.name
             print report
 
 
     # Print used physicals
     for phys in mech.gear.physicallist.list:
         if phys.count > 0:
-            report = str(phys.count)
-            report = report + " " + phys.name
+            report = str(phys.count) + " " + phys.name
             dam = phys.dam(mech.weight)
             print report
             print phys.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
