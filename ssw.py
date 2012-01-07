@@ -49,7 +49,7 @@ def parse_gear(mech, date):
     mheat = 0
 
     # Print used weapons
-    print "Nr      Name                 Heat"
+    print "Nr      Name                     Heat"
     for weap in mech.gear.weaponlist.list:
         if (weap.count > 0 or weap.countrear > 0):
             report = str(weap.count)
@@ -59,7 +59,7 @@ def parse_gear(mech, date):
             # evaluation
             if weap.countrear > 0:
                 report = report + ", " + str(weap.countrear) + "(R)"
-            print ("%-7s %-20s %d" % 
+            print ("%-7s %-24s %d" % 
                    (report, weap.name, weap.count * weap.heat))
             # Get BV balance, also count heat
             if weap.range == "L":
@@ -218,13 +218,6 @@ def main():
     if (mech.omni == "TRUE"):
         print "WARNING: Omni mech, results might be garbage."
 
-    # Check for Artemis IV, Apollo
-    # TODO: Move to parse_gear
-    date = parse_artemis(mech, date)
-    if mech.load.artemis4 == "TRUE":
-        print "Artemis IV"
-    if mech.load.apollo == "TRUE":
-        print "Apollo"
     print "==============================="
     mech.def_bv(mech.load, True)
     print "-------------------------------"
@@ -234,6 +227,14 @@ def main():
         print "BV: ", mech.get_bv(mech.load)
         print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
     print "==============================="
+
+    # Check for Artemis IV, Apollo
+    # TODO: Move to parse_gear
+    date = parse_artemis(mech, date)
+    if mech.load.artemis4 == "TRUE":
+        print "Artemis IV"
+    if mech.load.apollo == "TRUE":
+        print "Apollo"
 
     # Gear
     (rnge, date) = parse_gear(mech.load, date)
