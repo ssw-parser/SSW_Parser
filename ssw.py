@@ -49,31 +49,6 @@ def parse_gear(mech, date):
     lheat = 0
     mheat = 0
 
-    # Deal with ammo issues
-    for weap in mech.gear.weaponlist.list:
-        if ((weap.count > 0 or weap.countrear > 0) and weap.useammo > 0):
-            # Sum up weapons
-            total = weap.count + weap.countrear
-            ammo = weap.ammocount
-            ammo_per_weapon = float(ammo) / float(total * weap.useammo)
-            if (ammo_per_weapon < 12.0):
-                st1 = "WARNING: Ammo supply low!"
-                st2 = "  Weapon: " + str(weap.name)
-                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                print_warning((st1, st2, st3))
-
-    for equip in mech.gear.d_equiplist.list:
-        if (equip.count > 0 and equip.useammo > 0):
-            # Sum up weapons
-            total = equip.count
-            ammo = equip.ammocount
-            ammo_per_weapon = float(ammo) / float(total * equip.useammo)
-            if (ammo_per_weapon < 12.0):
-                st1 = "WARNING: Ammo supply low!"
-                st2 = "  Weapon: " + str(equip.name)
-                st3 = "  Ammo Supply: " + str(ammo_per_weapon)
-                print_warning((st1, st2, st3))
-
     # Print used weapons
     for weap in mech.gear.weaponlist.list:
         if (weap.count > 0 or weap.countrear > 0):
@@ -130,15 +105,6 @@ def parse_gear(mech, date):
             print report
             print phys.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
             sbv = sbv + phys.count * phys.get_bv(mech.weight)
-
-    # Check TSM & physical combo
-#    if (mech.gear.phys == 1 and mech.engine.enhancement != "TSM"):
-#        st1 = "WARNING: Physical weapon mounted without TSM!"
-#        print_warning((st1,))
-#    elif (mech.gear.phys == 0 and mech.engine.enhancement == "TSM"):
-#        st1 = "WARNING: TSM mounted without Physical weapon!"
-#        print_warning((st1,))
-
 
     # Explosive ammo
     for i in mech.gear.exp_ammo.keys():
