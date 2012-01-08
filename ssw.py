@@ -29,6 +29,30 @@ import argparse
 from xml.dom import minidom
 from mech import Mech
 
+def print_weapon(mech, weap):
+    """
+    Print out info about a weapon
+    """
+    enh = ""
+    report = str(weap.count)
+    if weap.useammo > 0:
+        report += "/" + str(weap.get_ammo_per_weapon())
+    # If there is rear-mounted stuff, only list them, do not count for
+    # evaluation
+    if weap.countrear > 0:
+        report += ", " + str(weap.countrear) + "(R)"
+    if mech.artemis4 == "TRUE" and weap.enhance == "A":
+        enh = "a4"
+    elif mech.artemis5 == "TRUE" and weap.enhance == "A":
+        enh = "a5"
+    elif mech.apollo == "TRUE" and weap.enhance == "P":
+        enh = "ap"
+    elif mech.gear.tarcomp > 0 and weap.enhance == "T":
+        enh = "tc"
+    print ("%-7s %-27s %3d %-2s" % 
+           (report, weap.name, weap.count * weap.heat, enh))
+
+
 def parse_gear(mech):
     """
     Parse an equipment node
@@ -42,25 +66,8 @@ def parse_gear(mech):
     # Print used weapons
     print "Nr      Name                       Heat Enh"
     for weap in mech.gear.weaponlist.list:
-        enh = ""
         if (weap.count > 0 or weap.countrear > 0):
-            report = str(weap.count)
-            if weap.useammo > 0:
-                report += "/" + str(weap.get_ammo_per_weapon())
-            # If there is rear-mounted stuff, only list them, do not count for
-            # evaluation
-            if weap.countrear > 0:
-                report += ", " + str(weap.countrear) + "(R)"
-            if mech.artemis4 == "TRUE" and weap.enhance == "A":
-                enh = "a4"
-            elif mech.artemis5 == "TRUE" and weap.enhance == "A":
-                enh = "a5"
-            elif mech.apollo == "TRUE" and weap.enhance == "P":
-                enh = "ap"
-            elif mech.gear.tarcomp > 0 and weap.enhance == "T":
-                enh = "tc"
-            print ("%-7s %-27s %3d %-2s" % 
-                   (report, weap.name, weap.count * weap.heat, enh))
+            print_weapon(mech, weap)
             # Get BV balance, also count heat
             if weap.range == "L":
                 lbv = lbv + weap.count * weap.get_bv(mech.gear.tarcomp,
@@ -121,10 +128,10 @@ def parse_omni(mech, mspd):
     Handle omni-mechs
     """
     if mech.omni == "TRUE":
-        print "-----------------"
+        print "-------------------------------"
         print "Omni Loadouts"
         for i in mech.loads:
-            print "-----------------"
+            print "-------------------------------"
             print "Config: ", i.get_name()
             print "BV: ", mech.get_bv(i)
             if (i.get_jump()):
@@ -133,7 +140,7 @@ def parse_omni(mech, mspd):
                 print i.heatsinks.number, i.heatsinks.type
             rnge = parse_gear(i)
             print mspd, rnge
-        print "-----------------"
+        print "-------------------------------"
 
 
 def print_bv(mech):
