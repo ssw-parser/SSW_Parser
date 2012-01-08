@@ -216,9 +216,9 @@ def main():
     mech.weight_summary(False)
 
     print "-1-----------------------------"
-    print "Tech: ", mech.techbase
-    print "Weight: ", mech.weight
-    print "Motive: ", mech.motive, mech.mechtype
+    print "Tech:      ", mech.techbase
+    print "Weight:    ", mech.weight
+    print "Motive:    ", mech.motive, mech.mechtype
     if (mech.omni == "TRUE"):
         print "Omni mech"
     date = get_comp_year(mech.structure.get_year, date)
