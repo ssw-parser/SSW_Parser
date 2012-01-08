@@ -623,9 +623,6 @@ class Gear:
     Take in lists of front and rear facing gears
     """
     def __init__(self, weight, art4, art5, apollo, equip, clan_case):
-        self.art4 = art4 # Artemis IV
-        self.art5 = art5 # Artemis V
-        self.apollo = apollo # Apollo
         self.equip = equip
         self.c_case = clan_case # Clan CASE
 

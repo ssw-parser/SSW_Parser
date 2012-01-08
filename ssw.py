@@ -41,13 +41,13 @@ def print_weapon(mech, weap):
     # evaluation
     if weap.countrear > 0:
         report += ", " + str(weap.countrear) + "(R)"
-    if mech.artemis4 == "TRUE" and weap.enhance == "A":
+    if weap.enhance == "A4":
         enh = "a4"
-    elif mech.artemis5 == "TRUE" and weap.enhance == "A":
+    elif weap.enhance == "A5":
         enh = "a5"
-    elif mech.apollo == "TRUE" and weap.enhance == "P":
+    elif weap.enhance == "AP":
         enh = "ap"
-    elif mech.gear.tarcomp > 0 and weap.enhance == "T":
+    elif mech.gear.tarcomp > 0 and weap.enhance == "TC":
         enh = "tc"
     print ("%-7s %-27s %3d %-2s" % 
            (report, weap.name, weap.count * weap.get_heat(), enh))
