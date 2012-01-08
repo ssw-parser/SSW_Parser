@@ -29,16 +29,7 @@ import argparse
 from xml.dom import minidom
 from mech import Mech
 
-def get_comp_year(call, date):
-    """
-    Check for earliest year
-    """
-    year = call()
-    if date < year:
-        date = year
-    return date
-
-def parse_gear(mech, date):
+def parse_gear(mech):
     """
     Parse an equipment node
     """
@@ -86,12 +77,6 @@ def parse_gear(mech, date):
                                                mech.artemis4, mech.artemis5,
                                                mech.apollo)
 
-    # Calculate year
-    for item in mech.gear.equip:
-        if date < item.get_year():
-            date = item.get_year()
-        
-
     # Print used equipment
     for equip in mech.gear.o_equiplist.list:
         if equip.count > 0:
@@ -126,28 +111,12 @@ def parse_gear(mech, date):
     print "SR BV: ", sbv
 
     if lbv >= (mbv + sbv):
-        return ("Long-Range", date)
+        return "Long-Range"
     else:
-        return ("Short-Range", date)
+        return "Short-Range"
 
 
-# HACK: Handle this better
-def parse_artemis(mech, date):
-    """
-    Handle missile fire control system
-    """
-    if mech.load.artemis4 == "TRUE":
-        if date < 2598:
-            date = 2598
-    if mech.load.artemis5 == "TRUE":
-        if date < 3085:
-            date = 3085
-    if mech.load.apollo == "TRUE":
-        if date < 3071:
-            date = 3071
-    return date
-
-def parse_omni(mech, date, mspd):
+def parse_omni(mech, mspd):
     """
     Handle omni-mechs
     """
@@ -155,19 +124,14 @@ def parse_omni(mech, date, mspd):
         print "-----------------"
         print "Omni Loadouts"
         for i in mech.loads:
-            year = date
             print "-----------------"
             print "Config: ", i.get_name()
             print "BV: ", mech.get_bv(i)
             if (i.get_jump()):
-                year = get_comp_year(i.jjets.get_year, year)
                 print "Jump: ", i.get_jump(), i.jjets.jjtype
             if (i.heatsinks.number):
-                year = get_comp_year(i.heatsinks.get_year, year)
                 print i.heatsinks.number, i.heatsinks.type
-            year = parse_artemis(mech, year)
-            (rnge, year) = parse_gear(i, year)
-            print "Earliest Year: ", year
+            rnge = parse_gear(i)
             print mspd, rnge
         print "-----------------"
 
@@ -217,8 +181,6 @@ def main():
 
     # Get mech
     mech = Mech(xmldoc)
-    # Count earliest year here
-    date = 0
 
     print "Name: ", mech.model, mech.name
     mech.weight_summary(False)
@@ -229,22 +191,13 @@ def main():
     print "Motive:    ", mech.motive, mech.mechtype
     if (mech.omni == "TRUE"):
         print "Omni mech"
-    date = get_comp_year(mech.structure.get_year, date)
     print "Structure: ", mech.structure.summary_string()
     print "-2-----------------------------"
     mech.print_engine_report(mech.weight)
-    date = get_comp_year(mech.engine.get_year, date)
-    date = get_comp_year(mech.gyro.get_year, date)
-    if mech.load.jjets.get_jump() > 0:
-        date = get_comp_year(mech.load.jjets.get_year, date)
-    date = get_comp_year(mech.cockpit.get_year, date)
     print mech.cockpit.summary_string()
-    date = get_comp_year(mech.enhancement.get_year, date)
     print "-3-----------------------------"
-    date = get_comp_year(mech.load.heatsinks.get_year, date)
     print mech.load.heatsinks.summary_string()
     print "-4-----------------------------"
-    date = get_comp_year(mech.armor.get_year, date)
     mech.parse_armor()
     print "-5-----------------------------"
     if (mech.omni == "TRUE"):
@@ -253,12 +206,8 @@ def main():
     if args.b:
         print_bv(mech)
 
-    # Check for Artemis IV, Apollo
-    # TODO: Move to parse_gear
-    date = parse_artemis(mech, date)
-
     # Gear
-    (rnge, date) = parse_gear(mech.load, date)
+    rnge = parse_gear(mech.load)
 
     # Figure out best speed
     speed = mech.engine.erating/mech.weight
@@ -270,10 +219,7 @@ def main():
     # Print classification
     print mspd, rnge
 
-    # Print time-period
-    print "Earliest Year: ", date
-
-    parse_omni(mech, date, mspd)
+    parse_omni(mech, mspd)
 
 if __name__ == "__main__":
     main()

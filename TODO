@@ -8,7 +8,6 @@ Goals:
 - Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
 - missing ammo, missing TO stuff
 - Tacops armor
-- move warnings.add & print_warning stuff outside defensive.py
 - Turret year & weights
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig year
