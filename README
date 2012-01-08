@@ -11,6 +11,14 @@ summary.py is quite usable, ssw.py is quite raw and still needs work.
 
 === A brief overview of command-line arguments for summary.py ===
 
+<file>: A file name without switches, is expected to be a valid .ssw
+file.
+
+-b: Add detailed battle value calculation to output.
+
+
+=== A brief overview of command-line arguments for summary.py ===
+
 ==== Input Switches ====
 -f <file>: Reads a from the file a list of mech .ssw files.
 

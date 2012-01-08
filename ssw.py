@@ -25,6 +25,7 @@ Takes a SSW file as argument.
 Uses external file mech.py to read in data.
 """
 
+import argparse
 import sys
 from xml.dom import minidom
 from mech import Mech
@@ -167,12 +168,39 @@ def parse_omni(mech, date, mspd):
         print "-----------------"
 
 
+def print_bv(mech):
+    """
+    Print out battle value details if requested.
+    """
+    print "==============================="
+    mech.def_bv(mech.load, True)
+    print "-------------------------------"
+    mech.off_bv(mech.load, True)
+    print "-------------------------------"
+    if not mech.omni == "TRUE":
+        print "BV: ", mech.get_bv(mech.load)
+        print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
+    print "==============================="
+
+
 def main():
     """
     main() function for ssw.py. Prints out a detailed overview of a mech.
     """
+
+    ### Handle arguments ###
+
+    # Create parser
+    parser = argparse.ArgumentParser(description='Print mech details.')
+    parser.add_argument('-b', action='store_true',
+                        help='Show BV calculations')
+    # Default: one filename
+    parser.add_argument('file', nargs=1)    
+
+    args = parser.parse_args()
+
     # Read file
-    fsock = open(sys.argv[1])
+    fsock = open(args.file[0])
     xmldoc = minidom.parse(fsock)
     fsock.close()
 
@@ -215,15 +243,8 @@ def main():
     if (mech.omni == "TRUE"):
         print "WARNING: Omni mech, results might be garbage."
 
-    print "==============================="
-    mech.def_bv(mech.load, True)
-    print "-------------------------------"
-    mech.off_bv(mech.load, True)
-    print "-------------------------------"
-    if not mech.omni == "TRUE":
-        print "BV: ", mech.get_bv(mech.load)
-        print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
-    print "==============================="
+    if args.b:
+        print_bv(mech)
 
     # Check for Artemis IV, Apollo
     # TODO: Move to parse_gear
