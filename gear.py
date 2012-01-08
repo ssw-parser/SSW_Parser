@@ -685,10 +685,10 @@ class Gear:
                         weap.addone_arm()
 
                     # track weapons weight
-                    self.w_weight += weap.weight
+                    self.w_weight += weap.get_weight()
                     # track weight for targeting computer
                     if weap.enhance == "T":
-                        self.tcw_weight += weap.weight
+                        self.tcw_weight += weap.get_weight()
 
                     # We have found a valid weapon
                     ident = True
@@ -714,7 +714,7 @@ class Gear:
                     for launcher in LAUNCHER_LIST:
                         if (name.name == launcher[0]):
                             self.lrms += launcher[2]
-                            self.l_heat += weap.heat
+                            self.l_heat += weap.get_heat()
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:

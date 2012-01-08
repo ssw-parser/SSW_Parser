@@ -251,14 +251,24 @@ class Weapon:
         self.range = WEAPONS[key][1]
         self.enhance = WEAPONS[key][2]
         self.useammo = WEAPONS[key][4]
-        self.weight = WEAPONS[key][5]
-        self.heat = WEAPONS[key][6]
         self.explosive = WEAPONS[key][7]
         self.count = 0
         self.countrear = 0
         self.countarm = 0 # We count arm weapons also, to help with BV calcs
         self.ammocount = 0
         self.ammo_ton = 0
+
+    def get_weight(self):
+        """
+        Return weight
+        """
+        return WEAPONS[self.name][5]
+
+    def get_heat(self):
+        """
+        Return heat
+        """
+        return WEAPONS[self.name][6]
 
     def addone(self):
         """

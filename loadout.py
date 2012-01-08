@@ -149,7 +149,7 @@ class Load:
                                      self.artemis5, self.apollo)
 
                 while (i):
-                    w_list.append((batt_val, weap.heat, weap.name))
+                    w_list.append((batt_val, weap.get_heat(), weap.name))
                     i -= 1
 
             # Rear-facing weapons counts as half
@@ -162,7 +162,7 @@ class Load:
                     batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
                                      self.artemis5, self.apollo) / 2.0
                 while (i):
-                    w_list.append((batt_val, weap.heat, weap.name))
+                    w_list.append((batt_val, weap.get_heat(), weap.name))
                     i -= 1
 
             # Count possible Ammo BV

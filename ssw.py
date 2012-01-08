@@ -50,7 +50,7 @@ def print_weapon(mech, weap):
     elif mech.gear.tarcomp > 0 and weap.enhance == "T":
         enh = "tc"
     print ("%-7s %-27s %3d %-2s" % 
-           (report, weap.name, weap.count * weap.heat, enh))
+           (report, weap.name, weap.count * weap.get_heat(), enh))
 
 
 def parse_gear(mech):
@@ -70,19 +70,19 @@ def parse_gear(mech):
             print_weapon(mech, weap)
             # Get BV balance, also count heat
             if weap.range == "L":
-                lbv = lbv + weap.count * weap.get_bv(mech.gear.tarcomp,
-                                               mech.artemis4, mech.artemis5,
-                                               mech.apollo)
-                lheat = lheat + weap.count * weap.heat
+                lbv += weap.count * weap.get_bv(mech.gear.tarcomp,
+                                                mech.artemis4, mech.artemis5,
+                                                mech.apollo)
+                lheat += weap.count * weap.get_heat()
             elif weap.range == "M":
-                mbv = mbv + weap.count * weap.get_bv(mech.gear.tarcomp,
-                                               mech.artemis4, mech.artemis5,
-                                               mech.apollo)
-                mheat = mheat + weap.count * weap.heat
+                mbv += weap.count * weap.get_bv(mech.gear.tarcomp,
+                                                mech.artemis4, mech.artemis5,
+                                                mech.apollo)
+                mheat += weap.count * weap.get_heat()
             elif weap.range == "S":
-                sbv = sbv + weap.count * weap.get_bv(mech.gear.tarcomp,
-                                               mech.artemis4, mech.artemis5,
-                                               mech.apollo)
+                sbv += weap.count * weap.get_bv(mech.gear.tarcomp,
+                                                mech.artemis4, mech.artemis5,
+                                                mech.apollo)
 
     # Print used equipment
     for equip in mech.gear.o_equiplist.list:
