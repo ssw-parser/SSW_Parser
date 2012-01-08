@@ -330,9 +330,9 @@ def create_missile_list_item(mech, i):
     weight = mech.weight
     lrm = i.gear.lrms
     l_heat = str(i.gear.l_heat) + "/" + str(i.get_sink())
-    if i.gear.art4 == "TRUE":
+    if i.artemis4 == "TRUE":
         art = "AIV"
-    elif i.gear.art5 == "TRUE":
+    elif i.artemis5 == "TRUE":
         art = "AV"
     else:
         art = ""
