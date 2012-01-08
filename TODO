@@ -22,6 +22,8 @@ Goals:
 - Move weight calculations.
 
 == ssw.py ==
+- Rename? 
+
 - Additional checking:
 -- torso bombs
 -- OS launchers
@@ -32,6 +34,8 @@ Goals:
 - Move date calculations completely to mech.py (and its sub-classes)
 
 == summary.py ==
+- Rename?
+
 - List special equipment:
 -- ECM
 -- Stealth

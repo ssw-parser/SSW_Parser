@@ -26,7 +26,6 @@ Uses external file mech.py to read in data.
 """
 
 import argparse
-import sys
 from xml.dom import minidom
 from mech import Mech
 
