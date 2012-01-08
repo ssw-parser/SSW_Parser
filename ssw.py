@@ -193,6 +193,8 @@ def main():
     parser = argparse.ArgumentParser(description='Print mech details.')
     parser.add_argument('-b', action='store_true',
                         help='Show BV calculations')
+    parser.add_argument('-r', action='store_true',
+                        help='Show raw xml data')
     # Default: one filename
     parser.add_argument('file', nargs=1)    
 
@@ -203,9 +205,10 @@ def main():
     xmldoc = minidom.parse(fsock)
     fsock.close()
 
-    # Print raw info for debugging 
-    print xmldoc.toxml() 
-    print "===BREAK==="
+    # Print raw info for debugging
+    if args.r:
+        print xmldoc.toxml() 
+        print "===BREAK==="
 
     # Get mech
     mech = Mech(xmldoc)

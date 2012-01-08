@@ -16,6 +16,7 @@ file.
 
 -b: Add detailed battle value calculation to output.
 
+-r: Add raw xml data (.ssw file dump) to output.
 
 === A brief overview of command-line arguments for summary.py ===
 
