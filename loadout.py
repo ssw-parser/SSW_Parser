@@ -142,11 +142,9 @@ class Load:
             if weap.count > 0:
                 i = weap.count
                 if (flip and (i - weap.countarm > 0)):
-                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
-                                     self.artemis5, self.apollo) / 2.0
+                    batt_val = weap.get_bv(self.gear.tarcomp) / 2.0
                 else:
-                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
-                                     self.artemis5, self.apollo)
+                    batt_val = weap.get_bv(self.gear.tarcomp)
 
                 while (i):
                     w_list.append((batt_val, weap.get_heat(), weap.name))
@@ -156,11 +154,9 @@ class Load:
             if weap.countrear > 0:
                 i = weap.countrear
                 if (flip):
-                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
-                                     self.artemis5, self.apollo)
+                    batt_val = weap.get_bv(self.gear.tarcomp)
                 else:
-                    batt_val = weap.get_bv(self.gear.tarcomp, self.artemis4,
-                                     self.artemis5, self.apollo) / 2.0
+                    batt_val = weap.get_bv(self.gear.tarcomp) / 2.0
                 while (i):
                     w_list.append((batt_val, weap.get_heat(), weap.name))
                     i -= 1

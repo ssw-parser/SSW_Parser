@@ -236,20 +236,19 @@ class Weaponlist:
     """
     Store the list with weapons
     """
-    def __init__(self):
+    def __init__(self, art4, art5, apollo):
         self.list = []
         for weap in WEAPONS.keys():
-            self.list.append(Weapon(weap))
+            self.list.append(Weapon(weap, art4, art5, apollo))
 
 class Weapon:
     """
     An individual weapon type
     """
-    def __init__(self, key):
+    def __init__(self, key, art4, art5, apollo):
         self.name = key
         self.batt_val = WEAPONS[key][0]
         self.range = WEAPONS[key][1]
-        self.enhance = WEAPONS[key][2]
         self.useammo = WEAPONS[key][4]
         self.explosive = WEAPONS[key][7]
         self.count = 0
@@ -258,11 +257,32 @@ class Weapon:
         self.ammocount = 0
         self.ammo_ton = 0
 
+        # Deal with enhancements, Artemis
+        self.enhance = ""
+        if (WEAPONS[key][2] == "A"):
+            if art5 == "TRUE":
+                self.enhance = "A5"
+            elif art4 == "TRUE":
+                self.enhance = "A4"
+        # Apollo
+        elif (WEAPONS[key][2] == "P" and apollo == "TRUE"):
+            self.enhance = "AP"
+        # Tarcomp, we can not know if one is present right now
+        elif (WEAPONS[key][2] == "T"):
+            self.enhance = "TC"
+
     def get_weight(self):
         """
         Return weight
         """
-        return WEAPONS[self.name][5]
+        wgt = WEAPONS[self.name][5]
+        if self.enhance == "A5":
+            wgt += 1.5
+        elif self.enhance == "A4":
+            wgt += 1
+        elif self.enhance == "AP":
+            wgt += 1
+        return wgt
 
     def get_heat(self):
         """
@@ -298,18 +318,18 @@ class Weapon:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-    def get_bv(self, tarcomp, art4, art5, apollo):
+    def get_bv(self, tarcomp):
         """
         Get the BV of an INDIVIDUAL weapon, not all of them
         """
         batt_val = self.batt_val[0]
-        if (tarcomp > 0 and self.enhance == "T"):
+        if (tarcomp > 0 and self.enhance == "TC"):
             batt_val *= 1.25
-        if (art4 == "TRUE" and self.enhance == "A"):
+        if (self.enhance == "A4"):
             batt_val *= 1.2
-        elif (art5 == "TRUE" and self.enhance == "A"):
+        elif (self.enhance == "A5"):
             batt_val *= 1.3
-        if (apollo == "TRUE" and self.enhance == "P"):
+        if (self.enhance == "AP"):
             batt_val *= 1.15
         return batt_val
 

@@ -70,19 +70,13 @@ def parse_gear(mech):
             print_weapon(mech, weap)
             # Get BV balance, also count heat
             if weap.range == "L":
-                lbv += weap.count * weap.get_bv(mech.gear.tarcomp,
-                                                mech.artemis4, mech.artemis5,
-                                                mech.apollo)
+                lbv += weap.count * weap.get_bv(mech.gear.tarcomp)
                 lheat += weap.count * weap.get_heat()
             elif weap.range == "M":
-                mbv += weap.count * weap.get_bv(mech.gear.tarcomp,
-                                                mech.artemis4, mech.artemis5,
-                                                mech.apollo)
+                mbv += weap.count * weap.get_bv(mech.gear.tarcomp)
                 mheat += weap.count * weap.get_heat()
             elif weap.range == "S":
-                sbv += weap.count * weap.get_bv(mech.gear.tarcomp,
-                                                mech.artemis4, mech.artemis5,
-                                                mech.apollo)
+                sbv += weap.count * weap.get_bv(mech.gear.tarcomp)
 
     # Print used equipment
     for equip in mech.gear.o_equiplist.list:

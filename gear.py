@@ -630,7 +630,7 @@ class Gear:
         self.c_case = clan_case # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
-        self.weaponlist = Weaponlist()
+        self.weaponlist = Weaponlist(art4, art5, apollo)
         self.o_equiplist = OffEquiplist()
         self.d_equiplist = DefEquiplist()
         self.physicallist = Physicallist()
@@ -693,16 +693,6 @@ class Gear:
                     # We have found a valid weapon
                     ident = True
 
-                    # Missile fire control systems require extra weight
-                    # Artemis IV
-                    if (self.art4 == "TRUE" and weap.enhance == "A"):
-                        self.w_weight += 1
-                    # Artemis V
-                    elif (self.art5 == "TRUE" and weap.enhance == "A"):
-                        self.w_weight += 1.5
-                    # Apollo
-                    if (self.apollo == "TRUE" and weap.enhance == "P"):
-                        self.w_weight += 1
                     # Hack - track Narc
                     if (name.name == "(IS) Narc Missile Beacon" or
                         name.name == "(IS) iNarc Launcher" or
@@ -1056,13 +1046,11 @@ class Gear:
         # Weapons
         for weap in self.weaponlist.list:
             if (weap.count - weap.countarm) > 0:
-                bv_front += weap.get_bv(self.tarcomp, self.art4, self.art5,
-                                        self.apollo) * (weap.count -
-                                                        weap.countarm)
+                bv_front += weap.get_bv(self.tarcomp) * (weap.count -
+                                                         weap.countarm)
 
             if weap.countrear > 0:
-                bv_rear += weap.get_bv(self.tarcomp, self.art4, self.art5,
-                                       self.apollo) * weap.countrear
+                bv_rear += weap.get_bv(self.tarcomp) * weap.countrear
  
         if (bv_rear > bv_front):
             return True
