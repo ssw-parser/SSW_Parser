@@ -49,8 +49,9 @@ def parse_gear(mech, date):
     mheat = 0
 
     # Print used weapons
-    print "Nr      Name                     Heat"
+    print "Nr      Name                       Heat Enh"
     for weap in mech.gear.weaponlist.list:
+        enh = ""
         if (weap.count > 0 or weap.countrear > 0):
             report = str(weap.count)
             if weap.useammo > 0:
@@ -59,8 +60,16 @@ def parse_gear(mech, date):
             # evaluation
             if weap.countrear > 0:
                 report += ", " + str(weap.countrear) + "(R)"
-            print ("%-7s %-24s %d" % 
-                   (report, weap.name, weap.count * weap.heat))
+            if mech.artemis4 == "TRUE" and weap.enhance == "A":
+                enh = "a4"
+            elif mech.artemis5 == "TRUE" and weap.enhance == "A":
+                enh = "a5"
+            elif mech.apollo == "TRUE" and weap.enhance == "P":
+                enh = "ap"
+            elif mech.gear.tarcomp > 0 and weap.enhance == "T":
+                enh = "tc"
+            print ("%-7s %-27s %3d %-2s" % 
+                   (report, weap.name, weap.count * weap.heat, enh))
             # Get BV balance, also count heat
             if weap.range == "L":
                 lbv = lbv + weap.count * weap.get_bv(mech.gear.tarcomp,
@@ -157,10 +166,6 @@ def parse_omni(mech, date, mspd):
                 year = get_comp_year(i.heatsinks.get_year, year)
                 print i.heatsinks.number, i.heatsinks.type
             year = parse_artemis(mech, year)
-            if i.artemis4 == "TRUE":
-                print "Artemis IV"
-            if i.apollo == "TRUE":
-                print "Apollo"
             (rnge, year) = parse_gear(i, year)
             print "Earliest Year: ", year
             print mspd, rnge
@@ -251,10 +256,6 @@ def main():
     # Check for Artemis IV, Apollo
     # TODO: Move to parse_gear
     date = parse_artemis(mech, date)
-    if mech.load.artemis4 == "TRUE":
-        print "Artemis IV"
-    if mech.load.apollo == "TRUE":
-        print "Apollo"
 
     # Gear
     (rnge, date) = parse_gear(mech.load, date)
