@@ -226,6 +226,7 @@ O_EQUIPMENT = {
     "TAG" : [[0, 0], 2600, 0, 1, 0],
     "Light TAG" : [[0, 0], 3054, 0, 0.5, 0],
     "Cargo, Liquid" : [[0, 0], 1900, 0, 1, 0],
+    "Communications Equipment" : [[0, 0], 1900, 0, 1, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 2710, 0, 16, 0],
     "Coolant Pod" : [[0, 0], 3049, 0, 1, 1]
@@ -274,6 +275,7 @@ EQUIPMENT = {
     "TAG" : [[0, 0], 1, 2600, 1, 0, 0],
     "Light TAG" : [[0, 0], 1, 3054, 0.5, 0, 0],
     "Cargo, Liquid" : [[0, 0], 1, 1900, 1, 0, 0],
+    "Communications Equipment" : [[0, 0], 1900, 0, 1, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 2710, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 3079, 1, 0, 1],
