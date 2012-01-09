@@ -71,3 +71,5 @@ is pointless.
  can use standard LRM ammo variantions.
 
 -npr: Only list non-primitive mechs.
+
+-wgt <d>: Only list mechs of weight <d>.

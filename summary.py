@@ -701,6 +701,8 @@ def parse_arg():
                         help='Select mechs with at least <n> lrms')
     parser.add_argument('-npr', action='store_true',
                         help='Select non-Primitive mechs')
+    parser.add_argument('-wgt', action='store', default = 0, type=int,
+                        help='Select mechs of weight <n>')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -802,6 +804,10 @@ def main():
         select_l.append(lambda x, y:
                             x.engine.etype != "Primitive Fusion Engine")
         header_l.append("Non-primitive")
+    # Weight
+    if args.wgt > 0:
+        select_l.append(lambda x, y: (x.weight == args.wgt))
+        header_l.append(("of weight %d" % args.wgt))
 
     ### Process output ###
 
