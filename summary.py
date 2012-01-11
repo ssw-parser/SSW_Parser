@@ -27,6 +27,7 @@ from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
 from weapons import LAUNCHER_LIST
+from util import calc_average
 
 #############################
 ##### Utility functions #####
@@ -394,7 +395,7 @@ def create_snipe_list_item(mech, i):
     heat = 0
     l_str = ""
     # List of long-range weapon names, shorthand and damage
-    # Missing: RAC/2, UAC/2, UAC/5, UAC/10 (IS & Clan)
+    # Missing: RAC/2
     # Missing: HAGs
     # Missing: Advanced stuff, also: LPPC + Cap
     # No missiles
@@ -404,6 +405,9 @@ def create_snipe_list_item(mech, i):
                    ["(IS) LB 5-X AC", "lb5:", 5],
                    ["(IS) LB 10-X AC", "lb10:", 10],
                    ["(IS) Light AC/2", "lac2:", 2],
+                   ["(IS) Ultra AC/2", "uac2:", 2 * calc_average(2)],
+                   ["(IS) Ultra AC/5", "uac5:", 5 * calc_average(2)],
+                   ["(IS) Ultra AC/10", "uac10:", 10 * calc_average(2)],
                    ["(IS) Light Gauss Rifle", "lgr:", 8],
                    ["(IS) Gauss Rifle", "gr:", 15],
                    ["(IS) Heavy Gauss Rifle", "hgr:", 10],
@@ -416,6 +420,9 @@ def create_snipe_list_item(mech, i):
                    ["(CL) LB 2-X AC", "clb2:", 2],
                    ["(CL) LB 5-X AC", "clb5:", 5],
                    ["(CL) LB 10-X AC", "clb10:", 10],
+                   ["(CL) Ultra AC/2", "cuac2:", 2 * calc_average(2)],
+                   ["(CL) Ultra AC/5", "cuac5:", 5 * calc_average(2)],
+                   ["(CL) Ultra AC/10", "cuac10:", 10 * calc_average(2)],
                    ["(CL) Gauss Rifle", "cgr:", 15],
                    ["(CL) ER Large Laser", "cerll:", 10],
                    ["(CL) Large Pulse Laser", "clpl:", 10],
