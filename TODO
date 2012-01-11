@@ -49,7 +49,7 @@ Goals:
 -- Head-capper list: iHGR, iHLL, PPC + Cap, HPPC + Cap, ERPPC + Cap
 
 - Sniper list:
--- Make it take into account cluster table adjustments: ATMs, Artemis, HAGs.
+-- Make it take into account cluster table adjustments: Artemis.
 
 - Make default display more like MUL: Add rules.
 -- Rules level filter.
@@ -71,9 +71,6 @@ Goals:
 
 == movement.py ==
 - Replace IS XXL Engine BV factor once ssw uses new one.
-
-== util.py ==
-- Support cluster table adjustments.
 
 ===System by ANS Kamas P81===
 

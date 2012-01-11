@@ -45,22 +45,32 @@ CLUSTER_TABLE = {
     40 : [12, 12, 18, 24, 24, 24, 24, 32, 32, 40, 40]
     }
 
-def calc_average(size):
+def cluster(size, col):
+    """
+    Access cluster table with adjustment
+    """
+    if col < 0:
+        col = 0
+    elif col > 10:
+        col = 10
+    return CLUSTER_TABLE[size][col]
+
+def calc_average(size, adj):
     """
     Calculate average cluster.
     """
     total = 0
-    total += CLUSTER_TABLE[size][0]
-    total += CLUSTER_TABLE[size][1] * 2
-    total += CLUSTER_TABLE[size][2] * 3
-    total += CLUSTER_TABLE[size][3] * 4
-    total += CLUSTER_TABLE[size][4] * 5
-    total += CLUSTER_TABLE[size][5] * 6
-    total += CLUSTER_TABLE[size][6] * 5
-    total += CLUSTER_TABLE[size][7] * 4
-    total += CLUSTER_TABLE[size][8] * 3
-    total += CLUSTER_TABLE[size][9] * 2
-    total += CLUSTER_TABLE[size][10]
+    total += cluster(size, 0 + adj)
+    total += cluster(size, 1 + adj) * 2
+    total += cluster(size, 2 + adj) * 3
+    total += cluster(size, 3 + adj) * 4
+    total += cluster(size, 4 + adj) * 5
+    total += cluster(size, 5 + adj) * 6
+    total += cluster(size, 6 + adj) * 5
+    total += cluster(size, 7 + adj) * 4
+    total += cluster(size, 8 + adj) * 3
+    total += cluster(size, 9 + adj) * 2
+    total += cluster(size, 10 + adj)
     return float(total) / 36.0
 
 
