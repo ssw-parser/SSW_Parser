@@ -395,7 +395,7 @@ def create_snipe_list_item(mech, i):
     heat = 0
     l_str = ""
     # List of long-range weapon names, shorthand and damage
-    # Missing: Advanced stuff, also: LPPC + Cap
+    # Missing: Mech Mortar 8
     sniper_list = [["(IS) Autocannon/2", "ac2:", 2],
                    ["(IS) Autocannon/5", "ac5:", 5],
                    ["(IS) LB 2-X AC", "lb2:", 2],
@@ -436,6 +436,7 @@ def create_snipe_list_item(mech, i):
                    ["(CL) ER Large Laser", "cerll:", 10],
                    ["(CL) Large Pulse Laser", "clpl:", 10],
                    ["(CL) ER PPC", "ceppc:", 15],
+                   ["(CL) Plasma Cannon", "plc:", 0],
                    ["(CL) LRM-5", "c5:", calc_average(5)],
                    ["(CL) LRM-10", "c10:", calc_average(10)],
                    ["(CL) LRM-15", "c15:", calc_average(15)],
@@ -443,12 +444,17 @@ def create_snipe_list_item(mech, i):
                    ["(CL) ATM-3", "a3:", calc_average(3)],
                    ["(CL) ATM-6", "a6:", calc_average(6)],
                    ["(CL) ATM-9", "a9:", calc_average(9)],
-                   ["(CL) ATM-12", "a12:", calc_average(12)]]
+                   ["(CL) ATM-12", "a12:", calc_average(12)],
                    # Advanced Weapons
-#                   ["(IS) Binary Laser Cannon", "bl:"],
-#                   ["(IS) Snub-Nose PPC + PPC Capacitor", "sn+cap:"],
-#                   ["(IS) Thunderbolt-15", "tb15:"],
-#                   ["(IS) Thunderbolt-20", "tb20:"]]
+                   ["(CL) Rotary AC/2", "crac2:", 2 * calc_average(6)],
+                   ["(CL) Rotary AC/5", "crac5:", 5 * calc_average(6)],
+                   ["(CL) Streak LRM-10", "slrm10:", 10],
+                   ["(IS) Light PPC + PPC Capacitor", "l+cap:", 10],
+                   ["(IS) Enhanced LRM-5", "n5:", calc_average(5)],
+                   ["(IS) Thunderbolt-5", "tb5:", 5],
+                   ["(IS) Thunderbolt-10", "tb10:", 10],
+                   ["(IS) Thunderbolt-15", "tb15:", 15],
+                   ["(IS) Thunderbolt-20", "tb20:", 20]]
 
 
     for weap in i.gear.weaponlist.list:
