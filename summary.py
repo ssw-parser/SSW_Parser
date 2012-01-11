@@ -395,8 +395,8 @@ def create_snipe_list_item(mech, i):
     heat = 0
     l_str = ""
     # List of long-range weapon names, shorthand and damage
+    # Missing: ATMs
     # Missing: Advanced stuff, also: LPPC + Cap
-    # No missiles
     sniper_list = [["(IS) Autocannon/2", "ac2:", 2],
                    ["(IS) Autocannon/5", "ac5:", 5],
                    ["(IS) LB 2-X AC", "lb2:", 2],
@@ -415,6 +415,14 @@ def create_snipe_list_item(mech, i):
                    ["(IS) PPC", "ppc:", 10],
                    ["(IS) Heavy PPC", "hppc:", 15],
                    ["(IS) ER PPC", "eppc:", 10],
+                   ["(IS) LRM-5", "i5:", calc_average(5)],
+                   ["(IS) LRM-10", "i10:", calc_average(10)],
+                   ["(IS) LRM-15", "i15:", calc_average(15)],
+                   ["(IS) LRM-20", "i20:", calc_average(20)],
+                   ["(IS) MML-3", "m3:", calc_average(3)],
+                   ["(IS) MML-5", "m5:", calc_average(5)],
+                   ["(IS) MML-7", "m7:", calc_average(7)],
+                   ["(IS) MML-9", "m9:", calc_average(9)],
                    # Clan weapons
                    ["(CL) LB 2-X AC", "clb2:", 2],
                    ["(CL) LB 5-X AC", "clb5:", 5],
@@ -428,7 +436,11 @@ def create_snipe_list_item(mech, i):
                    ["(CL) Gauss Rifle", "cgr:", 15],
                    ["(CL) ER Large Laser", "cerll:", 10],
                    ["(CL) Large Pulse Laser", "clpl:", 10],
-                   ["(CL) ER PPC", "ceppc:", 15]]
+                   ["(CL) ER PPC", "ceppc:", 15],
+                   ["(CL) LRM-5", "c5:", calc_average(5)],
+                   ["(CL) LRM-10", "c10:", calc_average(10)],
+                   ["(CL) LRM-15", "c15:", calc_average(15)],
+                   ["(CL) LRM-20", "c20:", calc_average(20)]]
                    # Advanced Weapons
 #                   ["(IS) Binary Laser Cannon", "bl:"],
 #                   ["(IS) Snub-Nose PPC + PPC Capacitor", "sn+cap:"],
