@@ -40,6 +40,25 @@ CLUSTER_TABLE = {
     10 : [3, 3, 4, 6, 6, 6, 6, 8, 8, 10, 10]
     }
 
+def calc_average(size):
+    """
+    Calculate average cluster.
+    """
+    total = 0
+    total += CLUSTER_TABLE[size][0]
+    total += CLUSTER_TABLE[size][1] * 2
+    total += CLUSTER_TABLE[size][2] * 3
+    total += CLUSTER_TABLE[size][3] * 4
+    total += CLUSTER_TABLE[size][4] * 5
+    total += CLUSTER_TABLE[size][5] * 6
+    total += CLUSTER_TABLE[size][6] * 5
+    total += CLUSTER_TABLE[size][7] * 4
+    total += CLUSTER_TABLE[size][8] * 3
+    total += CLUSTER_TABLE[size][9] * 2
+    total += CLUSTER_TABLE[size][10]
+    return float(total) / 36.0
+
+
 def ceil_05(value):
     """
     Round up to nearest half-ton
