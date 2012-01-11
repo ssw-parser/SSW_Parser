@@ -395,7 +395,6 @@ def create_snipe_list_item(mech, i):
     heat = 0
     l_str = ""
     # List of long-range weapon names, shorthand and damage
-    # Missing: ATMs
     # Missing: Advanced stuff, also: LPPC + Cap
     sniper_list = [["(IS) Autocannon/2", "ac2:", 2],
                    ["(IS) Autocannon/5", "ac5:", 5],
@@ -440,7 +439,11 @@ def create_snipe_list_item(mech, i):
                    ["(CL) LRM-5", "c5:", calc_average(5)],
                    ["(CL) LRM-10", "c10:", calc_average(10)],
                    ["(CL) LRM-15", "c15:", calc_average(15)],
-                   ["(CL) LRM-20", "c20:", calc_average(20)]]
+                   ["(CL) LRM-20", "c20:", calc_average(20)],
+                   ["(CL) ATM-3", "a3:", calc_average(3)],
+                   ["(CL) ATM-6", "a6:", calc_average(6)],
+                   ["(CL) ATM-9", "a9:", calc_average(9)],
+                   ["(CL) ATM-12", "a12:", calc_average(12)]]
                    # Advanced Weapons
 #                   ["(IS) Binary Laser Cannon", "bl:"],
 #                   ["(IS) Snub-Nose PPC + PPC Capacitor", "sn+cap:"],
