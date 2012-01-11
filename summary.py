@@ -393,117 +393,50 @@ def create_snipe_list_item(mech, i):
     dam = 0
     heat = 0
     l_str = ""
+    # List of long-range weapon names, shorthand and damage
     # Missing: RAC/2, UAC/2, UAC/5, UAC/10 (IS & Clan)
     # Missing: HAGs
     # Missing: Advanced stuff, also: LPPC + Cap
     # No missiles
+    sniper_list = [["(IS) Autocannon/2", "ac2:", 2],
+                   ["(IS) Autocannon/5", "ac5:", 5],
+                   ["(IS) LB 2-X AC", "lb2:", 2],
+                   ["(IS) LB 5-X AC", "lb5:", 5],
+                   ["(IS) LB 10-X AC", "lb10:", 10],
+                   ["(IS) Light AC/2", "lac2:", 2],
+                   ["(IS) Light Gauss Rifle", "lgr:", 8],
+                   ["(IS) Gauss Rifle", "gr:", 15],
+                   ["(IS) Heavy Gauss Rifle", "hgr:", 10],
+                   ["(IS) ER Large Laser", "erll:", 8],
+                   ["(IS) Light PPC", "lppc:", 5],
+                   ["(IS) PPC", "ppc:", 10],
+                   ["(IS) Heavy PPC", "hppc:", 15],
+                   ["(IS) ER PPC", "eppc:", 10],
+                   # Clan weapons
+                   ["(CL) LB 2-X AC", "clb2:", 2],
+                   ["(CL) LB 5-X AC", "clb5:", 5],
+                   ["(CL) LB 10-X AC", "clb10:", 10],
+                   ["(CL) Gauss Rifle", "cgr:", 15],
+                   ["(CL) ER Large Laser", "cerll:", 10],
+                   ["(CL) Large Pulse Laser", "clpl:", 10],
+                   ["(CL) ER PPC", "ceppc:", 15]]
+                   # Advanced Weapons
+#                   ["(IS) Binary Laser Cannon", "bl:"],
+#                   ["(IS) Snub-Nose PPC + PPC Capacitor", "sn+cap:"],
+#                   ["(IS) Thunderbolt-15", "tb15:"],
+#                   ["(IS) Thunderbolt-20", "tb20:"]]
+
+
     for weap in i.gear.weaponlist.list:
-        if (weap.name == "(IS) Autocannon/2" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 2 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) Autocannon/5" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 5 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) LB 2-X AC" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 2 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) LB 5-X AC" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 5 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) LB 10-X AC" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 2 * weap.count
-        elif (weap.name == "(IS) Light AC/2" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 2 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) Light Gauss Rifle" and weap.count > 0):
-#            l_str += "i5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 8 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) Gauss Rifle" and weap.count > 0):
-#            l_str += "i10:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 15 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(IS) Heavy Gauss Rifle" and weap.count > 0):
-#            l_str += "i15:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 2 * weap.count
-        elif (weap.name == "(IS) ER Large Laser" and weap.count > 0):
-#            l_str += "i20:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 8 * weap.count
-            heat += 12 * weap.count
-        elif (weap.name == "(IS) Light PPC" and weap.count > 0):
-#            l_str += "c5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 5 * weap.count
-            heat += 5 * weap.count
-        elif (weap.name == "(IS) PPC" and weap.count > 0):
-#            l_str += "c10:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 10 * weap.count
-        elif (weap.name == "(IS) Heavy PPC" and weap.count > 0):
-#            l_str += "c15:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 15 * weap.count
-            heat += 15 * weap.count
-        elif (weap.name == "(IS) ER PPC" and weap.count > 0):
-#            l_str += "c20:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 15 * weap.count
-        # Clan weapons
-        elif (weap.name == "(CL) LB 2-X AC" and weap.count > 0):
-#            l_str += "n5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 2 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(CL) LB 5-X AC" and weap.count > 0):
-#            l_str += "m3:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 5 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(CL) LB 10-X AC" and weap.count > 0):
-#            l_str += "m5:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 2 * weap.count
-        elif (weap.name == "(CL) Gauss Rifle" and weap.count > 0):
-#            l_str += "m7:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 15 * weap.count
-            heat += 1 * weap.count
-        elif (weap.name == "(CL) ER Large Laser" and weap.count > 0):
-#            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 12 * weap.count
-        elif (weap.name == "(CL) Large Pulse Laser" and weap.count > 0):
-#            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 10 * weap.count
-            heat += 10 * weap.count
-        elif (weap.name == "(CL) ER PPC" and weap.count > 0):
-#            l_str += "m9:" + str(weap.count) + "/"
-#            l_str += str(weap.get_ammo_per_weapon()) + " "
-            dam += 15 * weap.count
-            heat += 15 * weap.count
+        for sniper in sniper_list:
+            if (weap.name == sniper[0] and weap.count > 0):
+                if weap.useammo > 0:
+                    l_str += sniper[1] + str(weap.count) + "/"
+                    l_str += str(weap.get_ammo_per_weapon()) + " "
+                else:
+                    l_str += sniper[1] + str(weap.count) + " "
+                dam += sniper[2] * weap.count
+                heat += weap.get_heat() * weap.count
 
     l_heat = str(heat) + "/" + str(i.get_sink())
 
