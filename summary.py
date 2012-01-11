@@ -391,6 +391,13 @@ def create_snipe_list_item(mech, i):
     if jump > 0:
         mov += "j"
 
+    if i.artemis4 == "TRUE":
+        art = 2
+    elif i.artemis5 == "TRUE":
+        art = 3
+    else:
+        art = 0
+
     dam = 0
     heat = 0
     l_str = ""
@@ -414,14 +421,14 @@ def create_snipe_list_item(mech, i):
                    ["(IS) PPC", "ppc:", 10],
                    ["(IS) Heavy PPC", "hppc:", 15],
                    ["(IS) ER PPC", "eppc:", 10],
-                   ["(IS) LRM-5", "i5:", calc_average(5, 0)],
-                   ["(IS) LRM-10", "i10:", calc_average(10, 0)],
-                   ["(IS) LRM-15", "i15:", calc_average(15, 0)],
-                   ["(IS) LRM-20", "i20:", calc_average(20, 0)],
-                   ["(IS) MML-3", "m3:", calc_average(3, 0)],
-                   ["(IS) MML-5", "m5:", calc_average(5, 0)],
-                   ["(IS) MML-7", "m7:", calc_average(7, 0)],
-                   ["(IS) MML-9", "m9:", calc_average(9, 0)],
+                   ["(IS) LRM-5", "i5:", calc_average(5, art)],
+                   ["(IS) LRM-10", "i10:", calc_average(10, art)],
+                   ["(IS) LRM-15", "i15:", calc_average(15, art)],
+                   ["(IS) LRM-20", "i20:", calc_average(20, art)],
+                   ["(IS) MML-3", "m3:", calc_average(3, art)],
+                   ["(IS) MML-5", "m5:", calc_average(5, art)],
+                   ["(IS) MML-7", "m7:", calc_average(7, art)],
+                   ["(IS) MML-9", "m9:", calc_average(9, art)],
                    # Clan weapons
                    ["(CL) LB 2-X AC", "clb2:", 2],
                    ["(CL) LB 5-X AC", "clb5:", 5],
@@ -440,10 +447,10 @@ def create_snipe_list_item(mech, i):
                    ["(CL) Large Pulse Laser", "clpl:", 10],
                    ["(CL) ER PPC", "ceppc:", 15],
                    ["(CL) Plasma Cannon", "plc:", 0],
-                   ["(CL) LRM-5", "c5:", calc_average(5, 0)],
-                   ["(CL) LRM-10", "c10:", calc_average(10, 0)],
-                   ["(CL) LRM-15", "c15:", calc_average(15, 0)],
-                   ["(CL) LRM-20", "c20:", calc_average(20, 0)],
+                   ["(CL) LRM-5", "c5:", calc_average(5, art)],
+                   ["(CL) LRM-10", "c10:", calc_average(10, art)],
+                   ["(CL) LRM-15", "c15:", calc_average(15, art)],
+                   ["(CL) LRM-20", "c20:", calc_average(20, art)],
                    ["(CL) ATM-3", "a3:", calc_average(3, 2)],
                    ["(CL) ATM-6", "a6:", calc_average(6, 2)],
                    ["(CL) ATM-9", "a9:", calc_average(9, 2)],
@@ -453,7 +460,7 @@ def create_snipe_list_item(mech, i):
                    ["(CL) Rotary AC/5", "crac5:", 5 * calc_average(6, 0)],
                    ["(CL) Streak LRM-10", "slrm10:", 10],
                    ["(IS) Light PPC + PPC Capacitor", "l+cap:", 10],
-                   ["(IS) Enhanced LRM-5", "n5:", calc_average(5, 0)],
+                   ["(IS) Enhanced LRM-5", "n5:", calc_average(5, art)],
                    ["(IS) Thunderbolt-5", "tb5:", 5],
                    ["(IS) Thunderbolt-10", "tb10:", 10],
                    ["(IS) Thunderbolt-15", "tb15:", 15],
