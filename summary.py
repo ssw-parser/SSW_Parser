@@ -475,7 +475,8 @@ def create_snipe_list_item(mech, i):
                     l_str += str(weap.get_ammo_per_weapon()) + " "
                 else:
                     l_str += sniper[1] + str(weap.count) + " "
-                dam += sniper[2] * weap.count
+#                dam += sniper[2] * weap.count
+                dam += weap.get_damage(18) * weap.count
                 heat += weap.get_heat() * weap.count
 
     l_heat = str(heat) + "/" + str(i.get_sink())

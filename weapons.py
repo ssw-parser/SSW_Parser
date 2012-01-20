@@ -22,6 +22,8 @@
 Contains classes for standard weapons.
 """
 
+from util import calc_average
+
 def hgr_damage(range):
     """
     Calculates Heavy Gauss Rifle damage.
@@ -805,6 +807,19 @@ class Weapon:
         Return heat
         """
         return WEAPONS[self.name][2]
+
+    def get_damage(self, range):
+        """
+        Return damage
+        """
+        art = 0
+        if self.enhance == "A5":
+            art = 3
+        elif self.enhance == "A4":
+            art = 2
+        elif self.enhance == "AP":
+            art = -1
+        return WEAPONS[self.name][3](range, art)
 
     def addone(self):
         """
