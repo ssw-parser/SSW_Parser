@@ -27,7 +27,6 @@ from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
 from weapons import LAUNCHER_LIST
-from util import calc_average
 from string import lower
 
 #############################
@@ -392,93 +391,9 @@ def create_snipe_list_item(mech, i):
     if jump > 0:
         mov += "j"
 
-    if i.artemis4 == "TRUE":
-        art = 2
-    elif i.artemis5 == "TRUE":
-        art = 3
-    else:
-        art = 0
-
     dam = 0
     heat = 0
     l_str = ""
-    # List of long-range weapon names, shorthand and damage
-    # Missing: Mech Mortar 8
-    sniper_list = [["(IS) Autocannon/2", "ac2:", 2],
-                   ["(IS) Autocannon/5", "ac5:", 5],
-                   ["(IS) LB 2-X AC", "lb2:", 2],
-                   ["(IS) LB 5-X AC", "lb5:", 5],
-                   ["(IS) LB 10-X AC", "lb10:", 10],
-                   ["(IS) Light AC/2", "lac2:", 2],
-                   ["(IS) Ultra AC/2", "uac2:", 2 * calc_average(2, 0)],
-                   ["(IS) Ultra AC/5", "uac5:", 5 * calc_average(2, 0)],
-                   ["(IS) Ultra AC/10", "uac10:", 10 * calc_average(2, 0)],
-                   ["(IS) Rotary AC/2", "rac2:", 2 * calc_average(6, 0)],
-                   ["(IS) Light Gauss Rifle", "lgr:", 8],
-                   ["(IS) Gauss Rifle", "gr:", 15],
-                   ["(IS) Heavy Gauss Rifle", "hgr:", 10],
-                   ["(IS) ER Large Laser", "erll:", 8],
-                   ["(IS) Light PPC", "lppc:", 5],
-                   ["(IS) PPC", "ppc:", 10],
-                   ["(IS) Heavy PPC", "hppc:", 15],
-                   ["(IS) ER PPC", "eppc:", 10],
-                   ["(IS) LRM-5", "i5:", calc_average(5, art)],
-                   ["(IS) LRM-10", "i10:", calc_average(10, art)],
-                   ["(IS) LRM-15", "i15:", calc_average(15, art)],
-                   ["(IS) LRM-20", "i20:", calc_average(20, art)],
-                   ["(IS) MML-3", "m3:", calc_average(3, art)],
-                   ["(IS) MML-5", "m5:", calc_average(5, art)],
-                   ["(IS) MML-7", "m7:", calc_average(7, art)],
-                   ["(IS) MML-9", "m9:", calc_average(9, art)],
-                   # Clan weapons
-                   ["(CL) LB 2-X AC", "clb2:", 2],
-                   ["(CL) LB 5-X AC", "clb5:", 5],
-                   ["(CL) LB 10-X AC", "clb10:", 10],
-                   ["(CL) Ultra AC/2", "cuac2:", 2 * calc_average(2, 0)],
-                   ["(CL) Ultra AC/5", "cuac5:", 5 * calc_average(2, 0)],
-                   ["(CL) Ultra AC/10", "cuac10:", 10 * calc_average(2, 0)],
-                   ["(CL) Hyper Assault Gauss 20", "hag20:",
-                    calc_average(20, -2)],
-                   ["(CL) Hyper Assault Gauss 30", "hag30:",
-                    calc_average(30, -2)],
-                   ["(CL) Hyper Assault Gauss 40", "hag40:",
-                    calc_average(40, -2)],
-                   ["(CL) Gauss Rifle", "cgr:", 15],
-                   ["(CL) ER Large Laser", "cerll:", 10],
-                   ["(CL) Large Pulse Laser", "clpl:", 10],
-                   ["(CL) ER PPC", "ceppc:", 15],
-                   ["(CL) Plasma Cannon", "plc:", 0],
-                   ["(CL) LRM-5", "c5:", calc_average(5, art)],
-                   ["(CL) LRM-10", "c10:", calc_average(10, art)],
-                   ["(CL) LRM-15", "c15:", calc_average(15, art)],
-                   ["(CL) LRM-20", "c20:", calc_average(20, art)],
-                   ["(CL) ATM-3", "a3:", calc_average(3, 2)],
-                   ["(CL) ATM-6", "a6:", calc_average(6, 2)],
-                   ["(CL) ATM-9", "a9:", calc_average(9, 2)],
-                   ["(CL) ATM-12", "a12:", calc_average(12, 2)],
-                   # Advanced Weapons
-                   ["(CL) Rotary AC/2", "crac2:", 2 * calc_average(6, 0)],
-                   ["(CL) Rotary AC/5", "crac5:", 5 * calc_average(6, 0)],
-                   ["(CL) Streak LRM-10", "slrm10:", 10],
-                   ["(IS) Light PPC + PPC Capacitor", "l+cap:", 10],
-                   ["(IS) Enhanced LRM-5", "n5:", calc_average(5, art)],
-                   ["(IS) Thunderbolt-5", "tb5:", 5],
-                   ["(IS) Thunderbolt-10", "tb10:", 10],
-                   ["(IS) Thunderbolt-15", "tb15:", 15],
-                   ["(IS) Thunderbolt-20", "tb20:", 20]]
-
-
-#    for weap in i.gear.weaponlist.list:
-#        for sniper in sniper_list:
-#            if (weap.name == sniper[0] and weap.count > 0):
-#                if weap.useammo > 0:
-#                    l_str += sniper[1] + str(weap.count) + "/"
-#                    l_str += str(weap.get_ammo_per_weapon()) + " "
-#                else:
-#                    l_str += sniper[1] + str(weap.count) + " "
-#                dam += sniper[2] * weap.count
-#                dam += weap.get_damage(18) * weap.count
-#                heat += weap.get_heat() * weap.count
 
     for weap in i.gear.weaponlist.list:
         if (weap.range >= 18 and weap.count > 0):
