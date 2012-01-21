@@ -115,7 +115,7 @@ def parse_gear(mech):
            (sdam, sheat, mech.get_sink()))
 
 
-def parse_omni(mech, mspd):
+def parse_omni(mech):
     """
     Handle omni-mechs
     """
@@ -207,14 +207,8 @@ def main():
     # Gear
     parse_gear(mech.load)
 
-    # Figure out best speed
-    speed = mech.engine.erating/mech.weight
-    if mech.load.get_jump() > speed:
-        mspd = mech.load.get_jump()
-    else:
-        mspd = speed
-
-    parse_omni(mech, mspd)
+    # Omni configs
+    parse_omni(mech)
 
 if __name__ == "__main__":
     main()

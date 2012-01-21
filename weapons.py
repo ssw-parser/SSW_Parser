@@ -24,183 +24,183 @@ Contains classes for standard weapons.
 
 from util import calc_average
 
-def hgr_damage(range):
+def hgr_damage(rnge):
     """
     Calculates Heavy Gauss Rifle damage.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 25
-    elif range <= 13:
+    elif rnge <= 13:
         return 20
     else:
         return 10
 
-def sn_damage(range):
+def sn_damage(rnge):
     """
     Calculates Snub-Nose PPC damage.
     """
-    if range <= 9:
+    if rnge <= 9:
         return 10
-    elif range <= 13:
+    elif rnge <= 13:
         return 8
     else:
         return 5
 
-def mml3_damage(range, art):
+def mml3_damage(rnge, art):
     """
     Calculates MML3 damage.
     We assumes a switch from LRM to SRM at range 6.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 2 * calc_average(3, art)
     else:
         return calc_average(3, art)
 
-def mml5_damage(range, art):
+def mml5_damage(rnge, art):
     """
     Calculates MML5 damage.
     We assumes a switch from LRM to SRM at range 6.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 2 * calc_average(5, art)
     else:
         return calc_average(5, art)
 
-def mml7_damage(range, art):
+def mml7_damage(rnge, art):
     """
     Calculates MML7 damage.
     We assumes a switch from LRM to SRM at range 6.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 2 * calc_average(7, art)
     else:
         return calc_average(7, art)
 
-def mml9_damage(range, art):
+def mml9_damage(rnge, art):
     """
     Calculates MML9 damage.
     We assumes a switch from LRM to SRM at range 6.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 2 * calc_average(9, art)
     else:
         return calc_average(9, art)
 
-def hag20_damage(range):
+def hag20_damage(rnge):
     """
     Calculates HAG20 damage.
     """
-    if range <= 8:
+    if rnge <= 8:
         return calc_average(20, 2)
-    elif range <= 16:
+    elif rnge <= 16:
         return calc_average(20, 0)
     else:
         return calc_average(20, -2)
 
 
-def hag30_damage(range):
+def hag30_damage(rnge):
     """
     Calculates HAG30 damage.
     """
-    if range <= 8:
+    if rnge <= 8:
         return calc_average(30, 2)
-    elif range <= 16:
+    elif rnge <= 16:
         return calc_average(30, 0)
     else:
         return calc_average(30, -2)
 
 
-def hag40_damage(range):
+def hag40_damage(rnge):
     """
     Calculates HAG40 damage.
     """
-    if range <= 8:
+    if rnge <= 8:
         return calc_average(40, 2)
-    elif range <= 16:
+    elif rnge <= 16:
         return calc_average(40, 0)
     else:
         return calc_average(40, -2)
 
-def atm3_damage(range):
+def atm3_damage(rnge):
     """
     Calculates ATM3 damage.
     We assumes a switch to HE at range 6, and normal at range 10.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 3 * calc_average(3, 2)
-    elif range <= 10:
+    elif rnge <= 10:
         return 2 * calc_average(3, 2)
     else:
         return calc_average(3, 2)
 
 
-def atm6_damage(range):
+def atm6_damage(rnge):
     """
     Calculates ATM6 damage.
     We assumes a switch to HE at range 6, and normal at range 10.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 3 * calc_average(6, 2)
-    elif range <= 10:
+    elif rnge <= 10:
         return 2 * calc_average(6, 2)
     else:
         return calc_average(6, 2)
 
 
-def atm9_damage(range):
+def atm9_damage(rnge):
     """
     Calculates ATM9 damage.
     We assumes a switch to HE at range 6, and normal at range 10.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 3 * calc_average(9, 2)
-    elif range <= 10:
+    elif rnge <= 10:
         return 2 * calc_average(9, 2)
     else:
         return calc_average(9, 2)
 
 
-def atm12_damage(range):
+def atm12_damage(rnge):
     """
     Calculates ATM12 damage.
     We assumes a switch to HE at range 6, and normal at range 10.
     """
-    if range <= 6:
+    if rnge <= 6:
         return 3 * calc_average(12, 2)
-    elif range <= 10:
+    elif rnge <= 10:
         return 2 * calc_average(12, 2)
     else:
         return calc_average(12, 2)
 
-def svspl_damage(range):
+def svspl_damage(rnge):
     """
     Calculates Small VSPL damage.
     """
-    if range <= 2:
+    if rnge <= 2:
         return 5
-    elif range <= 4:
+    elif rnge <= 4:
         return 4
     else:
         return 3
 
-def mvspl_damage(range):
+def mvspl_damage(rnge):
     """
     Calculates Medium VSPL damage.
     """
-    if range <= 2:
+    if rnge <= 2:
         return 9
-    elif range <= 5:
+    elif rnge <= 5:
         return 7
     else:
         return 5
 
-def lvspl_damage(range):
+def lvspl_damage(rnge):
     """
     Calculates Large VSPL damage.
     """
-    if range <= 4:
+    if rnge <= 4:
         return 11
-    elif range <= 8:
+    elif rnge <= 8:
         return 9
     else:
         return 7
@@ -808,13 +808,13 @@ class Weapon:
         """
         return WEAPONS[self.name][2]
 
-    def get_damage(self, range):
+    def get_damage(self, rnge):
         """
         Return damage
         """
 
         # No damage if out of range
-        if range > WEAPONS[self.name][4]:
+        if rnge > WEAPONS[self.name][4]:
             return 0
 
         # Check for cluster adjustments from Artemis & Apollo
@@ -826,7 +826,7 @@ class Weapon:
         elif self.enhance == "AP":
             art = -1
 
-        return WEAPONS[self.name][3](range, art)
+        return WEAPONS[self.name][3](rnge, art)
 
     def addone(self):
         """
