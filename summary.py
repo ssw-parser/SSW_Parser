@@ -382,6 +382,7 @@ def create_snipe_list_item(mech, i):
     """
     Compile info used by print_snipe_list()
     """
+    rnge = 18 # The range required of the weapons
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
@@ -396,13 +397,13 @@ def create_snipe_list_item(mech, i):
     l_str = ""
 
     for weap in i.gear.weaponlist.list:
-        if (weap.range >= 18 and weap.count > 0):
+        if (weap.range >= rnge and weap.count > 0):
             if weap.useammo > 0:
                 l_str += lower(weap.get_short()) + ":" + str(weap.count) + "/"
                 l_str += str(weap.get_ammo_per_weapon()) + " "
             else:
                 l_str += lower(weap.get_short()) + ":" + str(weap.count) + " "
-            dam += weap.get_damage(18) * weap.count
+            dam += weap.get_damage(rnge) * weap.count
             heat += weap.get_heat() * weap.count
 
     l_heat = str(heat) + "/" + str(i.get_sink())
@@ -413,8 +414,8 @@ def print_snipe_list(file_list, select_l, header):
     """
     snipe_list output
 
-    In the form of name, weight, BV, LRM tubes
-    sorted by LRM tubes, descending
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
     """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_snipe_list_item)

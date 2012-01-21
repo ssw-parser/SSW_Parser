@@ -15,7 +15,6 @@ Goals:
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?
-- Damage of one-shot weapons
 
 == gear.py ==
 - Split WEAPONS into weapon types.

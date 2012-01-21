@@ -219,6 +219,8 @@ def lvspl_damage(rnge):
 #        3 = Experimental,
 #        4 = Primitive (special)
 #
+# Use damage * 0.1 for one-shot weapons
+#
 # To be loaded into the gear class
 #
 # TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots
@@ -404,7 +406,7 @@ WEAPONS = {
                     4, (lambda x, y : 2 * calc_average(6, y)), 9,
                     "A", 2370, 1, 3, 0],
     "(IS) SRM-4 (OS)" : ["SRM4OS", [8, 0], 1,
-                         0.75, (lambda x, y : 0), 9, #TODO: OS damage
+                         0.75, (lambda x, y : 2 * calc_average(4, y) * 0.1), 9,
                          "A", 2676, 0, 2.5, 0],
     "(IS) MRM-10" : ["MRM10", [56, 7], 1,
                      4, (lambda x, y : calc_average(10, y)), 15,
@@ -418,15 +420,18 @@ WEAPONS = {
     "(IS) MRM-40" : ["MRM40", [224, 28], 1,
                      12, (lambda x, y : calc_average(40, y)), 15,
                      "P", 3058, 1, 12, 0],
-    "(IS) Rocket Launcher 10" : ["RL10", [18, 0], 1,
-                                 0.75, (lambda x, y : 0), 18, #TODO: OS damage
-                                 "", 3064, 0, 0.5, 0],
-    "(IS) Rocket Launcher 15" : ["RL15", [23, 0], 1,
-                                 1, 0, (lambda x, y : 0), 15, #TODO: OS damage
-                                 "", 3064, 0, 1, 0],
-    "(IS) Rocket Launcher 20" : ["RL20", [24, 0], 1,
-                                 1.25, (lambda x, y : 0), 12, #TODO: OS damage
-                                 "", 3064, 0, 1.5, 0],
+    "(IS) Rocket Launcher 10" :
+        ["RL10", [18, 0], 1,
+         0.75, (lambda x, y : calc_average(10, 0) * 0.1), 18,
+         "", 3064, 0, 0.5, 0],
+    "(IS) Rocket Launcher 15" :
+        ["RL15", [23, 0], 1,
+         1, 0, (lambda x, y : calc_average(15, 0) * 0.1), 15,
+         "", 3064, 0, 1, 0],
+    "(IS) Rocket Launcher 20" :
+        ["RL20", [24, 0], 1,
+         1.25, (lambda x, y : calc_average(20, 0) * 0.1), 12,
+         "", 3064, 0, 1.5, 0],
     "(IS) Streak SRM-2" : ["SSRM2", [30, 4], 1,
                            1, (lambda x, y : 4), 9,
                            "", 2647, 1, 1.5, 0],
@@ -437,7 +442,7 @@ WEAPONS = {
                            2, (lambda x, y : 12), 9,
                            "", 3058, 1, 4.5, 0],
     "(IS) Streak SRM-2 (OS)" : ["SSRM2OS", [6, 0], 1,
-                                0.5, (lambda x, y : 0), 9, #TODO: OS damage
+                                0.5, (lambda x, y : 4 * 0.1), 9,
                                 "", 2676, 0, 2, 0],
     "(IS) Narc Missile Beacon" : ["Narc", [30, 0], 1,
                                   0, (lambda x, y : 0), 9,
@@ -601,7 +606,7 @@ WEAPONS = {
                            2, (lambda x, y : 12), 12,
                            "", 2826, 1, 3, 0],
     "(CL) Streak SRM-4 (OS)" : ["SSRM4OS", [16, 0], 1,
-                                0.75, (lambda x, y : 0), 12, #TODO: OS damage
+                                0.75, (lambda x, y : 8 * 0.1), 12,
                                 "", 2826, 0, 2.5, 0],
     "(CL) Narc Missile Beacon" : ["Narc", [30, 0], 1,
                                   0, (lambda x, y : 0), 12,
