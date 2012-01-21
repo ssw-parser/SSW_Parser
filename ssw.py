@@ -69,13 +69,13 @@ def parse_gear(mech):
         if (weap.count > 0 or weap.countrear > 0):
             print_weapon(mech, weap)
             # Get BV balance, also count heat
-            if weap.range == "L":
+            if weap.range >= 18:
                 lbv += weap.count * weap.get_bv(mech.gear.tarcomp)
                 lheat += weap.count * weap.get_heat()
-            elif weap.range == "M":
+            elif weap.range > 3:
                 mbv += weap.count * weap.get_bv(mech.gear.tarcomp)
                 mheat += weap.count * weap.get_heat()
-            elif weap.range == "S":
+            else:
                 sbv += weap.count * weap.get_bv(mech.gear.tarcomp)
 
     # Print used equipment

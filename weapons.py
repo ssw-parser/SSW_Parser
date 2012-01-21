@@ -812,6 +812,12 @@ class Weapon:
         """
         Return damage
         """
+
+        # No damage if out of range
+        if range > WEAPONS[self.name][4]:
+            return 0
+
+        # Check for cluster adjustments from Artemis & Apollo
         art = 0
         if self.enhance == "A5":
             art = 3
@@ -819,6 +825,7 @@ class Weapon:
             art = 2
         elif self.enhance == "AP":
             art = -1
+
         return WEAPONS[self.name][3](range, art)
 
     def addone(self):
