@@ -57,8 +57,8 @@ def parse_gear(mech):
     """
     Parse an equipment node
     """
-    lbv = 0
-    mbv = 0
+    ldam = 0
+    mdam = 0
     sbv = 0
     lheat = 0
     mheat = 0
@@ -70,10 +70,10 @@ def parse_gear(mech):
             print_weapon(mech, weap)
             # Get BV balance, also count heat
             if weap.range >= 18:
-                lbv += weap.count * weap.get_bv(mech.gear.tarcomp)
+                ldam += weap.count * weap.get_damage(18)
                 lheat += weap.count * weap.get_heat()
-            elif weap.range > 3:
-                mbv += weap.count * weap.get_bv(mech.gear.tarcomp)
+            if weap.range >= 9:
+                mdam += weap.count * weap.get_damage(9)
                 mheat += weap.count * weap.get_heat()
             else:
                 sbv += weap.count * weap.get_bv(mech.gear.tarcomp)
@@ -103,18 +103,13 @@ def parse_gear(mech):
     for i in mech.gear.exp_ammo.keys():
         print "Explosive: ", i, mech.gear.exp_ammo[i]
 
-    # Check heat
-    print "Long range heat: ", lheat, "/", mech.get_sink()
-    print "Medium range heat: ", mheat, "/", mech.get_sink()
-
-    print "LR BV: ", lbv
-    print "MR BV: ", mbv
+    # Print damage Summary
+    print
+    print ("Long Range (18) Damage:  %5.2f Heat: %d/%d" %
+           (ldam, lheat, mech.get_sink()))
+    print ("Medium Range (9) Damage: %5.2f Heat: %d/%d" %
+           (mdam, mheat, mech.get_sink()))
     print "SR BV: ", sbv
-
-    if lbv >= (mbv + sbv):
-        return "Long-Range"
-    else:
-        return "Short-Range"
 
 
 def parse_omni(mech, mspd):
@@ -132,8 +127,7 @@ def parse_omni(mech, mspd):
                 print "Jump: ", i.get_jump(), i.jjets.jjtype
             if (i.heatsinks.number):
                 print i.heatsinks.number, i.heatsinks.type
-            rnge = parse_gear(i)
-            print mspd, rnge
+            parse_gear(i)
         print "-------------------------------"
 
 
@@ -208,7 +202,7 @@ def main():
         print_bv(mech)
 
     # Gear
-    rnge = parse_gear(mech.load)
+    parse_gear(mech.load)
 
     # Figure out best speed
     speed = mech.engine.erating/mech.weight
@@ -216,9 +210,6 @@ def main():
         mspd = mech.load.get_jump()
     else:
         mspd = speed
-
-    # Print classification
-    print mspd, rnge
 
     parse_omni(mech, mspd)
 
