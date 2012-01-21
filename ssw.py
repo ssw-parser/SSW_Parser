@@ -59,9 +59,10 @@ def parse_gear(mech):
     """
     ldam = 0
     mdam = 0
-    sbv = 0
+    sdam = 0
     lheat = 0
     mheat = 0
+    sheat = 0
 
     # Print used weapons
     print "Nr      Name                       Heat Enh"
@@ -75,8 +76,9 @@ def parse_gear(mech):
             if weap.range >= 9:
                 mdam += weap.count * weap.get_damage(9)
                 mheat += weap.count * weap.get_heat()
-            else:
-                sbv += weap.count * weap.get_bv(mech.gear.tarcomp)
+            if weap.range >= 3:
+                sdam += weap.count * weap.get_damage(3)
+                sheat += weap.count * weap.get_heat()
 
     # Print used equipment
     for equip in mech.gear.o_equiplist.list:
@@ -97,7 +99,7 @@ def parse_gear(mech):
             dam = phys.dam(mech.weight)
             print report
             print phys.name, "Damage", dam, "Weight", mech.gear.get_p_weight()
-            sbv = sbv + phys.count * phys.get_bv(mech.weight)
+#            sbv = sbv + phys.count * phys.get_bv(mech.weight)
 
     # Explosive ammo
     for i in mech.gear.exp_ammo.keys():
@@ -105,11 +107,12 @@ def parse_gear(mech):
 
     # Print damage Summary
     print
-    print ("Long Range (18) Damage:  %5.2f Heat: %d/%d" %
+    print ("Long Range (18)  Damage: %5.2f Heat: %d/%d" %
            (ldam, lheat, mech.get_sink()))
     print ("Medium Range (9) Damage: %5.2f Heat: %d/%d" %
            (mdam, mheat, mech.get_sink()))
-    print "SR BV: ", sbv
+    print ("Short Range (3)  Damage: %5.2f Heat: %d/%d" %
+           (sdam, sheat, mech.get_sink()))
 
 
 def parse_omni(mech, mspd):
