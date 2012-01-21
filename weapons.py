@@ -207,7 +207,7 @@ def lvspl_damage(rnge):
 
 
 
-# Weapons in the order of name, BV[main, ammo], rules level,
+# Weapons in the order of name, shorthand, BV[main, ammo], rules level,
 # heat (as used for BV calcs), damage as a function of range, max range,
 # enhancement(A=artemis, T=tarcomp P=apollo),
 # year, uses ammo rate?, weight, explosive slots
@@ -230,397 +230,397 @@ def lvspl_damage(rnge):
 # SLRM-5, SLRM-15, SLRM-20, rest of PPC+cap
 WEAPONS = {
     ### Inner Sphere, Tech Manual ###
-    "(IS) Autocannon/2" : [[37, 5], 0,
+    "(IS) Autocannon/2" : ["AC2", [37, 5], 0,
                            1, (lambda x, y : 2), 24,
                            "T", 2300, 1, 6, 0],
-    "(IS) Autocannon/5" : [[70, 9], 0,
+    "(IS) Autocannon/5" : ["AC5", [70, 9], 0,
                            1, (lambda x, y : 5), 18,
                            "T", 2250, 1, 8, 0],
-    "(IS) Autocannon/10" : [[123, 15], 0,
+    "(IS) Autocannon/10" : ["AC10", [123, 15], 0,
                             3, (lambda x, y : 10), 15,
                             "T", 2460, 1, 12, 0],
-    "(IS) Autocannon/20" : [[178, 22], 0,
+    "(IS) Autocannon/20" : ["AC20", [178, 22], 0,
                             7, (lambda x, y : 20), 9,
                             "T", 2500, 1, 14, 0],
-    "(IS) LB 2-X AC" : [[42, 5], 1,
+    "(IS) LB 2-X AC" : ["LB2", [42, 5], 1,
                         1, (lambda x, y : 2), 27,
                         "T", 3058, 1, 6, 0],
-    "(IS) LB 5-X AC" : [[83, 10], 1,
+    "(IS) LB 5-X AC" : ["LB5", [83, 10], 1,
                         1, (lambda x, y : 5), 21,
                         "T", 3058, 1, 8, 0],
-    "(IS) LB 10-X AC" : [[148, 19], 1,
+    "(IS) LB 10-X AC" : ["LB10", [148, 19], 1,
                          2, (lambda x, y : 10), 18,
                          "T", 2595, 1, 11, 0],
-    "(IS) LB 20-X AC" : [[237, 30], 1,
+    "(IS) LB 20-X AC" : ["LB20", [237, 30], 1,
                          6, (lambda x, y : 20), 12,
                          "T", 3058, 1, 14, 0],
-    "(IS) Light AC/2" : [[30, 4], 1,
+    "(IS) Light AC/2" : ["LAC2", [30, 4], 1,
                          1, (lambda x, y : 2), 18,
                          "T", 3068, 1, 4, 0],
-    "(IS) Light AC/5" : [[62, 8], 1,
+    "(IS) Light AC/5" : ["LAC5", [62, 8], 1,
                          1, (lambda x, y : 5), 15,
                          "T", 3068, 1, 5, 0],
-    "(IS) Rotary AC/2" : [[118, 15], 1,
+    "(IS) Rotary AC/2" : ["RAC2", [118, 15], 1,
                           6, (lambda x, y : 2 * calc_average(6, 0)), 18,
                           "T", 3062, 6, 8, 0],
-    "(IS) Rotary AC/5" : [[247, 31], 1,
+    "(IS) Rotary AC/5" : ["RAC5", [247, 31], 1,
                           6, (lambda x, y : 5 * calc_average(6, 0)), 15,
                           "T", 3062, 6, 10, 0],
-    "(IS) Ultra AC/2" : [[56, 7], 1,
+    "(IS) Ultra AC/2" : ["UAC2", [56, 7], 1,
                          2, (lambda x, y : 2 * calc_average(2, 0)), 25,
                          "T", 3057, 2, 7, 0],
-    "(IS) Ultra AC/5" : [[112, 14], 1,
+    "(IS) Ultra AC/5" : ["UAC5", [112, 14], 1,
                          2, (lambda x, y : 5 * calc_average(2, 0)), 20,
                          "T", 2640, 2, 9, 0],
-    "(IS) Ultra AC/10" : [[210, 26], 1,
+    "(IS) Ultra AC/10" : ["UAC10", [210, 26], 1,
                           8, (lambda x, y : 10 * calc_average(2, 0)), 18,
                           "T", 3057, 2, 13, 0],
-    "(IS) Ultra AC/20" : [[281, 35], 1,
+    "(IS) Ultra AC/20" : ["UAC20", [281, 35], 1,
                           16, (lambda x, y : 20 * calc_average(2, 0)), 10,
                           "T", 3060, 2, 15, 0],
-    "(IS) Light Gauss Rifle" : [[159, 20], 1,
+    "(IS) Light Gauss Rifle" : ["LGR", [159, 20], 1,
                                 1, (lambda x, y : 8), 25,
                                 "T", 3056, 1, 12, 5],
-    "(IS) Gauss Rifle" : [[320, 40], 1,
+    "(IS) Gauss Rifle" : ["GR", [320, 40], 1,
                           1, (lambda x, y : 15), 22,
                           "T", 2590, 1, 15, 7],
-    "(IS) Heavy Gauss Rifle" : [[346, 43], 1,
+    "(IS) Heavy Gauss Rifle" : ["HGR", [346, 43], 1,
                                 2, (lambda x, y : hgr_damage(x)), 20,
                                 "T", 3061, 1, 18, 11],
-    "(IS) Light Machine Gun" : [[5, 1], 1,
+    "(IS) Light Machine Gun" : ["LMG", [5, 1], 1,
                                 0, (lambda x, y : 1), 6,
                                 "", 3068, 1, 0.5, 0],
     "(IS) MG Array (2 Light Machine Gun)" :
-        [[16.7, 1], 1,
+        ["LMG2A", [16.7, 1], 1,
          0, (lambda x, y : 1 * calc_average(2, 0)), 6,
          "", 3068, 2, 1.5, 0],
     "(IS) MG Array (3 Light Machine Gun)" :
-        [[25.05, 1], 1,
+        ["LMG3A", [25.05, 1], 1,
          0, (lambda x, y : 1 * calc_average(3, 0)), 6,
          "", 3068, 3, 2, 0],
     "(IS) MG Array (4 Light Machine Gun)" :
-        [[33.4, 1], 1,
+        ["LMG4A", [33.4, 1], 1,
          0, (lambda x, y : 1 * calc_average(4, 0)), 6,
          "", 3068, 4, 2.5, 0],
-    "(IS) Machine Gun" : [[5, 1], 0,
+    "(IS) Machine Gun" : ["MG", [5, 1], 0,
                           0, (lambda x, y : 2), 3,
                           "", 1900, 1, 0.5, 0],
     # MG 2
     "(IS) MG Array (3 Machine Gun)" :
-        [[25.05, 1], 1,
+        ["MG3A", [25.05, 1], 1,
          0, (lambda x, y : 2 * calc_average(3, 0)), 3,
          "", 3068, 3, 2, 0],
     "(IS) MG Array (4 Machine Gun)" :
-        [[33.4, 1], 1,
+        ["MG4A", [33.4, 1], 1,
          0, (lambda x, y : 2 * calc_average(4, 0)), 3,
          "", 3068, 4, 2.5, 0],
     # HMG
     # HMG 2
     "(IS) MG Array (3 Heavy Machine Gun)" :
-        [[30.06, 1], 1,
+        ["HMG3A", [30.06, 1], 1,
          0, (lambda x, y : 3 * calc_average(3, 0)), 2,
          "", 3068, 3, 3.5, 0],
     # HMG 4
-    "(IS) Flamer" : [[6, 0], 0,
+    "(IS) Flamer" : ["Flmr", [6, 0], 0,
                      3, (lambda x, y : 2), 3,
                      "", 2025, 0, 1, 0],
     # Flamer (Vehicle)
-    "(IS) ER Small Laser" : [[17, 0], 1,
+    "(IS) ER Small Laser" : ["ERSL", [17, 0], 1,
                              2, (lambda x, y : 3), 5,
                              "T", 3058, 0, 0.5, 0],
-    "(IS) ER Medium Laser" : [[62, 0], 1,
+    "(IS) ER Medium Laser" : ["ERML", [62, 0], 1,
                               5, (lambda x, y : 5), 12,
                               "T", 3058, 0, 1, 0],
-    "(IS) ER Large Laser" : [[163, 0], 1,
+    "(IS) ER Large Laser" : ["ERLL", [163, 0], 1,
                              12, (lambda x, y : 8), 19,
                              "T", 2620, 0, 5, 0],
-    "(IS) Small Laser" : [[9, 0], 0,
+    "(IS) Small Laser" : ["SL", [9, 0], 0,
                           1, (lambda x, y : 3), 3,
                           "T", 2300, 0, 0.5, 0],
-    "(IS) Medium Laser" : [[46, 0], 0,
+    "(IS) Medium Laser" : ["ML", [46, 0], 0,
                            3, (lambda x, y : 5), 9,
                            "T", 2300, 0, 1, 0],
-    "(IS) Large Laser" : [[123, 0], 0,
+    "(IS) Large Laser" : ["LL", [123, 0], 0,
                           8, (lambda x, y : 8), 15,
                           "T", 2316, 0, 5, 0],
-    "(IS) Small Pulse Laser" : [[12, 0], 1,
+    "(IS) Small Pulse Laser" : ["SPL", [12, 0], 1,
                                 2, (lambda x, y : 3), 3,
                                 "T", 2609, 0, 1, 0],
-    "(IS) Medium Pulse Laser" : [[48, 0], 1,
+    "(IS) Medium Pulse Laser" : ["MPL", [48, 0], 1,
                                  4, (lambda x, y : 6), 6,
                                  "T", 2609, 0, 2, 0],
-    "(IS) Large Pulse Laser" : [[119, 0], 1,
+    "(IS) Large Pulse Laser" : ["LPL", [119, 0], 1,
                                 10, (lambda x, y : 9), 10,
                                 "T", 2609, 0, 7, 0],
-    "(IS) Plasma Rifle" : [[210, 26], 1,
+    "(IS) Plasma Rifle" : ["PR", [210, 26], 1,
                            10, (lambda x, y : 10), 15,
                            "T", 3068, 1, 6, 0],
-    "(IS) Light PPC" : [[88, 0], 1,
+    "(IS) Light PPC" : ["LPPC", [88, 0], 1,
                         5, (lambda x, y : 5), 18,
                         "T", 3067, 0, 3, 0],
-    "(IS) PPC" : [[176, 0], 0,
+    "(IS) PPC" : ["PPC", [176, 0], 0,
                   10, (lambda x, y : 10), 18,
                   "T", 2460, 0, 7, 0],
-    "(IS) Heavy PPC" : [[317, 0], 1,
+    "(IS) Heavy PPC" : ["HPPC", [317, 0], 1,
                         15, (lambda x, y : 15), 18,
                         "T", 3067, 0, 10, 0],
-    "(IS) ER PPC" : [[229, 0], 1,
+    "(IS) ER PPC" : ["ERPPC", [229, 0], 1,
                      15, (lambda x, y : 10), 23,
                      "T", 2760, 0, 7, 0],
-    "(IS) Snub-Nose PPC" : [[165, 0], 1,
+    "(IS) Snub-Nose PPC" : ["SNPPC", [165, 0], 1,
                             10, (lambda x, y : sn_damage(x)), 15,
                             "T", 3067, 0, 6, 0],
-    "(IS) LRM-5" : [[45, 6], 0,
+    "(IS) LRM-5" : ["LRM5", [45, 6], 0,
                     2, (lambda x, y : calc_average(5, y)), 21,
                     "A", 2300, 1, 2, 0],
-    "(IS) LRM-10" : [[90, 11], 0,
+    "(IS) LRM-10" : ["LRM10", [90, 11], 0,
                      4, (lambda x, y : calc_average(10, y)), 21,
                      "A", 2305, 1, 5, 0],
-    "(IS) LRM-15" : [[136, 17], 0,
+    "(IS) LRM-15" : ["LRM15", [136, 17], 0,
                      5, (lambda x, y : calc_average(15, y)), 21,
                      "A", 2315, 1, 7, 0],
-    "(IS) LRM-20" : [[181, 23], 0,
+    "(IS) LRM-20" : ["LRM20", [181, 23], 0,
                      6, (lambda x, y : calc_average(20, y)), 21,
                      "A", 2322, 1, 10, 0],
-    "(IS) MML-3" : [[29, 4], 1,
+    "(IS) MML-3" : ["MML3", [29, 4], 1,
                     2, (lambda x, y : mml3_damage(x, y)), 21,
                     "A", 3068, 1, 1.5, 0],
-    "(IS) MML-5" : [[45, 6], 1,
+    "(IS) MML-5" : ["MML5", [45, 6], 1,
                     3, (lambda x, y : mml5_damage(x, y)), 21,
                     "A", 3068, 1, 3, 0],
-    "(IS) MML-7" : [[67, 8], 1,
+    "(IS) MML-7" : ["MML7", [67, 8], 1,
                     4, (lambda x, y : mml7_damage(x, y)), 21,
                     "A", 3068, 1, 4.5, 0],
-    "(IS) MML-9" : [[86, 11], 1,
+    "(IS) MML-9" : ["MML9", [86, 11], 1,
                     5, (lambda x, y : mml9_damage(x, y)), 21,
                     "A", 3068, 1, 6, 0],
-    "(IS) SRM-2" : [[21, 3], 0,
+    "(IS) SRM-2" : ["SRM2", [21, 3], 0,
                     2, (lambda x, y : 2 * calc_average(2, y)), 9,
                     "A", 2370, 1, 1, 0],
-    "(IS) SRM-4" : [[39, 5], 0,
+    "(IS) SRM-4" : ["SRM4", [39, 5], 0,
                     3, (lambda x, y : 2 * calc_average(4, y)), 9,
                     "A", 2370, 1, 2, 0],
-    "(IS) SRM-6" : [[59, 7], 0,
+    "(IS) SRM-6" : ["SRM6", [59, 7], 0,
                     4, (lambda x, y : 2 * calc_average(6, y)), 9,
                     "A", 2370, 1, 3, 0],
-    "(IS) SRM-4 (OS)" : [[8, 0], 1,
+    "(IS) SRM-4 (OS)" : ["SRM4OS", [8, 0], 1,
                          0.75, (lambda x, y : 0), 9, #TODO: OS damage
                          "A", 2676, 0, 2.5, 0],
-    "(IS) MRM-10" : [[56, 7], 1,
+    "(IS) MRM-10" : ["MRM10", [56, 7], 1,
                      4, (lambda x, y : calc_average(10, y)), 15,
                      "P", 3058, 1, 3, 0],
-    "(IS) MRM-20" : [[112, 14], 1,
+    "(IS) MRM-20" : ["MRM20", [112, 14], 1,
                      6, (lambda x, y : calc_average(20, y)), 15,
                      "P", 3058, 1, 7, 0],
-    "(IS) MRM-30" : [[168, 21], 1,
+    "(IS) MRM-30" : ["MRM30", [168, 21], 1,
                      10, (lambda x, y : calc_average(30, y)), 15,
                      "P", 3058, 1, 10, 0],
-    "(IS) MRM-40" : [[224, 28], 1,
+    "(IS) MRM-40" : ["MRM40", [224, 28], 1,
                      12, (lambda x, y : calc_average(40, y)), 15,
                      "P", 3058, 1, 12, 0],
-    "(IS) Rocket Launcher 10" : [[18, 0], 1,
+    "(IS) Rocket Launcher 10" : ["RL10", [18, 0], 1,
                                  0.75, (lambda x, y : 0), 18, #TODO: OS damage
                                  "", 3064, 0, 0.5, 0],
-    "(IS) Rocket Launcher 15" : [[23, 0], 1,
+    "(IS) Rocket Launcher 15" : ["RL15", [23, 0], 1,
                                  1, 0, (lambda x, y : 0), 15, #TODO: OS damage
                                  "", 3064, 0, 1, 0],
-    "(IS) Rocket Launcher 20" : [[24, 0], 1,
+    "(IS) Rocket Launcher 20" : ["RL20", [24, 0], 1,
                                  1.25, (lambda x, y : 0), 12, #TODO: OS damage
                                  "", 3064, 0, 1.5, 0],
-    "(IS) Streak SRM-2" : [[30, 4], 1,
+    "(IS) Streak SRM-2" : ["SSRM2", [30, 4], 1,
                            1, (lambda x, y : 4), 9,
                            "", 2647, 1, 1.5, 0],
-    "(IS) Streak SRM-4" : [[59, 7], 1,
+    "(IS) Streak SRM-4" : ["SSRM4", [59, 7], 1,
                            1.5, (lambda x, y : 8), 9,
                            "", 3058, 1, 3, 0],
-    "(IS) Streak SRM-6" : [[89, 11], 1,
+    "(IS) Streak SRM-6" : ["SSRM6", [89, 11], 1,
                            2, (lambda x, y : 12), 9,
                            "", 3058, 1, 4.5, 0],
-    "(IS) Streak SRM-2 (OS)" : [[6, 0], 1,
+    "(IS) Streak SRM-2 (OS)" : ["SSRM2OS", [6, 0], 1,
                                 0.5, (lambda x, y : 0), 9, #TODO: OS damage
                                 "", 2676, 0, 2, 0],
-    "(IS) Narc Missile Beacon" : [[30, 0], 1,
+    "(IS) Narc Missile Beacon" : ["Narc", [30, 0], 1,
                                   0, (lambda x, y : 0), 9,
                                   "", 2587, 1, 3, 0],
-    "(IS) iNarc Launcher" : [[75, 0], 1,
+    "(IS) iNarc Launcher" : ["iNarc", [75, 0], 1,
                              0, (lambda x, y : 0), 15,
                              "", 3062, 1, 5, 0],
     ### Clan, Tech Manual ###
-    "(CL) LB 2-X AC" : [[47, 6], 1,
+    "(CL) LB 2-X AC" : ["LB2", [47, 6], 1,
                         1, (lambda x, y : 2), 30,
                         "T", 2826, 1, 5, 0],
-    "(CL) LB 5-X AC" : [[93, 12], 1,
+    "(CL) LB 5-X AC" : ["LB5", [93, 12], 1,
                         1, (lambda x, y : 5), 24,
                         "T", 2825, 1, 7, 0],
-    "(CL) LB 10-X AC" : [[148, 19], 1,
+    "(CL) LB 10-X AC" : ["LB10", [148, 19], 1,
                          2, (lambda x, y : 10), 18,
                          "T", 2595, 1, 10, 0],
-    "(CL) LB 20-X AC" : [[237, 30], 1,
+    "(CL) LB 20-X AC" : ["LB20", [237, 30], 1,
                          6, (lambda x, y : 20), 12,
                          "T", 2826, 1, 12, 0],
-    "(CL) Ultra AC/2" : [[62, 8], 1,
+    "(CL) Ultra AC/2" : ["UAC2", [62, 8], 1,
                          2, (lambda x, y : 2 * calc_average(2, 0)), 27,
                          "T", 2827, 2, 5, 0],
-    "(CL) Ultra AC/5" : [[122, 15], 1,
+    "(CL) Ultra AC/5" : ["UAC5", [122, 15], 1,
                          2, (lambda x, y : 5 * calc_average(2, 0)), 21,
                          "T", 2640, 2, 7, 0],
-    "(CL) Ultra AC/10" : [[210, 26], 1,
+    "(CL) Ultra AC/10" : ["UAC10", [210, 26], 1,
                           6, (lambda x, y : 10 * calc_average(2, 0)), 18,
                           "T", 2825, 2, 10, 0],
-    "(CL) Ultra AC/20" : [[335, 42], 1,
+    "(CL) Ultra AC/20" : ["UAC20", [335, 42], 1,
                           14, (lambda x, y : 20 * calc_average(2, 0)), 12,
                           "T", 2825, 2, 12, 0],
-    "(CL) AP Gauss Rifle" : [[21, 3], 1,
+    "(CL) AP Gauss Rifle" : ["APGR", [21, 3], 1,
                              1, (lambda x, y : 3), 9,
                              "T", 3069, 1, 0.5, 1],
-    "(CL) Gauss Rifle" : [[320, 40], 1,
+    "(CL) Gauss Rifle" : ["GR", [320, 40], 1,
                           1, (lambda x, y : 15), 22,
                           "T", 2590, 1, 12, 6],
-    "(CL) Hyper Assault Gauss 20" : [[267, 33], 1,
+    "(CL) Hyper Assault Gauss 20" : ["HAG20", [267, 33], 1,
                                      4, (lambda x, y : hag20_damage(x)), 24,
                                      "T", 3068, 1, 10, 6],
-    "(CL) Hyper Assault Gauss 30" : [[401, 50], 1,
+    "(CL) Hyper Assault Gauss 30" : ["HAG30", [401, 50], 1,
                                      6, (lambda x, y : hag30_damage(x)), 24,
                                      "T", 3068, 1, 13, 8],
-    "(CL) Hyper Assault Gauss 40" : [[535, 67], 1,
+    "(CL) Hyper Assault Gauss 40" : ["HAG40", [535, 67], 1,
                                      8, (lambda x, y : hag40_damage(x)), 24,
                                      "T", 3069, 1, 16, 10],
-    "(CL) Light Machine Gun" : [[5, 1], 1,
+    "(CL) Light Machine Gun" : ["LMG", [5, 1], 1,
                                 0, (lambda x, y : 1), 6,
                                 "", 3060, 1, 0.25, 0],
     # LMG 2
     "(CL) MG Array (3 Light Machine Gun)" :
-        [[25.05, 1], 1,
+        ["LMG3A", [25.05, 1], 1,
          0, (lambda x, y : 1 * calc_average(3, 0)), 6,
          "", 3069, 3, 1, 0],
     # LMG 4
-    "(CL) Machine Gun" : [[5, 1], 1,
+    "(CL) Machine Gun" : ["MG", [5, 1], 1,
                           0, (lambda x, y : 2), 3,
                           "", 1900, 1, 0.25, 0],
     # MG 2
     # MG 3
     "(CL) MG Array (4 Machine Gun)" :
-        [[33.4, 1], 1,
+        ["MG4A", [33.4, 1], 1,
          0, (lambda x, y : 2 * calc_average(4, 0)), 3,
          "", 3069, 4, 1.25, 0],
-    "(CL) Heavy Machine Gun" : [[6, 1], 1,
+    "(CL) Heavy Machine Gun" : ["HMG", [6, 1], 1,
                                 0, (lambda x, y : 3), 2,
                                 "", 3059, 1, 0.5, 0],
     # HMG 2
     "(CL) MG Array (3 Heavy Machine Gun)" :
-        [[30.06, 1], 1,
+        ["HMG3A", [30.06, 1], 1,
          0, (lambda x, y : 3 * calc_average(3, 0)), 2,
          "", 3069, 3, 1.75, 0],
     "(CL) MG Array (4 Heavy Machine Gun)" :
-        [[40.08, 1], 1,
+        ["HMG4A", [40.08, 1], 1,
          0, (lambda x, y : 3 * calc_average(4, 0)), 2,
          "", 3069, 4, 2.25, 0],
-    "(CL) Flamer" : [[6, 0], 1,
+    "(CL) Flamer" : ["Flmr", [6, 0], 1,
                      3, (lambda x, y : 2), 3,
                      "", 2025, 0, 0.5, 0],
     # Flamer (Vehicle)
-    "(CL) ER Micro Laser" : [[7, 0], 1,
+    "(CL) ER Micro Laser" : ["ERMcL", [7, 0], 1,
                              1, (lambda x, y : 2), 4,
                              "T", 3060, 0, 0.25, 0],
-    "(CL) ER Small Laser" : [[31, 0], 1,
+    "(CL) ER Small Laser" : ["ERSL", [31, 0], 1,
                              2, (lambda x, y : 5), 6,
                              "T", 2825, 0, 0.5, 0],
-    "(CL) ER Medium Laser" : [[108, 0], 1,
+    "(CL) ER Medium Laser" : ["ERML", [108, 0], 1,
                               5, (lambda x, y : 7), 15,
                               "T", 2824, 0, 1, 0],
-    "(CL) ER Large Laser" : [[248, 0], 1,
+    "(CL) ER Large Laser" : ["ERLL", [248, 0], 1,
                              12, (lambda x, y : 10), 25,
                              "T", 2620, 0, 4, 0],
-    "(CL) Micro Pulse Laser" : [[12, 0], 1,
+    "(CL) Micro Pulse Laser" : ["McPL", [12, 0], 1,
                                 1, (lambda x, y : 3), 3,
                                 "T", 3060, 0, 0.5, 0],
-    "(CL) Small Pulse Laser" : [[24, 0], 1,
+    "(CL) Small Pulse Laser" : ["SPL", [24, 0], 1,
                                 2, (lambda x, y : 3), 6,
                                 "T", 2609, 0, 1, 0],
-    "(CL) Medium Pulse Laser" : [[111, 0], 1,
+    "(CL) Medium Pulse Laser" : ["MPL", [111, 0], 1,
                                  4, (lambda x, y : 7), 12,
                                  "T", 2609, 0, 2, 0],
-    "(CL) Large Pulse Laser" : [[265, 0], 1,
+    "(CL) Large Pulse Laser" : ["LPL", [265, 0], 1,
                                 10, (lambda x, y : 10), 20,
                                 "T", 2609, 0, 6, 0],
-    "(CL) Heavy Small Laser" : [[15, 0], 1,
+    "(CL) Heavy Small Laser" : ["HSL", [15, 0], 1,
                                 3, (lambda x, y : 6), 3,
                                 "T", 3059, 0, 0.5, 0],
-    "(CL) Heavy Medium Laser" : [[76, 0], 1,
+    "(CL) Heavy Medium Laser" : ["HML", [76, 0], 1,
                                  7, (lambda x, y : 10), 9,
                                  "T", 3059, 0, 1, 0],
-    "(CL) Heavy Large Laser" : [[244, 0], 1,
+    "(CL) Heavy Large Laser" : ["HLL", [244, 0], 1,
                                 18, (lambda x, y : 16), 15,
                                 "T", 3059, 0, 4, 0],
-    "(CL) Plasma Cannon" : [[170, 21], 1,
+    "(CL) Plasma Cannon" : ["PC", [170, 21], 1,
                             7, (lambda x, y : 0), 18,
                             "T", 3069, 1, 3, 0],
-    "(CL) ER PPC" : [[412, 0], 1,
+    "(CL) ER PPC" : ["ERPPC", [412, 0], 1,
                      15, (lambda x, y : 15), 23,
                      "T", 2760, 0, 6, 0],
-    "(CL) ATM-3" : [[53, 14], 1,
+    "(CL) ATM-3" : ["ATM3", [53, 14], 1,
                     2, (lambda x, y : atm3_damage(x)), 27,
                     "", 3054, 1, 1.5, 0],
-    "(CL) ATM-6" : [[105, 26], 1,
+    "(CL) ATM-6" : ["ATM6", [105, 26], 1,
                     4, (lambda x, y : atm6_damage(x)), 27,
                     "", 3054, 1, 3.5, 0],
-    "(CL) ATM-9" : [[147, 36], 1,
+    "(CL) ATM-9" : ["ATM9", [147, 36], 1,
                     6, (lambda x, y : atm9_damage(x)), 27,
                     "", 3054, 1, 5, 0],
-    "(CL) ATM-12" : [[212, 52], 1,
+    "(CL) ATM-12" : ["ATM12", [212, 52], 1,
                      8, (lambda x, y : atm12_damage(x)), 27,
                      "", 3055, 1, 7, 0],
-    "(CL) LRM-5" : [[55, 7], 1,
+    "(CL) LRM-5" : ["LRM5", [55, 7], 1,
                     2, (lambda x, y : calc_average(5, y)), 21,
                     "A", 2400, 1, 1, 0],
-    "(CL) LRM-10" : [[109, 14], 1,
+    "(CL) LRM-10" : ["LRM10", [109, 14], 1,
                      4, (lambda x, y : calc_average(10, y)), 21,
                      "A", 2400, 1, 2.5, 0],
-    "(CL) LRM-15" : [[164, 21], 1,
+    "(CL) LRM-15" : ["LRM15", [164, 21], 1,
                      5, (lambda x, y : calc_average(15, y)), 21,
                      "A", 2400, 1, 3.5, 0],
-    "(CL) LRM-20" : [[220, 27], 1,
+    "(CL) LRM-20" : ["LRM20", [220, 27], 1,
                      6, (lambda x, y : calc_average(20, y)), 21,
                      "A", 2400, 1, 5, 0],
-    "(CL) SRM-2" : [[21, 3], 1,
+    "(CL) SRM-2" : ["SRM2", [21, 3], 1,
                     2, (lambda x, y : 2 * calc_average(2, y)), 9,
                     "A", 2370, 1, 0.5, 0],
-    "(CL) SRM-4" : [[39, 5], 1,
+    "(CL) SRM-4" : ["SRM4", [39, 5], 1,
                     3, (lambda x, y : 2 * calc_average(4, y)), 9,
                     "A", 2370, 1, 1, 0],
-    "(CL) SRM-6" : [[59, 7], 1,
+    "(CL) SRM-6" : ["SRM6", [59, 7], 1,
                     4, (lambda x, y : 2 * calc_average(6, y)), 9,
                     "A", 2370, 1, 1.5, 0],
-    "(CL) Streak SRM-2" : [[40, 5], 1,
+    "(CL) Streak SRM-2" : ["SSRM2", [40, 5], 1,
                            1, (lambda x, y : 4), 12,
                            "", 2647, 1, 1, 0],
-    "(CL) Streak SRM-4" : [[79, 10], 1,
+    "(CL) Streak SRM-4" : ["SSRM4", [79, 10], 1,
                            1.5, (lambda x, y : 8), 12,
                            "", 2826, 1, 2, 0],
-    "(CL) Streak SRM-6" : [[118, 15], 1,
+    "(CL) Streak SRM-6" : ["SSRM6", [118, 15], 1,
                            2, (lambda x, y : 12), 12,
                            "", 2826, 1, 3, 0],
-    "(CL) Streak SRM-4 (OS)" : [[16, 0], 1,
+    "(CL) Streak SRM-4 (OS)" : ["SSRM4OS", [16, 0], 1,
                                 0.75, (lambda x, y : 0), 12, #TODO: OS damage
                                 "", 2826, 0, 2.5, 0],
-    "(CL) Narc Missile Beacon" : [[30, 0], 1,
+    "(CL) Narc Missile Beacon" : ["Narc", [30, 0], 1,
                                   0, (lambda x, y : 0), 12,
                                   "", 2587, 1, 2, 0],
     ### New Tournament Legal ###
-    "ER Flamer" : [[16, 0], 1,
+    "ER Flamer" : ["ERFlmr", [16, 0], 1,
                    4, (lambda x, y : 2), 7,
                    "", 3067, 0, 1, 0],
     # Heavy Flamer
     # iHGR
-    "(IS) Magshot Gauss Rifle" : [[15, 2], 1,
+    "(IS) Magshot Gauss Rifle" : ["MSGR", [15, 2], 1,
                                   1, (lambda x, y : 2), 9,
                                   "T", 3072, 1, 0.5, 2],
     # Silver Bullet
     # VGL
-    "(IS) Binary Laser Cannon" : [[222, 0], 1,
+    "(IS) Binary Laser Cannon" : ["BLC", [222, 0], 1,
                                   16, (lambda x, y : 12), 15,
                                   "T", 2812, 0, 9, 0],
-    "(IS) Enhanced LRM-5" : [[52, 7], 1,
+    "(IS) Enhanced LRM-5" : ["NLRM5", [52, 7], 1,
                              2, (lambda x, y : calc_average(5, y)), 21,
                              "A", 3058, 1, 3, 0],
     # NLRM-10
@@ -630,106 +630,106 @@ WEAPONS = {
     # Light Rifle
     # Medium Rifle
     # Heavy Rifle
-    "(IS) Thunderbolt-5" : [[64, 8], 1,
+    "(IS) Thunderbolt-5" : ["Tbolt5", [64, 8], 1,
                             3, (lambda x, y : 5), 18,
                             "", 3072, 1, 3, 0],
-    "(IS) Thunderbolt-10" : [[127, 16], 1,
+    "(IS) Thunderbolt-10" : ["Tbolt10", [127, 16], 1,
                              5, (lambda x, y : 10), 18,
                              "", 3072, 1, 7, 0],
-    "(IS) Thunderbolt-15" : [[229, 29], 1,
+    "(IS) Thunderbolt-15" : ["Tbolt15", [229, 29], 1,
                              7, (lambda x, y : 15), 18,
                              "", 3072, 1, 11, 0],
-    "(IS) Thunderbolt-20" : [[305, 38], 1,
+    "(IS) Thunderbolt-20" : ["Tbolt20", [305, 38], 1,
                              8, (lambda x, y : 20), 18,
                              "", 3072, 1, 15, 0],
 
     ### Advanced Weapons ###
-    "(IS) Arrow IV Missile" : [[240, 30], 2,
+    "(IS) Arrow IV Missile" : ["ArwIV", [240, 30], 2,
                                10, (lambda x, y : 20), 120,
                                "", 2600, 1, 15, 0],
-    "(CL) Arrow IV Missile" : [[240, 30], 2,
+    "(CL) Arrow IV Missile" : ["ArwIV", [240, 30], 2,
                                10, (lambda x, y : 20), 135,
                                "", 2600, 1, 12, 0],
     # Thumper
-    "(IS) Sniper" : [[85, 11], 2,
+    "(IS) Sniper" : ["Snpr", [85, 11], 2,
                      10, (lambda x, y : 20), 270,
                      "", 1900, 1, 20, 0],
     # Artillery Cannons
     # HVACs
     # Protomech AC/2
-    "(CL) Protomech AC/4" : [[49, 6], 2,
+    "(CL) Protomech AC/4" : ["PAC4", [49, 6], 2,
                              1, (lambda x, y : 4), 15,
                              "T", 3073, 1, 4.5, 0],
     # Protomech AC/8
     # Fluid Gun
-    "(IS) Bombast Laser" : [[137, 0], 2,
+    "(IS) Bombast Laser" : ["BmbL", [137, 0], 2,
                             12, (lambda x, y : 12), 15,
                             "T", 3064, 0, 7, 0],
     # Chemical Lasers
-    "(CL) ER Small Pulse Laser" : [[36, 0], 2,
+    "(CL) ER Small Pulse Laser" : ["ERSPL", [36, 0], 2,
                                    3, (lambda x, y : 5), 6,
                                    "T", 3057, 0, 1.5, 0],
-    "(CL) ER Medium Pulse Laser" : [[117, 0], 2,
+    "(CL) ER Medium Pulse Laser" : ["ERMPL", [117, 0], 2,
                                     6, (lambda x, y : 7), 14,
                                     "T", 3057, 0, 2, 0],
     # ERLPL
     # iHSL
-    "(CL) Improved Heavy Medium Laser" : [[93, 0], 2,
+    "(CL) Improved Heavy Medium Laser" : ["iHML", [93, 0], 2,
                                           7, (lambda x, y : 10), 9,
                                           "T", 3069, 0, 1, 2],
     # iHLL
     "(IS) Small Variable Speed Pulse Laser" :
-        [[22, 0], 2,
+        ["SVSPL", [22, 0], 2,
          3, (lambda x, y : svspl_damage(x)), 6,
          "T", 3070, 0, 2, 0],
     "(IS) Medium Variable Speed Pulse Laser" :
-        [[56, 0], 2,
+        ["MVSPL", [56, 0], 2,
          7, (lambda x, y : mvspl_damage(x)), 9,
          "T", 3070, 0, 4, 0],
     "(IS) Large Variable Speed Pulse Laser" :
-        [[123, 0], 2,
+        ["LVSPL", [123, 0], 2,
          10, (lambda x, y : lvspl_damage(x)), 15,
          "T", 3070, 0, 9, 0],
-    "(IS) Small X-Pulse Laser" : [[21, 0], 2,
+    "(IS) Small X-Pulse Laser" : ["SXPL", [21, 0], 2,
                                   3, (lambda x, y : 3), 5,
                                   "T", 3057, 0, 1, 0],
-    "(IS) Medium X-Pulse Laser" : [[71, 0], 2,
+    "(IS) Medium X-Pulse Laser" : ["MXPL", [71, 0], 2,
                                    6, (lambda x, y : 6), 9,
                                    "T", 3057, 0, 2, 0],
-    "(IS) Large X-Pulse Laser" : [[178, 0], 2,
+    "(IS) Large X-Pulse Laser" : ["LXPL", [178, 0], 2,
                                   14, (lambda x, y : 9), 15,
                                   "T", 3057, 0, 7, 0],
     # MM1
     # MM2
     # MM4
     # MM8-IS
-    "(CL) Mech Mortar 8" : [[50, 6], 2,
+    "(CL) Mech Mortar 8" : ["Mrtr8", [50, 6], 2,
                             10, (lambda x, y : 2 * calc_average(8, 0)), 21,
                             "", 2840, 1, 5, 0],
     # ERLMs
     # SLRM5
-    "(CL) Streak LRM-10" : [[173, 22], 2,
+    "(CL) Streak LRM-10" : ["SLRM10", [173, 22], 2,
                             2, (lambda x, y : 10), 21,
                             "", 3057, 1, 5, 0],
     # SLRM15
     # SLRM20
-    "(IS) Light PPC + PPC Capacitor" : [[132, 0], 2,
+    "(IS) Light PPC + PPC Capacitor" : ["LPPC+", [132, 0], 2,
                                         10, (lambda x, y : 10), 18,
                                         "T", 3067, 0, 4, 3],
     "(IS) Snub-Nose PPC + PPC Capacitor" :
-        [[252, 0], 2,
+        ["SNPPC+", [252, 0], 2,
          15, (lambda x, y : sn_damage(x) + 5), 15,
          "T", 3067, 0, 7, 3],
     # rest of +PPC cap
-    "(IS) BattleMech Taser" : [[40, 5], 2,
+    "(IS) BattleMech Taser" : ["TSR", [40, 5], 2,
                                6, (lambda x, y : 1), 4,
                                "", 3067, 1, 4, 3],
 
     ### Experimental Weapons ###
-    "(CL) Rotary AC/2" : [[161, 20], 3,
+    "(CL) Rotary AC/2" : ["RAC2", [161, 20], 3,
                           6, (lambda x, y : 2 * calc_average(6, 0)), 25,
                           "T", 3073, 6, 8, 0],
-    "(CL) Rotary AC/5" : [[345, 43], 3,
+    "(CL) Rotary AC/5" : ["RAC5", [345, 43], 3,
                           6, (lambda x, y : 5 * calc_average(6, 0)), 21,
                           "T", 3073, 6, 10, 0]
     }
@@ -765,10 +765,10 @@ class Weapon:
     """
     def __init__(self, key, art4, art5, apollo):
         self.name = key
-        self.batt_val = WEAPONS[key][0]
-        self.range = WEAPONS[key][4]
-        self.useammo = WEAPONS[key][7]
-        self.explosive = WEAPONS[key][9]
+        self.batt_val = WEAPONS[key][1]
+        self.range = WEAPONS[key][5]
+        self.useammo = WEAPONS[key][8]
+        self.explosive = WEAPONS[key][10]
         self.count = 0
         self.countrear = 0
         self.countarm = 0 # We count arm weapons also, to help with BV calcs
@@ -777,23 +777,23 @@ class Weapon:
 
         # Deal with enhancements, Artemis
         self.enhance = ""
-        if (WEAPONS[key][5] == "A"):
+        if (WEAPONS[key][6] == "A"):
             if art5 == "TRUE":
                 self.enhance = "A5"
             elif art4 == "TRUE":
                 self.enhance = "A4"
         # Apollo
-        elif (WEAPONS[key][5] == "P" and apollo == "TRUE"):
+        elif (WEAPONS[key][6] == "P" and apollo == "TRUE"):
             self.enhance = "AP"
         # Tarcomp, we can not know if one is present right now
-        elif (WEAPONS[key][5] == "T"):
+        elif (WEAPONS[key][6] == "T"):
             self.enhance = "TC"
 
     def get_weight(self):
         """
         Return weight
         """
-        wgt = WEAPONS[self.name][8]
+        wgt = WEAPONS[self.name][9]
         if self.enhance == "A5":
             wgt += 1.5
         elif self.enhance == "A4":
@@ -806,7 +806,7 @@ class Weapon:
         """
         Return heat
         """
-        return WEAPONS[self.name][2]
+        return WEAPONS[self.name][3]
 
     def get_damage(self, rnge):
         """
@@ -814,7 +814,7 @@ class Weapon:
         """
 
         # No damage if out of range
-        if rnge > WEAPONS[self.name][4]:
+        if rnge > WEAPONS[self.name][5]:
             return 0
 
         # Check for cluster adjustments from Artemis & Apollo
@@ -826,7 +826,7 @@ class Weapon:
         elif self.enhance == "AP":
             art = -1
 
-        return WEAPONS[self.name][3](rnge, art)
+        return WEAPONS[self.name][4](rnge, art)
 
     def addone(self):
         """

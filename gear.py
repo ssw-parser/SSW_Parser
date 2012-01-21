@@ -479,7 +479,7 @@ class Equip(Item):
             return PHYSICAL[self.name][0]
         elif (self.typ == "missile" or self.typ == "ballistic" or
               self.typ == "energy"):
-            return WEAPONS[self.name][6]
+            return WEAPONS[self.name][7]
 
     def get_weight(self):
         # TODO: Artemis & friends weight
@@ -494,7 +494,7 @@ class Equip(Item):
             return PHYSICAL[self.name][3](mech.weight)
         elif (self.typ == "missile" or self.typ == "ballistic" or
               self.typ == "energy"):
-            return WEAPONS[self.name][8]
+            return WEAPONS[self.name][9]
         else:
             print "Unknown item", self.name, self.typ
             raise NotImplementedError
