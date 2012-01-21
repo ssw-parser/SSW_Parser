@@ -808,6 +808,12 @@ class Weapon:
         """
         return WEAPONS[self.name][3]
 
+    def get_short(self):
+        """
+        Return short name
+        """
+        return WEAPONS[self.name][0]
+
     def get_damage(self, rnge):
         """
         Return damage

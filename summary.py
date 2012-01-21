@@ -28,6 +28,7 @@ from operator import itemgetter
 from mech import Mech
 from weapons import LAUNCHER_LIST
 from util import calc_average
+from string import lower
 
 #############################
 ##### Utility functions #####
@@ -467,17 +468,27 @@ def create_snipe_list_item(mech, i):
                    ["(IS) Thunderbolt-20", "tb20:", 20]]
 
 
-    for weap in i.gear.weaponlist.list:
-        for sniper in sniper_list:
-            if (weap.name == sniper[0] and weap.count > 0):
-                if weap.useammo > 0:
-                    l_str += sniper[1] + str(weap.count) + "/"
-                    l_str += str(weap.get_ammo_per_weapon()) + " "
-                else:
-                    l_str += sniper[1] + str(weap.count) + " "
+#    for weap in i.gear.weaponlist.list:
+#        for sniper in sniper_list:
+#            if (weap.name == sniper[0] and weap.count > 0):
+#                if weap.useammo > 0:
+#                    l_str += sniper[1] + str(weap.count) + "/"
+#                    l_str += str(weap.get_ammo_per_weapon()) + " "
+#                else:
+#                    l_str += sniper[1] + str(weap.count) + " "
 #                dam += sniper[2] * weap.count
-                dam += weap.get_damage(18) * weap.count
-                heat += weap.get_heat() * weap.count
+#                dam += weap.get_damage(18) * weap.count
+#                heat += weap.get_heat() * weap.count
+
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= 18 and weap.count > 0):
+            if weap.useammo > 0:
+                l_str += lower(weap.get_short()) + ":" + str(weap.count) + "/"
+                l_str += str(weap.get_ammo_per_weapon()) + " "
+            else:
+                l_str += lower(weap.get_short()) + ":" + str(weap.count) + " "
+            dam += weap.get_damage(18) * weap.count
+            heat += weap.get_heat() * weap.count
 
     l_heat = str(heat) + "/" + str(i.get_sink())
 
