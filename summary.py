@@ -275,12 +275,11 @@ def print_armor_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Armr Exp Sth | Points  Tons  ANS"
+    header2 += "Tons BV   Armr Exp Sth | Points  Tons"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %1s" % 
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8],
-                armor_letter(i[3])))
+        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft" % 
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]))
 
 
 ## Speed listing
@@ -426,7 +425,7 @@ def print_snipe_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Lnchrs/turns of fire"
+    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
     print header2
     for i in mech_list:
         print ("%-30s %3d %4d %3d %-5s %-3s %s" %

@@ -48,8 +48,8 @@ Goals:
 - Count and list specific weapon types
 -- Head-capper list: iHGR, iHLL, PPC + Cap, HPPC + Cap, ERPPC + Cap
 
-- Sniper list:
--- Mech Mortar 8
+- Sniper listing:
+-- Allow selection of range
 
 - Make default display more like MUL: Add rules.
 -- Rules level filter.
