@@ -209,6 +209,7 @@ AMMO = {
     "(CL) @ Streak LRM-10" : [["(CL) Streak LRM-10"], 12, 1, "X"],
     "(CL) @ 'Mech Mortar 8 (Anti-Personnel)" :
         [["(CL) Mech Mortar 8"], 4, 1, "X"],
+    "@ Heavy Flamer" : [["Heavy Flamer"], 10, 1, "X"],
     # Artillery
     "(IS) @ Arrow IV (Non-Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
     "(IS) @ Arrow IV (Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
@@ -228,6 +229,7 @@ O_EQUIPMENT = {
     "Light TAG" : [[0, 0], 3054, 0, 0.5, 0],
     "Cargo, Liquid" : [[0, 0], 1900, 0, 1, 0],
     "Communications Equipment" : [[0, 0], 1900, 0, 1, 0],
+    "Remote Sensor Dispenser" : [[0, 0], 1900, 1, 0.5, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 2710, 0, 16, 0],
     "Coolant Pod" : [[0, 0], 3049, 0, 1, 1]
@@ -277,6 +279,7 @@ EQUIPMENT = {
     "Light TAG" : [[0, 0], 1, 3054, 0.5, 0, 0],
     "Cargo, Liquid" : [[0, 0], 1, 1900, 1, 0, 0],
     "Communications Equipment" : [[0, 0], 1900, 0, 1, 0],
+    "Remote Sensor Dispenser" : [[0, 0], 1900, 1, 0.5, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 2710, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 3079, 1, 0, 1],
@@ -842,7 +845,7 @@ class Gear:
                         self.exp_ammo[name.loc] = expl
             # Not found
             if not ident:
-                print "Unidentified:", name.name
+                print "Unidentified:", name.name, ":", name.typ
                 error_exit("gear")
 
         # Calculate tarcomp weight
