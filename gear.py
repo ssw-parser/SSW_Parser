@@ -213,6 +213,7 @@ AMMO = {
     # Artillery
     "(IS) @ Arrow IV (Non-Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
     "(IS) @ Arrow IV (Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
+    "(CL) @ Arrow IV (Non-Homing)" : [["(CL) Arrow IV Missile"], 5, 1, "X"],
     "(CL) @ Arrow IV (Homing)" : [["(CL) Arrow IV Missile"], 5, 1, "X"],
     "@ Sniper" : [["(IS) Sniper"], 10, 1, "X"]
     }
