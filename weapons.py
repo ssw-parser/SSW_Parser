@@ -426,7 +426,7 @@ WEAPONS = {
          "", 3064, 0, 0.5, 0],
     "(IS) Rocket Launcher 15" :
         ["RL15", [23, 0], 1,
-         1, 0, (lambda x, y : calc_average(15, 0) * 0.1), 15,
+         1, (lambda x, y : calc_average(15, 0) * 0.1), 15,
          "", 3064, 0, 1, 0],
     "(IS) Rocket Launcher 20" :
         ["RL20", [24, 0], 1,
@@ -634,6 +634,10 @@ WEAPONS = {
     # NLRM-15
     # NLRM-20
     # Imp OS
+    "(CL) Narc Missile Beacon (iOS)" : ["NarciOS", [6, 0], 1,
+                                        0, (lambda x, y : 0), 12,
+                                        "", 3058, 0, 1.5, 0],
+                                        
     # Light Rifle
     # Medium Rifle
     # Heavy Rifle
