@@ -396,11 +396,7 @@ def create_snipe_list_item(mech, i):
 
     for weap in i.gear.weaponlist.list:
         if (weap.get_range() >= rnge and weap.count > 0):
-            if weap.useammo > 0:
-                l_str += weap.get_short().lower() + ":" + str(weap.count) + "/"
-                l_str += str(weap.get_ammo_per_weapon()) + " "
-            else:
-                l_str += weap.get_short().lower() + ":" + str(weap.count) + " "
+            l_str += weap.get_short_count() + " "
             dam += weap.get_damage(rnge) * weap.count
             heat += weap.get_heat() * weap.count
 

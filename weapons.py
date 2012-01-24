@@ -842,6 +842,16 @@ class Weapon:
         """
         return WEAPONS[self.name][0]
 
+    def get_short_count(self):
+        """
+        Return short name, with weapon and ammo count
+        """
+        name = WEAPONS[self.name][0].lower() + ":" + str(self.count)
+        if self.useammo > 0:
+            name += "/" + str(self.get_ammo_per_weapon())
+            
+        return name
+
     def get_damage(self, rnge):
         """
         Return damage
