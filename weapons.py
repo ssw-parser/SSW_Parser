@@ -776,7 +776,7 @@ class Weaponlist:
         """
         dam = 0
         for weap in self.list:
-            if (weap.range >= rnge and weap.count > 0):
+            if (weap.get_range() >= rnge and weap.count > 0):
                 dam += weap.get_damage(rnge) * weap.count
 
         return dam
@@ -789,7 +789,6 @@ class Weapon:
     def __init__(self, key, art4, art5, apollo):
         self.name = key
         self.batt_val = WEAPONS[key][1]
-        self.range = WEAPONS[key][5]
         self.useammo = WEAPONS[key][8]
         self.explosive = WEAPONS[key][10]
         self.count = 0
@@ -824,6 +823,12 @@ class Weapon:
         elif self.enhance == "AP":
             wgt += 1
         return wgt
+
+    def get_range(self):
+        """
+        Return maximum range
+        """
+        return WEAPONS[self.name][5]
 
     def get_heat(self):
         """

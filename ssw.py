@@ -70,13 +70,13 @@ def parse_gear(mech):
         if (weap.count > 0 or weap.countrear > 0):
             print_weapon(mech, weap)
             # Get BV balance, also count heat
-            if weap.range >= 18:
+            if weap.get_range() >= 18:
                 ldam += weap.count * weap.get_damage(18)
                 lheat += weap.count * weap.get_heat()
-            if weap.range >= 9:
+            if weap.get_range() >= 9:
                 mdam += weap.count * weap.get_damage(9)
                 mheat += weap.count * weap.get_heat()
-            if weap.range >= 3:
+            if weap.get_range() >= 3:
                 sdam += weap.count * weap.get_damage(3)
                 sheat += weap.count * weap.get_heat()
 
