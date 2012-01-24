@@ -523,53 +523,14 @@ def create_range_list_item(mech, i):
     batt_val = mech.get_bv(i)
     weight = mech.weight
 
-    dam6 = 0
-    rnge = 6
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam6 += weap.get_damage(rnge) * weap.count
-
-    dam3 = 0
-    rnge = 3
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam3 += weap.get_damage(rnge) * weap.count
-
-    dam9 = 0
-    rnge = 9
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam9 += weap.get_damage(rnge) * weap.count
-
-    dam12 = 0
-    rnge = 12
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam12 += weap.get_damage(rnge) * weap.count
-
-    dam15 = 0
-    rnge = 15
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam15 += weap.get_damage(rnge) * weap.count
-
-    dam18 = 0
-    rnge = 18
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam18 += weap.get_damage(rnge) * weap.count
-
-    dam21 = 0
-    rnge = 21
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam21 += weap.get_damage(rnge) * weap.count
-
-    dam24 = 0
-    rnge = 24
-    for weap in i.gear.weaponlist.list:
-        if (weap.range >= rnge and weap.count > 0):
-            dam24 += weap.get_damage(rnge) * weap.count
+    dam3 = i.gear.weaponlist.count_damage(3)
+    dam6 = i.gear.weaponlist.count_damage(6)
+    dam9 = i.gear.weaponlist.count_damage(9)
+    dam12 = i.gear.weaponlist.count_damage(12)
+    dam15 = i.gear.weaponlist.count_damage(15)
+    dam18 = i.gear.weaponlist.count_damage(18)
+    dam21 = i.gear.weaponlist.count_damage(21)
+    dam24 = i.gear.weaponlist.count_damage(24)
 
     return (name_str, weight, batt_val, dam3, dam6, dam9, dam12, dam15, dam18,
             dam21, dam24)

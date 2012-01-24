@@ -770,6 +770,18 @@ class Weaponlist:
         for weap in WEAPONS.keys():
             self.list.append(Weapon(weap, art4, art5, apollo))
 
+    def count_damage(self, rnge):
+        """
+        Count total damage from weapons at a given range
+        """
+        dam = 0
+        for weap in self.list:
+            if (weap.range >= rnge and weap.count > 0):
+                dam += weap.get_damage(rnge) * weap.count
+
+        return dam
+
+
 class Weapon:
     """
     An individual weapon type
