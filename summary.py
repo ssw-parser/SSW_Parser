@@ -27,7 +27,6 @@ from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
 from weapons import LAUNCHER_LIST
-from string import lower
 
 #############################
 ##### Utility functions #####
@@ -398,10 +397,10 @@ def create_snipe_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         if (weap.range >= rnge and weap.count > 0):
             if weap.useammo > 0:
-                l_str += lower(weap.get_short()) + ":" + str(weap.count) + "/"
+                l_str += weap.get_short().lower() + ":" + str(weap.count) + "/"
                 l_str += str(weap.get_ammo_per_weapon()) + " "
             else:
-                l_str += lower(weap.get_short()) + ":" + str(weap.count) + " "
+                l_str += weap.get_short().lower() + ":" + str(weap.count) + " "
             dam += weap.get_damage(rnge) * weap.count
             heat += weap.get_heat() * weap.count
 
