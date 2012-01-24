@@ -514,6 +514,91 @@ def print_headcap_list(file_list, select_l, header):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
+## Damage/range listing
+
+def create_range_list_item(mech, i):
+    """
+    Compile info used by print_range_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+
+    dam6 = 0
+    rnge = 6
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam6 += weap.get_damage(rnge) * weap.count
+
+    dam3 = 0
+    rnge = 3
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam3 += weap.get_damage(rnge) * weap.count
+
+    dam9 = 0
+    rnge = 9
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam9 += weap.get_damage(rnge) * weap.count
+
+    dam12 = 0
+    rnge = 12
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam12 += weap.get_damage(rnge) * weap.count
+
+    dam15 = 0
+    rnge = 15
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam15 += weap.get_damage(rnge) * weap.count
+
+    dam18 = 0
+    rnge = 18
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam18 += weap.get_damage(rnge) * weap.count
+
+    dam21 = 0
+    rnge = 21
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam21 += weap.get_damage(rnge) * weap.count
+
+    dam24 = 0
+    rnge = 24
+    for weap in i.gear.weaponlist.list:
+        if (weap.range >= rnge and weap.count > 0):
+            dam24 += weap.get_damage(rnge) * weap.count
+
+    return (name_str, weight, batt_val, dam3, dam6, dam9, dam12, dam15, dam18,
+            dam21, dam24)
+
+def print_range_list(file_list, select_l, header):
+    """
+    range_list output
+
+    In the form of name, weight, BV, damage
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_range_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV    D3  D6  D9 D12 D15 D18 D21 D24"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %3d %3d %3d %3d %3d %3d %3d" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
+                i[10]))
+
+
 
 
 ## Default listing
@@ -577,6 +662,8 @@ def parse_arg():
     parser.add_argument('-cap', action='store_const',
                         help='Headcap list output',
                         dest = 'output', const = 'cap')
+    parser.add_argument('-r', action='store_const', help='Range list output',
+                        dest = 'output', const = 'r')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -728,6 +815,8 @@ def main():
         print_snipe_list(file_list, select_l, header)
     elif args.output == 'cap':
         print_headcap_list(file_list, select_l, header)
+    elif args.output == 'r':
+        print_range_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 

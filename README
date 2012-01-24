@@ -38,6 +38,15 @@ file.
 
 -l: Output that gives a summary of lrm tubes, sorted by tubes.
 
+-sn: Output a list of long-range weapons mounted on the mech, sorted
+ by long-range damage.
+
+-cap: Output a list of headcappers mounted on the mech, sorted by
+ number of cappers.
+
+-r: Output a list of how max damage varies over range, shorted by
+ short-range damage. (No heat taken into account.)
+
 The default output (no switch) is modeled after the MUL.
 
 ==== Filter Switches ====
