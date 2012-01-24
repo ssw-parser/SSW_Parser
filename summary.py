@@ -371,8 +371,9 @@ def print_missile_list(file_list, select_l, header):
     header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+        if i[3] > 0:
+            print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+                   (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 ## Sniper listing
