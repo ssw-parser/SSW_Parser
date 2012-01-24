@@ -345,9 +345,10 @@ def create_missile_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         for launcher in LAUNCHER_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
-                l_str += launcher[1] + str(weap.count) + "/"
-                l_str += str(weap.get_ammo_per_weapon()) + " "
-                
+#                l_str += launcher[1] + str(weap.count) + "/"
+#                l_str += str(weap.get_ammo_per_weapon()) + " "
+                l_str += weap.get_short_count() + " "
+               
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
 def print_missile_list(file_list, select_l, header):
@@ -468,11 +469,12 @@ def create_headcap_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         for capper in capper_list:
             if (weap.name == capper[0] and weap.count > 0):
-                if weap.useammo > 0:
-                    l_str += capper[1] + str(weap.count) + "/"
-                    l_str += str(weap.get_ammo_per_weapon()) + " "
-                else:
-                    l_str += capper[1] + str(weap.count) + " "
+#                if weap.useammo > 0:
+#                    l_str += capper[1] + str(weap.count) + "/"
+#                    l_str += str(weap.get_ammo_per_weapon()) + " "
+#                else:
+#                    l_str += capper[1] + str(weap.count) + " "
+                l_str += weap.get_short_count() + " "
                 cap += weap.count
 
     # Armor coverage relative to maximum
