@@ -378,7 +378,6 @@ class Heatsinks(Item):
         for i in HEATSINK:
             if (i[0] == self.type and i[1] == self.tech_b):
                 ident = True
-                self.year = i[2]
                 self.cap = i[3]
                 self.r_level = i[4]
         if not ident:
@@ -396,12 +395,6 @@ class Heatsinks(Item):
         0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
         """
         return self.r_level
-
-    def get_year(self):
-        """
-        Return earliest year heatsink is available
-        """
-        return self.year
 
     def get_weight(self):
         """
@@ -469,21 +462,6 @@ class Equip(Item):
         elif self.typ == "TargetingComputer":
             return TARCOMPS[self.name][0]
         # TODO: ammunition, physical weapons, weapons
-
-    def get_year(self):
-        if (self.typ == "equipment" or self.typ == "CASE" or
-            self.typ == "CASEII"):
-            return EQUIPMENT[self.name][2]
-        elif self.typ == "TargetingComputer":
-            return TARCOMPS[self.name][1]
-        # TODO: Ammo year, ignore for now
-        elif self.typ == "ammunition":
-            return 0
-        elif self.typ == "physical":
-            return PHYSICAL[self.name][0]
-        elif (self.typ == "missile" or self.typ == "ballistic" or
-              self.typ == "energy"):
-            return WEAPONS[self.name][7]
 
     def get_weight(self):
         # TODO: Artemis & friends weight

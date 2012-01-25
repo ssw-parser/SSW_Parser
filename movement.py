@@ -507,15 +507,10 @@ class Cockpit(Item):
         for i in COCKPIT:
             if (i[0] == self.type):
                 ident = True
-                self.year = i[1]
                 self.wgt = i[2]
                 self.r_level = i[3]
         if not ident:
             error_exit((self.type))
-
-        # Hack: Add console year
-        if (self.console == "TRUE" and self.year < 2631):
-            self.year = 2631
 
         # Hack: Add console weight
         if self.console == "TRUE":
@@ -540,12 +535,6 @@ class Cockpit(Item):
             return max(2, r_lev)
         else:
             return r_lev
-
-    def get_year(self):
-        """
-        Return earliest year cockpit is available
-        """
-        return self.year
 
     def get_weight(self):
         """
@@ -575,7 +564,6 @@ class JumpJets(Item):
             for i in JUMP_JET:
                 if i[0] == self.jjtype:
                     ident = True
-                    self.jjyear = i[1]
                     self.heat = i[2]
                     self.r_level = i[3]
             if not ident:
@@ -592,12 +580,6 @@ class JumpJets(Item):
         Return jump-jet rules level
         """
         return self.r_level
-
-    def get_year(self):
-        """
-        Return earliest year jumpjet is available
-        """
-        return self.jjyear
 
     def get_weight(self):
         """
@@ -665,15 +647,6 @@ class JumpBoosters(Item):
         else:
             return 0
 
-    def get_year(self):
-        """
-        Jump-boosters becomes advanced rules in 3083
-        """
-        if self.jump:
-            return 3083
-        else:
-            return 0
-
     def get_weight(self):
         """
         Get weight of jump-boosters
@@ -712,15 +685,6 @@ class PartialWing(Item):
         else:
             return 0
 
-    def get_year(self):
-        """
-        Partial wing becomes advanced rules in 3083
-        """
-        if self.wing:
-            return 3085
-        else:
-            return 0
-
     def get_weight(self):
         """
         Get weight of partial wing
@@ -755,7 +719,6 @@ class Enhancement(Item):
         for i in ENHANCEMENT:
             if (i[0] == self.enhancement and i[1] == self.etb):
                 ident = True
-                self.enhyear = i[2]
                 self.enhweight = i[3](weight)
         if not ident:
             error_exit((self.enhancement, self.etb))
@@ -777,12 +740,6 @@ class Enhancement(Item):
             return 0
         else:
             return 1
-
-    def get_year(self):
-        """
-        Return earliest year enhancement is available
-        """
-        return self.enhyear
 
     def get_weight(self):
         """
@@ -823,7 +780,6 @@ class Gyro(Item):
         for i in GYRO:
             if (i[0] == self.gtype and i[1] == self.g_base):
                 ident = True
-                self.gyear = i[2]
                 self.gyro_bv = i[3]
                 gweightm = i[4]
                 self.r_level = i[5]
@@ -850,12 +806,6 @@ class Gyro(Item):
         Return gyro rules level
         """
         return self.r_level
-
-    def get_year(self):
-        """
-        Return earliest year gyro is available
-        """
-        return self.gyear
 
     def get_weight(self):
         """
@@ -891,7 +841,6 @@ class Engine(Item):
         for i in ENGINE:
             if (i[0] == self.etype and i[1] == self.e_base):
                 ident = True
-                self.eyear = i[2]
                 self.eng_bv = i[3]
                 self.eweight = i[4](self.erating)
                 self.r_level = i[5]
@@ -914,12 +863,6 @@ class Engine(Item):
         if self.erating > 400:
             r_lev = max(r_lev, 2)
         return r_lev
-
-    def get_year(self):
-        """
-        Return earliest year engine is available
-        """
-        return self.eyear
 
     def get_weight(self):
         """

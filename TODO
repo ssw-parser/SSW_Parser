@@ -5,13 +5,13 @@ PRIORITY:
 
 Goals:
 - Mech lists for Klondike, Solaris, 3085*2 (cutting edge, ONN)
-- Fix intro-dates: multi-slot, weapons, tarcomps, artemis & co, omni
 - missing ammo, missing TO stuff
 - Tacops armor
-- Turret year & weights
+- Turret weights
 - Things that needs to become real items:
--- Null sig, chameleon, void sig year
+-- Null sig, chameleon, void sig
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
+- Remove year info from tables.
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?
@@ -19,7 +19,7 @@ Goals:
 == gear.py ==
 - Split WEAPONS into weapon types.
 - Merge physical, equipment dictionaries.
-- Supercharger year.
+- Handle Supercharger better.
 - Add rules level for stuff.
 - Move weight calculations.
 

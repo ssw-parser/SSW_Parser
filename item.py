@@ -49,14 +49,6 @@ class Item:
         """
         raise NotImplementedError
 
-    def get_year(self):
-        """
-        Returns the earliest year the item is available
-        Returns first year it is no longer experimental,
-        if it is not an expermental item
-        """
-        raise NotImplementedError
-
     def get_weight(self):
         """
         Returns the weight of the item

@@ -160,7 +160,6 @@ class IS(Item):
         for i in STRUCTURE:
             if (i[0] == self.type and i[1] == self.tech_base):
                 ident = True
-                self.year = i[2]
                 self.is_bv = i[3]
                 wgtf = i[4]
                 self.r_level = i[5]
@@ -204,12 +203,6 @@ class IS(Item):
         0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
         """
         return self.r_level
-
-    def get_year(self):
-        """
-        Return earliest year structure is available
-        """
-        return self.year
 
     def get_weight(self):
         """
@@ -327,7 +320,6 @@ class Armor(Item):
         for i in ARMOR:
             if (i[0] == self.atype and i[1] == self.tech_base):
                 ident = True
-                self.year = i[2]
                 self.armor_bv = i[3]
                 self.armor_multipler = i[4]
                 self.r_level = i[5]
@@ -403,12 +395,6 @@ class Armor(Item):
         0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
         """
         return self.r_level
-
-    def get_year(self):
-        """
-        Return earliest year armor is available
-        """
-        return self.year
 
     def get_weight(self):
         """
