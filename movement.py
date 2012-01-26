@@ -422,27 +422,26 @@ CMP_ENGINE = {
 
 # Engine types
 #
-# Name, techbase, year, BV multiplier, weight, rules level
+# Name, techbase, BV multiplier, weight, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: ICE, Fuel Cell, Fission
-ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x]), 0],
-          ["XL Engine", 0, 2579, 0.5, (lambda x : XL_ENGINE[x]), 1],
-          ["XL Engine", 1, 2579, 0.75, (lambda x : XL_ENGINE[x]), 1],
-          ["Light Fusion Engine", 0, 3062, 0.75, (lambda x : LGT_ENGINE[x]), 1],
-          ["Compact Fusion Engine", 0, 3068, 1.0,
+ENGINE = [["Fusion Engine", 2, 1.0, (lambda x : STD_ENGINE[x]), 0],
+          ["XL Engine", 0, 0.5, (lambda x : XL_ENGINE[x]), 1],
+          ["XL Engine", 1, 0.75, (lambda x : XL_ENGINE[x]), 1],
+          ["Light Fusion Engine", 0, 0.75, (lambda x : LGT_ENGINE[x]), 1],
+          ["Compact Fusion Engine", 0, 1.0,
            (lambda x : CMP_ENGINE[x]), 1],
           # Advanced
           # XXL Engine (IS): Old BV factor 0.5, new 0.25
-          ["XXL Engine", 0, 3055, 0.5,
+          ["XXL Engine", 0, 0.5,
            (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
-          ["XXL Engine", 1, 3030, 0.5,
+          ["XXL Engine", 1, 0.5,
            (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
-          # Assume same year as Mackie
-          ["Primitive Fusion Engine", 2, 2439, 1.0,
+          ["Primitive Fusion Engine", 2, 1.0,
            (lambda x : STD_ENGINE[ceil_5(x * 1.2)]), 4]]
 
 # Gyro types
@@ -840,9 +839,9 @@ class Engine(Item):
         for i in ENGINE:
             if (i[0] == self.etype and i[1] == self.e_base):
                 ident = True
-                self.eng_bv = i[3]
-                self.eweight = i[4](self.erating)
-                self.r_level = i[5]
+                self.eng_bv = i[2]
+                self.eweight = i[3](self.erating)
+                self.r_level = i[4]
         if not ident:
             error_exit((self.etype, self.e_base))
 
