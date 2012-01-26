@@ -553,7 +553,7 @@ class Gear:
         self.weaponlist = Weaponlist(art4, art5, apollo)
         self.o_equiplist = OffEquiplist()
         self.d_equiplist = DefEquiplist()
-        self.physicallist = Physicallist()
+        self.physicallist = Physicallist(weight)
         self.d_physicallist = DefPhysicallist()
         self.ammolist = Ammolist()
         # Keep track of tarcomp
@@ -734,7 +734,8 @@ class Gear:
                     phys.addone()
                     ident = True
                     # Use float to avoid rounding errors
-                    self.p_weight += phys.weight(float(weight))
+#                    self.p_weight += phys.weight(float(weight))
+                    self.p_weight += phys.get_weight()
                     self.phys = 1
 
             for phys in self.d_physicallist.list:

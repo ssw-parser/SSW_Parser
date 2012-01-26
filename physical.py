@@ -55,23 +55,29 @@ class Physicallist:
     """
     Store list with physical weapons
     """
-    def __init__(self):
+    def __init__(self, m_weight):
         self.list = []
         for phys in PHYSICAL.keys():
-            self.list.append(Physical(phys))
+            self.list.append(Physical(phys, m_weight))
         self.name = "physcial"
 
 class Physical:
     """
     A individual physical weapon type
     """
-    def __init__(self, key):
+    def __init__(self, key, m_weight):
         self.name = key
+        self.m_weight = m_weight
         self.bv_mult = PHYSICAL[key][0]
         self.dam = PHYSICAL[key][1]
-        self.weight = PHYSICAL[key][2]
         self.heat = PHYSICAL[key][3]
         self.count = 0
+
+    def get_weight(self):
+        """
+        Return weight
+        """
+        return PHYSICAL[self.name][2](float(self.m_weight))
 
     def addone(self):
         """
@@ -79,11 +85,11 @@ class Physical:
         """
         self.count = self.count + 1
 
-    def get_bv(self, weight):
+    def get_bv(self):
         """
         Get BV of physical weapon
         """
-        dam = self.dam(weight)
+        dam = self.dam(self.m_weight)
         return self.bv_mult(dam)
 
 

@@ -168,7 +168,7 @@ class Load:
         for weap in self.gear.physicallist.list:
             if weap.count > 0:
                 i = weap.count
-                batt_val = weap.get_bv(self.weight)
+                batt_val = weap.get_bv()
                 while (i):
                     w_list.append((batt_val, weap.heat, weap.name))
                     i -= 1
