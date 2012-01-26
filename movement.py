@@ -447,47 +447,46 @@ ENGINE = [["Fusion Engine", 2, 2021, 1.0, (lambda x : STD_ENGINE[x]), 0],
 
 # Gyro types
 #
-# Name, techbase, year, BV multiplier, weight multiplier, rules level
+# Name, techbase, BV multiplier, weight multiplier, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-GYRO = [["Standard Gyro", 2, 2439, 0.5, 1.0, 0],
-        ["Extra-Light Gyro", 0, 3067, 0.5, 0.5, 1],
-        ["Heavy-Duty Gyro", 0, 3067, 1.0, 2.0, 1],
-        ["Compact Gyro", 0, 3068, 0.5, 1.5, 1]]
+GYRO = [["Standard Gyro", 2, 0.5, 1.0, 0],
+        ["Extra-Light Gyro", 0, 0.5, 0.5, 1],
+        ["Heavy-Duty Gyro", 0, 1.0, 2.0, 1],
+        ["Compact Gyro", 0, 0.5, 1.5, 1]]
 
 # Jump-jet types
 #
-# Name, year, heat generated, rules level
+# Name, heat generated, rules level
 #
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-JUMP_JET = [["Standard Jump Jet", 2471, 1, 0],
-           ["Improved Jump Jet", 3069, 0.5, 1]]
+JUMP_JET = [["Standard Jump Jet", 1, 0],
+           ["Improved Jump Jet", 0.5, 1]]
 
 # Myomer enhancement types
 #
-# Name, techbase, year, weight
+# Name, techbase, weight
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-ENHANCEMENT = [["---", 2, 0, (lambda x : 0)], #None
-               ["MASC", 0, 2740, (lambda x : round(x * 0.05))],
-               ["MASC", 1, 2740, (lambda x : round(x * 0.04))],
-               ["TSM", 0, 3050, (lambda x : 0)]]
+ENHANCEMENT = [["---", 2, (lambda x : 0)], #None
+               ["MASC", 0, (lambda x : round(x * 0.05))],
+               ["MASC", 1, (lambda x : round(x * 0.04))],
+               ["TSM", 0, (lambda x : 0)]]
 
 # Cockpit types
 #
-# Name, year, weight, rules level
+# Name, weight, rules level
 #
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
-COCKPIT = [["Standard Cockpit", 2300, 3, 0],
-           ["Small Cockpit", 3067, 2, 1],
-           # Assume same year as Mackie
-           ["Primitive Cockpit", 2439, 5, 4]]
+COCKPIT = [["Standard Cockpit", 3, 0],
+           ["Small Cockpit", 2, 1],
+           ["Primitive Cockpit", 5, 4]]
 
 
 
@@ -507,8 +506,8 @@ class Cockpit(Item):
         for i in COCKPIT:
             if (i[0] == self.type):
                 ident = True
-                self.wgt = i[2]
-                self.r_level = i[3]
+                self.wgt = i[1]
+                self.r_level = i[2]
         if not ident:
             error_exit((self.type))
 
@@ -564,8 +563,8 @@ class JumpJets(Item):
             for i in JUMP_JET:
                 if i[0] == self.jjtype:
                     ident = True
-                    self.heat = i[2]
-                    self.r_level = i[3]
+                    self.heat = i[1]
+                    self.r_level = i[2]
             if not ident:
                 error_exit(self.jjtype)
 
@@ -719,7 +718,7 @@ class Enhancement(Item):
         for i in ENHANCEMENT:
             if (i[0] == self.enhancement and i[1] == self.etb):
                 ident = True
-                self.enhweight = i[3](weight)
+                self.enhweight = i[2](weight)
         if not ident:
             error_exit((self.enhancement, self.etb))
 
@@ -780,9 +779,9 @@ class Gyro(Item):
         for i in GYRO:
             if (i[0] == self.gtype and i[1] == self.g_base):
                 ident = True
-                self.gyro_bv = i[3]
-                gweightm = i[4]
-                self.r_level = i[5]
+                self.gyro_bv = i[2]
+                gweightm = i[3]
+                self.r_level = i[4]
         if not ident:
             error_exit((self.gtype, self.g_base))
 
