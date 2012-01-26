@@ -476,7 +476,7 @@ class Equip(Item):
             return PHYSICAL[self.name][3](mech.weight)
         elif (self.typ == "missile" or self.typ == "ballistic" or
               self.typ == "energy"):
-            return WEAPONS[self.name][9]
+            return WEAPONS[self.name][8]
         else:
             print "Unknown item", self.name, self.typ
             raise NotImplementedError
