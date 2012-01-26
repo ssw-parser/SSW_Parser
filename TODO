@@ -11,7 +11,6 @@ Goals:
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
-- Remove year info from tables.
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?
