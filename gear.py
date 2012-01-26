@@ -306,53 +306,52 @@ EQUIPMENT = {
 
 # Targeting computers
 #
-# rules level, year, ?
+# rules level
 #
-# TODO: fix this
 TARCOMPS = {
-    "(IS) Targeting Computer" : [1, 3062, 0],
-    "(CL) Targeting Computer" : [1, 2860, 0]
+    "(IS) Targeting Computer" : [1],
+    "(CL) Targeting Computer" : [1]
     }
 
 # Info on heatsink types
 #
-# Name, techbase, year, sinking capability, rules level
+# Name, techbase, sinking capability, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-HEATSINK = [["Single Heat Sink", 2, 2022, 1, 0],
-            ["Double Heat Sink", 0, 2567, 2, 1],
-            ["Double Heat Sink", 1, 2567, 2, 1],
-            ["Laser Heat Sink", 1, 3051, 2, 2]]
+HEATSINK = [["Single Heat Sink", 2, 1, 0],
+            ["Double Heat Sink", 0, 2, 1],
+            ["Double Heat Sink", 1, 2, 1],
+            ["Laser Heat Sink", 1, 2, 2]]
 
 # Not used.
-MISSILE_ENCH = [["Artemis IV", 2598],
-                ["Apollo", 3071]]
+MISSILE_ENCH = [["Artemis IV"],
+                ["Apollo"]]
 
 # Melee weapons
 #
-# Name, year, BV multiplier, damage formula, weight, heat
+# Name, BV multiplier, damage formula, weight, heat
 #
 PHYSICAL = {
-    "Hatchet" : [3022, (lambda x : x * 1.5), (lambda x : ceil(x / 5.0)),
+    "Hatchet" : [(lambda x : x * 1.5), (lambda x : ceil(x / 5.0)),
                  (lambda x : ceil(x / 15.0)), 0],
-    "Sword" : [3058, (lambda x : x * 1.725), (lambda x : ceil(x / 10.0) + 1),
+    "Sword" : [(lambda x : x * 1.725), (lambda x : ceil(x / 10.0) + 1),
                (lambda x : ceil_05(x / 20.0)), 0],
-    "Retractable Blade" : [2420, (lambda x : x * 1.725),
+    "Retractable Blade" : [(lambda x : x * 1.725),
                            (lambda x : ceil(x / 10.0)),
                            (lambda x : ceil_05(x / 2.0) + 0.5), 0], 
-    "Claws" : [3060, (lambda x : x * 1.275), (lambda x : ceil(x / 7.0)),
+    "Claws" : [(lambda x : x * 1.275), (lambda x : ceil(x / 7.0)),
                (lambda x : ceil(x / 15.0)), 0],
-    "Mace" : [3061, (lambda x : x * 1.0), (lambda x : ceil(x / 4.0)),
+    "Mace" : [(lambda x : x * 1.0), (lambda x : ceil(x / 4.0)),
               (lambda x : ceil(x / 10.0)), 0],
-    "Lance" : [3064, (lambda x : x * 1.0), (lambda x : ceil(x / 5.0)),
+    "Lance" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0)),
                (lambda x : ceil_05(x / 20.0)), 0],
-    "Small Vibroblade" : [3065 , (lambda x : 12), (lambda x : 7.0),
+    "Small Vibroblade" : [(lambda x : 12), (lambda x : 7.0),
                           (lambda x : 3.0), 3],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
-    "Talons" : [3072, (lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
+    "Talons" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
                 (lambda x : ceil(x / 15.0)), 0]
     }
 
@@ -378,8 +377,8 @@ class Heatsinks(Item):
         for i in HEATSINK:
             if (i[0] == self.type and i[1] == self.tech_b):
                 ident = True
-                self.cap = i[3]
-                self.r_level = i[4]
+                self.cap = i[2]
+                self.r_level = i[3]
         if not ident:
             error_exit((self.type, self.tech_b))
 
@@ -473,7 +472,7 @@ class Equip(Item):
         elif self.typ == "ammunition":
             return AMMO[self.name][2]
         elif self.typ == "physical":
-            return PHYSICAL[self.name][3](mech.weight)
+            return PHYSICAL[self.name][2](mech.weight)
         elif (self.typ == "missile" or self.typ == "ballistic" or
               self.typ == "energy"):
             return WEAPONS[self.name][8]
@@ -582,10 +581,10 @@ class Physical:
     """
     def __init__(self, key):
         self.name = key
-        self.bv_mult = PHYSICAL[key][1]
-        self.dam = PHYSICAL[key][2]
-        self.weight = PHYSICAL[key][3]
-        self.heat = PHYSICAL[key][4]
+        self.bv_mult = PHYSICAL[key][0]
+        self.dam = PHYSICAL[key][1]
+        self.weight = PHYSICAL[key][2]
+        self.heat = PHYSICAL[key][3]
         self.count = 0
 
     def addone(self):
