@@ -733,8 +733,6 @@ class Gear:
                 if (name.name == phys.name and name.typ == 'physical'):
                     phys.addone()
                     ident = True
-                    # Use float to avoid rounding errors
-#                    self.p_weight += phys.weight(float(weight))
                     self.p_weight += phys.get_weight()
                     self.phys = 1
 

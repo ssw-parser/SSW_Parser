@@ -69,7 +69,6 @@ class Physical:
         self.name = key
         self.m_weight = m_weight
         self.bv_mult = PHYSICAL[key][0]
-        self.dam = PHYSICAL[key][1]
         self.heat = PHYSICAL[key][3]
         self.count = 0
 
@@ -78,6 +77,12 @@ class Physical:
         Return weight
         """
         return PHYSICAL[self.name][2](float(self.m_weight))
+
+    def get_damage(self):
+        """
+        Return damage
+        """
+        return PHYSICAL[self.name][1](self.m_weight)
 
     def addone(self):
         """
@@ -89,7 +94,7 @@ class Physical:
         """
         Get BV of physical weapon
         """
-        dam = self.dam(self.m_weight)
+        dam = PHYSICAL[self.name][1](self.m_weight)
         return self.bv_mult(dam)
 
 
