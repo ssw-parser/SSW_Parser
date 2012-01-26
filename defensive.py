@@ -110,39 +110,35 @@ LEG_IS = {
 
 # Info on internal structure types
 #
-# Name, techbase, year, BV multiplier, weight factor, rules level
+# Name, techbase, BV multiplier, weight factor, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Industrial
-STRUCTURE = [["Standard Structure", 2, 2439, 1.0, 0.1, 0],
-             ["Endo-Steel", 0, 2487, 1.0, 0.05, 1],
-             ["Endo-Steel", 1, 2487, 1.0, 0.05, 1],
-             # No year given for primitive structure,
-             # assume it becomes available the same year as the Mackie
-             ["Primitive Structure", 0, 2439, 1.0, 0.1, 4]]
+STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
+             ["Endo-Steel", 0, 1.0, 0.05, 1],
+             ["Endo-Steel", 1, 1.0, 0.05, 1],
+             ["Primitive Structure", 0, 1.0, 0.1, 4]]
 
 
 # Info on armor types
 #
-# Name, techbase, year, BV multiplier, armor multiplier, rules level
+# Name, techbase, BV multiplier, armor multiplier, rules level
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Industrial, Heavy Industrial, Commericial, TO armor
-ARMOR = [["Standard Armor", 2, 2470, 1.0, 1.0, 0],
-         ["Ferro-Fibrous", 0, 2571, 1.0, 1.12, 1],
-         ["Ferro-Fibrous", 1, 2571, 1.0, 1.2, 1],
-         ["Light Ferro-Fibrous", 0, 3067, 1.0, 1.06, 1],
-         ["Heavy Ferro-Fibrous", 0, 3069, 1.0, 1.24, 1],
-         ["Stealth Armor", 0, 3063, 1.0, 1.0, 1],
-         # No year given for primitive armor, assume it becomes available
-         # the same year as the Mackie
-         ["Primitive Armor", 0, 2439, 1.0, 0.67, 4]]
+ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0],
+         ["Ferro-Fibrous", 0, 1.0, 1.12, 1],
+         ["Ferro-Fibrous", 1, 1.0, 1.2, 1],
+         ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1],
+         ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1],
+         ["Stealth Armor", 0, 1.0, 1.0, 1],
+         ["Primitive Armor", 0, 1.0, 0.67, 4]]
 
 
 class IS(Item):
@@ -160,9 +156,9 @@ class IS(Item):
         for i in STRUCTURE:
             if (i[0] == self.type and i[1] == self.tech_base):
                 ident = True
-                self.is_bv = i[3]
-                wgtf = i[4]
-                self.r_level = i[5]
+                self.is_bv = i[2]
+                wgtf = i[3]
+                self.r_level = i[4]
         if not ident:
             error_exit((self.type, self.tech_base))
 
@@ -320,9 +316,9 @@ class Armor(Item):
         for i in ARMOR:
             if (i[0] == self.atype and i[1] == self.tech_base):
                 ident = True
-                self.armor_bv = i[3]
-                self.armor_multipler = i[4]
-                self.r_level = i[5]
+                self.armor_bv = i[2]
+                self.armor_multipler = i[3]
+                self.r_level = i[4]
         if not ident:
             error_exit((self.atype, self.tech_base))
 

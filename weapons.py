@@ -210,7 +210,7 @@ def lvspl_damage(rnge):
 # Weapons in the order of name, shorthand, BV[main, ammo], rules level,
 # heat (as used for BV calcs), damage as a function of range, max range,
 # enhancement(A=artemis, T=tarcomp P=apollo),
-# year, uses ammo rate?, weight, explosive slots
+# uses ammo rate?, weight, explosive slots
 #
 # Where rules level is:
 #        0 = Intro-tech,
