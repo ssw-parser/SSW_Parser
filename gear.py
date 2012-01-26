@@ -24,9 +24,10 @@ Contains classes for weapons and other gear.
 
 from math import ceil
 from error import error_exit
-from util import ceil_05, gettext, get_child_data
+from util import gettext, get_child_data
 from item import Item
 from weapons import WEAPONS, LAUNCHER_LIST, Weaponlist
+from physical import Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -329,33 +330,6 @@ HEATSINK = [["Single Heat Sink", 2, 1, 0],
 MISSILE_ENCH = [["Artemis IV"],
                 ["Apollo"]]
 
-# Melee weapons
-#
-# Name, BV multiplier, damage formula, weight, heat
-#
-PHYSICAL = {
-    "Hatchet" : [(lambda x : x * 1.5), (lambda x : ceil(x / 5.0)),
-                 (lambda x : ceil(x / 15.0)), 0],
-    "Sword" : [(lambda x : x * 1.725), (lambda x : ceil(x / 10.0) + 1),
-               (lambda x : ceil_05(x / 20.0)), 0],
-    "Retractable Blade" : [(lambda x : x * 1.725),
-                           (lambda x : ceil(x / 10.0)),
-                           (lambda x : ceil_05(x / 2.0) + 0.5), 0], 
-    "Claws" : [(lambda x : x * 1.275), (lambda x : ceil(x / 7.0)),
-               (lambda x : ceil(x / 15.0)), 0],
-    "Mace" : [(lambda x : x * 1.0), (lambda x : ceil(x / 4.0)),
-              (lambda x : ceil(x / 10.0)), 0],
-    "Lance" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0)),
-               (lambda x : ceil_05(x / 20.0)), 0],
-    "Small Vibroblade" : [(lambda x : 12), (lambda x : 7.0),
-                          (lambda x : 3.0), 3],
-    # Hack: Divide Talons BV multiplier by 2, because it is one item
-    # being split up into two
-    "Talons" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
-                (lambda x : ceil(x / 15.0)), 0]
-    }
-
-
 class Heatsinks(Item):
     """
     Heatsinks for a mech
@@ -555,16 +529,6 @@ class Equipment:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-class Physicallist:
-    """
-    Store list with physical weapons
-    """
-    def __init__(self):
-        self.list = []
-        for phys in PHYSICAL.keys():
-            self.list.append(Physical(phys))
-        self.name = "physcial"
-
 class DefPhysicallist:
     """
     Store list with defensive physical items
@@ -574,31 +538,6 @@ class DefPhysicallist:
         for phys in D_PHYSICAL.keys():
             self.list.append(Equipment(phys, D_PHYSICAL))
         self.name = "physcial"
-
-class Physical:
-    """
-    A individual physical weapon type
-    """
-    def __init__(self, key):
-        self.name = key
-        self.bv_mult = PHYSICAL[key][0]
-        self.dam = PHYSICAL[key][1]
-        self.weight = PHYSICAL[key][2]
-        self.heat = PHYSICAL[key][3]
-        self.count = 0
-
-    def addone(self):
-        """
-        Add a physical weapon
-        """
-        self.count = self.count + 1
-
-    def get_bv(self, weight):
-        """
-        Get BV of physical weapon
-        """
-        dam = self.dam(weight)
-        return self.bv_mult(dam)
 
 class Gear:
     """
