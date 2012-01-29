@@ -558,8 +558,6 @@ class Gear:
         self.ammolist = Ammolist()
         # Keep track of tarcomp
         self.tarcomp = 0
-        # Mech has a physical weapon?
-        self.phys = 0
         # Gear weight
         self.w_weight = 0.0
         self.a_weight = 0.0
@@ -727,20 +725,11 @@ class Gear:
                     # Save CASE status
                     self.case[name.loc] = name.typ
 
-
-
-#            for phys in self.physicallist.list:
-#                if (name.name == phys.name and name.typ == 'physical'):
-#                    phys.addone()
-#                    ident = True
-#                    self.p_weight += phys.get_weight()
-#                    self.phys = 1
             # A possible physical weapon
             if (name.typ == 'physical'):
                 found = self.physicallist.add(name.name)
                 if found:
                     ident = True
-                    self.phys = 1
 
             for phys in self.d_physicallist.list:
                 # non-CASE
