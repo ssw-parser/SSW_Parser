@@ -729,11 +729,17 @@ class Gear:
 
 
 
-            for phys in self.physicallist.list:
-                if (name.name == phys.name and name.typ == 'physical'):
-                    phys.addone()
+#            for phys in self.physicallist.list:
+#                if (name.name == phys.name and name.typ == 'physical'):
+#                    phys.addone()
+#                    ident = True
+#                    self.p_weight += phys.get_weight()
+#                    self.phys = 1
+            # A possible physical weapon
+            if (name.typ == 'physical'):
+                found = self.physicallist.add(name.name)
+                if found:
                     ident = True
-                    self.p_weight += phys.get_weight()
                     self.phys = 1
 
             for phys in self.d_physicallist.list:
@@ -821,7 +827,7 @@ class Gear:
         """
         Get physical weapon weight
         """
-        return self.p_weight
+        return self.physicallist.p_weight
 
     def get_def_bv(self):
         """

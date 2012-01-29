@@ -60,6 +60,19 @@ class Physicallist:
         for phys in PHYSICAL.keys():
             self.list.append(Physical(phys, m_weight))
         self.name = "physcial"
+        self.p_weight = 0
+
+    def add(self, entry):
+        """
+        Add a physical weapon
+        """
+        for phys in self.list:
+            if (entry == phys.name):
+                phys.addone()
+                self.p_weight += phys.get_weight()
+                return True
+        # No match found
+        return False
 
 class Physical:
     """
