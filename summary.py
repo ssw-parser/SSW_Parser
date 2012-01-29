@@ -296,13 +296,16 @@ def create_speed_list_item(mech, i):
     spd = max(walk, jump)
     enh = mech.enhancement.get_type()
     mod = mech.get_move_target_modifier(i)
-    return (name_str, weight, batt_val, spd, walk, run, jump, enh, mod)
+    bf_str = mech.get_bf_move(i)
+
+    return (name_str, weight, batt_val, spd, walk, run, jump, enh, mod, bf_str)
 
 def print_speed_list(file_list, select_l, header):
     """
     speed_list output
 
-    In the form of name, weight, BV, speed, myomer enhancement
+    In the form of name, weight, BV, speed, myomer enhancement, target mod,
+    battleforce string
     sorted by speed, descending
     """
     # Build list
@@ -313,10 +316,10 @@ def print_speed_list(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV    Speed   Enh  Mod"
+    print "Name                          Tons BV    Speed   Enh  Mod BF"
     for i in mech_list:
-        print ("%-30s %3d %4d %2d/%2d/%2d %-4s %d" % 
-               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8]))
+        print ("%-30s %3d %4d %2d/%2d/%2d %-4s %d   %s" % 
+               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9]))
 
 ## LRM tubes listing
 
