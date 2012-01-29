@@ -253,16 +253,18 @@ def create_armor_list_item(mech, i):
     max_p = mech.armor.total.max
     # Armor weight
     wgt = mech.armor.get_weight()
+    # BF armor
+    bf_a = mech.armor.get_bf_value()
 
     return (name_str, weight, batt_val, armor, e_str, s_str, arm_p, max_p,
-            wgt)
+            wgt, bf_a)
 
 def print_armor_list(file_list, select_l, header):
     """
     armor_list output
 
     In the form of name, weight, BV, Armor%, Explosive, Stealth, points/max,
-    armor tonnage
+    armor tonnage, battleforce armor value
     sorted by armor%, descending
     """
     # Build list
@@ -274,11 +276,11 @@ def print_armor_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Armr Exp Sth | Points  Tons"
+    header2 += "Tons BV   Armr Exp Sth | Points  Tons  BF"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft" % 
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]))
+        print ("%-30s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %2d" % 
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9]))
 
 
 ## Speed listing

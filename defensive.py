@@ -373,6 +373,15 @@ class Armor(Item):
         return (self.armor_bv * 2.5 * self.total.arm)
        
 
+    def get_bf_value(self):
+        """
+        Get Battleforce armor value
+        """
+        # Note that this needs to be adjusted for advanced armor types
+        # once they gets added
+        armor = self.total.arm
+        return int(round(armor / 30.0))
+
     def get_type(self):
         """
         Return armor type
