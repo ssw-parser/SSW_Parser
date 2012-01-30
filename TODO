@@ -1,9 +1,14 @@
 
-PRIORITY:
+== UNABLE TO PARSE ==
+
+Goshawk II 3.ssw -- armored components
+
+
+== PRIORITY ==
 - Track Intro, TL, Advanced and Experimental
 - Law of Demeter, avoid accessing low-level object data
 
-Goals:
+== Goals ==
 - Mech lists for Klondike, 3050 Star League, 3055 Solaris,
  3085*3 (cutting edge, ONN, phoenix)
 - BattleForce infomation
