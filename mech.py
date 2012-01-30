@@ -492,3 +492,23 @@ class Mech:
             return False
 
         return True
+
+    def is_skirmisher(self, i):
+        """
+        Check if a mech is a skirmisher
+
+        Definition:
+        - Speed at least walk 5 or jump 4
+        - BF armor at least 4
+        - Able to do 5 damage at range 15
+        """
+        if self.get_walk() < 5 and i.get_jump() < 4:
+            return False
+
+        if self.armor.get_bf_value() < 4:
+            return False
+
+        if i.gear.weaponlist.count_damage(15) < 5:
+            return False
+
+        return True

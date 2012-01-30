@@ -548,42 +548,10 @@ def create_skirmisher_list_item(mech, i):
     - At least 5 damage at range 15
     - BF armor value at least 4
     """
-    # The range required of the weapons
-    # Strikers usually gets in close
-    rnge = 15
-    name_str = mech.name + " " + mech.model + i.get_name()
-    batt_val = mech.get_bv(i)
-    weight = mech.weight
-    walk = mech.get_walk()
-    jump = i.get_jump()
-    mov = str(walk)
-    if jump > 0:
-        mov += "j"
-    # Require at least walk 6 or jump 5
-    if (walk < 5 and jump < 4):
+    if mech.is_skirmisher(i):
+        return create_std_list_item(mech, i, 15)
+    else:
         return False
-
-    arm = mech.armor.get_bf_value()
-    if arm < 4:
-        return False
-
-    dam = 0
-    heat = 0
-    l_str = ""
-
-    for weap in i.gear.weaponlist.list:
-        if (weap.get_range() >= rnge and weap.count > 0):
-            l_str += weap.get_short_count() + " "
-            dam += weap.get_damage(rnge) * weap.count
-            heat += weap.get_heat() * weap.count
-
-    l_heat = str(int(heat)) + "/" + str(i.get_sink())
-
-    # Reject entry if damage is below 5
-    if (dam < 5):
-        return False
-
-    return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
 
 def print_skirmisher_list(file_list, select_l, header):
     """
