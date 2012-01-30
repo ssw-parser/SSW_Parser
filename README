@@ -47,6 +47,8 @@ file.
 -r: Output a list of how max damage varies over range, shorted by
  short-range damage. (No heat taken into account.)
 
+-str: Output a list of strikers, sorted by damage.
+
 The default output (no switch) is modeled after the MUL.
 
 ==== Filter Switches ====
