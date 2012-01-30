@@ -331,11 +331,19 @@ def print_speed_list(file_list, select_l, header):
 def create_missile_list_item(mech, i):
     """
     Compile info used by print_missile_list()
+
+    Requirements:
+    - Have lrm tubes
     """
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
     lrm = i.gear.lrms
+
+    # No lrm tubes
+    if lrm == 0:
+        return False
+
     l_heat = str(i.gear.l_heat) + "/" + str(i.get_sink())
     if i.artemis4 == "TRUE":
         art = "AIV"
@@ -379,9 +387,8 @@ def print_missile_list(file_list, select_l, header):
     header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
     print header2
     for i in mech_list:
-        if i[3] > 0:
-            print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
-                   (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 ## Sniper listing
@@ -389,6 +396,9 @@ def print_missile_list(file_list, select_l, header):
 def create_snipe_list_item(mech, i):
     """
     Compile info used by print_snipe_list()
+
+    Requirements:
+    - At least 10 damage at range 18
     """
     rnge = 18 # The range required of the weapons
     name_str = mech.name + " " + mech.model + i.get_name()
@@ -411,6 +421,10 @@ def create_snipe_list_item(mech, i):
             heat += weap.get_heat() * weap.count
 
     l_heat = str(heat) + "/" + str(i.get_sink())
+
+    # Reject entry if damage is below 10
+    if (dam < 10):
+        return False
 
     return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
 
@@ -445,7 +459,7 @@ def create_striker_list_item(mech, i):
 
     Requirements:
     - Walk 6 or Jump 5
-    - At least 10 damage at range 10
+    - At least 10 damage at range 3
     """
     # The range required of the weapons
     # Strikers usually gets in close
@@ -489,6 +503,78 @@ def print_striker_list(file_list, select_l, header):
     """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_striker_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+
+
+## Skirmisher listing
+
+def create_skirmisher_list_item(mech, i):
+    """
+    Compile info used by print_skirmisher_list()
+
+    Requirements:
+    - Walk 5 or Jump 4
+    - At least 5 damage at range 15
+    - BF armor value at least 4
+    """
+    # The range required of the weapons
+    # Strikers usually gets in close
+    rnge = 15
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+    # Require at least walk 6 or jump 5
+    if (walk < 5 and jump < 4):
+        return False
+
+    arm = mech.armor.get_bf_value()
+    if arm < 4:
+        return False
+
+    dam = 0
+    heat = 0
+    l_str = ""
+
+    for weap in i.gear.weaponlist.list:
+        if (weap.get_range() >= rnge and weap.count > 0):
+            l_str += weap.get_short_count() + " "
+            dam += weap.get_damage(rnge) * weap.count
+            heat += weap.get_heat() * weap.count
+
+    l_heat = str(int(heat)) + "/" + str(i.get_sink())
+
+    # Reject entry if damage is below 5
+    if (dam < 5):
+        return False
+
+    return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
+
+def print_skirmisher_list(file_list, select_l, header):
+    """
+    skirmisher_list output
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_skirmisher_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -701,6 +787,9 @@ def parse_arg():
     parser.add_argument('-str', action='store_const',
                         help='Striker list output',
                         dest = 'output', const = 'str')
+    parser.add_argument('-skir', action='store_const',
+                        help='Skirmisher list output',
+                        dest = 'output', const = 'skir')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -856,6 +945,8 @@ def main():
         print_range_list(file_list, select_l, header)
     elif args.output == 'str':
         print_striker_list(file_list, select_l, header)
+    elif args.output == 'skir':
+        print_skirmisher_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
