@@ -227,7 +227,7 @@ def lvspl_damage(rnge):
 # TODO: Clan: 2 LMG, 4 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots
 # TODO: New TL: iHGR, Silver Bullet, VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
-# TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL, ERLPL,
+# TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
 # Mech Mortars, Imp OS, Artillery Cannons, HVACs, Chemical Lasers,
 # SLRM-5, SLRM-15, SLRM-20, rest of PPC+cap
 WEAPONS = {
@@ -683,7 +683,9 @@ WEAPONS = {
     "(CL) ER Medium Pulse Laser" : ["ERMPL", [117, 0], 2,
                                     6, (lambda x, y : 7), 14,
                                     "T", 0, 2, 0],
-    # ERLPL
+    "(CL) ER Large Pulse Laser" : ["ERLPL", [272, 0], 2,
+                                   13, (lambda x, y : 10), 23,
+                                   "T", 0, 6, 0],
     # iHSL
     "(CL) Improved Heavy Medium Laser" : ["iHML", [93, 0], 2,
                                           7, (lambda x, y : 10), 9,

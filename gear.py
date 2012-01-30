@@ -254,6 +254,7 @@ D_EQUIPMENT = {
     "Bloodhound Active Probe" : [[25, 0], 0, 2, 0],
     "Electronic Warfare Equipment" : [[39, 0], 0, 7.5, 0],
     "(CL) Laser Anti-Missile System" : [[45, 0], 0, 1, 0],
+    "Watchdog CEWS" : [[68, 0], 0, 1.5, 0],
     "(IS) CASE II" : [[0, 0], 0, 1, 0],
     "(CL) CASE II" : [[0, 0], 0, 0.5, 0]
     }
@@ -301,6 +302,7 @@ EQUIPMENT = {
     "Bloodhound Active Probe" : [[25, 0], 2, 2, 0, 0],
     "Electronic Warfare Equipment" : [[39, 0], 3, 7.5, 0, 0],
     "(CL) Laser Anti-Missile System" : [[45, 0], 2, 1, 0, 0],
+    "Watchdog CEWS" : [[68, 0], 0, 1.5, 0],
     "(IS) CASE II" : [[0, 0], 2, 1, 0, 0],
     "(CL) CASE II" : [[0, 0], 2, 0.5, 0, 0]
     }
