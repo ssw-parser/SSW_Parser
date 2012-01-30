@@ -734,6 +734,9 @@ def create_type_list_item(mech, i):
         skir = "X"
         warn = ""
     brw = "-"
+    if mech.is_brawler(i):
+        brw = "X"
+        warn = ""
     mis = "-"
     snp = "-"
     if mech.is_sniper(i):
