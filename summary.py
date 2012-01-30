@@ -391,6 +391,81 @@ def print_missile_list(file_list, select_l, header):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
+### Standard listing ###
+
+def create_std_list_item(mech, i, rnge, d_limit, a_limit):
+    """
+    Compile info in a format used by several listings
+
+    TODO: Add speed filter
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    arm = mech.armor.get_bf_value()
+    if arm < a_limit:
+        return False
+
+    dam = 0
+    heat = 0
+    l_str = ""
+
+    for weap in i.gear.weaponlist.list:
+        if (weap.get_range() >= rnge and weap.count > 0):
+            l_str += weap.get_short_count() + " "
+            dam += weap.get_damage(rnge) * weap.count
+            heat += weap.get_heat() * weap.count
+
+    l_heat = str(heat) + "/" + str(i.get_sink())
+
+    # Reject entry if damage is below d_limit
+    if (dam < d_limit):
+        return False
+
+    return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
+
+
+def create_juggernaut_list_item(mech, i):
+    """
+    Compile info used by print_juggernaut_list()
+
+    Requirements:
+    - At least 30 damage at range 9
+    - BF armor at least 5
+    """
+    return create_std_list_item(mech, i, 9, 30, 5)
+
+def print_juggernaut_list(file_list, select_l, header):
+    """
+    juggernaut_list output
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_juggernaut_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+
+
+
 ## Sniper listing
 
 def create_snipe_list_item(mech, i):
@@ -790,6 +865,9 @@ def parse_arg():
     parser.add_argument('-skir', action='store_const',
                         help='Skirmisher list output',
                         dest = 'output', const = 'skir')
+    parser.add_argument('-jug', action='store_const',
+                        help='Juggernaut list output',
+                        dest = 'output', const = 'jug')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -947,6 +1025,8 @@ def main():
         print_striker_list(file_list, select_l, header)
     elif args.output == 'skir':
         print_skirmisher_list(file_list, select_l, header)
+    elif args.output == 'jug':
+        print_juggernaut_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
