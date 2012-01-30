@@ -120,7 +120,8 @@ LEG_IS = {
 STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
              ["Endo-Steel", 0, 1.0, 0.05, 1],
              ["Endo-Steel", 1, 1.0, 0.05, 1],
-             ["Primitive Structure", 0, 1.0, 0.1, 4]]
+             ["Primitive Structure", 0, 1.0, 0.1, 4],
+             ["Endo-Composite", 1, 1.0, 0.075, 2]]
 
 
 # Info on armor types
@@ -138,7 +139,8 @@ ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0],
          ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1],
          ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1],
          ["Stealth Armor", 0, 1.0, 1.0, 1],
-         ["Primitive Armor", 0, 1.0, 0.67, 4]]
+         ["Primitive Armor", 0, 1.0, 0.67, 4],
+         ["Ferro-Lamellor", 1, 1.2, 0.9, 2]]
 
 
 class IS(Item):
@@ -380,6 +382,8 @@ class Armor(Item):
         # Note that this needs to be adjusted for advanced armor types
         # once they gets added
         armor = self.total.arm
+        if self.atype == "Ferro-Lamellor":
+            armor *= 1.2
         return int(round(armor / 30.0))
 
     def get_type(self):
