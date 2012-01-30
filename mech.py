@@ -446,3 +446,20 @@ class Mech:
         # Standard armor report
         self.armor.parse_armor()
 
+
+    ### Mech type tests ###
+    def is_juggernaut(self, i):
+        """
+        Check if a mech is a juggernaut
+
+        Definition:
+        - BF armor at least 5
+        - Able to do 30 damage at range 9
+        """
+        if self.armor.get_bf_value() < 5:
+            return False
+
+        if i.gear.weaponlist.count_damage(9) < 30:
+            return False
+
+        return True

@@ -393,11 +393,9 @@ def print_missile_list(file_list, select_l, header):
 
 ### Standard listing ###
 
-def create_std_list_item(mech, i, rnge, d_limit, a_limit):
+def create_std_list_item(mech, i, rnge):
     """
     Compile info in a format used by several listings
-
-    TODO: Add speed filter
     """
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
@@ -409,8 +407,6 @@ def create_std_list_item(mech, i, rnge, d_limit, a_limit):
         mov += "j"
 
     arm = mech.armor.get_bf_value()
-    if arm < a_limit:
-        return False
 
     dam = 0
     heat = 0
@@ -424,10 +420,6 @@ def create_std_list_item(mech, i, rnge, d_limit, a_limit):
 
     l_heat = str(heat) + "/" + str(i.get_sink())
 
-    # Reject entry if damage is below d_limit
-    if (dam < d_limit):
-        return False
-
     return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
 
 
@@ -439,7 +431,11 @@ def create_juggernaut_list_item(mech, i):
     - At least 30 damage at range 9
     - BF armor at least 5
     """
-    return create_std_list_item(mech, i, 9, 30, 5)
+    if mech.is_juggernaut(i):
+        return create_std_list_item(mech, i, 9)
+    else:
+        return False
+    
 
 def print_juggernaut_list(file_list, select_l, header):
     """
