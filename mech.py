@@ -512,3 +512,16 @@ class Mech:
             return False
 
         return True
+
+    def is_scout(self, i):
+        """
+        Check if a mech is a scout
+
+        Definition:
+        - Speed at least walk 7 or jump 6
+        """
+        if self.get_walk() < 7 and i.get_jump() < 6:
+            return False
+
+        return True
+

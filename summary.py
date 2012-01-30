@@ -709,6 +709,70 @@ def print_range_list(file_list, select_l, header):
 
 
 
+## Mech type listing
+
+def create_type_list_item(mech, i):
+    """
+    Compile info used by print_type_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+
+    warn = "!!"
+
+    sco = "-"
+    if mech.is_scout(i):
+        sco = "X"
+        warn = ""
+    stri = "-"
+    if mech.is_striker(i):
+        stri = "X"
+        warn = ""
+    skir = "-"
+    if mech.is_skirmisher(i):
+        skir = "X"
+        warn = ""
+    brw = "-"
+    mis = "-"
+    snp = "-"
+    if mech.is_sniper(i):
+        snp = "X"
+        warn = ""
+    jug = "-"
+    if mech.is_juggernaut(i):
+        jug = "X"
+        warn = ""
+
+    return (name_str, weight, batt_val, sco, stri, skir, brw, mis, snp, jug,
+            warn)
+
+def print_type_list(file_list, select_l, header):
+    """
+    type_list output
+
+    In the form of name, weight, BV, damage
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_type_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV    SCT STR SKR BRW MIS SNP JUG WARN"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d  %c   %c   %c   %c   %c   %c   %c  %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
+                i[10]))
+
+
+
+
 ## Default listing
 
 def create_def_list_item(mech, i):
@@ -781,6 +845,9 @@ def parse_arg():
     parser.add_argument('-jug', action='store_const',
                         help='Juggernaut list output',
                         dest = 'output', const = 'jug')
+    parser.add_argument('-typ', action='store_const',
+                        help='Mech type list output',
+                        dest = 'output', const = 'typ')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -940,6 +1007,8 @@ def main():
         print_skirmisher_list(file_list, select_l, header)
     elif args.output == 'jug':
         print_juggernaut_list(file_list, select_l, header)
+    elif args.output == 'typ':
+        print_type_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
