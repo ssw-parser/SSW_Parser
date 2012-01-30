@@ -448,6 +448,7 @@ class Mech:
 
 
     ### Mech type tests ###
+
     def is_juggernaut(self, i):
         """
         Check if a mech is a juggernaut
@@ -460,6 +461,18 @@ class Mech:
             return False
 
         if i.gear.weaponlist.count_damage(9) < 30:
+            return False
+
+        return True
+
+    def is_sniper(self, i):
+        """
+        Check if a mech is a sniper
+
+        Definition:
+        - Able to do 10 damage at range 18
+        """
+        if i.gear.weaponlist.count_damage(18) < 10:
             return False
 
         return True
