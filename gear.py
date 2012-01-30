@@ -563,7 +563,6 @@ class Gear:
         self.a_weight = 0.0
         self.o_weight = 0.0
         self.d_weight = 0.0
-        self.p_weight = 0.0
         # Weight of targeting computer weapons
         self.tcw_weight = 0.0
         # Track explosive ammo by locations

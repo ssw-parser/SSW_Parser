@@ -359,20 +359,12 @@ class Mech:
         if self.load.gear.supercharger:
             motive += ceil_05(self.engine.get_weight() * 0.1)
         mratio = float(motive) / float(self.weight) * 100
-        m_diff = mratio - 33.3
-        m_str = "   "
-        if (m_diff > 0):
-            m_str = "M:" + str(int(m_diff))
 
         # Defensive stuff
         defensive = self.structure.get_weight()
         defensive += self.armor.get_weight()
         defensive += self.load.gear.get_d_weight()
         dratio = float(defensive) / float(self.weight) * 100
-        d_diff = dratio - 33.3
-        d_str = "   "
-        if (d_diff > 0):
-            d_str = "D:" + str(int(d_diff))
 
         # Offensive stuff
         # Heat sinks
@@ -386,10 +378,6 @@ class Mech:
         # Physical weapons
         offensive += self.load.gear.get_p_weight()
         oratio = float(offensive) / float(self.weight) * 100
-        o_diff = oratio - 33.3
-        o_str = "   "
-        if (o_diff > 0):
-            o_str = "O:" + str(int(o_diff))
 
         # leftover
         left = self.weight - motive - defensive - offensive
@@ -400,8 +388,7 @@ class Mech:
                 return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" %
                         (mratio, dratio, oratio, left))
             else:
-#                return ("%2.1f%% %2.1f%% %2.1f%%" % (mratio, dratio, oratio))
-                return ("%s %s %s" % (m_str, d_str, o_str))
+                return ("%2.1f%% %2.1f%% %2.1f%%" % (mratio, dratio, oratio))
         else:
             print ("Total weight    : %3.1ft" % (self.weight))
             print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))
@@ -455,8 +442,6 @@ class Mech:
     def parse_armor(self):
         """
         Parse the armor of a mech.
-
-        Only count fixed jump-jets, due to all configs does not have them.
         """
         # Standard armor report
         self.armor.parse_armor()
