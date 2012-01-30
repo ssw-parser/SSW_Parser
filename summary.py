@@ -509,38 +509,10 @@ def create_striker_list_item(mech, i):
     - Walk 6 or Jump 5
     - At least 10 damage at range 3
     """
-    # The range required of the weapons
-    # Strikers usually gets in close
-    rnge = 3
-    name_str = mech.name + " " + mech.model + i.get_name()
-    batt_val = mech.get_bv(i)
-    weight = mech.weight
-    walk = mech.get_walk()
-    jump = i.get_jump()
-    mov = str(walk)
-    if jump > 0:
-        mov += "j"
-    # Require at least walk 6 or jump 5
-    if (walk < 6 and jump < 5):
+    if mech.is_striker(i):
+        return create_std_list_item(mech, i, 3)
+    else:
         return False
-
-    dam = 0
-    heat = 0
-    l_str = ""
-
-    for weap in i.gear.weaponlist.list:
-        if (weap.get_range() >= rnge and weap.count > 0):
-            l_str += weap.get_short_count() + " "
-            dam += weap.get_damage(rnge) * weap.count
-            heat += weap.get_heat() * weap.count
-
-    l_heat = str(int(heat)) + "/" + str(i.get_sink())
-
-    # Reject entry if damage is below 10
-    if (dam < 10):
-        return False
-
-    return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
 
 def print_striker_list(file_list, select_l, header):
     """

@@ -476,3 +476,19 @@ class Mech:
             return False
 
         return True
+
+    def is_striker(self, i):
+        """
+        Check if a mech is a striker
+
+        Definition:
+        - Speed at least walk 6 or jump 5
+        - Able to do 10 damage at range 3
+        """
+        if self.get_walk() < 6 and i.get_jump() < 5:
+            return False
+
+        if i.gear.weaponlist.count_damage(3) < 10:
+            return False
+
+        return True
