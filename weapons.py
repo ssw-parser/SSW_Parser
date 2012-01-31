@@ -780,7 +780,15 @@ WEAPONS = {
     "(CL) Rotary AC/5" :
         ["RAC5", [345, 43], 3,
          6, (lambda x, y : 5 * calc_average(6, 0)), [0, 7, 14, 21],
-         "T", 6, 10, 0]
+         "T", 6, 10, 0],
+    "(CL) ER Medium Pulse Laser (Insulated)" :
+        ["ERMPL", [117, 0], 3,
+         5, (lambda x, y : 7), [0, 5, 9, 14],
+         "T", 0, 2.5, 0],
+    "(CL) ER Large Pulse Laser (Insulated)" :
+        ["ERLPL", [272, 0], 3,
+         12, (lambda x, y : 10), [0, 7, 15, 23],
+         "T", 0, 6.5, 0]
     }
 
 # List of launcher names, shorthand and tubes
