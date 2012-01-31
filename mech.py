@@ -455,7 +455,7 @@ class Mech:
 
         Definition:
         - BF armor at least 5
-        - Able to do 30 damage at range 9
+        - Able to do 30 damage at range 6
         """
         if self.armor.get_bf_value() < 5:
             return False

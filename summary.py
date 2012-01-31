@@ -428,11 +428,11 @@ def create_juggernaut_list_item(mech, i):
     Compile info used by print_juggernaut_list()
 
     Requirements:
-    - At least 30 damage at range 9
+    - At least 30 damage at range 6
     - BF armor at least 5
     """
     if mech.is_juggernaut(i):
-        return create_std_list_item(mech, i, 9)
+        return create_std_list_item(mech, i, 6)
     else:
         return False
     
