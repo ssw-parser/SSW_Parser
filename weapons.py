@@ -814,7 +814,7 @@ class Weaponlist:
         """
         dam = 0
         for weap in self.list:
-            if (weap.get_range() >= rnge and weap.count > 0):
+            if (weap.check_range(rnge) and weap.count > 0):
                 dam += weap.get_damage(rnge) * weap.count
 
         return dam
@@ -867,6 +867,21 @@ class Weapon:
         Return maximum range
         """
         return WEAPONS[self.name][5][3]
+
+    def get_min_range(self):
+        """
+        Return minimum range
+        """
+        return WEAPONS[self.name][5][0]
+
+    def check_range(self, rng):
+        """
+        Check if in range
+        """
+        if (rng > WEAPONS[self.name][5][0] and rng <= WEAPONS[self.name][5][3]):
+            return True
+        else:
+            return False
 
     def get_heat(self):
         """
