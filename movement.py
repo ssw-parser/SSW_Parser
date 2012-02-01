@@ -613,6 +613,7 @@ class JumpJets(Item):
         # No jump jets generate no heat
         if self.jump == 0:
             return 0
+        # UMUs generate 1 heat in total
         elif self.jjtype == "Mech UMU":
             return 1
         else:

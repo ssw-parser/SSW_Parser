@@ -159,7 +159,10 @@ class Mech:
         """
         walk = self.engine.speed
         jump = load.get_jump()
-        
+        # Do not count jumping if UMU is used
+        if load.jjets.jjtype == "Mech UMU":
+            jump = 0
+
         factor = 1
         if self.enhancement.is_masc():
             factor += 0.25
