@@ -463,7 +463,8 @@ GYRO = [["Standard Gyro", 2, 0.5, 1.0, 0],
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
 JUMP_JET = [["Standard Jump Jet", 1, 0],
-           ["Improved Jump Jet", 0.5, 1]]
+            ["Improved Jump Jet", 0.5, 1],
+            ["Mech UMU", 1, 2]]
 
 # Myomer enhancement types
 #
@@ -612,6 +613,8 @@ class JumpJets(Item):
         # No jump jets generate no heat
         if self.jump == 0:
             return 0
+        elif self.jjtype == "Mech UMU":
+            return 1
         else:
             heat = ceil(self.jump * self.heat)
             minimum = 3

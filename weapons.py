@@ -397,6 +397,10 @@ WEAPONS = {
         ["LRM20", [181, 23], 0,
          6, (lambda x, y : calc_average(20, y)), [6, 7, 14, 21],
          "A", 1, 10, 0],
+    "(IS) LRT-10" :
+        ["LRT10", [90, 11], 0,
+         4, (lambda x, y : calc_average(10, y)), [6, 7, 14, 21],
+         "A", 1, 5, 0],
     "(IS) MML-3" :
         ["MML3", [29, 4], 1,
          2, (lambda x, y : mml3_damage(x, y)), [0, 3, 14, 21],
@@ -429,6 +433,10 @@ WEAPONS = {
         ["SRM4OS", [8, 0], 1,
          0.75, (lambda x, y : 2 * calc_average(4, y) * 0.1), [0, 3, 6, 9],
          "A", 0, 2.5, 0],
+    "(IS) SRT-4" :
+        ["SRT4", [39, 5], 0,
+         3, (lambda x, y : 2 * calc_average(4, y)), [0, 3, 6, 9],
+         "A", 1, 2, 0],
     "(IS) MRM-10" :
         ["MRM10", [56, 7], 1,
          4, (lambda x, y : calc_average(10, y)), [0, 3, 8, 15],

@@ -106,6 +106,7 @@ AMMO = {
     "(IS) @ LRM-10 (Narc Capable)" : [["(IS) LRM-10"], 12, 1, "X"],
     "(IS) @ LRM-15 (Narc Capable)" : [["(IS) LRM-15"], 8, 1, "X"],
     "(IS) @ LRM-20 (Narc Capable)" : [["(IS) LRM-20"], 6, 1, "X"],
+    "(IS) @ LRT-10 (Torpedo)" : [["(IS) LRT-10"], 12, 1, "X"],
     "(IS) @ MML-3 (LRM)" : [["(IS) MML-3"], 40, 1, "X"],
     "(IS) @ MML-3 (SRM)" : [["(IS) MML-3"], 33, 1, "X"],
     "(IS) @ MML-5 (LRM)" : [["(IS) MML-5"], 24, 1, "X"],
@@ -136,6 +137,7 @@ AMMO = {
     "@ SRM-2 (Narc Capable)" : [["(IS) SRM-2", "(CL) SRM-2"], 50, 1, "X"],
     "@ SRM-4 (Narc Capable)" : [["(IS) SRM-4", "(CL) SRM-4"], 25, 1, "X"],
     "@ SRM-6 (Narc Capable)" : [["(IS) SRM-6", "(CL) SRM-6"], 15, 1, "X"],
+    "@ SRT-4 (Torpedo)" : [["(IS) SRT-4"], 25, 1, "X"],
     "(IS) @ Streak SRM-2" : [["(IS) Streak SRM-2"], 50, 1, "X"],
     "(IS) @ Streak SRM-4" : [["(IS) Streak SRM-4"], 25, 1, "X"],
     "(IS) @ Streak SRM-6" : [["(IS) Streak SRM-6"], 15, 1, "X"],
@@ -234,7 +236,8 @@ O_EQUIPMENT = {
     "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 0, 16, 0],
-    "Coolant Pod" : [[0, 0], 0, 1, 1]
+    "Coolant Pod" : [[0, 0], 0, 1, 1],
+    "C3 Boosted Computer (Slave)" : [[0, 0], 0, 3, 0]
     }
 
 
@@ -255,6 +258,7 @@ D_EQUIPMENT = {
     "Electronic Warfare Equipment" : [[39, 0], 0, 7.5, 0],
     "(CL) Laser Anti-Missile System" : [[45, 0], 0, 1, 0],
     "Watchdog CEWS" : [[68, 0], 0, 1.5, 0],
+    "MW Aquatic Survival System" : [[9, 0], 0, 1.5, 0],
     "(IS) CASE II" : [[0, 0], 0, 1, 0],
     "(CL) CASE II" : [[0, 0], 0, 0.5, 0]
     }
@@ -281,11 +285,12 @@ EQUIPMENT = {
     "TAG" : [[0, 0], 1, 1, 0, 0],
     "Light TAG" : [[0, 0], 1, 0.5, 0, 0],
     "Cargo, Liquid" : [[0, 0], 1, 1, 0, 0],
-    "Communications Equipment" : [[0, 0], 0, 1, 0],
-    "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 0],
+    "Communications Equipment" : [[0, 0], 1, 0, 1, 0],
+    "Remote Sensor Dispenser" : [[0, 0], 1, 1, 0.5, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 1, 0, 1],
+    "C3 Boosted Computer (Slave)" : [[0, 0], 3, 0, 3, 0],
 
     "A-Pod" : [[1, 0], 1, 0.5, 0, 0],
     "B-Pod" : [[2, 0], 1, 1, 0, 0],
@@ -302,7 +307,8 @@ EQUIPMENT = {
     "Bloodhound Active Probe" : [[25, 0], 2, 2, 0, 0],
     "Electronic Warfare Equipment" : [[39, 0], 3, 7.5, 0, 0],
     "(CL) Laser Anti-Missile System" : [[45, 0], 2, 1, 0, 0],
-    "Watchdog CEWS" : [[68, 0], 0, 1.5, 0],
+    "Watchdog CEWS" : [[68, 0], 1, 0, 1.5, 0],
+    "MW Aquatic Survival System" : [[9, 0], 2, 0, 1.5, 0],
     "(IS) CASE II" : [[0, 0], 2, 1, 0, 0],
     "(CL) CASE II" : [[0, 0], 2, 0.5, 0, 0]
     }
