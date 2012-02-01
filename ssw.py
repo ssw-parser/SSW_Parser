@@ -108,7 +108,7 @@ def parse_gear(mech):
            (sdam, sheat, mech.get_sink()))
 
 
-def parse_omni(mech, bv):
+def parse_omni(mech, battv):
     """
     Handle omni-mechs
     """
@@ -118,7 +118,7 @@ def parse_omni(mech, bv):
         for i in mech.loads:
             print "-------------------------------"
             print "Config: ", i.get_name()
-            if bv:
+            if battv:
                 print "==============================="
                 mech.def_bv(i, True)
                 print "-------------------------------"
