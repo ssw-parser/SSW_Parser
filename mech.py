@@ -363,7 +363,6 @@ class Mech:
         # Defensive stuff
         defensive = self.structure.get_weight()
         defensive += self.armor.get_weight()
-        defensive += self.load.gear.get_d_weight()
         dratio = float(defensive) / float(self.weight) * 100
 
         # Offensive stuff
@@ -374,7 +373,7 @@ class Mech:
         # Ammo
         offensive += self.load.gear.get_a_weight()
         # Offensive gear
-        offensive += self.load.gear.get_o_weight()
+        offensive += self.load.gear.get_e_weight()
         # Physical weapons
         offensive += self.load.gear.get_p_weight()
         oratio = float(offensive) / float(self.weight) * 100

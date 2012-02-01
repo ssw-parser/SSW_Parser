@@ -81,16 +81,10 @@ def parse_gear(mech):
                 sheat += weap.count * weap.get_heat()
 
     # Print used equipment
-    for equip in mech.gear.o_equiplist.list:
+    for equip in mech.gear.equiplist.list:
         if equip.count > 0:
             report = str(equip.count) + " " + equip.name
             print report
-
-    for equip in mech.gear.d_equiplist.list:
-        if equip.count > 0:
-            report = str(equip.count) + " " + equip.name
-            print report
-
 
     # Print used physicals
     for phys in mech.gear.physicallist.list:
@@ -114,7 +108,7 @@ def parse_gear(mech):
            (sdam, sheat, mech.get_sink()))
 
 
-def parse_omni(mech):
+def parse_omni(mech, bv):
     """
     Handle omni-mechs
     """
@@ -124,6 +118,12 @@ def parse_omni(mech):
         for i in mech.loads:
             print "-------------------------------"
             print "Config: ", i.get_name()
+            if bv:
+                print "==============================="
+                mech.def_bv(i, True)
+                print "-------------------------------"
+                mech.off_bv(i, True)
+                print "==============================="
             print "BV: ", mech.get_bv(i)
             if (i.get_jump()):
                 print "Jump: ", i.get_jump(), i.jjets.jjtype
@@ -207,7 +207,7 @@ def main():
     parse_gear(mech.load)
 
     # Omni configs
-    parse_omni(mech)
+    parse_omni(mech, args.b)
 
 if __name__ == "__main__":
     main()

@@ -221,63 +221,27 @@ AMMO = {
     "@ Sniper" : [["(IS) Sniper"], 10, 1, "X"]
     }
 
-# Equipment, spilt into offensive, and defensive
+# Equipment,
 #
-# Name, BV, uses ammo rate, weight, explosive slots
+# Name : BV, rules level, weight, uses ammo rate, explosive slots
 #
-O_EQUIPMENT = {
-    "C3 Computer (Slave)" : [[0, 0], 0, 1, 0],
-    "C3 Computer (Master)" : [[0, 0], 0, 5, 0],
-    "Improved C3 Computer" : [[0, 0], 0, 2.5, 0],
-    "TAG" : [[0, 0], 0, 1, 0],
-    "Light TAG" : [[0, 0], 0, 0.5, 0],
-    "Cargo, Liquid" : [[0, 0], 0, 1, 0],
-    "Communications Equipment" : [[0, 0], 0, 1, 0],
-    "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 0],
-    # Experimental
-    "Collapsible Command Module (CCM)" : [[0, 0], 0, 16, 0],
-    "Coolant Pod" : [[0, 0], 0, 1, 1],
-    "C3 Boosted Computer (Slave)" : [[0, 0], 0, 3, 0]
-    }
-
-
-D_EQUIPMENT = {
-    "A-Pod" : [[1, 0], 0, 0.5, 0],
-    "B-Pod" : [[2, 0], 0, 1, 0],
-    "(IS) Anti-Missile System" : [[32, 11], 1, 0.5, 0],
-    "Guardian ECM Suite" : [[61, 0], 0, 1.5, 0],
-    "Beagle Active Probe" : [[10, 0], 0, 1.5, 0],
-    "ECM Suite" : [[61, 0], 0, 1, 0], # Clan
-    "Active Probe" : [[12, 0], 0, 1, 0], # Clan
-    "Light Active Probe" : [[7, 0], 0, 0.5, 0],
-    "(CL) Anti-Missile System" : [[32, 22], 1, 0.5, 0],
-    "CASE" : [[0, 0], 0, 0.5, 0], # HACK: CASE
-    # Experimental
-    "Angel ECM" : [[100, 0], 0, 2, 0],
-    "Bloodhound Active Probe" : [[25, 0], 0, 2, 0],
-    "Electronic Warfare Equipment" : [[39, 0], 0, 7.5, 0],
-    "(CL) Laser Anti-Missile System" : [[45, 0], 0, 1, 0],
-    "Watchdog CEWS" : [[68, 0], 0, 1.5, 0],
-    "MW Aquatic Survival System" : [[9, 0], 0, 1.5, 0],
-    "(IS) CASE II" : [[0, 0], 0, 1, 0],
-    "(CL) CASE II" : [[0, 0], 0, 0.5, 0]
-    }
 
 D_PHYSICAL = {
-    "Small Shield" : [[50, 0], 0, 2, 0]
+    "Small Shield" : [[50, 0], 3, 2, 0, 0]
     }
 
 
 
 # Equipment, not split
 #
-# Name : BV, rules level, weight, uses ammo rate, explosive slots
+# Name : def BV, rules level, weight, uses ammo rate, explosive slots
 #
 # Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
 # 3 = experimental, 4 = primitive
 #
 # Note that a different order is used compared to the other tables
 #
+
 EQUIPMENT = {
     "C3 Computer (Slave)" : [[0, 0], 1, 1, 0, 0],
     "C3 Computer (Master)" : [[0, 0], 1, 5, 0, 0],
@@ -285,12 +249,12 @@ EQUIPMENT = {
     "TAG" : [[0, 0], 1, 1, 0, 0],
     "Light TAG" : [[0, 0], 1, 0.5, 0, 0],
     "Cargo, Liquid" : [[0, 0], 1, 1, 0, 0],
-    "Communications Equipment" : [[0, 0], 1, 0, 1, 0],
-    "Remote Sensor Dispenser" : [[0, 0], 1, 1, 0.5, 0],
+    "Communications Equipment" : [[0, 0], 1, 1, 0, 0],
+    "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 1, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 1, 0, 1],
-    "C3 Boosted Computer (Slave)" : [[0, 0], 3, 0, 3, 0],
+    "C3 Boosted Computer (Slave)" : [[0, 0], 3, 3, 0, 0],
 
     "A-Pod" : [[1, 0], 1, 0.5, 0, 0],
     "B-Pod" : [[2, 0], 1, 1, 0, 0],
@@ -307,11 +271,12 @@ EQUIPMENT = {
     "Bloodhound Active Probe" : [[25, 0], 2, 2, 0, 0],
     "Electronic Warfare Equipment" : [[39, 0], 3, 7.5, 0, 0],
     "(CL) Laser Anti-Missile System" : [[45, 0], 2, 1, 0, 0],
-    "Watchdog CEWS" : [[68, 0], 1, 0, 1.5, 0],
-    "MW Aquatic Survival System" : [[9, 0], 2, 0, 1.5, 0],
+    "Watchdog CEWS" : [[68, 0], 1, 1.5, 0, 0],
+    "MW Aquatic Survival System" : [[9, 0], 2, 1.5, 0, 0],
     "(IS) CASE II" : [[0, 0], 2, 1, 0, 0],
     "(CL) CASE II" : [[0, 0], 2, 0.5, 0, 0]
     }
+
 
 # Targeting computers
 #
@@ -490,23 +455,14 @@ class Ammo:
         """
         self.count = self.count + 1
 
-class OffEquiplist:
+class Equiplist:
     """
-    Store the list with offensive equipment types
-    """
-    def __init__(self):
-        self.list = []
-        for equip in O_EQUIPMENT.keys():
-            self.list.append(Equipment(equip, O_EQUIPMENT))
-
-class DefEquiplist:
-    """
-    Store the list with defensive equipment types
+    Store the list with equipment
     """
     def __init__(self):
         self.list = []
-        for equip in D_EQUIPMENT.keys():
-            self.list.append(Equipment(equip, D_EQUIPMENT))
+        for equip in EQUIPMENT.keys():
+            self.list.append(Equipment(equip, EQUIPMENT))
 
 class Equipment:
     """
@@ -515,9 +471,9 @@ class Equipment:
     def __init__(self, key, dic):
         self.name = key
         self.batt_val = dic[key][0]
-        self.useammo = dic[key][1]
         self.weight = dic[key][2]
-        self.explosive = dic[key][3]
+        self.useammo = dic[key][3]
+        self.explosive = dic[key][4]
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
@@ -559,8 +515,7 @@ class Gear:
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist(art4, art5, apollo)
-        self.o_equiplist = OffEquiplist()
-        self.d_equiplist = DefEquiplist()
+        self.equiplist = Equiplist()
         self.physicallist = Physicallist(weight)
         self.d_physicallist = DefPhysicallist()
         self.ammolist = Ammolist()
@@ -569,8 +524,7 @@ class Gear:
         # Gear weight
         self.w_weight = 0.0
         self.a_weight = 0.0
-        self.o_weight = 0.0
-        self.d_weight = 0.0
+        self.e_weight = 0.0
         # Weight of targeting computer weapons
         self.tcw_weight = 0.0
         # Track explosive ammo by locations
@@ -669,11 +623,10 @@ class Gear:
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
-            for equip in self.o_equiplist.list:
-                if (name.name == equip.name and 
-                    (name.typ == 'equipment' or name.typ == 'CASE')):
+            for equip in self.equiplist.list:
+                if (name.name == equip.name and name.typ == 'equipment'):
                     equip.addone()
-                    self.o_weight += name.get_weight()
+                    self.e_weight += name.get_weight()
                     ident = True
                     # Hack, coolant pods
                     if name.name == "Coolant Pod":
@@ -694,6 +647,14 @@ class Gear:
                         expl = self.exp_weapon.get(name.loc, 0)
                         expl += equip.explosive
                         self.exp_weapon[name.loc] = expl
+                # CASE
+                if (name.name == equip.name and
+                    (name.typ == 'CASE' or name.typ == 'CASEII')):
+                    equip.addone()
+                    self.e_weight += name.get_weight()
+                    ident = True
+                    # Save CASE status
+                    self.case[name.loc] = name.typ
 
             # Hack, handle targeting computer
             if (name.name == "(IS) Targeting Computer" and
@@ -710,28 +671,6 @@ class Gear:
                 self.supercharger = True
                 ident = True
 
-            # Handle non-weapon equipment
-            # HACK: Handle CASE
-            for equip in self.d_equiplist.list:
-                # non-CASE
-                if (name.name == equip.name and name.typ == 'equipment'):
-                    equip.addone()
-                    self.d_weight += name.get_weight()
-                    ident = True
-                    # Add explosive weapon to location
-                    if equip.explosive > 0:
-                        expl = self.exp_weapon.get(name.loc, 0)
-                        expl += equip.explosive
-                        self.exp_weapon[name.loc] = expl
-                # CASE
-                if (name.name == equip.name and
-                    (name.typ == 'CASE' or name.typ == 'CASEII')):
-                    equip.addone()
-                    self.d_weight += name.get_weight()
-                    ident = True
-                    # Save CASE status
-                    self.case[name.loc] = name.typ
-
             # A possible physical weapon
             if (name.typ == 'physical'):
                 found = self.physicallist.add(name.name)
@@ -742,7 +681,7 @@ class Gear:
                 # non-CASE
                 if (name.name == phys.name and name.typ == 'physical'):
                     phys.addone()
-                    self.d_weight += phys.weight
+                    self.e_weight += phys.weight
                     ident = True
 
             for ammo in self.ammolist.list:
@@ -750,9 +689,9 @@ class Gear:
                     ammo.addone()
                     # Special case, AMS ammo count as defensive equipment
                     if (name.name == "(IS) @ Anti-Missile System"):
-                        self.d_weight += name.get_weight()
+                        self.e_weight += name.get_weight()
                     elif (name.name == "(CL) @ Anti-Missile System"):
-                        self.d_weight += name.get_weight()
+                        self.e_weight += name.get_weight()
                     else:
                         self.a_weight += name.get_weight()
                     ident = True
@@ -768,9 +707,9 @@ class Gear:
 
         # Calculate tarcomp weight
         if self.tarcomp == 1:  #IS
-            self.o_weight += ceil(self.tcw_weight / 4.0)
+            self.e_weight += ceil(self.tcw_weight / 4.0)
         if self.tarcomp == 2:  #Clan
-            self.o_weight += ceil(self.tcw_weight / 5.0)
+            self.e_weight += ceil(self.tcw_weight / 5.0)
 
         # Add ammo to weapon
         for ammo in self.ammolist.list:
@@ -783,7 +722,7 @@ class Gear:
                                           ammo.count * ammo.amount)
                             ident = True
                 # We need to do defensive equipment also due to AMS
-                for equip in self.d_equiplist.list:
+                for equip in self.equiplist.list:
                     for i in ammo.wname:
                         if equip.name == i:
                             equip.add_ammo(ammo.count * ammo.weight,
@@ -807,17 +746,11 @@ class Gear:
         """
         return self.a_weight
 
-    def get_o_weight(self):
+    def get_e_weight(self):
         """
-        Get offensive gear weight
+        Get equipment weight
         """
-        return self.o_weight
-
-    def get_d_weight(self):
-        """
-        Get defensive gear weight
-        """
-        return self.d_weight
+        return self.e_weight
 
     def get_p_weight(self):
         """
@@ -830,7 +763,7 @@ class Gear:
         Get defensive gear BV
         """
         batt_val = 0.0
-        for equip in self.d_equiplist.list:
+        for equip in self.equiplist.list:
             if (equip.count > 0):
                 bv_gear = equip.count * equip.batt_val[0]
                 batt_val += bv_gear
@@ -955,7 +888,6 @@ class Gear:
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= self.exp_weapon[i]
-
         return neg_bv
 
     def check_weapon_bv_flip(self):
