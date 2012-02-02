@@ -106,6 +106,7 @@ AMMO = {
     "(IS) @ LRM-10 (Narc Capable)" : [["(IS) LRM-10"], 12, 1, "X"],
     "(IS) @ LRM-15 (Narc Capable)" : [["(IS) LRM-15"], 8, 1, "X"],
     "(IS) @ LRM-20 (Narc Capable)" : [["(IS) LRM-20"], 6, 1, "X"],
+    "(IS) @ LRT-5 (Torpedo)" : [["(IS) LRT-5"], 24, 1, "X"],
     "(IS) @ LRT-10 (Torpedo)" : [["(IS) LRT-10"], 12, 1, "X"],
     "(IS) @ MML-3 (LRM)" : [["(IS) MML-3"], 40, 1, "X"],
     "(IS) @ MML-3 (SRM)" : [["(IS) MML-3"], 33, 1, "X"],
@@ -232,14 +233,12 @@ D_PHYSICAL = {
 
 
 
-# Equipment, not split
+# Equipment
 #
 # Name : def BV, rules level, weight, uses ammo rate, explosive slots
 #
 # Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
 # 3 = experimental, 4 = primitive
-#
-# Note that a different order is used compared to the other tables
 #
 
 EQUIPMENT = {
@@ -273,6 +272,8 @@ EQUIPMENT = {
     "(CL) Laser Anti-Missile System" : [[45, 0], 2, 1, 0, 0],
     "Watchdog CEWS" : [[68, 0], 1, 1.5, 0, 0],
     "MW Aquatic Survival System" : [[9, 0], 2, 1.5, 0, 0],
+    "HarJel" : [[0, 0], 3, 1, 0, 0],
+    "(IS) Laser Anti-Missile System" : [[45, 0], 2, 1.5, 0, 0],
     "(IS) CASE II" : [[0, 0], 2, 1, 0, 0],
     "(CL) CASE II" : [[0, 0], 2, 0.5, 0, 0]
     }
