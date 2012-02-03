@@ -215,6 +215,9 @@ AMMO = {
     "(CL) @ 'Mech Mortar 8 (Anti-Personnel)" :
         [["(CL) Mech Mortar 8"], 4, 1, "X"],
     "@ Heavy Flamer" : [["Heavy Flamer"], 10, 1, "X"],
+    "(IS) @ HVAC/10" : [["(IS) Hyper-Velocity Autocannon/10"], 8, 1, "X"],
+    "(IS) @ Improved Heavy Gauss Rifle" :
+        [["(IS) Improved Heavy Gauss Rifle"], 4, 1, ""],
     # Artillery
     "(IS) @ Arrow IV (Non-Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
     "(IS) @ Arrow IV (Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
@@ -255,6 +258,7 @@ EQUIPMENT = {
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 1, 0, 1],
     "C3 Boosted Computer (Slave)" : [[0, 0], 3, 3, 0, 0],
+    "C3 Boosted Computer (Master)" : [[0, 0], 3, 6, 0, 0], 
 
     "A-Pod" : [[1, 0], 1, 0.5, 0, 0],
     "B-Pod" : [[2, 0], 1, 1, 0, 0],
@@ -637,6 +641,12 @@ class Gear:
                     elif name.name == "C3 Computer (Slave)":
                         self.has_c3 = True
                     elif name.name == "C3 Computer (Master)":
+                        self.has_c3m = True
+                        # Master computers can work as TAG
+                        self.has_tag = True
+                    elif name.name == "C3 Boosted Computer (Slave)":
+                        self.has_c3 = True
+                    elif name.name == "C3 Boosted Computer (Master)":
                         self.has_c3m = True
                         # Master computers can work as TAG
                         self.has_tag = True

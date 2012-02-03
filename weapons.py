@@ -226,10 +226,10 @@ def lvspl_damage(rnge):
 #
 # TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots
 # TODO: Clan: 2 LMG, 4 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots
-# TODO: New TL: iHGR, Silver Bullet, VGL, NLRM10, NLRM15, NLRM20,
+# TODO: New TL: Silver Bullet, VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
-# Mech Mortars, Imp OS, Artillery Cannons, HVACs, Chemical Lasers,
+# Mech Mortars, Imp OS, Artillery Cannons, HVAC2, HVAC5, Chemical Lasers,
 # SLRM-5, SLRM-15, SLRM-20, rest of PPC+cap
 WEAPONS = {
     ### Inner Sphere, Tech Manual ###
@@ -666,7 +666,10 @@ WEAPONS = {
     "Heavy Flamer" : ["Hflmr", [15, 2], 1,
                       5, (lambda x, y : 4), [0, 2, 3, 4],
                       "", 1, 1.5, 0],
-    # iHGR
+    "(IS) Improved Heavy Gauss Rifle" :
+        ["iHGR", [385, 48], 1,
+         2, (lambda x, y : 22), [3, 6, 12, 19],
+         "T", 1, 20, 11],
     "(IS) Magshot Gauss Rifle" : ["MSGR", [15, 2], 1,
                                   1, (lambda x, y : 2), [0, 3, 6, 9],
                                   "T", 1, 0.5, 2],
@@ -715,7 +718,12 @@ WEAPONS = {
                      10, (lambda x, y : 20), [6, 270, 270, 270],
                      "", 1, 20, 0],
     # Artillery Cannons
-    # HVACs
+    # HVAC2
+    # HVAC5
+    "(IS) Hyper-Velocity Autocannon/10" :
+        ["HVAC10", [158, 20], 2,
+         7, (lambda x, y : 10), [0, 6, 12, 20],
+         "T", 1, 14, 6],
     # Protomech AC/2
     "(CL) Protomech AC/4" : ["PAC4", [49, 6], 2,
                              1, (lambda x, y : 4), [0, 5, 10, 15],
