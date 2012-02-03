@@ -405,6 +405,10 @@ WEAPONS = {
         ["LRT10", [90, 11], 0,
          4, (lambda x, y : calc_average(10, y)), [6, 7, 14, 21],
          "A", 1, 5, 0],
+    "(IS) LRT-15" :
+        ["LRT15", [136, 17], 0,
+         5, (lambda x, y : calc_average(15, y)), [6, 7, 14, 21],
+         "A", 1, 7, 0],
     "(IS) MML-3" :
         ["MML3", [29, 4], 1,
          2, (lambda x, y : mml3_damage(x, y)), [0, 3, 14, 21],
