@@ -225,7 +225,7 @@ def lvspl_damage(rnge):
 # To be loaded into the gear class
 #
 # TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots
-# TODO: Clan: 2 LMG, 4 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots
+# TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots
 # TODO: New TL: Silver Bullet, VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
@@ -546,7 +546,10 @@ WEAPONS = {
         ["LMG3A", [25.05, 1], 1,
          0, (lambda x, y : 1 * calc_average(3, 0)), [0, 2, 4, 6],
          "", 3, 1, 0],
-    # LMG 4
+    "(CL) MG Array (4 Light Machine Gun)" :
+        ["LMG4A", [33.4, 1], 1,
+         0, (lambda x, y : 1 * calc_average(4, 0)), [0, 2, 4, 6],
+         "", 4, 1.25, 0],
     "(CL) Machine Gun" : ["MG", [5, 1], 1,
                           0, (lambda x, y : 2), [0, 1, 2, 3],
                           "", 1, 0.25, 0],
@@ -635,6 +638,9 @@ WEAPONS = {
     "(CL) LRM-20" : ["LRM20", [220, 27], 1,
                      6, (lambda x, y : calc_average(20, y)), [0, 7, 14, 21],
                      "A", 1, 5, 0],
+    "(CL) LRT-5" : ["LRT5", [55, 7], 1,
+                    2, (lambda x, y : calc_average(5, y)), [0, 7, 14, 21],
+                    "A", 1, 1, 0],
     "(CL) SRM-2" : ["SRM2", [21, 3], 1,
                     2, (lambda x, y : 2 * calc_average(2, y)), [0, 3, 6, 9],
                     "A", 1, 0.5, 0],
