@@ -141,7 +141,7 @@ AMMO = {
     "@ SRM-2 (Narc Capable)" : [["(IS) SRM-2", "(CL) SRM-2"], 50, 1, "X"],
     "@ SRM-4 (Narc Capable)" : [["(IS) SRM-4", "(CL) SRM-4"], 25, 1, "X"],
     "@ SRM-6 (Narc Capable)" : [["(IS) SRM-6", "(CL) SRM-6"], 15, 1, "X"],
-    "@ SRT-4 (Torpedo)" : [["(IS) SRT-4"], 25, 1, "X"],
+    "@ SRT-4 (Torpedo)" : [["(IS) SRT-4", "(CL) SRT-4"], 25, 1, "X"],
     "(IS) @ Streak SRM-2" : [["(IS) Streak SRM-2"], 50, 1, "X"],
     "(IS) @ Streak SRM-4" : [["(IS) Streak SRM-4"], 25, 1, "X"],
     "(IS) @ Streak SRM-6" : [["(IS) Streak SRM-6"], 15, 1, "X"],

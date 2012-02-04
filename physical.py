@@ -48,7 +48,9 @@ PHYSICAL = {
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
     "Talons" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
-                (lambda x : ceil(x / 15.0)), 0]
+                (lambda x : ceil(x / 15.0)), 0],
+    "Spot Welder" : [(lambda x : 5), (lambda x : 5),
+                     (lambda x : 2), 2]
     }
 
 class Physicallist:
