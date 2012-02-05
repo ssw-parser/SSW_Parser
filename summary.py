@@ -418,7 +418,7 @@ def create_std_list_item(mech, i, rnge):
             dam += weap.get_damage(rnge) * weap.count
             heat += weap.get_heat() * weap.count
 
-    l_heat = str(heat) + "/" + str(i.get_sink())
+    l_heat = str(int(heat)) + "/" + str(i.get_sink())
 
     return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
 
