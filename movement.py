@@ -436,8 +436,7 @@ ENGINE = [["Fusion Engine", 2, 1.0, (lambda x : STD_ENGINE[x]), 0],
           ["Compact Fusion Engine", 0, 1.0,
            (lambda x : CMP_ENGINE[x]), 1],
           # Advanced
-          # XXL Engine (IS): Old BV factor 0.5, new 0.25
-          ["XXL Engine", 0, 0.5,
+          ["XXL Engine", 0, 0.25,
            (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
           ["XXL Engine", 1, 0.5,
            (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
