@@ -485,12 +485,12 @@ class Mech:
 
         Definition:
         - Speed at least walk 6 or jump 5
-        - Able to do 10 damage at range 3
+        - Able to do 12 damage at range 3
         """
         if self.get_walk() < 6 and i.get_jump() < 5:
             return False
 
-        if i.gear.weaponlist.count_damage(3) < 10:
+        if i.gear.weaponlist.count_damage(3) < 12:
             return False
 
         return True
