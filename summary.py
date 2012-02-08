@@ -268,13 +268,13 @@ def print_armor_list(file_list, select_l, header):
 
     In the form of name, weight, BV, Armor%, Explosive, Stealth, points/max,
     armor tonnage, battleforce armor value
-    sorted by armor%, descending
+    sorted by armor points, descending
     """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_armor_list_item)
 
-    # Sort by armor%
-    mech_list.sort(key=itemgetter(3), reverse=True)
+    # Sort by armor points
+    mech_list.sort(key=itemgetter(6), reverse=True)
 
     # Print output
     print header

@@ -31,8 +31,7 @@ file.
 
 -bv: Output that gives a summary of battle values, sorted by BV.
 
--a: Output that gives a summary of armor status, sorted by percent of
- maximum armor.
+-a: Output that gives a summary of armor status, sorted by armor points.
 
 -s: Output that gives a summary of speed, sorted by speed.
 
