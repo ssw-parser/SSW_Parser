@@ -49,8 +49,10 @@ def print_weapon(mech, weap):
         enh = "ap"
     elif mech.gear.tarcomp > 0 and weap.enhance == "TC":
         enh = "tc"
-    print ("%-7s %-27s %3d %-2s" % 
-           (report, weap.name, weap.count * weap.get_heat(), enh))
+    print ("%-7s %-27s %3d %1d/%1d/%2d/%2d %-2s" % 
+           (report, weap.name, weap.count * weap.get_heat(),
+            weap.get_min_range(), weap.get_short_range(), weap.get_med_range(),
+            weap.get_range(), enh))
 
 
 def parse_gear(mech):
@@ -65,7 +67,7 @@ def parse_gear(mech):
     sheat = 0
 
     # Print used weapons
-    print "Nr      Name                       Heat Enh"
+    print "Nr      Name                       Heat Range     Enh"
     for weap in mech.gear.weaponlist.list:
         if (weap.count > 0 or weap.countrear > 0):
             print_weapon(mech, weap)

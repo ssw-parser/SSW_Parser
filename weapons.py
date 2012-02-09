@@ -917,9 +917,21 @@ class Weapon:
 
     def get_range(self):
         """
-        Return maximum range
+        Return maximum (long) range
         """
         return WEAPONS[self.name][5][3]
+
+    def get_med_range(self):
+        """
+        Return medium range
+        """
+        return WEAPONS[self.name][5][2]
+
+    def get_short_range(self):
+        """
+        Return short range
+        """
+        return WEAPONS[self.name][5][1]
 
     def get_min_range(self):
         """
