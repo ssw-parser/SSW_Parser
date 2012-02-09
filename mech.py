@@ -426,20 +426,19 @@ class Mech:
         Print out a report about the mech engine
         """
         eweight = self.engine.get_weight()
-        eratio = float(eweight) / float(weight)
-        print "Engine: ", self.engine.summary_string(), int(eratio * 100), "%"
-        print "Speed:  ", self.get_move_string()
+        print "Engine:     ", self.engine.summary_string()
+        print "Speed:      ", self.get_move_string()
         gweight = self.gyro.get_weight()
-        print self.gyro.summary_string()
+        print "Gyro:       ", self.gyro.summary_string()
         jweight = self.load.jjets.get_weight()
         if self.load.get_jump() > 0:
             print "Fixed jump: ", self.load.jjets.summary_string()
         enhweight = self.enhancement.get_weight()
         if enhweight > 0:
-            print "Enhancement: ", self.enhancement.summary_string()
-        tweight = eweight + gweight + jweight + enhweight
-        tratio = float(tweight) / float(weight)
-        print "Total motive weight: ", tweight, "tons", int(tratio * 100), "%"
+            print "Enhancement:", self.enhancement.summary_string()
+#        tweight = eweight + gweight + jweight + enhweight
+#        print "Total motive weight: ", tweight, "tons"
+        print "Cockpit:    ", self.cockpit.summary_string()
 
     def parse_armor(self):
         """

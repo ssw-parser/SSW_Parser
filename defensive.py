@@ -433,6 +433,7 @@ class Armor(Item):
         Print out all armor reports
         """
         self.armor_total_report()
+        print "BF Armor: ", self.get_bf_value()
         print self.head.get_report()
         self.c_torso.report()
         self.l_torso.report()
@@ -441,4 +442,3 @@ class Armor(Item):
         print self.r_leg.get_report()
         print self.l_arm.get_report()
         print self.r_arm.get_report()
-

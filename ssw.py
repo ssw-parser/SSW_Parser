@@ -179,24 +179,25 @@ def main():
     # Get mech
     mech = Mech(xmldoc)
 
+    print "================================="
     print "Name: ", mech.model, mech.name
-    mech.weight_summary(False)
+#    mech.weight_summary(False)
 
-    print "-1-----------------------------"
+    print "-Basic---------------------------"
     print "Tech:      ", mech.techbase
     print "Weight:    ", mech.weight
-    print "Motive:    ", mech.motive, mech.mechtype
     if (mech.omni == "TRUE"):
-        print "Omni mech"
+        print "Motive:    ", mech.motive, mech.mechtype, "(Omni mech)"
+    else:
+        print "Motive:    ", mech.motive, mech.mechtype
     print "Structure: ", mech.structure.summary_string()
-    print "-2-----------------------------"
+    print "-Movement------------------------"
     mech.print_engine_report(mech.weight)
-    print mech.cockpit.summary_string()
-    print "-3-----------------------------"
+    print "-Fixed Heatsinks-----------------"
     print mech.load.heatsinks.summary_string()
-    print "-4-----------------------------"
+    print "-Armor---------------------------"
     mech.parse_armor()
-    print "-5-----------------------------"
+    print "-5-------------------------------"
     if (mech.omni == "TRUE"):
         print "WARNING: Omni mech, results might be garbage."
 
