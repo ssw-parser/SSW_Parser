@@ -182,7 +182,7 @@ def main():
     mech = Mech(xmldoc)
 
     print "================================="
-    print "Name: ", mech.model, mech.name
+    print "Name: ", mech.name, mech.model
 #    mech.weight_summary(False)
 
     print "-Basic---------------------------"
