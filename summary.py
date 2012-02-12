@@ -26,7 +26,7 @@ import argparse
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
-from weapons import LRM_LIST
+from weapons import LRM_LIST, AC_LIST
 
 #############################
 ##### Utility functions #####
@@ -385,6 +385,74 @@ def print_missile_list(file_list, select_l, header):
     print header
     header2 = "Name                          "
     header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+## Autocannon listing
+
+def create_autocannon_list_item(mech, i):
+    """
+    Compile info used by print_autocannon_list()
+
+    Requirements:
+    - Have special ammo using AC
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+
+    # No lrm tubes
+    if not i.gear.has_ac:
+        return False
+
+    if i.gear.tarcomp > 0:
+        tarcomp = "TC"
+    else:
+        tarcomp = ""
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    dam = 0
+    heat = 0
+    l_str = ""
+    for weap in i.gear.weaponlist.list:
+        for launcher in AC_LIST:
+            if (weap.name == launcher[0] and weap.count > 0):
+#                l_str += launcher[1] + str(weap.count) + "/"
+#                l_str += str(weap.get_ammo_per_weapon()) + " "
+                l_str += weap.get_short_count() + " "
+                dam += weap.get_damage(9) * weap.count
+                heat += weap.get_heat() * weap.count
+
+    l_heat = str(heat) + "/" + str(i.get_sink())
+               
+    return (name_str, weight, batt_val, dam, tarcomp, l_heat, mov, l_str)
+
+def print_autocannon_list(file_list, select_l, header):
+    """
+    autocannon_list output
+
+    In the form of name, weight, BV, damage, tarcomp, Heat, Movement,
+    weapon details
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_autocannon_list_item)
+
+    # Sort by tubes
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam TC  Heat  Mov Guns/turns of fire"
     print header2
     for i in mech_list:
         print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
@@ -851,6 +919,9 @@ def parse_arg():
     parser.add_argument('-typ', action='store_const',
                         help='Mech type list output',
                         dest = 'output', const = 'typ')
+    parser.add_argument('-ac', action='store_const',
+                        help='Autocannon list output',
+                        dest = 'output', const = 'ac')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -1012,6 +1083,8 @@ def main():
         print_juggernaut_list(file_list, select_l, header)
     elif args.output == 'typ':
         print_type_list(file_list, select_l, header)
+    elif args.output == 'ac':
+        print_autocannon_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
