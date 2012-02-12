@@ -28,7 +28,7 @@ Uses external file mech.py to read in data.
 import argparse
 from xml.dom import minidom
 from mech import Mech
-from weapons import LRM_LIST, SRM_LIST
+from weapons import LRM_LIST, SRM_LIST, AC_LIST
 
 def print_weapon(mech, weap):
     """
@@ -108,6 +108,32 @@ def print_srm(i):
     print "----------------------------------------"
 
 
+def print_ac(i):
+    """
+    Print a report on Autocannons
+    """
+    print
+    print "----------------------------------------"
+    print "AC status:"
+    print "Nr Name                        Heat Dam Ammo"
+    t_dam = 0
+    t_heat = 0
+    for weap in i.gear.weaponlist.list:
+        for launcher in AC_LIST:
+            if (weap.name == launcher[0] and weap.count > 0):
+                cnt = weap.count
+                heat = cnt * weap.get_heat()
+                dam = cnt * weap.get_damage(9)
+                t_heat += heat
+                t_dam += dam
+                print ("%2d %-27s %3d %3d %3d" %
+                       (cnt, weap.name, heat, dam,
+                        weap.get_ammo_per_weapon()))
+    print ("Total Damage: %5.2f Heat: %d/%d" %
+           (t_dam, t_heat, i.get_sink()))
+    print "----------------------------------------"
+
+
 def parse_gear(mech):
     """
     Parse an equipment node
@@ -169,6 +195,10 @@ def parse_gear(mech):
     # Print SRM status is appliable
     if mech.gear.srms > 0:
         print_srm(mech)
+
+    # Print Autocannon status is appliable
+    if mech.gear.has_ac:
+        print_ac(mech)
 
 def parse_omni(mech, battv):
     """

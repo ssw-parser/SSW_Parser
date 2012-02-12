@@ -26,7 +26,7 @@ from math import ceil
 from error import error_exit
 from util import gettext, get_child_data
 from item import Item
-from weapons import WEAPONS, LRM_LIST, SRM_LIST, Weaponlist
+from weapons import WEAPONS, LRM_LIST, SRM_LIST, AC_LIST, Weaponlist
 from physical import Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,
@@ -558,6 +558,7 @@ class Gear:
         self.lrms = 0
         self.l_heat = 0
         self.srms = 0
+        self.has_ac = False
 
         ### Count gear ###
         for name in self.equip:
@@ -603,6 +604,11 @@ class Gear:
                     for launcher in SRM_LIST:
                         if (name.name == launcher[0]):
                             self.srms += launcher[2]
+
+                    # Check for special ammo using AC
+                    for launcher in AC_LIST:
+                        if (name.name == launcher[0]):
+                            self.has_ac = True
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:

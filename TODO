@@ -51,11 +51,14 @@ Turkina U -- armored components
 -- BF SRM value (remember low ammo reduction)
 -- MML ammo issue
 -- Artemis status
-
-- Autocannon report?
+- Autocannon report:
+-- BF AC value (remember low ammo reduction)
+-- Tarcomp status
 
 == summary.py ==
 - Rename?
+
+- SRM & Autocannon reports?
 
 - List special equipment:
 -- ECM

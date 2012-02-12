@@ -865,6 +865,14 @@ SRM_LIST = [["(IS) SRM-2", "i2:", 2],
             ["(IS) MML-9", "m9:", 9]]
 
 
+# List of autocannon names (that can use special ammo), and shorthand
+AC_LIST = [["(IS) Autocannon/2", "ac2:"],
+           ["(IS) Autocannon/5", "ac5:"],
+           ["(IS) Autocannon/10", "ac10:"],
+           ["(IS) Autocannon/20", "ac20:"],
+           ["(IS) Light AC/2", "lac2:"],
+           ["(IS) Light AC/5", "lac5:"]]
+
 class Weaponlist:
     """
     Store the list with weapons
