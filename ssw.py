@@ -28,6 +28,7 @@ Uses external file mech.py to read in data.
 import argparse
 from xml.dom import minidom
 from mech import Mech
+from weapons import LAUNCHER_LIST
 
 def print_weapon(mech, weap):
     """
@@ -53,6 +54,22 @@ def print_weapon(mech, weap):
            (report, weap.name, weap.count * weap.get_heat(),
             weap.get_min_range(), weap.get_short_range(), weap.get_med_range(),
             weap.get_range(), enh))
+
+
+def print_lrm(i):
+    print
+    print "----------------------------------------"
+    print "LRM status:"
+    print "Nr Name                        Heat Dam Ammo"
+    for weap in i.gear.weaponlist.list:
+        for launcher in LAUNCHER_LIST:
+            if (weap.name == launcher[0] and weap.count > 0):
+                c = weap.count
+                print ("%2d %-27s %3d %3d %3d" %
+                       (c, weap.name, c * weap.get_heat(), 
+                        c * weap.get_damage(18),
+                        weap.get_ammo_per_weapon()))
+    print "----------------------------------------"
 
 
 def parse_gear(mech):
@@ -109,6 +126,9 @@ def parse_gear(mech):
     print ("Short Range (3)  Damage: %5.2f Heat: %d/%d" %
            (sdam, sheat, mech.get_sink()))
 
+    # Print LRM status is appliable
+    if mech.gear.lrms > 0:
+        print_lrm(mech)
 
 def parse_omni(mech, battv):
     """
