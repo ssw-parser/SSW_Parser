@@ -28,7 +28,7 @@ Uses external file mech.py to read in data.
 import argparse
 from xml.dom import minidom
 from mech import Mech
-from weapons import LRM_LIST
+from weapons import LRM_LIST, SRM_LIST
 
 def print_weapon(mech, weap):
     """
@@ -72,6 +72,32 @@ def print_lrm(i):
                 cnt = weap.count
                 heat = cnt * weap.get_heat()
                 dam = cnt * weap.get_damage(18)
+                t_heat += heat
+                t_dam += dam
+                print ("%2d %-27s %3d %3d %3d" %
+                       (cnt, weap.name, heat, dam,
+                        weap.get_ammo_per_weapon()))
+    print ("Total Damage: %5.2f Heat: %d/%d" %
+           (t_dam, t_heat, i.get_sink()))
+    print "----------------------------------------"
+
+
+def print_srm(i):
+    """
+    Print a report on SRMs
+    """
+    print
+    print "----------------------------------------"
+    print "SRM status:"
+    print "Nr Name                        Heat Dam Ammo"
+    t_dam = 0
+    t_heat = 0
+    for weap in i.gear.weaponlist.list:
+        for launcher in SRM_LIST:
+            if (weap.name == launcher[0] and weap.count > 0):
+                cnt = weap.count
+                heat = cnt * weap.get_heat()
+                dam = cnt * weap.get_damage(6)
                 t_heat += heat
                 t_dam += dam
                 print ("%2d %-27s %3d %3d %3d" %
@@ -139,6 +165,10 @@ def parse_gear(mech):
     # Print LRM status is appliable
     if mech.gear.lrms > 0:
         print_lrm(mech)
+
+    # Print SRM status is appliable
+    if mech.gear.srms > 0:
+        print_srm(mech)
 
 def parse_omni(mech, battv):
     """

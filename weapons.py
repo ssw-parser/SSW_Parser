@@ -836,7 +836,7 @@ WEAPONS = {
          "T", 0, 6.5, 0]
     }
 
-# List of launcher names, shorthand and tubes
+# List of LRM launcher names, shorthand and tubes
 # Missing: NLRM-10, NLRM-15, NLRM-20
 LRM_LIST = [["(IS) LRM-5", "i5:", 5],
             ["(IS) LRM-10", "i10:", 10],
@@ -851,6 +851,19 @@ LRM_LIST = [["(IS) LRM-5", "i5:", 5],
             ["(IS) MML-5", "m5:", 5],
             ["(IS) MML-7", "m7:", 7],
             ["(IS) MML-9", "m9:", 9]]
+
+# List of SRM launcher names, shorthand and tubes
+SRM_LIST = [["(IS) SRM-2", "i2:", 2],
+            ["(IS) SRM-4", "i4:", 4],
+            ["(IS) SRM-6", "i6:", 6],
+            ["(CL) SRM-2", "c2:", 2],
+            ["(CL) SRM-4", "c4:", 4],
+            ["(CL) SRM-6", "c6:", 6],
+            ["(IS) MML-3", "m3:", 3],
+            ["(IS) MML-5", "m5:", 5],
+            ["(IS) MML-7", "m7:", 7],
+            ["(IS) MML-9", "m9:", 9]]
+
 
 class Weaponlist:
     """

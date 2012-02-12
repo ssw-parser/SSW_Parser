@@ -47,8 +47,12 @@ Turkina U -- armored components
 -- BF LRM value (remember low ammo reduction)
 -- Artemis status
 -- MML ammo issue
+- SRM report:
+-- BF SRM value (remember low ammo reduction)
+-- MML ammo issue
+-- Artemis status
 
-- SRM & Autocannon reports?
+- Autocannon report?
 
 == summary.py ==
 - Rename?
