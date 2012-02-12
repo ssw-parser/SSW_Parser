@@ -57,18 +57,28 @@ def print_weapon(mech, weap):
 
 
 def print_lrm(i):
+    """
+    Print a report on LRMs
+    """
     print
     print "----------------------------------------"
     print "LRM status:"
     print "Nr Name                        Heat Dam Ammo"
+    t_dam = 0
+    t_heat = 0
     for weap in i.gear.weaponlist.list:
         for launcher in LAUNCHER_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
-                c = weap.count
+                cnt = weap.count
+                heat = cnt * weap.get_heat()
+                dam = cnt * weap.get_damage(18)
+                t_heat += heat
+                t_dam += dam
                 print ("%2d %-27s %3d %3d %3d" %
-                       (c, weap.name, c * weap.get_heat(), 
-                        c * weap.get_damage(18),
+                       (cnt, weap.name, heat, dam,
                         weap.get_ammo_per_weapon()))
+    print ("Total Damage: %5.2f Heat: %d/%d" %
+           (t_dam, t_heat, i.get_sink()))
     print "----------------------------------------"
 
 

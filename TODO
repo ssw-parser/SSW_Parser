@@ -43,6 +43,10 @@ Turkina U -- armored components
 -- good armor 1.1-1.25xIS
 - Move date calculations completely to mech.py (and its sub-classes)
 
+- LRM report:
+-- BF LRM value (remember low ammo reduction)
+-- Artemis status
+
 == summary.py ==
 - Rename?
 
