@@ -26,7 +26,7 @@ import argparse
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
-from weapons import LAUNCHER_LIST
+from weapons import LRM_LIST
 
 #############################
 ##### Utility functions #####
@@ -359,7 +359,7 @@ def create_missile_list_item(mech, i):
 
     l_str = ""
     for weap in i.gear.weaponlist.list:
-        for launcher in LAUNCHER_LIST:
+        for launcher in LRM_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
 #                l_str += launcher[1] + str(weap.count) + "/"
 #                l_str += str(weap.get_ammo_per_weapon()) + " "

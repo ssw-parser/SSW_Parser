@@ -28,7 +28,7 @@ Uses external file mech.py to read in data.
 import argparse
 from xml.dom import minidom
 from mech import Mech
-from weapons import LAUNCHER_LIST
+from weapons import LRM_LIST
 
 def print_weapon(mech, weap):
     """
@@ -67,7 +67,7 @@ def print_lrm(i):
     t_dam = 0
     t_heat = 0
     for weap in i.gear.weaponlist.list:
-        for launcher in LAUNCHER_LIST:
+        for launcher in LRM_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
                 cnt = weap.count
                 heat = cnt * weap.get_heat()

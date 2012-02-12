@@ -26,7 +26,7 @@ from math import ceil
 from error import error_exit
 from util import gettext, get_child_data
 from item import Item
-from weapons import WEAPONS, LAUNCHER_LIST, Weaponlist
+from weapons import WEAPONS, LRM_LIST, Weaponlist
 from physical import Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,
@@ -593,7 +593,7 @@ class Gear:
 
                     # Count LRM tubes that can fire special ammo
                     # Missing: NLRM-10, NLRM-15, NLRM-20
-                    for launcher in LAUNCHER_LIST:
+                    for launcher in LRM_LIST:
                         if (name.name == launcher[0]):
                             self.lrms += launcher[2]
                             self.l_heat += weap.get_heat()

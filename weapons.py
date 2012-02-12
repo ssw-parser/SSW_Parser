@@ -838,19 +838,19 @@ WEAPONS = {
 
 # List of launcher names, shorthand and tubes
 # Missing: NLRM-10, NLRM-15, NLRM-20
-LAUNCHER_LIST = [["(IS) LRM-5", "i5:", 5],
-                 ["(IS) LRM-10", "i10:", 10],
-                 ["(IS) LRM-15", "i15:", 15],
-                 ["(IS) LRM-20", "i20:", 20],
-                 ["(CL) LRM-5", "c5:", 5],
-                 ["(CL) LRM-10", "c10:", 10],
-                 ["(CL) LRM-15", "c15:", 15],
-                 ["(CL) LRM-20", "c20:", 20],
-                 ["(IS) Enhanced LRM-5", "n5:", 5],
-                 ["(IS) MML-3", "m3:", 3],
-                 ["(IS) MML-5", "m5:", 5],
-                 ["(IS) MML-7", "m7:", 7],
-                 ["(IS) MML-9", "m9:", 9]]
+LRM_LIST = [["(IS) LRM-5", "i5:", 5],
+            ["(IS) LRM-10", "i10:", 10],
+            ["(IS) LRM-15", "i15:", 15],
+            ["(IS) LRM-20", "i20:", 20],
+            ["(CL) LRM-5", "c5:", 5],
+            ["(CL) LRM-10", "c10:", 10],
+            ["(CL) LRM-15", "c15:", 15],
+            ["(CL) LRM-20", "c20:", 20],
+            ["(IS) Enhanced LRM-5", "n5:", 5],
+            ["(IS) MML-3", "m3:", 3],
+            ["(IS) MML-5", "m5:", 5],
+            ["(IS) MML-7", "m7:", 7],
+            ["(IS) MML-9", "m9:", 9]]
 
 class Weaponlist:
     """
