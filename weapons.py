@@ -836,6 +836,21 @@ WEAPONS = {
          "T", 0, 6.5, 0]
     }
 
+# List of secondary weapons.
+#
+# These weapons are meant to be filtered out when considering a mech's main
+# armaments.
+#
+SECONDARY_LIST = ["(IS) Small Laser", # 0.5t
+                  "(IS) Flamer", # 1t
+                  "(IS) Machine Gun", # 0.5t
+                  "(IS) Medium Laser", # 1t
+                  "(IS) Small Pulse Laser", # 1t
+                  "(IS) ER Medium Laser", # 1t
+                  "(IS) Medium Pulse Laser", # 2t
+                  "(IS) ER Small Laser" # 0.5t
+                  ]
+
 # List of LRM launcher names, shorthand and tubes
 # Missing: NLRM-10, NLRM-15, NLRM-20
 LRM_LIST = [["(IS) LRM-5", "i5:", 5],
@@ -892,6 +907,36 @@ class Weaponlist:
                 dam += weap.get_damage(rnge) * weap.count
 
         return dam
+
+
+    def all_summary(self):
+        """
+        Return a short description string for all weapons.
+        """
+        w_str = ""
+        for weap in self.list:
+            if (weap.count > 0):
+                w_str += weap.get_short_count() + " "
+
+        return w_str
+
+
+    def main_summary(self):
+        """
+        Return a short description string for main weapons.
+        """
+        w_str = ""
+        for weap in self.list:
+            if (weap.count > 0):
+                # Filter out secondary weapons
+                found = False
+                for sec in SECONDARY_LIST:
+                    if sec == weap.name:
+                        found = True
+                if not found:
+                    w_str += weap.get_short_count() + " "
+
+        return w_str
 
 
     def std_summary(self, rnge):

@@ -326,6 +326,97 @@ def print_speed_list(file_list, select_l, header):
         print ("%-30s %3d %4d %2d/%2d/%2d %-4s %d   %s" % 
                (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9]))
 
+## Weapons listing
+
+def create_weapon_list_item(mech, i):
+    """
+    Compile info used by print_weapon_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    l_str = ""
+    l_str = i.gear.weaponlist.all_summary()
+               
+    return (name_str, weight, batt_val, mov, l_str)
+
+def print_weapon_list(file_list, select_l, header):
+    """
+    weapon_list output
+
+    In the form of name, weight, BV, Movement, weapon details
+    sorted by BV, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_weapon_list_item)
+
+    # Sort by BV
+    mech_list.sort(key=itemgetter(2), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Mov Weapons/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4]))
+
+
+def create_main_weapon_list_item(mech, i):
+    """
+    Compile info used by print_main_weapon_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    l_str = ""
+    l_str = i.gear.weaponlist.main_summary()
+
+    # No big main weapon
+    if l_str == "":
+        return False
+               
+    return (name_str, weight, batt_val, mov, l_str)
+
+def print_main_weapon_list(file_list, select_l, header):
+    """
+    main_weapon_list output
+
+    In the form of name, weight, BV, Movement, weapon details
+    sorted by BV, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_main_weapon_list_item)
+
+    # Sort by BV
+    mech_list.sort(key=itemgetter(2), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Mov Weapons/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4]))
+
+
 ## LRM tubes listing
 
 def create_missile_list_item(mech, i):
@@ -971,6 +1062,10 @@ def parse_arg():
     parser.add_argument('-srm', action='store_const',
                         help='SRM list output',
                         dest = 'output', const = 'srm')
+    parser.add_argument('-w', action='store_const', help='Weapon list output',
+                        dest = 'output', const = 'w')
+    parser.add_argument('-mw', action='store_const', help='Weapon list output',
+                        dest = 'output', const = 'mw')
     # Filter arguments
     parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
     parser.add_argument('-c', action='store_true',
@@ -1136,6 +1231,10 @@ def main():
         print_autocannon_list(file_list, select_l, header)
     elif args.output == 'srm':
         print_srm_list(file_list, select_l, header)
+    elif args.output == 'w':
+        print_weapon_list(file_list, select_l, header)
+    elif args.output == 'mw':
+        print_main_weapon_list(file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
