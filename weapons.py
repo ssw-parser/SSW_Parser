@@ -912,6 +912,25 @@ class Weaponlist:
         return (w_str, dam, heat)
 
 
+    def list_summary(self, w_list, rnge):
+        """
+        Count total damage and heat from weapons in w_list at a given range.
+        Also return a short description string.
+        Return is in the form (string, damage, heat).
+        """
+        w_str = ""
+        dam = 0
+        heat = 0
+        for weap in self.list:
+            for launcher in w_list:
+                if (weap.name == launcher[0] and weap.count > 0):
+                    w_str += weap.get_short_count() + " "
+                    dam += weap.get_damage(rnge) * weap.count
+                    heat += weap.get_heat() * weap.count
+
+        return (w_str, dam, heat)
+
+
 class Weapon:
     """
     An individual weapon type

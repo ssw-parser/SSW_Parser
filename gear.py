@@ -556,7 +556,6 @@ class Gear:
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
         self.lrms = 0
-        self.l_heat = 0
         self.srms = 0
         self.has_ac = False
 
@@ -598,7 +597,6 @@ class Gear:
                     for launcher in LRM_LIST:
                         if (name.name == launcher[0]):
                             self.lrms += launcher[2]
-                            self.l_heat += weap.get_heat()
 
                     # Count SRM tubes that can fire special ammo
                     for launcher in SRM_LIST:

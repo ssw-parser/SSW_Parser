@@ -344,7 +344,6 @@ def create_missile_list_item(mech, i):
     if lrm == 0:
         return False
 
-    l_heat = str(i.gear.l_heat) + "/" + str(i.get_sink())
     if i.artemis4 == "TRUE":
         art = "AIV"
     elif i.artemis5 == "TRUE":
@@ -358,13 +357,10 @@ def create_missile_list_item(mech, i):
         mov += "j"
 
     l_str = ""
-    for weap in i.gear.weaponlist.list:
-        for launcher in LRM_LIST:
-            if (weap.name == launcher[0] and weap.count > 0):
-#                l_str += launcher[1] + str(weap.count) + "/"
-#                l_str += str(weap.get_ammo_per_weapon()) + " "
-                l_str += weap.get_short_count() + " "
-               
+    (l_str, dam, heat) = i.gear.weaponlist.list_summary(LRM_LIST, 18)
+
+    l_heat = str(heat) + "/" + str(i.get_sink())
+
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
 def print_missile_list(file_list, select_l, header):
