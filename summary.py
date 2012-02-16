@@ -419,13 +419,7 @@ def create_srm_list_item(mech, i):
 
     heat = 0
     l_str = ""
-    for weap in i.gear.weaponlist.list:
-        for launcher in SRM_LIST:
-            if (weap.name == launcher[0] and weap.count > 0):
-#                l_str += launcher[1] + str(weap.count) + "/"
-#                l_str += str(weap.get_ammo_per_weapon()) + " "
-                l_str += weap.get_short_count() + " "
-                heat += weap.get_heat() * weap.count
+    (l_str, dam, heat) = i.gear.weaponlist.list_summary(SRM_LIST, 6)
 
     l_heat = str(heat) + "/" + str(i.get_sink())
                
@@ -485,14 +479,7 @@ def create_autocannon_list_item(mech, i):
     dam = 0
     heat = 0
     l_str = ""
-    for weap in i.gear.weaponlist.list:
-        for launcher in AC_LIST:
-            if (weap.name == launcher[0] and weap.count > 0):
-#                l_str += launcher[1] + str(weap.count) + "/"
-#                l_str += str(weap.get_ammo_per_weapon()) + " "
-                l_str += weap.get_short_count() + " "
-                dam += weap.get_damage(9) * weap.count
-                heat += weap.get_heat() * weap.count
+    (l_str, dam, heat) = i.gear.weaponlist.list_summary(AC_LIST, 9)
 
     l_heat = str(heat) + "/" + str(i.get_sink())
                
