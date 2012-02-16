@@ -547,12 +547,7 @@ def create_std_list_item(mech, i, rnge):
     dam = 0
     heat = 0
     l_str = ""
-
-    for weap in i.gear.weaponlist.list:
-        if (weap.check_range(rnge) and weap.count > 0):
-            l_str += weap.get_short_count() + " "
-            dam += weap.get_damage(rnge) * weap.count
-            heat += weap.get_heat() * weap.count
+    (l_str, dam, heat) = i.gear.weaponlist.std_summary(rnge)
 
     l_heat = str(int(heat)) + "/" + str(i.get_sink())
 
