@@ -897,6 +897,16 @@ class Weaponlist:
         for weap in WEAPONS.keys():
             self.list.append(Weapon(weap, art4, art5, apollo))
 
+    def get_rules_level(self):
+        """
+        Return rules level for all weapons
+        """
+        r_level = 0
+        for weap in self.list:
+            if weap.get_rules_level() > r_level:
+                r_level = weap.get_rules_level()
+        return r_level
+
     def count_damage(self, rnge):
         """
         Count total damage from weapons at a given range
@@ -1004,6 +1014,12 @@ class Weapon:
         # Tarcomp, we can not know if one is present right now
         elif (WEAPONS[key][6] == "T"):
             self.enhance = "TC"
+
+    def get_rules_level(self):
+        """
+        Return rules level
+        """
+        return WEAPONS[self.name][2]
 
     def get_weight(self):
         """
