@@ -83,21 +83,6 @@ def create_header(header_l):
     return header
 
 
-def armor_letter(percent):
-    """
-    ANS Kamas P81's armor granding system
-    """
-    if percent < 50:
-        return "F"
-    elif percent <= 60:
-        return "D"
-    elif percent <= 75:
-        return "C"
-    elif percent <= 90:
-        return "B"
-    else:
-        return "A"
-
 ###############################
 ##### Mech entry creation #####
 ###############################
@@ -823,11 +808,6 @@ def create_headcap_list_item(mech, i):
     for weap in i.gear.weaponlist.list:
         for capper in capper_list:
             if (weap.name == capper[0] and weap.count > 0):
-#                if weap.useammo > 0:
-#                    l_str += capper[1] + str(weap.count) + "/"
-#                    l_str += str(weap.get_ammo_per_weapon()) + " "
-#                else:
-#                    l_str += capper[1] + str(weap.count) + " "
                 l_str += weap.get_short_count() + " "
                 cap += weap.count
 
