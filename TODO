@@ -4,13 +4,15 @@
 Goshawk II 3.ssw -- armored components
 Templar TLR1-OU -- missing due to no record sheets for main configs
 Turkina U -- armored components
+Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
+between MUL and SSW
 
 == PRIORITY ==
 - Track Intro, TL, Advanced and Experimental
 - Law of Demeter, avoid accessing low-level object data
 
 == Goals ==
-- Mech lists for Klondike, 3050 Star League, 3055 Solaris, 3085 Phoenix
+- Mech lists for Klondike, 3050 Star League, 3055 Solaris
 - BattleForce infomation
 - missing ammo, missing TO stuff
 - Tacops armor
