@@ -132,7 +132,8 @@ STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
-# Missing: Industrial, Heavy Industrial, Commericial, TO armor
+# Missing: Industrial, Heavy Industrial, Commericial, Hardened, L-R (Clan),
+# Modular, Reactive (both)
 ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0],
          ["Ferro-Fibrous", 0, 1.0, 1.12, 1],
          ["Ferro-Fibrous", 1, 1.0, 1.2, 1],
@@ -140,6 +141,7 @@ ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0],
          ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1],
          ["Stealth Armor", 0, 1.0, 1.0, 1],
          ["Primitive Armor", 0, 1.0, 0.67, 4],
+         ["Laser-Reflective", 0, 1.5, 1.0, 2],
          ["Ferro-Lamellor", 1, 1.2, 0.9, 2]]
 
 
