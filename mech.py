@@ -131,6 +131,9 @@ class Mech:
         spd = self.engine.speed
         factor = 1.5
         rspeed = int(ceil(spd * factor))
+        # Hardened Armor
+        if self.armor.atype == "Hardened Armor":
+            rspeed -= 1
         return rspeed
 
     def get_max_run(self):
@@ -146,6 +149,9 @@ class Mech:
         if self.load.gear.supercharger:
             factor += 0.5
         rspeed = int(ceil(spd * factor))
+        # Hardened Armor
+        if self.armor.atype == "Hardened Armor":
+            rspeed -= 1
 #        rspeed = int(ceil(spd * 1.5))
 #        if self.engine.enhancement == "TSM":
 #            rspeed = int(ceil((spd + 1) * 1.5))
