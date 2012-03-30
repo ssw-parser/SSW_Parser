@@ -266,6 +266,7 @@ EQUIPMENT = {
     "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 1, 0],
     "Lift Hoist" : [[0, 0], 1, 3, 0, 0],
     # Experimental
+    "Chaff Pod" : [[19, 0], 2, 1, 0, 1],
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 1, 0, 1],
     "C3 Boosted Computer (Slave)" : [[0, 0], 3, 3, 0, 0],
