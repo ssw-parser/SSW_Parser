@@ -116,11 +116,12 @@ LEG_IS = {
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
-# Missing: Industrial
+# Missing: Industrial, Reinforced
 STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
              ["Endo-Steel", 0, 1.0, 0.05, 1],
              ["Endo-Steel", 1, 1.0, 0.05, 1],
              ["Primitive Structure", 0, 1.0, 0.1, 4],
+             ["Composite Structure", 0, 1.0, 0.05, 2],
              ["Endo-Composite", 1, 1.0, 0.075, 2]]
 
 

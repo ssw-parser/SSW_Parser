@@ -220,6 +220,7 @@ AMMO = {
     "(CL) @ Rotary AC/5" : [["(CL) Rotary AC/5"], 20, 1, "X"],
     "(CL) @ Protomech AC/4" : [["(CL) Protomech AC/4"], 20, 1, "X"],
     "(CL) @ Streak LRM-10" : [["(CL) Streak LRM-10"], 12, 1, "X"],
+    "(CL) @ Streak LRM-15" : [["(CL) Streak LRM-15"], 8, 1, "X"],
     "(CL) @ 'Mech Mortar 8 (Anti-Personnel)" :
         [["(CL) Mech Mortar 8"], 4, 1, "X"],
     "@ Heavy Flamer" : [["Heavy Flamer"], 10, 1, "X"],

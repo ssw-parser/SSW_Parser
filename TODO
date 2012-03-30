@@ -23,6 +23,7 @@ Wolfhound WLF-2X -- A.E.S.
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
 - Handle armored components
+- Handle A.E.S.
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?
