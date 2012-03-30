@@ -8,6 +8,11 @@ Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
 between MUL and SSW
 Wolfhound WLF-2X -- A.E.S.
 Grasshopper GHR-7X -- Torso-mounted Cockpit
+Annihilator ANH-2AX - armored components
+
+== UNABLE TO BUILD IN SSW ==
+
+Schwerer Gustav -- Frankenmech
 
 == PRIORITY ==
 - Track Intro, TL, Advanced and Experimental
@@ -23,7 +28,7 @@ Grasshopper GHR-7X -- Torso-mounted Cockpit
 -- Null sig, chameleon, void sig
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
-- Handle armored components
+- Handle armored components (priority: head)
 - Handle A.E.S.
 - Handle Torso-mounted Cockpit BV
 
