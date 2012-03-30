@@ -264,6 +264,7 @@ EQUIPMENT = {
     "Cargo, Liquid" : [[0, 0], 1, 1, 0, 0],
     "Communications Equipment" : [[0, 0], 1, 1, 0, 0],
     "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 1, 0],
+    "Lift Hoist" : [[0, 0], 1, 3, 0, 0],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], 3, 16, 0, 0],
     "Coolant Pod" : [[0, 0], 2, 1, 0, 1],
