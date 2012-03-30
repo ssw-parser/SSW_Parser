@@ -116,12 +116,13 @@ LEG_IS = {
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
-# Missing: Industrial, Reinforced
+# Missing: Industrial, IS Endo-Composite
 STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
              ["Endo-Steel", 0, 1.0, 0.05, 1],
              ["Endo-Steel", 1, 1.0, 0.05, 1],
              ["Primitive Structure", 0, 1.0, 0.1, 4],
              ["Composite Structure", 0, 1.0, 0.05, 2],
+             ["Reinforced Structure", 2, 2.0, 0.2, 2],
              ["Endo-Composite", 1, 1.0, 0.075, 2]]
 
 
@@ -133,7 +134,7 @@ STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
-# Missing: Industrial, Heavy Industrial, Commericial, L-R (Clan),
+# Missing: Industrial, Heavy Industrial, Commercial, L-R (Clan),
 # Modular, Reactive (both)
 ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0],
          ["Ferro-Fibrous", 0, 1.0, 1.12, 1],
