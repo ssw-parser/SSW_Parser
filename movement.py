@@ -485,6 +485,7 @@ ENHANCEMENT = [["---", 2, (lambda x : 0)], #None
 #
 COCKPIT = [["Standard Cockpit", 3, 0],
            ["Small Cockpit", 2, 1],
+           ["Torso-Mounted Cockpit", 4, 2],
            ["Primitive Cockpit", 5, 4]]
 
 
@@ -496,8 +497,11 @@ class Cockpit(Item):
     def __init__(self, cpt):
         Item.__init__(self)
         cnode = cpt.getElementsByTagName("type")[0]
-        self.console = cnode.attributes["commandconsole"].value
         self.type = gettext(cnode.childNodes)
+        if self.type != "Torso-Mounted Cockpit":
+            self.console = cnode.attributes["commandconsole"].value
+        else:
+            self.console = "FALSE"
         self.c_weight = 0
 
         # Check for legal cockpit type, save data
