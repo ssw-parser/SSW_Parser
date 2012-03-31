@@ -831,6 +831,13 @@ WEAPONS = {
         ["RAC5", [345, 43], 3,
          6, (lambda x, y : 5 * calc_average(6, 0)), [0, 7, 14, 21],
          "T", 6, 10, 0],
+    "(IS) Bombast Laser (Insulated)" : ["BmbL", [137, 0], 3,
+                            11, (lambda x, y : 12), [0, 5, 10, 15],
+                            "T", 0, 7.5, 0],
+   "(IS) Medium Variable Speed Pulse Laser (Insulated)" :
+        ["MVSPL", [56, 0], 3,
+         6, (lambda x, y : mvspl_damage(x)), [0, 2, 5, 9],
+         "T", 0, 4.5, 0],
     "(CL) ER Medium Pulse Laser (Insulated)" :
         ["ERMPL", [117, 0], 3,
          5, (lambda x, y : 7), [0, 5, 9, 14],
