@@ -228,6 +228,8 @@ AMMO = {
     "(IS) @ HVAC/10" : [["(IS) Hyper-Velocity Autocannon/10"], 8, 1, "X"],
     "(IS) @ Improved Heavy Gauss Rifle" :
         [["(IS) Improved Heavy Gauss Rifle"], 4, 1, ""],
+    "(IS) @ Silver Bullet Gauss" :
+        [["(IS) Silver Bullet Gauss"], 8, 1, ""],
     # Artillery
     "(IS) @ Arrow IV (Non-Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],
     "(IS) @ Arrow IV (Homing)" : [["(IS) Arrow IV Missile"], 5, 1, "X"],

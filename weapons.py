@@ -226,7 +226,7 @@ def lvspl_damage(rnge):
 #
 # TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots
 # TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots
-# TODO: New TL: Silver Bullet, VGL, NLRM10, NLRM15, NLRM20,
+# TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
 # Mech Mortars, Imp OS, Artillery Cannons, HVAC2, HVAC5, Chemical Lasers,
@@ -694,7 +694,10 @@ WEAPONS = {
     "(IS) Magshot Gauss Rifle" : ["MSGR", [15, 2], 1,
                                   1, (lambda x, y : 2), [0, 3, 6, 9],
                                   "T", 1, 0.5, 2],
-    # Silver Bullet
+    "(IS) Silver Bullet Gauss" :
+        ["SBGR", [198, 25], 1,
+         1, (lambda x, y : calc_average(15, 0)), [2, 7, 15, 22],
+         "", 1, 15, 7],
     # VGL
     "(IS) Binary Laser Cannon" : ["BLC", [222, 0], 1,
                                   16, (lambda x, y : 12), [0, 5, 10, 15],
