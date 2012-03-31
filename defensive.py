@@ -375,11 +375,16 @@ class Armor(Item):
         self.total = ArmorLoc("Total", armortotal, (maxtotal - 9) / 2 + 3,
                               maxtotal)
 
-    def get_armor_bv(self):
+    def get_armor_bv(self, torso):
         """
         Return armor BV
         """
-        return (self.armor_bv * 2.5 * self.total.arm)
+        if torso:
+            # count center torso armor twice for torso cockpit
+            armor = self.total.arm + self.c_torso.get_total()
+            return (self.armor_bv * 2.5 * armor)
+        else:
+            return (self.armor_bv * 2.5 * self.total.arm)
        
 
     def get_bf_value(self):

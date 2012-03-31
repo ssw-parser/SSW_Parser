@@ -7,16 +7,13 @@ Turkina U -- armored components
 Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
 between MUL and SSW
 Wolfhound WLF-2X -- A.E.S.
-Grasshopper GHR-7X -- Torso-mounted Cockpit
 Annihilator ANH-2AX - armored components
 Victor VTR-9K2 St. James -- Patchwork armor
 Valiant VAL-NT-JX -- A.E.S.
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod
-Hunchback HBK-7X-4 -- armored components, torso cockpit
-Quickdraw QKD-8X -- torso cockpit
+Hunchback HBK-7X-4 -- armored components
 Whitworth WTH-5S -- A.E.S.
 Merlin MLN-SX -- armored components
-Legionnaire LGN-2X1 Muse Fire -- Torso cockpit
 
 == UNABLE TO BUILD IN SSW ==
 
@@ -41,7 +38,7 @@ TMC-NB Temax Cat Ninjabolt -- Frankenmech
 
 - Handle armored components (priority: head)
 - Handle A.E.S.
-- Handle Torso-mounted Cockpit BV
+- Handle M-pods
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?

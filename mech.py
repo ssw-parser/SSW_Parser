@@ -253,7 +253,10 @@ class Mech:
         """
         dbv = 0.0
         # Armor
-        cur = self.armor.get_armor_bv()
+        torso_cockpit = False
+        if self.cockpit.type == "Torso-Mounted Cockpit":
+            torso_cockpit = True
+        cur = self.armor.get_armor_bv(torso_cockpit)
         dbv += cur
         if (printq):
             print "Armor Def BV: ", cur
@@ -346,7 +349,8 @@ class Mech:
         Get the BV a specific loadout. Use mech.load if not an omni.
         """
         base_bv = self.off_bv(load, False) + self.def_bv(load, False)
-        if self.cockpit.type == "Small Cockpit":
+        if (self.cockpit.type == "Small Cockpit" or
+            self.cockpit.type == "Torso-Mounted Cockpit"):
             batt_val = int(round(base_bv * 0.95))
         else:
             batt_val = int(round(base_bv))
