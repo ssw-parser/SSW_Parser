@@ -230,7 +230,7 @@ def lvspl_damage(rnge):
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
 # Mech Mortars, Imp OS, Artillery Cannons, HVAC2, HVAC5, Chemical Lasers,
-# SLRM-5, SLRM-20, PPC+cap, ERPPC+cap
+# ELRM5, ELRM10, ELRM15, SLRM-5, SLRM-20, PPC+cap
 WEAPONS = {
     ### Inner Sphere, Tech Manual ###
     "(IS) Autocannon/2" : ["AC2", [37, 5], 0,
@@ -799,6 +799,10 @@ WEAPONS = {
          10, (lambda x, y : 2 * calc_average(8, 0)), [6, 7, 14, 21],
          "", 1, 5, 0],
     # ERLMs
+    "(IS) Extended LRM-20" :
+        ["ELRM20", [268, 34], 2,
+         12, (lambda x, y : calc_average(20, 0)), [10, 12, 22, 38],
+         "", 1, 18, 0],
     # SLRM5
     "(CL) Streak LRM-10" : ["SLRM10", [173, 22], 2,
                             4, (lambda x, y : 10), [0, 7, 14, 21],
@@ -810,14 +814,17 @@ WEAPONS = {
     "(IS) Light PPC + PPC Capacitor" : ["LPPC+", [132, 0], 2,
                                         10, (lambda x, y : 10), [3, 6, 12, 18],
                                         "T", 0, 4, 3],
+    # PPC + cap
     "(IS) Heavy PPC + PPC Capacitor" : ["HPPC+", [370, 0], 2,
                         20, (lambda x, y : 20), [3, 6, 12, 18],
                         "T", 0, 11, 5],
+    "(IS) ER PPC + PPC Capacitor" : ["ERPPC+", [343, 0], 2,
+                     20, (lambda x, y : 15), [0, 7, 14, 23],
+                     "T", 0, 8, 4],
     "(IS) Snub-Nose PPC + PPC Capacitor" :
         ["SNPPC+", [252, 0], 2,
          15, (lambda x, y : sn_damage(x) + 5), [0, 9, 13, 15],
          "T", 0, 7, 3],
-    # rest of +PPC cap
     "(IS) BattleMech Taser" : ["TSR", [40, 5], 2,
                                6, (lambda x, y : 1), [0, 1, 2, 4],
                                "", 1, 4, 3],
