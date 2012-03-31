@@ -9,6 +9,7 @@ between MUL and SSW
 Wolfhound WLF-2X -- A.E.S.
 Grasshopper GHR-7X -- Torso-mounted Cockpit
 Annihilator ANH-2AX - armored components
+Victor VTR-9K2 St. James -- Patchwork armor
 Valiant VAL-NT-JX -- A.E.S.
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod
 Hunchback HBK-7X-4 -- armored components, torso cockpit
@@ -19,9 +20,9 @@ Merlin MLN-SX -- armored components
 == UNABLE TO BUILD IN SSW ==
 
 Schwerer Gustav -- Frankenmech
-Victor VTR-9K2 Victor St. James -- Patchwork armor, ends up overweight
 Spatha SP2-X Warlord -- SSW calculates Sword crits incorrectly
 WHM-X7 Warhammer -- Frankenmech
+TMC-NB Temax Cat Ninjabolt -- Frankenmech
 
 == PRIORITY ==
 - Track Intro, TL, Advanced and Experimental
