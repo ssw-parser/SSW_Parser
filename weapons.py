@@ -224,13 +224,14 @@ def lvspl_damage(rnge):
 #
 # To be loaded into the gear class
 #
-# TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots
-# TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots
+# TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots, LRT-20,
+# SRT-2, SRT-6
+# TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
-# Mech Mortars, Imp OS, Artillery Cannons, HVAC2, HVAC5, Chemical Lasers,
-# ELRM5, ELRM10, ELRM15, SLRM-5, SLRM-20, PPC+cap
+# Mech Mortars, Imp OS, Thumper & Sniper Artillery Cannon, HVAC2, HVAC5,
+# Chemical Lasers, ELRM5, ELRM10, ELRM15, SLRM-5, SLRM-20, PPC+cap
 WEAPONS = {
     ### Inner Sphere, Tech Manual ###
     "(IS) Autocannon/2" : ["AC2", [37, 5], 0,
@@ -741,7 +742,11 @@ WEAPONS = {
     "(IS) Sniper" : ["Snpr", [85, 11], 2,
                      10, (lambda x, y : 20), [6, 270, 270, 270],
                      "", 1, 20, 0],
-    # Artillery Cannons
+    # Thumper Cannon
+    # Sniper Cannon
+    "Long Tom Artillery Cannon" : ["LTArtC", [329, 41], 2,
+                                   20, (lambda x, y : 20), [4, 6, 13, 20],
+                                   "", 1, 20, 0],
     # HVAC2
     # HVAC5
     "(IS) Hyper-Velocity Autocannon/10" :
