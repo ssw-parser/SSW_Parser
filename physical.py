@@ -45,6 +45,8 @@ PHYSICAL = {
                (lambda x : ceil_05(x / 20.0)), 0],
     "Small Vibroblade" : [(lambda x : 12), (lambda x : 7.0),
                           (lambda x : 3.0), 3],
+    "Large Vibroblade" : [(lambda x : 24), (lambda x : 14.0),
+                          (lambda x : 7.0), 7],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
     "Talons" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
