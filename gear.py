@@ -160,6 +160,7 @@ AMMO = {
     "(IS) @ Thunderbolt-15" : [["(IS) Thunderbolt-15"], 4, 1, "X"],
     "(IS) @ Thunderbolt-20" : [["(IS) Thunderbolt-20"], 3, 1, "X"],
     "(IS) @ NLRM-5" : [["(IS) Enhanced LRM-5"], 24, 1, "X"],
+    "(IS) @ ELRM-10" : [["(IS) Extended LRM-10"], 9, 1, "X"],
     "(IS) @ ELRM-20" : [["(IS) Extended LRM-20"], 4, 1, "X"],
     # Clan
     "(CL) @ LB 2-X AC (Slug)" : [["(CL) LB 2-X AC"], 45, 1, "X"],
