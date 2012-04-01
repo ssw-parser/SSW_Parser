@@ -248,6 +248,7 @@ AMMO = {
 
 D_PHYSICAL = {
     "Small Shield" : [[50, 0], 3, 2, 0, 0],
+    "Large Shield" : [[263, 0], 3, 6, 0, 0],
     "Spikes" : [[4, 0], 2, 0.5, 0, 0]
     }
 

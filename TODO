@@ -17,6 +17,7 @@ Merlin MLN-SX -- armored components
 Devastator DVS-X10 Muse Earth -- armored components
 No Dachi NDA-3X -- armored components
 Vindicator VND-3LD Dao -- A.E.S.
+Slagmaiden SLG-X -- Large Shield speed reduction
 
 == UNABLE TO BUILD IN SSW ==
 
@@ -25,6 +26,7 @@ Spatha SP2-X Warlord -- SSW calculates Sword crits incorrectly
 WHM-X7 Warhammer The Lich -- Frankenmech
 TMC-NB Temax Cat Ninjabolt -- Frankenmech
 BL-9-KNT Black Knight -- SSW calculates Hatchet crits incorrectly
+Banshee BNC-11X -- Modular Armor
 
 == PRIORITY ==
 - Track Intro, TL, Advanced and Experimental
@@ -40,9 +42,10 @@ BL-9-KNT Black Knight -- SSW calculates Hatchet crits incorrectly
 -- Null sig, chameleon, void sig
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
-- Handle armored components (priority: head)
+- Handle armored components (priority: head, shoulders, hips)
 - Handle A.E.S.
 - Handle M-pods
+- Handle speed reduction from (large) shields
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?

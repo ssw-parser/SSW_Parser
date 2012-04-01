@@ -858,6 +858,10 @@ WEAPONS = {
         ["MVSPL", [56, 0], 3,
          6, (lambda x, y : mvspl_damage(x)), [0, 2, 5, 9],
          "T", 0, 4.5, 0],
+    "(CL) Heavy Large Laser (Insulated)" :
+        ["HLL", [244, 0], 3,
+         17, (lambda x, y : 16), [0, 5, 10, 15],
+         "T", 0, 4.5, 0],
     "(CL) ER Medium Pulse Laser (Insulated)" :
         ["ERMPL", [117, 0], 3,
          5, (lambda x, y : 7), [0, 5, 9, 14],
