@@ -820,10 +820,10 @@ WEAPONS = {
          "", 1, 18, 0],
     # SLRM5
     "(CL) Streak LRM-10" : ["SLRM10", [173, 22], 2,
-                            4, (lambda x, y : 10), [0, 7, 14, 21],
+                            2, (lambda x, y : 10), [0, 7, 14, 21],
                             "", 1, 5, 0],
     "(CL) Streak LRM-15" : ["SLRM15", [259, 32], 2,
-                            5, (lambda x, y : 15), [0, 7, 14, 21],
+                            2.5, (lambda x, y : 15), [0, 7, 14, 21],
                             "", 1, 7, 0],
     # SLRM20
     "(IS) Light PPC + PPC Capacitor" : ["LPPC+", [132, 0], 2,

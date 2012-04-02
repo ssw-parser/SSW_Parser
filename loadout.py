@@ -184,6 +184,8 @@ class Load:
             if (over > 0 and i[1] > 0):
                 bwbr += i[0] / 2.0
                 heat += i[1]
+                if (printq):
+                    print "Over-heat"
             else:
                 bwbr += i[0]
                 heat += i[1]
