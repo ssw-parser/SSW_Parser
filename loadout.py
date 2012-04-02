@@ -68,12 +68,16 @@ class Load:
 
         # Get Armored locations
         self.arm_loc = []
+        self.arm_gyro = False
         for arm in load.getElementsByTagName('armored_locations'):
             for loc in arm.getElementsByTagName('location'):
                 index = int(loc.attributes["index"].value)
                 location = gettext(loc.childNodes)
                 print "Armored: ", location, index
                 self.arm_loc.append((location, index))
+                # Armored Gyro
+                if location == "CT" and index == 3:
+                    self.arm_gyro = True
 
         self.prod_era = prod_era
 
@@ -158,6 +162,23 @@ class Load:
             elif ((i[0] == "HD" and mech.cockpit.type == "Small Cockpit") and
                   (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 3)):
                 dbv += 5
+                # Track things left
+                arm_loc.remove(i)
+            # Standard & Heavy-Duty Gyro, BV calculated elsewhere
+            elif ((i[0] == "CT" and (mech.gyro.gtype == "Standard Gyro" or
+                                     mech.gyro.gtype)) and
+                  (i[1] == 3 or i[1] == 4 or i[1] == 5 or i[1] == 6)):
+                # Track things left
+                arm_loc.remove(i)
+            # Compact Gyro, BV calculated elsewhere
+            elif ((i[0] == "CT" and mech.gyro.gtype == "Compact Gyro") and
+                  (i[1] == 3 or i[1] == 4)):
+                # Track things left
+                arm_loc.remove(i)
+            # Extra-Light Gyro, BV calculated elsewhere
+            elif ((i[0] == "CT" and mech.gyro.gtype == "Extra-Light Gyro") and
+                  (i[1] == 3 or i[1] == 4 or i[1] == 5 or i[1] == 6 or
+                   i[1] == 7 or i[i] == 8)):
                 # Track things left
                 arm_loc.remove(i)
             else:

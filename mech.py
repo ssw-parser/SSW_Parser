@@ -267,6 +267,13 @@ class Mech:
             print "Internal Def BV: ", cur
         # Gyro
         cur = self.weight * self.gyro.get_bv_mod()
+        if (load.arm_gyro and (self.gyro.gtype == "Standard Gyro" or
+                               self.gyro.gtype == "Heavy-Duty Gyro")):
+            cur *= 1.20
+        elif (load.arm_gyro and self.gyro.gtype == "Compact Gyro"):
+            cur *= 1.10
+        elif (load.arm_gyro and self.gyro.gtype == "Extra-Light Gyro"):
+            cur *= 1.30
         dbv += cur
         if (printq):
             print "Gyro Def BV: ", cur
