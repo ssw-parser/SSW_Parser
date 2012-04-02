@@ -33,7 +33,7 @@ Banshee BNC-11X -- Modular Armor
 - Law of Demeter, avoid accessing low-level object data
 
 == Goals ==
-- Mech lists for Klondike, 3050 Star League, 3055 Solaris
+- Mech lists for Klondike, 3055 Solaris
 - BattleForce infomation
 - missing ammo, missing TO stuff
 - Tacops armor
