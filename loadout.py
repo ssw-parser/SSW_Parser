@@ -67,13 +67,13 @@ class Load:
         self.jumpb = JumpBoosters(weight, jumpb)
 
         # Get Armored locations
-        arm_loc = []
+        self.arm_loc = []
         for arm in load.getElementsByTagName('armored_locations'):
             for loc in arm.getElementsByTagName('location'):
                 index = int(loc.attributes["index"].value)
                 location = gettext(loc.childNodes)
                 print "Armored: ", location, index
-                arm_loc += [location, index]
+                self.arm_loc.append((location, index))
 
         self.prod_era = prod_era
 
@@ -138,11 +138,33 @@ class Load:
         move_heat = max(run_heat, self.jjets.get_heat(mech))
         return move_heat
 
-    def get_def_bv(self):
+    def get_def_bv(self, mech):
         """
         Get defensive equipment BV
         """
-        return self.gear.get_def_bv()
+        dbv = self.gear.get_def_bv()
+        # Track things left
+        arm_loc = self.arm_loc[:]
+        # Deal with armored components
+        for i in self.arm_loc:
+            # Standard cockpit: sensors, cockpit & life support
+            if ((i[0] == "HD" and mech.cockpit.type == "Standard Cockpit") and
+                 (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 4 or
+                  i[1] == 5)):
+                dbv += 5
+                # Track things left
+                arm_loc.remove(i)
+            # Small cockpit: sensors, cockpit & life support
+            elif ((i[0] == "HD" and mech.cockpit.type == "Small Cockpit") and
+                  (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 3)):
+                dbv += 5
+                # Track things left
+                arm_loc.remove(i)
+            else:
+                print "Unknown armored item: ", i[0], i[1]
+                print "Left: ", arm_loc
+                raise NotImplementedError
+        return dbv
 
     def off_bv(self, mech, printq):
         """
