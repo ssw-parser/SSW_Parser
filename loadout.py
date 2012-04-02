@@ -150,11 +150,19 @@ class Load:
         for weap in self.gear.weaponlist.list:
             if weap.count > 0:
                 i = weap.count
+                la = weap.count_la
+                ra = weap.count_ra
                 if (flip and (i - weap.count_la - weap.count_ra > 0)):
                     batt_val = weap.get_bv(self.gear.tarcomp) / 2.0
                 else:
                     batt_val = weap.get_bv(self.gear.tarcomp)
-
+                # Handle AES
+                if (la > 0 and self.aes_la):
+                    batt_val *= 1.5
+                    la -= 1
+                elif (ra > 0 and self.aes_ra):
+                    batt_val *= 1.5
+                    ra -= 1
                 while (i):
                     w_list.append((batt_val, weap.get_heat(), weap.name))
                     i -= 1
