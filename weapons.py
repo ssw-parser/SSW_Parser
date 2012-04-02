@@ -229,7 +229,7 @@ def lvspl_damage(rnge):
 # TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
-# TODO: Advanced: Thumper, PMAC/2, PMAC/8, Fluid Gun, iHSL, iHLL,
+# TODO: Advanced: Thumper, PMAC/2, Fluid Gun, iHSL, iHLL,
 # Mech Mortars, Imp OS, Thumper & Sniper Artillery Cannon, HVAC2, HVAC5,
 # Chemical Lasers, ELRM5, ELRM15, SLRM-5, SLRM-20, PPC+cap
 WEAPONS = {
@@ -757,7 +757,9 @@ WEAPONS = {
     "(CL) Protomech AC/4" : ["PAC4", [49, 6], 2,
                              1, (lambda x, y : 4), [0, 5, 10, 15],
                              "T", 1, 4.5, 0],
-    # Protomech AC/8
+    "(CL) Protomech AC/8" : ["PAC8", [66, 8], 2,
+                             2, (lambda x, y : 8), [0, 3, 7, 10],
+                             "T", 1, 5.5, 0],
     # Fluid Gun
     "(IS) Bombast Laser" : ["BmbL", [137, 0], 2,
                             12, (lambda x, y : 12), [0, 5, 10, 15],
