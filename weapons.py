@@ -1035,7 +1035,8 @@ class Weapon:
         self.explosive = WEAPONS[key][9]
         self.count = 0
         self.countrear = 0
-        self.countarm = 0 # We count arm weapons also, to help with BV calcs
+        self.count_la = 0 # We count arm weapons also, to help with BV calcs
+        self.count_ra = 0 # and A.E.S.
         self.ammocount = 0
         self.ammo_ton = 0
 
@@ -1159,12 +1160,19 @@ class Weapon:
         """
         self.countrear = self.countrear + 1
 
-    def addone_arm(self):
+    def addone_right_arm(self):
         """
-        Add a weapon to arms.
+        Add a weapon to right arm.
         Note that addone needs also to be called
         """
-        self.countarm = self.countarm + 1
+        self.count_ra = self.count_ra + 1
+
+    def addone_left_arm(self):
+        """
+        Add a weapon to left arm.
+        Note that addone needs also to be called
+        """
+        self.count_la = self.count_la + 1
 
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works

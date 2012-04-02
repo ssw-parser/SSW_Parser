@@ -587,8 +587,10 @@ class Gear:
                         weap.addone()
 
                     # Arm weapons
-                    if name.loc == "RA" or name.loc == "LA":
-                        weap.addone_arm()
+                    if name.loc == "RA":
+                        weap.addone_right_arm()
+                    if name.loc == "LA":
+                        weap.addone_left_arm()
 
                     # track weapons weight
                     self.w_weight += weap.get_weight()
@@ -940,9 +942,10 @@ class Gear:
         bv_rear = 0.0
         # Weapons
         for weap in self.weaponlist.list:
-            if (weap.count - weap.countarm) > 0:
+            if (weap.count - weap.count_la - weap.count_ra) > 0:
                 bv_front += weap.get_bv(self.tarcomp) * (weap.count -
-                                                         weap.countarm)
+                                                         weap.count_la -
+                                                         weap.count_ra)
 
             if weap.countrear > 0:
                 bv_rear += weap.get_bv(self.tarcomp) * weap.countrear

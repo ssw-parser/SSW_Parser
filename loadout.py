@@ -150,7 +150,7 @@ class Load:
         for weap in self.gear.weaponlist.list:
             if weap.count > 0:
                 i = weap.count
-                if (flip and (i - weap.countarm > 0)):
+                if (flip and (i - weap.count_la - weap.count_ra > 0)):
                     batt_val = weap.get_bv(self.gear.tarcomp) / 2.0
                 else:
                     batt_val = weap.get_bv(self.gear.tarcomp)
