@@ -50,6 +50,15 @@ class Load:
         self.jjets = JumpJets(None, weight)
         self.partw = PartialWing(weight, partw)
 
+        # Get Actuator Enhancement System
+        self.aes_ra = False
+        self.aes_la = False
+        for aes in load.getElementsByTagName('arm_aes'):
+            if aes.attributes["location"].value == "LA":
+                self.aes_la = True
+            elif aes.attributes["location"].value == "RA":
+                self.aes_ra = True
+
         # Get jump booster
         jumpb = 0
         for jbo in load.getElementsByTagName('jumpbooster'):

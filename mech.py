@@ -317,13 +317,16 @@ class Mech:
         obv = load.off_bv(self, printq)
 
         # Tonnage (physical)
+        weight_factor = 1.0
+        if (self.load.aes_ra):
+            weight_factor += 0.1
+        if (self.load.aes_la):
+            weight_factor += 0.1
         if (self.enhancement.is_tsm()):
-            weight_factor = self.weight * 1.5
-        else:
-            weight_factor = self.weight
+            weight_factor *= 1.5
         if (printq):
-            print "Weight BV: ", weight_factor
-        obv += weight_factor
+            print "Weight BV: ", weight_factor * self.weight
+        obv += weight_factor * self.weight
 
         # total
         if (printq):
