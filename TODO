@@ -1,18 +1,18 @@
 
 == UNABLE TO PARSE ==
 
-Goshawk II 3.ssw -- armored components
+Goshawk II 3.ssw -- armored components (cockpit)
 Templar TLR1-OU -- missing due to no record sheets for main configs
 Turkina U -- armored components
 Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
 between MUL and SSW
-Annihilator ANH-2AX - armored components
+Annihilator ANH-2AX - armored components (head - everything)
 Victor VTR-9K2 St. James -- Patchwork armor
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod
-Hunchback HBK-7X-4 -- armored components
-Merlin MLN-SX -- armored components
-Devastator DVS-X10 Muse Earth -- armored components
-No Dachi NDA-3X -- armored components
+Hunchback HBK-7X-4 -- armored components (gyro)
+Merlin MLN-SX -- armored components (engine)
+Devastator DVS-X10 Muse Earth -- armored components (shoulders, gyro, hips)
+No Dachi NDA-3X -- armored components (cockpit)
 Slagmaiden SLG-X -- Large Shield speed reduction
 
 == UNABLE TO BUILD IN SSW ==
@@ -41,6 +41,8 @@ Banshee BNC-11X -- Modular Armor
 - Handle armored components (priority: head, shoulders, hips)
 - Handle M-pods
 - Handle speed reduction from (large) shields
+
+- BF stats for added armor types
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?
