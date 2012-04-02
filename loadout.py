@@ -138,6 +138,12 @@ class Load:
         move_heat = max(run_heat, self.jjets.get_heat(mech))
         return move_heat
 
+    def get_def_bv(self):
+        """
+        Get defensive equipment BV
+        """
+        return self.gear.get_def_bv()
+
     def off_bv(self, mech, printq):
         """
         Get offensive weapon and ammo BV

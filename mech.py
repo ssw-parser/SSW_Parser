@@ -271,7 +271,7 @@ class Mech:
         if (printq):
             print "Gyro Def BV: ", cur
         # Defensive equipment
-        cur = load.gear.get_def_bv()
+        cur = load.get_def_bv()
         dbv += cur
         if (printq):
             print "Equipment Def BV: ", cur
