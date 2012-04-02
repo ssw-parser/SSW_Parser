@@ -26,7 +26,7 @@ from math import ceil
 from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Equip, Gear, Heatsinks
-from util import get_child, get_child_data
+from util import gettext, get_child, get_child_data
 
 class Load:
     """
@@ -65,6 +65,15 @@ class Load:
             jumpb = int(jbo.attributes["mp"].value)
 
         self.jumpb = JumpBoosters(weight, jumpb)
+
+        # Get Armored locations
+        arm_loc = []
+        for arm in load.getElementsByTagName('armored_locations'):
+            for loc in arm.getElementsByTagName('location'):
+                index = int(loc.attributes["index"].value)
+                location = gettext(loc.childNodes)
+                print "Armored: ", location, index
+                arm_loc += [location, index]
 
         self.prod_era = prod_era
 
