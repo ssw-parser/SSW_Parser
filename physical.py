@@ -70,13 +70,17 @@ class Physicallist:
         self.name = "physcial"
         self.p_weight = 0
 
-    def add(self, entry):
+    def add(self, entry, loc):
         """
         Add a physical weapon
         """
         for phys in self.list:
             if (entry == phys.name):
                 phys.addone()
+                if loc == "LA":
+                    phys.addone_left_arm()
+                elif loc == "RA":
+                    phys.addone_right_arm()
                 self.p_weight += phys.get_weight()
                 return True
         # No match found
@@ -92,6 +96,8 @@ class Physical:
         self.bv_mult = PHYSICAL[key][0]
         self.heat = PHYSICAL[key][3]
         self.count = 0
+        self.count_la = 0 # Needed for AES
+        self.count_ra = 0
 
     def get_weight(self):
         """
@@ -110,6 +116,20 @@ class Physical:
         Add a physical weapon
         """
         self.count = self.count + 1
+
+    def addone_right_arm(self):
+        """
+        Add a weapon to right arm.
+        Note that addone needs also to be called
+        """
+        self.count_ra = self.count_ra + 1
+
+    def addone_left_arm(self):
+        """
+        Add a weapon to left arm.
+        Note that addone needs also to be called
+        """
+        self.count_la = self.count_la + 1
 
     def get_bv(self):
         """

@@ -717,7 +717,7 @@ class Gear:
 
             # A possible physical weapon
             if (name.typ == 'physical'):
-                found = self.physicallist.add(name.name)
+                found = self.physicallist.add(name.name, name.loc)
                 if found:
                     ident = True
 

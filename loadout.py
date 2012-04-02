@@ -185,7 +185,16 @@ class Load:
         for weap in self.gear.physicallist.list:
             if weap.count > 0:
                 i = weap.count
+                la = weap.count_la
+                ra = weap.count_ra
                 batt_val = weap.get_bv()
+                # Handle AES
+                if (la > 0 and self.aes_la):
+                    batt_val *= 1.5
+                    la -= 1
+                elif (ra > 0 and self.aes_ra):
+                    batt_val *= 1.5
+                    ra -= 1
                 while (i):
                     w_list.append((batt_val, weap.heat, weap.name))
                     i -= 1
