@@ -240,7 +240,8 @@ class Load:
 
         # Physical weapons
         for weap in self.gear.physicallist.list:
-            if weap.count > 0:
+            # Only offensive physical gear
+            if (weap.count > 0 and weap.get_bv() > 0):
                 i = weap.count
                 la = weap.count_la
                 ra = weap.count_ra

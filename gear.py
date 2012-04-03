@@ -715,12 +715,12 @@ class Gear:
                 if found:
                     ident = True
 
-            for phys in self.d_physicallist.list:
-                # non-CASE
-                if (name.name == phys.name and name.typ == 'physical'):
-                    phys.addone()
-                    self.e_weight += phys.weight
-                    ident = True
+#            for phys in self.d_physicallist.list:
+#                # non-CASE
+#                if (name.name == phys.name and name.typ == 'physical'):
+#                    phys.addone()
+#                    self.e_weight += phys.weight
+#                    ident = True
 
             for ammo in self.ammolist.list:
                 if (name.name == ammo.name and name.typ == 'ammunition'):
@@ -813,9 +813,9 @@ class Gear:
                     if bv_ammo > bv_gear:
                         bv_ammo = bv_gear
                     batt_val += bv_ammo
-        for phys in self.d_physicallist.list:
-            if (phys.count > 0):
-                bv_gear = phys.count * phys.batt_val[0]
+        for phys in self.physicallist.list:
+            if (phys.count > 0 and phys.get_defensive_bv() > 0):
+                bv_gear = phys.count * phys.get_defensive_bv()
                 batt_val += bv_gear
         return batt_val
 

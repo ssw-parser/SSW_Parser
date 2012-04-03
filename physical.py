@@ -30,7 +30,7 @@ from util import ceil_05
 # Name, offensive BV formula, defensive BV, damage formula,
 # weight formula, heat
 #
-# TODO: Chain Whip, Flail, rules level
+# TODO: Chain Whip, Flail, Medium Shield, rules level
 #
 PHYSICAL = {
     "Hatchet" : [(lambda x : x * 1.5), 0, (lambda x : ceil(x / 5.0)),
@@ -57,7 +57,14 @@ PHYSICAL = {
     "Talons" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0) / 2.0),
                 (lambda x : ceil(x / 15.0)), 0],
     "Spot Welder" : [(lambda x : 5), 0, (lambda x : 5),
-                     (lambda x : 2), 2]
+                     (lambda x : 2), 2],
+    # Defensive stuff
+    "Small Shield" : [(lambda x : 0), 50, (lambda x : 0),
+                      (lambda x : 2), 0],
+    "Large Shield" : [(lambda x : 0), 263, (lambda x : 0),
+                      (lambda x : 6), 0],
+    "Spikes" : [(lambda x : 0), 4, (lambda x : 0),
+                      (lambda x : 0.5), 0]
     }
 
 class Physicallist:
