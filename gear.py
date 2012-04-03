@@ -782,10 +782,8 @@ class Gear:
                     if bv_ammo > bv_gear:
                         bv_ammo = bv_gear
                     batt_val += bv_ammo
-        for phys in self.physicallist.list:
-            if (phys.count > 0 and phys.get_defensive_bv() > 0):
-                bv_gear = phys.count * phys.get_defensive_bv()
-                batt_val += bv_gear
+        # Defensive physical weapons
+        batt_val += self.physicallist.get_def_bv()
         return batt_val
 
     def get_ammo_exp_bv(self, engine):

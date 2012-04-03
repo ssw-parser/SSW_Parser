@@ -90,6 +90,18 @@ class Physicallist:
         # No match found
         return False
 
+    def get_def_bv(self):
+        """
+        Return defensive BV of all physical weapons
+        """
+        batt_val = 0.0
+        for phys in self.list:
+            if (phys.count > 0 and phys.get_defensive_bv() > 0):
+                bv_gear = phys.count * phys.get_defensive_bv()
+                batt_val += bv_gear
+        return batt_val
+
+
 class Physical:
     """
     A individual physical weapon type
