@@ -49,8 +49,7 @@ Banshee BNC-11X -- Modular Armor
 - Add rules level for stuff.
 - Move weight calculations.
 
-== ssw.py ==
-- Rename? 
+== report.py ==
 
 - Additional checking:
 -- torso bombs
@@ -74,7 +73,6 @@ Banshee BNC-11X -- Modular Armor
 -- Tarcomp status
 
 == summary.py ==
-- Rename?
 
 - List special equipment:
 -- ECM

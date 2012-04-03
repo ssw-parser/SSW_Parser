@@ -5,11 +5,11 @@ programs that reads .ssw mech data files produced by Solaris Skunk Werks:
 - summary.py that takes a list of mechs and output a summary based on
 the command-line switches used.
 
-- ssw.py that output a more detailed analysis of one mech.
+- report.py that output a more detailed analysis of one mech.
 
-summary.py is quite usable, ssw.py is quite raw and still needs work.
+summary.py is quite usable, report.py is quite raw and still needs work.
 
-=== A brief overview of command-line arguments for summary.py ===
+=== A brief overview of command-line arguments for report.py ===
 
 <file>: A file name without switches, is expected to be a valid .ssw
 file.
