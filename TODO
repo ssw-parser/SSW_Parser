@@ -29,7 +29,7 @@ Banshee BNC-11X -- Modular Armor
 - Mech lists for Klondike, 3055 Solaris
 - BattleForce infomation
 - missing ammo, missing TO stuff
-- Tacops armor
+- Tacops Clan reactive, modular & patchwork armor
 - Turret weights
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig
@@ -38,8 +38,6 @@ Banshee BNC-11X -- Modular Armor
 - Handle armored components (priority: head, shoulders, hips)
 - Handle M-pods
 - Handle speed reduction from (large) shields
-
-- BF stats for added armor types
 
 == weapons.py ==
 - Track if linked to artemis, apollo or tarcomp?
@@ -108,6 +106,8 @@ Banshee BNC-11X -- Modular Armor
 --- Average damage
 
 - Filter by source
+
+- Remove duplicates
 
 ===System by ANS Kamas P81===
 

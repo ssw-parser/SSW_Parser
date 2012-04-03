@@ -391,11 +391,17 @@ class Armor(Item):
         """
         Get Battleforce armor value
         """
-        # Note that this needs to be adjusted for advanced armor types
-        # once they gets added
+        # Note that this needs to be adjusted for modular armor
+        # and patchwork armor once it gets added
         armor = self.total.arm
         if self.atype == "Ferro-Lamellor":
             armor *= 1.2
+        elif self.atype == "Hardened Armor":
+            armor *= 1.50
+        elif self.atype == "Laser-Reflective":
+            armor *= 0.75
+        elif self.atype == "Reactive Armor":
+            armor *= 0.75
         return int(round(armor / 30.0))
 
     def get_type(self):
