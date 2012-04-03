@@ -1148,31 +1148,22 @@ class Weapon:
 
         return WEAPONS[self.name][4](rnge, art)
 
-    def addone(self):
+    def addone(self, loc):
         """
         Add a normal-front facing weapon
         """
         self.count = self.count + 1
+        # Also keep track of arm locations
+        if loc == "LA":
+            self.count_la = self.count_la + 1
+        elif loc == "RA":
+            self.count_ra = self.count_ra + 1
 
     def addone_rear(self):
         """
         Add a rear-facing weapon
         """
         self.countrear = self.countrear + 1
-
-    def addone_right_arm(self):
-        """
-        Add a weapon to right arm.
-        Note that addone needs also to be called
-        """
-        self.count_ra = self.count_ra + 1
-
-    def addone_left_arm(self):
-        """
-        Add a weapon to left arm.
-        Note that addone needs also to be called
-        """
-        self.count_la = self.count_la + 1
 
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works

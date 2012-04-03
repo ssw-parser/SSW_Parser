@@ -76,11 +76,7 @@ class Physicallist:
         """
         for phys in self.list:
             if (entry == phys.name):
-                phys.addone()
-                if loc == "LA":
-                    phys.addone_left_arm()
-                elif loc == "RA":
-                    phys.addone_right_arm()
+                phys.addone(loc)
                 self.p_weight += phys.get_weight()
                 return True
         # No match found
@@ -111,25 +107,16 @@ class Physical:
         """
         return PHYSICAL[self.name][1](self.m_weight)
 
-    def addone(self):
+    def addone(self, loc):
         """
         Add a physical weapon
         """
         self.count = self.count + 1
-
-    def addone_right_arm(self):
-        """
-        Add a weapon to right arm.
-        Note that addone needs also to be called
-        """
-        self.count_ra = self.count_ra + 1
-
-    def addone_left_arm(self):
-        """
-        Add a weapon to left arm.
-        Note that addone needs also to be called
-        """
-        self.count_la = self.count_la + 1
+        # Also keep track of arm locations
+        if loc == "LA":
+            self.count_la = self.count_la + 1
+        elif loc == "RA":
+            self.count_ra = self.count_ra + 1
 
     def get_bv(self):
         """

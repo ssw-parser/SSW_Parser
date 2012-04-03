@@ -584,13 +584,7 @@ class Gear:
                     if name.rear:
                         weap.addone_rear()
                     else:
-                        weap.addone()
-
-                    # Arm weapons
-                    if name.loc == "RA":
-                        weap.addone_right_arm()
-                    if name.loc == "LA":
-                        weap.addone_left_arm()
+                        weap.addone(name.loc)
 
                     # track weapons weight
                     self.w_weight += weap.get_weight()
