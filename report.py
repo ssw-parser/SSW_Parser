@@ -172,8 +172,8 @@ def parse_gear(mech):
         if phys.count > 0:
             report = str(phys.count) + " " + phys.name
             dam = phys.get_damage()
-            print report
-            print phys.name, "Damage", dam, "Weight", phys.get_weight()
+            print ("%1d %-20s Dam: %4.1f Wgt: %4.1f" %
+                   (phys.count, phys.name, dam, phys.get_weight()))
 
     # Explosive ammo
     for i in mech.gear.exp_ammo.keys():

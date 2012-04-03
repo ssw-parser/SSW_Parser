@@ -65,8 +65,6 @@ Banshee BNC-11X -- Modular Armor
 -- good armor 1.1-1.25xIS
 - Move date calculations completely to mech.py (and its sub-classes)
 
-- Polish report about physical weapons (for example see Valiant VAL-NT-JX.ssw)
-
 - LRM report:
 -- BF LRM value (remember low ammo reduction)
 -- Artemis status
