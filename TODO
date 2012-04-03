@@ -49,6 +49,11 @@ Banshee BNC-11X -- Modular Armor
 - Add rules level for stuff.
 - Move weight calculations.
 
+== physical.py ==
+- Add rules level
+- Missing: Medium Shield, Flail, Chain Whip
+- Track speed reduction from shields
+
 == report.py ==
 
 - Additional checking:
@@ -59,6 +64,8 @@ Banshee BNC-11X -- Modular Armor
 -- omni fixed heat sinks
 -- good armor 1.1-1.25xIS
 - Move date calculations completely to mech.py (and its sub-classes)
+
+- Polish report about physical weapons (for example see Valiant VAL-NT-JX.ssw)
 
 - LRM report:
 -- BF LRM value (remember low ammo reduction)

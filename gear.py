@@ -242,19 +242,6 @@ AMMO = {
     "@ Sniper" : [["(IS) Sniper"], 10, 1, "X"]
     }
 
-# Equipment,
-#
-# Name : BV, rules level, weight, uses ammo rate, explosive slots
-#
-
-D_PHYSICAL = {
-    "Small Shield" : [[50, 0], 3, 2, 0, 0],
-    "Large Shield" : [[263, 0], 3, 6, 0, 0],
-    "Spikes" : [[4, 0], 2, 0.5, 0, 0]
-    }
-
-
-
 # Equipment
 #
 # Name : def BV, rules level, weight, uses ammo rate, explosive slots
@@ -519,16 +506,6 @@ class Equipment:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-class DefPhysicallist:
-    """
-    Store list with defensive physical items
-    """
-    def __init__(self):
-        self.list = []
-        for phys in D_PHYSICAL.keys():
-            self.list.append(Equipment(phys, D_PHYSICAL))
-        self.name = "physcial"
-
 class Gear:
     """
     Store Gear
@@ -543,7 +520,6 @@ class Gear:
         self.weaponlist = Weaponlist(art4, art5, apollo)
         self.equiplist = Equiplist()
         self.physicallist = Physicallist(weight)
-        self.d_physicallist = DefPhysicallist()
         self.ammolist = Ammolist()
         # Keep track of tarcomp
         self.tarcomp = 0
@@ -714,13 +690,6 @@ class Gear:
                 found = self.physicallist.add(name.name, name.loc)
                 if found:
                     ident = True
-
-#            for phys in self.d_physicallist.list:
-#                # non-CASE
-#                if (name.name == phys.name and name.typ == 'physical'):
-#                    phys.addone()
-#                    self.e_weight += phys.weight
-#                    ident = True
 
             for ammo in self.ammolist.list:
                 if (name.name == ammo.name and name.typ == 'ammunition'):
