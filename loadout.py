@@ -73,7 +73,6 @@ class Load:
             for loc in arm.getElementsByTagName('location'):
                 index = int(loc.attributes["index"].value)
                 location = gettext(loc.childNodes)
-                print "Armored: ", location, index
                 self.arm_loc.append((location, index))
                 # Armored Gyro
                 if location == "CT" and index == 3:

@@ -1119,6 +1119,10 @@ def main():
                     continue
                 file_list.append(fname)
 
+    # Remove duplicates
+    file_list = list(set(file_list))
+
+
     ### Activate selectors ###
 
     # TAG
