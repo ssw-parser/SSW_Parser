@@ -27,35 +27,36 @@ from util import ceil_05
 
 # Melee weapons
 #
-# Name, BV formula, damage formula, weight formula, heat
+# Name, offensive BV formula, defensive BV, damage formula,
+# weight formula, heat
 #
-# TODO: Chain Whip, Flail
+# TODO: Chain Whip, Flail, rules level
 #
 PHYSICAL = {
-    "Hatchet" : [(lambda x : x * 1.5), (lambda x : ceil(x / 5.0)),
+    "Hatchet" : [(lambda x : x * 1.5), 0, (lambda x : ceil(x / 5.0)),
                  (lambda x : ceil(x / 15.0)), 0],
-    "Sword" : [(lambda x : x * 1.725), (lambda x : ceil(x / 10.0) + 1),
+    "Sword" : [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0) + 1),
                (lambda x : ceil_05(x / 20.0)), 0],
-    "Retractable Blade" : [(lambda x : x * 1.725),
-                           (lambda x : ceil(x / 10.0)),
-                           (lambda x : ceil_05(x / 2.0) + 0.5), 0], 
-    "Claws" : [(lambda x : x * 1.275), (lambda x : ceil(x / 7.0)),
+    "Retractable Blade" :
+        [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0)),
+         (lambda x : ceil_05(x / 2.0) + 0.5), 0], 
+    "Claws" : [(lambda x : x * 1.275), 0, (lambda x : ceil(x / 7.0)),
                (lambda x : ceil(x / 15.0)), 0],
-    "Mace" : [(lambda x : x * 1.0), (lambda x : ceil(x / 4.0)),
+    "Mace" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 4.0)),
               (lambda x : ceil(x / 10.0)), 0],
-    "Lance" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0)),
+    "Lance" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0)),
                (lambda x : ceil_05(x / 20.0)), 0],
-    "Small Vibroblade" : [(lambda x : 12), (lambda x : 7.0),
+    "Small Vibroblade" : [(lambda x : 12), 0, (lambda x : 7.0),
                           (lambda x : 3.0), 3],
-    "Medium Vibroblade" : [(lambda x : 17), (lambda x : 10.0),
+    "Medium Vibroblade" : [(lambda x : 17), 0, (lambda x : 10.0),
                            (lambda x : 5.0), 5],
-    "Large Vibroblade" : [(lambda x : 24), (lambda x : 14.0),
+    "Large Vibroblade" : [(lambda x : 24), 0, (lambda x : 14.0),
                           (lambda x : 7.0), 7],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
-    "Talons" : [(lambda x : x * 1.0), (lambda x : ceil(x / 5.0) / 2.0),
+    "Talons" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0) / 2.0),
                 (lambda x : ceil(x / 15.0)), 0],
-    "Spot Welder" : [(lambda x : 5), (lambda x : 5),
+    "Spot Welder" : [(lambda x : 5), 0, (lambda x : 5),
                      (lambda x : 2), 2]
     }
 
@@ -90,7 +91,7 @@ class Physical:
         self.name = key
         self.m_weight = m_weight
         self.bv_mult = PHYSICAL[key][0]
-        self.heat = PHYSICAL[key][3]
+        self.heat = PHYSICAL[key][4]
         self.count = 0
         self.count_la = 0 # Needed for AES
         self.count_ra = 0
@@ -99,13 +100,13 @@ class Physical:
         """
         Return weight
         """
-        return PHYSICAL[self.name][2](float(self.m_weight))
+        return PHYSICAL[self.name][3](float(self.m_weight))
 
     def get_damage(self):
         """
         Return damage
         """
-        return PHYSICAL[self.name][1](self.m_weight)
+        return PHYSICAL[self.name][2](self.m_weight)
 
     def addone(self, loc):
         """
@@ -120,9 +121,13 @@ class Physical:
 
     def get_bv(self):
         """
-        Get BV of physical weapon
+        Get offensive BV of physical weapon
         """
-        dam = PHYSICAL[self.name][1](self.m_weight)
+        dam = PHYSICAL[self.name][2](self.m_weight)
         return self.bv_mult(dam)
 
-
+    def get_defensive_bv(self):
+        """
+        Get defensive BV of physical weapon
+        """
+        return PHYSICAL[self.name][1]
