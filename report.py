@@ -170,7 +170,6 @@ def parse_gear(mech):
     # Print used physicals
     for phys in mech.gear.physicallist.list:
         if phys.count > 0:
-            report = str(phys.count) + " " + phys.name
             dam = phys.get_damage()
             print ("%1d %-20s Dam: %4.1f Wgt: %4.1f" %
                    (phys.count, phys.name, dam, phys.get_weight()))
