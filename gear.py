@@ -765,6 +765,15 @@ class Gear:
         """
         return self.physicallist.p_weight
 
+    def get_speed_adj(self):
+        """
+        Get speed reduction from certain items, like shields.
+        Also add modular armor here.
+        """
+        red = 0
+        red += self.physicallist.get_speed_adj()
+        return red
+
     def get_def_bv(self):
         """
         Get defensive gear BV
