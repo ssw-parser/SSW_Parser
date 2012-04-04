@@ -157,6 +157,12 @@ class Load:
                 dbv += 5
                 # Track things left
                 arm_loc.remove(i)
+            # Standard cockpit: command console
+            elif ((i[0] == "HD" and mech.cockpit.type == "Standard Cockpit") and
+                i[1] == 3 and mech.cockpit.console == "TRUE"):
+                dbv += 5
+                # Track things left
+                arm_loc.remove(i)
             # Small cockpit: sensors, cockpit & life support
             elif ((i[0] == "HD" and mech.cockpit.type == "Small Cockpit") and
                   (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 3)):

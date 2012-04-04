@@ -1,16 +1,22 @@
 
 == UNABLE TO PARSE ==
 
-Templar TLR1-OU -- missing due to no record sheets for main configs
+=== Armored components stuff ===
+
 Turkina U -- armored components (pod-mounted gear)
+Merlin MLN-SX -- armored components (engine)
+Devastator DVS-X10 Muse Earth -- armored components (shoulders, hips,
+ supercharger)
+Atlas AS7-00 Jurn -- armored components (command console, SSW does not
+add the BV for it.)
+
+=== Other reasons ===
+
+Templar TLR1-OU -- missing due to no record sheets for main configs
 Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
 between MUL and SSW
 Victor VTR-9K2 St. James -- Patchwork armor
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod
-Merlin MLN-SX -- armored components (engine)
-Devastator DVS-X10 Muse Earth -- armored components (shoulders, hips,
- supercharger)
-Atlas AS7-00 Jurn -- armored components (command console)
 
 == UNABLE TO BUILD IN SSW ==
 
