@@ -63,6 +63,10 @@ def print_lrm(i):
     print
     print "----------------------------------------"
     print "LRM status:"
+    if i.artemis4 == "TRUE":
+        print "ArtemisIV"
+    elif i.artemis5 == "TRUE":
+        print "ArtemisV"
     print "Nr Name                        Heat Dam Ammo"
     t_dam = 0
     t_heat = 0
@@ -89,6 +93,10 @@ def print_srm(i):
     print
     print "----------------------------------------"
     print "SRM status:"
+    if i.artemis4 == "TRUE":
+        print "ArtemisIV"
+    elif i.artemis5 == "TRUE":
+        print "ArtemisV"
     print "Nr Name                        Heat Dam Ammo"
     t_dam = 0
     t_heat = 0
