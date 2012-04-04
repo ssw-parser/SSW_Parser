@@ -122,13 +122,13 @@ class Mech:
         """
         Get walk speed
         """
-        return self.engine.speed
+        return self.engine.speed + self.load.gear.physicallist.get_speed_adj()
 
     def get_run(self):
         """
         Get standard running speed, with no modifiers
         """
-        spd = self.engine.speed
+        spd = self.engine.speed + self.load.gear.physicallist.get_speed_adj()
         factor = 1.5
         rspeed = int(ceil(spd * factor))
         # Hardened Armor
@@ -140,7 +140,7 @@ class Mech:
         """
         Get maximum running speed
         """
-        spd = self.engine.speed
+        spd = self.engine.speed + self.load.gear.physicallist.get_speed_adj()
         factor = 1.5
         if self.enhancement.is_tsm():
             spd += 1
@@ -163,7 +163,7 @@ class Mech:
         """
         Get Battleforce movement string
         """
-        walk = self.engine.speed
+        walk = self.engine.speed + self.load.gear.physicallist.get_speed_adj()
         jump = load.get_jump()
         # Do not count jumping if UMU is used
         if load.jjets.jjtype == "Mech UMU":
@@ -175,7 +175,7 @@ class Mech:
         if self.load.gear.supercharger:
             factor += 0.25
 
-        bf_str = str(int(self.engine.speed * factor))
+        bf_str = str(int(walk * factor))
         if jump == walk:
             if factor == 1:
                 bf_str += "j"
@@ -424,7 +424,7 @@ class Mech:
         """
         Create a full movement string with TSM and MASC effects
         """
-        spd = self.engine.speed
+        spd = self.engine.speed + self.load.gear.physicallist.get_speed_adj()
         if self.enhancement.is_tsm():
             wstr = str(spd) + "[" + str(spd + 1) + "]"
         else:

@@ -77,6 +77,7 @@ class Physicallist:
             self.list.append(Physical(phys, m_weight))
         self.name = "physcial"
         self.p_weight = 0
+        self.p_speed = 0
 
     def add(self, entry, loc):
         """
@@ -86,9 +87,18 @@ class Physicallist:
             if (entry == phys.name):
                 phys.addone(loc)
                 self.p_weight += phys.get_weight()
+                # Speed reduction from shields
+                if phys.name == "Large Shield":
+                    self.p_speed = -1
                 return True
         # No match found
         return False
+
+    def get_speed_adj(self):
+        """
+        Return possible speed adjustment
+        """
+        return self.p_speed
 
     def get_def_bv(self):
         """
