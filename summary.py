@@ -786,7 +786,7 @@ def create_headcap_list_item(mech, i):
     l_str = ""
     cap = 0
     # List of headcapper names and shorthand
-    # Missing: iHGR, iHLL, PPC + Cap, HPPC + CAP, ERPPC + Cap
+    # Missing: iHLL, PPC + Cap
     # We will ignore the Bombast laser due to its inaccuracy
     capper_list = [["(IS) Autocannon/20", "ac20:"],
                    ["(IS) LB 20-X AC", "lb20:"],
@@ -800,7 +800,10 @@ def create_headcap_list_item(mech, i):
                    ["(CL) Heavy Large Laser", "hll:"],
                    ["(CL) ER PPC", "ceppc:"],
                    # Advanced Weapons
+                   ["(IS) Improved Heavy Gauss Rifle", "ihgr:"],
                    ["(IS) Binary Laser Cannon", "bl:"],
+                   ["(IS) Heavy PPC + PPC Capacitor", "h+cap:"],
+                   ["(IS) ER PPC + PPC Capacitor", "er+cap:"],
                    ["(IS) Snub-Nose PPC + PPC Capacitor", "sn+cap:"],
                    ["(IS) Thunderbolt-15", "tb15:"],
                    ["(IS) Thunderbolt-20", "tb20:"]]
