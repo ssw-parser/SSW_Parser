@@ -555,7 +555,11 @@ class Gear:
             ident = False
             for weap in self.weaponlist.list:
                 # Weapon identified
-                if name.name == weap.name:
+                if (name.name == weap.name and (name.typ == 'ballistic' or
+                                                name.typ == 'energy' or
+                                                name.typ == 'missile' or
+                                                name.typ == 'artillery' or
+                                                name.typ == 'mgarray')):
                     # Add weapon
                     if name.rear:
                         weap.addone_rear()
