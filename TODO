@@ -17,6 +17,7 @@ Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
 between MUL and SSW
 Victor VTR-9K2 St. James -- Patchwork armor
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod
+Highlander HGN-732 Colleen -- Experimental Streaks
 
 == UNABLE TO BUILD IN SSW ==
 
@@ -33,7 +34,7 @@ TBT-XK7 Trebuchet -- Modular Armor
 - Law of Demeter, avoid accessing low-level object data
 
 == Goals ==
-- Mech lists for Klondike, 3055 Solaris
+- Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II, Comstar
 - BattleForce infomation
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
