@@ -83,6 +83,8 @@ TBT-XK7 Trebuchet -- Modular Armor
 
 == summary.py ==
 
+- Add header that describes the different types of output.
+
 - List special equipment:
 -- ECM
 -- Stealth
