@@ -46,14 +46,16 @@ TBT-XK7 Trebuchet -- Modular Armor
 - Handle armored components (priority: head, shoulders, hips)
 - Handle M-pods
 
+- Weight calculations - detect under-weight mechs
+- Make CASE handling less hackish
+
 == weapons.py ==
 - Track if linked to tarcomp?
 
 == gear.py ==
 - Split WEAPONS into weapon types.
-- Merge physical, equipment dictionaries.
 - Handle Supercharger better.
-- Add rules level for stuff.
+- Add rules level for stuff. (at least missing for physical weapons)
 - Move weight calculations.
 
 == physical.py ==

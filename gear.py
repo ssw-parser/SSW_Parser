@@ -245,50 +245,50 @@ AMMO = {
 
 # Equipment
 #
-# Name : def BV, rules level, weight, uses ammo rate, explosive slots
+# Name : off BV, def BV, rules level, weight, uses ammo rate, explosive slots
 #
 # Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
 # 3 = experimental, 4 = primitive
 #
 
 EQUIPMENT = {
-    "C3 Computer (Slave)" : [[0, 0], 1, 1, 0, 0],
-    "C3 Computer (Master)" : [[0, 0], 1, 5, 0, 0],
-    "Improved C3 Computer" : [[0, 0], 1, 2.5, 0, 0],
-    "TAG" : [[0, 0], 1, 1, 0, 0],
-    "Light TAG" : [[0, 0], 1, 0.5, 0, 0],
-    "Cargo, Liquid" : [[0, 0], 1, 1, 0, 0],
-    "Communications Equipment" : [[0, 0], 1, 1, 0, 0],
-    "Remote Sensor Dispenser" : [[0, 0], 1, 0.5, 1, 0],
-    "Lift Hoist" : [[0, 0], 1, 3, 0, 0],
+    "C3 Computer (Slave)" : [0, [0, 0], 1, 1, 0, 0],
+    "C3 Computer (Master)" : [0, [0, 0], 1, 5, 0, 0],
+    "Improved C3 Computer" : [0, [0, 0], 1, 2.5, 0, 0],
+    "TAG" : [0, [0, 0], 1, 1, 0, 0],
+    "Light TAG" : [0, [0, 0], 1, 0.5, 0, 0],
+    "Cargo, Liquid" : [0, [0, 0], 1, 1, 0, 0],
+    "Communications Equipment" : [0, [0, 0], 1, 1, 0, 0],
+    "Remote Sensor Dispenser" : [0, [0, 0], 1, 0.5, 1, 0],
+    "Lift Hoist" : [0, [0, 0], 1, 3, 0, 0],
     # Experimental
-    "Chaff Pod" : [[19, 0], 2, 1, 0, 1],
-    "Collapsible Command Module (CCM)" : [[0, 0], 3, 16, 0, 0],
-    "Coolant Pod" : [[0, 0], 2, 1, 0, 1],
-    "C3 Boosted Computer (Slave)" : [[0, 0], 3, 3, 0, 0],
-    "C3 Boosted Computer (Master)" : [[0, 0], 3, 6, 0, 0], 
+    "Chaff Pod" : [0, [19, 0], 2, 1, 0, 1],
+    "Collapsible Command Module (CCM)" : [0, [0, 0], 3, 16, 0, 0],
+    "Coolant Pod" : [0, [0, 0], 2, 1, 0, 1],
+    "C3 Boosted Computer (Slave)" : [0, [0, 0], 3, 3, 0, 0],
+    "C3 Boosted Computer (Master)" : [0, [0, 0], 3, 6, 0, 0], 
 
-    "A-Pod" : [[1, 0], 1, 0.5, 0, 0],
-    "B-Pod" : [[2, 0], 1, 1, 0, 0],
-    "(IS) Anti-Missile System" : [[32, 11], 1, 0.5, 1, 0],
-    "Guardian ECM Suite" : [[61, 0], 1, 1.5, 0, 0],
-    "Beagle Active Probe" : [[10, 0], 1, 1.5, 0, 0],
-    "ECM Suite" : [[61, 0], 1, 1, 0, 0], # Clan
-    "Active Probe" : [[12, 0], 1, 1, 0, 0], # Clan
-    "Light Active Probe" : [[7, 0], 1, 0.5, 0, 0],
-    "(CL) Anti-Missile System" : [[32, 22], 1, 0.5, 1, 0],
-    "CASE" : [[0, 0], 1, 0.5, 0, 0], # HACK: CASE
+    "A-Pod" : [0, [1, 0], 1, 0.5, 0, 0],
+    "B-Pod" : [0, [2, 0], 1, 1, 0, 0],
+    "(IS) Anti-Missile System" : [0, [32, 11], 1, 0.5, 1, 0],
+    "Guardian ECM Suite" : [0, [61, 0], 1, 1.5, 0, 0],
+    "Beagle Active Probe" : [0, [10, 0], 1, 1.5, 0, 0],
+    "ECM Suite" : [0, [61, 0], 1, 1, 0, 0], # Clan
+    "Active Probe" : [0, [12, 0], 1, 1, 0, 0], # Clan
+    "Light Active Probe" : [0, [7, 0], 1, 0.5, 0, 0],
+    "(CL) Anti-Missile System" : [0, [32, 22], 1, 0.5, 1, 0],
+    "CASE" : [0, [0, 0], 1, 0.5, 0, 0], # HACK: CASE
     # Experimental
-    "Angel ECM" : [[100, 0], 2, 2, 0, 0],
-    "Bloodhound Active Probe" : [[25, 0], 2, 2, 0, 0],
-    "Electronic Warfare Equipment" : [[39, 0], 3, 7.5, 0, 0],
-    "(CL) Laser Anti-Missile System" : [[45, 0], 2, 1, 0, 0],
-    "Watchdog CEWS" : [[68, 0], 1, 1.5, 0, 0],
-    "MW Aquatic Survival System" : [[9, 0], 2, 1.5, 0, 0],
-    "HarJel" : [[0, 0], 3, 1, 0, 0],
-    "(IS) Laser Anti-Missile System" : [[45, 0], 2, 1.5, 0, 0],
-    "(IS) CASE II" : [[0, 0], 2, 1, 0, 0],
-    "(CL) CASE II" : [[0, 0], 2, 0.5, 0, 0]
+    "Angel ECM" : [0, [100, 0], 2, 2, 0, 0],
+    "Bloodhound Active Probe" : [0, [25, 0], 2, 2, 0, 0],
+    "Electronic Warfare Equipment" : [0, [39, 0], 3, 7.5, 0, 0],
+    "(CL) Laser Anti-Missile System" : [0, [45, 0], 2, 1, 0, 0],
+    "Watchdog CEWS" : [0, [68, 0], 1, 1.5, 0, 0],
+    "MW Aquatic Survival System" : [0, [9, 0], 2, 1.5, 0, 0],
+    "HarJel" : [0, [0, 0], 3, 1, 0, 0],
+    "(IS) Laser Anti-Missile System" : [0, [45, 0], 2, 1.5, 0, 0],
+    "(IS) CASE II" : [0, [0, 0], 2, 1, 0, 0],
+    "(CL) CASE II" : [0, [0, 0], 2, 0.5, 0, 0]
     }
 
 
@@ -418,7 +418,7 @@ class Equip(Item):
         """
         if (self.typ == "equipment" or self.typ == "CASE" or
             self.typ == "CASEII"):
-            return EQUIPMENT[self.name][1]
+            return EQUIPMENT[self.name][2]
         elif self.typ == "TargetingComputer":
             return TARCOMPS[self.name][0]
         # TODO: ammunition, physical weapons, weapons
@@ -429,7 +429,7 @@ class Equip(Item):
         # Physical parameter
         if (self.typ == "equipment" or self.typ == "CASE" or
             self.typ == "CASEII"):
-            return EQUIPMENT[self.name][2]
+            return EQUIPMENT[self.name][3]
         elif self.typ == "ammunition":
             return AMMO[self.name][2]
         elif self.typ == "physical":
@@ -503,10 +503,10 @@ class Equipment:
     """
     def __init__(self, key):
         self.name = key
-        self.def_bv = EQUIPMENT[key][0]
-        self.weight = EQUIPMENT[key][2]
-        self.useammo = EQUIPMENT[key][3]
-        self.explosive = EQUIPMENT[key][4]
+        self.def_bv = EQUIPMENT[key][1]
+        self.weight = EQUIPMENT[key][3]
+        self.useammo = EQUIPMENT[key][4]
+        self.explosive = EQUIPMENT[key][5]
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
