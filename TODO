@@ -81,6 +81,11 @@ TBT-XK7 Trebuchet -- Modular Armor
 -- BF AC value (remember low ammo reduction)
 -- Tarcomp status
 
+- Check for possible upgrades (add an -u switch)
+-- SHSs --> DHSs
+-- AC/10 --> LB 10-X
+-- 2xMG --> 2xSPL
+
 == summary.py ==
 
 - Add header that describes the different types of output.
