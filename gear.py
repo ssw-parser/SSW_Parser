@@ -478,6 +478,25 @@ class Equiplist:
         for equip in EQUIPMENT.keys():
             self.list.append(Equipment(equip))
 
+    def get_def_bv(self):
+        """
+        Get defensive gear BV
+        """
+        batt_val = 0.0
+        for equip in self.list:
+            if (equip.count > 0):
+                bv_gear = equip.count * equip.def_bv[0]
+                batt_val += bv_gear
+                # Handle AMS ammo (and possible other ammo)
+                if (equip.def_bv[1] > 0 and equip.ammocount > 0):
+                    bv_ammo = equip.def_bv[1] * equip.ammo_ton
+                    # Disallow ammo BV to be greater than that of
+                    # the system itself
+                    if bv_ammo > bv_gear:
+                        bv_ammo = bv_gear
+                    batt_val += bv_ammo
+        return batt_val
+
 class Equipment:
     """
     An equipment type
@@ -784,18 +803,8 @@ class Gear:
         Get defensive gear BV
         """
         batt_val = 0.0
-        for equip in self.equiplist.list:
-            if (equip.count > 0):
-                bv_gear = equip.count * equip.def_bv[0]
-                batt_val += bv_gear
-                # Handle AMS ammo (and possible other ammo)
-                if (equip.def_bv[1] > 0 and equip.ammocount > 0):
-                    bv_ammo = equip.def_bv[1] * equip.ammo_ton
-                    # Disallow ammo BV to be greater than that of
-                    # the system itself
-                    if bv_ammo > bv_gear:
-                        bv_ammo = bv_gear
-                    batt_val += bv_ammo
+        # From gear
+        batt_val += self.equiplist.get_def_bv()
         # Defensive physical weapons
         batt_val += self.physicallist.get_def_bv()
         return batt_val
