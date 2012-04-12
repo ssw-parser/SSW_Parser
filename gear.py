@@ -503,6 +503,7 @@ class Equipment:
     """
     def __init__(self, key):
         self.name = key
+        self.off_bv = EQUIPMENT[key][0]
         self.def_bv = EQUIPMENT[key][1]
         self.weight = EQUIPMENT[key][3]
         self.useammo = EQUIPMENT[key][4]

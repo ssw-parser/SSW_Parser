@@ -288,10 +288,21 @@ class Load:
             print "BWBR", bwbr
         obv = bwbr
 
-        # Ammo & TODO: other non-heat gear
+        # Ammo
         obv += ammo_bv
         if (printq):
             print "Ammo BV: ", ammo_bv
+
+        # Non-heat gear
+        equip_bv = 0
+        for equip in self.gear.equiplist.list:
+            # Only offensive physical gear
+            if (equip.count > 0 and equip.off_bv > 0):
+                equip_bv += equip.off_bv
+
+        obv += equip_bv
+        if (printq):
+            print "Equipment BV: ", equip_bv
 
         return obv
 
