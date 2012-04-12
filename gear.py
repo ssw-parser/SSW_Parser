@@ -287,6 +287,7 @@ EQUIPMENT = {
     "MW Aquatic Survival System" : [0, [9, 0], 2, 1.5, 0, 0],
     "HarJel" : [0, [0, 0], 3, 1, 0, 0],
     "(IS) Laser Anti-Missile System" : [0, [45, 0], 2, 1.5, 0, 0],
+    "M-Pod" : [5, [0, 0], 2, 1, 0, 1],
     "(IS) CASE II" : [0, [0, 0], 2, 1, 0, 0],
     "(CL) CASE II" : [0, [0, 0], 2, 0.5, 0, 0]
     }

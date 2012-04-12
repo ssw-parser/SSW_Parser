@@ -298,7 +298,7 @@ class Load:
         for equip in self.gear.equiplist.list:
             # Only offensive physical gear
             if (equip.count > 0 and equip.off_bv > 0):
-                equip_bv += equip.off_bv
+                equip_bv += equip.off_bv * equip.count
 
         obv += equip_bv
         if (printq):
