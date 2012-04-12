@@ -476,18 +476,18 @@ class Equiplist:
     def __init__(self):
         self.list = []
         for equip in EQUIPMENT.keys():
-            self.list.append(Equipment(equip, EQUIPMENT))
+            self.list.append(Equipment(equip))
 
 class Equipment:
     """
     An equipment type
     """
-    def __init__(self, key, dic):
+    def __init__(self, key):
         self.name = key
-        self.batt_val = dic[key][0]
-        self.weight = dic[key][2]
-        self.useammo = dic[key][3]
-        self.explosive = dic[key][4]
+        self.batt_val = EQUIPMENT[key][0]
+        self.weight = EQUIPMENT[key][2]
+        self.useammo = EQUIPMENT[key][3]
+        self.explosive = EQUIPMENT[key][4]
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
