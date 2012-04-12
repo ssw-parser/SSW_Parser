@@ -484,7 +484,7 @@ class Equipment:
     """
     def __init__(self, key):
         self.name = key
-        self.batt_val = EQUIPMENT[key][0]
+        self.def_bv = EQUIPMENT[key][0]
         self.weight = EQUIPMENT[key][2]
         self.useammo = EQUIPMENT[key][3]
         self.explosive = EQUIPMENT[key][4]
@@ -786,11 +786,11 @@ class Gear:
         batt_val = 0.0
         for equip in self.equiplist.list:
             if (equip.count > 0):
-                bv_gear = equip.count * equip.batt_val[0]
+                bv_gear = equip.count * equip.def_bv[0]
                 batt_val += bv_gear
                 # Handle AMS ammo (and possible other ammo)
-                if (equip.batt_val[1] > 0 and equip.ammocount > 0):
-                    bv_ammo = equip.batt_val[1] * equip.ammo_ton
+                if (equip.def_bv[1] > 0 and equip.ammocount > 0):
+                    bv_ammo = equip.def_bv[1] * equip.ammo_ton
                     # Disallow ammo BV to be greater than that of
                     # the system itself
                     if bv_ammo > bv_gear:
