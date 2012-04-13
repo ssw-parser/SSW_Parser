@@ -36,8 +36,6 @@ from physical import PHYSICAL, Physicallist
 #
 # Name, weapon, amount, weight, explosive?
 #
-# TODO: Vehicle flamer
-# TODO: Advanced weapons
 AMMO = {
     "(IS) @ AC/2" : [["(IS) Autocannon/2"], 45, 1, "X"],
     "(IS) @ AC/5" : [["(IS) Autocannon/5"], 20, 1, "X"],
@@ -315,10 +313,6 @@ HEATSINK = [["Single Heat Sink", 2, 1, 0],
             ["Double Heat Sink", 0, 2, 1],
             ["Double Heat Sink", 1, 2, 1],
             ["Laser Heat Sink", 1, 2, 2]]
-
-# Not used.
-MISSILE_ENCH = [["Artemis IV"],
-                ["Apollo"]]
 
 class Heatsinks(Item):
     """
@@ -741,13 +735,7 @@ class Gear:
             for ammo in self.ammolist.list:
                 if (name.name == ammo.name and name.typ == 'ammunition'):
                     ammo.addone()
-                    # Special case, AMS ammo count as defensive equipment
-                    if (name.name == "(IS) @ Anti-Missile System"):
-                        self.e_weight += name.get_weight()
-                    elif (name.name == "(CL) @ Anti-Missile System"):
-                        self.e_weight += name.get_weight()
-                    else:
-                        self.a_weight += name.get_weight()
+                    self.a_weight += name.get_weight()
                     ident = True
                     # Add explosive ammo to location
                     if ammo.explosive == "X":
