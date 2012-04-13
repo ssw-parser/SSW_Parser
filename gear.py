@@ -430,7 +430,18 @@ class Equip(Item):
             return WEAPONS[self.name][2]
         elif self.typ == "physical":
             return PHYSICAL[self.name][5]
-        # TODO: ammunition
+        # Hack -- assume that ammunition is of same rules level as weapon
+        elif self.typ == "ammunition":
+            return 0
+        # Supercharger are advanced rules
+        elif self.typ == "Supercharger":
+            return 2
+        # Tarcomps are tournament legal are advanced rules
+        elif self.typ == "TargetingComputer":
+            return 1
+        else:
+            print "Unknown tech level:", self.name, ":", self.typ
+            error_exit("gear")
 
     def get_weight(self):
         # TODO: Artemis & friends weight
