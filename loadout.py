@@ -297,8 +297,17 @@ class Load:
         equip_bv = 0
         for equip in self.gear.equiplist.list:
             # Only offensive physical gear
-            if (equip.count > 0 and equip.off_bv > 0):
-                equip_bv += equip.off_bv * equip.count
+            if (equip.count > 0 and equip.off_bv[0] > 0):
+                bv_gear = equip.off_bv[0] * equip.count
+                equip_bv += bv_gear
+                # Handle C3 ammo (and possible other ammo)
+                if (equip.off_bv[1] > 0 and equip.ammocount > 0):
+                    bv_ammo = equip.off_bv[1] * equip.ammo_ton
+                    # Disallow ammo BV to be greater than that of
+                    # the system itself
+                    if bv_ammo > bv_gear:
+                        bv_ammo = bv_gear
+                    equip_bv += bv_ammo
 
         obv += equip_bv
         if (printq):

@@ -163,6 +163,7 @@ AMMO = {
     "(IS) @ ELRM-10" : [["(IS) Extended LRM-10"], 9, 1, "X"],
     "(IS) @ ELRM-20" : [["(IS) Extended LRM-20"], 4, 1, "X"],
     "@ Fluid Gun (Water)" : [["(IS) Fluid Gun"], 20, 1, ""],
+    "@ C3 Remote Launcher" : [["C3 Remote Sensor Launcher"], 4, 1, "X"],
     # Clan
     "(CL) @ LB 2-X AC (Slug)" : [["(CL) LB 2-X AC"], 45, 1, "X"],
     "(CL) @ LB 2-X AC (Cluster)" : [["(CL) LB 2-X AC"], 45, 1, "X"],
@@ -252,44 +253,45 @@ AMMO = {
 #
 
 EQUIPMENT = {
-    "C3 Computer (Slave)" : [0, [0, 0], 1, 1, 0, 0],
-    "C3 Computer (Master)" : [0, [0, 0], 1, 5, 0, 0],
-    "Improved C3 Computer" : [0, [0, 0], 1, 2.5, 0, 0],
-    "TAG" : [0, [0, 0], 1, 1, 0, 0],
-    "Light TAG" : [0, [0, 0], 1, 0.5, 0, 0],
-    "Cargo, Liquid" : [0, [0, 0], 1, 1, 0, 0],
-    "Communications Equipment" : [0, [0, 0], 1, 1, 0, 0],
-    "Remote Sensor Dispenser" : [0, [0, 0], 1, 0.5, 1, 0],
-    "Lift Hoist" : [0, [0, 0], 1, 3, 0, 0],
+    "C3 Computer (Slave)" : [[0, 0], [0, 0], 1, 1, 0, 0],
+    "C3 Computer (Master)" : [[0, 0], [0, 0], 1, 5, 0, 0],
+    "Improved C3 Computer" : [[0, 0], [0, 0], 1, 2.5, 0, 0],
+    "TAG" : [[0, 0], [0, 0], 1, 1, 0, 0],
+    "Light TAG" : [[0, 0], [0, 0], 1, 0.5, 0, 0],
+    "Cargo, Liquid" : [[0, 0], [0, 0], 1, 1, 0, 0],
+    "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0],
+    "Remote Sensor Dispenser" : [[0, 0], [0, 0], 1, 0.5, 1, 0],
+    "Lift Hoist" : [[0, 0], [0, 0], 1, 3, 0, 0],
     # Experimental
-    "Chaff Pod" : [0, [19, 0], 2, 1, 0, 1],
-    "Collapsible Command Module (CCM)" : [0, [0, 0], 3, 16, 0, 0],
-    "Coolant Pod" : [0, [0, 0], 2, 1, 0, 1],
-    "C3 Boosted Computer (Slave)" : [0, [0, 0], 3, 3, 0, 0],
-    "C3 Boosted Computer (Master)" : [0, [0, 0], 3, 6, 0, 0], 
+    "Chaff Pod" : [[0, 0], [19, 0], 2, 1, 0, 1],
+    "Collapsible Command Module (CCM)" : [[0, 0], [0, 0], 3, 16, 0, 0],
+    "Coolant Pod" : [[0, 0], [0, 0], 2, 1, 0, 1],
+    "C3 Boosted Computer (Slave)" : [[0, 0], [0, 0], 3, 3, 0, 0],
+    "C3 Boosted Computer (Master)" : [[0, 0], [0, 0], 3, 6, 0, 0], 
 
-    "A-Pod" : [0, [1, 0], 1, 0.5, 0, 0],
-    "B-Pod" : [0, [2, 0], 1, 1, 0, 0],
-    "(IS) Anti-Missile System" : [0, [32, 11], 1, 0.5, 1, 0],
-    "Guardian ECM Suite" : [0, [61, 0], 1, 1.5, 0, 0],
-    "Beagle Active Probe" : [0, [10, 0], 1, 1.5, 0, 0],
-    "ECM Suite" : [0, [61, 0], 1, 1, 0, 0], # Clan
-    "Active Probe" : [0, [12, 0], 1, 1, 0, 0], # Clan
-    "Light Active Probe" : [0, [7, 0], 1, 0.5, 0, 0],
-    "(CL) Anti-Missile System" : [0, [32, 22], 1, 0.5, 1, 0],
-    "CASE" : [0, [0, 0], 1, 0.5, 0, 0], # HACK: CASE
+    "A-Pod" : [[0, 0], [1, 0], 1, 0.5, 0, 0],
+    "B-Pod" : [[0, 0], [2, 0], 1, 1, 0, 0],
+    "(IS) Anti-Missile System" : [[0, 0], [32, 11], 1, 0.5, 1, 0],
+    "Guardian ECM Suite" : [[0, 0], [61, 0], 1, 1.5, 0, 0],
+    "Beagle Active Probe" : [[0, 0], [10, 0], 1, 1.5, 0, 0],
+    "ECM Suite" : [[0, 0], [61, 0], 1, 1, 0, 0], # Clan
+    "Active Probe" : [[0, 0], [12, 0], 1, 1, 0, 0], # Clan
+    "Light Active Probe" : [[0, 0], [7, 0], 1, 0.5, 0, 0],
+    "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0],
+    "CASE" : [[0, 0], [0, 0], 1, 0.5, 0, 0], # HACK: CASE
     # Experimental
-    "Angel ECM" : [0, [100, 0], 2, 2, 0, 0],
-    "Bloodhound Active Probe" : [0, [25, 0], 2, 2, 0, 0],
-    "Electronic Warfare Equipment" : [0, [39, 0], 3, 7.5, 0, 0],
-    "(CL) Laser Anti-Missile System" : [0, [45, 0], 2, 1, 0, 0],
-    "Watchdog CEWS" : [0, [68, 0], 1, 1.5, 0, 0],
-    "MW Aquatic Survival System" : [0, [9, 0], 2, 1.5, 0, 0],
-    "HarJel" : [0, [0, 0], 3, 1, 0, 0],
-    "(IS) Laser Anti-Missile System" : [0, [45, 0], 2, 1.5, 0, 0],
-    "M-Pod" : [5, [0, 0], 2, 1, 0, 1],
-    "(IS) CASE II" : [0, [0, 0], 2, 1, 0, 0],
-    "(CL) CASE II" : [0, [0, 0], 2, 0.5, 0, 0]
+    "Angel ECM" : [[0, 0], [100, 0], 2, 2, 0, 0],
+    "Bloodhound Active Probe" : [[0, 0], [25, 0], 2, 2, 0, 0],
+    "Electronic Warfare Equipment" : [[0, 0], [39, 0], 3, 7.5, 0, 0],
+    "(CL) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1, 0, 0],
+    "Watchdog CEWS" : [[0, 0], [68, 0], 1, 1.5, 0, 0],
+    "MW Aquatic Survival System" : [[0, 0], [9, 0], 2, 1.5, 0, 0],
+    "HarJel" : [[0, 0], [0, 0], 3, 1, 0, 0],
+    "(IS) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1.5, 0, 0],
+    "M-Pod" : [[5, 0], [0, 0], 2, 1, 0, 1],
+    "C3 Remote Sensor Launcher" : [[30, 6], [0, 0], 3, 4, 1, 0],
+    "(IS) CASE II" : [[0, 0], [0, 0], 2, 1, 0, 0],
+    "(CL) CASE II" : [[0, 0],  [0, 0], 2, 0.5, 0, 0]
     }
 
 
