@@ -840,27 +840,29 @@ class Gear:
                         neg_bv -= 15.0 * self.exp_ammo[i]
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
+                # we can use torso CASE
+                cas2 = self.case.get("LT", "")
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.c_case == "FALSE"):
+                    if (cas != "CASEII" and cas2 != "CASEII"
+                        and self.c_case == "FALSE"):
                         neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
-                    # we can use torso CASE
-                    cas2 = self.case.get("LT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= 15.0 * self.exp_ammo[i]
             elif (i == "RA" or i == "FRL"):
+                # we can use torso CASE
+                cas2 = self.case.get("RT", "")
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.c_case == "FALSE"):
+                    if (cas != "CASEII" and cas2 != "CASEII"
+                        and self.c_case == "FALSE"):
                         neg_bv -= 15.0 * self.exp_ammo[i]
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
-                    # we can use torso CASE
-                    cas2 = self.case.get("RT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):
@@ -895,27 +897,29 @@ class Gear:
                         neg_bv -= self.exp_weapon[i]
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
+                # we can use torso CASE
+                cas2 = self.case.get("LT", "")
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.c_case == "FALSE"):
+                    if (cas != "CASEII" and cas2 != "CASEII"
+                        and self.c_case == "FALSE"):
                         neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
-                    # we can use torso CASE
-                    cas2 = self.case.get("LT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):
                         neg_bv -= self.exp_weapon[i]
             elif (i == "RA" or i == "FRL"):
+                # we can use torso CASE
+                cas2 = self.case.get("RT", "")
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
-                    if (cas != "CASEII" and self.c_case == "FALSE"):
+                    if (cas != "CASEII" and cas2 != "CASEII"
+                        and self.c_case == "FALSE"):
                         neg_bv -= self.exp_weapon[i]
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
-                    # we can use torso CASE
-                    cas2 = self.case.get("RT", "")
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):

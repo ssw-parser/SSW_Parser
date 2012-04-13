@@ -3,7 +3,6 @@
 
 === Armored components stuff ===
 
-Turkina U -- armored components (pod-mounted gear)
 Merlin MLN-SX -- armored components (engine)
 Devastator DVS-X10 Muse Earth -- armored components (shoulders, hips,
  supercharger)
@@ -13,13 +12,18 @@ Beowulf BEO-X-7a -- armored components (gear)
 
 === Other reasons ===
 
-Templar TLR1-OU -- missing due to no record sheets for main configs
 Phoenix Hawk IIC 8 -- improved jump-jets + XXL engine heat conflict
 between MUL and SSW
 Victor VTR-9K2 St. James -- Patchwork armor
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod (SSW does not calculate
 explosive penalty for M-pods)
 Highlander HGN-732 Colleen -- Experimental Streaks
+
+== RS NOT CONSTRUCTED DUE TO VARIOUS REASONS ==
+
+Templar TLR1-OU (RS3085:ONN) -- missing due to no record sheets for main configs
+Turkina U (RS3085:ONN) -- armored components (pod-mounted gear), omni-config
+Celerity CLR-02-X-D (XTRO:Comstar) -- ultra-light
 
 == UNABLE TO BUILD IN SSW ==
 
@@ -37,8 +41,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Law of Demeter, avoid accessing low-level object data
 
 == Goals ==
-- Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II, Comstar
-- BattleForce infomation
+- Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II
+- BattleForce information
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
 - Turret weights
@@ -46,7 +50,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Null sig, chameleon, void sig
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
-- Handle armored components (priority: head, shoulders, hips)
+- Handle armored components (better) (priority: head, shoulders, hips)
 - Handle M-pods
 
 - Weight calculations - detect under-weight mechs
@@ -74,7 +78,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- melee weapon without TSM
 -- omni fixed heat sinks
 -- good armor 1.1-1.25xIS
-- Move date calculations completely to mech.py (and its sub-classes)
 
 - LRM report:
 -- BF LRM value (remember low ammo reduction)
