@@ -421,27 +421,29 @@ class Equip(Item):
         """
         if (self.typ == "equipment" or self.typ == "CASE" or
             self.typ == "CASEII"):
-            return EQUIPMENT[self.name][2]
+            rule = EQUIPMENT[self.name][2]
         elif self.typ == "TargetingComputer":
-            return TARCOMPS[self.name][0]
+            rule = TARCOMPS[self.name][0]
         elif (self.typ == "ballistic" or self.typ == "energy" or
               self.typ == "missile" or self.typ == "artillery" or
               self.typ == "mgarray"):
-            return WEAPONS[self.name][2]
+            rule = WEAPONS[self.name][2]
         elif self.typ == "physical":
-            return PHYSICAL[self.name][5]
+            rule = PHYSICAL[self.name][5]
         # Hack -- assume that ammunition is of same rules level as weapon
         elif self.typ == "ammunition":
-            return 0
+            rule = 0
         # Supercharger are advanced rules
         elif self.typ == "Supercharger":
-            return 2
+            rule = 2
         # Tarcomps are tournament legal are advanced rules
         elif self.typ == "TargetingComputer":
-            return 1
+            rule = 1
         else:
             print "Unknown tech level:", self.name, ":", self.typ
             error_exit("gear")
+
+        return rule
 
     def get_weight(self):
         # TODO: Artemis & friends weight
