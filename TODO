@@ -41,6 +41,9 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Law of Demeter, avoid accessing low-level object data
 
 == Goals ==
+
+- Better packaging: Distutils
+- Better file & path handling
 - Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II
 - BattleForce information
 - missing ammo, missing TO stuff
@@ -51,7 +54,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
 - Handle armored components (better) (priority: head, shoulders, hips)
-- Handle M-pods
+- Handle M-pods (should work on this end, problem in SSW)
 
 - Weight calculations - detect under-weight mechs
 - Make CASE handling less hackish
@@ -62,12 +65,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 == gear.py ==
 - Split WEAPONS into weapon types.
 - Handle Supercharger better.
-- Add rules level for stuff. (at least missing for physical weapons)
+- Add rules level for stuff.
 - Move weight calculations.
 
 == physical.py ==
-- Add rules level
-- Missing: Medium Shield, Flail, Chain Whip
+
+- Missing: Medium Shield, Flail, Chain Whip, industrial equipment
 
 == report.py ==
 

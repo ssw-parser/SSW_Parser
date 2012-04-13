@@ -28,43 +28,50 @@ from util import ceil_05
 # Melee weapons
 #
 # Name, offensive BV formula, defensive BV, damage formula,
-# weight formula, heat
+# weight formula, heat, rules level
 #
-# TODO: Chain Whip, Flail, Medium Shield, rules level
+# Where rules level is:
+#        0 = Intro-tech,
+#        1 = Tournament legal,
+#        2 = Advanced,
+#        3 = Experimental,
+#        4 = Primitive (special)
+#
+# TODO: Chain Whip, Flail, Medium Shield, industrial equipment
 #
 PHYSICAL = {
     "Hatchet" : [(lambda x : x * 1.5), 0, (lambda x : ceil(x / 5.0)),
-                 (lambda x : ceil(x / 15.0)), 0],
+                 (lambda x : ceil(x / 15.0)), 0, 0],
     "Sword" : [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0) + 1),
-               (lambda x : ceil_05(x / 20.0)), 0],
+               (lambda x : ceil_05(x / 20.0)), 0, 1],
     "Retractable Blade" :
         [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0)),
-         (lambda x : ceil_05(x / 2.0) + 0.5), 0], 
+         (lambda x : ceil_05(x / 2.0) + 0.5), 0, 1], 
     "Claws" : [(lambda x : x * 1.275), 0, (lambda x : ceil(x / 7.0)),
-               (lambda x : ceil(x / 15.0)), 0],
+               (lambda x : ceil(x / 15.0)), 0, 2],
     "Mace" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 4.0)),
-              (lambda x : ceil(x / 10.0)), 0],
+              (lambda x : ceil(x / 10.0)), 0, 1],
     "Lance" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0)),
-               (lambda x : ceil_05(x / 20.0)), 0],
+               (lambda x : ceil_05(x / 20.0)), 0, 2],
     "Small Vibroblade" : [(lambda x : 12), 0, (lambda x : 7.0),
-                          (lambda x : 3.0), 3],
+                          (lambda x : 3.0), 3, 3],
     "Medium Vibroblade" : [(lambda x : 17), 0, (lambda x : 10.0),
-                           (lambda x : 5.0), 5],
+                           (lambda x : 5.0), 5, 3],
     "Large Vibroblade" : [(lambda x : 24), 0, (lambda x : 14.0),
-                          (lambda x : 7.0), 7],
+                          (lambda x : 7.0), 7, 3],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
     "Talons" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0) / 2.0),
-                (lambda x : ceil(x / 15.0)), 0],
+                (lambda x : ceil(x / 15.0)), 0, 3],
     "Spot Welder" : [(lambda x : 5), 0, (lambda x : 5),
-                     (lambda x : 2), 2],
+                     (lambda x : 2), 2, 1],
     # Defensive stuff
     "Small Shield" : [(lambda x : 0), 50, (lambda x : 0),
-                      (lambda x : 2), 0],
+                      (lambda x : 2), 0, 3],
     "Large Shield" : [(lambda x : 0), 263, (lambda x : 0),
-                      (lambda x : 6), 0],
+                      (lambda x : 6), 0, 3],
     "Spikes" : [(lambda x : 0), 4, (lambda x : 0),
-                      (lambda x : 0.5), 0]
+                      (lambda x : 0.5), 0, 2]
     }
 
 class Physicallist:

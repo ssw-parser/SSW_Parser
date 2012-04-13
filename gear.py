@@ -27,14 +27,14 @@ from error import error_exit
 from util import gettext, get_child_data
 from item import Item
 from weapons import WEAPONS, LRM_LIST, SRM_LIST, AC_LIST, Weaponlist
-from physical import Physicallist
+from physical import PHYSICAL, Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
 
 # Ammo
 #
-# Name, weapon, ammount, weight, explosive?
+# Name, weapon, amount, weight, explosive?
 #
 # TODO: Vehicle flamer
 # TODO: Advanced weapons
@@ -424,7 +424,13 @@ class Equip(Item):
             return EQUIPMENT[self.name][2]
         elif self.typ == "TargetingComputer":
             return TARCOMPS[self.name][0]
-        # TODO: ammunition, physical weapons, weapons
+        elif (self.typ == "ballistic" or self.typ == "energy" or
+              self.typ == "missile" or self.typ == "artillery" or
+              self.typ == "mgarray"):
+            return WEAPONS[self.name][2]
+        elif self.typ == "physical":
+            return PHYSICAL[self.name][5]
+        # TODO: ammunition
 
     def get_weight(self):
         # TODO: Artemis & friends weight
