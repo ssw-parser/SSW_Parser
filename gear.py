@@ -574,7 +574,6 @@ class Gear:
         self.coolant = 0
         self.has_narc = False
         self.has_tag = False
-        self.has_c3 = False
         self.supercharger = False
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
@@ -679,13 +678,9 @@ class Gear:
                     if name.name == "Coolant Pod":
                         self.coolant += 1
                     # Hack -- C3
-                    elif name.name == "C3 Computer (Slave)":
-                        self.has_c3 = True
                     elif name.name == "C3 Computer (Master)":
                         # Master computers can work as TAG
                         self.has_tag = True
-                    elif name.name == "C3 Boosted Computer (Slave)":
-                        self.has_c3 = True
                     elif name.name == "C3 Boosted Computer (Master)":
                         # Master computers can work as TAG
                         self.has_tag = True

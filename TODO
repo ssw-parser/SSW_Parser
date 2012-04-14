@@ -63,6 +63,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - do away with the has_xxxx flags
 
+- Rename some command line options:
+-- c --> c3s
+-- ci --> c3i
+-- cm --> c3m
+-- t --> tag
+
 == weapons.py ==
 - Track if linked to tarcomp?
 

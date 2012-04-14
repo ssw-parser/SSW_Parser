@@ -98,19 +98,21 @@ class Load:
         # TAG
         if self.gear.has_tag:
             self.specials["TAG"] = 1
-        # C3
-        if self.gear.has_c3:
-            self.specials["C3S"] = 1
 
         # Scan equipment
         for equip in self.gear.equiplist.list:
-            # TODO: Separate out Boosted Master
+            # TODO: Separate out Boosted Master & Boosted Slave
             if (equip.count > 0 and
                 (equip.name == "C3 Computer (Master)" or
                  equip.name == "C3 Boosted Computer (Master)")):
                 self.specials["C3M"] = 1
             if (equip.count > 0 and equip.name == "Improved C3 Computer"):
                 self.specials["C3I"] = 1
+            if (equip.count > 0 and
+                (equip.name == "C3 Computer (Slave)" or
+                 equip.name == "C3 Boosted Computer (Slave)")):
+                self.specials["C3S"] = 1
+
 
 
     def get_name(self):
