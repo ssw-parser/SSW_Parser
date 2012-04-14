@@ -103,6 +103,8 @@ class Load:
             self.specials["C3S"] = 1
         if self.gear.has_c3i:
             self.specials["C3I"] = 1
+        if self.gear.has_c3m:
+            self.specials["C3M"] = 1
 
 
     def get_name(self):
