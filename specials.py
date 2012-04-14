@@ -27,7 +27,7 @@ class Specials:
     Tracks flags for special abilities, to avoid bloat elsewhere
     """
     def __init__(self):
-        # Nothing is set right here
-        self.specials = {}
+        # SEAL, SOA, SRCH is always awailable
+        self.specials = {"SEAL" : 1, "SOA" : 1, "SRCH" : 1}
 
 
