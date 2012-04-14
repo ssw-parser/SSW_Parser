@@ -575,7 +575,6 @@ class Gear:
         self.has_narc = False
         self.has_tag = False
         self.has_c3 = False
-        self.has_c3m = False
         self.has_c3i = False
         self.supercharger = False
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
@@ -684,13 +683,11 @@ class Gear:
                     elif name.name == "C3 Computer (Slave)":
                         self.has_c3 = True
                     elif name.name == "C3 Computer (Master)":
-                        self.has_c3m = True
                         # Master computers can work as TAG
                         self.has_tag = True
                     elif name.name == "C3 Boosted Computer (Slave)":
                         self.has_c3 = True
                     elif name.name == "C3 Boosted Computer (Master)":
-                        self.has_c3m = True
                         # Master computers can work as TAG
                         self.has_tag = True
                     elif name.name == "Improved C3 Computer":

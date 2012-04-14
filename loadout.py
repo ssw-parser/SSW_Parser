@@ -103,8 +103,15 @@ class Load:
             self.specials["C3S"] = 1
         if self.gear.has_c3i:
             self.specials["C3I"] = 1
-        if self.gear.has_c3m:
-            self.specials["C3M"] = 1
+
+        # Scan equipment
+        for equip in self.gear.equiplist.list:
+            # TODO: Separate out Boosted Master
+            if (equip.count > 0 and
+                (equip.name == "C3 Computer (Master)" or
+                 equip.name == "C3 Boosted Computer (Master)")):
+                self.specials["C3M"] = 1
+
 
 
     def get_name(self):
