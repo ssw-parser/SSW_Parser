@@ -87,6 +87,17 @@ class Load:
         self.gear = Gear(weight, self.artemis4, self.artemis5, self.apollo,
                          equip, clanc)
 
+        self.build_special()
+
+
+    def build_special(self):
+        """
+        Add special abilities to list
+        """
+        # TAG
+        if self.gear.has_tag:
+            self.special.specials["TAG"] = 1
+
 
     def get_name(self):
         """
