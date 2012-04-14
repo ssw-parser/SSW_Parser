@@ -95,10 +95,6 @@ class Load:
         """
         Add special abilities to list
         """
-        # TAG
-        if self.gear.has_tag:
-            self.specials["TAG"] = 1
-
         # Scan equipment
         for equip in self.gear.equiplist.list:
             # TODO: Separate out Boosted Master & Boosted Slave
@@ -106,14 +102,17 @@ class Load:
                 (equip.name == "C3 Computer (Master)" or
                  equip.name == "C3 Boosted Computer (Master)")):
                 self.specials["C3M"] = 1
+                self.specials["TAG"] = 1
             if (equip.count > 0 and equip.name == "Improved C3 Computer"):
                 self.specials["C3I"] = 1
             if (equip.count > 0 and
                 (equip.name == "C3 Computer (Slave)" or
                  equip.name == "C3 Boosted Computer (Slave)")):
                 self.specials["C3S"] = 1
-
-
+            if (equip.count > 0 and (equip.name == "TAG" or
+                                     equip.name == "Light TAG")):
+                self.specials["TAG"] = 1
+                
 
     def get_name(self):
         """

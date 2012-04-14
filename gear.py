@@ -573,7 +573,6 @@ class Gear:
         # Track coolant pods
         self.coolant = 0
         self.has_narc = False
-        self.has_tag = False
         self.supercharger = False
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
@@ -677,15 +676,6 @@ class Gear:
                     # Hack, coolant pods
                     if name.name == "Coolant Pod":
                         self.coolant += 1
-                    # Hack -- C3
-                    elif name.name == "C3 Computer (Master)":
-                        # Master computers can work as TAG
-                        self.has_tag = True
-                    elif name.name == "C3 Boosted Computer (Master)":
-                        # Master computers can work as TAG
-                        self.has_tag = True
-                    elif name.name == "TAG" or name.name == "Light TAG":
-                        self.has_tag = True
                     # Add explosive weapon to location
                     if equip.explosive > 0:
                         expl = self.exp_weapon.get(name.loc, 0)
