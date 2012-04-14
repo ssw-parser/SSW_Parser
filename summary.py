@@ -1128,11 +1128,13 @@ def main():
 
     # TAG
     if args.t:
-        select_l.append(lambda x, y: y.specials.has_key("TAG"))
+        select_l.append(lambda x, y: (y.specials.has_key("TAG") or
+                                      y.specials.has_key("LTAG")))
         header_l.append("with TAG")
     # C3 Slave
     if args.c:
-        select_l.append(lambda x, y: y.specials.has_key("C3S"))
+        select_l.append(lambda x, y: (y.specials.has_key("C3S") or
+                                      y.specials.has_key("C3BSS")))
         header_l.append("with C3 Slave")
     # C3 Master
     if args.cm:

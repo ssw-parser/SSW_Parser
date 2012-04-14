@@ -27,7 +27,6 @@ from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Equip, Gear, Heatsinks
 from util import gettext, get_child, get_child_data
-from specials import Specials
 
 class Load:
     """
@@ -97,7 +96,7 @@ class Load:
         """
         # Scan equipment
         for equip in self.gear.equiplist.list:
-            # TODO: Separate out Boosted Master & Boosted Slave
+            # TODO: Separate out Boosted Master
             if (equip.count > 0 and
                 (equip.name == "C3 Computer (Master)" or
                  equip.name == "C3 Boosted Computer (Master)")):
@@ -105,13 +104,15 @@ class Load:
                 self.specials["TAG"] = 1
             if (equip.count > 0 and equip.name == "Improved C3 Computer"):
                 self.specials["C3I"] = 1
-            if (equip.count > 0 and
-                (equip.name == "C3 Computer (Slave)" or
-                 equip.name == "C3 Boosted Computer (Slave)")):
+            if (equip.count > 0 and equip.name == "C3 Computer (Slave)"):
                 self.specials["C3S"] = 1
-            if (equip.count > 0 and (equip.name == "TAG" or
-                                     equip.name == "Light TAG")):
+            if (equip.count > 0 and
+                equip.name == "C3 Boosted Computer (Slave)"):
+                self.specials["C3BSS"] = 1
+            if (equip.count > 0 and equip.name == "TAG"):
                 self.specials["TAG"] = 1
+            if (equip.count > 0 and equip.name == "Light TAG"):
+                self.specials["LTAG"] = 1
                 
 
     def get_name(self):
