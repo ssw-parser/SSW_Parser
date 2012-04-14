@@ -96,11 +96,12 @@ class Load:
         """
         # Scan equipment
         for equip in self.gear.equiplist.list:
-            # TODO: Separate out Boosted Master
-            if (equip.count > 0 and
-                (equip.name == "C3 Computer (Master)" or
-                 equip.name == "C3 Boosted Computer (Master)")):
+            if (equip.count > 0 and equip.name == "C3 Computer (Master)"):
                 self.specials["C3M"] = 1
+                self.specials["TAG"] = 1
+            if (equip.count > 0 and
+                equip.name == "C3 Boosted Computer (Master)"):
+                self.specials["C3BSM"] = 1
                 self.specials["TAG"] = 1
             if (equip.count > 0 and equip.name == "Improved C3 Computer"):
                 self.specials["C3I"] = 1
