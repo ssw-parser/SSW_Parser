@@ -601,8 +601,6 @@ def create_std_list_item(mech, i, rnge):
     if jump > 0:
         mov += "j"
 
-    arm = mech.armor.get_bf_value()
-
     dam = 0
     heat = 0
     l_str = ""
