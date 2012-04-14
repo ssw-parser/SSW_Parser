@@ -27,6 +27,7 @@ from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Equip, Gear, Heatsinks
 from util import gettext, get_child, get_child_data
+from specials import Specials
 
 class Load:
     """
@@ -37,6 +38,9 @@ class Load:
         self.artemis4 = load.attributes["fcsa4"].value
         self.artemis5 = load.attributes["fcsa5"].value
         self.apollo = load.attributes["fcsapollo"].value
+
+        # Create a container for special abilities
+        self.special = Specials()
 
         # Get source
         self.source = get_child_data(load, 'source')

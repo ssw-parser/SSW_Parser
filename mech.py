@@ -27,7 +27,6 @@ from defensive import IS, Armor
 from movement import Cockpit, Enhancement, Gyro, Engine
 from util import ceil_05, get_child, get_child_data
 from loadout import Baseloadout, Loadout
-from specials import Specials
 
 # A mech class with data read from SSW xml data for use in various
 # applications.
@@ -37,9 +36,6 @@ class Mech:
     A master class holding info about a mech.
     """
     def __init__(self, xmldoc):
-
-        # Create a container for special abilities
-        self.special = Specials()
 
         # Set some data to zero that sometimes will not get set otherwise
         self.multi = []
