@@ -98,6 +98,9 @@ class Load:
         # TAG
         if self.gear.has_tag:
             self.specials["TAG"] = 1
+        # C3
+        if self.gear.has_c3:
+            self.specials["C3S"] = 1
 
 
     def get_name(self):

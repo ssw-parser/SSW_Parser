@@ -1132,7 +1132,7 @@ def main():
         header_l.append("with TAG")
     # C3 Slave
     if args.c:
-        select_l.append(lambda x, y: y.gear.has_c3)
+        select_l.append(lambda x, y: y.specials.has_key("C3S"))
         header_l.append("with C3 Slave")
     # C3 Master
     if args.cm:
