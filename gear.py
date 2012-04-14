@@ -575,7 +575,6 @@ class Gear:
         self.has_narc = False
         self.has_tag = False
         self.has_c3 = False
-        self.has_c3i = False
         self.supercharger = False
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
@@ -690,8 +689,6 @@ class Gear:
                     elif name.name == "C3 Boosted Computer (Master)":
                         # Master computers can work as TAG
                         self.has_tag = True
-                    elif name.name == "Improved C3 Computer":
-                        self.has_c3i = True
                     elif name.name == "TAG" or name.name == "Light TAG":
                         self.has_tag = True
                     # Add explosive weapon to location
