@@ -40,7 +40,8 @@ class Load:
         self.apollo = load.attributes["fcsapollo"].value
 
         # Create a container for special abilities
-        self.special = Specials()
+        # SEAL, SOA, SRCH is always awailable
+        self.specials = {"SEAL" : 1, "SOA" : 1, "SRCH" : 1}
 
         # Get source
         self.source = get_child_data(load, 'source')
@@ -96,7 +97,7 @@ class Load:
         """
         # TAG
         if self.gear.has_tag:
-            self.special.specials["TAG"] = 1
+            self.specials["TAG"] = 1
 
 
     def get_name(self):

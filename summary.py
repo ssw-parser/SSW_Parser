@@ -1128,7 +1128,7 @@ def main():
 
     # TAG
     if args.t:
-        select_l.append(lambda x, y: y.gear.has_tag)
+        select_l.append(lambda x, y: y.specials.has_key("TAG"))
         header_l.append("with TAG")
     # C3 Slave
     if args.c:

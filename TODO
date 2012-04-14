@@ -59,6 +59,10 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Weight calculations - detect under-weight mechs
 - Make CASE handling less hackish
 
+- Remove unused specials.py?
+
+- do away with the has_xxxx flags
+
 == weapons.py ==
 - Track if linked to tarcomp?
 
