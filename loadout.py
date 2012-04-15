@@ -114,7 +114,15 @@ class Load:
                 self.specials["TAG"] = 1
             if (equip.count > 0 and equip.name == "Light TAG"):
                 self.specials["LTAG"] = 1
-                
+            if (equip.count > 0 and equip.name == "Watchdog CEWS"):
+                self.specials["WAT"] = 1
+            if (equip.count > 0 and
+                (equip.name == "Guardian ECM Suite" or
+                 equip.name == "ECM Suite" or
+                 equip.name == "Electronic Warfare Equipment")):
+                self.specials["ECM"] = 1
+            if (equip.count > 0 and equip.name == "Angel ECM"):
+                self.specials["AECM"] = 1
 
     def get_name(self):
         """
