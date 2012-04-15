@@ -65,6 +65,10 @@ The default output (no switch) is modeled after the MUL.
 
 -ecm: Only list mechs that mounts an ECM system.
 
+-probe: Only list mechs that mounts an Active Probe.
+
+-taser: Only list mechs that mounts a Battlemech Taser.
+
 -i: Only list Inner Sphere techbase mechs.
 
 -cl: Only list Clan techbase mechs.

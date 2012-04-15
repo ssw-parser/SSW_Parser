@@ -1060,6 +1060,10 @@ def parse_arg():
                         help='Select mechs with Narc')
     parser.add_argument('-ecm', action='store_true',
                         help='Select mechs with ECM')
+    parser.add_argument('-probe', action='store_true',
+                        help='Select mechs with Active Probe')
+    parser.add_argument('-taser', action='store_true',
+                        help='Select mechs with Taser')
     parser.add_argument('-i', action='store_true',
                         help='Select Inner Sphere tech mechs')
     parser.add_argument('-cl', action='store_true',
@@ -1159,6 +1163,17 @@ def main():
                                       y.specials.has_key("AECM") or
                                       y.specials.has_key("WAT")))
         header_l.append("with ECM")
+    # Active Probe
+    if args.probe:
+        select_l.append(lambda x, y: (y.specials.has_key("PRB") or
+                                      y.specials.has_key("BH") or
+                                      y.specials.has_key("LPRB") or
+                                      y.specials.has_key("WAT")))
+        header_l.append("with Active Probe")
+    # Taser
+    if args.taser:
+        select_l.append(lambda x, y: y.specials.has_key("MTAS"))
+        header_l.append("with Battlemech Taser")
     # Inner Sphere
     if args.i:
         select_l.append(lambda x, y: x.techbase == "Inner Sphere")
