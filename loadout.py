@@ -130,6 +130,10 @@ class Load:
                 self.specials["PRB"] = 1
             if (equip.count > 0 and equip.name == "Light Active Probe"):
                 self.specials["LPRB"] = 1
+            if (equip.count > 0 and equip.name == "Remote Sensor Dispenser"):
+                self.specials["RSD"] = 1
+            if (equip.count > 0 and equip.name == "C3 Remote Sensor Launcher"):
+                self.specials["C3RS"] = 1
 
 
         # Scan weapons
@@ -141,7 +145,15 @@ class Load:
                 self.specials["INARC"] = 1
             if (weap.count > 0 and weap.name == "(IS) BattleMech Taser"):
                 self.specials["MTAS"] = 1
-
+            if (weap.count > 0 and weap.name == "(IS) Arrow IV Missile"):
+                self.specials["ARTAIS"] = 1
+            if (weap.count > 0 and weap.name == "(CL) Arrow IV Missile"):
+                self.specials["ARTAC"] = 1
+            if (weap.count > 0 and weap.name == "(IS) Sniper"):
+                self.specials["ARTS"] = 1
+            # Is this one really correct? Does Artillery Cannons count?
+            if (weap.count > 0 and weap.name == "Long Tom Artillery Cannon"):
+                self.specials["ARTLTC"] = 1
 
     def get_name(self):
         """

@@ -96,7 +96,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Check for possible upgrades (add an -u switch)
 -- SHSs --> DHSs
--- AC/10 --> LB 10-X
+-- AC/10 --> LB 10-X or LGR
 -- 2xMG --> 2xSPL
 
 == summary.py ==
