@@ -1213,41 +1213,30 @@ def main():
 
     ### Process output ###
 
+    arg_calls = {
+        'b' : print_bvt_list,
+        'bv' : print_bv_list,
+        'a' : print_armor_list,
+        's' : print_speed_list,
+        'l' : print_missile_list,
+        'sn' : print_snipe_list,
+        'cap' : print_headcap_list,
+        'r' : print_range_list,
+        'str' : print_striker_list,
+        'skir' : print_skirmisher_list,
+        'jug' : print_juggernaut_list,
+        'typ' : print_type_list,
+        'ac' : print_autocannon_list,
+        'srm' : print_srm_list,
+        'w' : print_weapon_list,
+        'mw' : print_main_weapon_list
+        }
+
     # Construct header
     header = create_header(header_l)
 
-    if args.output == 'b':
-        print_bvt_list(file_list, select_l, header)
-    elif args.output == 'bv':
-        print_bv_list(file_list, select_l, header)
-    elif args.output == 'a':
-        print_armor_list(file_list, select_l, header)
-    elif args.output == 's':
-        print_speed_list(file_list, select_l, header)
-    elif args.output == 'l':
-        print_missile_list(file_list, select_l, header)
-    elif args.output == 'sn':
-        print_snipe_list(file_list, select_l, header)
-    elif args.output == 'cap':
-        print_headcap_list(file_list, select_l, header)
-    elif args.output == 'r':
-        print_range_list(file_list, select_l, header)
-    elif args.output == 'str':
-        print_striker_list(file_list, select_l, header)
-    elif args.output == 'skir':
-        print_skirmisher_list(file_list, select_l, header)
-    elif args.output == 'jug':
-        print_juggernaut_list(file_list, select_l, header)
-    elif args.output == 'typ':
-        print_type_list(file_list, select_l, header)
-    elif args.output == 'ac':
-        print_autocannon_list(file_list, select_l, header)
-    elif args.output == 'srm':
-        print_srm_list(file_list, select_l, header)
-    elif args.output == 'w':
-        print_weapon_list(file_list, select_l, header)
-    elif args.output == 'mw':
-        print_main_weapon_list(file_list, select_l, header)
+    if args.output:
+        arg_calls[args.output](file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)
 
