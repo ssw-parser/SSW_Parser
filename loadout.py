@@ -39,8 +39,8 @@ class Load:
         self.apollo = load.attributes["fcsapollo"].value
 
         # Create a container for special abilities
-        # SEAL, SOA, SRCH is always awailable
-        self.specials = {"SEAL" : 1, "SOA" : 1, "SRCH" : 1}
+        # ES, SEAL, SOA, SRCH is always awailable
+        self.specials = {"ES" : 1, "SEAL" : 1, "SOA" : 1, "SRCH" : 1}
 
         # Get source
         self.source = get_child_data(load, 'source')
