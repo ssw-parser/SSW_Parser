@@ -43,10 +43,24 @@ file.
 -cap: Output a list of headcappers mounted on the mech, sorted by
  number of cappers.
 
--r: Output a list of how max damage varies over range, shorted by
+-r: Output a list of how max damage varies over range, sorted by
  short-range damage. (No heat taken into account.)
 
 -str: Output a list of strikers, sorted by damage.
+
+-skir: Output a list of skirmishers. (Needs work.)
+
+-jug: Output a list of juggernauts. (Needs work.)
+
+-typ: Output info on which roles mechs qualify for.
+
+-ac: Output a list of autocannons that can use special ammo.
+
+-srm: Output a list of srm tubes that can use special ammo, sorted by tubes.
+
+-w: Output a list of weapons.
+
+-mw: Output a list of main weapons. (Secondaries removed.)
 
 The default output (no switch) is modeled after the MUL.
 
