@@ -61,12 +61,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Remove unused specials.py?
 
-- Rename some command line options:
--- c --> c3s
--- ci --> c3i
--- cm --> c3m
--- t --> tag
-
 == weapons.py ==
 - Track if linked to tarcomp?
 
@@ -110,7 +104,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Add header that describes the different types of output.
 
 - List special equipment:
--- ECM
+-- Active probes
 -- Stealth
 -- Artillery
 

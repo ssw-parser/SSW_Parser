@@ -51,19 +51,19 @@ file.
 The default output (no switch) is modeled after the MUL.
 
 ==== Filter Switches ====
-Only one of these will be used by the program, so using multiple ones
-is pointless.
 
--t: Only list mechs that has a TAG, or other gear with the same
+-tag: Only list mechs that has a TAG, or other gear with the same
  functionality (C3 Master).
 
--c: Only list mechs that mounts C3 slaves.
+-c3s: Only list mechs that mounts C3 slaves.
 
--cm: Only list mechs that mounts C3 masters.
+-c3m: Only list mechs that mounts C3 masters.
 
--ci: Only list mechs that mounts C3i.
+-c3i: Only list mechs that mounts C3i.
 
--n: Only list mechs that mounts Narc launchers.
+-narc: Only list mechs that mounts Narc launchers.
+
+-ecm: Only list mechs that mounts an ECM system.
 
 -i: Only list Inner Sphere techbase mechs.
 

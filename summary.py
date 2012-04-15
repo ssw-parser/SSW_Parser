@@ -1048,15 +1048,18 @@ def parse_arg():
     parser.add_argument('-mw', action='store_const', help='Weapon list output',
                         dest = 'output', const = 'mw')
     # Filter arguments
-    parser.add_argument('-t', action='store_true', help='Select mechs with TAG')
-    parser.add_argument('-c', action='store_true',
+    parser.add_argument('-tag', action='store_true',
+                        help='Select mechs with TAG')
+    parser.add_argument('-c3s', action='store_true',
                         help='Select mechs with C3 Slave')
-    parser.add_argument('-cm', action='store_true',
+    parser.add_argument('-c3m', action='store_true',
                         help='Select mechs with C3 Master')
-    parser.add_argument('-ci', action='store_true',
+    parser.add_argument('-c3i', action='store_true',
                         help='Select mechs with C3i')
-    parser.add_argument('-n', action='store_true',
+    parser.add_argument('-narc', action='store_true',
                         help='Select mechs with Narc')
+    parser.add_argument('-ecm', action='store_true',
+                        help='Select mechs with ECM')
     parser.add_argument('-i', action='store_true',
                         help='Select Inner Sphere tech mechs')
     parser.add_argument('-cl', action='store_true',
@@ -1127,29 +1130,35 @@ def main():
     ### Activate selectors ###
 
     # TAG
-    if args.t:
+    if args.tag:
         select_l.append(lambda x, y: (y.specials.has_key("TAG") or
                                       y.specials.has_key("LTAG")))
         header_l.append("with TAG")
     # C3 Slave
-    if args.c:
+    if args.c3s:
         select_l.append(lambda x, y: (y.specials.has_key("C3S") or
                                       y.specials.has_key("C3BSS")))
         header_l.append("with C3 Slave")
     # C3 Master
-    if args.cm:
+    if args.c3m:
         select_l.append(lambda x, y: (y.specials.has_key("C3M") or
                                       y.specials.has_key("C3BSM")))
         header_l.append("with C3 Master")
     # C3i
-    if args.ci:
+    if args.c3i:
         select_l.append(lambda x, y: y.specials.has_key("C3I"))
         header_l.append("with C3i")
     # Narc
-    if args.n:
+    if args.narc:
         select_l.append(lambda x, y: (y.specials.has_key("SNARC") or
                                       y.specials.has_key("INARC")))
         header_l.append("with Narc")
+    # ECM
+    if args.ecm:
+        select_l.append(lambda x, y: (y.specials.has_key("ECM") or
+                                      y.specials.has_key("AECM") or
+                                      y.specials.has_key("WAT")))
+        header_l.append("with ECM")
     # Inner Sphere
     if args.i:
         select_l.append(lambda x, y: x.techbase == "Inner Sphere")
