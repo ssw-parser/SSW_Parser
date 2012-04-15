@@ -139,6 +139,8 @@ class Load:
                 self.specials["SNARC"] = 1
             if (weap.count > 0 and (weap.name == "(IS) iNarc Launcher")):
                 self.specials["INARC"] = 1
+            if (weap.count > 0 and weap.name == "(IS) BattleMech Taser"):
+                self.specials["MTAS"] = 1
 
 
     def get_name(self):
