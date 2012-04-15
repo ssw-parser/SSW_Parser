@@ -123,6 +123,14 @@ class Load:
                 self.specials["ECM"] = 1
             if (equip.count > 0 and equip.name == "Angel ECM"):
                 self.specials["AECM"] = 1
+            if (equip.count > 0 and equip.name == "Bloodhound Active Probe"):
+                self.specials["BH"] = 1
+            if (equip.count > 0 and (equip.name == "Beagle Active Probe" or
+                                     equip.name == "Active Probe")):
+                self.specials["PRB"] = 1
+            if (equip.count > 0 and equip.name == "Light Active Probe"):
+                self.specials["LPRB"] = 1
+
 
         # Scan weapons
         for weap in self.gear.weaponlist.list:
