@@ -572,7 +572,6 @@ class Gear:
         self.case = {}
         # Track coolant pods
         self.coolant = 0
-        self.has_narc = False
         self.supercharger = False
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
@@ -607,12 +606,6 @@ class Gear:
 
                     # We have found a valid weapon
                     ident = True
-
-                    # Hack - track Narc
-                    if (name.name == "(IS) Narc Missile Beacon" or
-                        name.name == "(IS) iNarc Launcher" or
-                        name.name == "(CL) Narc Missile Beacon"):
-                        self.has_narc = True
 
                     # Count LRM tubes that can fire special ammo
                     # Missing: NLRM-10, NLRM-15, NLRM-20

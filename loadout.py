@@ -124,6 +124,15 @@ class Load:
             if (equip.count > 0 and equip.name == "Angel ECM"):
                 self.specials["AECM"] = 1
 
+        # Scan weapons
+        for weap in self.gear.weaponlist.list:
+            if (weap.count > 0 and (weap.name == "(IS) Narc Missile Beacon" or
+                                    weap.name == "(CL) Narc Missile Beacon")):
+                self.specials["SNARC"] = 1
+            if (weap.count > 0 and (weap.name == "(IS) iNarc Launcher")):
+                self.specials["INARC"] = 1
+
+
     def get_name(self):
         """
         Return the name of the Loadout, if any

@@ -61,8 +61,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Remove unused specials.py?
 
-- do away with the has_xxxx flags: Narc
-
 - Rename some command line options:
 -- c --> c3s
 -- ci --> c3i

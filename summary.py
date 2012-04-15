@@ -1147,7 +1147,8 @@ def main():
         header_l.append("with C3i")
     # Narc
     if args.n:
-        select_l.append(lambda x, y: y.gear.has_narc)
+        select_l.append(lambda x, y: (y.specials.has_key("SNARC") or
+                                      y.specials.has_key("INARC")))
         header_l.append("with Narc")
     # Inner Sphere
     if args.i:
