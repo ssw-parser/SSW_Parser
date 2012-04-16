@@ -498,6 +498,18 @@ class Mech:
 
         return True
 
+    def is_missile_boat(self, i):
+        """
+        Check if a mech is a missile boat
+
+        Definition:
+        - Has at least 10 LRM tubes
+        """
+        if i.gear.lrms < 10:
+            return False
+
+        return True
+
     def is_striker(self, i):
         """
         Check if a mech is a striker
