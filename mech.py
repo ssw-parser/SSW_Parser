@@ -475,9 +475,13 @@ class Mech:
         Check if a mech is a juggernaut
 
         Definition:
+        - Walking speed no more than 4
         - BF armor at least 5
         - Able to do 30 damage at range 6
         """
+        if self.get_walk() > 4:
+            return False
+
         if self.armor.get_bf_value() < 5:
             return False
 
