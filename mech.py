@@ -478,6 +478,7 @@ class Mech:
         - Walking speed no more than 4
         - BF armor at least 5
         - Able to do 30 damage at range 6
+        - Do less than 20 damage at range 18
         """
         if self.get_walk() > 4:
             return False
@@ -486,6 +487,9 @@ class Mech:
             return False
 
         if i.gear.weaponlist.count_damage(6) < 30:
+            return False
+
+        if i.gear.weaponlist.count_damage(18) >= 20:
             return False
 
         return True
@@ -507,9 +511,9 @@ class Mech:
         Check if a mech is a missile boat
 
         Definition:
-        - Has at least 10 LRM tubes
+        - Has at least 20 LRM tubes
         """
-        if i.gear.lrms < 10:
+        if i.gear.lrms < 20:
             return False
 
         return True
@@ -569,7 +573,8 @@ class Mech:
         Definition:
         - Speed at least walk 4 or jump 3
         - BF armor at least 4
-        - Able to do 15 damage at range 9
+        - Able to do 15 damage at range 15
+        - Do less than 20 damage at range 18
         """
         if self.get_walk() < 4 and i.get_jump() < 3:
             return False
@@ -577,7 +582,10 @@ class Mech:
         if self.armor.get_bf_value() < 4:
             return False
 
-        if i.gear.weaponlist.count_damage(9) < 15:
+        if i.gear.weaponlist.count_damage(15) < 15:
+            return False
+
+        if i.gear.weaponlist.count_damage(18) >= 20:
             return False
 
         return True
