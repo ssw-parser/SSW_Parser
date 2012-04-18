@@ -543,6 +543,63 @@ class Equipment:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
+class ExplosiveWeapons:
+    """
+    Store Where explosive weapon slots are located.
+    """
+    def __init__(self):
+        self.exp_weapon = {}
+
+    def add_weapon(self, location, slots):
+        """
+        Store where weapon explosive slots are located
+        """
+        # Split weapons, assign to innermost
+        if type(location).__name__ == 'list':
+            j = ""
+            loc = ""
+            for i in location:
+                # First part
+                if (j == ""):
+                    j = i[0]
+                    continue
+                elif (i[0] == "CT" and
+                      (j == "RT" or j == "LT")):
+                    loc = "CT"
+                elif (j == "CT" and
+                      (i[0] == "RT" or i[0] == "LT")):
+                    loc = "CT"
+                    print i[0], j
+                elif (i[0] == "RA" and j == "RT"):
+                    loc = "RT"
+                elif (j == "RA" and i[0] == "RT"):
+                    loc = "RT"
+                elif (i[0] == "LA" and j == "LT"):
+                    loc = "LT"
+                elif (j == "LA" and i[0] == "LT"):
+                    loc = "LT"
+            assert loc, "Split weapon location failed!"
+            expl = self.exp_weapon.get(loc, 0)
+            expl += slots
+            self.exp_weapon[loc] = expl
+        # No split, easy to handle
+        else:
+            expl = self.exp_weapon.get(location, 0)
+            expl += slots
+            self.exp_weapon[location] = expl
+
+    def get_keys(self):
+        """
+        Returns all the locations that contains explosive stuff
+        """
+        return self.exp_weapon.keys()
+
+    def get_slots(self, i):
+        """
+        Returns how many explosive slots in a given location
+        """
+        return self.exp_weapon[i]
+
 class Gear:
     """
     Store Gear
@@ -568,7 +625,7 @@ class Gear:
         self.tcw_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
-        self.exp_weapon = {}
+        self.exp_weapon = ExplosiveWeapons()
         self.case = {}
         # Track coolant pods
         self.coolant = 0
@@ -625,39 +682,7 @@ class Gear:
 
                     # Add explosive weapon to location
                     if weap.explosive > 0:
-                        # Split weapons, assign to innermost
-                        if type(name.loc).__name__ == 'list':
-                            j = ""
-                            loc = ""
-                            for i in name.loc:
-                                # First part
-                                if (j == ""):
-                                    j = i[0]
-                                    continue
-                                elif (i[0] == "CT" and
-                                      (j == "RT" or j == "LT")):
-                                    loc = "CT"
-                                elif (j == "CT" and
-                                      (i[0] == "RT" or i[0] == "LT")):
-                                    loc = "CT"
-                                    print i[0], j
-                                elif (i[0] == "RA" and j == "RT"):
-                                    loc = "RT"
-                                elif (j == "RA" and i[0] == "RT"):
-                                    loc = "RT"
-                                elif (i[0] == "LA" and j == "LT"):
-                                    loc = "LT"
-                                elif (j == "LA" and i[0] == "LT"):
-                                    loc = "LT"
-                            assert loc, "Split weapon location failed!"
-                            expl = self.exp_weapon.get(loc, 0)
-                            expl += weap.explosive
-                            self.exp_weapon[loc] = expl
-                        # No split, easy to handle
-                        else:
-                            expl = self.exp_weapon.get(name.loc, 0)
-                            expl += weap.explosive
-                            self.exp_weapon[name.loc] = expl
+                        self.exp_weapon.add_weapon(name.loc, weap.explosive)
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
@@ -671,9 +696,7 @@ class Gear:
                         self.coolant += 1
                     # Add explosive weapon to location
                     if equip.explosive > 0:
-                        expl = self.exp_weapon.get(name.loc, 0)
-                        expl += equip.explosive
-                        self.exp_weapon[name.loc] = expl
+                        self.exp_weapon.add_weapon(name.loc, equip.explosive)
                 # CASE
                 if (name.name == equip.name and
                     (name.typ == 'CASE' or name.typ == 'CASEII')):
@@ -855,25 +878,25 @@ class Gear:
         """
         neg_bv = 0.0
         # Check each ammo location
-        for i in self.exp_weapon.keys():
+        for i in self.exp_weapon.get_keys():
             cas = self.case.get(i, "")
             # Head and center torso always
             if (i == "HD" or i == "CT"):
-                neg_bv -= self.exp_weapon[i]
+                neg_bv -= self.exp_weapon.get_slots(i)
             # So are legs
             elif (i == "LL" or i == "RL" or i == "RLL" or i == "RRL"):
-                neg_bv -= self.exp_weapon[i]
+                neg_bv -= self.exp_weapon.get_slots(i)
             # Side torsos depends on several factors
             elif (i == "LT" or i == "RT"):
                 # Inner Sphere XL Engines means that side torsos are vulnerable
                 if engine.vulnerable():
                     if (cas != "CASEII"):
-                        neg_bv -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon.get_slots(i)
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
                     # No CASE
                     if (cas != "CASE" and cas != "CASEII"):
-                        neg_bv -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon.get_slots(i)
             # Arms are complicated
             elif (i == "LA" or i == "FLL"):
                 # we can use torso CASE
@@ -882,13 +905,13 @@ class Gear:
                 if engine.vulnerable():
                     if (cas != "CASEII" and cas2 != "CASEII"
                         and self.c_case == "FALSE"):
-                        neg_bv -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon.get_slots(i)
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):
-                        neg_bv -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon.get_slots(i)
             elif (i == "RA" or i == "FRL"):
                 # we can use torso CASE
                 cas2 = self.case.get("RT", "")
@@ -896,13 +919,13 @@ class Gear:
                 if engine.vulnerable():
                     if (cas != "CASEII" and cas2 != "CASEII"
                         and self.c_case == "FALSE"):
-                        neg_bv -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon.get_slots(i)
                 # Otherwise we check for CASE
                 elif (self.c_case == "FALSE"):
                     # No CASE
                     if ((cas != "CASE" and cas != "CASEII") and
                         (cas2 != "CASE" and cas2 != "CASEII")):
-                        neg_bv -= self.exp_weapon[i]
+                        neg_bv -= self.exp_weapon.get_slots(i)
         return neg_bv
 
     def check_weapon_bv_flip(self):
