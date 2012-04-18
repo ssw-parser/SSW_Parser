@@ -642,47 +642,47 @@ class Gear:
             ### Weapons ###
             # Go through weapon list
             ident = False
-            for weap in self.weaponlist.list:
-                # Weapon identified
-                if (name.name == weap.name and (name.typ == 'ballistic' or
-                                                name.typ == 'energy' or
-                                                name.typ == 'missile' or
-                                                name.typ == 'artillery' or
-                                                name.typ == 'mgarray')):
-                    # Add weapon
-                    if name.rear:
-                        weap.addone_rear()
-                    else:
-                        weap.addone(name.loc)
+            # A weapon
+            if (name.typ == 'ballistic' or name.typ == 'energy' or
+                name.typ == 'missile' or name.typ == 'artillery' or
+                name.typ == 'mgarray'):
+                for weap in self.weaponlist.list:
+                    # Weapon identified
+                    if (name.name == weap.name):
+                        # Add weapon
+                        if name.rear:
+                            weap.addone_rear()
+                        else:
+                            weap.addone(name.loc)
 
-                    # track weapons weight
-                    self.w_weight += weap.get_weight()
-                    # track weight for targeting computer
-                    if weap.enhance == "T":
-                        self.tcw_weight += weap.get_weight()
+                        # track weapons weight
+                        self.w_weight += weap.get_weight()
+                        # track weight for targeting computer
+                        if weap.enhance == "T":
+                            self.tcw_weight += weap.get_weight()
 
-                    # We have found a valid weapon
-                    ident = True
+                        # We have found a valid weapon
+                        ident = True
 
-                    # Count LRM tubes that can fire special ammo
-                    # Missing: NLRM-10, NLRM-15, NLRM-20
-                    for launcher in LRM_LIST:
-                        if (name.name == launcher[0]):
-                            self.lrms += launcher[2]
+                        # Count LRM tubes that can fire special ammo
+                        # Missing: NLRM-10, NLRM-15, NLRM-20
+                        for launcher in LRM_LIST:
+                            if (name.name == launcher[0]):
+                                self.lrms += launcher[2]
 
-                    # Count SRM tubes that can fire special ammo
-                    for launcher in SRM_LIST:
-                        if (name.name == launcher[0]):
-                            self.srms += launcher[2]
+                        # Count SRM tubes that can fire special ammo
+                        for launcher in SRM_LIST:
+                            if (name.name == launcher[0]):
+                                self.srms += launcher[2]
 
-                    # Check for special ammo using AC
-                    for launcher in AC_LIST:
-                        if (name.name == launcher[0]):
-                            self.has_ac = True
+                        # Check for special ammo using AC
+                        for launcher in AC_LIST:
+                            if (name.name == launcher[0]):
+                                self.has_ac = True
 
-                    # Add explosive weapon to location
-                    if weap.explosive > 0:
-                        self.exp_weapon.add_weapon(name.loc, weap.explosive)
+                        # Add explosive weapon to location
+                        if weap.explosive > 0:
+                            self.exp_weapon.add_weapon(name.loc, weap.explosive)
 
             # Handle non-weapon equipment
             # HACK: Handle CASE
