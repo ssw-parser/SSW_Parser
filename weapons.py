@@ -933,16 +933,16 @@ class Weaponlist:
     Store the list with weapons
     """
     def __init__(self, art4, art5, apollo):
-        self.list = []
+        self.list = {}
         for weap in WEAPONS.keys():
-            self.list.append(Weapon(weap, art4, art5, apollo))
+            self.list[weap] = Weapon(weap, art4, art5, apollo)
 
     def get_rules_level(self):
         """
         Return rules level for all weapons
         """
         r_level = 0
-        for weap in self.list:
+        for weap in self.list.itervalues():
             if weap.get_rules_level() > r_level:
                 r_level = weap.get_rules_level()
         return r_level
@@ -952,7 +952,7 @@ class Weaponlist:
         Count total damage from weapons at a given range
         """
         dam = 0
-        for weap in self.list:
+        for weap in self.list.itervalues():
             if (weap.check_range(rnge) and weap.count > 0):
                 dam += weap.get_damage(rnge) * weap.count
 
@@ -964,7 +964,7 @@ class Weaponlist:
         Return a short description string for all weapons.
         """
         w_str = ""
-        for weap in self.list:
+        for weap in self.list.itervalues():
             if (weap.count > 0):
                 w_str += weap.get_short_count() + " "
 
@@ -976,7 +976,7 @@ class Weaponlist:
         Return a short description string for main weapons.
         """
         w_str = ""
-        for weap in self.list:
+        for weap in self.list.itervalues():
             if (weap.count > 0):
                 # Filter out secondary weapons
                 found = False
@@ -998,7 +998,7 @@ class Weaponlist:
         w_str = ""
         dam = 0
         heat = 0
-        for weap in self.list:
+        for weap in self.list.itervalues():
             if (weap.check_range(rnge) and weap.count > 0):
                 w_str += weap.get_short_count() + " "
                 dam += weap.get_damage(rnge) * weap.count
@@ -1016,7 +1016,7 @@ class Weaponlist:
         w_str = ""
         dam = 0
         heat = 0
-        for weap in self.list:
+        for weap in self.list.itervalues():
             for launcher in w_list:
                 if (weap.name == launcher[0] and weap.count > 0):
                     w_str += weap.get_short_count() + " "

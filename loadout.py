@@ -137,7 +137,7 @@ class Load:
 
 
         # Scan weapons
-        for weap in self.gear.weaponlist.list:
+        for weap in self.gear.weaponlist.list.itervalues():
             if (weap.count > 0 and (weap.name == "(IS) Narc Missile Beacon" or
                                     weap.name == "(CL) Narc Missile Beacon")):
                 self.specials["SNARC"] = 1
@@ -281,7 +281,7 @@ class Load:
 
         w_list = []
         # Weapons
-        for weap in self.gear.weaponlist.list:
+        for weap in self.gear.weaponlist.list.itervalues():
             if weap.count > 0:
                 i = weap.count
                 left_arm = weap.count_la

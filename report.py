@@ -70,7 +70,7 @@ def print_lrm(i):
     print "Nr Name                        Heat Dam Ammo"
     t_dam = 0
     t_heat = 0
-    for weap in i.gear.weaponlist.list:
+    for weap in i.gear.weaponlist.list.itervalues():
         for launcher in LRM_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
                 cnt = weap.count
@@ -100,7 +100,7 @@ def print_srm(i):
     print "Nr Name                        Heat Dam Ammo"
     t_dam = 0
     t_heat = 0
-    for weap in i.gear.weaponlist.list:
+    for weap in i.gear.weaponlist.list.itervalues():
         for launcher in SRM_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
                 cnt = weap.count
@@ -126,7 +126,7 @@ def print_ac(i):
     print "Nr Name                        Heat Dam Ammo"
     t_dam = 0
     t_heat = 0
-    for weap in i.gear.weaponlist.list:
+    for weap in i.gear.weaponlist.list.itervalues():
         for launcher in AC_LIST:
             if (weap.name == launcher[0] and weap.count > 0):
                 cnt = weap.count
@@ -155,7 +155,7 @@ def parse_gear(mech):
 
     # Print used weapons
     print "Nr      Name                       Heat Range     Enh"
-    for weap in mech.gear.weaponlist.list:
+    for weap in mech.gear.weaponlist.list,itervalues():
         if (weap.count > 0 or weap.countrear > 0):
             print_weapon(mech, weap)
             # Get BV balance, also count heat

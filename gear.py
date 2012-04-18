@@ -646,7 +646,7 @@ class Gear:
             if (name.typ == 'ballistic' or name.typ == 'energy' or
                 name.typ == 'missile' or name.typ == 'artillery' or
                 name.typ == 'mgarray'):
-                for weap in self.weaponlist.list:
+                for weap in self.weaponlist.list.itervalues():
                     # Weapon identified
                     if (name.name == weap.name):
                         # Add weapon
@@ -755,7 +755,7 @@ class Gear:
         for ammo in self.ammolist.list:
             if ammo.count > 0:
                 ident = False
-                for weap in self.weaponlist.list:
+                for weap in self.weaponlist.list.itervalues():
                     for i in ammo.wname:
                         if weap.name == i:
                             weap.add_ammo(ammo.count * ammo.weight,
@@ -938,7 +938,7 @@ class Gear:
         bv_front = 0.0
         bv_rear = 0.0
         # Weapons
-        for weap in self.weaponlist.list:
+        for weap in self.weaponlist.list.itervalues():
             if (weap.count - weap.count_la - weap.count_ra) > 0:
                 bv_front += weap.get_bv(self.tarcomp) * (weap.count -
                                                          weap.count_la -

@@ -806,7 +806,7 @@ def create_headcap_list_item(mech, i):
                    ["(IS) Thunderbolt-15", "tb15:"],
                    ["(IS) Thunderbolt-20", "tb20:"]]
 
-    for weap in i.gear.weaponlist.list:
+    for weap in i.gear.weaponlist.list.itervalues():
         for capper in capper_list:
             if (weap.name == capper[0] and weap.count > 0):
                 l_str += weap.get_short_count() + " "
