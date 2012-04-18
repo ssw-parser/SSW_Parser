@@ -538,8 +538,8 @@ def create_autocannon_list_item(mech, i):
     batt_val = mech.get_bv(i)
     weight = mech.weight
 
-    # No lrm tubes
-    if not i.gear.has_ac:
+    # No AC
+    if not i.gear.weaponlist.has_ac():
         return False
 
     if i.gear.tarcomp > 0:

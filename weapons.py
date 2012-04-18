@@ -970,6 +970,17 @@ class Weaponlist:
                     srms += launcher[2] * weap.count
         return srms
 
+    def has_ac(self):
+        """
+        Check if a special ammo using autocannon is mounted
+        """
+        found = False
+        for launcher in AC_LIST:
+            for weap in self.list.itervalues():
+                if (weap.name == launcher[0] and weap.count > 0):
+                    found = True
+        return found
+
     def all_summary(self):
         """
         Return a short description string for all weapons.

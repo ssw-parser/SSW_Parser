@@ -634,7 +634,6 @@ class Gear:
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
         self.lrms = 0
-        self.has_ac = False
 
         ### Count gear ###
         for name in self.equip:
@@ -668,11 +667,6 @@ class Gear:
                         for launcher in LRM_LIST:
                             if (name.name == launcher[0]):
                                 self.lrms += launcher[2]
-
-                        # Check for special ammo using AC
-                        for launcher in AC_LIST:
-                            if (name.name == launcher[0]):
-                                self.has_ac = True
 
                         # Add explosive weapon to location
                         if weap.explosive > 0:

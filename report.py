@@ -204,7 +204,7 @@ def parse_gear(mech):
         print_srm(mech)
 
     # Print Autocannon status is appliable
-    if mech.gear.has_ac:
+    if mech.gear.weaponlist.has_ac():
         print_ac(mech)
 
 def parse_omni(mech, battv):
