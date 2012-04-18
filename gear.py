@@ -711,32 +711,35 @@ class Gear:
                 name.typ =='TargetingComputer'):
                 self.tarcomp = 1
                 ident = True
-            if (name.name == "(CL) Targeting Computer" and
+            elif (name.name == "(CL) Targeting Computer" and
                 name.typ =='TargetingComputer'):
                 self.tarcomp = 2
                 ident = True
 
             # Hack, supercharger
-            if (name.name == "Supercharger" and name.typ == "Supercharger"):
+            elif (name.name == "Supercharger" and name.typ == "Supercharger"):
                 self.supercharger = True
                 ident = True
 
             # A possible physical weapon
-            if (name.typ == 'physical'):
+            elif (name.typ == 'physical'):
                 found = self.physicallist.add(name.name, name.loc)
                 if found:
                     ident = True
 
-            for ammo in self.ammolist.list:
-                if (name.name == ammo.name and name.typ == 'ammunition'):
-                    ammo.addone()
-                    self.a_weight += name.get_weight()
-                    ident = True
-                    # Add explosive ammo to location
-                    if ammo.explosive == "X":
-                        expl = self.exp_ammo.get(name.loc, 0)
-                        expl += 1
-                        self.exp_ammo[name.loc] = expl
+            # Ammunition
+            elif (name.typ == 'ammunition'):
+                for ammo in self.ammolist.list:
+                    if (name.name == ammo.name):
+                        ammo.addone()
+                        self.a_weight += name.get_weight()
+                        ident = True
+                        # Add explosive ammo to location
+                        if ammo.explosive == "X":
+                            expl = self.exp_ammo.get(name.loc, 0)
+                            expl += 1
+                            self.exp_ammo[name.loc] = expl
+
             # Not found
             if not ident:
                 print "Unidentified:", name.name, ":", name.typ

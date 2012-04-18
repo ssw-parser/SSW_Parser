@@ -57,7 +57,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Handle M-pods (should work on this end, problem in SSW)
 
 - Weight calculations - detect under-weight mechs
-- Make CASE handling less hackish
+
+- Make CASE handling less hackish, separate CASE from equipment
 
 - Remove unused specials.py?
 
