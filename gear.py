@@ -26,7 +26,7 @@ from math import ceil
 from error import error_exit
 from util import gettext, get_child_data
 from item import Item
-from weapons import WEAPONS, LRM_LIST, SRM_LIST, AC_LIST, Weaponlist
+from weapons import WEAPONS, LRM_LIST, AC_LIST, Weaponlist
 from physical import PHYSICAL, Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,
@@ -634,7 +634,6 @@ class Gear:
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
         self.lrms = 0
-        self.srms = 0
         self.has_ac = False
 
         ### Count gear ###
@@ -669,11 +668,6 @@ class Gear:
                         for launcher in LRM_LIST:
                             if (name.name == launcher[0]):
                                 self.lrms += launcher[2]
-
-                        # Count SRM tubes that can fire special ammo
-                        for launcher in SRM_LIST:
-                            if (name.name == launcher[0]):
-                                self.srms += launcher[2]
 
                         # Check for special ammo using AC
                         for launcher in AC_LIST:

@@ -959,6 +959,17 @@ class Weaponlist:
         return dam
 
 
+    def count_srms(self):
+        """
+        Count number of SRM tubes that can fire special ammo
+        """
+        srms = 0
+        for launcher in SRM_LIST:
+            for weap in self.list.itervalues():
+                if (weap.name == launcher[0]):
+                    srms += launcher[2] * weap.count
+        return srms
+
     def all_summary(self):
         """
         Return a short description string for all weapons.

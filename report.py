@@ -155,7 +155,7 @@ def parse_gear(mech):
 
     # Print used weapons
     print "Nr      Name                       Heat Range     Enh"
-    for weap in mech.gear.weaponlist.list,itervalues():
+    for weap in mech.gear.weaponlist.list.itervalues():
         if (weap.count > 0 or weap.countrear > 0):
             print_weapon(mech, weap)
             # Get BV balance, also count heat
@@ -200,7 +200,7 @@ def parse_gear(mech):
         print_lrm(mech)
 
     # Print SRM status is appliable
-    if mech.gear.srms > 0:
+    if mech.gear.weaponlist.count_srms() > 0:
         print_srm(mech)
 
     # Print Autocannon status is appliable

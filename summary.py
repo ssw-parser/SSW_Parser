@@ -475,7 +475,7 @@ def create_srm_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
-    srm = i.gear.srms
+    srm = i.gear.weaponlist.count_srms()
 
     # No srm tubes
     if srm == 0:
