@@ -573,8 +573,8 @@ class Mech:
         Definition:
         - Speed at least walk 4 or jump 3
         - BF armor at least 4
-        - Able to do 15 damage at range 15
-        - Do less than 20 damage at range 18
+        - Able to do 10 damage at range 15
+        - Do more damage at range 15 than range 18
         """
         if self.get_walk() < 4 and i.get_jump() < 3:
             return False
@@ -582,10 +582,11 @@ class Mech:
         if self.armor.get_bf_value() < 4:
             return False
 
-        if i.gear.weaponlist.count_damage(15) < 15:
+        dam15 = i.gear.weaponlist.count_damage(15)
+        if dam15 < 10:
             return False
 
-        if i.gear.weaponlist.count_damage(18) >= 20:
+        if i.gear.weaponlist.count_damage(18) >= dam15:
             return False
 
         return True
