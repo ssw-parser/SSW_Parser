@@ -64,6 +64,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Scan for maximum damage range?
 
+- Add Economy - cost of mech
+
 == weapons.py ==
 - Track if linked to tarcomp?
 
