@@ -950,7 +950,7 @@ def print_type_list(file_list, select_l, header):
     mech_list = create_mech_list(file_list, select_l, create_type_list_item)
 
     # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
+    # mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
     print header
