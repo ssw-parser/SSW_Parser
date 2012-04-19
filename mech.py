@@ -501,12 +501,14 @@ class Mech:
         Definition:
         - Able to do 10 damage at range 18
         - Do same (or less) damage at range 15 than range 18
+          or is slower than walk or jump 4
         """
         dam18 = i.gear.weaponlist.count_damage(18)
         if dam18 < 10:
             return False
 
-        if i.gear.weaponlist.count_damage(15) > dam18:
+        if (i.gear.weaponlist.count_damage(15) > dam18 and
+            (self.get_walk() > 3 or i.get_jump() > 4)):
             return False
 
         return True
