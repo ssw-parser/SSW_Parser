@@ -62,6 +62,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Remove unused specials.py?
 
+- Scan for maximum damage range?
+
 == weapons.py ==
 - Track if linked to tarcomp?
 
@@ -134,13 +136,9 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Filter by source
 
-===System by ANS Kamas P81===
+== Mech type flow chart ==
 
-Suddenly I think of the idea of using something similar to the planetary tech ratings.  A-F grades on firepower, armor, mobility, and special gear, maybe.  It's going to be relatively vague and not "my mech is 135.2 points more than yours" and would certainly count as "close enough" - maybe per weight.  Maybe make it purely on tonnage...
+Fast (5+) vs Slow (4-): 
+- Fast --> Scout, Skirmisher, Striker
+- Slow --> Brawler, Juggernaut, Sniper, Missile Boat
 
-Weapons as a percentage of 'Mech weight: <10%=F, 10-20=D, 20-35=C, 35-50=B, 50%+=A
-Armor as a percentage of max value: <50%=F, 50-60=D, 60-75=C, 75-90=B, 90%+=A
-Speed as a percentage of the max MP for its weight and engine, +1 level for jump jets: <50%=F, 50-60=D, 60-75=C, 75-90=B, 90%+=A
-Special is ECM, Probe, C3, Narc, TAG, and similar: no gear is F, one piece of equipment is D, 2 is C, 3 is B, 4+ is A
-
-Soooo...to pick a random 'Mech, the OSP-26.  Weapons, not counting CASE or the jump jets, comes to exactly 50% by mass.  Armor, 176/185=95% or so.  Speed, 4/7=~.58, so D, though +1 for jump jets.  The Probe gives it one point in special.  That gives you a final rating for an A/A/C/D machine, a good line 'Mech with moderate mobility and a little bit of EW capability.  Now the above is fully off the top of my head, I just thought of it when I saw the comment of vague ratings and remembered the planetary codes - so why not something similar?  It's certainly a lot easier to calculate than trying to figure BV...
