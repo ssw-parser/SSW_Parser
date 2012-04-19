@@ -475,12 +475,12 @@ class Mech:
         Check if a mech is a juggernaut
 
         Definition:
-        - Walking speed no more than 4
+        - Walking and jump speed no more than 4
         - BF armor at least 5
         - Able to do 30 damage at range 6
         - Do less than 20 damage at range 18
         """
-        if self.get_walk() > 4:
+        if self.get_walk() > 4 or i.get_jump() > 4:
             return False
 
         if self.armor.get_bf_value() < 5:
@@ -528,13 +528,13 @@ class Mech:
         Check if a mech is a striker
 
         Definition:
-        - Speed at least walk 6 or jump 5
-        - Able to do 12 damage at range 3
+        - Speed at least walk 5 or jump 5
+        - Able to do 15 damage at range 3
         """
-        if self.get_walk() < 6 and i.get_jump() < 5:
+        if self.get_walk() < 5 and i.get_jump() < 5:
             return False
 
-        if i.gear.weaponlist.count_damage(3) < 12:
+        if i.gear.weaponlist.count_damage(3) < 15:
             return False
 
         return True
@@ -544,11 +544,11 @@ class Mech:
         Check if a mech is a skirmisher
 
         Definition:
-        - Speed at least walk 5 or jump 4
+        - Speed at least walk 5 or jump 5
         - BF armor at least 3
         - Able to do 5 damage at range 15
         """
-        if self.get_walk() < 5 and i.get_jump() < 4:
+        if self.get_walk() < 5 and i.get_jump() < 5:
             return False
 
         if self.armor.get_bf_value() < 3:
@@ -564,9 +564,9 @@ class Mech:
         Check if a mech is a scout
 
         Definition:
-        - Speed at least walk 7 or jump 6
+        - Speed at least walk 6 or jump 6
         """
-        if self.get_walk() < 7 and i.get_jump() < 6:
+        if self.get_walk() < 6 and i.get_jump() < 6:
             return False
 
         return True
@@ -576,12 +576,12 @@ class Mech:
         Check if a mech is a brawler
 
         Definition:
-        - Speed at least walk 4 or jump 3
+        - Speed at least walk 4 or jump 4
         - BF armor at least 4
         - Able to do 10 damage at range 15
         - Do more damage at range 15 than range 18
         """
-        if self.get_walk() < 4 and i.get_jump() < 3:
+        if self.get_walk() < 4 and i.get_jump() < 4:
             return False
 
         if self.armor.get_bf_value() < 4:
