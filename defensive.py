@@ -110,21 +110,21 @@ LEG_IS = {
 
 # Info on internal structure types
 #
-# Name, techbase, BV multiplier, weight factor, rules level
+# Name, techbase, BV multiplier, weight factor, rules level, cost factor
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Industrial
-STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0],
-             ["Endo-Steel", 0, 1.0, 0.05, 1],
-             ["Endo-Steel", 1, 1.0, 0.05, 1],
-             ["Primitive Structure", 0, 1.0, 0.1, 4],
-             ["Composite Structure", 0, 1.0, 0.05, 2],
-             ["Reinforced Structure", 2, 2.0, 0.2, 2],
-             ["Endo-Composite", 0, 1.0, 0.075, 2],
-             ["Endo-Composite", 1, 1.0, 0.075, 2]]
+STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0, 400],
+             ["Endo-Steel", 0, 1.0, 0.05, 1, 1600],
+             ["Endo-Steel", 1, 1.0, 0.05, 1, 1600],
+             ["Primitive Structure", 0, 1.0, 0.1, 4, 400],
+             ["Composite Structure", 0, 1.0, 0.05, 2, 1600],
+             ["Reinforced Structure", 2, 2.0, 0.2, 2, 6400],
+             ["Endo-Composite", 0, 1.0, 0.075, 2, 3200],
+             ["Endo-Composite", 1, 1.0, 0.075, 2, 3200]]
 
 
 # Info on armor types
@@ -168,6 +168,7 @@ class IS(Item):
                 self.is_bv = i[2]
                 wgtf = i[3]
                 self.r_level = i[4]
+                costf = i[5]
         if not ident:
             error_exit((self.type, self.tech_base))
 
@@ -196,6 +197,9 @@ class IS(Item):
         else:
             error_exit(motive)
 
+        # Calculate cost
+        self.cost = weight * costf
+
     def get_type(self):
         """
         Return internal structure type
@@ -214,6 +218,12 @@ class IS(Item):
         Return structure weight
         """
         return self.wgt
+
+    def get_cost(self):
+        """
+        Return structure cost
+        """
+        return self.cost
 
     def get_bv_factor(self):
         """
