@@ -74,7 +74,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Musculature -- TODO
 - Internal Sturcture -- TODO
 - Actuators -- TODO
-- Engine -- TODO
+- Engine -- Done
 - Gyro -- Done
 - Jump Jets -- Done
 - MASC -- TODO
@@ -84,7 +84,10 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Armor -- TODO
 --
 - Jump Boosters -- Done
-- Partial Wing -- TODO
+- Partial Wing -- Done
+
+== movement.py ==
+- Use a dictionary for engine type info
 
 == weapons.py ==
 - Track if linked to tarcomp?

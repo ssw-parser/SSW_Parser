@@ -422,26 +422,27 @@ CMP_ENGINE = {
 
 # Engine types
 #
-# Name, techbase, BV multiplier, weight, rules level
+# Name, techbase, BV multiplier, weight, rules level, cost factor
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: ICE, Fuel Cell, Fission
-ENGINE = [["Fusion Engine", 2, 1.0, (lambda x : STD_ENGINE[x]), 0],
-          ["XL Engine", 0, 0.5, (lambda x : XL_ENGINE[x]), 1],
-          ["XL Engine", 1, 0.75, (lambda x : XL_ENGINE[x]), 1],
-          ["Light Fusion Engine", 0, 0.75, (lambda x : LGT_ENGINE[x]), 1],
+ENGINE = [["Fusion Engine", 2, 1.0, (lambda x : STD_ENGINE[x]), 0, 5000],
+          ["XL Engine", 0, 0.5, (lambda x : XL_ENGINE[x]), 1, 20000],
+          ["XL Engine", 1, 0.75, (lambda x : XL_ENGINE[x]), 1, 20000],
+          ["Light Fusion Engine", 0, 0.75,
+           (lambda x : LGT_ENGINE[x]), 1, 15000],
           ["Compact Fusion Engine", 0, 1.0,
-           (lambda x : CMP_ENGINE[x]), 1],
+           (lambda x : CMP_ENGINE[x]), 1, 10000],
           # Advanced
           ["XXL Engine", 0, 0.25,
-           (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
+           (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000],
           ["XXL Engine", 1, 0.5,
-           (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3],
+           (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000],
           ["Primitive Fusion Engine", 2, 1.0,
-           (lambda x : STD_ENGINE[ceil_5(x * 1.2)]), 4]]
+           (lambda x : STD_ENGINE[ceil_5(x * 1.2)]), 4, 5000]]
 
 # Gyro types
 #
@@ -722,6 +723,15 @@ class PartialWing(Item):
         else:
             return 0
 
+    def get_cost(self):
+        """
+        Get cost of partial wing
+        """
+        if self.wing:
+            return (self.get_weight() * 50000)
+        else:
+            return 0
+
     def has_wing(self):
         """
         Return true if we have a wing 
@@ -865,6 +875,7 @@ class Engine(Item):
         self.e_base = int(eng.attributes["techbase"].value)
         self.etype = gettext(eng.childNodes)
         self.speed = self.erating / weight
+        self.weight = weight
         # A note on primitive engines:
         # It seems like using engine rating directly does give
         # the right speed, even if rules says otherwise
@@ -879,6 +890,7 @@ class Engine(Item):
                 self.eng_bv = i[2]
                 self.eweight = i[3](self.erating)
                 self.r_level = i[4]
+                self.cost = i[5]
         if not ident:
             error_exit((self.etype, self.e_base))
 
@@ -904,6 +916,16 @@ class Engine(Item):
         Return weight of engine
         """
         return self.eweight
+
+    def get_cost(self):
+        """
+        Return cost of engine
+        """
+        cost = (self.cost * self.erating * self.weight) / 75
+        # Large engines have double cost compared to a comparable normal
+        if self.erating > 400:
+            cost *= 2
+        return cost
 
     def get_bv_mod(self):
         """
