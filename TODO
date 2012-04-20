@@ -36,11 +36,9 @@ Banshee BNC-11X (XTRO:Steiner) -- Modular Armor
 TBT-XK7 Trebuchet (XTRO:Periphery) -- Modular Armor
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
-== PRIORITY ==
-- Law of Demeter, avoid accessing low-level object data
-
 == Goals ==
 
+- Law of Demeter, avoid accessing low-level object data
 - Better packaging: Distutils
 - Better file & path handling
 - Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II
@@ -64,16 +62,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 === Rules level calculations ===
 
 - Track Intro, TL, Advanced and Experimental
-- Missing: multi-slot, partial wing, loadout and gear stuff
 - Missing: turrets
-- Loadout level:
--- Gear - done
--- Armored locations - done
--- Jump Boosters - done
--- AES - done
--- Partial Wing - done
--- Jumpjets - done
--- Heatsinks - done
 
 === Cost calculations ===
 - Structural calculation -- TODO
@@ -111,8 +100,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == gear.py ==
 - Split WEAPONS into weapon types.
-- Handle Supercharger better.
-- Add rules level for stuff.
+- Handle Supercharger, Tarcomp & CASE better.
 - Move weight calculations.
 
 == physical.py ==

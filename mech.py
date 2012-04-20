@@ -467,10 +467,9 @@ class Mech:
         # Standard armor report
         self.armor.parse_armor()
 
-    def rules_level(self):
+    def rules_level(self, load):
         """
         Return rules level of mech
-        WARNING: Still under construction
         """
         r_level = 0
         tmp = self.structure.get_rules_level()
@@ -491,7 +490,20 @@ class Mech:
         tmp = self.armor.get_rules_level()
         if tmp > r_level:
             r_level = tmp
-        # TODO: Add partw, multi-slot, loadout, gear stuff here
+        # Hack -- multi-slot
+        for i in self.multi:
+            if i == "Chameleon LPS":
+                tmp = 3
+            elif i == "Null Signature System":
+                tmp = 3
+            elif i == "Void Signature System":
+                tmp = 2
+            if tmp > r_level:
+                r_level = tmp
+
+        tmp = load.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
 
         return r_level
 
