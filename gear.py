@@ -802,7 +802,7 @@ class Gear:
 
     def get_e_weight(self):
         """
-        Get equipment weight
+        Get equipment, tarcomp & CASE weight
         """
         return self.e_weight
 
