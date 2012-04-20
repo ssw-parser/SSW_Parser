@@ -541,9 +541,8 @@ class Equipment:
         self.name = key
         self.off_bv = EQUIPMENT[key][0]
         self.def_bv = EQUIPMENT[key][1]
-        self.weight = EQUIPMENT[key][3]
         self.useammo = EQUIPMENT[key][4]
-        self.explosive = EQUIPMENT[key][5]
+        self.expl = EQUIPMENT[key][5]
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
@@ -553,6 +552,12 @@ class Equipment:
         Get rules level of equipment
         """
         return EQUIPMENT[self.name][2]
+
+    def get_weight(self):
+        """
+        Get weight of equipment
+        """
+        return EQUIPMENT[self.name][3]
 
     def addone(self):
         """
@@ -703,14 +708,14 @@ class Gear:
                 for equip in self.equiplist.list:
                     if (name.name == equip.name):
                         equip.addone()
-                        self.e_weight += name.get_weight()
+                        self.e_weight += equip.get_weight()
                         ident = True
                         # Hack, coolant pods
                         if name.name == "Coolant Pod":
                             self.coolant += 1
-                        # Add explosive weapon to location
-                        if equip.explosive > 0:
-                            self.exp_weapon.add_weapon(name.loc, equip.explosive)
+                        # Add explosive equipment to location
+                        if equip.expl > 0:
+                            self.exp_weapon.add_weapon(name.loc, equip.expl)
             # Hack, CASE
             elif (name.typ == 'CASE' or name.typ == 'CASEII'):
                 for cas in CASE.keys():
