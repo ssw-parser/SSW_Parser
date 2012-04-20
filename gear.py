@@ -26,8 +26,8 @@ from math import ceil
 from error import error_exit
 from util import gettext, get_child_data
 from item import Item
-from weapons import WEAPONS, LRM_LIST, Weaponlist
-from physical import PHYSICAL, Physicallist
+from weapons import LRM_LIST, Weaponlist
+from physical import Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,
 # by using named class members.
@@ -390,14 +390,11 @@ class Heatsinks(Item):
         return self.number * self.cap
 
 
-class Equip(Item):
+class Equip:
     """
-    The new equipment class being tested out
+    A class used to extract raw gear and format its data
     """
-    # TODO: Make a real item
-    # TODO: Make this a parent class, and split according to type?
     def __init__(self, node):
-        Item.__init__(self)
         self.name = get_child_data(node, "name")
         self.typ = get_child_data(node, "type")
         self.rear = False
@@ -425,62 +422,6 @@ class Equip(Item):
             self.name = self.name[4:]
 
 
-    def get_type(self):
-        """
-        Return equipment name
-        """
-        return self.name
-
-    def get_rules_level(self):
-        """
-        Return rules level of equipment piece
-        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
-        """
-        if (self.typ == "equipment" or self.typ == "CASE" or
-            self.typ == "CASEII"):
-            rule = EQUIPMENT[self.name][2]
-        elif self.typ == "TargetingComputer":
-            rule = TARCOMPS[self.name][0]
-        elif (self.typ == "ballistic" or self.typ == "energy" or
-              self.typ == "missile" or self.typ == "artillery" or
-              self.typ == "mgarray"):
-            rule = WEAPONS[self.name][2]
-        elif self.typ == "physical":
-            rule = PHYSICAL[self.name][5]
-        # Hack -- assume that ammunition is of same rules level as weapon
-        elif self.typ == "ammunition":
-            rule = 0
-        # Supercharger are advanced rules
-        elif self.typ == "Supercharger":
-            rule = 2
-        # Tarcomps are tournament legal are advanced rules
-        elif self.typ == "TargetingComputer":
-            rule = 1
-        else:
-            print "Unknown tech level:", self.name, ":", self.typ
-            error_exit("gear")
-
-        return rule
-
-    def get_weight(self):
-        # TODO: Artemis & friends weight
-        # Tarcomp
-        # Physical parameter
-        if (self.typ == "equipment" or self.typ == "CASE" or
-            self.typ == "CASEII"):
-            return EQUIPMENT[self.name][3]
-        elif self.typ == "ammunition":
-            return AMMO[self.name][2]
-        elif self.typ == "physical":
-            return PHYSICAL[self.name][2](mech.weight)
-        elif (self.typ == "missile" or self.typ == "ballistic" or
-              self.typ == "energy"):
-            return WEAPONS[self.name][8]
-        else:
-            print "Unknown item", self.name, self.typ
-            raise NotImplementedError
-            
-
 class Ammolist:
     """
     Store the list with weapon types
@@ -507,6 +448,14 @@ class Ammo:
         Add one ammo item
         """
         self.count = self.count + 1
+
+    def get_weight(self):
+        """
+        Return ammo weight for one item
+        """
+        return AMMO[self.name][2]
+
+
 
 class Equiplist:
     """
@@ -769,7 +718,7 @@ class Gear:
                 for ammo in self.ammolist.list:
                     if (name.name == ammo.name):
                         ammo.addone()
-                        self.a_weight += name.get_weight()
+                        self.a_weight += ammo.get_weight()
                         ident = True
                         # Add explosive ammo to location
                         if ammo.explosive == "X":
