@@ -47,7 +47,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - BattleForce information
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
-- Turret weights
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
@@ -55,9 +54,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Handle armored components (better) (priority: head, shoulders, hips)
 - Handle M-pods (should work on this end, problem in SSW)
 
-- Weight calculations - detect under-weight mechs
-
-- Make CASE handling less hackish, separate CASE from equipment
+- Make CASE handling less hackish
 
 - Remove unused specials.py?
 
@@ -97,6 +94,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 --
 - Jump Boosters -- Done
 - Partial Wing -- Done
+
+=== Weight calculations ===
+
+- Weight calculations - detect under-weight mechs
+- Turret weights
+
 
 == movement.py ==
 - Use a dictionary for engine type info

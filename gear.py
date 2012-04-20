@@ -276,7 +276,6 @@ EQUIPMENT = {
     "Active Probe" : [[0, 0], [12, 0], 1, 1, 0, 0], # Clan
     "Light Active Probe" : [[0, 0], [7, 0], 1, 0.5, 0, 0],
     "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0],
-    "CASE" : [[0, 0], [0, 0], 1, 0.5, 0, 0], # HACK: CASE
     # Experimental
     "Angel ECM" : [[0, 0], [100, 0], 2, 2, 0, 0],
     "Bloodhound Active Probe" : [[0, 0], [25, 0], 2, 2, 0, 0],
@@ -288,10 +287,21 @@ EQUIPMENT = {
     "(IS) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1.5, 0, 0],
     "M-Pod" : [[5, 0], [0, 0], 2, 1, 0, 1],
     "C3 Remote Sensor Launcher" : [[30, 6], [0, 0], 3, 4, 1, 0],
-    "(IS) CASE II" : [[0, 0], [0, 0], 2, 1, 0, 0],
-    "(CL) CASE II" : [[0, 0],  [0, 0], 2, 0.5, 0, 0]
     }
 
+# CASE
+#
+# Name : rules level, weight, uses ammo rate, explosive slots
+#
+# Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
+# 3 = experimental, 4 = primitive
+#
+
+CASE = {
+    "CASE" : [1, 0.5],
+    "(IS) CASE II" : [2, 1],
+    "(CL) CASE II" : [2, 0.5]
+    }
 
 # Targeting computers
 #
@@ -673,29 +683,29 @@ class Gear:
                             self.exp_weapon.add_weapon(name.loc, weap.explosive)
 
             # Handle non-weapon equipment
-            # HACK: Handle CASE
-            for equip in self.equiplist.list:
-                if (name.name == equip.name and name.typ == 'equipment'):
-                    equip.addone()
-                    self.e_weight += name.get_weight()
-                    ident = True
-                    # Hack, coolant pods
-                    if name.name == "Coolant Pod":
-                        self.coolant += 1
-                    # Add explosive weapon to location
-                    if equip.explosive > 0:
-                        self.exp_weapon.add_weapon(name.loc, equip.explosive)
-                # CASE
-                if (name.name == equip.name and
-                    (name.typ == 'CASE' or name.typ == 'CASEII')):
-                    equip.addone()
-                    self.e_weight += name.get_weight()
-                    ident = True
-                    # Save CASE status
-                    self.case[name.loc] = name.typ
+            elif (name.typ == 'equipment'):
+                for equip in self.equiplist.list:
+                    if (name.name == equip.name):
+                        equip.addone()
+                        self.e_weight += name.get_weight()
+                        ident = True
+                        # Hack, coolant pods
+                        if name.name == "Coolant Pod":
+                            self.coolant += 1
+                        # Add explosive weapon to location
+                        if equip.explosive > 0:
+                            self.exp_weapon.add_weapon(name.loc, equip.explosive)
+            # Hack, CASE
+            elif (name.typ == 'CASE' or name.typ == 'CASEII'):
+                for cas in CASE.keys():
+                    if (name.name == cas):
+                        self.e_weight += CASE[cas][1]
+                        ident = True
+                        # Save CASE status
+                        self.case[name.loc] = name.typ
 
             # Hack, handle targeting computer
-            if (name.name == "(IS) Targeting Computer" and
+            elif (name.name == "(IS) Targeting Computer" and
                 name.typ =='TargetingComputer'):
                 self.tarcomp = 1
                 ident = True
