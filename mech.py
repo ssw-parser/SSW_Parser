@@ -467,6 +467,33 @@ class Mech:
         # Standard armor report
         self.armor.parse_armor()
 
+    def rules_level(self):
+        """
+        Return rules level of mech
+        WARNING: Still under construction
+        """
+        r_level = 0
+        tmp = self.structure.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.engine.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.gyro.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.cockpit.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.enhancement.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.armor.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        # TODO: Add partw, multi-slot, loadout, gear stuff here
+
+        return r_level
 
     ### Mech type tests ###
 
