@@ -37,7 +37,6 @@ TBT-XK7 Trebuchet (XTRO:Periphery) -- Modular Armor
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == PRIORITY ==
-- Track Intro, TL, Advanced and Experimental
 - Law of Demeter, avoid accessing low-level object data
 
 == Goals ==
@@ -63,6 +62,19 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Remove unused specials.py?
 
 - Scan for maximum damage range?
+
+=== Rules level calculations ===
+
+- Track Intro, TL, Advanced and Experimental
+- Missing: multi-slot, partial wing, loadout and gear stuff
+- Gear:
+-- weapons done
+-- physical weapons done
+-- equipment -- TODO
+-- CASE -- TODO
+-- Tarcomp -- TODO
+-- Supercharger -- TODO
+-- Ammo -- TODO
 
 === Cost calculations ===
 - Structural calculation -- TODO

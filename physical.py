@@ -86,6 +86,16 @@ class Physicallist:
         self.p_weight = 0
         self.p_speed = 0
 
+    def get_rules_level(self):
+        """
+        Return rules level for all weapons
+        """
+        r_level = 0
+        for phys in self.list:
+            if phys.get_rules_level() > r_level:
+                r_level = phys.get_rules_level()
+        return r_level
+
     def add(self, entry, loc):
         """
         Add a physical weapon
@@ -137,6 +147,12 @@ class Physical:
         Return weight
         """
         return PHYSICAL[self.name][3](float(self.m_weight))
+
+    def get_rules_level(self):
+        """
+        Return rules level
+        """
+        return PHYSICAL[self.name][5]
 
     def get_damage(self):
         """
