@@ -1082,7 +1082,15 @@ class Weapon:
         """
         Return rules level
         """
-        return WEAPONS[self.name][2]
+        rule = WEAPONS[self.name][2]
+        # Handle artemis & apollo
+        if self.enhance == "A4" and rule < 1:
+            rule = 1
+        elif self.enhance == "A5" and rule < 2:
+            rule = 2
+        elif self.enhance == "AP" and rule < 2:
+            rule = 2
+        return rule
 
     def get_weight(self):
         """
