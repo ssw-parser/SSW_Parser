@@ -504,6 +504,16 @@ class Equiplist:
         for equip in EQUIPMENT.keys():
             self.list.append(Equipment(equip))
 
+    def get_rules_level(self):
+        """
+        Return rules level for all equipment
+        """
+        r_level = 0
+        for equip in self.list:
+            if equip.get_rules_level() > r_level:
+                r_level = equip.get_rules_level()
+        return r_level
+
     def get_def_bv(self):
         """
         Get defensive gear BV
@@ -537,6 +547,12 @@ class Equipment:
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
+
+    def get_rules_level(self):
+        """
+        Get rules level of equipment
+        """
+        return EQUIPMENT[self.name][2]
 
     def addone(self):
         """
