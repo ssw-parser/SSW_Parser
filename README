@@ -101,3 +101,5 @@ The default output (no switch) is modeled after the MUL.
 -npr: Only list non-primitive mechs.
 
 -wgt <d>: Only list mechs of weight <d>.
+
+-rule <d>: Only list mechs with rules level <d> or lower.

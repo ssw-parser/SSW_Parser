@@ -1099,6 +1099,8 @@ def parse_arg():
                         help='Select non-Primitive mechs')
     parser.add_argument('-wgt', action='store', default = 0, type=int,
                         help='Select mechs of weight <n>')
+    parser.add_argument('-rule', action='store', default = 99, type=int,
+                        help='Select mechs with highest rules level <n>')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -1229,6 +1231,10 @@ def main():
     if args.wgt > 0:
         select_l.append(lambda x, y: (x.weight == args.wgt))
         header_l.append(("of weight %d" % args.wgt))
+    # Rules level
+    if args.rule < 99:
+        select_l.append(lambda x, y: (x.get_rules_level(y) <= args.rule))
+        header_l.append(("with highest rules level %d" % args.rule))
 
     ### Process output ###
 
