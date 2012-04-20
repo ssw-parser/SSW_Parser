@@ -49,6 +49,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Tacops Clan reactive, modular & patchwork armor
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig
+-- Supercharger, Tarcomp, CASE, Armored locations, AES
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
 - Handle armored components (better) (priority: head, shoulders, hips)
@@ -64,7 +65,15 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Track Intro, TL, Advanced and Experimental
 - Missing: multi-slot, partial wing, loadout and gear stuff
-- Gear - done
+- Missing: turrets
+- Loadout level:
+-- Gear - done
+-- Armored locations - done
+-- Jump Boosters - done
+-- AES - done
+-- Partial Wing - done
+-- Jumpjets - done
+-- Heatsinks - done
 
 === Cost calculations ===
 - Structural calculation -- TODO

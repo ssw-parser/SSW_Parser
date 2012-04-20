@@ -73,11 +73,13 @@ class Load:
         # Get Armored locations
         self.arm_loc = []
         self.arm_gyro = False
+        self.armored = False
         for arm in load.getElementsByTagName('armored_locations'):
             for loc in arm.getElementsByTagName('location'):
                 index = int(loc.attributes["index"].value)
                 location = gettext(loc.childNodes)
                 self.arm_loc.append((location, index))
+                self.armored = True
                 # Armored Gyro
                 if location == "CT" and index == 3:
                     self.arm_gyro = True
@@ -160,6 +162,38 @@ class Load:
         Return the name of the Loadout, if any
         """
         raise NotImplementedError
+
+    def rules_level(self):
+        """
+        Return rules level of loadout
+        WARNING: Still under construction
+        """
+        r_level = 0
+        tmp = self.gear.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.heatsinks.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.jjets.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.partw.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.jumpb.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        # Hack: Armored location
+        if self.armored == True and r_level < 2:
+            r_level = 2
+        # Hack: AES
+        if (self.aes_ra == True or self.aes_la == True) and r_level < 3:
+            r_level = 3
+
+        return r_level
+
+
 
     def get_sink(self):
         """
