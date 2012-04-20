@@ -619,10 +619,11 @@ def create_std_list_item(mech, i, rnge):
     heat = 0
     l_str = ""
     (l_str, dam, heat) = i.gear.weaponlist.std_summary(rnge)
+    arm_p = mech.armor.total.arm
 
     l_heat = str(int(heat)) + "/" + str(i.get_sink())
 
-    return (name_str, weight, batt_val, dam, l_heat, mov, l_str)
+    return (name_str, weight, batt_val, dam, l_heat, mov, arm_p, l_str)
 
 
 def create_juggernaut_list_item(mech, i):
@@ -656,11 +657,11 @@ def print_juggernaut_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 
@@ -694,11 +695,11 @@ def print_snipe_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 ## Striker listing
@@ -732,11 +733,11 @@ def print_striker_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 ## Skirmisher listing
@@ -772,11 +773,11 @@ def print_skirmisher_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Wpns/turns of fire"
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
 ## Head-capper listing
