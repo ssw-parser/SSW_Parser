@@ -64,7 +64,27 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Scan for maximum damage range?
 
-- Add Economy - cost of mech
+=== Cost calculations ===
+- Structural calculation -- TODO
+- Gear calculation -- TODO
+
+- Cockpit -- Done
+- Life Support -- TODO
+- Sensors -- TODO
+- Musculature -- TODO
+- Internal Sturcture -- TODO
+- Actuators -- TODO
+- Engine -- TODO
+- Gyro -- Done
+- Jump Jets -- Done
+- MASC -- TODO
+- Heat Sinks -- TODO
+- Power Amplifiers -- No need?
+- Tracks -- No need?
+- Armor -- TODO
+--
+- Jump Boosters -- Done
+- Partial Wing -- TODO
 
 == weapons.py ==
 - Track if linked to tarcomp?

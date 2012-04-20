@@ -457,13 +457,13 @@ GYRO = [["Standard Gyro", 2, 0.5, 1.0, 0, 300000],
 
 # Jump-jet types
 #
-# Name, heat generated, rules level
+# Name, heat generated, rules level, cost factor
 #
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-JUMP_JET = [["Standard Jump Jet", 1, 0],
-            ["Improved Jump Jet", 0.5, 1],
-            ["Mech UMU", 1, 2]]
+JUMP_JET = [["Standard Jump Jet", 1, 0, 200],
+            ["Improved Jump Jet", 0.5, 1, 500],
+            ["Mech UMU", 1, 2, 200]]
 
 # Myomer enhancement types
 #
@@ -578,6 +578,7 @@ class JumpJets(Item):
                     ident = True
                     self.heat = i[1]
                     self.r_level = i[2]
+                    self.cost = i[3]
             if not ident:
                 error_exit(self.jjtype)
 
@@ -612,6 +613,12 @@ class JumpJets(Item):
         else:
             error_exit(self.jjtype)
         return base * self.jump
+
+    def get_cost(self):
+        """
+        Get cost
+        """
+        return (self.weight * self.jump * self.jump * self.cost)
 
     def get_jump(self):
         """
@@ -668,6 +675,12 @@ class JumpBoosters(Item):
         """
         base = ceil_05(0.05 * self.weight)
         return base * self.jump
+
+    def get_cost(self):
+        """
+        Get cost
+        """
+        return (self.weight * self.jump * self.jump * 150)
 
     def get_jump(self):
         """
