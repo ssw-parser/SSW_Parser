@@ -55,11 +55,11 @@ def conv_rules(rule):
     Convert rules to string
     """
     conv = {
-        0 : "Intro",
+        0 : "Int",
         1 : "T-L",
         2 : "Adv",
         3 : "Exp",
-        4 : "Prim"
+        4 : "Pri"
         }
     return conv[rule]
 
@@ -1006,9 +1006,9 @@ def print_default(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Source   Rules Era"
+    print "Name                          Tons BV   Source   Rul Era"
     for i in mech_list:
-        print ("%-30s %3d %4d %-8s %-5s %s" %
+        print ("%-30s %3d %4d %-8s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 

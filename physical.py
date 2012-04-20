@@ -92,7 +92,7 @@ class Physicallist:
         """
         r_level = 0
         for phys in self.list:
-            if phys.get_rules_level() > r_level:
+            if phys.get_rules_level() > r_level and phys.count > 0:
                 r_level = phys.get_rules_level()
         return r_level
 

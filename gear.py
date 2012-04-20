@@ -523,7 +523,7 @@ class Equiplist:
         """
         r_level = 0
         for equip in self.list:
-            if equip.get_rules_level() > r_level:
+            if equip.get_rules_level() > r_level and equip.count > 0:
                 r_level = equip.get_rules_level()
         return r_level
 

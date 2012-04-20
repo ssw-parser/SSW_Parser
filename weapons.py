@@ -943,7 +943,7 @@ class Weaponlist:
         """
         r_level = 0
         for weap in self.list.itervalues():
-            if weap.get_rules_level() > r_level:
+            if weap.get_rules_level() > r_level and weap.count > 0:
                 r_level = weap.get_rules_level()
         return r_level
 
