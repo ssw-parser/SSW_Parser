@@ -143,11 +143,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Head-capper list: iHLL, PPC + Cap
 
 - Sniper listing:
--- Allow selection of range
+-- Allow selection of range ???
 
 - Make default display more like MUL: Add year.
 
 - Add ability to filter out L and XL engines (a cheap mechs only filter.)
+-- Implement cost and use that instead
 
 - Speed listing:
 -- Show superchargers, UMU, liquid cargo for space

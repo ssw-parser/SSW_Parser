@@ -129,25 +129,25 @@ STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0, 400],
 
 # Info on armor types
 #
-# Name, techbase, BV multiplier, armor multiplier, rules level
+# Name, techbase, BV multiplier, armor multiplier, rules level, cost factor
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Industrial, Heavy Industrial, Commercial, Modular, Reactive (Clan)
-ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0],
-         ["Ferro-Fibrous", 0, 1.0, 1.12, 1],
-         ["Ferro-Fibrous", 1, 1.0, 1.2, 1],
-         ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1],
-         ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1],
-         ["Stealth Armor", 0, 1.0, 1.0, 1],
-         ["Primitive Armor", 0, 1.0, 0.67, 4],
-         ["Laser-Reflective", 0, 1.5, 1.0, 2],
-         ["Laser-Reflective", 1, 1.5, 1.0, 2],
-         ["Hardened Armor", 2, 2.0, 0.5, 2],
-         ["Reactive Armor", 0, 1.5, 1.0, 2],
-         ["Ferro-Lamellor", 1, 1.2, 0.9, 2]]
+ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0, 10000],
+         ["Ferro-Fibrous", 0, 1.0, 1.12, 1, 20000],
+         ["Ferro-Fibrous", 1, 1.0, 1.2, 1, 20000],
+         ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1, 15000],
+         ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1, 25000],
+         ["Stealth Armor", 0, 1.0, 1.0, 1, 50000],
+         ["Primitive Armor", 0, 1.0, 0.67, 4, 5000],
+         ["Laser-Reflective", 0, 1.5, 1.0, 2, 30000],
+         ["Laser-Reflective", 1, 1.5, 1.0, 2, 30000],
+         ["Hardened Armor", 2, 2.0, 0.5, 2, 15000],
+         ["Reactive Armor", 0, 1.5, 1.0, 2, 30000],
+         ["Ferro-Lamellor", 1, 1.2, 0.9, 2, 35000]]
 
 
 class IS(Item):
@@ -338,6 +338,7 @@ class Armor(Item):
                 self.armor_bv = i[2]
                 self.armor_multipler = i[3]
                 self.r_level = i[4]
+                self.cost = i[5]
         if not ident:
             error_exit((self.atype, self.tech_base))
 
@@ -441,6 +442,12 @@ class Armor(Item):
         # hack to get half-ton rounding up
         wgt = ceil_05(wgt)
         return wgt
+
+    def get_cost(self):
+        """
+        Return armor cost
+        """
+        return self.get_weight() * self.cost
 
     def get_armor_percent(self):
         """
