@@ -291,7 +291,7 @@ EQUIPMENT = {
 
 # CASE
 #
-# Name : rules level, weight, uses ammo rate, explosive slots
+# Name : rules level, weight
 #
 # Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
 # 3 = experimental, 4 = primitive
@@ -674,6 +674,8 @@ class Gear:
         # Track coolant pods
         self.coolant = 0
         self.supercharger = False
+        # Track CASE rules level
+        self.case_rule = 0
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
@@ -737,6 +739,9 @@ class Gear:
                         ident = True
                         # Save CASE status
                         self.case[name.loc] = name.typ
+                        # Hack CASE rules level
+                        if self.case_rule < CASE[cas][0]:
+                            self.case_rule = CASE[cas][0]
 
             # Hack, handle targeting computer
             elif (name.name == "(IS) Targeting Computer" and
@@ -804,7 +809,35 @@ class Gear:
                     print "ERROR: Unknown weapon:", ammo.wname
                     error_exit("weapon")
 
+    def get_rules_level(self):
+        """
+        Get rules level of all gear
 
+        No checking for ammo, since we can assume that there is ammo
+        of the same rules level as the corresponding weapon
+        and that more advanced ammo can be switched out
+        """
+        r_level = 0
+        tmp = self.weaponlist.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.physicallist.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.equiplist.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        # Hack: Supercharger is advanced rules
+        if self.supercharger and r_level < 2:
+            r_level = 2
+        # Hack: Targeting computer
+        if self.tarcomp > 0 and r_level < 1:
+            r_level = 1
+        # Hack: CASE
+        if self.case_rule > r_level:
+            r_level = self.case_rule
+
+        return r_level
 
     def get_w_weight(self):
         """
