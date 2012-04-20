@@ -445,15 +445,15 @@ ENGINE = [["Fusion Engine", 2, 1.0, (lambda x : STD_ENGINE[x]), 0],
 
 # Gyro types
 #
-# Name, techbase, BV multiplier, weight multiplier, rules level
+# Name, techbase, BV multiplier, weight multiplier, rules level, cost factor
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-GYRO = [["Standard Gyro", 2, 0.5, 1.0, 0],
-        ["Extra-Light Gyro", 0, 0.5, 0.5, 1],
-        ["Heavy-Duty Gyro", 0, 1.0, 2.0, 1],
-        ["Compact Gyro", 0, 0.5, 1.5, 1]]
+GYRO = [["Standard Gyro", 2, 0.5, 1.0, 0, 300000],
+        ["Extra-Light Gyro", 0, 0.5, 0.5, 1, 750000],
+        ["Heavy-Duty Gyro", 0, 1.0, 2.0, 1, 500000],
+        ["Compact Gyro", 0, 0.5, 1.5, 1, 400000]]
 
 # Jump-jet types
 #
@@ -478,15 +478,15 @@ ENHANCEMENT = [["---", 2, (lambda x : 0)], #None
 
 # Cockpit types
 #
-# Name, weight, rules level
+# Name, weight, rules level, cost
 #
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
-COCKPIT = [["Standard Cockpit", 3, 0],
-           ["Small Cockpit", 2, 1],
-           ["Torso-Mounted Cockpit", 4, 2],
-           ["Primitive Cockpit", 5, 4]]
+COCKPIT = [["Standard Cockpit", 3, 0, 200000],
+           ["Small Cockpit", 2, 1, 175000],
+           ["Torso-Mounted Cockpit", 4, 2, 750000],
+           ["Primitive Cockpit", 5, 4, 100000]]
 
 
 
@@ -511,6 +511,7 @@ class Cockpit(Item):
                 ident = True
                 self.wgt = i[1]
                 self.r_level = i[2]
+                self.cost = i[3]
         if not ident:
             error_exit((self.type))
 
@@ -543,6 +544,15 @@ class Cockpit(Item):
         Return weight
         """
         return self.wgt + self.c_weight
+
+    def get_cost(self):
+        """
+        Return cost
+        """
+        if self.console == "TRUE":
+            return self.cost + 750000
+        else:
+            return self.cost
 
 class JumpJets(Item):
     """
@@ -788,6 +798,7 @@ class Gyro(Item):
                 self.gyro_bv = i[2]
                 gweightm = i[3]
                 self.r_level = i[4]
+                self.cost = i[5]
         if not ident:
             error_exit((self.gtype, self.g_base))
 
@@ -817,6 +828,12 @@ class Gyro(Item):
         Return weight of gyro
         """
         return self.weight
+
+    def get_cost(self):
+        """
+        Return cost of gyro
+        """
+        return self.weight * self.cost
 
     def get_bv_mod(self):
         """

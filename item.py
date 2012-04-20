@@ -55,6 +55,12 @@ class Item:
         """
         raise NotImplementedError
 
+    def get_cost(self):
+        """
+        Returns the cost of the item
+        """
+        raise NotImplementedError
+
     def summary_string(self):
         """
         Returns a summary string with type and weight.        
