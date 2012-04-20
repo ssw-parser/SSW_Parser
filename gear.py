@@ -314,19 +314,21 @@ TARCOMPS = {
 
 # Info on heatsink types
 #
-# Name, techbase, sinking capability, rules level
+# Name, techbase, sinking capability, rules level, cost factor
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental
 #
-HEATSINK = [["Single Heat Sink", 2, 1, 0],
-            ["Double Heat Sink", 0, 2, 1],
-            ["Double Heat Sink", 1, 2, 1],
-            ["Laser Heat Sink", 1, 2, 2]]
+HEATSINK = [["Single Heat Sink", 2, 1, 0, 2000],
+            ["Double Heat Sink", 0, 2, 1, 6000],
+            ["Double Heat Sink", 1, 2, 1, 6000],
+            ["Laser Heat Sink", 1, 2, 2, 6000]]
 
 class Heatsinks(Item):
     """
     Heatsinks for a mech
+
+    Warning: fusion engine with 10 free sinks is assumed
     """
     def __init__(self, heat):
         Item.__init__(self)
@@ -347,6 +349,7 @@ class Heatsinks(Item):
                 ident = True
                 self.cap = i[2]
                 self.r_level = i[3]
+                self.cost = i[4]
         if not ident:
             error_exit((self.type, self.tech_b))
 
@@ -369,6 +372,16 @@ class Heatsinks(Item):
         1 ton/sink, 10 free
         """
         return self.number - 10
+
+    def get_cost(self):
+        """
+        Return heatsink cost
+        10 single heat sinks in fusion engine costs nothing
+        """
+        if self.type == "Single Heat Sink":
+            return (self.number - 10) * self.cost
+        else:
+            return self.number * self.cost
 
     def get_sink(self):
         """
