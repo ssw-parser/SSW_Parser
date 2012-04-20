@@ -50,6 +50,8 @@ file.
 
 -skir: Output a list of skirmishers. (Needs work.)
 
+-brwl: Output a list of brawlers. (Needs work.)
+
 -jug: Output a list of juggernauts. (Needs work.)
 
 -typ: Output info on which roles mechs qualify for.

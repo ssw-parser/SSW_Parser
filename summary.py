@@ -747,9 +747,9 @@ def create_skirmisher_list_item(mech, i):
     Compile info used by print_skirmisher_list()
 
     Requirements:
-    - Walk 5 or Jump 4
+    - Walk 5 or Jump 5
     - At least 5 damage at range 15
-    - BF armor value at least 4
+    - BF armor value at least 3
     """
     if mech.is_skirmisher(i):
         return create_std_list_item(mech, i, 15)
@@ -766,6 +766,46 @@ def print_skirmisher_list(file_list, select_l, header):
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_skirmisher_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+## Brawler listing
+
+def create_brawler_list_item(mech, i):
+    """
+    Compile info used by print_brawler_list()
+
+    Requirements:
+    - Walk 4 or Jump 4
+    - At least 10 damage at range 15
+    - BF armor value at least 4
+    """
+    if mech.is_brawler(i):
+        return create_std_list_item(mech, i, 15)
+    else:
+        return False
+
+def print_brawler_list(file_list, select_l, header):
+    """
+    brawler_list output
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_brawler_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -1051,6 +1091,9 @@ def parse_arg():
     parser.add_argument('-skir', action='store_const',
                         help='Skirmisher list output',
                         dest = 'output', const = 'skir')
+    parser.add_argument('-brwl', action='store_const',
+                        help='Brawler list output',
+                        dest = 'output', const = 'brwl')
     parser.add_argument('-jug', action='store_const',
                         help='Juggernaut list output',
                         dest = 'output', const = 'jug')
@@ -1250,6 +1293,7 @@ def main():
         'r' : print_range_list,
         'str' : print_striker_list,
         'skir' : print_skirmisher_list,
+        'brwl' : print_brawler_list,
         'jug' : print_juggernaut_list,
         'typ' : print_type_list,
         'ac' : print_autocannon_list,
