@@ -55,8 +55,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Make CASE handling less hackish
 
-- Remove unused specials.py?
-
 - Scan for maximum damage range?
 
 === Rules level calculations ===
