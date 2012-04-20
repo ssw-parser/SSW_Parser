@@ -50,6 +50,20 @@ def conv_era(era):
     return conv[era]
     
 
+def conv_rules(rule):
+    """
+    Convert rules to string
+    """
+    conv = {
+        0 : "Intro",
+        1 : "T-L",
+        2 : "Adv",
+        3 : "Exp",
+        4 : "Prim"
+        }
+    return conv[rule]
+
+
 def load_mech(file_name):
     """
     Load mech from file
@@ -976,7 +990,8 @@ def create_def_list_item(mech, i):
     weight = mech.weight
     source = i.source
     prod_era = conv_era(i.get_prod_era())
-    return (name_str, weight, batt_val, source, prod_era)
+    rules = conv_rules(mech.get_rules_level(i))
+    return (name_str, weight, batt_val, source, rules, prod_era)
 
 
 def print_default(file_list, select_l, header):
@@ -991,9 +1006,10 @@ def print_default(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Source   Era"
+    print "Name                          Tons BV   Source   Rules Era"
     for i in mech_list:
-        print ("%-30s %3d %4d %-8s %s" % (i[0], i[1], i[2], i[3], i[4]))
+        print ("%-30s %3d %4d %-8s %-5s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 
 ##################################

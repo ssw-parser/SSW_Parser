@@ -64,6 +64,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Track Intro, TL, Advanced and Experimental
 - Missing: turrets
 
+- Debug: Everything is Experimental
+
 === Cost calculations ===
 - Structural calculation -- TODO
 - Gear calculation -- TODO
@@ -148,7 +150,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Sniper listing:
 -- Allow selection of range
 
-- Make default display more like MUL: Add rules.
+- Make default display more like MUL: Add year.
 -- Rules level filter.
 
 - Add ability to filter out L and XL engines (a cheap mechs only filter.)

@@ -163,10 +163,9 @@ class Load:
         """
         raise NotImplementedError
 
-    def rules_level(self):
+    def get_rules_level(self):
         """
         Return rules level of loadout
-        WARNING: Still under construction
         """
         r_level = 0
         tmp = self.gear.get_rules_level()

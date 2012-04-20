@@ -566,6 +566,7 @@ class JumpJets(Item):
         if jets is None:
             self.jump = 0
             self.jjtype = ""
+            self.r_level = 0
         else:
             self.jump = int(jets.attributes["number"].value)
             jnode = jets.getElementsByTagName("type")[0]

@@ -467,7 +467,7 @@ class Mech:
         # Standard armor report
         self.armor.parse_armor()
 
-    def rules_level(self, load):
+    def get_rules_level(self, load):
         """
         Return rules level of mech
         """
