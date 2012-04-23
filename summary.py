@@ -790,6 +790,7 @@ def create_brawler_list_item(mech, i):
     - Walk 4 or Jump 4
     - At least 10 damage at range 15
     - BF armor value at least 4
+    - Do more damage at range 15 than range 18
     """
     if mech.is_brawler(i):
         return create_std_list_item(mech, i, 15)
