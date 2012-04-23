@@ -11,7 +11,7 @@ public class ReadXMLFile {
 	public static void main (String argv[]) {
 
 		try {
-			File fXmlFile = new File("Atlas AS7-D.ssw");
+			File fXmlFile = new File("../../../Master_List_new/Assault/Atlas AS7-D.ssw");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
