@@ -24,6 +24,11 @@ public class ReadXMLFile {
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 
 				Node nNode = nList.item(temp);
+
+				Element el = (Element)nNode;
+
+				System.out.println("Tech Base : " + el.getAttribute("techbase"));
+
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode;
@@ -39,6 +44,7 @@ public class ReadXMLFile {
 			e.printStackTrace();
 		}
 	}
+
 
 	private static String getTagValue(String sTag, Element eElement) {
 		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
