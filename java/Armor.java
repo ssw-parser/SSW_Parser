@@ -36,6 +36,7 @@ public class Armor {
 	int ra;
 	int ll;
 	int rl;
+	int total;
 
 	Armor(Element aElement) {
 		type = getTagValue("type", aElement);
@@ -51,6 +52,7 @@ public class Armor {
 		ra = Integer.parseInt(getTagValue("ra", aElement));
 		ll = Integer.parseInt(getTagValue("ll", aElement));
 		rl = Integer.parseInt(getTagValue("rl", aElement));
+		total = hd + ct + ctr + lt + ltr + rt + rtr + la + ra + ll + rl;
 		System.out.println("Armor Type : " + type);
 		System.out.println("Tech Base : " + tech_base);
 		System.out.println("Head              : " + hd);
@@ -64,6 +66,7 @@ public class Armor {
 		System.out.println("Right Arm         : " + ra);
 		System.out.println("Left Leg          : " + ll);
 		System.out.println("Right Leg         : " + rl);
+		System.out.println("Total Armor       : " + total);
 	}
 
 	private static String getTagValue(String sTag, Element eElement) {
