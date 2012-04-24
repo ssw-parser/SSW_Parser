@@ -24,21 +24,11 @@ public class ReadXMLFile {
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 
 				Node nNode = nList.item(temp);
-
+				
 				Element el = (Element)nNode;
 
-				System.out.println("Tech Base : " + el.getAttribute("techbase"));
+				Armor arm = new Armor(el);
 
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-					Element eElement = (Element) nNode;
-
-					System.out.println("Armor Type : " + getTagValue("type", eElement));
-					System.out.println("Head : " + getTagValue("hd", eElement));
-					System.out.println("Center Torso : " + getTagValue("ct", eElement));
-					System.out.println("Left Torso : " + getTagValue("lt", eElement));
-					
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,3 +45,4 @@ public class ReadXMLFile {
 	}
 
 }
+
