@@ -108,6 +108,10 @@ class Mech:
             self.load = Baseloadout(blo, self.weight, self.batt_val,
                                     partw, self.prod_era)
 
+            # HACK -- Apply modular armor
+            if self.load.gear.has_mod_armor:
+                self.armor.apply_modular(self.load.gear.mod_armor)
+
             # Get omni loadouts
             self.loads = []
             for load in mmech.getElementsByTagName('loadout'):

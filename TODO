@@ -19,7 +19,8 @@ Juggernaut JG-R9TX1 Leapin Lil -- M-pod (SSW does not calculate
 explosive penalty for M-pods)
 Highlander HGN-732 Colleen -- Experimental Streaks
 Spatha SP2-X Warlord (XTRO:Gladiators) -- Blue Shield BV contribution
-Banshee BNC-11X (XTRO:Steiner) -- Modular Armor (how to add to total?)
+Banshee BNC-11X (XTRO:Steiner) -- Some issue with modular armor and
+offensive speed factor.
 
 == RS NOT CONSTRUCTED DUE TO VARIOUS REASONS ==
 
@@ -51,6 +52,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Handle armored components (better) (priority: head, shoulders, hips)
 - Handle M-pods (should work on this end, problem in SSW)
+
+- Handle modular armor better, make it work with omni loadouts.
 
 - Make CASE handling less hackish
 
