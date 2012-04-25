@@ -623,6 +623,9 @@ class Gear:
         # Track coolant pods
         self.coolant = 0
         self.supercharger = False
+        # Track modular armor
+        self.mod_armor = {}
+        self.has_mod_armor = False
         # Track CASE rules level
         self.case_rule = 0
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
@@ -712,6 +715,15 @@ class Gear:
                 found = self.physicallist.add(name.name, name.loc)
                 if found:
                     ident = True
+
+            # Modular armor
+            elif (name.typ == 'miscellaneous'):
+                if name.name == "Modular Armor":
+                    ident = True
+                    mod = self.mod_armor.get(name.loc, 0)
+                    mod += 10
+                    self.mod_armor[name.loc] = mod
+                    self.has_mod_armor = True
 
             # Ammunition
             elif (name.typ == 'ammunition'):
@@ -814,11 +826,12 @@ class Gear:
 
     def get_speed_adj(self):
         """
-        Get speed reduction from certain items, like shields.
-        Also add modular armor here.
+        Get speed reduction from certain items, like shields and modular armor.
         """
         red = 0
         red += self.physicallist.get_speed_adj()
+        if self.has_mod_armor:
+            red -= 1
         return red
 
     def get_def_bv(self):

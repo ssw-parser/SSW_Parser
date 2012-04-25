@@ -273,6 +273,12 @@ class Load:
                 dbv += 5
                 # Track things left
                 arm_loc.remove(i)
+            # Shoulders & Hips
+            elif ((i[0] == "LA" or i[0] == "RA" or i[0] == "LL" or
+                   i[0] == "RL") and i[1] == 0):
+                dbv += 5
+                # Track things left
+                arm_loc.remove(i)
             # Standard & Heavy-Duty Gyro, BV calculated elsewhere
             elif ((i[0] == "CT" and (mech.gyro.gtype == "Standard Gyro" or
                                      mech.gyro.gtype)) and
