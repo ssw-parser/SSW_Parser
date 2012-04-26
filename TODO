@@ -20,6 +20,8 @@ Highlander HGN-732 Colleen -- Experimental Streaks
 Spatha SP2-X Warlord (XTRO:Gladiators) -- Blue Shield BV contribution
 Banshee BNC-11X (XTRO:Steiner) -- Some issue with modular armor and
 offensive speed factor.
+TBT-XK7 Trebuchet (XTRO:Periphery) -- Some issue with modular armor
+and offensive speed factor.
 
 == RS NOT CONSTRUCTED DUE TO VARIOUS REASONS ==
 
@@ -32,7 +34,6 @@ Celerity CLR-02-X-D (XTRO:Comstar) -- ultra-light
 Schwerer Gustav (XTRO:Mercs) -- Frankenmech
 WHM-X7 Warhammer The Lich (XTRO:Gladiators) -- Frankenmech
 TMC-NB Temax Cat Ninjabolt (XTRO:Boondocks) -- Frankenmech
-TBT-XK7 Trebuchet (XTRO:Periphery) -- Modular Armor
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
@@ -103,7 +104,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == physical.py ==
 
-- Missing: Medium Shield, Flail, Chain Whip, industrial equipment
+- Missing: Medium Shield, Flail, industrial equipment
 
 == report.py ==
 
