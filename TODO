@@ -5,21 +5,24 @@
 
 Merlin MLN-SX -- armored components (engine)
 Devastator DVS-X10 Muse Earth -- armored components (supercharger)
-Atlas AS7-00 Jurn -- armored components (command console, SSW does not
-add the BV for it.)
 Beowulf BEO-X-7a -- armored components (gear)
 
-=== Other reasons ===
+=== Issues with SSW ===
 
-Victor VTR-9K2 St. James -- Patchwork armor
+Atlas AS7-00 Jurn -- armored components (command console, SSW does not
+add the BV for it.)
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod (SSW does not calculate
 explosive penalty for M-pods)
-Highlander HGN-732 Colleen -- Experimental Streaks
-Spatha SP2-X Warlord (XTRO:Gladiators) -- Blue Shield BV contribution
 Banshee BNC-11X (XTRO:Steiner) -- Some issue with modular armor and
 offensive speed factor.
 TBT-XK7 Trebuchet (XTRO:Periphery) -- Some issue with modular armor
 and offensive speed factor.
+
+=== Other reasons ===
+
+Victor VTR-9K2 St. James -- Patchwork armor
+Highlander HGN-732 Colleen -- Experimental Streaks
+Spatha SP2-X Warlord (XTRO:Gladiators) -- Blue Shield BV contribution
 
 == RS NOT CONSTRUCTED DUE TO VARIOUS REASONS ==
 
@@ -48,7 +51,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Supercharger, Tarcomp, CASE, Armored locations, AES
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 
-- Handle armored components (better) (priority: head, shoulders, hips)
+- Handle armored components better
 - Handle M-pods (should work on this end, problem in SSW)
 
 - Handle modular armor better, make it work with omni loadouts.
