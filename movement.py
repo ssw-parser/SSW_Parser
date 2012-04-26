@@ -639,12 +639,12 @@ class JumpJets(Item):
         elif self.jjtype == "Mech UMU":
             return 1
         else:
-            heat = ceil(self.jump * self.heat)
+            heat = self.jump * self.heat
             minimum = 3
             if mech.engine.etype == "XXL Engine":
                 heat *= 2
                 minimum = 6
-            return max(minimum, heat)
+            return max(minimum, ceil(heat))
 
 
 class JumpBoosters(Item):
