@@ -903,6 +903,49 @@ def print_headcap_list(file_list, select_l, header):
                    (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
+## Battle-force listing
+
+def create_battle_force_list_item(mech, i):
+    """
+    Compile info used by print_battle_force_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = round(mech.get_bv(i) / 100.0)
+    if batt_val < 1:
+        batt_val = 1
+    weight = mech.get_bf_weight_class()
+    mov = mech.get_bf_move(i)
+
+    armor = mech.armor.get_bf_value()
+
+    return (name_str, weight, batt_val, mov, armor)
+
+def print_battle_force_list(file_list, select_l, header):
+    """
+    battle_force_list output
+
+    In the form of name, weight, BV, Headcappers, Movement, Armor, Tarcomp
+    weapon details
+    sorted by number of headcappers, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_battle_force_list_item)
+
+    # Sort by points
+    mech_list.sort(key=itemgetter(2), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Wg Pt Mov  Arm"
+    print header2
+    for i in mech_list:
+        if i[3] > 0:
+            print ("%-30s %1d %2d %-5s %2d" %
+                   (i[0], i[1], i[2], i[3], i[4]))
+
+
 ## Damage/range listing
 
 def create_range_list_item(mech, i):
@@ -1111,6 +1154,9 @@ def parse_arg():
                         dest = 'output', const = 'w')
     parser.add_argument('-mw', action='store_const', help='Weapon list output',
                         dest = 'output', const = 'mw')
+    parser.add_argument('-bf', action='store_const',
+                        help='Battle Force list output',
+                        dest = 'output', const = 'bf')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
                         help='Select mechs with TAG')
@@ -1300,7 +1346,8 @@ def main():
         'ac' : print_autocannon_list,
         'srm' : print_srm_list,
         'w' : print_weapon_list,
-        'mw' : print_main_weapon_list
+        'mw' : print_main_weapon_list,
+        'bf' : print_battle_force_list
         }
 
     # Construct header

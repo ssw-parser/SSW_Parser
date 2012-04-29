@@ -64,6 +64,8 @@ file.
 
 -mw: Output a list of main weapons. (Secondaries removed.)
 
+-bf: Output Battle Force information. (incomplete)
+
 The default output (no switch) is modeled after the MUL.
 
 ==== Filter Switches ====

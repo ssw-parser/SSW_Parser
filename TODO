@@ -41,11 +41,11 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
 
+- Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
 - Better packaging: Distutils
 - Better file & path handling
 - Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II
-- BattleForce information
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
 - Things that needs to become real items:
@@ -61,6 +61,18 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Make CASE handling less hackish
 
 - Scan for maximum damage range?
+
+=== Battleforce ===
+
+- BattleForce information
+- A lot to do
+-- Add count to Special Abilities where needed
+-- Add missing Special Abilities
+-- Weapon Damage
+-- Overheat
+-- Points
+-- Structure
+
 
 === Rules level calculations ===
 
