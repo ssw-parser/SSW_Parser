@@ -22,8 +22,6 @@
 Contains BattleForce data for a mech
 """
 
-from mech import Mech
-
 class BattleForce:
     """
     A master class to hold data specific to BattleForce.
@@ -85,3 +83,21 @@ class BattleForce:
             bf_str += "/" + str(jump) + "J"
 
         return bf_str
+
+    def get_armor(self):
+        """
+        Get Battleforce armor value
+        """
+        # Note that this needs to be adjusted for modular armor
+        # and patchwork armor once it gets added
+        armor = self.mech.armor.total.arm
+        atype = self.mech.armor.atype
+        if atype == "Ferro-Lamellor":
+            armor *= 1.2
+        elif atype == "Hardened Armor":
+            armor *= 1.50
+        elif atype == "Laser-Reflective":
+            armor *= 0.75
+        elif atype == "Reactive Armor":
+            armor *= 0.75
+        return int(round(armor / 30.0))

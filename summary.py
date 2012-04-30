@@ -257,7 +257,8 @@ def create_armor_list_item(mech, i):
     # Armor weight
     wgt = mech.armor.get_weight()
     # BF armor
-    bf_a = mech.armor.get_bf_value()
+    batt_f = BattleForce(mech, i)
+    bf_a = batt_f.get_armor()
 
     return (name_str, weight, batt_val, armor, e_str, s_str, arm_p, max_p,
             wgt, bf_a)
@@ -916,8 +917,7 @@ def create_battle_force_list_item(mech, i):
     batt_val = batt_f.get_point_value()
     weight = batt_f.get_weight_class()
     mov = batt_f.get_move()
-
-    armor = mech.armor.get_bf_value()
+    armor = batt_f.get_armor()
 
     return (name_str, weight, batt_val, mov, armor)
 
