@@ -163,37 +163,6 @@ class Mech:
 #            rspeed = int(ceil(spd * 2.0))
         return rspeed
 
-    def get_bf_move(self, load):
-        """
-        Get Battleforce movement string
-        """
-        walk = self.engine.speed + self.load.gear.get_speed_adj()
-        jump = load.get_jump()
-        # Do not count jumping if UMU is used
-        if load.jjets.jjtype == "Mech UMU":
-            jump = 0
-
-        factor = 1
-        if self.enhancement.is_masc():
-            factor += 0.25
-        if self.load.gear.supercharger:
-            factor += 0.25
-
-        bf_str = str(int(walk * factor))
-        if jump == walk:
-            if factor == 1:
-                bf_str += "j"
-            else:
-                bf_str += "/" + str(jump) + "j"
-        elif jump < walk:
-            jmp = int(round(jump * 0.66))
-            if jmp > 0:
-                bf_str += "/" + str(jmp) + "j"
-        elif jump > walk:
-            bf_str += "/" + str(jump) + "J"
-
-        return bf_str
-
     def get_move_target_modifier(self, load):
         """
         Get target modifier from movement, see Total Warfare for details

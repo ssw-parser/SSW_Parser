@@ -301,7 +301,8 @@ def create_speed_list_item(mech, i):
     spd = max(walk, jump)
     enh = mech.enhancement.get_type()
     mod = mech.get_move_target_modifier(i)
-    bf_str = mech.get_bf_move(i)
+    batt_f = BattleForce(mech, i)
+    bf_str = batt_f.get_move()
 
     return (name_str, weight, batt_val, spd, walk, run, jump, enh, mod, bf_str)
 
@@ -914,7 +915,7 @@ def create_battle_force_list_item(mech, i):
     batt_f = BattleForce(mech, i)
     batt_val = batt_f.get_point_value()
     weight = batt_f.get_weight_class()
-    mov = mech.get_bf_move(i)
+    mov = batt_f.get_move()
 
     armor = mech.armor.get_bf_value()
 

@@ -54,3 +54,34 @@ class BattleForce:
         if batt_val < 1:
             batt_val = 1
         return batt_val
+
+    def get_move(self):
+        """
+        Get Battleforce movement string
+        """
+        walk = self.mech.engine.speed + self.load.gear.get_speed_adj()
+        jump = self.load.get_jump()
+        # Do not count jumping if UMU is used
+        if self.load.jjets.jjtype == "Mech UMU":
+            jump = 0
+
+        factor = 1
+        if self.mech.enhancement.is_masc():
+            factor += 0.25
+        if self.load.gear.supercharger:
+            factor += 0.25
+
+        bf_str = str(int(walk * factor))
+        if jump == walk:
+            if factor == 1:
+                bf_str += "j"
+            else:
+                bf_str += "/" + str(jump) + "j"
+        elif jump < walk:
+            jmp = int(round(jump * 0.66))
+            if jmp > 0:
+                bf_str += "/" + str(jmp) + "j"
+        elif jump > walk:
+            bf_str += "/" + str(jump) + "J"
+
+        return bf_str
