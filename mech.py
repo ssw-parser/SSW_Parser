@@ -27,6 +27,7 @@ from defensive import IS, Armor
 from movement import Cockpit, Enhancement, Gyro, Engine
 from util import ceil_05, get_child, get_child_data
 from loadout import Baseloadout, Loadout
+from battle_force import BattleForce
 
 # A mech class with data read from SSW xml data for use in various
 # applications.
@@ -439,6 +440,10 @@ class Mech:
         """
         # Standard armor report
         self.armor.parse_armor()
+        # Battle force armor
+        batt_f = BattleForce(self, self.load)
+        print "BF Armor: ", batt_f.get_armor()
+
 
     def get_rules_level(self, load):
         """
@@ -495,7 +500,8 @@ class Mech:
         if self.get_walk() > 4 or i.get_jump() > 4:
             return False
 
-        if self.armor.get_bf_value() < 5:
+        batt_f = BattleForce(self, i)
+        if batt_f.get_armor() < 5:
             return False
 
         if i.gear.weaponlist.count_damage(6) < 30:
@@ -565,7 +571,8 @@ class Mech:
         if self.get_walk() < 5 and i.get_jump() < 5:
             return False
 
-        if self.armor.get_bf_value() < 3:
+        batt_f = BattleForce(self, i)
+        if batt_f.get_armor() < 3:
             return False
 
         if i.gear.weaponlist.count_damage(15) < 5:
@@ -598,7 +605,8 @@ class Mech:
         if self.get_walk() < 4 and i.get_jump() < 4:
             return False
 
-        if self.armor.get_bf_value() < 4:
+        batt_f = BattleForce(self, i)
+        if batt_f.get_armor() < 4:
             return False
 
         dam15 = i.gear.weaponlist.count_damage(15)
