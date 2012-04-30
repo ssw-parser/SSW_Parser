@@ -122,19 +122,6 @@ class Mech:
                 self.loads.append(current)
                 
 
-    def get_bf_weight_class(self):
-        """
-        Get Battleforce weight class
-        """
-        if self.weight < 40:
-            return 1
-        elif self.weight < 60:
-            return 2
-        elif self.weight < 80:
-            return 3
-        else:
-            return 4
-
     def get_walk(self):
         """
         Get walk speed

@@ -27,6 +27,7 @@ from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
 from weapons import LRM_LIST, SRM_LIST, AC_LIST
+from battle_force import BattleForce
 
 #############################
 ##### Utility functions #####
@@ -910,10 +911,9 @@ def create_battle_force_list_item(mech, i):
     Compile info used by print_battle_force_list()
     """
     name_str = mech.name + " " + mech.model + i.get_name()
-    batt_val = round(mech.get_bv(i) / 100.0)
-    if batt_val < 1:
-        batt_val = 1
-    weight = mech.get_bf_weight_class()
+    batt_f = BattleForce(mech, i)
+    batt_val = batt_f.get_point_value()
+    weight = batt_f.get_weight_class()
     mov = mech.get_bf_move(i)
 
     armor = mech.armor.get_bf_value()
