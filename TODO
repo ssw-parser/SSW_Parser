@@ -156,11 +156,13 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Allow filtering by tonnage.
 
+- Speed filter: Split into: this fast and faster, and this exact speed
+
 - Count and list specific weapon types
 -- Head-capper list: iHLL, PPC + Cap
 
 - Sniper listing:
--- Allow selection of range ???
+-- Allow selection of range (make this a separate listing not tied to type.)
 
 - Make default display more like MUL: Add year.
 
@@ -186,3 +188,28 @@ Fast (5+) vs Slow (4-):
 - Fast --> Scout, Skirmisher, Striker
 - Slow --> Brawler, Juggernaut, Sniper, Missile Boat
 
+==================================
+First off, I would keep each maneuver element uniform in speed, if possible, to allow for rapid deployment of faster elements when needed.
+Second, I would try to keep a 1:1:1 distribution between 4/6, 5/8 and 6/9+ mechs. I would use 3/5 assaults only if I had a large force (battalion or bigger), or even use them as an independent attachment.
+Third, each maneuver element needs at least one jumper unit, one fire support unit and one well armored suited for head-on engagement.
+
+As I see it, this scheme would work both for an independent company or a battalion.
+
+An example TRO 3039 (standard models only) independent company:
+"Light Lance" (speed 6+):
+- Scorpion
+- Firestarter
+- Phoenix Hawk
+- Wolfhound
+"Medium Lance" (speed 5):
+- Trebuchet
+- Griffin
+- Wolverine
+- Crab
+"Heavy Lance" (speed 4):
+- Archer
+- Thug
+- Grasshopper
+- Thunderbolt
+
+For a battalion I would keep the companies uniform in speed, and give each company a fire-support lance, a skirmish/recon lance and a trooper lance. (Hmm, Command Lance, Fire Lance, and Recon Lance, that is really a classic going back to the Black Widow company at least.)
