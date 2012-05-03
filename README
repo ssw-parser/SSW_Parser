@@ -46,6 +46,9 @@ file.
 -r: Output a list of how max damage varies over range, sorted by
  short-range damage. (No heat taken into account.)
 
+-r18: Output a list of weapons with reach 18 mounted on the mech, sorted
+ by damage at range 18. (Less strict in filtering out designs than -sn.)
+
 -str: Output a list of strikers, sorted by damage.
 
 -skir: Output a list of skirmishers. (Needs work.)
@@ -95,6 +98,8 @@ The default output (no switch) is modeled after the MUL.
 
 -e <d>: Only list mechs that are available during era <d>. Where <d>
  can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad.
+
+-se <d>: Only list mechs as fast as <d>.
 
 -sf <d>: Only list mechs at least as fast as <d>.
 

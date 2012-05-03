@@ -156,13 +156,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Allow filtering by tonnage.
 
-- Speed filter: Split into: this fast and faster, and this exact speed
-
 - Count and list specific weapon types
 -- Head-capper list: iHLL, PPC + Cap
 
-- Sniper listing:
--- Allow selection of range (make this a separate listing not tied to type.)
+- Range type listing:
+-- Allow selection of range instead of using separate switches for
+   each range. (Problem due to how internals works.)
 
 - Make default display more like MUL: Add year.
 

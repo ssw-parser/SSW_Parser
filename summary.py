@@ -626,6 +626,10 @@ def create_std_list_item(mech, i, rnge):
 
     l_heat = str(int(heat)) + "/" + str(i.get_sink())
 
+    # Ignore mechs that has no damage at this range
+    if dam == 0:
+        return False
+
     return (name_str, weight, batt_val, dam, l_heat, mov, arm_p, l_str)
 
 
@@ -691,6 +695,37 @@ def print_snipe_list(file_list, select_l, header):
     """
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_snipe_list_item)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+## Range 18 listing
+
+def create_range_18_list_item(mech, i):
+    """
+    Compile info used by print_range_18_list()
+    """
+    return create_std_list_item(mech, i, 18)
+
+def print_range_18_list(file_list, select_l, header):
+    """
+    range_18_list output
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_range_18_list_item)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -1158,6 +1193,9 @@ def parse_arg():
     parser.add_argument('-bf', action='store_const',
                         help='Battle Force list output',
                         dest = 'output', const = 'bf')
+    parser.add_argument('-r18', action='store_const',
+                        help='Range 18 list output',
+                        dest = 'output', const = 'r18')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
                         help='Select mechs with TAG')
@@ -1183,6 +1221,8 @@ def parse_arg():
                         help='Select mechs with Command Console')
     parser.add_argument('-e', action='store', default = 99, type=int,
                         help='Select mechs up to era <n>')
+    parser.add_argument('-se', action='store', default = 0, type=int,
+                        help='Select mechs with speed <n>')
     parser.add_argument('-sf', action='store', default = 0, type=int,
                         help='Select mechs with at least speed <n>')
     parser.add_argument('-lrm', action='store', default = 0, type=int,
@@ -1305,6 +1345,11 @@ def main():
         select_l.append(lambda x, y: (y.get_prod_era() <= era))
         header_l.append(("available at era %s" % conv_era(era)))
     # Speed
+    if args.se > 0:
+        spd = args.se
+        select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) == spd))
+        header_l.append(("with speed %d" % spd))
+    # Speed
     if args.sf > 0:
         spd = args.sf
         select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
@@ -1339,6 +1384,7 @@ def main():
         'sn' : print_snipe_list,
         'cap' : print_headcap_list,
         'r' : print_range_list,
+        'r18' : print_range_18_list,
         'str' : print_striker_list,
         'skir' : print_skirmisher_list,
         'brwl' : print_brawler_list,
