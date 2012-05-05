@@ -26,7 +26,7 @@ import argparse
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
-from weapons import LRM_LIST, SRM_LIST, AC_LIST
+from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
 
 #############################

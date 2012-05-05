@@ -26,7 +26,7 @@ from math import ceil
 from error import error_exit
 from util import gettext, get_child_data
 from item import Item
-from weapons import LRM_LIST, Weaponlist
+from weapon_list import LRM_LIST, Weaponlist
 from physical import Physicallist
 
 # A class to contain data about battlemech gear to allow for clearer code,

@@ -28,7 +28,7 @@ Uses external file mech.py to read in data.
 import argparse
 from xml.dom import minidom
 from mech import Mech
-from weapons import LRM_LIST, SRM_LIST, AC_LIST
+from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 
 def print_weapon(mech, weap):
     """
