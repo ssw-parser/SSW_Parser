@@ -1055,7 +1055,6 @@ class Weapon:
     def __init__(self, key, art4, art5, apollo):
         self.name = key
         self.batt_val = WEAPONS[key][1]
-        self.useammo = WEAPONS[key][7]
         self.count = 0
         self.countrear = 0
         self.count_la = 0 # We count arm weapons also, to help with BV calcs
@@ -1155,12 +1154,22 @@ class Weapon:
         """
         return WEAPONS[self.name][0]
 
+    def count_string(self):
+        """
+        Return count string with ammo
+        """
+        report = str(self.count)
+        if WEAPONS[self.name][7] > 0:
+            report += "/" + str(self.get_ammo_per_weapon())
+
+        return report
+
     def get_short_count(self):
         """
         Return short name, with weapon and ammo count
         """
         name = WEAPONS[self.name][0].lower() + ":" + str(self.count)
-        if self.useammo > 0:
+        if WEAPONS[self.name][7] > 0:
             name += "/" + str(self.get_ammo_per_weapon())
             
         return name

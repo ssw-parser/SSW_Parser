@@ -35,9 +35,7 @@ def print_weapon(mech, weap):
     Print out info about a weapon
     """
     enh = ""
-    report = str(weap.count)
-    if weap.useammo > 0:
-        report += "/" + str(weap.get_ammo_per_weapon())
+    report = weap.count_string()
     # If there is rear-mounted stuff, only list them, do not count for
     # evaluation
     if weap.countrear > 0:
