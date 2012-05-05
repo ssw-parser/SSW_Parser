@@ -667,8 +667,9 @@ class Gear:
                                 self.lrms += launcher[2]
 
                         # Add explosive weapon to location
-                        if weap.explosive > 0:
-                            self.exp_weapon.add_weapon(name.loc, weap.explosive)
+                        if weap.explosive_slots() > 0:
+                            self.exp_weapon.add_weapon(name.loc,
+                                                       weap.explosive_slots())
 
             # Handle non-weapon equipment
             elif (name.typ == 'equipment'):

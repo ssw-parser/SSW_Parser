@@ -1056,7 +1056,6 @@ class Weapon:
         self.name = key
         self.batt_val = WEAPONS[key][1]
         self.useammo = WEAPONS[key][7]
-        self.explosive = WEAPONS[key][9]
         self.count = 0
         self.countrear = 0
         self.count_la = 0 # We count arm weapons also, to help with BV calcs
@@ -1077,6 +1076,12 @@ class Weapon:
         # Tarcomp, we can not know if one is present right now
         elif (WEAPONS[key][6] == "T"):
             self.enhance = "TC"
+
+    def explosive_slots(self):
+        """
+        Return how many explosive slots a weapon has
+        """
+        return WEAPONS[self.name][9]
 
     def get_rules_level(self):
         """
