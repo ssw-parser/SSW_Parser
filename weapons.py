@@ -1054,7 +1054,8 @@ class Weapon:
     """
     def __init__(self, key, art4, art5, apollo):
         self.name = key
-        self.batt_val = WEAPONS[key][1]
+        self.entry = WEAPONS[key]
+        self.batt_val = self.entry[1]
         self.count = 0
         self.countrear = 0
         self.count_la = 0 # We count arm weapons also, to help with BV calcs
@@ -1064,29 +1065,29 @@ class Weapon:
 
         # Deal with enhancements, Artemis
         self.enhance = ""
-        if (WEAPONS[key][6] == "A"):
+        if (self.entry[6] == "A"):
             if art5 == "TRUE":
                 self.enhance = "A5"
             elif art4 == "TRUE":
                 self.enhance = "A4"
         # Apollo
-        elif (WEAPONS[key][6] == "P" and apollo == "TRUE"):
+        elif (self.entry[6] == "P" and apollo == "TRUE"):
             self.enhance = "AP"
         # Tarcomp, we can not know if one is present right now
-        elif (WEAPONS[key][6] == "T"):
+        elif (self.entry[6] == "T"):
             self.enhance = "TC"
 
     def explosive_slots(self):
         """
         Return how many explosive slots a weapon has
         """
-        return WEAPONS[self.name][9]
+        return self.entry[9]
 
     def get_rules_level(self):
         """
         Return rules level
         """
-        rule = WEAPONS[self.name][2]
+        rule = self.entry[2]
         # Handle artemis & apollo
         if self.enhance == "A4" and rule < 1:
             rule = 1
@@ -1100,7 +1101,7 @@ class Weapon:
         """
         Return weight
         """
-        wgt = WEAPONS[self.name][8]
+        wgt = self.entry[8]
         if self.enhance == "A5":
             wgt += 1.5
         elif self.enhance == "A4":
@@ -1113,31 +1114,31 @@ class Weapon:
         """
         Return maximum (long) range
         """
-        return WEAPONS[self.name][5][3]
+        return self.entry[5][3]
 
     def get_med_range(self):
         """
         Return medium range
         """
-        return WEAPONS[self.name][5][2]
+        return self.entry[5][2]
 
     def get_short_range(self):
         """
         Return short range
         """
-        return WEAPONS[self.name][5][1]
+        return self.entry[5][1]
 
     def get_min_range(self):
         """
         Return minimum range
         """
-        return WEAPONS[self.name][5][0]
+        return self.entry[5][0]
 
     def check_range(self, rng):
         """
         Check if in range
         """
-        if (rng > WEAPONS[self.name][5][0] and rng <= WEAPONS[self.name][5][3]):
+        if (rng > self.entry[5][0] and rng <= self.entry[5][3]):
             return True
         else:
             return False
@@ -1146,20 +1147,20 @@ class Weapon:
         """
         Return heat
         """
-        return WEAPONS[self.name][3]
+        return self.entry[3]
 
     def get_short(self):
         """
         Return short name
         """
-        return WEAPONS[self.name][0]
+        return self.entry[0]
 
     def count_string(self):
         """
         Return count string with ammo
         """
         report = str(self.count)
-        if WEAPONS[self.name][7] > 0:
+        if self.entry[7] > 0:
             report += "/" + str(self.get_ammo_per_weapon())
 
         return report
@@ -1168,8 +1169,8 @@ class Weapon:
         """
         Return short name, with weapon and ammo count
         """
-        name = WEAPONS[self.name][0].lower() + ":" + str(self.count)
-        if WEAPONS[self.name][7] > 0:
+        name = self.entry[0].lower() + ":" + str(self.count)
+        if self.entry[7] > 0:
             name += "/" + str(self.get_ammo_per_weapon())
             
         return name
@@ -1180,7 +1181,7 @@ class Weapon:
         """
 
         # No damage if out of range
-        if rnge > WEAPONS[self.name][5][3]:
+        if rnge > self.entry[5][3]:
             return 0
 
         # Check for cluster adjustments from Artemis & Apollo
@@ -1192,7 +1193,7 @@ class Weapon:
         elif self.enhance == "AP":
             art = -1
 
-        return WEAPONS[self.name][4](rnge, art)
+        return self.entry[4](rnge, art)
 
     def addone(self, loc):
         """
