@@ -110,6 +110,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == weapons.py ==
 - Track if linked to tarcomp?
+- ammo issue, try to avoid using both ammocount & ammo_ton. 
+- Split WEAPONS into weapon types.
 
 == gear.py ==
 - Split WEAPONS into weapon types.
