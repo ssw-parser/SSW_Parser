@@ -538,7 +538,7 @@ class Mech:
         Definition:
         - Has at least 20 LRM tubes
         """
-        if i.gear.lrms < 20:
+        if i.gear.weaponlist.lrms < 20:
             return False
 
         return True

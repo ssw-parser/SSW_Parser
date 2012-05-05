@@ -536,63 +536,6 @@ class Equipment:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
-class ExplosiveWeapons:
-    """
-    Store Where explosive weapon slots are located.
-    """
-    def __init__(self):
-        self.exp_weapon = {}
-
-    def add_weapon(self, location, slots):
-        """
-        Store where weapon explosive slots are located
-        """
-        # Split weapons, assign to innermost
-        if type(location).__name__ == 'list':
-            j = ""
-            loc = ""
-            for i in location:
-                # First part
-                if (j == ""):
-                    j = i[0]
-                    continue
-                elif (i[0] == "CT" and
-                      (j == "RT" or j == "LT")):
-                    loc = "CT"
-                elif (j == "CT" and
-                      (i[0] == "RT" or i[0] == "LT")):
-                    loc = "CT"
-                    print i[0], j
-                elif (i[0] == "RA" and j == "RT"):
-                    loc = "RT"
-                elif (j == "RA" and i[0] == "RT"):
-                    loc = "RT"
-                elif (i[0] == "LA" and j == "LT"):
-                    loc = "LT"
-                elif (j == "LA" and i[0] == "LT"):
-                    loc = "LT"
-            assert loc, "Split weapon location failed!"
-            expl = self.exp_weapon.get(loc, 0)
-            expl += slots
-            self.exp_weapon[loc] = expl
-        # No split, easy to handle
-        else:
-            expl = self.exp_weapon.get(location, 0)
-            expl += slots
-            self.exp_weapon[location] = expl
-
-    def get_keys(self):
-        """
-        Returns all the locations that contains explosive stuff
-        """
-        return self.exp_weapon.keys()
-
-    def get_slots(self, i):
-        """
-        Returns how many explosive slots in a given location
-        """
-        return self.exp_weapon[i]
-
 class Gear:
     """
     Store Gear
@@ -611,14 +554,12 @@ class Gear:
         # Keep track of tarcomp
         self.tarcomp = 0
         # Gear weight
-        self.w_weight = 0.0
         self.a_weight = 0.0
         self.e_weight = 0.0
-        # Weight of targeting computer weapons
-        self.tcw_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
-        self.exp_weapon = ExplosiveWeapons()
+        # Save reference to explosive weapon count
+        self.exp_weapon = self.weaponlist.exp_weapon
         self.case = {}
         # Track coolant pods
         self.coolant = 0
@@ -628,10 +569,6 @@ class Gear:
         self.has_mod_armor = False
         # Track CASE rules level
         self.case_rule = 0
-        # Track LRM tubes (IS, Clan, NLRM, MMLs)
-        # no ATMs, no streaks and no ELRMs
-        # only launchers that can use special ammo
-        self.lrms = 0
 
         ### Count gear ###
         for name in self.equip:
@@ -642,34 +579,9 @@ class Gear:
             if (name.typ == 'ballistic' or name.typ == 'energy' or
                 name.typ == 'missile' or name.typ == 'artillery' or
                 name.typ == 'mgarray'):
-                for weap in self.weaponlist.list.itervalues():
-                    # Weapon identified
-                    if (name.name == weap.name):
-                        # Add weapon
-                        if name.rear:
-                            weap.addone_rear()
-                        else:
-                            weap.addone(name.loc)
-
-                        # track weapons weight
-                        self.w_weight += weap.get_weight()
-                        # track weight for targeting computer
-                        if weap.enhance == "T":
-                            self.tcw_weight += weap.get_weight()
-
-                        # We have found a valid weapon
-                        ident = True
-
-                        # Count LRM tubes that can fire special ammo
-                        # Missing: NLRM-10, NLRM-15, NLRM-20
-                        for launcher in LRM_LIST:
-                            if (name.name == launcher[0]):
-                                self.lrms += launcher[2]
-
-                        # Add explosive weapon to location
-                        if weap.explosive_slots() > 0:
-                            self.exp_weapon.add_weapon(name.loc,
-                                                       weap.explosive_slots())
+                found = self.weaponlist.add(name.name, name.loc, name.rear)
+                if found:
+                    ident = True
 
             # Handle non-weapon equipment
             elif (name.typ == 'equipment'):
@@ -746,9 +658,9 @@ class Gear:
 
         # Calculate tarcomp weight
         if self.tarcomp == 1:  #IS
-            self.e_weight += ceil(self.tcw_weight / 4.0)
+            self.e_weight += ceil(self.weaponlist.tcw_weight / 4.0)
         if self.tarcomp == 2:  #Clan
-            self.e_weight += ceil(self.tcw_weight / 5.0)
+            self.e_weight += ceil(self.weaponlist.tcw_weight / 5.0)
 
         # Add ammo to weapon
         for ammo in self.ammolist.list:
@@ -805,7 +717,7 @@ class Gear:
         """
         Get weapons weight
         """
-        return self.w_weight
+        return self.weaponlist.w_weight
 
     def get_a_weight(self):
         """

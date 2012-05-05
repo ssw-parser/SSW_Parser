@@ -431,7 +431,7 @@ def create_missile_list_item(mech, i):
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
-    lrm = i.gear.lrms
+    lrm = i.gear.weaponlist.lrms
 
     # No lrm tubes
     if lrm == 0:
@@ -1357,7 +1357,7 @@ def main():
     # LRMs
     if args.lrm > 0:
         lrm = args.lrm
-        select_l.append(lambda x, y: (y.gear.lrms >= lrm))
+        select_l.append(lambda x, y: (y.gear.weaponlist.lrms >= lrm))
         header_l.append(("with at least %d lrm tubes" % lrm))
     # non-primitive
     if args.npr:

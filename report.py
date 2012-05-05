@@ -194,7 +194,7 @@ def parse_gear(mech):
            (sdam, sheat, mech.get_sink()))
 
     # Print LRM status is appliable
-    if mech.gear.lrms > 0:
+    if mech.gear.weaponlist.lrms > 0:
         print_lrm(mech)
 
     # Print SRM status is appliable

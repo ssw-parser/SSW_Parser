@@ -77,6 +77,63 @@ AC_LIST = [["(IS) Autocannon/2", "ac2:"],
            ["(IS) Light AC/5", "lac5:"]]
 
 
+class ExplosiveWeapons:
+    """
+    Store Where explosive weapon slots are located.
+    """
+    def __init__(self):
+        self.exp_weapon = {}
+
+    def add_weapon(self, location, slots):
+        """
+        Store where weapon explosive slots are located
+        """
+        # Split weapons, assign to innermost
+        if type(location).__name__ == 'list':
+            j = ""
+            loc = ""
+            for i in location:
+                # First part
+                if (j == ""):
+                    j = i[0]
+                    continue
+                elif (i[0] == "CT" and
+                      (j == "RT" or j == "LT")):
+                    loc = "CT"
+                elif (j == "CT" and
+                      (i[0] == "RT" or i[0] == "LT")):
+                    loc = "CT"
+                    print i[0], j
+                elif (i[0] == "RA" and j == "RT"):
+                    loc = "RT"
+                elif (j == "RA" and i[0] == "RT"):
+                    loc = "RT"
+                elif (i[0] == "LA" and j == "LT"):
+                    loc = "LT"
+                elif (j == "LA" and i[0] == "LT"):
+                    loc = "LT"
+            assert loc, "Split weapon location failed!"
+            expl = self.exp_weapon.get(loc, 0)
+            expl += slots
+            self.exp_weapon[loc] = expl
+        # No split, easy to handle
+        else:
+            expl = self.exp_weapon.get(location, 0)
+            expl += slots
+            self.exp_weapon[location] = expl
+
+    def get_keys(self):
+        """
+        Returns all the locations that contains explosive stuff
+        """
+        return self.exp_weapon.keys()
+
+    def get_slots(self, i):
+        """
+        Returns how many explosive slots in a given location
+        """
+        return self.exp_weapon[i]
+
 
 class Weaponlist:
     """
@@ -86,6 +143,43 @@ class Weaponlist:
         self.list = {}
         for weap in WEAPONS.keys():
             self.list[weap] = Weapon(weap, art4, art5, apollo)
+        self.w_weight = 0
+        # Weight of targeting computer weapons
+        self.tcw_weight = 0
+        # Track LRM tubes (IS, Clan, NLRM, MMLs)
+        # no ATMs, no streaks and no ELRMs
+        # only launchers that can use special ammo
+        self.lrms = 0
+        self.exp_weapon = ExplosiveWeapons()
+
+    def add(self, name, location, rear):
+        """
+        Add a weapon
+        """
+        for weap in self.list.itervalues():
+            if weap.name == name:
+                if rear:
+                    weap.addone_rear()
+                else:
+                    weap.addone(location)
+                self.w_weight += weap.get_weight()
+                if weap.enhance == "T":
+                    self.tcw_weight += weap.get_weight()
+
+                # Count LRM tubes that can fire special ammo
+                # Missing: NLRM-10, NLRM-15, NLRM-20
+                for launcher in LRM_LIST:
+                    if (name == launcher[0]):
+                        self.lrms += launcher[2]
+
+                # Add explosive weapon to location
+                if weap.explosive_slots() > 0:
+                    self.exp_weapon.add_weapon(location,
+                                               weap.explosive_slots())
+
+                return True
+        # No match found
+        return False
 
     def get_rules_level(self):
         """
