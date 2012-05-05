@@ -291,7 +291,7 @@ def main():
         print "Motive:    ", mech.motive, mech.mechtype
     print "Structure: ", mech.structure.summary_string()
     print "-Movement------------------------"
-    mech.print_engine_report(mech.weight)
+    mech.print_engine_report()
     print "-Fixed Heatsinks-----------------"
     print mech.load.heatsinks.summary_string()
     print "-Armor---------------------------"

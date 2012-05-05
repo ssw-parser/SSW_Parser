@@ -415,7 +415,7 @@ class Mech:
         string = ("%s/%s/%d" % (wstr, rstr, self.load.get_jump()))
         return string
 
-    def print_engine_report(self, weight):
+    def print_engine_report(self):
         """
         Print out a report about the mech engine
         """
@@ -430,8 +430,8 @@ class Mech:
         enhweight = self.enhancement.get_weight()
         if enhweight > 0:
             print "Enhancement:", self.enhancement.summary_string()
-#        tweight = eweight + gweight + jweight + enhweight
-#        print "Total motive weight: ", tweight, "tons"
+        tweight = eweight + gweight + jweight + enhweight
+        print "Total motive weight: ", tweight, "tons"
         print "Cockpit:    ", self.cockpit.summary_string()
 
     def parse_armor(self):
