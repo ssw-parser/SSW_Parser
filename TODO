@@ -83,8 +83,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Gear calculation -- TODO
 
 - Cockpit -- Done
-- Life Support -- TODO
-- Sensors -- TODO
+- Life Support -- Done
+- Sensors -- Done
 - Musculature -- TODO
 - Internal Sturcture -- Done
 - Actuators -- TODO
@@ -156,16 +156,17 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Stealth
 -- Artillery
 
-- Allow filtering by tonnage.
+- Allow filtering by tonnage range.
 
 - Count and list specific weapon types
 -- Head-capper list: iHLL, PPC + Cap
 
 - Range type listing:
 -- Allow selection of range instead of using separate switches for
-   each range. (Problem due to how internals works.)
+   each range. (Problem due to how the code internals works.)
 
-- Make default display more like MUL: Add year.
+- Make default display more like MUL: Add year. (More a problem of
+  missing data than code.)
 
 - Add ability to filter out L and XL engines (a cheap mechs only filter.)
 -- Implement cost and use that instead

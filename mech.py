@@ -618,3 +618,43 @@ class Mech:
 
         return True
 
+    def calculate_cost(self, i):
+        """
+        Calculate the cost of a mech
+        """
+
+        # Structural costs
+        cost = 0
+        # Cockpit
+        cost += self.cockpit.get_cost()
+        # Life support
+        cost += 50000
+        # Sensors
+        cost += 2000 * self.weight
+        # TODO: Musculature
+
+        # Internal structure
+        cost += self.structure.get_cost()
+
+        # TODO: Acutuators
+
+        # Engine
+        cost += self.engine.get_cost()
+        # Gyro
+        cost += self.gyro.get_cost()
+        # Jump Jets
+        cost += i.jjets.get_cost()
+        # TODO: MASC
+
+        # Heat Sinks
+        cost += i.heatsinks.get_cost()
+        # TODO: Power Amplifiers
+
+        # TODO: Tracks
+
+        # Armor
+        cost += self.armor.get_cost()
+
+        # TODO: Gear
+
+        return cost
