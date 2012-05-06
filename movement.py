@@ -936,7 +936,10 @@ class Engine(Item):
         """
         Return cost of engine
         """
-        cost = (self.cost * self.erating * self.weight) / 75
+        erating = self.erating
+        if self.etype == "Primitive Fusion Engine":
+            erating = ceil_5(self.erating * 1.2)
+        cost = (self.cost * erating * self.weight) / 75
         # Large engines have double cost compared to a comparable normal
         if self.erating > 400:
             cost *= 2
