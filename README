@@ -69,6 +69,8 @@ file.
 
 -bf: Output Battle Force information. (incomplete)
 
+-cost: Output cost information. (incomplete)
+
 The default output (no switch) is modeled after the MUL.
 
 ==== Filter Switches ====

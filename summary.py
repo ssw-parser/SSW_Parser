@@ -1099,6 +1099,45 @@ def print_type_list(file_list, select_l, header):
 
 
 
+## Cost listing
+
+def create_cost_list_item(mech, i):
+    """
+    Compile info used by print_cost_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    cost = mech.calculate_cost(i)
+
+    return (name_str, weight, batt_val, cost)
+
+def print_cost_list(file_list, select_l, header):
+    """
+    cost_list output
+
+    In the form of name, weight, BV, cost
+    sorted by cost, descending
+    """
+
+    # Build list
+    mech_list = create_mech_list(file_list, select_l, create_cost_list_item)
+
+    # Sort by BV/ton
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV    cost"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d  %14d" %
+               (i[0], i[1], i[2], i[3]))
+
+
+
+
 
 ## Default listing
 
@@ -1196,6 +1235,9 @@ def parse_arg():
     parser.add_argument('-r18', action='store_const',
                         help='Range 18 list output',
                         dest = 'output', const = 'r18')
+    parser.add_argument('-cost', action='store_const',
+                        help='Cost list output',
+                        dest = 'output', const = 'cost')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
                         help='Select mechs with TAG')
@@ -1394,7 +1436,8 @@ def main():
         'srm' : print_srm_list,
         'w' : print_weapon_list,
         'mw' : print_main_weapon_list,
-        'bf' : print_battle_force_list
+        'bf' : print_battle_force_list,
+        'cost' : print_cost_list
         }
 
     # Construct header

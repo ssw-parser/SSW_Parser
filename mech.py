@@ -679,6 +679,12 @@ class Mech:
         cost += i.partw.get_cost()
         cost += i.jumpb.get_cost()
 
-        # TODO: Gear
-        
+        # Gear
+        cost += i.gear.get_cost()
+
+        # Final calculation
+        cost *= (1.0 + (self.weight / 100.0))
+        if self.omni == "TRUE":
+            cost += 1.25
+
         return cost

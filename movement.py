@@ -620,7 +620,10 @@ class JumpJets(Item):
         """
         Get cost
         """
-        return (self.weight * self.jump * self.jump * self.cost)
+        if self.jump == 0:
+            return 0
+        else:
+            return (self.weight * self.jump * self.jump * self.cost)
 
     def get_jump(self):
         """
