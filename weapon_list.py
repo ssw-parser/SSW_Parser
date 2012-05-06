@@ -163,7 +163,7 @@ class Weaponlist:
                 else:
                     weap.addone(location)
                 self.w_weight += weap.get_weight()
-                if weap.enhance == "T":
+                if weap.enhance == "TC":
                     self.tcw_weight += weap.get_weight()
 
                 # Count LRM tubes that can fire special ammo

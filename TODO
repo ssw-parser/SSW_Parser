@@ -106,10 +106,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Physical -- TODO
 - CASE -- Done (Clan CASE?)
 - Equipment -- Done
-- Tarcomp -- Done, but seems to have some mismatch with SSW
+- Tarcomp -- Done
 - Supercharger -- TODO
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing
+
+- Some dual cockpit issue
 
 === Weight calculations ===
 
