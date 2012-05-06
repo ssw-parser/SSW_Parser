@@ -79,25 +79,24 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Missing: turrets
 
 === Cost calculations ===
-- Structural calculation -- TODO
+- Structural calculation -- Done
 - Gear calculation -- TODO
+- Final adjustments -- TODO
 
 - Cockpit -- Done
 - Life Support -- Done
 - Sensors -- Done
-- Musculature -- TODO
+- Musculature -- Done
 - Internal Sturcture -- Done
 - Actuators -- Done
 - Engine -- Done
 - Gyro -- Done
 - Jump Jets -- Done
-- MASC -- TODO
+- MASC -- Done
 - Heat Sinks -- Done
 - Power Amplifiers -- No need?
 - Tracks -- No need?
 - Armor -- Done
-
-- Issue: MASC and Musculature
 --
 - Jump Boosters -- Done
 - Partial Wing -- Done

@@ -82,9 +82,11 @@ class Mech:
             self.cockpit = Cockpit(get_child(mmech, 'cockpit'))
 
             # Get enhancement, needs for loop
-            self.enhancement = Enhancement(None, self.weight)
+            self.enhancement = Enhancement(None, self.weight,
+                                           self.engine.get_weight())
             for enh in mmech.getElementsByTagName('enhancement'):
-                self.enhancement = Enhancement(enh, self.weight)
+                self.enhancement = Enhancement(enh, self.weight,
+                                               self.engine.get_weight())
 
             # Get armor.
             self.armor = Armor(get_child(mmech, 'armor'),
@@ -631,8 +633,14 @@ class Mech:
         cost += 50000
         # Sensors
         cost += 2000 * self.weight
-        # TODO: Musculature
-
+        # Musculature. Handle TSM cost here instead of in enhancement
+        if self.enhancement.is_tsm():
+            cost += 16000 * self.weight
+        # Primitive mech
+        elif self.engine.etype == "Primitive Fusion Engine":
+            cost += 1000 * self.weight
+        else:
+            cost += 2000 * self.weight
         # Internal structure
         cost += self.structure.get_cost()
 
@@ -656,8 +664,8 @@ class Mech:
         cost += self.gyro.get_cost()
         # Jump Jets
         cost += i.jjets.get_cost()
-        # TODO: MASC
-
+        # MASC
+        cost += self.enhancement.get_cost()
         # Heat Sinks
         cost += i.heatsinks.get_cost()
         # Add Power Amplifiers here if/when implemented

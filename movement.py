@@ -743,8 +743,10 @@ class Enhancement(Item):
     """
     A class to hold information about myomer enhancements
     """
-    def __init__(self, enh, weight):
+    def __init__(self, enh, weight, eng_weight):
         Item.__init__(self)
+        # Save engine weight
+        self.eng_weight = eng_weight
         if enh is None:
             self.etb = 2
             self.enhancement = "---"
@@ -771,6 +773,15 @@ class Enhancement(Item):
         else:
             return self.enhancement
 
+    def get_cost(self):
+        """
+        Get MASC cost, only. TSM cost is handled elsewhere.
+        """
+        if self.enhancement == "MASC":
+            return 1000 * self.eng_weight * self.enhweight
+        else:
+            return 0
+
     def get_rules_level(self):
         """
         Everything is tournament legal, none is intro
@@ -788,7 +799,7 @@ class Enhancement(Item):
 
     def is_tsm(self):
         """
-        Check if the enhancemetn is TSM
+        Check if the enhancement is TSM
         """
         if self.enhancement == "TSM":
             return True
