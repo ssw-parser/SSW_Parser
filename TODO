@@ -52,6 +52,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Null sig, chameleon, void sig
 -- Supercharger, Tarcomp, CASE, Armored locations, AES
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
+-- Turrets
 
 - Handle armored components better
 - Handle M-pods (should work on this end, problem in SSW)
@@ -101,10 +102,10 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Jump Boosters -- Done
 - Partial Wing -- Done
 ----
-- Weapons -- Done, but needs to be collected up in weapon_list
+- Weapons -- Done
 - Physical -- TODO
 - CASE -- TODO
-- Equipment -- Done, but needs to be collected up in equipment_list
+- Equipment -- Done
 - Tarcomp -- TODO
 - Supercharger -- TODO
 - Modular armor -- TODO

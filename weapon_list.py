@@ -187,9 +187,20 @@ class Weaponlist:
         """
         r_level = 0
         for weap in self.list.itervalues():
-            if weap.get_rules_level() > r_level and weap.count > 0:
+            if (weap.get_rules_level() > r_level and
+                (weap.count > 0 or weap.countrear > 0)):
                 r_level = weap.get_rules_level()
         return r_level
+
+    def get_cost(self):
+        """
+        Return the cost of all weapons
+        """
+        cost = 0
+        for weap in self.list.itervalues():
+            if (weap.count > 0 or weap.countrear > 0):
+                cost += (weap.count + weap.countrear) * weap.get_cost()
+        return cost
 
     def count_damage(self, rnge):
         """

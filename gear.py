@@ -480,6 +480,16 @@ class Equiplist:
                 r_level = equip.get_rules_level()
         return r_level
 
+    def get_cost(self):
+        """
+        Return the cost of all equipment
+        """
+        cost = 0
+        for equip in self.list:
+            if equip.count > 0:
+                cost += equip.count * equip.get_cost()
+        return cost
+
     def get_def_bv(self):
         """
         Get defensive gear BV
