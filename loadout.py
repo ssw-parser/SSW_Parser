@@ -48,6 +48,13 @@ class Load:
         # Get Clan Case
         clanc = get_child_data(load, 'clancase')
 
+        # Get actuator status
+        for act in load.getElementsByTagName('actuators'):
+            self.left_hand = act.attributes["lh"].value
+            self.left_arm = act.attributes["lla"].value
+            self.right_hand = act.attributes["rh"].value
+            self.right_arm = act.attributes["rla"].value
+
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks(None)

@@ -636,7 +636,19 @@ class Mech:
         # Internal structure
         cost += self.structure.get_cost()
 
-        # TODO: Acutuators
+        # Acutuators
+        cost += 2 * 100 * self.weight # Upper arms
+        if i.left_arm == "TRUE":
+            cost += 50 * self.weight
+        if i.right_arm == "TRUE":
+            cost += 50 * self.weight
+        if i.left_hand == "TRUE":
+            cost += 80 * self.weight
+        if i.right_hand == "TRUE":
+            cost += 80 * self.weight
+        cost += 2 * 150 * self.weight # Upper legs
+        cost += 2 * 80 * self.weight # Lower legs
+        cost += 2 * 120 * self.weight # Feet
 
         # Engine
         cost += self.engine.get_cost()
