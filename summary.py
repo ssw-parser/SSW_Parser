@@ -1109,7 +1109,7 @@ def create_cost_list_item(mech, i):
     batt_val = mech.get_bv(i)
     weight = mech.weight
     cost = mech.calculate_cost(i)
-    cost_ssw = mech.cost
+    cost_ssw = i.cost
     cost_diff = cost_ssw - cost
 
     return (name_str, weight, batt_val, cost, cost_ssw, cost_diff)

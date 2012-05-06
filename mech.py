@@ -53,7 +53,7 @@ class Mech:
             self.batt_val = int(get_child_data(mmech, 'battle_value'))
 
             # Get Cost.
-            self.cost = float(get_child_data(mmech, 'cost'))
+            cost = float(get_child_data(mmech, 'cost'))
 
             # Get production era
             self.prod_era = int(get_child_data(mmech, 'productionera'))
@@ -112,7 +112,7 @@ class Mech:
 
             # Construct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self.weight, self.batt_val,
-                                    partw, self.prod_era)
+                                    partw, self.prod_era, cost)
 
             # HACK -- Apply modular armor
             if self.load.gear.has_mod_armor:
@@ -695,6 +695,6 @@ class Mech:
         # Final calculation
         cost *= (1.0 + (self.weight / 100.0))
         if self.omni == "TRUE":
-            cost += 1.25
+            cost *= 1.25
 
         return round(cost)

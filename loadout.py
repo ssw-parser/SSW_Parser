@@ -32,11 +32,12 @@ class Load:
     """
     Parent class for omni loadouts
     """
-    def __init__(self, load, weight, batt_val, partw, prod_era, equip):
+    def __init__(self, load, weight, batt_val, partw, prod_era, equip, cost):
         self.weight = weight # Save weight just in case
         self.artemis4 = load.attributes["fcsa4"].value
         self.artemis5 = load.attributes["fcsa5"].value
         self.apollo = load.attributes["fcsapollo"].value
+        self.cost = cost
 
         # Create a container for special abilities
         # ES, SEAL, SOA, SRCH is always awailable
@@ -436,7 +437,7 @@ class Baseloadout(Load):
     """
     An base omni loadout
     """
-    def __init__(self, load, weight, batt_val, partw, prod_era):
+    def __init__(self, load, weight, batt_val, partw, prod_era, cost):
 
         # Get equipment
         self.equip = []
@@ -445,7 +446,7 @@ class Baseloadout(Load):
             self.equip.append(Equip(node))
 
         Load.__init__(self, load, weight, batt_val, partw, prod_era,
-                      self.equip)
+                      self.equip, cost)
 
         # Get jumpjets, needs for loop
         self.jjets = JumpJets(None, self.weight)
@@ -474,6 +475,9 @@ class Loadout(Load):
         # Get BV.
         batt_val = int(get_child_data(load, 'battle_value'))
 
+        # Get cost
+        cost = float(get_child_data(load, 'cost'))
+
         # Get equipment
         self.equip = list(base.equip)
 
@@ -481,7 +485,7 @@ class Loadout(Load):
             self.equip.append(Equip(node))
 
         Load.__init__(self, load, weight, batt_val, partw, prod_era,
-                      self.equip)
+                      self.equip, cost)
         # These needs to be set after call to Load
 
         # Use base config heatsinks if not overriden
