@@ -28,7 +28,7 @@ from util import ceil_05
 # Melee weapons
 #
 # Name, offensive BV formula, defensive BV, damage formula,
-# weight formula, heat, rules level
+# weight formula, heat, rules level, cost
 #
 # Where rules level is:
 #        0 = Intro-tech,
@@ -40,40 +40,43 @@ from util import ceil_05
 # TODO: Flail, Medium Shield, industrial equipment
 #
 PHYSICAL = {
+    # Total Warfare
     "Hatchet" : [(lambda x : x * 1.5), 0, (lambda x : ceil(x / 5.0)),
-                 (lambda x : ceil(x / 15.0)), 0, 0],
+                 (lambda x : ceil(x / 15.0)), 0, 0, (lambda x, y : x * 5000)],
     "Sword" : [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0) + 1),
-               (lambda x : ceil_05(x / 20.0)), 0, 1],
+               (lambda x : ceil_05(x / 20.0)), 0, 1, (lambda x, y : x * 10000)],
     "Retractable Blade" :
         [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0)),
-         (lambda x : ceil_05(x / 2.0) + 0.5), 0, 1], 
+         (lambda x : ceil_05(x / 2.0) + 0.5), 0, 1,
+         (lambda x, y : x * 10000 + 10000)], 
+    "Spot Welder" : [(lambda x : 5), 0, (lambda x : 5),
+                     (lambda x : 2), 2, 1, (lambda x, y : 75000)],
+    # Advanced stuff
     "Claws" : [(lambda x : x * 1.275), 0, (lambda x : ceil(x / 7.0)),
-               (lambda x : ceil(x / 15.0)), 0, 2],
+               (lambda x : ceil(x / 15.0)), 0, 2, (lambda x, y : y * 200)],
     "Mace" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 4.0)),
-              (lambda x : ceil(x / 10.0)), 0, 1],
+              (lambda x : ceil(x / 10.0)), 0, 1, (lambda x, y : 130000)],
     "Lance" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0)),
-               (lambda x : ceil_05(x / 20.0)), 0, 2],
+               (lambda x : ceil_05(x / 20.0)), 0, 2, (lambda x, y : y * 150)],
     "Small Vibroblade" : [(lambda x : 12), 0, (lambda x : 7.0),
-                          (lambda x : 3.0), 3, 3],
+                          (lambda x : 3.0), 3, 3, (lambda x, y : 150000)],
     "Medium Vibroblade" : [(lambda x : 17), 0, (lambda x : 10.0),
-                           (lambda x : 5.0), 5, 3],
+                           (lambda x : 5.0), 5, 3, (lambda x, y : 400000)],
     "Large Vibroblade" : [(lambda x : 24), 0, (lambda x : 14.0),
-                          (lambda x : 7.0), 7, 3],
+                          (lambda x : 7.0), 7, 3, (lambda x, y : 750000)],
     "Chain Whip" : [(lambda x : 1.725), 0, (lambda x : 3.0),
-                    (lambda x : 3.0), 0, 2],
+                    (lambda x : 3.0), 0, 2, (lambda x, y : 120000)],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
     "Talons" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0) / 2.0),
-                (lambda x : ceil(x / 15.0)), 0, 3],
-    "Spot Welder" : [(lambda x : 5), 0, (lambda x : 5),
-                     (lambda x : 2), 2, 1],
+                (lambda x : ceil(x / 30.0)), 0, 3, (lambda x, y : y * 150)],
     # Defensive stuff
     "Small Shield" : [(lambda x : 0), 50, (lambda x : 0),
-                      (lambda x : 2), 0, 3],
+                      (lambda x : 2), 0, 3, (lambda x, y : 50000)],
     "Large Shield" : [(lambda x : 0), 263, (lambda x : 0),
-                      (lambda x : 6), 0, 3],
+                      (lambda x : 6), 0, 3, (lambda x, y : 300000)],
     "Spikes" : [(lambda x : 0), 4, (lambda x : 0),
-                      (lambda x : 0.5), 0, 2]
+                      (lambda x : 0.5), 0, 2, (lambda x, y : y * 50)]
     }
 
 class Physicallist:
@@ -97,6 +100,16 @@ class Physicallist:
             if phys.get_rules_level() > r_level and phys.count > 0:
                 r_level = phys.get_rules_level()
         return r_level
+
+    def get_cost(self):
+        """
+        Return the cost of all physical weapons
+        """
+        cost = 0
+        for phys in self.list:
+            if phys.count > 0:
+                cost += phys.count * phys.get_cost()
+        return cost
 
     def add(self, entry, loc):
         """
@@ -155,6 +168,12 @@ class Physical:
         Return rules level
         """
         return PHYSICAL[self.name][5]
+
+    def get_cost(self):
+        """
+        Return the cost of one item
+        """
+        return PHYSICAL[self.name][6](self.get_weight(), self.m_weight)
 
     def get_damage(self):
         """

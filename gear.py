@@ -759,8 +759,8 @@ class Gear:
         cost = 0
         # weapons
         cost += self.weaponlist.get_cost()
-        # TODO: physical
-
+        # physical
+        cost += self.physicallist.get_cost()
         # equipment
         cost += self.equiplist.get_cost()
         # TODO: Supercharger
