@@ -52,6 +52,9 @@ class Mech:
             # get first instance only to avoid problems with Omni-mechs
             self.batt_val = int(get_child_data(mmech, 'battle_value'))
 
+            # Get Cost.
+            self.cost = float(get_child_data(mmech, 'cost'))
+
             # Get production era
             self.prod_era = int(get_child_data(mmech, 'productionera'))
 
@@ -645,15 +648,22 @@ class Mech:
         cost += self.structure.get_cost()
 
         # Acutuators
-        cost += 2 * 100 * self.weight # Upper arms
-        if i.left_arm == "TRUE":
-            cost += 50 * self.weight
-        if i.right_arm == "TRUE":
-            cost += 50 * self.weight
-        if i.left_hand == "TRUE":
-            cost += 80 * self.weight
-        if i.right_hand == "TRUE":
-            cost += 80 * self.weight
+        if self.motive == "Biped": # Arms
+            cost += 2 * 100 * self.weight # Upper arms
+            if i.left_arm == "TRUE":
+                cost += 50 * self.weight
+            if i.right_arm == "TRUE":
+                cost += 50 * self.weight
+            if i.left_hand == "TRUE":
+                cost += 80 * self.weight
+            if i.right_hand == "TRUE":
+                cost += 80 * self.weight
+        elif self.motive == "Quad": # Front legs
+            cost += 2 * 150 * self.weight # Upper legs
+            cost += 2 * 80 * self.weight # Lower legs
+            cost += 2 * 120 * self.weight # Feet
+
+        # Legs/Rear legs
         cost += 2 * 150 * self.weight # Upper legs
         cost += 2 * 80 * self.weight # Lower legs
         cost += 2 * 120 * self.weight # Feet
@@ -687,4 +697,4 @@ class Mech:
         if self.omni == "TRUE":
             cost += 1.25
 
-        return cost
+        return round(cost)

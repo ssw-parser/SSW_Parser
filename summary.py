@@ -1109,8 +1109,10 @@ def create_cost_list_item(mech, i):
     batt_val = mech.get_bv(i)
     weight = mech.weight
     cost = mech.calculate_cost(i)
+    cost_ssw = mech.cost
+    cost_diff = cost_ssw - cost
 
-    return (name_str, weight, batt_val, cost)
+    return (name_str, weight, batt_val, cost, cost_ssw, cost_diff)
 
 def print_cost_list(file_list, select_l, header):
     """
@@ -1129,11 +1131,11 @@ def print_cost_list(file_list, select_l, header):
     # Print output
     print header
     header2 = "Name                          "
-    header2 += "Tons BV    cost"
+    header2 += "Tons BV      cost       cost(SSW)     difference"
     print header2
     for i in mech_list:
-        print ("%-30s %3d %4d  %14d" %
-               (i[0], i[1], i[2], i[3]))
+        print ("%-30s %3d %4d  %11d %11d %11d" %
+               (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 
 
