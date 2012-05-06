@@ -660,13 +660,17 @@ class Mech:
 
         # Heat Sinks
         cost += i.heatsinks.get_cost()
-        # TODO: Power Amplifiers
+        # Add Power Amplifiers here if/when implemented
 
-        # TODO: Tracks
+        # Add Tracks here if/when implemented
 
         # Armor
         cost += self.armor.get_cost()
 
-        # TODO: Gear
+        # Partial Wing, jump boosters
+        cost += i.partw.get_cost()
+        cost += i.jumpb.get_cost()
 
+        # TODO: Gear
+        
         return cost
