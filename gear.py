@@ -591,6 +591,7 @@ class Gear:
         # Gear weight
         self.a_weight = 0.0
         self.e_weight = 0.0
+        self.tc_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
         # Save reference to explosive weapon count
@@ -693,9 +694,9 @@ class Gear:
 
         # Calculate tarcomp weight
         if self.tarcomp == 1:  #IS
-            self.e_weight += ceil(self.weaponlist.tcw_weight / 4.0)
+            self.tc_weight = ceil(self.weaponlist.tcw_weight / 4.0)
         if self.tarcomp == 2:  #Clan
-            self.e_weight += ceil(self.weaponlist.tcw_weight / 5.0)
+            self.tc_weight = ceil(self.weaponlist.tcw_weight / 5.0)
 
         # Add ammo to weapon
         for ammo in self.ammolist.list:
@@ -748,6 +749,31 @@ class Gear:
 
         return r_level
 
+    def get_cost(self):
+        """
+        Get the cost of all equipment
+
+        Ammo cost will not be handled by this fuction, due to the
+        difference between dry and loaded costs.
+        """
+        cost = 0
+        # weapons
+        cost += self.weaponlist.get_cost()
+        # TODO: physical
+
+        # equipment
+        cost += self.equiplist.get_cost()
+        # TODO: Supercharger
+        # 10000 x Engine rating
+        # Hack: Targeting computer
+        if self.tarcomp > 0:
+            cost += 10000 * self.tc_weight
+
+        # TODO: CASE
+
+        return cost
+
+
     def get_w_weight(self):
         """
         Get weapons weight
@@ -764,7 +790,7 @@ class Gear:
         """
         Get equipment, tarcomp & CASE weight
         """
-        return self.e_weight
+        return self.e_weight + self.tc_weight
 
     def get_p_weight(self):
         """

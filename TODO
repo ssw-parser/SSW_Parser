@@ -106,7 +106,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Physical -- TODO
 - CASE -- TODO
 - Equipment -- Done
-- Tarcomp -- TODO
+- Tarcomp -- Done
 - Supercharger -- TODO
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing
@@ -129,6 +129,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Handle Supercharger, Tarcomp & CASE better.
 - Move weight calculations.
 - Supercharger weight.
+
+- Supercharger class: track location - solves armored component problem?
 
 == physical.py ==
 
