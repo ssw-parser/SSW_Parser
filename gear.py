@@ -244,49 +244,53 @@ AMMO = {
 
 # Equipment
 #
-# Name : off BV, def BV, rules level, weight, uses ammo rate, explosive slots
+# Name : off BV, def BV, rules level, weight, uses ammo rate, explosive slots,
+# cost
 #
 # Where rules level is: 0 = intro, 1 = tournament legal, 2 = advanced,
 # 3 = experimental, 4 = primitive
 #
 
 EQUIPMENT = {
-    "C3 Computer (Slave)" : [[0, 0], [0, 0], 1, 1, 0, 0],
-    "C3 Computer (Master)" : [[0, 0], [0, 0], 1, 5, 0, 0],
-    "Improved C3 Computer" : [[0, 0], [0, 0], 1, 2.5, 0, 0],
-    "TAG" : [[0, 0], [0, 0], 1, 1, 0, 0],
-    "Light TAG" : [[0, 0], [0, 0], 1, 0.5, 0, 0],
-    "Cargo, Liquid" : [[0, 0], [0, 0], 1, 1, 0, 0],
-    "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0],
-    "Remote Sensor Dispenser" : [[0, 0], [0, 0], 1, 0.5, 1, 0],
-    "Lift Hoist" : [[0, 0], [0, 0], 1, 3, 0, 0],
-    # Experimental
-    "Chaff Pod" : [[0, 0], [19, 0], 2, 1, 0, 1],
-    "Collapsible Command Module (CCM)" : [[0, 0], [0, 0], 3, 16, 0, 0],
-    "Coolant Pod" : [[0, 0], [0, 0], 2, 1, 0, 1],
-    "C3 Boosted Computer (Slave)" : [[0, 0], [0, 0], 3, 3, 0, 0],
-    "C3 Boosted Computer (Master)" : [[0, 0], [0, 0], 3, 6, 0, 0], 
+    # Tournament legal, TM
+    "C3 Computer (Slave)" : [[0, 0], [0, 0], 1, 1, 0, 0, 250000],
+    "C3 Computer (Master)" : [[0, 0], [0, 0], 1, 5, 0, 0, 1500000],
+    "Improved C3 Computer" : [[0, 0], [0, 0], 1, 2.5, 0, 0, 750000],
+    "TAG" : [[0, 0], [0, 0], 1, 1, 0, 0, 50000],
+    "Light TAG" : [[0, 0], [0, 0], 1, 0.5, 0, 0, 40000],
+    "A-Pod" : [[0, 0], [1, 0], 1, 0.5, 0, 0, 1500],
+    "B-Pod" : [[0, 0], [2, 0], 1, 1, 0, 0, 2500],
+    "(IS) Anti-Missile System" : [[0, 0], [32, 11], 1, 0.5, 1, 0, 100000],
+    "Guardian ECM Suite" : [[0, 0], [61, 0], 1, 1.5, 0, 0, 200000],
+    "Beagle Active Probe" : [[0, 0], [10, 0], 1, 1.5, 0, 0, 200000],
+    "ECM Suite" : [[0, 0], [61, 0], 1, 1, 0, 0, 200000], # Clan
+    "Active Probe" : [[0, 0], [12, 0], 1, 1, 0, 0, 200000], # Clan
+    "Light Active Probe" : [[0, 0], [7, 0], 1, 0.5, 0, 0, 50000],
+    "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0, 100000],
+    # Industrial gear, TM
+    "Cargo, Liquid" : [[0, 0], [0, 0], 1, 1, 0, 0, 100],
+    "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0, 10000],
+    "Remote Sensor Dispenser" : [[0, 0], [0, 0], 1, 0.5, 1, 0, 30000],
+    "Lift Hoist" : [[0, 0], [0, 0], 1, 3, 0, 0, 50000],
+    # New TL
+    "Watchdog CEWS" : [[0, 0], [68, 0], 1, 1.5, 0, 0, 600000],
 
-    "A-Pod" : [[0, 0], [1, 0], 1, 0.5, 0, 0],
-    "B-Pod" : [[0, 0], [2, 0], 1, 1, 0, 0],
-    "(IS) Anti-Missile System" : [[0, 0], [32, 11], 1, 0.5, 1, 0],
-    "Guardian ECM Suite" : [[0, 0], [61, 0], 1, 1.5, 0, 0],
-    "Beagle Active Probe" : [[0, 0], [10, 0], 1, 1.5, 0, 0],
-    "ECM Suite" : [[0, 0], [61, 0], 1, 1, 0, 0], # Clan
-    "Active Probe" : [[0, 0], [12, 0], 1, 1, 0, 0], # Clan
-    "Light Active Probe" : [[0, 0], [7, 0], 1, 0.5, 0, 0],
-    "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0],
+    # Advandced
+    "Angel ECM" : [[0, 0], [100, 0], 2, 2, 0, 0, 750000],
+    "Bloodhound Active Probe" : [[0, 0], [25, 0], 2, 2, 0, 0, 500000],
+    "Chaff Pod" : [[0, 0], [19, 0], 2, 1, 0, 1, 2000],
+    "Coolant Pod" : [[0, 0], [0, 0], 2, 1, 0, 1, 50000],
+    "(IS) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1.5, 0, 0, 225000],
+    "(CL) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1, 0, 0, 225000],
+    "M-Pod" : [[5, 0], [0, 0], 2, 1, 0, 1, 6000],
+    "MW Aquatic Survival System" : [[0, 0], [9, 0], 2, 1.5, 0, 0, 4000],
     # Experimental
-    "Angel ECM" : [[0, 0], [100, 0], 2, 2, 0, 0],
-    "Bloodhound Active Probe" : [[0, 0], [25, 0], 2, 2, 0, 0],
-    "Electronic Warfare Equipment" : [[0, 0], [39, 0], 3, 7.5, 0, 0],
-    "(CL) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1, 0, 0],
-    "Watchdog CEWS" : [[0, 0], [68, 0], 1, 1.5, 0, 0],
-    "MW Aquatic Survival System" : [[0, 0], [9, 0], 2, 1.5, 0, 0],
-    "HarJel" : [[0, 0], [0, 0], 3, 1, 0, 0],
-    "(IS) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1.5, 0, 0],
-    "M-Pod" : [[5, 0], [0, 0], 2, 1, 0, 1],
-    "C3 Remote Sensor Launcher" : [[30, 6], [0, 0], 3, 4, 1, 0],
+    "Collapsible Command Module (CCM)" : [[0, 0], [0, 0], 3, 16, 0, 0, 500000],
+    "C3 Boosted Computer (Slave)" : [[0, 0], [0, 0], 3, 3, 0, 0, 500000],
+    "C3 Boosted Computer (Master)" : [[0, 0], [0, 0], 3, 6, 0, 0, 3000000], 
+    "Electronic Warfare Equipment" : [[0, 0], [39, 0], 3, 7.5, 0, 0, 500000],
+    "HarJel" : [[0, 0], [0, 0], 3, 1, 0, 0, 120000],
+    "C3 Remote Sensor Launcher" : [[30, 6], [0, 0], 3, 4, 1, 0, 400000],
     }
 
 # CASE
@@ -520,6 +524,12 @@ class Equipment:
         Get weight of equipment
         """
         return EQUIPMENT[self.name][3]
+
+    def get_cost(self):
+        """
+        Get cost of one piece of equipment
+        """
+        return EQUIPMENT[self.name][6]
 
     def addone(self):
         """

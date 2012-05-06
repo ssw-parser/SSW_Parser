@@ -100,6 +100,15 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 --
 - Jump Boosters -- Done
 - Partial Wing -- Done
+----
+- Weapons -- Done, but needs to be collected up in weapon_list
+- Physical -- TODO
+- CASE -- TODO
+- Equipment -- Done, but needs to be collected up in equipment_list
+- Tarcomp -- TODO
+- Supercharger -- TODO
+- Modular armor -- TODO
+- Ammo -- TODO
 
 === Weight calculations ===
 
