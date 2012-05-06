@@ -769,7 +769,12 @@ class Gear:
         if self.tarcomp > 0:
             cost += 10000 * self.tc_weight
 
-        # TODO: CASE
+        # Hack: CASE
+        for cas in self.case.itervalues():
+            if cas == "CASE":
+                cost += 50000
+            elif cas == "CASEII":
+                cost += 175000
 
         return cost
 
