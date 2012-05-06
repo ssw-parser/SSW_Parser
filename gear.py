@@ -775,6 +775,14 @@ class Gear:
                 cost += 50000
             elif cas == "CASEII":
                 cost += 175000
+        # Hack: Clan CASE
+        if self.c_case == "TRUE":
+            case_list = {}
+            for i in self.exp_ammo.keys():
+                case_list[i] = 1
+            for i in self.exp_weapon.get_keys():
+                case_list[i] = 1
+            cost += len(case_list) * 50000
 
         return cost
 
