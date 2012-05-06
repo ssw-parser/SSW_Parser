@@ -93,7 +93,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Engine -- Done
 - Gyro -- Done
 - Jump Jets -- Done
-- MASC -- Done, seems to calculate incorrectly
+- MASC -- Done (SSW calculates it incorrectly, using engine rating
+  instead of weight)
 - Heat Sinks -- Done
 - Power Amplifiers -- No need?
 - Tracks -- No need?
