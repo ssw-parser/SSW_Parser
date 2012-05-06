@@ -100,22 +100,31 @@ class ExplosiveWeapons:
                 elif (i[0] == "CT" and
                       (j == "RT" or j == "LT")):
                     loc = "CT"
+                    oth = j
                 elif (j == "CT" and
                       (i[0] == "RT" or i[0] == "LT")):
                     loc = "CT"
+                    oth = i[0]
                     print i[0], j
                 elif (i[0] == "RA" and j == "RT"):
                     loc = "RT"
+                    oth = "RA"
                 elif (j == "RA" and i[0] == "RT"):
                     loc = "RT"
+                    oth = "RA"
                 elif (i[0] == "LA" and j == "LT"):
                     loc = "LT"
+                    oth = "LA"
                 elif (j == "LA" and i[0] == "LT"):
                     loc = "LT"
+                    oth = "LA"
             assert loc, "Split weapon location failed!"
             expl = self.exp_weapon.get(loc, 0)
             expl += slots
             self.exp_weapon[loc] = expl
+            # HACK: trigger clan case for outer location
+            other = self.exp_weapon.get(oth, 0)
+            self.exp_weapon[oth] = other
         # No split, easy to handle
         else:
             expl = self.exp_weapon.get(location, 0)
