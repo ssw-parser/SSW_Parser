@@ -689,6 +689,15 @@ class Mech:
         cost += i.partw.get_cost()
         cost += i.jumpb.get_cost()
 
+        # Multi-slot stuff
+        for m in self.multi:
+            if m == "Chameleon LPS":
+                cost += 600000
+            elif m == "Null Signature System":
+                cost += 1400000
+            elif m == "Void Signature System":
+                cost += 2000000
+
         # Gear
         cost += i.gear.get_cost()
 
