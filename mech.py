@@ -86,10 +86,10 @@ class Mech:
 
             # Get enhancement, needs for loop
             self.enhancement = Enhancement(None, self.weight,
-                                           self.engine.get_weight())
+                                           self.engine.erating)
             for enh in mmech.getElementsByTagName('enhancement'):
                 self.enhancement = Enhancement(enh, self.weight,
-                                               self.engine.get_weight())
+                                               self.engine.erating)
 
             # Get armor.
             self.armor = Armor(get_child(mmech, 'armor'),

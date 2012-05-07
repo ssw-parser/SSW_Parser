@@ -746,10 +746,10 @@ class Enhancement(Item):
     """
     A class to hold information about myomer enhancements
     """
-    def __init__(self, enh, weight, eng_weight):
+    def __init__(self, enh, weight, eng_rating):
         Item.__init__(self)
         # Save engine weight
-        self.eng_weight = eng_weight
+        self.eng_rating = eng_rating
         if enh is None:
             self.etb = 2
             self.enhancement = "---"
@@ -781,7 +781,7 @@ class Enhancement(Item):
         Get MASC cost, only. TSM cost is handled elsewhere.
         """
         if self.enhancement == "MASC":
-            return 1000 * self.eng_weight * self.enhweight
+            return 1000 * self.eng_rating * self.enhweight
         else:
             return 0
 

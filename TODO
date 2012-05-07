@@ -80,15 +80,21 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Missing: turrets
 
 === Cost calculations ===
-- MASC -- Done (SSW calculates it incorrectly, using engine rating
-  instead of weight)
 
 - Supercharger -- TODO
 - Modular armor -- TODO
+- Armored components -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
 - Some dual cockpit issue
-- Turret cost
+- Turret cost: GOL-6M
+- Retractable blade
+- Talons (which way is right?)
+- Unknown issues:
+-- Hatamoto-Kaeru
+-- Banzai
+-- Charger CGR-1X1
+-- BattleMaster BLR-6X
 
 === Weight calculations ===
 
