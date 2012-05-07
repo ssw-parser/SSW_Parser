@@ -66,7 +66,7 @@ class BattleForce:
         factor = 1
         if self.mech.enhancement.is_masc():
             factor += 0.25
-        if self.load.gear.supercharger:
+        if self.load.gear.supercharger.has_sc():
             factor += 0.25
 
         bf_str = str(int(walk * factor))

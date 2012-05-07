@@ -613,6 +613,12 @@ class Supercharger:
         """
         self.supercharger = True
 
+    def has_sc(self):
+        """
+        Is supercharger installed?
+        """
+        return self.supercharger
+
 class Gear:
     """
     Store Gear
@@ -628,6 +634,8 @@ class Gear:
         self.equiplist = Equiplist()
         self.physicallist = Physicallist(mech.weight)
         self.ammolist = Ammolist()
+        self.supercharger = Supercharger(mech.engine.erating,
+                                         mech.engine.get_weight())
         # Keep track of tarcomp
         self.tarcomp = 0
         # Gear weight
@@ -641,7 +649,6 @@ class Gear:
         self.case = {}
         # Track coolant pods
         self.coolant = 0
-        self.supercharger = False
         # Track modular armor
         self.mod_armor = {}
         self.has_mod_armor = False
@@ -698,7 +705,7 @@ class Gear:
 
             # Hack, supercharger
             elif (name.name == "Supercharger" and name.typ == "Supercharger"):
-                self.supercharger = True
+                self.supercharger.add()
                 ident = True
 
             # A possible physical weapon
@@ -779,9 +786,9 @@ class Gear:
         tmp = self.equiplist.get_rules_level()
         if tmp > r_level:
             r_level = tmp
-        # Hack: Supercharger is advanced rules
-        if self.supercharger and r_level < 2:
-            r_level = 2
+        tmp = self.supercharger.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
         # Hack: Targeting computer
         if self.tarcomp > 0 and r_level < 1:
             r_level = 1
@@ -805,8 +812,8 @@ class Gear:
         cost += self.physicallist.get_cost()
         # equipment
         cost += self.equiplist.get_cost()
-        # TODO: Supercharger
-        # 10000 x Engine rating
+        # Supercharger
+        cost += self.supercharger.get_cost()
         # Hack: Targeting computer
         if self.tarcomp > 0:
             cost += 10000 * self.tc_weight

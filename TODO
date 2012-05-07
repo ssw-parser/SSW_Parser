@@ -50,7 +50,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Tacops Clan reactive, modular & patchwork armor
 - Things that needs to become real items:
 -- Null sig, chameleon, void sig
--- Supercharger, Tarcomp, CASE, Armored locations, AES
+-- Tarcomp, CASE, Armored locations, AES
 -- Integrate fire control systems better (a4, a5, ap, tarcomp)
 -- Turrets
 
@@ -81,7 +81,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 === Cost calculations ===
 
-- Supercharger -- TODO
 - Modular armor -- TODO
 - Armored components -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
@@ -92,14 +91,14 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Talons (which way is right?)
 - Unknown issues:
 -- Hatamoto-Kaeru
--- Banzai
--- Charger CGR-1X1
--- BattleMaster BLR-6X
+-- Banzai - booby trap?
+-- BattleMaster BLR- 6X
 
 === Weight calculations ===
 
 - Weight calculations - detect under-weight mechs
 - Turret weights
+- Supercharger weight needs to be added up
 
 == movement.py ==
 - Use a dictionary for engine type info (Problematic, keys not unique)
@@ -111,7 +110,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == gear.py ==
 - Split WEAPONS into weapon types.
-- Handle Supercharger, Tarcomp & CASE better.
+- Handle Tarcomp & CASE better.
 - Move weight calculations.
 - Supercharger weight.
 

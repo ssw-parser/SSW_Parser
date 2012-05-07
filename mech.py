@@ -156,7 +156,7 @@ class Mech:
             spd += 1
         elif self.enhancement.is_masc():
             factor += 0.5
-        if self.load.gear.supercharger:
+        if self.load.gear.supercharger.has_sc():
             factor += 0.5
         rspeed = int(ceil(spd * factor))
         # Hardened Armor
@@ -358,7 +358,7 @@ class Mech:
         motive += self.load.jjets.get_weight()
         motive += self.enhancement.get_weight()
         motive += self.cockpit.get_weight()
-        if self.load.gear.supercharger:
+        if self.load.gear.supercharger.has_sc():
             motive += ceil_05(self.engine.get_weight() * 0.1)
         mratio = float(motive) / float(self.weight) * 100
 
