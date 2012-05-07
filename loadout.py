@@ -32,8 +32,8 @@ class Load:
     """
     Parent class for omni loadouts
     """
-    def __init__(self, load, weight, batt_val, partw, prod_era, equip, cost):
-        self.weight = weight # Save weight just in case
+    def __init__(self, load, mech, batt_val, partw, prod_era, equip, cost):
+        self.weight = mech.weight # Save weight just in case
         self.artemis4 = load.attributes["fcsa4"].value
         self.artemis5 = load.attributes["fcsa5"].value
         self.apollo = load.attributes["fcsapollo"].value
@@ -59,8 +59,8 @@ class Load:
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks(None)
-        self.jjets = JumpJets(None, weight)
-        self.partw = PartialWing(weight, partw)
+        self.jjets = JumpJets(None, mech.weight)
+        self.partw = PartialWing(mech.weight, partw)
 
         # Get Actuator Enhancement System
         self.aes_ra = False
@@ -76,7 +76,7 @@ class Load:
         for jbo in load.getElementsByTagName('jumpbooster'):
             jumpb = int(jbo.attributes["mp"].value)
 
-        self.jumpb = JumpBoosters(weight, jumpb)
+        self.jumpb = JumpBoosters(mech.weight, jumpb)
 
         # Get Armored locations
         self.arm_loc = []
@@ -94,7 +94,7 @@ class Load:
 
         self.prod_era = prod_era
 
-        self.gear = Gear(weight, self.artemis4, self.artemis5, self.apollo,
+        self.gear = Gear(mech, self.artemis4, self.artemis5, self.apollo,
                          equip, clanc)
 
         self.build_special()
@@ -437,7 +437,7 @@ class Baseloadout(Load):
     """
     An base omni loadout
     """
-    def __init__(self, load, weight, batt_val, partw, prod_era, cost):
+    def __init__(self, load, mech, batt_val, partw, prod_era, cost):
 
         # Get equipment
         self.equip = []
@@ -445,7 +445,7 @@ class Baseloadout(Load):
         for node in load.getElementsByTagName('equipment'):
             self.equip.append(Equip(node))
 
-        Load.__init__(self, load, weight, batt_val, partw, prod_era,
+        Load.__init__(self, load, mech, batt_val, partw, prod_era,
                       self.equip, cost)
 
         # Get jumpjets, needs for loop
@@ -466,7 +466,7 @@ class Loadout(Load):
     """
     An omni loadout
     """
-    def __init__(self, load, base, weight, partw):
+    def __init__(self, load, base, mech, partw):
         self.name = load.attributes["name"].value
 
         # Get production era
@@ -484,7 +484,7 @@ class Loadout(Load):
         for node in load.getElementsByTagName('equipment'):
             self.equip.append(Equip(node))
 
-        Load.__init__(self, load, weight, batt_val, partw, prod_era,
+        Load.__init__(self, load, mech, batt_val, partw, prod_era,
                       self.equip, cost)
         # These needs to be set after call to Load
 

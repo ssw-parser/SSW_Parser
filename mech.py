@@ -111,7 +111,7 @@ class Mech:
                 partw = True
 
             # Construct current loadout, empty name for base loadout
-            self.load = Baseloadout(blo, self.weight, self.batt_val,
+            self.load = Baseloadout(blo, self, self.batt_val,
                                     partw, self.prod_era, cost)
 
             # HACK -- Apply modular armor
@@ -123,7 +123,7 @@ class Mech:
             for load in mmech.getElementsByTagName('loadout'):
  
                 # Construct current loadout
-                current = Loadout(load, self.load, self.weight, partw)
+                current = Loadout(load, self.load, self, partw)
 
                 self.loads.append(current)
                 

@@ -24,7 +24,7 @@ Contains classes for weapons and other gear.
 
 from math import ceil
 from error import error_exit
-from util import gettext, get_child_data
+from util import ceil_05, gettext, get_child_data
 from item import Item
 from weapon_list import Weaponlist
 from physical import Physicallist
@@ -571,20 +571,62 @@ class Equipment:
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
 
+class Supercharger:
+    """
+    A supercharger
+    """
+    def __init__(self, rating, eweight):
+        self.supercharger = False
+        self.eng_rating = rating
+        self.eng_weight = eweight
+
+    def get_rules_level(self):
+        """
+        Get rules level of supercharger
+        """
+        if self.supercharger:
+            return 2
+        else:
+            return 0
+
+    def get_weight(self):
+        """
+        Get weight of supercharger
+        """
+        if self.supercharger:
+            return ceil_05(self.eng_weight / 10.0)
+        else:
+            return 0
+
+    def get_cost(self):
+        """
+        Get cost of supercharger
+        """
+        if self.supercharger:
+            return 10000 * self.eng_rating
+        else:
+            return 0
+
+    def add(self):
+        """
+        Add supercharger
+        """
+        self.supercharger = True
+
 class Gear:
     """
     Store Gear
 
     Take in lists of front and rear facing gears
     """
-    def __init__(self, weight, art4, art5, apollo, equip, clan_case):
+    def __init__(self, mech, art4, art5, apollo, equip, clan_case):
         self.equip = equip
         self.c_case = clan_case # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist(art4, art5, apollo)
         self.equiplist = Equiplist()
-        self.physicallist = Physicallist(weight)
+        self.physicallist = Physicallist(mech.weight)
         self.ammolist = Ammolist()
         # Keep track of tarcomp
         self.tarcomp = 0
