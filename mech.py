@@ -698,6 +698,15 @@ class Mech:
             elif m == "Void Signature System":
                 cost += 2000000
 
+        # Hack: AES
+        if i.aes_ra:
+            cost += self.weight * 500
+        if i.aes_la:
+            cost += self.weight * 500
+
+        # Hack: Armored components
+        cost += len(i.arm_loc) * 150000
+
         # Gear
         cost += i.gear.get_cost()
 
