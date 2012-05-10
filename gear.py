@@ -850,9 +850,9 @@ class Gear:
 
     def get_e_weight(self):
         """
-        Get equipment, tarcomp & CASE weight
+        Get equipment, tarcomp, supercharger & CASE weight
         """
-        return self.e_weight + self.tc_weight
+        return self.e_weight + self.tc_weight + self.supercharger.get_weight()
 
     def get_p_weight(self):
         """

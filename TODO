@@ -92,12 +92,16 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Hatamoto-Kaeru
 -- Banzai - booby trap?
 -- BattleMaster BLR- 6X
+-- Hunchback HBK-7X-4 - torso cockpit?
+-- Thunder Fox C3 - mechanical jump boosters?
+-- Legionnaire Muse Fire - torso cockpit?
+-- Wraith Alexander - Partial Wing?
 
 === Weight calculations ===
 
 - Weight calculations - detect under-weight mechs
 - Turret weights
-- Supercharger weight needs to be added up
+- Modular armor weight needs to be added up
 
 == movement.py ==
 - Use a dictionary for engine type info (Problematic, keys not unique)
@@ -111,7 +115,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Split WEAPONS into weapon types.
 - Handle Tarcomp & CASE better.
 - Move weight calculations.
-- Supercharger weight.
+- Modular armor weight.
 
 - Supercharger class: track location - solves armored component problem?
 
