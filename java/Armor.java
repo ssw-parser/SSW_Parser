@@ -22,7 +22,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
-public class Armor {
+public class Armor implements Item {
 	String type;
 	int tech_base;
 	int hd;
@@ -67,6 +67,116 @@ public class Armor {
 		System.out.println("Left Leg          : " + ll);
 		System.out.println("Right Leg         : " + rl);
 		System.out.println("Total Armor       : " + total);
+	}
+
+	public byte get_rules_level()
+	{
+		if (type == "Standard Armor")
+			return INTRO_TECH;
+		else if (type == "Ferro-Fibrous")
+			return TOURNAMENT_LEGAL;
+		else if (type == "Light Ferro-Fibrous")
+			return TOURNAMENT_LEGAL;
+		else if (type == "Heavy Ferro-Fibrous")
+			return TOURNAMENT_LEGAL;
+		else if (type == "Stealth Armor")
+			return TOURNAMENT_LEGAL;
+		else if (type == "Laser-Reflective")
+			return ADVANCED;
+		else if (type == "Hardened Armor")
+			return ADVANCED;
+		else if (type == "Reactive Armor")
+			return ADVANCED;
+		else if (type == "Ferro-Lamellor")
+			return ADVANCED;
+		else if (type == "Primitive Armor")
+			return PRIMITIVE;
+		else
+			{
+				System.out.println("Unknown armor:" + type);
+				System.exit(-1);
+				return -1;
+			}			
+	}
+
+	public double get_weight()
+	{
+		double wgt, factor;
+
+		if (type == "Standard Armor")
+			factor = 1.0;
+		else if (type == "Ferro-Fibrous" && tech_base == 0)
+			factor = 1.12;
+		else if (type == "Ferro-Fibrous" && tech_base == 1)
+			factor = 1.2;
+		else if (type == "Light Ferro-Fibrous")
+			factor = 1.06;
+		else if (type == "Heavy Ferro-Fibrous")
+			factor = 1.24;
+		else if (type == "Stealth Armor")
+			factor = 1.0;
+		else if (type == "Laser-Reflective")
+			factor = 1.0;
+		else if (type == "Hardened Armor")
+			factor = 0.5;
+		else if (type == "Reactive Armor")
+			factor = 1.0;
+		else if (type == "Ferro-Lamellor")
+			factor = 0.9;
+		else if (type == "Primitive Armor")
+			factor = 0.67;
+		else
+			{
+				System.out.println("Unknown armor:" + type);
+				System.exit(-1);
+				factor = 0.0;
+			}			
+
+		wgt = total / (16.0 * factor);
+		wgt = ceil_05(wgt);
+		return wgt;
+	}
+
+	public long get_cost()
+	{
+		long factor;
+
+		if (type == "Standard Armor")
+			factor = 10000;
+		else if (type == "Ferro-Fibrous")
+			factor = 20000;
+		else if (type == "Light Ferro-Fibrous")
+			factor = 15000;
+		else if (type == "Heavy Ferro-Fibrous")
+			factor = 25000;
+		else if (type == "Stealth Armor")
+			factor = 50000;
+		else if (type == "Laser-Reflective")
+			factor = 30000;
+		else if (type == "Hardened Armor")
+			factor = 15000;
+		else if (type == "Reactive Armor")
+			factor = 30000;
+		else if (type == "Ferro-Lamellor")
+			factor = 35000;
+		else if (type == "Primitive Armor")
+			factor = 5000;
+		else
+			{
+				System.out.println("Unknown armor:" + type);
+				System.exit(-1);
+				factor = 0;
+			}			
+
+		return (long)(factor * get_weight());
+	}
+
+	private double ceil_05(double value)
+	{
+		value *= 2.0;
+		value = Math.ceil(value);
+		value /= 2.0;
+		return value;
 	}
 
 	private static String getTagValue(String sTag, Element eElement) {

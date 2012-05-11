@@ -19,10 +19,15 @@
  */
 
 public interface Item {
+	byte INTRO_TECH = 0;
+	byte TOURNAMENT_LEGAL = 1;
+	byte ADVANCED = 2;
+	byte EXPERIMENTAL = 3;
+	byte PRIMITIVE = 4;
 
 	byte get_rules_level();
 
-	float get_weight();
+	double get_weight();
 
 	long get_cost();
 }
