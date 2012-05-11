@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 
 public class Mech {
-
+	short weight;
 
 	Mech(File fXmlFile) {
 		try {
@@ -36,7 +36,20 @@ public class Mech {
 			doc.getDocumentElement().normalize();
 
 			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-			NodeList nList = doc.getElementsByTagName("armor");
+			weight = (short)Integer.parseInt(doc.getDocumentElement().getAttribute("tons"));
+			System.out.println("Mech weight : " + weight);
+			NodeList nList = doc.getElementsByTagName("structure");
+			System.out.println("-----------------------");
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+
+				Node nNode = nList.item(temp);
+				
+				Element el = (Element)nNode;
+
+				InternalStructure arm = new InternalStructure(el, weight);
+			}
+			nList = doc.getElementsByTagName("armor");
 			System.out.println("-----------------------");
 
 			for (int temp = 0; temp < nList.getLength(); temp++) {
