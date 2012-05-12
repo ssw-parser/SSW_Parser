@@ -11,6 +11,8 @@
   <target name="compile" depends="init">
     <!-- Compile the java code -->
 
-    <javac srcdir="${src}" destdir="${build}"/>
+    <javac srcdir="${src}" destdir="${build}">
+      <compilerarg value="-Xlint" />
+    </javac>
   </target>
 </project>
