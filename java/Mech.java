@@ -30,6 +30,9 @@ public class Mech {
 	String model;
 	String omni;
 	short weight;
+	int batt_val;
+	double cost;
+	byte prod_era;
 	String motive;
 	InternalStructure structure;
 	Cockpit cockpit;
@@ -48,11 +51,17 @@ public class Mech {
 			omni = doc.getDocumentElement().getAttribute("omnimech");
 			weight = (short)Integer.parseInt(doc.getDocumentElement().getAttribute("tons"));
 
+			batt_val = Integer.parseInt(Util.getChildData(doc, "battle_value"));
+			cost = Double.parseDouble(Util.getChildData(doc, "cost"));
+			prod_era = (byte)Integer.parseInt(Util.getChildData(doc, "productionera"));
 			motive = Util.getChildData(doc, "motive_type");
 
 			System.out.println(name + " " + model);
 			System.out.println("Omnimech : " + omni);
 			System.out.println("Mech weight : " + weight);
+			System.out.println("Battle Value : " + batt_val);
+			System.out.println("Cost : " + cost);
+			System.out.println("Production Era : " + prod_era);
 			System.out.println("Motive type : " + motive);
 
 			// Internal Structure
