@@ -35,6 +35,7 @@ public class Mech {
 	byte prod_era;
 	String motive;
 	InternalStructure structure;
+	Engine engine;
 	Cockpit cockpit;
 	Armor armor;
 
@@ -71,6 +72,14 @@ public class Mech {
 			Element el = Util.getChild(doc, "structure");
 
 			structure = new InternalStructure(el, weight);
+
+			// Engine
+			System.out.println("-----------------------");
+
+				
+			el = Util.getChild(doc, "engine");
+
+			engine = new Engine(el);
 
 			// Cockpit
 			System.out.println("-----------------------");
