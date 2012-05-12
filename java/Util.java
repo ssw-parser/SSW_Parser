@@ -45,6 +45,14 @@ public class Util {
 	{
 		return (Element)parent.getElementsByTagName(name).item(0);
 	}
+
+	public static String getChildData(Document parent, String name)
+	{
+		NodeList childnl = parent.getElementsByTagName(name).item(0).getChildNodes();
+		Node child = childnl.item(0);
+
+		return child.getNodeValue();
+	}
 }
 
 

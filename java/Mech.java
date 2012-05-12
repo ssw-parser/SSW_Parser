@@ -48,9 +48,12 @@ public class Mech {
 			omni = doc.getDocumentElement().getAttribute("omnimech");
 			weight = (short)Integer.parseInt(doc.getDocumentElement().getAttribute("tons"));
 
+			motive = Util.getChildData(doc, "motive_type");
+
 			System.out.println(name + " " + model);
 			System.out.println("Omnimech : " + omni);
 			System.out.println("Mech weight : " + weight);
+			System.out.println("Motive type : " + motive);
 
 			// Internal Structure
 			System.out.println("-----------------------");
