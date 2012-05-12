@@ -27,11 +27,8 @@ public class Cockpit implements Item {
 	String console;
 
 	Cockpit(Element sElement) {
-		Node nValue = sElement.getElementsByTagName("type").item(0).getChildNodes().item(0);
-		Element el;
+		type = Util.getTagValue("type", sElement);
 
-		type = nValue.getNodeValue();
-		System.out.println(nValue);
 		// TODO: Fix command console
 		//		el = (Element)nValue;
 
@@ -118,15 +115,6 @@ public class Cockpit implements Item {
 
 		return cost;
 	}
-
-	private static String getTagValue(String sTag, Element eElement) {
-		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-
-		Node nValue = nlList.item(0);
-
-		return nValue.getNodeValue();
-	}
-
 }
 
 

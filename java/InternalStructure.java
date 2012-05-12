@@ -28,7 +28,7 @@ public class InternalStructure implements Item {
 	short wgt;
 
 	InternalStructure(Element sElement, short weight) {
-		type = getTagValue("type", sElement);
+		type = Util.getTagValue("type", sElement);
 		tech_base = Integer.parseInt(sElement.getAttribute("techbase"));
 		wgt = weight;
 		System.out.println("Internal Structure Type : " + type);
@@ -110,15 +110,6 @@ public class InternalStructure implements Item {
 
 		return factor * wgt;
 	}
-
-	private static String getTagValue(String sTag, Element eElement) {
-		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-
-		Node nValue = nlList.item(0);
-
-		return nValue.getNodeValue();
-	}
-
 }
 
 

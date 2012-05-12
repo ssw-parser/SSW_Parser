@@ -39,19 +39,19 @@ public class Armor implements Item {
 	int total;
 
 	Armor(Element aElement) {
-		type = getTagValue("type", aElement);
+		type = Util.getTagValue("type", aElement);
 		tech_base = Integer.parseInt(aElement.getAttribute("techbase"));
-		hd = Integer.parseInt(getTagValue("hd", aElement));
-		ct = Integer.parseInt(getTagValue("ct", aElement));
-		ctr = Integer.parseInt(getTagValue("ctr", aElement));
-		lt = Integer.parseInt(getTagValue("lt", aElement));
-		ltr = Integer.parseInt(getTagValue("ltr", aElement));
-		rt = Integer.parseInt(getTagValue("rt", aElement));
-		rtr = Integer.parseInt(getTagValue("rtr", aElement));
-		la = Integer.parseInt(getTagValue("la", aElement));
-		ra = Integer.parseInt(getTagValue("ra", aElement));
-		ll = Integer.parseInt(getTagValue("ll", aElement));
-		rl = Integer.parseInt(getTagValue("rl", aElement));
+		hd = Integer.parseInt(Util.getTagValue("hd", aElement));
+		ct = Integer.parseInt(Util.getTagValue("ct", aElement));
+		ctr = Integer.parseInt(Util.getTagValue("ctr", aElement));
+		lt = Integer.parseInt(Util.getTagValue("lt", aElement));
+		ltr = Integer.parseInt(Util.getTagValue("ltr", aElement));
+		rt = Integer.parseInt(Util.getTagValue("rt", aElement));
+		rtr = Integer.parseInt(Util.getTagValue("rtr", aElement));
+		la = Integer.parseInt(Util.getTagValue("la", aElement));
+		ra = Integer.parseInt(Util.getTagValue("ra", aElement));
+		ll = Integer.parseInt(Util.getTagValue("ll", aElement));
+		rl = Integer.parseInt(Util.getTagValue("rl", aElement));
 		total = hd + ct + ctr + lt + ltr + rt + rtr + la + ra + ll + rl;
 		System.out.println("Armor Type : " + type);
 		System.out.println("Tech Base : " + tech_base);
@@ -170,15 +170,6 @@ public class Armor implements Item {
 
 		return (long)(factor * get_weight());
 	}
-
-	private static String getTagValue(String sTag, Element eElement) {
-		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-
-		Node nValue = nlList.item(0);
-
-		return nValue.getNodeValue();
-	}
-
 }
 
 
