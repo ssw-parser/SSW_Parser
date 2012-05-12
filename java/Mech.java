@@ -28,6 +28,7 @@ import java.io.File;
 public class Mech {
 	String name;
 	String model;
+	String omni;
 	short weight;
 	String motive;
 	InternalStructure structure;
@@ -41,53 +42,38 @@ public class Mech {
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 
-			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 			// Extract base information
 			name = doc.getDocumentElement().getAttribute("name");
 			model = doc.getDocumentElement().getAttribute("model");
+			omni = doc.getDocumentElement().getAttribute("omnimech");
 			weight = (short)Integer.parseInt(doc.getDocumentElement().getAttribute("tons"));
 
 			System.out.println(name + " " + model);
+			System.out.println("Omnimech : " + omni);
 			System.out.println("Mech weight : " + weight);
 
 			// Internal Structure
-			NodeList nList = doc.getElementsByTagName("structure");
 			System.out.println("-----------------------");
 
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-
-				Node nNode = nList.item(temp);
 				
-				Element el = (Element)nNode;
+			Element el = Util.getChild(doc, "structure");
 
-				structure = new InternalStructure(el, weight);
-			}
+			structure = new InternalStructure(el, weight);
 
 			// Cockpit
-			nList = doc.getElementsByTagName("cockpit");
 			System.out.println("-----------------------");
 
-			for (int temp = 0; temp < nList.getLength(); temp++) {
+			el = Util.getChild(doc, "cockpit");
 
-				Node nNode = nList.item(temp);
-				
-				Element el = (Element)nNode;
-
-				cockpit = new Cockpit(el);
-			}
+			cockpit = new Cockpit(el);
 
 			// Armor
-			nList = doc.getElementsByTagName("armor");
 			System.out.println("-----------------------");
 
-			for (int temp = 0; temp < nList.getLength(); temp++) {
+			el = Util.getChild(doc, "armor");
+			
+			armor = new Armor(el);
 
-				Node nNode = nList.item(temp);
-				
-				Element el = (Element)nNode;
-
-				armor = new Armor(el);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

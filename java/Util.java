@@ -18,6 +18,7 @@
  *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
@@ -40,9 +41,9 @@ public class Util {
 		return nValue.getNodeValue();
 	}
 
-	public static Node getChild(Element parent, String name)
+	public static Element getChild(Document parent, String name)
 	{
-		return parent.getElementsByTagName(name).item(0);
+		return (Element)parent.getElementsByTagName(name).item(0);
 	}
 }
 
