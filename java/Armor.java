@@ -133,7 +133,7 @@ public class Armor implements Item {
 			}			
 
 		wgt = total / (16.0 * factor);
-		wgt = ceil_05(wgt);
+		wgt = Util.ceil_05(wgt);
 		return wgt;
 	}
 
@@ -169,14 +169,6 @@ public class Armor implements Item {
 			}			
 
 		return (long)(factor * get_weight());
-	}
-
-	private double ceil_05(double value)
-	{
-		value *= 2.0;
-		value = Math.ceil(value);
-		value /= 2.0;
-		return value;
 	}
 
 	private static String getTagValue(String sTag, Element eElement) {

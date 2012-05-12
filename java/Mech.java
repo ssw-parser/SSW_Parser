@@ -26,7 +26,13 @@ import org.w3c.dom.Element;
 import java.io.File;
 
 public class Mech {
+	String name;
+	String model;
 	short weight;
+	String motive;
+	InternalStructure structure;
+	Cockpit cockpit;
+	Armor armor;
 
 	Mech(File fXmlFile) {
 		try {
@@ -36,8 +42,15 @@ public class Mech {
 			doc.getDocumentElement().normalize();
 
 			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+			// Extract base information
+			name = doc.getDocumentElement().getAttribute("name");
+			model = doc.getDocumentElement().getAttribute("model");
 			weight = (short)Integer.parseInt(doc.getDocumentElement().getAttribute("tons"));
+
+			System.out.println(name + " " + model);
 			System.out.println("Mech weight : " + weight);
+
+			// Internal Structure
 			NodeList nList = doc.getElementsByTagName("structure");
 			System.out.println("-----------------------");
 
@@ -47,8 +60,23 @@ public class Mech {
 				
 				Element el = (Element)nNode;
 
-				InternalStructure arm = new InternalStructure(el, weight);
+				structure = new InternalStructure(el, weight);
 			}
+
+			// Cockpit
+			nList = doc.getElementsByTagName("cockpit");
+			System.out.println("-----------------------");
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+
+				Node nNode = nList.item(temp);
+				
+				Element el = (Element)nNode;
+
+				cockpit = new Cockpit(el);
+			}
+
+			// Armor
 			nList = doc.getElementsByTagName("armor");
 			System.out.println("-----------------------");
 
@@ -58,7 +86,7 @@ public class Mech {
 				
 				Element el = (Element)nNode;
 
-				Armor arm = new Armor(el);
+				armor = new Armor(el);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

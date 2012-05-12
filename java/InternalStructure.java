@@ -81,7 +81,7 @@ public class InternalStructure implements Item {
 			}			
 
 		weight = wgt * factor;
-		weight = ceil_05(weight);
+		weight = Util.ceil_05(weight);
 		return weight;
 	}
 
@@ -109,14 +109,6 @@ public class InternalStructure implements Item {
 			}			
 
 		return factor * wgt;
-	}
-
-	private double ceil_05(double value)
-	{
-		value *= 2.0;
-		value = Math.ceil(value);
-		value /= 2.0;
-		return value;
 	}
 
 	private static String getTagValue(String sTag, Element eElement) {
