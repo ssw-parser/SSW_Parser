@@ -27,12 +27,11 @@ public class Cockpit implements Item {
 	String console;
 
 	Cockpit(Element sElement) {
+		Element el;
+
 		type = Util.getTagValue("type", sElement);
-
-		// TODO: Fix command console
-		//		el = (Element)nValue;
-
-		//		console = el.getAttribute("commandconsole");
+		el = (Element)sElement.getElementsByTagName("type").item(0);
+		console = el.getAttribute("commandconsole");
 		System.out.println("Cockpit Type : " + type);
 		System.out.println("Command Console : " + console);
 	}

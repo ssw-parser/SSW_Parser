@@ -40,6 +40,10 @@ public class Util {
 		return nValue.getNodeValue();
 	}
 
+	public static Node getChild(Element parent, String name)
+	{
+		return parent.getElementsByTagName(name).item(0);
+	}
 }
 
 
