@@ -1277,6 +1277,8 @@ def parse_arg():
                         help='Select mechs of weight <n>')
     parser.add_argument('-rule', action='store', default = 99, type=int,
                         help='Select mechs with highest rules level <n>')
+    parser.add_argument('-af', action='store', default = 0, type=int,
+                        help='Select mechs with at least armor points <n>')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -1398,6 +1400,10 @@ def main():
         spd = args.sf
         select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
         header_l.append(("with at least speed %d" % spd))
+    # Armor
+    if args.af > 0:
+        select_l.append(lambda x, y: (x.armor.total.arm >= args.af))
+        header_l.append(("with at least armor %d" % args.af))
     # LRMs
     if args.lrm > 0:
         lrm = args.lrm

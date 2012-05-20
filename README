@@ -105,6 +105,8 @@ The default output (no switch) is modeled after the MUL.
 
 -sf <d>: Only list mechs at least as fast as <d>.
 
+-af <d>: Only list mechs at least <d> points of armor.
+
 -lrm <d>: Only list mechs with at least <d> LRM tubes. Enhanced LRMs
  and MMLs count, Extended LRMs does not. Basically only tubes that
  can use standard LRM ammo variantions.
