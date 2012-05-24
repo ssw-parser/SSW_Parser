@@ -41,6 +41,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
 
+- Add year info to mechs
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
 - Better packaging: Distutils
@@ -164,9 +165,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Range type listing:
 -- Allow selection of range instead of using separate switches for
    each range. (Problem due to how the code internals works.)
-
-- Make default display more like MUL: Add year. (More a problem of
-  missing data than code.)
 
 - Add ability to filter out L and XL engines (a cheap mechs only filter.)
 -- Implement cost and use that instead

@@ -1153,7 +1153,8 @@ def create_def_list_item(mech, i):
     source = i.source
     prod_era = conv_era(i.get_prod_era())
     rules = conv_rules(mech.get_rules_level(i))
-    return (name_str, weight, batt_val, source, rules, prod_era)
+    year = mech.year
+    return (name_str, weight, batt_val, source, rules, prod_era, year)
 
 
 def print_default(file_list, select_l, header):
@@ -1168,10 +1169,10 @@ def print_default(file_list, select_l, header):
 
     # Print output
     print header
-    print "Name                          Tons BV   Source   Rul Era"
+    print "Name                          Tons BV   Source   Rul Era   Year"
     for i in mech_list:
-        print ("%-30s %3d %4d %-8s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5]))
+        print ("%-30s %3d %4d %-8s %-3s %-5s %4d" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
 ##################################

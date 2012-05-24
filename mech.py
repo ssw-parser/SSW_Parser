@@ -65,6 +65,9 @@ class Mech:
             # get first instance only to avoid problems with Omni-mechs
             self.techbase = get_child_data(mmech, 'techbase')
 
+            # Get year
+            self.year = int(get_child_data(mmech, 'year'))
+
             # Get motive type (biped, quad)
             self.motive = get_child_data(mmech, 'motive_type')
 
