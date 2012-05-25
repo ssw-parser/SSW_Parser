@@ -9,6 +9,8 @@ Beowulf BEO-X-7a -- armored components (gear)
 
 === Issues with SSW ===
 
+Raven RVN-1X -- Issue with EW Equipment BV.
+Raven RVN-3X -- Issue with EW Equipment BV.
 Atlas AS7-00 Jurn -- armored components (command console, SSW does not
 add the BV for it.) (reported)
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod (SSW does not calculate
@@ -42,6 +44,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 == Goals ==
 
 - Add year info to mechs
+-- Progress: 3039 Lights done
+
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
 - Better packaging: Distutils
