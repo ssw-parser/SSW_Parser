@@ -44,7 +44,11 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 == Goals ==
 
 - Add year info to mechs
--- Progress: 3039 Lights done
+-- Progress: 3039 Lights & Mediums done
+
+- Missing, no year info
+-- Clint CLNT-2-4T
+
 
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
