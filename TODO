@@ -44,10 +44,15 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 == Goals ==
 
 - Add year info to mechs
--- Progress: 3039 done
+-- Progress
+--- 3039 done
+--- 3050 lights done
 
 - Missing, no year info
 -- Clint CLNT-2-4T
+
+- Add year filter
+- Handle year for omni configs correctly
 
 
 - Also handle combat vehicles?
