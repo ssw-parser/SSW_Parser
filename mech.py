@@ -351,6 +351,16 @@ class Mech:
         assert batt_val == load.batt_val, "Error in BV calculation!"
         return batt_val
 
+    def get_year(self, load):
+        """
+        Get year
+        """
+        if self.omni == "TRUE":
+            return load.year
+        else:
+            return self.year
+
+
     def weight_summary(self, short):
         """
         Create a report on what the mech spends its tonnage on

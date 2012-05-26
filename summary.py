@@ -1153,7 +1153,7 @@ def create_def_list_item(mech, i):
     source = i.source
     prod_era = conv_era(i.get_prod_era())
     rules = conv_rules(mech.get_rules_level(i))
-    year = mech.year
+    year = mech.get_year(i)
     return (name_str, weight, batt_val, source, rules, prod_era, year)
 
 

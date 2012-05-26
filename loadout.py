@@ -439,6 +439,9 @@ class Baseloadout(Load):
     """
     def __init__(self, load, mech, batt_val, partw, prod_era, cost):
 
+        # Save year
+        self.year = mech.year
+
         # Get equipment
         self.equip = []
 
@@ -471,6 +474,9 @@ class Loadout(Load):
 
         # Get production era
         prod_era = int(get_child_data(load, 'loadout_productionera'))
+
+        # Get year
+        self.year = int(get_child_data(load, 'loadout_year'))
 
         # Get BV.
         batt_val = int(get_child_data(load, 'battle_value'))
