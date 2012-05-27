@@ -62,12 +62,28 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - BattleForce information
 - A lot to do
 -- Add count to Special Abilities where needed
--- Add missing Special Abilities
 -- Weapon Damage
 -- Overheat
--- Points
 -- Structure
 -- Move special abilities scanning to class
+
+-- Add missing Special Abilities:
+--- ARTX (Missing: Thumper, Cruiser Missiles, Thumper Cannon, Sniper Cannon)
+--- ARM - Armored Component
+--- AC - Autocannon
+--- BAR - special cases, not in use
+--- BHJ - battlemech harjel - needs to track torsos
+--- SHLD - battlemech shield
+--- BT - booby trap
+--- BRID - bridgelayer - not on mechs?
+--- C#EM - C3 emergency master
+--- CASE/CASEII
+--- ENE - energy
+--- ENG - engineering
+--- FLK - flak
+--- HT - heat
+--- HPG - hyperpulse generator
+--- IF - indirect fire
 
 === Rules level calculations ===
 

@@ -107,11 +107,11 @@ class Load:
         # Scan equipment
         for equip in self.gear.equiplist.list:
             if (equip.count > 0 and equip.name == "C3 Computer (Master)"):
-                self.specials["C3M"] = 1
+                self.specials["C3M"] = equip.count
                 self.specials["TAG"] = 1
             if (equip.count > 0 and
                 equip.name == "C3 Boosted Computer (Master)"):
-                self.specials["C3BSM"] = 1
+                self.specials["C3BSM"] = equip.count
                 self.specials["TAG"] = 1
             if (equip.count > 0 and equip.name == "Improved C3 Computer"):
                 self.specials["C3I"] = 1
@@ -135,15 +135,23 @@ class Load:
                 self.specials["AECM"] = 1
             if (equip.count > 0 and equip.name == "Bloodhound Active Probe"):
                 self.specials["BH"] = 1
+                self.specials["RCN"] = 1
             if (equip.count > 0 and (equip.name == "Beagle Active Probe" or
                                      equip.name == "Active Probe")):
                 self.specials["PRB"] = 1
+                self.specials["RCN"] = 1
             if (equip.count > 0 and equip.name == "Light Active Probe"):
                 self.specials["LPRB"] = 1
             if (equip.count > 0 and equip.name == "Remote Sensor Dispenser"):
                 self.specials["RSD"] = 1
             if (equip.count > 0 and equip.name == "C3 Remote Sensor Launcher"):
                 self.specials["C3RS"] = 1
+            if (equip.count > 0 and 
+                (equip.name == "(IS) Anti-Missile System" or
+                 equip.name == "(CL) Anti-Missile System" or
+                 equip.name == "(IS) Laser Anti-Missile System" or
+                 equip.name == "(CL) Laser Anti-Missile System")):
+                self.specials["AMS"] = 1
 
 
         # Scan weapons
@@ -152,18 +160,18 @@ class Load:
                                     weap.name == "(CL) Narc Missile Beacon")):
                 self.specials["SNARC"] = 1
             if (weap.count > 0 and (weap.name == "(IS) iNarc Launcher")):
-                self.specials["INARC"] = 1
+                self.specials["INARC"] = weap.count
             if (weap.count > 0 and weap.name == "(IS) BattleMech Taser"):
                 self.specials["MTAS"] = 1
             if (weap.count > 0 and weap.name == "(IS) Arrow IV Missile"):
-                self.specials["ARTAIS"] = 1
+                self.specials["ARTAIS"] = weap.count
             if (weap.count > 0 and weap.name == "(CL) Arrow IV Missile"):
-                self.specials["ARTAC"] = 1
+                self.specials["ARTAC"] = weap.count
             if (weap.count > 0 and weap.name == "(IS) Sniper"):
-                self.specials["ARTS"] = 1
+                self.specials["ARTS"] = weap.count
             # Is this one really correct? Does Artillery Cannons count?
             if (weap.count > 0 and weap.name == "Long Tom Artillery Cannon"):
-                self.specials["ARTLTC"] = 1
+                self.specials["ARTLTC"] = weap.count
 
     def get_name(self):
         """
