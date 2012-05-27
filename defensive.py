@@ -129,25 +129,26 @@ STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0, 400],
 
 # Info on armor types
 #
-# Name, techbase, BV multiplier, armor multiplier, rules level, cost factor
+# Name, techbase, BV multiplier, armor multiplier, rules level, cost factor,
+# short name
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Industrial, Heavy Industrial, Commercial, Modular, Reactive (Clan)
-ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0, 10000],
-         ["Ferro-Fibrous", 0, 1.0, 1.12, 1, 20000],
-         ["Ferro-Fibrous", 1, 1.0, 1.2, 1, 20000],
-         ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1, 15000],
-         ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1, 25000],
-         ["Stealth Armor", 0, 1.0, 1.0, 1, 50000],
-         ["Primitive Armor", 0, 1.0, 0.67, 4, 5000],
-         ["Laser-Reflective", 0, 1.5, 1.0, 2, 30000],
-         ["Laser-Reflective", 1, 1.5, 1.0, 2, 30000],
-         ["Hardened Armor", 2, 2.0, 0.5, 2, 15000],
-         ["Reactive Armor", 0, 1.5, 1.0, 2, 30000],
-         ["Ferro-Lamellor", 1, 1.2, 0.9, 2, 35000]]
+ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0, 10000, ""],
+         ["Ferro-Fibrous", 0, 1.0, 1.12, 1, 20000, "FF"],
+         ["Ferro-Fibrous", 1, 1.0, 1.2, 1, 20000, "FF"],
+         ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1, 15000, "LFF"],
+         ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1, 25000, "HFF"],
+         ["Stealth Armor", 0, 1.0, 1.0, 1, 50000, "Stlth"],
+         ["Primitive Armor", 0, 1.0, 0.67, 4, 5000, "Pr"],
+         ["Laser-Reflective", 0, 1.5, 1.0, 2, 30000, "Rflc"],
+         ["Laser-Reflective", 1, 1.5, 1.0, 2, 30000, "Rflc"],
+         ["Hardened Armor", 2, 2.0, 0.5, 2, 15000, "Hrd"],
+         ["Reactive Armor", 0, 1.5, 1.0, 2, 30000, "Rtcv"],
+         ["Ferro-Lamellor", 1, 1.2, 0.9, 2, 35000, "FL"]]
 
 
 class IS(Item):
@@ -339,6 +340,7 @@ class Armor(Item):
                 self.armor_multipler = i[3]
                 self.r_level = i[4]
                 self.cost = i[5]
+                self.short = i[6]
         if not ident:
             error_exit((self.atype, self.tech_base))
 

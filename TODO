@@ -43,6 +43,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
 
+=== Year Info stuff ===
+
 - Add year info to mechs
 -- Progress
 --- 3039 done
@@ -54,28 +56,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Highlander HGN-694
 
 - Add year filter
-
-- Also handle combat vehicles?
-- Law of Demeter, avoid accessing low-level object data
-- Better packaging: Distutils
-- Better file & path handling
-- Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II
-- missing ammo, missing TO stuff
-- Tacops Clan reactive, modular & patchwork armor
-- Things that needs to become real items:
--- Null sig, chameleon, void sig
--- Tarcomp, CASE, Armored locations, AES
--- Integrate fire control systems better (a4, a5, ap, tarcomp)
--- Turrets
-
-- Handle armored components better
-- Handle M-pods (should work on this end, problem in SSW)
-
-- Handle modular armor better, make it work with omni loadouts.
-
-- Make CASE handling less hackish
-
-- Scan for maximum damage range?
 
 === Battleforce ===
 
@@ -92,12 +72,14 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 === Rules level calculations ===
 
 - Missing: turrets
+- Booby trap
 
 === Cost calculations ===
 
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
+====Cost Issues ====
 - Some dual cockpit issue
 - Turret cost: GOL-6M
 - Retractable blade
@@ -116,6 +98,32 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Weight calculations - detect under-weight mechs
 - Turret weights
 - Modular armor weight needs to be added up
+
+
+
+=== Other ===
+
+- Also handle combat vehicles?
+- Law of Demeter, avoid accessing low-level object data
+- Better packaging: Distutils
+- Better file & path handling
+- Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II, WoR
+- missing ammo, missing TO stuff
+- Tacops Clan reactive, modular & patchwork armor
+- Things that needs to become real items:
+-- Null sig, chameleon, void sig
+-- Tarcomp, CASE, Armored locations, AES
+-- Integrate fire control systems better (a4, a5, ap, tarcomp)
+-- Turrets
+
+- Handle armored components better
+- Handle M-pods (should work on this end, problem in SSW)
+
+- Handle modular armor better, make it work with omni loadouts.
+
+- Make CASE handling less hackish
+
+- Scan for maximum damage range?
 
 == movement.py ==
 - Use a dictionary for engine type info (Problematic, keys not unique)
@@ -184,9 +192,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Speed listing:
 -- Show superchargers, UMU, liquid cargo for space
-
-- Armor listing:
--- Armor type
 
 - LRM listing:
 -- Missile boat score: tubes * ammo? Heat? 
