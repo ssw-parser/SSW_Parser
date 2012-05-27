@@ -125,9 +125,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Scan for maximum damage range?
 
-== movement.py ==
-- Use a dictionary for engine type info (Problematic, keys not unique)
-
 == weapons.py ==
 - Track if linked to tarcomp?
 - ammo issue, try to avoid using both ammocount & ammo_ton. 
@@ -137,7 +134,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 - Split WEAPONS into weapon types.
 - Handle Tarcomp & CASE better.
 - Move weight calculations.
-- Modular armor weight.
 
 - Supercharger class: track location - solves armored component problem?
 

@@ -642,6 +642,7 @@ class Gear:
         self.a_weight = 0.0
         self.e_weight = 0.0
         self.tc_weight = 0.0
+        self.mod_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
         # Save reference to explosive weapon count
@@ -721,6 +722,7 @@ class Gear:
                     mod = self.mod_armor.get(name.loc, 0)
                     mod += 10
                     self.mod_armor[name.loc] = mod
+                    self.mod_weight = 1.0
                     self.has_mod_armor = True
 
             # Ammunition
@@ -850,9 +852,11 @@ class Gear:
 
     def get_e_weight(self):
         """
-        Get equipment, tarcomp, supercharger & CASE weight
+        Get equipment, tarcomp, supercharger, modular armor & CASE weight
         """
-        return self.e_weight + self.tc_weight + self.supercharger.get_weight()
+        wgt = self.e_weight + self.tc_weight + self.supercharger.get_weight()
+        wgt += self.mod_weight
+        return wgt
 
     def get_p_weight(self):
         """
