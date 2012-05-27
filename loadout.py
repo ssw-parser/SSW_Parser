@@ -142,8 +142,10 @@ class Load:
                 self.specials["RCN"] = 1
             if (equip.count > 0 and equip.name == "Light Active Probe"):
                 self.specials["LPRB"] = 1
+                self.specials["RCN"] = 1
             if (equip.count > 0 and equip.name == "Remote Sensor Dispenser"):
-                self.specials["RSD"] = 1
+                self.specials["RSD"] = equip.count
+                self.specials["RCN"] = 1
             if (equip.count > 0 and equip.name == "C3 Remote Sensor Launcher"):
                 self.specials["C3RS"] = 1
             if (equip.count > 0 and 
@@ -158,11 +160,11 @@ class Load:
         for weap in self.gear.weaponlist.list.itervalues():
             if (weap.count > 0 and (weap.name == "(IS) Narc Missile Beacon" or
                                     weap.name == "(CL) Narc Missile Beacon")):
-                self.specials["SNARC"] = 1
+                self.specials["SNARC"] = weap.count
             if (weap.count > 0 and (weap.name == "(IS) iNarc Launcher")):
                 self.specials["INARC"] = weap.count
             if (weap.count > 0 and weap.name == "(IS) BattleMech Taser"):
-                self.specials["MTAS"] = 1
+                self.specials["MTAS"] = weap.count
             if (weap.count > 0 and weap.name == "(IS) Arrow IV Missile"):
                 self.specials["ARTAIS"] = weap.count
             if (weap.count > 0 and weap.name == "(CL) Arrow IV Missile"):

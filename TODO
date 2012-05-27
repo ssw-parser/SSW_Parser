@@ -61,7 +61,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - BattleForce information
 - A lot to do
--- Add count to Special Abilities where needed
 -- Weapon Damage
 -- Overheat
 -- Structure
@@ -84,6 +83,21 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 --- HT - heat
 --- HPG - hyperpulse generator
 --- IF - indirect fire
+--- LRM
+--- MEL - melee
+--- MAS/LMAS - mimetic armor system
+--- MDS - mine dispenser
+--- MHQ - mobile headquarters
+--- OMNI
+--- RCN - recon (Missing: communications equip, special recon stuff)
+--- SAW
+--- SRM
+--- STL - stealth
+--- TOR - torpedo
+--- TSM
+--- TUR - turret
+--- UMU
+
 
 === Rules level calculations ===
 
