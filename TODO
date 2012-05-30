@@ -43,6 +43,12 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
 
+=== Test data into repository ===
+
+- Add test data:
+-- 3025: 55 original mechs
+-- 3050: 16 Clan omnis 
+
 === Year Info stuff ===
 
 - Add year info to mechs
