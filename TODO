@@ -46,7 +46,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 === Test data into repository ===
 
 - Add test data:
--- 3025: 55 original mechs
+-- 3025: rest of 55 original mechs
 -- 3050: 16 Clan omnis 
 
 === Year Info stuff ===
@@ -61,7 +61,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Thug THG-11E Reich
 -- Highlander HGN-694
 
-- Add year filter
+- Add year filter, once all mechs have up-to-date year info
 
 === Battleforce ===
 

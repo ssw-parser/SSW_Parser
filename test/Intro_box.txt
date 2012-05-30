@@ -1,0 +1,24 @@
+Commando COM-2D.ssw
+Spider SDR-5V.ssw
+Jenner JR7-D.ssw
+Panther PNT-9R.ssw
+Assassin ASN-21.ssw
+Cicada CDA-2A.ssw
+Clint CLNT-2-3T.ssw
+Hermes II HER-2S.ssw
+Whitworth WTH-1.ssw
+Vindicator VND-1R.ssw
+Enforcer ENF-4R.ssw
+Hunchback HBK-4G.ssw
+Trebuchet TBT-5N.ssw
+Dervish DV-6M.ssw
+Dragon DRG-1N.ssw
+Quickdraw QKD-4G.ssw
+Catapult CPLT-C1.ssw
+JagerMech JM6-S.ssw
+Grasshopper GHR-5H.ssw
+Awesome AWS-8Q.ssw
+Zeus ZEU-6S.ssw
+Cyclops CP-10-Z.ssw
+Banshee BNC-3E.ssw
+Atlas AS7-D.ssw
