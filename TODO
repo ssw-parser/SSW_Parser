@@ -58,7 +58,8 @@ Priority: High
 Priority: Medium - High
 
 Comment: Not really a programming task. Waiting for SSW bugfixes for
-3055 Solaris mechs.
+3055 Solaris mechs, which has highest priority. Also wait for the
+addition of year info to catch up.
 
 
 - Klondike industrial mechs
@@ -102,6 +103,27 @@ Comment: Not really a programming task.
 - Add year filter, once all mechs have up-to-date year info
 
 - Add a check if year and era match up.
+
+=== Weight calculations ===
+
+Priority: Medium
+
+- Weight calculations - detect under-weight mechs
+- Turret weights
+- Modular armor weight needs to be added up
+
+
+=== Turn hackish implementations into real items ===
+
+Priority: Medium
+
+Comment: This requires the items to be implemented as objects, instead
+of hacks in their parent object.
+
+- Null sig, chameleon, void sig
+- Tarcomp, CASE, Armored locations, AES
+- Turrets
+
 
 === Battleforce ===
 
@@ -154,6 +176,9 @@ elsewhere, no real need for complete BF info at this point.
 
 Priority: Low
 
+Comment: All the issues needs to be checked if the problem is in the
+code or in SSW.
+
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
@@ -171,15 +196,6 @@ Priority: Low
 -- Legionnaire Muse Fire - torso cockpit?
 -- Wraith Alexander - Partial Wing?
 
-=== Weight calculations ===
-
-Priority: Medium
-
-- Weight calculations - detect under-weight mechs
-- Turret weights
-- Modular armor weight needs to be added up
-
-
 === Other ===
 
 - Also handle combat vehicles?
@@ -187,11 +203,6 @@ Priority: Medium
 - Better file & path handling
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
-- Things that needs to become real items:
--- Null sig, chameleon, void sig
--- Tarcomp, CASE, Armored locations, AES
--- Integrate fire control systems better (a4, a5, ap, tarcomp)
--- Turrets
 
 - Handle armored components better
 - Handle M-pods (should work on this end, problem in SSW)
