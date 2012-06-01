@@ -41,15 +41,24 @@ WHM-X7 Warhammer The Lich (XTRO:Gladiators) -- Frankenmech
 TMC-NB Temax Cat Ninjabolt (XTRO:Boondocks) -- Frankenmech
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
+
+
+
 == Goals ==
 
 === Test data into repository ===
+
+Priority: Medium - nice to have, but not vital.
 
 - Add test data:
 -- 3025: rest of 55 original mechs
 -- 3050: 16 Clan omnis 
 
 === Year Info stuff ===
+
+Priority: Editing .ssw files: High, adding filters & check: Medium
+
+Comment: Not really a programming task.
 
 - Add year info to mechs
 -- Progress
@@ -63,7 +72,14 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 - Add year filter, once all mechs have up-to-date year info
 
+- Add a check if year and era match up.
+
 === Battleforce ===
+
+Priority: Low.
+
+Comment: Bits and pieces of BF has been added due to being useful
+elsewhere, no real need for complete BF info at this point.
 
 - BattleForce information
 - A lot to do
@@ -107,15 +123,19 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 === Rules level calculations ===
 
+Priority: High
+
 - Missing: turrets
 - Booby trap
 
 === Cost calculations ===
 
+Priority: Low
+
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
-====Cost Issues ====
+==== Cost Issues ====
 - Some dual cockpit issue
 - Turret cost: GOL-6M
 - Retractable blade
@@ -131,17 +151,24 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 === Weight calculations ===
 
+Priority: Medium
+
 - Weight calculations - detect under-weight mechs
 - Turret weights
 - Modular armor weight needs to be added up
 
 
+=== Disutils ===
+
+Priority: Medium
+
+- Complete setup.py: url, desciptions ...
+- Include TODO or not?
 
 === Other ===
 
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
-- Better packaging: Distutils
 - Better file & path handling
 - Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II, WoR
 - missing ammo, missing TO stuff
