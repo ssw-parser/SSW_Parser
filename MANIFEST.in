@@ -1,0 +1,3 @@
+
+include LICENSE report.py summary.py
+recursive-include test *
