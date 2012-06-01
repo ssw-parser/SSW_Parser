@@ -46,6 +46,28 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
 
+=== Rules level calculations ===
+
+Priority: High
+
+- Missing: turrets
+- Booby trap
+
+=== Add missing mechs to database ===
+
+Priority: Medium - High
+
+Comment: Not really a programming task. Waiting for SSW bugfixes for
+3055 Solaris mechs.
+
+
+- Klondike industrial mechs
+- 3055 Solaris mechs
+- XTRO Primitives II
+- WoR: Supplementals
+- Turning Points series
+- Dossiers
+
 === Test data into repository ===
 
 Priority: Medium - nice to have, but not vital.
@@ -53,6 +75,13 @@ Priority: Medium - nice to have, but not vital.
 - Add test data:
 -- 3025: rest of 55 original mechs
 -- 3050: 16 Clan omnis 
+
+=== Disutils ===
+
+Priority: Medium
+
+- Complete setup.py: url, desciptions ...
+- Include TODO or not?
 
 === Year Info stuff ===
 
@@ -121,13 +150,6 @@ elsewhere, no real need for complete BF info at this point.
 --- UMU
 
 
-=== Rules level calculations ===
-
-Priority: High
-
-- Missing: turrets
-- Booby trap
-
 === Cost calculations ===
 
 Priority: Low
@@ -158,19 +180,11 @@ Priority: Medium
 - Modular armor weight needs to be added up
 
 
-=== Disutils ===
-
-Priority: Medium
-
-- Complete setup.py: url, desciptions ...
-- Include TODO or not?
-
 === Other ===
 
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
 - Better file & path handling
-- Klondike industrial mechs, 3055 Solaris mechs, XTRO Primitives II, WoR
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
 - Things that needs to become real items:
