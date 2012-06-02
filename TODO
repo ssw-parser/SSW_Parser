@@ -9,23 +9,30 @@ Beowulf BEO-X-7a -- armored components (gear)
 
 === Issues with SSW ===
 
-Raven RVN-1X -- Issue with EW Equipment BV.
-Raven RVN-3X -- Issue with EW Equipment BV.
+Raven RVN-1X (3039) -- Issue with EW Equipment BV.
+Raven RVN-3X (3039) -- Issue with EW Equipment BV.
+
+Mantis MTS-S (3055) -- Issue with Claw BV.
+Mantis MTS-T (3055) -- Issue with Claw BV.
+Mantis MTS-T2 (3055) -- Issue with Claw BV.
+Mantis MTS-T3 (3055) -- Issue with Claw BV.
+Mantis SA-MN (3055) -- Issue with Claw BV.
+
 Atlas AS7-00 Jurn -- armored components (command console, SSW does not
 add the BV for it.) (reported)
+
 Juggernaut JG-R9TX1 Leapin Lil -- M-pod (SSW does not calculate
 explosive penalty for M-pods) (reported)
+
 Banshee BNC-11X (XTRO:Steiner) -- Some issue with modular armor and
 offensive speed factor. (reported)
 TBT-XK7 Trebuchet (XTRO:Periphery) -- Some issue with modular armor
 and offensive speed factor. (reported)
-Mantis MTS-S -- Issue with Claw BV.
-Mantis MTS-T -- Issue with Claw BV.
 
 === Other reasons ===
 
+Highlander HGN-732 Colleen (Klondike) -- Experimental Streaks
 Victor VTR-9K2 St. James -- Patchwork armor
-Highlander HGN-732 Colleen -- Experimental Streaks
 Spatha SP2-X Warlord (XTRO:Gladiators) -- Blue Shield BV contribution
 
 == RS NOT CONSTRUCTED DUE TO VARIOUS REASONS ==
@@ -63,12 +70,13 @@ Comment: Not really a programming task. Waiting for SSW bugfixes for
 addition of year info to catch up.
 
 
-- Klondike industrial mechs
-- 3055 Solaris mechs
+- 3055 Solaris mechs (lights done)
 - XTRO Primitives II
 - WoR: Supplementals
 - Turning Points series
 - Dossiers
+- Klondike industrial mechs
+- Starter books
 
 === Test data into repository ===
 
