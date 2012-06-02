@@ -52,6 +52,7 @@ Priority: High
 
 - Missing: turrets
 - Booby trap
+- Mixed tech not taken into account
 
 === Add missing mechs to database ===
 
@@ -95,7 +96,7 @@ Comment: Not really a programming task.
 --- 3039 done
 --- 3050 done
 (3055 skipped for now due to missing Solaris mechs)
---- 3058 lights done
+--- 3058 lights & mediums done
 
 - Missing, no year info
 -- Clint CLNT-2-4T
