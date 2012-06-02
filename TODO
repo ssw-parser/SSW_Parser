@@ -76,7 +76,7 @@ Priority: Medium - nice to have, but not vital.
 
 - Add test data:
 -- 3025: rest of 55 original mechs
--- 3050: 16 Clan omnis 
+-- 3050: 16 Clan omnis (wait for year data for U configs)
 
 === Disutils ===
 
@@ -96,7 +96,7 @@ Comment: Not really a programming task.
 --- 3039 done
 --- 3050 done
 (3055 skipped for now due to missing Solaris mechs)
---- 3058 lights & mediums done
+--- 3058 lights, mediums & heavies done
 
 - Missing, no year info
 -- Clint CLNT-2-4T
