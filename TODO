@@ -94,6 +94,8 @@ Comment: Not really a programming task.
 -- Progress
 --- 3039 done
 --- 3050 done
+(3055 skipped for now due to missing Solaris mechs)
+--- 3058 lights done
 
 - Missing, no year info
 -- Clint CLNT-2-4T
@@ -213,6 +215,9 @@ code or in SSW.
 
 - Scan for maximum damage range?
 
+
+
+
 == weapons.py ==
 - Track if linked to tarcomp?
 - ammo issue, try to avoid using both ammocount & ammo_ton. 
@@ -283,6 +288,9 @@ code or in SSW.
 --- Average damage
 
 - Filter by source
+
+
+
 
 == Mech type flow chart ==
 
