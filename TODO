@@ -17,6 +17,7 @@ Mantis MTS-T (3055) -- Issue with Claw BV.
 Mantis MTS-T2 (3055) -- Issue with Claw BV.
 Mantis MTS-T3 (3055) -- Issue with Claw BV.
 Mantis SA-MN (3055) -- Issue with Claw BV.
+Koschei KSC-5X (3075) -- Issue with Claw BV.
 
 Atlas AS7-00 Jurn -- armored components (command console, SSW does not
 add the BV for it.) (reported)
@@ -107,7 +108,7 @@ Comment: Not really a programming task.
 (3055 skipped for now due to missing Solaris mechs)
 --- 3058 done
 --- 3060 done
---- 3075 lights & mediums done
+--- 3075 lights, mediums & heavies done
 --- Klondike done
 
 - Missing year info
@@ -115,6 +116,7 @@ Comment: Not really a programming task.
 -- Thug THG-11E Reich (3050)
 -- Highlander HGN-694 (3050)
 -- Stooping Hawk Prime, A, B, C, D, E (3060)
+-- Von Rohrs VON 4RH-6 (3075)
 
 - Add year filter, once all mechs have up-to-date year info
 
