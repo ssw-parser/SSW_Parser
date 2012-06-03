@@ -77,6 +77,7 @@ addition of year info to catch up.
 - Dossiers
 - Klondike industrial mechs
 - Starter books
+- Era Digests
 
 === Test data into repository ===
 
@@ -106,7 +107,7 @@ Comment: Not really a programming task.
 (3055 skipped for now due to missing Solaris mechs)
 --- 3058 done
 --- 3060 done
---- 3075 lights done
+--- 3075 lights & mediums done
 --- Klondike done
 
 - Missing year info
