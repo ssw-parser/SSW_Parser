@@ -100,12 +100,13 @@ Priority: Editing .ssw files: High, adding filters & check: Medium
 Comment: Not really a programming task.
 
 - Add year info to mechs:
--- Progress
+-- Progress:
 --- 3039 done
 --- 3050 done
 (3055 skipped for now due to missing Solaris mechs)
 --- 3058 done
 --- 3060 done
+--- 3075 lights done
 --- Klondike done
 
 - Missing year info
