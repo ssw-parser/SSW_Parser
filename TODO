@@ -17,12 +17,15 @@ Mantis MTS-T (3055) -- Issue with Claw BV.
 Mantis MTS-T2 (3055) -- Issue with Claw BV.
 Mantis MTS-T3 (3055) -- Issue with Claw BV.
 Mantis SA-MN (3055) -- Issue with Claw BV.
+Ronin SA-RN (3055) -- Issue with Claw BV.
+Ronin SA-RN7 (3055) -- Issue with Claw BV.
 Koschei KSC-5X (3075) -- Issue with Claw BV.
 
 Atlas AS7-00 Jurn (XTRO:Periphery) -- armored components (command
 console, SSW does not add the BV for it.) (reported)
 
 Bombard BMB-1X (3055) -- M-pod
+Ronin SA-RN (3055) -- M-pod
 Juggernaut JG-R9TX1 Leapin Lil (XTRO:Gladiators) -- M-pod (SSW does
 not calculate explosive penalty for M-pods) (reported)
 
@@ -72,7 +75,7 @@ Comment: Not really a programming task. Waiting for SSW bugfixes for
 addition of year info to catch up.
 
 
-- 3055 Solaris mechs (lights done)
+- 3055 Solaris mechs (lights & mediums done)
 - XTRO Primitives II
 - WoR: Supplementals
 - Turning Points series
