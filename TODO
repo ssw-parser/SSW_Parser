@@ -70,18 +70,16 @@ Priority: High
 
 Priority: Medium - High
 
-Comment: Not really a programming task. Waiting for SSW bugfixes for
-3055 Solaris mechs, which has highest priority. Also wait for the
-addition of year info to catch up.
-
+Comment: Not really a programming task.
 
 - 3055 Solaris mechs (lights & mediums done)
-- WoR: Supplementals
-- Turning Points series
-- Dossiers
-- Klondike industrial mechs
-- Starter books
+- Turning Points series (quite high priority, due to some design
+  showing up on faction lists)
 - Era Digests
+- Dossiers
+- Starter books
+- WoR: Supplementals (wait for MUL)
+- Klondike industrial mechs (low priority)
 
 Primitive Jump-jets:
 - Change Wasp WSP-1 to use primitive jump-jets when available.
@@ -93,7 +91,7 @@ Priority: Medium - nice to have, but not vital.
 
 - Add test data:
 -- 3025: rest of 55 original mechs
--- 3050: 16 Clan omnis (wait for year data for U configs)
+-- 3050: 16 Clan omnis (wait for year data for U configs. And Z?)
 
 === Disutils ===
 
@@ -109,7 +107,7 @@ Priority: Editing .ssw files: High, adding filters & check: Medium
 Comment: Not really a programming task.
 
 - Add year info to mechs, missing:
-- 3055
+- 3055 (Solaris heavy and assault mechs still needs to be created)
 - 3085
 
 TODO: 3055, 3085
