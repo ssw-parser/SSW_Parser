@@ -37,7 +37,7 @@ from util import ceil_05
 #        3 = Experimental,
 #        4 = Primitive (special)
 #
-# TODO: Flail, Medium Shield, industrial equipment
+# TODO: Medium Shield, industrial equipment
 #
 PHYSICAL = {
     # Total Warfare
@@ -66,6 +66,8 @@ PHYSICAL = {
                           (lambda x : 7.0), 7, 3, (lambda x, y : 750000)],
     "Chain Whip" : [(lambda x : 1.725), 0, (lambda x : 3.0),
                     (lambda x : 3.0), 0, 2, (lambda x, y : 120000)],
+    "Flail" : [(lambda x : 11.0), 0, (lambda x : 9.0),
+               (lambda x : 5.0), 0, 1, (lambda x, y : 110000)],
     # Hack: Divide Talons BV multiplier by 2, because it is one item
     # being split up into two
     "Talons" : [(lambda x : x * 1.0), 0, (lambda x : ceil(x / 5.0) / 2.0),
