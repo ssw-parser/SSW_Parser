@@ -91,8 +91,7 @@ Primitive Jump-jets:
 Priority: Medium - nice to have, but not vital.
 
 - Add test data:
--- 3025: rest of 55 original mechs
--- 3050: 16 Clan omnis (wait for year data for U configs. And Z?)
+-- 3050: 16 Clan omnis (wait for Z configs?)
 
 === Disutils ===
 
@@ -143,6 +142,11 @@ of hacks in their parent object.
 - Tarcomp, CASE, Armored locations, AES
 - Turrets
 
+=== File handling ===
+
+Priority: Medium
+
+- Allow working directory change commands in text files listing mechs.
 
 === Battleforce ===
 
@@ -219,7 +223,6 @@ code or in SSW.
 
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
-- Better file & path handling
 - missing ammo, missing TO stuff
 - Tacops Clan reactive, modular & patchwork armor
 
