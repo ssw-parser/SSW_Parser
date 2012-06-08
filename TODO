@@ -149,9 +149,46 @@ Priority: Medium
 - Allow working directory change commands in text files listing mechs.
 - Find a way be selective with omni-configs.
 
+=== Make report.py more useful ===
+
+Priority: Medium
+
+- Additional checking:
+-- torso bombs
+-- OS launchers
+-- ranged weapon heat
+-- melee weapon without TSM
+-- omni fixed heat sinks
+-- good armor 1.1-1.25xIS
+
+- LRM report:
+-- BF LRM value (remember low ammo reduction)
+-- MML ammo issue
+- SRM report:
+-- BF SRM value (remember low ammo reduction)
+-- MML ammo issue
+- Autocannon report:
+-- BF AC value (remember low ammo reduction)
+-- Tarcomp status
+
+- Check for possible upgrades (add an -u switch)
+-- SHSs --> DHSs
+-- AC/10 --> LB 10-X or LGR
+-- 2xMG --> 2xSPL
+
+=== Add missing gear ===
+
+Priority: Medium
+
+- Tacops Clan reactive, modular & patchwork armor
+- missing ammo, missing TO stuff
+
+Physical stuff:
+- Missing: Medium Shield, industrial equipment
+
 === Battleforce ===
 
-Priority: Low.
+Priority: Low
 
 Comment: Bits and pieces of BF has been added due to being useful
 elsewhere, no real need for complete BF info at this point.
@@ -224,8 +261,6 @@ code or in SSW.
 
 - Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
-- missing ammo, missing TO stuff
-- Tacops Clan reactive, modular & patchwork armor
 
 - Handle armored components better
 - Handle M-pods (should work on this end, problem in SSW)
@@ -250,35 +285,6 @@ code or in SSW.
 - Move weight calculations.
 
 - Supercharger class: track location - solves armored component problem?
-
-== physical.py ==
-
-- Missing: Medium Shield, industrial equipment
-
-== report.py ==
-
-- Additional checking:
--- torso bombs
--- OS launchers
--- ranged weapon heat
--- melee weapon without TSM
--- omni fixed heat sinks
--- good armor 1.1-1.25xIS
-
-- LRM report:
--- BF LRM value (remember low ammo reduction)
--- MML ammo issue
-- SRM report:
--- BF SRM value (remember low ammo reduction)
--- MML ammo issue
-- Autocannon report:
--- BF AC value (remember low ammo reduction)
--- Tarcomp status
-
-- Check for possible upgrades (add an -u switch)
--- SHSs --> DHSs
--- AC/10 --> LB 10-X or LGR
--- 2xMG --> 2xSPL
 
 == summary.py ==
 
