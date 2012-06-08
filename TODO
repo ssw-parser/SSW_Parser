@@ -20,6 +20,7 @@ Mantis SA-MN (3055) -- Issue with Claw BV.
 Ronin SA-RN (3055) -- Issue with Claw BV.
 Ronin SA-RN7 (3055) -- Issue with Claw BV.
 Koschei KSC-5X (3075) -- Issue with Claw BV.
+Crusader CRD-3R Crael (3085) -- Issue with Claw BV.
 
 Atlas AS7-00 Jurn (XTRO:Periphery) -- armored components (command
 console, SSW does not add the BV for it.) (reported)
@@ -108,9 +109,9 @@ Comment: Not really a programming task.
 
 - Add year info to mechs, missing:
 - 3055 (Solaris heavy and assault mechs still needs to be created)
-- 3085 heavies & assaults
+- 3085 assaults
 
-TODO: 3055, 3085 heavies & assaults
+TODO: 3055, 3085 assaults
 
 - Missing year info
 -- Clint CLNT-2-4T (3039)
