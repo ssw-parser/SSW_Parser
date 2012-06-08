@@ -102,7 +102,7 @@ Priority: Medium
 
 === Year Info stuff ===
 
-Priority: Editing .ssw files: High, adding filters & check: Medium
+Priority: Editing .ssw files: High, adding check: Medium
 
 Comment: Not really a programming task.
 
@@ -117,8 +117,6 @@ TODO: 3055
 -- Highlander HGN-694 (3050)
 -- Stooping Hawk Prime, A, B, C, D, E (3060)
 -- Von Rohrs VON 4RH-6 (3075)
-
-- Add year filter, once all mechs have up-to-date year info
 
 - Add a check if year and era match up.
 

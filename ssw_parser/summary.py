@@ -1274,6 +1274,8 @@ def parse_arg():
                         help='Select mechs with Command Console')
     parser.add_argument('-e', action='store', default = 99, type=int,
                         help='Select mechs up to era <n>')
+    parser.add_argument('-y', action='store', default = 0, type=int,
+                        help='Select mechs up to year <n>')
     parser.add_argument('-se', action='store', default = 0, type=int,
                         help='Select mechs with speed <n>')
     parser.add_argument('-sf', action='store', default = 0, type=int,
@@ -1399,6 +1401,10 @@ def main():
         era = args.e
         select_l.append(lambda x, y: (y.get_prod_era() <= era))
         header_l.append(("available at era %s" % conv_era(era)))
+    # Year
+    if args.y > 0:
+        select_l.append(lambda x, y: (x.get_year(y) <= args.y))
+        header_l.append(("available at year %d" % args.y))
     # Speed
     if args.se > 0:
         spd = args.se

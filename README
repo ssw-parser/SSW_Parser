@@ -101,6 +101,10 @@ The default output (no switch) is modeled after the MUL.
 -e <d>: Only list mechs that are available during era <d>. Where <d>
  can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad.
 
+-y <d>: Only list mechs that are available at year <d>. That is mechs
+ that has a introduction year of <d> or earlier. Extinction is not
+ taken into account.
+
 -se <d>: Only list mechs as fast as <d>.
 
 -sf <d>: Only list mechs at least as fast as <d>.
