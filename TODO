@@ -147,6 +147,7 @@ of hacks in their parent object.
 Priority: Medium
 
 - Allow working directory change commands in text files listing mechs.
+- Find a way be selective with omni-configs.
 
 === Battleforce ===
 
