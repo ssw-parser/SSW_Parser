@@ -19,6 +19,9 @@ Mantis MTS-T3 (3055) -- Issue with Claw BV.
 Mantis SA-MN (3055) -- Issue with Claw BV.
 Ronin SA-RN (3055) -- Issue with Claw BV.
 Ronin SA-RN7 (3055) -- Issue with Claw BV.
+Morpheus MRP-3S (3055) -- Issue with Claw BV.
+Morpheus MRP-3W (3055) -- Issue with Claw BV.
+
 Koschei KSC-5X (3075) -- Issue with Claw BV.
 Crusader CRD-3R Crael (3085) -- Issue with Claw BV.
 
@@ -27,6 +30,9 @@ console, SSW does not add the BV for it.) (reported)
 
 Bombard BMB-1X (3055) -- M-pod
 Ronin SA-RN (3055) -- M-pod
+Hachiwara HCA-3T (3055) -- M-pod
+Hachiwara HCA-4T (3055) -- M-pod
+Hachiwara HCA-4U (3055) -- M-pod
 Juggernaut JG-R9TX1 Leapin Lil (XTRO:Gladiators) -- M-pod (SSW does
 not calculate explosive penalty for M-pods) (reported)
 
@@ -73,7 +79,7 @@ Priority: Medium - High
 
 Comment: Not really a programming task.
 
-- 3055 Solaris mechs (lights & mediums done)
+- 3055 Solaris assault mechs (high priority)
 - Turning Points series (quite high priority, due to some design
   showing up on faction lists)
 - Era Digests
@@ -107,7 +113,7 @@ Priority: Editing .ssw files: High, adding check: Medium
 Comment: Not really a programming task.
 
 - Add year info to mechs, missing:
-- 3055 (Solaris heavy and assault mechs still needs to be created)
+- 3055 (Solaris assault mechs still needs to be created)
 
 TODO: 3055
 
