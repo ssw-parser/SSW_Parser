@@ -113,10 +113,9 @@ Priority: Editing .ssw files: High, adding check: Medium
 Comment: Not really a programming task.
 
 - Add year info to mechs, missing:
-- 3055 mediums, heavies & assaults (Solaris assault mechs still needs
-  to be created)
+- 3055 heavies & assaults (Solaris assault mechs still needs to be created)
 
-TODO: 3055 mediums, heavies & assaults
+TODO: 3055 heavies & assaults
 
 - Missing year info
 -- Clint CLNT-2-4T (3039)
