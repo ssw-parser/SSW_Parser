@@ -6,6 +6,7 @@
 Merlin MLN-SX (Boondocks) -- armored components (engine)
 Devastator DVS-X10 Muse Earth (Davion) -- armored components (supercharger)
 Beowulf BEO-X-7a (Comstar) -- armored components (gear)
+Great Turtle GTR-2 (3055) -- armored components (engine, gear, torso cockpit)
 
 === Issues with SSW ===
 
@@ -77,11 +78,10 @@ Priority: High
 
 === Add missing mechs to database ===
 
-Priority: Medium - High
+Priority: Medium
 
 Comment: Not really a programming task.
 
-- 3055 Solaris assault mechs (high priority)
 - Turning Points series (quite high priority, due to some design
   showing up on faction lists)
 - Era Digests
