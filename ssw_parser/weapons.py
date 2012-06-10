@@ -231,7 +231,7 @@ def lvspl_damage(rnge):
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: Thumper, PMAC/2, iHSL, iHLL,
 # Mech Mortars, Imp OS, Thumper & Sniper Artillery Cannon, HVAC2, HVAC5,
-# Chemical Lasers, ELRM5, ELRM15, SLRM-5, SLRM-20, PPC+cap
+# Chemical Lasers, ELRM5, ELRM15, SLRM-5, SLRM-20
 WEAPONS = {
     ### Inner Sphere, Tech Manual ###
     "(IS) Autocannon/2" : ["AC2", [37, 5], 0, 75000,
@@ -835,7 +835,9 @@ WEAPONS = {
     "(IS) Light PPC + PPC Capacitor" : ["LPPC+", [132, 0], 2, 300000,
                                         10, (lambda x, y : 10), [3, 6, 12, 18],
                                         "T", 0, 4, 3],
-    # PPC + cap
+    "(IS) PPC + PPC Capacitor" : ["PPC+", [264, 0], 2, 350000,
+                  15, (lambda x, y : 15), [3, 6, 12, 18],
+                  "T", 0, 8, 4],
     "(IS) Heavy PPC + PPC Capacitor" : ["HPPC+", [370, 0], 2, 400000,
                         20, (lambda x, y : 20), [3, 6, 12, 18],
                         "T", 0, 11, 5],
