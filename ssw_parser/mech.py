@@ -468,6 +468,9 @@ class Mech:
         Return rules level of mech
         """
         r_level = 0
+        # Mixed tech is advanced rules
+        if self.techbase == "Mixed":
+            r_level = 2
         tmp = self.structure.get_rules_level()
         if tmp > r_level:
             r_level = tmp

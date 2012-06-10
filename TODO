@@ -72,9 +72,10 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 Priority: High
 
-- Missing: turrets
+Missing:
+- Turrets
 - Booby trap
-- Mixed tech not taken into account
+- Mixed tech omni configs
 
 === Add missing mechs to database ===
 
