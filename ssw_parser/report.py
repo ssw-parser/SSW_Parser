@@ -205,7 +205,21 @@ def parse_gear(mech):
     if mech.gear.weaponlist.has_ac():
         print_ac(mech)
 
-def parse_omni(mech, battv):
+def evaluate_upgrades(mech):
+    """
+    Suggest upgrades
+    """
+    print "================================="
+    print "=== Upgrade evaluation        ==="
+    print "================================="
+    for weap in mech.gear.weaponlist.list.itervalues():
+        if (weap.name == "(IS) Autocannon/10" and weap.count > 0):
+            print weap.count, "AC/10, Suggested upgrades:"
+            print "  LB 10-X AC (Class A) | -1 heat, +3 range, -1 ton"
+            print "  LGR (Class A)        | -2 heat, -2 dam, +10 range"
+            print "  RAC/5 (Class A)      | +3 heat, +10 dam, -2 ton"
+
+def parse_omni(mech, args):
     """
     Handle omni-mechs
     """
@@ -215,7 +229,7 @@ def parse_omni(mech, battv):
         for i in mech.loads:
             print "-------------------------------"
             print "Config: ", i.get_name()
-            if battv:
+            if args.b:
                 print "==============================="
                 mech.def_bv(i, True)
                 print "-------------------------------"
@@ -227,6 +241,8 @@ def parse_omni(mech, battv):
             if (i.heatsinks.number):
                 print i.heatsinks.number, i.heatsinks.type
             parse_gear(i)
+            if args.u:
+                evaluate_upgrades(i)
         print "-------------------------------"
 
 
@@ -258,6 +274,8 @@ def main():
                         help='Show BV calculations')
     parser.add_argument('-r', action='store_true',
                         help='Show raw xml data')
+    parser.add_argument('-u', action='store_true',
+                        help='Suggest weapon upgrades')
     # Default: one filename
     parser.add_argument('file', nargs=1)    
 
@@ -303,9 +321,11 @@ def main():
 
     # Gear
     parse_gear(mech.load)
+    if args.u:
+        evaluate_upgrades(mech.load)
 
     # Omni configs
-    parse_omni(mech, args.b)
+    parse_omni(mech, args)
 
 if __name__ == "__main__":
     main()
