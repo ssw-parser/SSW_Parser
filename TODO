@@ -167,10 +167,6 @@ Class A Refit:
 AC/2 = 1 crit + ammo (6t)
 AC/5 = 4 crits + ammo (8t)
 --> RAC/2 = 3 crits + ammo (8t)
-AC/10 = 7 crits + ammo (12t)
---> LB 10-X = 6 crits + ammo (11t)
---> LGR = 5 crits + ammo (12t)
---> RAC/5 = 6 crits + ammo (10t)
 
 AC/20 = 10 crits + ammo (14t)
 --> GR = 7 crits + ammo (15t) -- requires at least 2t of AC/20 ammo

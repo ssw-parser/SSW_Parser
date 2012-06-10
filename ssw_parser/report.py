@@ -218,6 +218,13 @@ def evaluate_upgrades(mech):
             print "  LB 10-X AC (Class A) | -1 heat, +3 range, -1 ton"
             print "  LGR (Class A)        | -2 heat, -2 dam, +10 range"
             print "  RAC/5 (Class A)      | +3 heat, +10 dam, -2 ton"
+        if (weap.name == "(IS) Small Laser" and weap.count > 0):
+            print weap.count, "SL, Suggested upgrades:"
+            print "  ERSL (Class A) | +1 heat, +2 range"
+        if (weap.name == "(CL) Heavy Small Laser" and weap.count > 0):
+            print weap.count, "HSL, suggested upgrades:"
+            print "  ERSL (Class A) | -1 heat, -1 dam, +3 range, -1 hit"
+
 
 def parse_omni(mech, args):
     """
