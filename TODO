@@ -150,6 +150,34 @@ Priority: Medium
 - Allow working directory change commands in text files listing mechs.
 - Find a way be selective with omni-configs.
 
+=== Add an upgrade evaluator to report.py ===
+
+Priority: Medium
+
+- Check for possible upgrades (add an -u switch)
+-- SHSs --> DHSs
+-- AC/10 --> LB 10-X or LGR
+-- 2xMG --> 2xSPL
+
+Class A Refit:
+- Weapon replacements
+- Same category
+- Same or fewer critical spaces (including ammo)
+
+AC/2 = 1 crit + ammo (6t)
+AC/5 = 4 crits + ammo (8t)
+--> RAC/2 = 3 crits + ammo (8t)
+AC/10 = 7 crits + ammo (12t)
+--> LB 10-X = 6 crits + ammo (11t)
+--> LGR = 5 crits + ammo (12t)
+--> RAC/5 = 6 crits + ammo (10t)
+
+AC/20 = 10 crits + ammo (14t)
+--> GR = 7 crits + ammo (15t) -- requires at least 2t of AC/20 ammo
+
+Class B Refit:
+- As above, but no category limit
+
 === Make report.py more useful ===
 
 Priority: Medium
@@ -171,11 +199,6 @@ Priority: Medium
 - Autocannon report:
 -- BF AC value (remember low ammo reduction)
 -- Tarcomp status
-
-- Check for possible upgrades (add an -u switch)
--- SHSs --> DHSs
--- AC/10 --> LB 10-X or LGR
--- 2xMG --> 2xSPL
 
 === Add missing gear ===
 
