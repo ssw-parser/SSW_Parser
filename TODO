@@ -344,22 +344,22 @@ Fast (5+) vs Slow (4-):
 Upgrade data (name, BV):
 
 1 slots:
-- Autocannon/2 -- 37 --> SRM4, ML, LRM5 (OK), MPL
-- Machine Gun -- 5
+- Autocannon/2 -- 37 --> SRM4, ML, LRM5, MPL (OK)
+- Machine Gun -- 5 --> AC2, SL, Flmr, ML, LRM5, SRM2, SRM4, SPL, MPL, SSRM2 (OK)
 - Flamer -- 6
-- Small Laser -- 9
-- Medium Laser -- 46 --> ===, MPL
-- LRM 5 -- 45 --> ML (OK), MPL
-- SRM 2 -- 21 --> LRM5, ML, SRM4, AC2 (OK), MPL, SSRM2
-- SRM 4 -- 39 --> LRM5, ML (OK), MPL
+- Small Laser -- 9 --> AC2, ML, LRM5, SRM2, SRM4, SPL, MPL, SSRM2 (OK)
+- Medium Laser -- 46 --> ===, MPL (OK)
+- LRM 5 -- 45 --> ML, MPL (OK)
+- SRM 2 -- 21 --> LRM5, ML, SRM4, AC2, MPL, SSRM2 (OK)
+- SRM 4 -- 39 --> LRM5, ML, MPL (OK)
 - Small Pulse Laser -- 12
 - Medium Pulse Laser -- 48 --> ===
-- Streak SRM 2 -- 30 --> AC2, ML, LRM5, SRM4, MPL
+- Streak SRM 2 -- 30 --> AC2, ML, LRM5, SRM4, MPL <--
 
 2 slots:
 - Large Laser -- 123 --> ===, ERLL (OK)
 - LRM 10 -- 90 --> LL (OK), ERLL, LPL (OK)
-- SRM 6 -- 59 --> LRM10, LL (OK), ERLL, LPL
+- SRM 6 -- 59 --> LRM10, LL, ERLL, LPL (OK)
 - ER Large Laser -- 163 --> ===
 - Large Pulse Laser -- 119 --> LL, ERLL <--
 
