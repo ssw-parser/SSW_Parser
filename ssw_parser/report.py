@@ -205,6 +205,18 @@ def parse_gear(mech):
     if mech.gear.weaponlist.has_ac():
         print_ac(mech)
 
+def print_upgrade(wlist, upgr, orig, uname, uclass):
+    """
+    Print out a suggested upgrade
+    """
+    heat = wlist[upgr].get_heat() - wlist[orig].get_heat()
+    dam = (wlist[upgr].get_damage(wlist[upgr].get_range()) -
+           wlist[orig].get_damage(wlist[orig].get_range()))
+    rng = wlist[upgr].get_range() - wlist[orig].get_range()
+    wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
+    print ("  %-6s (Class %c) | %d heat, %d dam, %d range %d ton" %
+           (uname, uclass, heat, dam, rng, wgt))
+
 def evaluate_upgrades(mech):
     """
     Suggest upgrades
@@ -212,12 +224,20 @@ def evaluate_upgrades(mech):
     print "================================="
     print "=== Upgrade evaluation        ==="
     print "================================="
-    for weap in mech.gear.weaponlist.list.itervalues():
+    wlist = mech.gear.weaponlist.list
+    for weap in wlist.itervalues():
         if (weap.name == "(IS) Autocannon/5" and weap.count > 0):
             print weap.count, "AC/5, Suggested upgrades:"
-            print "  RAC/2 (Class A) | +5 heat, +3 dam"
-            print "  LPPC (Class B)  | +4 heat, -5 ton, no ammo"
-            print "  PPC (Class B)   | +9 heat, +5 dam, -1 ton, no ammo"
+            weap2 = "(IS) Rotary AC/2"
+            print_upgrade(wlist, weap2, weap.name, "RAC/2", "A")
+            weap2 = "(IS) Light PPC"
+            print_upgrade(wlist, weap2, weap.name, "LPPC", "B")
+            weap2 = "(IS) PPC"
+            print_upgrade(wlist, weap2, weap.name, "PPC", "B")
+            weap2 = "(IS) Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "LL", "B")
+            weap2 = "(IS) ER Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "ERLL", "B")
         if (weap.name == "(IS) Autocannon/10" and weap.count > 0):
             print weap.count, "AC/10, Suggested upgrades:"
             print "  LB 10-X AC (Class A) | -1 heat, +3 range, -1 ton"

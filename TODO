@@ -154,9 +154,12 @@ Priority: Medium
 
 Priority: Medium
 
-- Check for possible upgrades (add an -u switch)
+- Check for possible upgrades
 -- SHSs --> DHSs
 -- 2xMG --> 2xSPL
+
+- Calculate updates instead of using precalculated strings
+- Compare BV
 
 Class A Refit:
 - Weapon replacements
