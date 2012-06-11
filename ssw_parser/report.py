@@ -215,7 +215,7 @@ def print_upgrade(wlist, upgr, orig, uname, uclass):
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
     battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0) # No tarcomp
-    print ("  %-6s (Class %c) | %d heat, %d dam, %d range, %d ton, %d BV" %
+    print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
            (uname, uclass, heat, dam, rng, wgt, battv))
 
 def evaluate_upgrades(mech):
