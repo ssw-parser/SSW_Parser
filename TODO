@@ -339,6 +339,45 @@ Fast (5+) vs Slow (4-):
 - Fast --> Scout, Skirmisher, Striker
 - Slow --> Brawler, Juggernaut, Sniper, Missile Boat
 
+===================================
+
+Upgrade data (name, BV):
+
+1 slots:
+- Autocannon/2 -- 37 --> SRM4, ML, LRM5 (OK)
+- Machine Gun -- 5
+- Flamer -- 6
+- Small Laser -- 9
+- Medium Laser -- 46 --> ===
+- LRM 5 -- 45 --> ML (OK)
+- SRM 2 -- 21 --> LRM5, ML, SRM4, AC2 (OK)
+- SRM 4 -- 39 --> LRM5, ML (OK)
+
+2 slots:
+- Large Laser -- 123 --> ===
+- LRM 10 -- 90 --> LL (OK)
+- SRM 6 -- 59 --> LRM10, LL (OK)
+
+3 slots:
+- PPC -- 176 --> ===
+- LRM 15 -- 136 --> PPC (OK)
+
+4 slots:
+- Autocannon/5 -- 70 --> LRM15, PPC, LRM10, LL (OK)
+
+5 slots:
+- LRM 20 -- 181 --> ===
+
+7 slots:
+- Autocannon/10 -- 123 --> LRM20, LRM15, PPC, LL (OK)
+
+10 slots:
+- Autocannon/20 -- 178 --> LRM20 (OK)
+
+
+
+
+
 ==================================
 First off, I would keep each maneuver element uniform in speed, if possible, to allow for rapid deployment of faster elements when needed.
 Second, I would try to keep a 1:1:1 distribution between 4/6, 5/8 and 6/9+ mechs. I would use 3/5 assaults only if I had a large force (battalion or bigger), or even use them as an independent attachment.
