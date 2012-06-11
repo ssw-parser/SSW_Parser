@@ -205,7 +205,7 @@ def parse_gear(mech):
     if mech.gear.weaponlist.has_ac():
         print_ac(mech)
 
-def print_upgrade(wlist, upgr, orig, uname, uclass):
+def print_upgrade(wlist, upgr, orig, uclass):
     """
     Print out a suggested upgrade
     """
@@ -218,7 +218,7 @@ def print_upgrade(wlist, upgr, orig, uname, uclass):
     if (battv < 0):
         print "  WARNING: POSSIBLE DOWNGRADE SUGGESTED!:"
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
-           (uname, uclass, heat, dam, rng, wgt, battv))
+           (wlist[upgr].get_short(), uclass, heat, dam, rng, wgt, battv))
 
 def evaluate_upgrades(mech):
     """
@@ -232,114 +232,149 @@ def evaluate_upgrades(mech):
         if (weap.name == "(IS) Autocannon/2" and weap.count > 0):
             print weap.count, "AC/2, Suggested upgrades:"
             weap2 = "(IS) Medium Laser"
-            print_upgrade(wlist, weap2, weap.name, "ML", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) LRM-5"
-            print_upgrade(wlist, weap2, weap.name, "LRM5", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) SRM-4"
-            print_upgrade(wlist, weap2, weap.name, "SRM4", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Autocannon/5" and weap.count > 0):
             print weap.count, "AC/5, Suggested upgrades:"
 #            weap2 = "(IS) Rotary AC/2"
-#            print_upgrade(wlist, weap2, weap.name, "RAC/2", "A")
+#            print_upgrade(wlist, weap2, weap.name, "A")
 #            weap2 = "(IS) Light PPC"
-#            print_upgrade(wlist, weap2, weap.name, "LPPC", "B")
+#            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) PPC"
-            print_upgrade(wlist, weap2, weap.name, "PPC", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER PPC"
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) Large Laser"
-            print_upgrade(wlist, weap2, weap.name, "LL", "B")
-#            weap2 = "(IS) ER Large Laser"
-#            print_upgrade(wlist, weap2, weap.name, "ERLL", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) Large Pulse Laser"
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) LRM-10"
-            print_upgrade(wlist, weap2, weap.name, "LRM10", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) LRM-15"
-            print_upgrade(wlist, weap2, weap.name, "LRM15", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Autocannon/10" and weap.count > 0):
             print weap.count, "AC/10, Suggested upgrades:"
-#            weap2 = "(IS) LB 10-X AC"
-#            print_upgrade(wlist, weap2, weap.name, "LB10", "A")
+            weap2 = "(IS) LB 10-X AC"
+            print_upgrade(wlist, weap2, weap.name, "A")
 #            weap2 = "(IS) Light Gauss Rifle"
-#            print_upgrade(wlist, weap2, weap.name, "LGR", "A")
+#            print_upgrade(wlist, weap2, weap.name, "A")
 #            weap2 = "(IS) Rotary AC/5"
-#            print_upgrade(wlist, weap2, weap.name, "RAC/5", "A")
+#            print_upgrade(wlist, weap2, weap.name, "A")
+            weap2 = "(IS) Gauss Rifle"
+            print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) PPC"
-            print_upgrade(wlist, weap2, weap.name, "PPC", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) Large Laser"
-            print_upgrade(wlist, weap2, weap.name, "LL", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER PPC"
+            print_upgrade(wlist, weap2, weap.name, "B")
 #            weap2 = "(IS) Plasma Rifle"
-#            print_upgrade(wlist, weap2, weap.name, "Plasma R", "B")
+#            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) LRM-15"
-            print_upgrade(wlist, weap2, weap.name, "LRM15", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) LRM-20"
-            print_upgrade(wlist, weap2, weap.name, "LRM20", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
             print weap.count, "AC/20, Suggested upgrades:"
- #           weap2 = "(IS) Gauss Rifle"
- #           print_upgrade(wlist, weap2, weap.name, "GR", "A")
+            weap2 = "(IS) Gauss Rifle"
+            print_upgrade(wlist, weap2, weap.name, "A")
+            weap2 = "(IS) ER PPC"
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) LRM-20"
-            print_upgrade(wlist, weap2, weap.name, "LRM20", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
 #        if (weap.name == "(IS) Machine Gun" and weap.count > 0):
 #            print weap.count, "MG, Suggested upgrades:"
 #            weap2 = "(IS) Small Pulse Laser"
-#            print_upgrade(wlist, weap2, weap.name, "SPL", "B")
+#            print_upgrade(wlist, weap2, weap.name, "B")
 
 #        if (weap.name == "(IS) Small Laser" and weap.count > 0):
 #            print weap.count, "SL, Suggested upgrades:"
 #            weap2 = "(IS) ER Small Laser"
-#            print_upgrade(wlist, weap2, weap.name, "ERSL", "A")
+#            print_upgrade(wlist, weap2, weap.name, "A")
+
+        if (weap.name == "(IS) Large Laser" and weap.count > 0):
+            print weap.count, "LL, Suggested upgrades:"
+            weap2 = "(IS) ER Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "A")
+
+        if (weap.name == "(IS) PPC" and weap.count > 0):
+            print weap.count, "PPC, Suggested upgrades:"
+            weap2 = "(IS) ER PPC"
+            print_upgrade(wlist, weap2, weap.name, "A")
 
         if (weap.name == "(IS) LRM-5" and weap.count > 0):
             print weap.count, "LRM5, Suggested upgrades:"
             weap2 = "(IS) Medium Laser"
-            print_upgrade(wlist, weap2, weap.name, "ML", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) LRM-10" and weap.count > 0):
             print weap.count, "LRM10, Suggested upgrades:"
             weap2 = "(IS) Large Laser"
-            print_upgrade(wlist, weap2, weap.name, "LL", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) Large Pulse Laser"
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) LRM-15" and weap.count > 0):
             print weap.count, "LRM15, Suggested upgrades:"
             weap2 = "(IS) PPC"
-            print_upgrade(wlist, weap2, weap.name, "PPC", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER Large Laser"
+            print_upgrade(wlist, weap2, weap.name, "B")
+            weap2 = "(IS) ER PPC"
+            print_upgrade(wlist, weap2, weap.name, "B")
+
+        if (weap.name == "(IS) LRM-20" and weap.count > 0):
+            print weap.count, "LRM20, Suggested upgrades:"
+            weap2 = "(IS) ER PPC"
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) SRM-2" and weap.count > 0):
             print weap.count, "SRM2, Suggested upgrades:"
             weap2 = "(IS) LRM-5"
-            print_upgrade(wlist, weap2, weap.name, "LRM5", "A")
+            print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) SRM-4"
-            print_upgrade(wlist, weap2, weap.name, "SRM4", "A")
+            print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Autocannon/2"
-            print_upgrade(wlist, weap2, weap.name, "AC2", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) Medium Laser"
-            print_upgrade(wlist, weap2, weap.name, "ML", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) SRM-4" and weap.count > 0):
             print weap.count, "SRM4, Suggested upgrades:"
             weap2 = "(IS) LRM-5"
-            print_upgrade(wlist, weap2, weap.name, "LRM5", "A")
+            print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Medium Laser"
-            print_upgrade(wlist, weap2, weap.name, "ML", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) SRM-6" and weap.count > 0):
-            print weap.count, "SRM2, Suggested upgrades:"
+            print weap.count, "SRM6, Suggested upgrades:"
             weap2 = "(IS) LRM-10"
-            print_upgrade(wlist, weap2, weap.name, "LRM10", "A")
+            print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Large Laser"
-            print_upgrade(wlist, weap2, weap.name, "LL", "B")
+            print_upgrade(wlist, weap2, weap.name, "B")
 
 #        if (weap.name == "(CL) Heavy Machine Gun" and weap.count > 0):
 #            print weap.count, "HMG, suggested upgrades:"
 #            weap2 = "(CL) AP Gauss Rifle"
-#            print_upgrade(wlist, weap2, weap.name, "APGR", "A")
+#            print_upgrade(wlist, weap2, weap.name, "A")
 
 #        if (weap.name == "(CL) Heavy Small Laser" and weap.count > 0):
 #            print weap.count, "HSL, suggested upgrades:"
 #            weap2 = "(CL) ER Small Laser"
-#            print_upgrade(wlist, weap2, weap.name, "ERSL", "A")
+#            print_upgrade(wlist, weap2, weap.name, "A")
 
 
 

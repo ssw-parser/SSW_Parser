@@ -357,33 +357,33 @@ Upgrade data (name, BV):
 - Streak SRM 2 -- 30 --> AC2, ML, LRM5, SRM4, MPL
 
 2 slots:
-- Large Laser -- 123 --> ===, ERLL
-- LRM 10 -- 90 --> LL (OK), ERLL, LPL
+- Large Laser -- 123 --> ===, ERLL (OK)
+- LRM 10 -- 90 --> LL (OK), ERLL, LPL (OK)
 - SRM 6 -- 59 --> LRM10, LL (OK), ERLL, LPL
-- ER Large Laser -- 163
-- Large Pulse Laser -- 119 --> LL, ERLL
+- ER Large Laser -- 163 --> ===
+- Large Pulse Laser -- 119 --> LL, ERLL <--
 
 3 slots:
-- PPC -- 176 --> ===, ERPPC
-- LRM 15 -- 136 --> PPC (OK), ERLL, ERPPC
+- PPC -- 176 --> ===, ERPPC (OK)
+- LRM 15 -- 136 --> PPC, ERLL, ERPPC (OK)
 - ER PPC -- 229 --> ===
 
 4 slots:
-- Autocannon/5 -- 70 --> LRM15, PPC, LRM10, LL (OK), ERLL, ERPPC, LPL
+- Autocannon/5 -- 70 --> LRM15, PPC, LRM10, LL, ERLL, ERPPC, LPL (OK)
 
 5 slots:
-- LRM 20 -- 181 --> ===, ERPPC
-- Ultra AC/5 -- 112 --> LRM20, LRM15, PPC, LL, ERLL, ERPPC, LPL
+- LRM 20 -- 181 --> ===, ERPPC (OK)
+- Ultra AC/5 -- 112 --> LRM20, LRM15, PPC, LL, ERLL, ERPPC, LPL <--
 
 6 slots:
-- LB 10-X AC -- 148 --> LRM20, ERLL, ERPPC
+- LB 10-X AC -- 148 --> LRM20, ERLL, ERPPC <--
 
 7 slots:
-- Autocannon/10 -- 123 --> LRM20, LRM15, PPC, LL (OK), ERLL, GR, LB10, ERPPC
+- Autocannon/10 -- 123 --> LRM20, LRM15, PPC, LL, ERLL, GR, LB10, ERPPC (OK)
 - Gauss Rifle -- 320 --> ===
 
 10 slots:
-- Autocannon/20 -- 178 --> LRM20 (OK), GR, ERPPC
+- Autocannon/20 -- 178 --> LRM20, GR, ERPPC (OK)
 
 Intro: AC2, AC5, AC10, AC20, MG, Flmr, SL, ML, LL, PPC, LRM5, LRM10,
 LRM15, LRM20, SRM2, SRM4, SRM6
