@@ -158,18 +158,13 @@ Priority: Medium
 -- SHSs --> DHSs
 -- 2xMG --> 2xSPL
 
-- Calculate updates instead of using precalculated strings
 - Compare BV
+- Check and validate number of slots (needs added slot data to weapon files)
 
 Class A Refit:
 - Weapon replacements
 - Same category
 - Same or fewer critical spaces (including ammo)
-
-AC/2 = 1 crit + ammo (6t)
-
-AC/20 = 10 crits + ammo (14t)
---> GR = 7 crits + ammo (15t) -- requires at least 2t of AC/20 ammo
 
 Class B Refit:
 - As above, but no category limit

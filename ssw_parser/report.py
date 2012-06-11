@@ -214,7 +214,7 @@ def print_upgrade(wlist, upgr, orig, uname, uclass):
            wlist[orig].get_damage(wlist[orig].get_range()))
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
-    print ("  %-6s (Class %c) | %d heat, %d dam, %d range %d ton" %
+    print ("  %-6s (Class %c) | %d heat, %d dam, %d range, %d ton" %
            (uname, uclass, heat, dam, rng, wgt))
 
 def evaluate_upgrades(mech):
@@ -238,26 +238,44 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "LL", "B")
             weap2 = "(IS) ER Large Laser"
             print_upgrade(wlist, weap2, weap.name, "ERLL", "B")
+
         if (weap.name == "(IS) Autocannon/10" and weap.count > 0):
             print weap.count, "AC/10, Suggested upgrades:"
-            print "  LB 10-X AC (Class A) | -1 heat, +3 range, -1 ton"
-            print "  LGR (Class A)        | -2 heat, -2 dam, +10 range"
-            print "  RAC/5 (Class A)      | +3 heat, +10 dam, -2 ton"
-            print "  PPC (Class B)        | +7 heat, +3 range, -5 ton, no ammo"
-            print "  Plasma R (Class B)   | +7 heat, -6 ton, inflict heat, AI"
+            weap2 = "(IS) LB 10-X AC"
+            print_upgrade(wlist, weap2, weap.name, "LB10", "A")
+            weap2 = "(IS) Light Gauss Rifle"
+            print_upgrade(wlist, weap2, weap.name, "LGR", "A")
+            weap2 = "(IS) Rotary AC/5"
+            print_upgrade(wlist, weap2, weap.name, "RAC/5", "A")
+            weap2 = "(IS) PPC"
+            print_upgrade(wlist, weap2, weap.name, "PPC", "B")
+            weap2 = "(IS) Plasma Rifle"
+            print_upgrade(wlist, weap2, weap.name, "Plasma R", "B")
+
+        if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
+            print weap.count, "AC/20, Suggested upgrades:"
+            weap2 = "(IS) Gauss Rifle"
+            print_upgrade(wlist, weap2, weap.name, "GR", "A")
+
         if (weap.name == "(IS) Small Laser" and weap.count > 0):
             print weap.count, "SL, Suggested upgrades:"
-            print "  ERSL (Class A) | +1 heat, +2 range"
+            weap2 = "(IS) ER Small Laser"
+            print_upgrade(wlist, weap2, weap.name, "ERSL", "A")
+
         if (weap.name == "(IS) SRM-2" and weap.count > 0):
             print weap.count, "SRM2, Suggested upgrades:"
-            print "  ML (Class B) | +1 heat, +3 dam, no ammo"
+            weap2 = "(IS) Medium Laser"
+            print_upgrade(wlist, weap2, weap.name, "ML", "B")
+
         if (weap.name == "(CL) Heavy Machine Gun" and weap.count > 0):
             print weap.count, "HMG, suggested upgrades:"
-            print "  APGR (Class A) | +1 heat, +7 range"
+            weap2 = "(CL) AP Gauss Rifle"
+            print_upgrade(wlist, weap2, weap.name, "APGR", "A")
+
         if (weap.name == "(CL) Heavy Small Laser" and weap.count > 0):
             print weap.count, "HSL, suggested upgrades:"
-            print "  ERSL (Class A) | -1 heat, -1 dam, +3 range, -1 hit"
-
+            weap2 = "(CL) ER Small Laser"
+            print_upgrade(wlist, weap2, weap.name, "ERSL", "A")
 
 
 def parse_omni(mech, args):
