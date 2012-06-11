@@ -344,37 +344,50 @@ Fast (5+) vs Slow (4-):
 Upgrade data (name, BV):
 
 1 slots:
-- Autocannon/2 -- 37 --> SRM4, ML, LRM5 (OK)
+- Autocannon/2 -- 37 --> SRM4, ML, LRM5 (OK), MPL
 - Machine Gun -- 5
 - Flamer -- 6
 - Small Laser -- 9
-- Medium Laser -- 46 --> ===
-- LRM 5 -- 45 --> ML (OK)
-- SRM 2 -- 21 --> LRM5, ML, SRM4, AC2 (OK)
-- SRM 4 -- 39 --> LRM5, ML (OK)
+- Medium Laser -- 46 --> ===, MPL
+- LRM 5 -- 45 --> ML (OK), MPL
+- SRM 2 -- 21 --> LRM5, ML, SRM4, AC2 (OK), MPL, SSRM2
+- SRM 4 -- 39 --> LRM5, ML (OK), MPL
+- Small Pulse Laser -- 12
+- Medium Pulse Laser -- 48 --> ===
+- Streak SRM 2 -- 30 --> AC2, ML, LRM5, SRM4, MPL
 
 2 slots:
-- Large Laser -- 123 --> ===
-- LRM 10 -- 90 --> LL (OK)
-- SRM 6 -- 59 --> LRM10, LL (OK)
+- Large Laser -- 123 --> ===, ERLL
+- LRM 10 -- 90 --> LL (OK), ERLL, LPL
+- SRM 6 -- 59 --> LRM10, LL (OK), ERLL, LPL
+- ER Large Laser -- 163
+- Large Pulse Laser -- 119 --> LL, ERLL
 
 3 slots:
-- PPC -- 176 --> ===
-- LRM 15 -- 136 --> PPC (OK)
+- PPC -- 176 --> ===, ERPPC
+- LRM 15 -- 136 --> PPC (OK), ERLL, ERPPC
+- ER PPC -- 229 --> ===
 
 4 slots:
-- Autocannon/5 -- 70 --> LRM15, PPC, LRM10, LL (OK)
+- Autocannon/5 -- 70 --> LRM15, PPC, LRM10, LL (OK), ERLL, ERPPC, LPL
 
 5 slots:
-- LRM 20 -- 181 --> ===
+- LRM 20 -- 181 --> ===, ERPPC
+- Ultra AC/5 -- 112 --> LRM20, LRM15, PPC, LL, ERLL, ERPPC, LPL
+
+6 slots:
+- LB 10-X AC -- 148 --> LRM20, ERLL, ERPPC
 
 7 slots:
-- Autocannon/10 -- 123 --> LRM20, LRM15, PPC, LL (OK)
+- Autocannon/10 -- 123 --> LRM20, LRM15, PPC, LL (OK), ERLL, GR, LB10, ERPPC
+- Gauss Rifle -- 320 --> ===
 
 10 slots:
-- Autocannon/20 -- 178 --> LRM20 (OK)
+- Autocannon/20 -- 178 --> LRM20 (OK), GR, ERPPC
 
-
+Intro: AC2, AC5, AC10, AC20, MG, Flmr, SL, ML, LL, PPC, LRM5, LRM10,
+LRM15, LRM20, SRM2, SRM4, SRM6
+SL: LB10, UAC5, GR, SPL, MPL, LPL, ERLL, ERPPC, Streak2, Artemis
 
 
 
