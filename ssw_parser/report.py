@@ -214,8 +214,9 @@ def print_upgrade(wlist, upgr, orig, uname, uclass):
            wlist[orig].get_damage(wlist[orig].get_range()))
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
-    print ("  %-6s (Class %c) | %d heat, %d dam, %d range, %d ton" %
-           (uname, uclass, heat, dam, rng, wgt))
+    battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0) # No tarcomp
+    print ("  %-6s (Class %c) | %d heat, %d dam, %d range, %d ton, %d BV" %
+           (uname, uclass, heat, dam, rng, wgt, battv))
 
 def evaluate_upgrades(mech):
     """
@@ -257,6 +258,11 @@ def evaluate_upgrades(mech):
             weap2 = "(IS) Gauss Rifle"
             print_upgrade(wlist, weap2, weap.name, "GR", "A")
 
+        if (weap.name == "(IS) Machine Gun" and weap.count > 0):
+            print weap.count, "MG, Suggested upgrades:"
+            weap2 = "(IS) Small Pulse Laser"
+            print_upgrade(wlist, weap2, weap.name, "SPL", "B")
+
         if (weap.name == "(IS) Small Laser" and weap.count > 0):
             print weap.count, "SL, Suggested upgrades:"
             weap2 = "(IS) ER Small Laser"
@@ -276,6 +282,7 @@ def evaluate_upgrades(mech):
             print weap.count, "HSL, suggested upgrades:"
             weap2 = "(CL) ER Small Laser"
             print_upgrade(wlist, weap2, weap.name, "ERSL", "A")
+
 
 
 def parse_omni(mech, args):

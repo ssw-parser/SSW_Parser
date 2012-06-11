@@ -155,10 +155,9 @@ Priority: Medium
 Priority: Medium
 
 - Check for possible upgrades
--- SHSs --> DHSs
--- 2xMG --> 2xSPL
+-- SHSs --> DHSs (focus on Class A & B weapon upgrades for now)
 
-- Compare BV
+- Compare BV, and disallow negative change
 - Check and validate number of slots (needs added slot data to weapon files)
 
 Class A Refit:
