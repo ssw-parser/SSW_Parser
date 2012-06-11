@@ -156,7 +156,6 @@ Priority: Medium
 
 - Check for possible upgrades (add an -u switch)
 -- SHSs --> DHSs
--- AC/10 --> LB 10-X or LGR
 -- 2xMG --> 2xSPL
 
 Class A Refit:
@@ -165,8 +164,6 @@ Class A Refit:
 - Same or fewer critical spaces (including ammo)
 
 AC/2 = 1 crit + ammo (6t)
-AC/5 = 4 crits + ammo (8t)
---> RAC/2 = 3 crits + ammo (8t)
 
 AC/20 = 10 crits + ammo (14t)
 --> GR = 7 crits + ammo (15t) -- requires at least 2t of AC/20 ammo

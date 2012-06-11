@@ -213,17 +213,31 @@ def evaluate_upgrades(mech):
     print "=== Upgrade evaluation        ==="
     print "================================="
     for weap in mech.gear.weaponlist.list.itervalues():
+        if (weap.name == "(IS) Autocannon/5" and weap.count > 0):
+            print weap.count, "AC/5, Suggested upgrades:"
+            print "  RAC/2 (Class A) | +5 heat, +3 dam"
+            print "  LPPC (Class B)  | +4 heat, -5 ton, no ammo"
+            print "  PPC (Class B)   | +9 heat, +5 dam, -1 ton, no ammo"
         if (weap.name == "(IS) Autocannon/10" and weap.count > 0):
             print weap.count, "AC/10, Suggested upgrades:"
             print "  LB 10-X AC (Class A) | -1 heat, +3 range, -1 ton"
             print "  LGR (Class A)        | -2 heat, -2 dam, +10 range"
             print "  RAC/5 (Class A)      | +3 heat, +10 dam, -2 ton"
+            print "  PPC (Class B)        | +7 heat, +3 range, -5 ton, no ammo"
+            print "  Plasma R (Class B)   | +7 heat, -6 ton, inflict heat, AI"
         if (weap.name == "(IS) Small Laser" and weap.count > 0):
             print weap.count, "SL, Suggested upgrades:"
             print "  ERSL (Class A) | +1 heat, +2 range"
+        if (weap.name == "(IS) SRM-2" and weap.count > 0):
+            print weap.count, "SRM2, Suggested upgrades:"
+            print "  ML (Class B) | +1 heat, +3 dam, no ammo"
+        if (weap.name == "(CL) Heavy Machine Gun" and weap.count > 0):
+            print weap.count, "HMG, suggested upgrades:"
+            print "  APGR (Class A) | +1 heat, +7 range"
         if (weap.name == "(CL) Heavy Small Laser" and weap.count > 0):
             print weap.count, "HSL, suggested upgrades:"
             print "  ERSL (Class A) | -1 heat, -1 dam, +3 range, -1 hit"
+
 
 
 def parse_omni(mech, args):
