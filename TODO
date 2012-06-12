@@ -157,9 +157,6 @@ Priority: Medium
 - Check for possible upgrades
 -- SHSs --> DHSs (focus on Class A & B weapon upgrades for now)
 
-- Compare BV, and disallow negative change
-- Check and validate number of slots (needs added slot data to weapon files)
-
 Class A Refit:
 - Weapon replacements
 - Same category
@@ -355,58 +352,6 @@ code or in SSW.
 Fast (5+) vs Slow (4-): 
 - Fast --> Scout, Skirmisher, Striker
 - Slow --> Brawler, Juggernaut, Sniper, Missile Boat
-
-===================================
-
-Upgrade data (name, BV):
-
-1 slots:
-- Autocannon/2 -- 37 --> SRM4, ML, LRM5, MPL (OK)
-- Machine Gun -- 5 --> AC2, SL, Flmr, ML, LRM5, SRM2, SRM4, SPL, MPL, SSRM2 (OK)
-- Flamer -- 6
-- Small Laser -- 9 --> AC2, ML, LRM5, SRM2, SRM4, SPL, MPL, SSRM2 (OK)
-- Medium Laser -- 46 --> ===, MPL (OK)
-- LRM 5 -- 45 --> ML, MPL (OK)
-- SRM 2 -- 21 --> LRM5, ML, SRM4, AC2, MPL, SSRM2 (OK)
-- SRM 4 -- 39 --> LRM5, ML, MPL (OK)
-- Small Pulse Laser -- 12
-- Medium Pulse Laser -- 48 --> ===
-- Streak SRM 2 -- 30 --> AC2, ML, LRM5, SRM4, MPL <--
-
-2 slots:
-- Large Laser -- 123 --> ===, ERLL (OK)
-- LRM 10 -- 90 --> LL (OK), ERLL, LPL (OK)
-- SRM 6 -- 59 --> LRM10, LL, ERLL, LPL (OK)
-- ER Large Laser -- 163 --> ===
-- Large Pulse Laser -- 119 --> LL, ERLL <--
-
-3 slots:
-- PPC -- 176 --> ===, ERPPC (OK)
-- LRM 15 -- 136 --> PPC, ERLL, ERPPC (OK)
-- ER PPC -- 229 --> ===
-
-4 slots:
-- Autocannon/5 -- 70 --> LRM15, PPC, LRM10, LL, ERLL, ERPPC, LPL (OK)
-
-5 slots:
-- LRM 20 -- 181 --> ===, ERPPC (OK)
-- Ultra AC/5 -- 112 --> LRM20, LRM15, PPC, LL, ERLL, ERPPC, LPL <--
-
-6 slots:
-- LB 10-X AC -- 148 --> LRM20, ERLL, ERPPC <--
-
-7 slots:
-- Autocannon/10 -- 123 --> LRM20, LRM15, PPC, LL, ERLL, GR, LB10, ERPPC (OK)
-- Gauss Rifle -- 320 --> ===
-
-10 slots:
-- Autocannon/20 -- 178 --> LRM20, GR, ERPPC (OK)
-
-Intro: AC2, AC5, AC10, AC20, MG, Flmr, SL, ML, LL, PPC, LRM5, LRM10,
-LRM15, LRM20, SRM2, SRM4, SRM6
-SL: LB10, UAC5, GR, SPL, MPL, LPL, ERLL, ERPPC, Streak2, Artemis
-
-
 
 ==================================
 First off, I would keep each maneuver element uniform in speed, if possible, to allow for rapid deployment of faster elements when needed.
