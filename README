@@ -18,6 +18,8 @@ file.
 
 -r: Add raw xml data (.ssw file dump) to output.
 
+-u: List possible upgrades.
+
 === A brief overview of command-line arguments for summary.py ===
 
 ==== Input Switches ====

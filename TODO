@@ -150,12 +150,14 @@ Priority: Medium
 - Allow working directory change commands in text files listing mechs.
 - Find a way be selective with omni-configs.
 
-=== Add an upgrade evaluator to report.py ===
+=== Improve upgrade evaluator in report.py ===
 
 Priority: Medium
 
 - Check for possible upgrades
 -- SHSs --> DHSs (focus on Class A & B weapon upgrades for now)
+
+- Figure out a way to separate Class A & Class B
 
 Class A Refit:
 - Weapon replacements
