@@ -214,6 +214,8 @@ def print_upgrade(wlist, upgr, orig, uclass):
            wlist[orig].get_damage(wlist[orig].get_range()))
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
+    if (wgt > 0):
+        return
     battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0) # No tarcomp
     if (battv < 0):
         print "  WARNING: POSSIBLE DOWNGRADE SUGGESTED!:"
@@ -230,7 +232,7 @@ def evaluate_upgrades(mech):
     wlist = mech.gear.weaponlist.list
     for weap in wlist.itervalues():
         if (weap.name == "(IS) Autocannon/2" and weap.count > 0):
-            print weap.count, "AC/2, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Medium Laser"
             print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) Medium Pulse Laser"
@@ -241,7 +243,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Autocannon/5" and weap.count > 0):
-            print weap.count, "AC/5, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
 #            weap2 = "(IS) Rotary AC/2"
 #            print_upgrade(wlist, weap2, weap.name, "A")
 #            weap2 = "(IS) Light PPC"
@@ -262,7 +264,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Autocannon/10" and weap.count > 0):
-            print weap.count, "AC/10, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) LB 10-X AC"
             print_upgrade(wlist, weap2, weap.name, "A")
 #            weap2 = "(IS) Light Gauss Rifle"
@@ -287,7 +289,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Autocannon/20" and weap.count > 0):
-            print weap.count, "AC/20, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Gauss Rifle"
             print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) ER PPC"
@@ -296,7 +298,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Machine Gun" and weap.count > 0):
-            print weap.count, "MG, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Autocannon/2"
             print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Small Laser"
@@ -319,7 +321,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Small Laser" and weap.count > 0):
-            print weap.count, "SL, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
 #            weap2 = "(IS) ER Small Laser"
 #            print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Small Pulse Laser"
@@ -340,29 +342,29 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) Medium Laser" and weap.count > 0):
-            print weap.count, "ML, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Medium Pulse Laser"
             print_upgrade(wlist, weap2, weap.name, "A")
 
         if (weap.name == "(IS) Large Laser" and weap.count > 0):
-            print weap.count, "LL, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) ER Large Laser"
             print_upgrade(wlist, weap2, weap.name, "A")
 
         if (weap.name == "(IS) PPC" and weap.count > 0):
-            print weap.count, "PPC, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) ER PPC"
             print_upgrade(wlist, weap2, weap.name, "A")
 
         if (weap.name == "(IS) LRM-5" and weap.count > 0):
-            print weap.count, "LRM5, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Medium Laser"
             print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) Medium Pulse Laser"
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) LRM-10" and weap.count > 0):
-            print weap.count, "LRM10, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Large Laser"
             print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) ER Large Laser"
@@ -371,7 +373,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) LRM-15" and weap.count > 0):
-            print weap.count, "LRM15, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) PPC"
             print_upgrade(wlist, weap2, weap.name, "B")
             weap2 = "(IS) ER Large Laser"
@@ -380,12 +382,12 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) LRM-20" and weap.count > 0):
-            print weap.count, "LRM20, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) ER PPC"
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) SRM-2" and weap.count > 0):
-            print weap.count, "SRM2, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) LRM-5"
             print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) SRM-4"
@@ -400,7 +402,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) SRM-4" and weap.count > 0):
-            print weap.count, "SRM4, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) LRM-5"
             print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Medium Laser"
@@ -409,7 +411,7 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
         if (weap.name == "(IS) SRM-6" and weap.count > 0):
-            print weap.count, "SRM6, Suggested upgrades:"
+            print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) LRM-10"
             print_upgrade(wlist, weap2, weap.name, "A")
             weap2 = "(IS) Large Laser"
@@ -420,12 +422,12 @@ def evaluate_upgrades(mech):
             print_upgrade(wlist, weap2, weap.name, "B")
 
 #        if (weap.name == "(CL) Heavy Machine Gun" and weap.count > 0):
-#            print weap.count, "HMG, suggested upgrades:"
+#            print weap.count, weap.get_short(), "suggested upgrades:"
 #            weap2 = "(CL) AP Gauss Rifle"
 #            print_upgrade(wlist, weap2, weap.name, "A")
 
 #        if (weap.name == "(CL) Heavy Small Laser" and weap.count > 0):
-#            print weap.count, "HSL, suggested upgrades:"
+#            print weap.count, weap.get_short(), "suggested upgrades:"
 #            weap2 = "(CL) ER Small Laser"
 #            print_upgrade(wlist, weap2, weap.name, "A")
 
