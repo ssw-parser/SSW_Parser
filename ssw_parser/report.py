@@ -214,8 +214,11 @@ def print_upgrade(wlist, upgr, orig, uclass):
         return
     # Skip upgrades between techbase
     if upgr[0:4] == "(IS)" and orig[0:4] == "(CL)":
-         return
+        return
     if upgr[0:4] == "(CL)" and orig[0:4] == "(IS)":
+        return
+    # Skip advanced & experimental weapons
+    if wlist[upgr].get_rules_level() > 1:
         return
     heat = wlist[upgr].get_heat() - wlist[orig].get_heat()
     dam = (wlist[upgr].get_damage(wlist[upgr].get_range()) -
