@@ -209,6 +209,14 @@ def print_upgrade(wlist, upgr, orig, uclass):
     """
     Print out a suggested upgrade
     """
+    # Skip same weapon
+    if upgr == orig:
+        return
+    # Skip upgrades between techbase
+    if upgr[0:4] == "(IS)" and orig[0:4] == "(CL)":
+         return
+    if upgr[0:4] == "(CL)" and orig[0:4] == "(IS)":
+        return
     heat = wlist[upgr].get_heat() - wlist[orig].get_heat()
     dam = (wlist[upgr].get_damage(wlist[upgr].get_range()) -
            wlist[orig].get_damage(wlist[orig].get_range()))
@@ -218,7 +226,10 @@ def print_upgrade(wlist, upgr, orig, uclass):
         return
     battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0) # No tarcomp
     if (battv < 0):
-        print "  WARNING: POSSIBLE DOWNGRADE SUGGESTED!:"
+        return
+    slots = wlist[upgr].slots() - wlist[orig].slots()
+    if (slots > 0):
+        return
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
            (wlist[upgr].get_short(), uclass, heat, dam, rng, wgt, battv))
 
@@ -231,6 +242,12 @@ def evaluate_upgrades(mech):
     print "================================="
     wlist = mech.gear.weaponlist.list
     for weap in wlist.itervalues():
+        if weap.count > 0:
+            print weap.count, weap.get_short(), "Suggested upgrades:"
+            for weap2 in wlist.itervalues():
+                print_upgrade(wlist, weap2.name, weap.name, "B")
+                
+
         if (weap.name == "(IS) Autocannon/2" and weap.count > 0):
             print weap.count, weap.get_short(), "Suggested upgrades:"
             weap2 = "(IS) Medium Laser"
