@@ -916,9 +916,23 @@ class Weapon:
         Return how many explosive slots a weapon has
         """
         if self.entry[11] == "X":
-            return self.entry[10]
+            return self.slots()
         else:
             return 0
+
+    def slots(self):
+        """
+        Return how many slots a weapon has
+        """
+        slots = self.entry[10]
+        if self.enhance == "A5":
+            slots += 2
+        elif self.enhance == "A4":
+            slots += 1
+        elif self.enhance == "AP":
+            slots += 1
+
+        return slots
 
     def get_rules_level(self):
         """
