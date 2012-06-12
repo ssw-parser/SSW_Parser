@@ -207,7 +207,7 @@ def parse_gear(mech):
 
 def print_upgrade(wlist, upgr, orig, uclass):
     """
-    Print out a suggested upgrade
+    Print out a suggested Class A or B upgrade
     """
     # Skip same weapon
     if upgr == orig:
@@ -225,12 +225,18 @@ def print_upgrade(wlist, upgr, orig, uclass):
            wlist[orig].get_damage(wlist[orig].get_range()))
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
-    if (wgt > 0):
+    # Allow one ton increase for ammo users due to possibility of removing ammo
+    if (wgt > 1 and wlist[orig].ammocount > 0):
+        return
+    # But not for energy weapons
+    elif (wgt > 0 and wlist[orig].ammocount == 0):
         return
     battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0) # No tarcomp
+    # Assume that an upgrade increases BV
     if (battv < 0):
         return
     slots = wlist[upgr].slots() - wlist[orig].slots()
+    # Increase in size is not allowed for Class A or B
     if (slots > 0):
         return
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
@@ -249,6 +255,9 @@ def evaluate_upgrades(mech):
             print weap.count, weap.get_short(), "Suggested upgrades:"
             for weap2 in wlist.itervalues():
                 print_upgrade(wlist, weap2.name, weap.name, "B")
+
+    if mech.heatsinks.type == "Single Heat Sink":
+        print "Upgrade heatsinks to doubles (Class D)"
                 
 def parse_omni(mech, args):
     """
