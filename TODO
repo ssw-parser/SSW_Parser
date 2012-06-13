@@ -157,6 +157,7 @@ Priority: Medium
 - Check for possible upgrades
 
 - Figure out a way to separate Class A & Class B
+- Better ammo handling for Class A & B (know minimum required ammo for upgrades)
 
 Class A Refit:
 - Weapon replacements
@@ -165,6 +166,9 @@ Class A Refit:
 
 Class B Refit:
 - As above, but no category limit
+
+Class C Refit:
+- As above, but allow more critical spaces
 
 === Make report.py more useful ===
 
@@ -300,7 +304,7 @@ code or in SSW.
 
 - Scan for maximum damage range?
 
-
+- Move shots/ton info for ammo to weapons?
 
 
 == weapons.py ==

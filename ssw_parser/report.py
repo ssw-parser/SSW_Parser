@@ -205,7 +205,7 @@ def parse_gear(mech):
     if mech.gear.weaponlist.has_ac():
         print_ac(mech)
 
-def print_upgrade(wlist, upgr, orig, uclass):
+def print_upgrade(wlist, upgr, orig):
     """
     Print out a suggested Class A or B upgrade
     """
@@ -236,9 +236,11 @@ def print_upgrade(wlist, upgr, orig, uclass):
     if (battv < 0):
         return
     slots = wlist[upgr].slots() - wlist[orig].slots()
+    # Assume Class B upgrades for now, since we cannot detect the difference
+    uclass = "B"
     # Increase in size is not allowed for Class A or B
     if (slots > 0):
-        return
+        uclass = "C"
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
            (wlist[upgr].get_short(), uclass, heat, dam, rng, wgt, battv))
 
@@ -254,7 +256,7 @@ def evaluate_upgrades(mech):
         if weap.count > 0:
             print weap.count, weap.get_short(), "Suggested upgrades:"
             for weap2 in wlist.itervalues():
-                print_upgrade(wlist, weap2.name, weap.name, "B")
+                print_upgrade(wlist, weap2.name, weap.name)
 
     if mech.heatsinks.type == "Single Heat Sink":
         print "Upgrade heatsinks to doubles (Class D)"
