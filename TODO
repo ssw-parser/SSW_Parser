@@ -154,8 +154,6 @@ Priority: Medium
 
 Priority: Medium
 
-- Check for possible upgrades
-
 - Figure out a way to separate Class A & Class B
 - Better ammo handling for Class A & B (know minimum required ammo for upgrades)
 
@@ -169,6 +167,13 @@ Class B Refit:
 
 Class C Refit:
 - As above, but allow more critical spaces
+- Also allows armor changes
+- Also allows addition of heat sinks and ammo
+
+Class D Refit:
+- Allows addition of new gear
+- Allow changing heatsink type
+- Allow changing engine rating
 
 === Make report.py more useful ===
 

@@ -244,21 +244,27 @@ def print_upgrade(wlist, upgr, orig):
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
            (wlist[upgr].get_short(), uclass, heat, dam, rng, wgt, battv))
 
-def evaluate_upgrades(mech):
+def evaluate_upgrades(mech, i):
     """
     Suggest upgrades
     """
     print "================================="
     print "=== Upgrade evaluation        ==="
     print "================================="
-    wlist = mech.gear.weaponlist.list
+    wlist = i.gear.weaponlist.list
     for weap in wlist.itervalues():
         if weap.count > 0:
             print weap.count, weap.get_short(), "Suggested upgrades:"
             for weap2 in wlist.itervalues():
                 print_upgrade(wlist, weap2.name, weap.name)
 
-    if mech.heatsinks.type == "Single Heat Sink":
+    if mech.armor.total.arm < mech.armor.total.max:
+        print "Add more armor (Class C)"
+
+    if mech.armor.atype == "Standard Armor":
+        print "Upgrade armor type (Class C)"
+
+    if i.heatsinks.type == "Single Heat Sink":
         print "Upgrade heatsinks to doubles (Class D)"
                 
 def parse_omni(mech, args):
@@ -284,7 +290,7 @@ def parse_omni(mech, args):
                 print i.heatsinks.number, i.heatsinks.type
             parse_gear(i)
             if args.u:
-                evaluate_upgrades(i)
+                evaluate_upgrades(mech, i)
         print "-------------------------------"
 
 
@@ -364,7 +370,7 @@ def main():
     # Gear
     parse_gear(mech.load)
     if args.u:
-        evaluate_upgrades(mech.load)
+        evaluate_upgrades(mech, mech.load)
 
     # Omni configs
     parse_omni(mech, args)
