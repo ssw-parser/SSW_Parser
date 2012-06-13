@@ -224,6 +224,9 @@ def print_upgrade(wlist, upgr, orig):
     dam = (wlist[upgr].get_damage(wlist[upgr].get_range()) -
            wlist[orig].get_damage(wlist[orig].get_range()))
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
+    # Ignore big reductions in range, since that would change the mech role
+    if rng < -3:
+        return
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
     # Allow one ton increase for ammo users due to possibility of removing ammo
     if (wgt > 1 and wlist[orig].ammocount > 0):
