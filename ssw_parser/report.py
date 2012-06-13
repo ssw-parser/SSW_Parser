@@ -258,8 +258,9 @@ def evaluate_upgrades(mech, i):
             for weap2 in wlist.itervalues():
                 print_upgrade(wlist, weap2.name, weap.name)
 
-    if mech.armor.total.arm < mech.armor.total.max:
-        print "Add more armor (Class C)"
+    arm_diff = mech.armor.total.max - mech.armor.total.arm
+    if arm_diff > 7:
+        print ("Add more armor (Class C), %d points under max" % arm_diff)
 
     if mech.armor.atype == "Standard Armor":
         print "Upgrade armor type (Class C)"
