@@ -114,6 +114,7 @@ Priority: Medium
 Priority: Medium
 
 - Add a check if year and era match up.
+- Check for illegal intro years, BattleMechs before Mackie (CVs before 2470)
 
 - Missing year info in MUL:
 -- Clint CLNT-2-4T (3039)
@@ -226,6 +227,15 @@ Missing from TO:
 Physical stuff:
 - Missing: Medium Shield, industrial equipment
 
+
+=== Support Combat Vehicles ===
+
+Priority: Low-Medium
+
+=== Support Industrial Mechs ===
+
+Priority: Low
+
 === Battleforce ===
 
 Priority: Low
@@ -299,7 +309,6 @@ code or in SSW.
 
 === Other ===
 
-- Also handle combat vehicles?
 - Law of Demeter, avoid accessing low-level object data
 
 - Handle armored components better
