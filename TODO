@@ -236,6 +236,8 @@ Priority: Low-Medium
 
 Priority: Low
 
+- Explicitly disallow Industrial Mechs until they are supported.
+
 === Battleforce ===
 
 Priority: Low
