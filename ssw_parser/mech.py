@@ -22,6 +22,7 @@
 Contains the master class for a mech
 """
 
+import sys
 from math import ceil
 from defensive import IS, Armor
 from movement import Cockpit, Enhancement, Gyro, Engine
@@ -61,12 +62,25 @@ class Mech:
             # Get mech type (battle, industrial)
             self.mechtype = get_child_data(mmech, 'mech_type')
 
+            # Only support battlemechs
+            if (self.mechtype != "BattleMech" and
+                self.mechtype != "PrimitiveBattleMech"):
+                print self.name, self.model
+                print "Industrial Mechs not supported!"
+                sys.exit(1)
+
             # Get techbase (IS, Clan)
             # get first instance only to avoid problems with Omni-mechs
             self.techbase = get_child_data(mmech, 'techbase')
 
             # Get year
             self.year = int(get_child_data(mmech, 'year'))
+
+            # Sanity check for year
+            if (self.year < 2439):
+                print self.name, self.model
+                print "Battlemech older than Mackie!"
+                sys.exit(1)
 
             # Get motive type (biped, quad)
             self.motive = get_child_data(mmech, 'motive_type')

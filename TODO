@@ -114,7 +114,6 @@ Priority: Medium
 Priority: Medium
 
 - Add a check if year and era match up.
-- Check for illegal intro years, BattleMechs before Mackie (CVs before 2470)
 
 - Missing year info in MUL:
 -- Clint CLNT-2-4T (3039)
@@ -232,11 +231,11 @@ Physical stuff:
 
 Priority: Low-Medium
 
+- Remember to disallow Combat Vehicles with a year older than 2470.
+
 === Support Industrial Mechs ===
 
 Priority: Low
-
-- Explicitly disallow Industrial Mechs until they are supported.
 
 === Battleforce ===
 
