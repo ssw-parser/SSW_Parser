@@ -82,6 +82,11 @@ class Mech:
                 print "Battlemech older than Mackie!"
                 sys.exit(1)
 
+            if (self.year < 2470 and self.mechtype == "BattleMech"):
+                print self.name, self.model
+                print "Non-primitive BattleMechs not available before 2470!"
+                sys.exit(1)
+
             # Get motive type (biped, quad)
             self.motive = get_child_data(mmech, 'motive_type')
 

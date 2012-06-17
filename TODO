@@ -94,6 +94,18 @@ Comment: Not really a programming task.
 Primitive Jump-jets:
 - Change Wasp WSP-1 to use primitive jump-jets when available.
 
+=== Add missing combat vehicles to database ===
+
+Priority: Medium
+
+- 3039
+- 3050
+- 3058
+- 3060
+- 3075
+- 3085
+- Klondike
+- XTROs
 
 === Test data into repository ===
 
