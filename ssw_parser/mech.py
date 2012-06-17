@@ -87,6 +87,11 @@ class Mech:
                 print "Non-primitive BattleMechs not available before 2470!"
                 sys.exit(1)
 
+            if (self.year < 2854 and self.omni == "TRUE"):
+                print self.name, self.model
+                print "OmniMechs not available before 2854!"
+                sys.exit(1)
+
             # Get motive type (biped, quad)
             self.motive = get_child_data(mmech, 'motive_type')
 
