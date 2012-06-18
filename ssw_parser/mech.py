@@ -523,6 +523,9 @@ class Mech:
                 tmp = 2
             if tmp > r_level:
                 r_level = tmp
+        # Hack -- turrets are advanced rules
+        if load.turret and r_level < 2:
+            r_level = 2
 
         tmp = load.get_rules_level()
         if tmp > r_level:

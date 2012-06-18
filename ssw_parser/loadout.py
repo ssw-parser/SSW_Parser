@@ -151,6 +151,11 @@ class Load:
             booby = True
         self.btrap = BoobyTrap(mech.weight, booby)
 
+        # Hack: Get turret
+        self.turret = False
+        for tur in load.getElementsByTagName('turret'):
+            self.turret = True
+
         self.gear = Gear(mech, self.artemis4, self.artemis5, self.apollo,
                          equip, clanc)
 

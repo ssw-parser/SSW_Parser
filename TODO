@@ -73,7 +73,6 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 Priority: High
 
 Missing:
-- Turrets
 - Mixed tech omni configs
 
 === Add missing mechs to database ===
@@ -151,8 +150,11 @@ Comment: This requires the items to be implemented as objects, instead
 of hacks in their parent object.
 
 - Null sig, chameleon, void sig
-- Tarcomp, CASE, Armored locations, AES
-- Turrets
+- AES
+- CASE -- Issue: The way CASE information is stored.
+- Tarcomp -- Issue: The way the code access current tarcomp variable.
+- Armored Locations -- Issue: Need to know which items are armored.
+- Turrets -- Issue: Need to keep track of weight of items mounted in it.
 
 === File handling ===
 
