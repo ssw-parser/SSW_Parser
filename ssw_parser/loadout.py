@@ -26,7 +26,58 @@ from math import ceil
 from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Equip, Gear, Heatsinks
-from util import gettext, get_child, get_child_data
+from util import ceil_05, gettext, get_child, get_child_data
+from item import Item
+
+class BoobyTrap(Item):
+    """
+    A class to hold information about booby traps
+    """
+    def __init__(self, mweight, booby):
+        Item.__init__(self)
+        self.weight = mweight # Mech weight, not booby trap weight
+        self.booby = booby # Bool: Do we mount a booby trap
+
+    def get_type(self):
+        """
+        Return booby trap
+        """
+        return "Booby Trap"
+
+    def get_rules_level(self):
+        """
+        Booby traps are advanced rules
+        """
+        if self.booby:
+            return 2
+        else:
+            return 0
+
+    def get_weight(self):
+        """
+        Get weight of booby trap
+        """
+        if self.booby:
+            return ceil_05(0.1 * self.weight)
+        else:
+            return 0
+
+    def get_cost(self):
+        """
+        Get cost of booby trap
+        """
+        if self.booby:
+            return  100000
+        else:
+            return 0
+
+#    def has_booby_trap(self):
+#        """
+#        Return true if we have a booby trap
+#        """
+#        return self.booby
+
+
 
 class Load:
     """
@@ -93,6 +144,12 @@ class Load:
                     self.arm_gyro = True
 
         self.prod_era = prod_era
+
+        # Get booby trap
+        booby = False
+        for bob in load.getElementsByTagName('boobytrap'):
+            booby = True
+        self.btrap = BoobyTrap(mech.weight, booby)
 
         self.gear = Gear(mech, self.artemis4, self.artemis5, self.apollo,
                          equip, clanc)
@@ -201,6 +258,10 @@ class Load:
         tmp = self.jumpb.get_rules_level()
         if tmp > r_level:
             r_level = tmp
+        tmp = self.btrap.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+
         # Hack: Armored location
         if self.armored == True and r_level < 2:
             r_level = 2

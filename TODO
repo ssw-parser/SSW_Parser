@@ -74,7 +74,6 @@ Priority: High
 
 Missing:
 - Turrets
-- Booby trap
 - Mixed tech omni configs
 
 === Add missing mechs to database ===
@@ -313,7 +312,7 @@ code or in SSW.
 - Talons (which way is right?)
 - Unknown issues:
 -- Hatamoto-Kaeru
--- Banzai - booby trap?
+-- Banzai
 -- BattleMaster BLR- 6X
 -- Hunchback HBK-7X-4 - torso cockpit?
 -- Thunder Fox C3 - mechanical jump boosters?

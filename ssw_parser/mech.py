@@ -729,6 +729,9 @@ class Mech:
         cost += i.partw.get_cost()
         cost += i.jumpb.get_cost()
 
+        # Booby trap
+        cost += i.btrap.get_cost()
+
         # Multi-slot stuff
         for m in self.multi:
             if m == "Chameleon LPS":
