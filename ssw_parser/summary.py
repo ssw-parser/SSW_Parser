@@ -761,20 +761,6 @@ def print_striker_list(file_list, select_l, header):
 
 ## Skirmisher listing
 
-def create_skirmisher_list_item(mech, i, var):
-    """
-    Compile info used by print_skirmisher_list()
-
-    Requirements:
-    - Walk 5 or Jump 5
-    - At least 5 damage at range 15
-    - BF armor value at least 3
-    """
-    if mech.is_skirmisher(i):
-        return create_std_list_item(mech, i, 15)
-    else:
-        return False
-
 def print_skirmisher_list(file_list, select_l, header):
     """
     skirmisher_list output
@@ -782,9 +768,15 @@ def print_skirmisher_list(file_list, select_l, header):
     In the form of name, weight, BV, damage, heat, movement, weapon details
     sorted by damage, descending
     """
+    # Add skirimisher selector
+    # - Walk 5 or Jump 5
+    # - At least 5 damage at range 15
+    # - BF armor value at least 3
+    select_l.append(lambda x, y: (x.is_skirmisher(y)))
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_skirmisher_list_item, 0)
+                                 create_std_list_item, 15)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -801,21 +793,6 @@ def print_skirmisher_list(file_list, select_l, header):
 
 ## Brawler listing
 
-def create_brawler_list_item(mech, i, var):
-    """
-    Compile info used by print_brawler_list()
-
-    Requirements:
-    - Walk 4 or Jump 4
-    - At least 10 damage at range 15
-    - BF armor value at least 4
-    - Do more damage at range 15 than range 18
-    """
-    if mech.is_brawler(i):
-        return create_std_list_item(mech, i, 15)
-    else:
-        return False
-
 def print_brawler_list(file_list, select_l, header):
     """
     brawler_list output
@@ -823,9 +800,16 @@ def print_brawler_list(file_list, select_l, header):
     In the form of name, weight, BV, damage, heat, movement, weapon details
     sorted by damage, descending
     """
+    # Add brawler selector
+    # - Walk 4 or Jump 4
+    # - At least 10 damage at range 15
+    # - BF armor value at least 4
+    # - Do more damage at range 15 than range 18
+    select_l.append(lambda x, y: (x.is_brawler(y)))
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_brawler_list_item, 0)
+                                 create_std_list_item, 15)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
