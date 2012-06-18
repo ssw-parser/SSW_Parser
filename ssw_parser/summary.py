@@ -1345,11 +1345,12 @@ def main():
         header_l.append("with Battlemech Taser")
     # Inner Sphere
     if args.i:
-        select_l.append(lambda x, y: x.techbase == "Inner Sphere")
+        select_l.append(lambda x, y: (x.techbase == "Inner Sphere" and
+                                      not y.mixed))
         header_l.append("Inner Sphere-tech")
     # Clan
     if args.cl:
-        select_l.append(lambda x, y: x.techbase == "Clan")
+        select_l.append(lambda x, y: (x.techbase == "Clan" and not y.mixed))
         header_l.append("Clan-tech")
     # Command Console
     if args.cc:

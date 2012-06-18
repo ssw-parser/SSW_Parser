@@ -113,6 +113,12 @@ class Load:
         self.jjets = JumpJets(None, mech.weight)
         self.partw = PartialWing(mech.weight, partw)
 
+        # Assume not mixed tech
+        self.mixed = False
+        for rll in load.getElementsByTagName('techbase'):
+            if gettext(rll.childNodes) == "Mixed":
+                self.mixed = True
+
         # Get Actuator Enhancement System
         self.aes_ra = False
         self.aes_la = False
@@ -248,6 +254,9 @@ class Load:
         Return rules level of loadout
         """
         r_level = 0
+        # Mixed Tech is advanced rules
+        if self.mixed:
+            r_level = 2
         tmp = self.gear.get_rules_level()
         if tmp > r_level:
             r_level = tmp
