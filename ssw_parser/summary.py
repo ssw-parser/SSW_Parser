@@ -689,14 +689,21 @@ def print_juggernaut_list(file_list, select_l, header_l):
     # Add juggernaut selector
     # - At least 30 damage at range 6
     # - BF armor at least 5
-    select_l.append(lambda x, y: (x.is_juggernaut(y)))
+    arm = 135 # Minimum armor
+    dam = 30 # Minimum damage
+    rng = 6 # Selected range
+    select_l.append(lambda x, y: (x.armor.total.arm >= arm))
+    header_l.append(("with at least armor %d" % arm))
+    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
+#    select_l.append(lambda x, y: (x.is_juggernaut(y)))
 
     # Construct header
     header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_std_list_item, 6)
+                                 create_std_list_item, rng)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -789,9 +796,12 @@ def print_striker_list(file_list, select_l, header_l):
     # - Walk 5 or Jump 5
     # - At least 10 damage at range 3
     spd = 5 # Minimum speed
-    # How select damage?
+    dam = 15 # Minimum damage
+    rng = 3 # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
+    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_striker(y)))
 
     # Construct header
@@ -799,7 +809,7 @@ def print_striker_list(file_list, select_l, header_l):
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_std_list_item, 3)
+                                 create_std_list_item, rng)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -830,11 +840,14 @@ def print_skirmisher_list(file_list, select_l, header_l):
     # - BF armor value at least 3
     spd = 5 # Minimum speed
     arm = 75 # Minimum armor
-    # How select damage?
+    dam = 5 # Minimum damage
+    rng = 15 # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
     select_l.append(lambda x, y: (x.armor.total.arm >= arm))
     header_l.append(("with at least armor %d" % arm))
+    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_skirmisher(y)))
 
     # Construct header
@@ -842,7 +855,7 @@ def print_skirmisher_list(file_list, select_l, header_l):
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_std_list_item, 15)
+                                 create_std_list_item, rng)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -874,11 +887,14 @@ def print_brawler_list(file_list, select_l, header_l):
     # - Do more damage at range 15 than range 18
     spd = 4 # Minimum speed
     arm = 105 # Minimum armor
-    # How select damage?
+    dam = 10 # Minimum damage
+    rng = 15 # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
     select_l.append(lambda x, y: (x.armor.total.arm >= arm))
     header_l.append(("with at least armor %d" % arm))
+    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_brawler(y)))
 
     # Construct header
@@ -886,7 +902,7 @@ def print_brawler_list(file_list, select_l, header_l):
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_std_list_item, 15)
+                                 create_std_list_item, rng)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
