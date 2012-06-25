@@ -785,10 +785,14 @@ def print_striker_list(file_list, select_l, header_l):
     In the form of name, weight, BV, damage, heat, movement, weapon details
     sorted by damage, descending
     """
-    # Add sniper selector
-    # - Walk 6 or Jump 5
+    # Add striker selector
+    # - Walk 5 or Jump 5
     # - At least 10 damage at range 3
-    select_l.append(lambda x, y: (x.is_striker(y)))
+    spd = 5 # Minimum speed
+    # How select damage?
+    select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+    header_l.append("with at least speed %d" % spd)
+#    select_l.append(lambda x, y: (x.is_striker(y)))
 
     # Construct header
     header = create_header(header_l)
@@ -868,7 +872,14 @@ def print_brawler_list(file_list, select_l, header_l):
     # - At least 10 damage at range 15
     # - BF armor value at least 4
     # - Do more damage at range 15 than range 18
-    select_l.append(lambda x, y: (x.is_brawler(y)))
+    spd = 4 # Minimum speed
+    arm = 105 # Minimum armor
+    # How select damage?
+    select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+    header_l.append("with at least speed %d" % spd)
+    select_l.append(lambda x, y: (x.armor.total.arm >= arm))
+    header_l.append(("with at least armor %d" % arm))
+#    select_l.append(lambda x, y: (x.is_brawler(y)))
 
     # Construct header
     header = create_header(header_l)
