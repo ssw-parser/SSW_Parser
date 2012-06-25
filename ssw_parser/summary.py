@@ -806,7 +806,7 @@ def print_striker_list(file_list, select_l, header_l):
     """
     # Add striker selector
     # - Walk 5 or Jump 5
-    # - At least 10 damage at range 3
+    # - At least 15 damage at range 3
     spd = 5 # Minimum speed
     dam = 15 # Minimum damage
     rng = 3 # Selected range
@@ -907,9 +907,8 @@ def print_brawler_list(file_list, select_l, header_l):
     header_l.append(("with at least armor %d" % arm))
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
-    select_l.append(lambda x, y: ((y.gear.weaponlist.count_damage(rng) >= dam)
-                                  and (y.gear.weaponlist.count_damage(rng) >
-                                       y.gear.weaponlist.count_damage(rng+3))))
+    select_l.append(lambda x, y: ((y.gear.weaponlist.count_damage(rng) >
+                                   y.gear.weaponlist.count_damage(rng+3))))
     header_l.append(("does more damage at range %d than range %d" %
                      (rng, rng+3)))
 #    select_l.append(lambda x, y: (x.is_brawler(y)))
