@@ -346,6 +346,11 @@ code or in SSW.
 
 - Use a variable to select sorting for the BV lists.
 
+- Use summary.py's own filters, instead of the is_xxx methods, so
+  headers can be built.
+
+- Figure out a way to create a damage cutoff filter.
+
 - List special equipment:
 -- Stealth
 -- Artillery
@@ -381,6 +386,8 @@ code or in SSW.
 Fast (5+) vs Slow (4-): 
 - Fast --> Scout, Skirmisher, Striker
 - Slow --> Brawler, Juggernaut, Sniper, Missile Boat
+
+For Brawlers check that not plagued by minimum ranges.
 
 ==================================
 First off, I would keep each maneuver element uniform in speed, if possible, to allow for rapid deployment of faster elements when needed.

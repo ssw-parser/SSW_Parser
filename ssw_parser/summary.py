@@ -179,13 +179,16 @@ def create_bv_list_item(mech, i, var):
         cockp = "SML"
     return (name_str, weight, batt_val, bv_ton, bv_def, bv_off, cockp)
 
-def print_bvt_list(file_list, select_l, header):
+def print_bvt_list(file_list, select_l, header_l):
     """
     BV_list output
 
     In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
     sorted by BV/weight, descending
     """
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_bv_list_item, 0)
@@ -204,13 +207,16 @@ def print_bvt_list(file_list, select_l, header):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
-def print_bv_list(file_list, select_l, header):
+def print_bv_list(file_list, select_l, header_l):
     """
     BV_list output
 
     In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
     sorted by BV/weight, descending
     """
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_bv_list_item, 0)
@@ -266,7 +272,7 @@ def create_armor_list_item(mech, i, var):
     return (name_str, weight, batt_val, armor, e_str, s_str, arm_p, max_p,
             wgt, bf_a, short)
 
-def print_armor_list(file_list, select_l, header):
+def print_armor_list(file_list, select_l, header_l):
     """
     armor_list output
 
@@ -274,6 +280,9 @@ def print_armor_list(file_list, select_l, header):
     armor tonnage, battleforce armor value, armor type
     sorted by armor points, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_armor_list_item, 0)
 
@@ -316,7 +325,7 @@ def create_speed_list_item(mech, i, var):
     return (name_str, weight, batt_val, spd, walk, run, jump, enh, mod, bf_str,
             sup)
 
-def print_speed_list(file_list, select_l, header):
+def print_speed_list(file_list, select_l, header_l):
     """
     speed_list output
 
@@ -324,6 +333,9 @@ def print_speed_list(file_list, select_l, header):
     battleforce string
     sorted by speed, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_speed_list_item, 0)
 
@@ -361,13 +373,16 @@ def create_weapon_list_item(mech, i, var):
                
     return (name_str, weight, batt_val, mov, l_str)
 
-def print_weapon_list(file_list, select_l, header):
+def print_weapon_list(file_list, select_l, header_l):
     """
     weapon_list output
 
     In the form of name, weight, BV, Movement, weapon details
     sorted by BV, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_weapon_list_item, 0)
@@ -409,13 +424,16 @@ def create_main_weapon_list_item(mech, i, var):
                
     return (name_str, weight, batt_val, mov, l_str)
 
-def print_main_weapon_list(file_list, select_l, header):
+def print_main_weapon_list(file_list, select_l, header_l):
     """
     main_weapon_list output
 
     In the form of name, weight, BV, Movement, weapon details
     sorted by BV, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_main_weapon_list_item, 0)
@@ -471,7 +489,7 @@ def create_missile_list_item(mech, i, var):
 
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
-def print_missile_list(file_list, select_l, header):
+def print_missile_list(file_list, select_l, header_l):
     """
     missile_list output
 
@@ -479,6 +497,9 @@ def print_missile_list(file_list, select_l, header):
     launcher details
     sorted by LRM tubes, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_missile_list_item, 0)
@@ -535,7 +556,7 @@ def create_srm_list_item(mech, i, var):
                
     return (name_str, weight, batt_val, srm, art, l_heat, mov, l_str)
 
-def print_srm_list(file_list, select_l, header):
+def print_srm_list(file_list, select_l, header_l):
     """
     srm_list output
 
@@ -543,6 +564,9 @@ def print_srm_list(file_list, select_l, header):
     launcher details
     sorted by SRM tubes, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_srm_list_item, 0)
 
@@ -596,7 +620,7 @@ def create_autocannon_list_item(mech, i, var):
                
     return (name_str, weight, batt_val, dam, tarcomp, l_heat, mov, l_str)
 
-def print_autocannon_list(file_list, select_l, header):
+def print_autocannon_list(file_list, select_l, header_l):
     """
     autocannon_list output
 
@@ -604,6 +628,9 @@ def print_autocannon_list(file_list, select_l, header):
     weapon details
     sorted by damage, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_autocannon_list_item, 0)
@@ -652,7 +679,7 @@ def create_std_list_item(mech, i, rnge):
     return (name_str, weight, batt_val, dam, l_heat, mov, arm_p, l_str)
 
 
-def print_juggernaut_list(file_list, select_l, header):
+def print_juggernaut_list(file_list, select_l, header_l):
     """
     juggernaut_list output
 
@@ -663,6 +690,9 @@ def print_juggernaut_list(file_list, select_l, header):
     # - At least 30 damage at range 6
     # - BF armor at least 5
     select_l.append(lambda x, y: (x.is_juggernaut(y)))
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
@@ -685,7 +715,7 @@ def print_juggernaut_list(file_list, select_l, header):
 
 ## Sniper listing
 
-def print_snipe_list(file_list, select_l, header):
+def print_snipe_list(file_list, select_l, header_l):
     """
     snipe_list output
 
@@ -695,6 +725,9 @@ def print_snipe_list(file_list, select_l, header):
     # Add sniper selector
     # - At least 10 damage at range 18
     select_l.append(lambda x, y: (x.is_sniper(y)))
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_std_list_item, 18)
@@ -713,15 +746,18 @@ def print_snipe_list(file_list, select_l, header):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
-## Range 18 listing
+## Range listing
 
-def print_range_list(file_list, select_l, header, rng):
+def print_range_list(file_list, select_l, header_l, rng):
     """
     range_list output
 
     In the form of name, weight, BV, damage, heat, movement, weapon details
     sorted by damage, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
@@ -742,7 +778,7 @@ def print_range_list(file_list, select_l, header, rng):
 
 ## Striker listing
 
-def print_striker_list(file_list, select_l, header):
+def print_striker_list(file_list, select_l, header_l):
     """
     striker_list output
 
@@ -753,6 +789,9 @@ def print_striker_list(file_list, select_l, header):
     # - Walk 6 or Jump 5
     # - At least 10 damage at range 3
     select_l.append(lambda x, y: (x.is_striker(y)))
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
@@ -774,7 +813,7 @@ def print_striker_list(file_list, select_l, header):
 
 ## Skirmisher listing
 
-def print_skirmisher_list(file_list, select_l, header):
+def print_skirmisher_list(file_list, select_l, header_l):
     """
     skirmisher_list output
 
@@ -785,7 +824,17 @@ def print_skirmisher_list(file_list, select_l, header):
     # - Walk 5 or Jump 5
     # - At least 5 damage at range 15
     # - BF armor value at least 3
-    select_l.append(lambda x, y: (x.is_skirmisher(y)))
+    spd = 5 # Minimum speed
+    arm = 75 # Minimum armor
+    # How select damage?
+    select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+    header_l.append("with at least speed %d" % spd)
+    select_l.append(lambda x, y: (x.armor.total.arm >= arm))
+    header_l.append(("with at least armor %d" % arm))
+#    select_l.append(lambda x, y: (x.is_skirmisher(y)))
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
@@ -807,7 +856,7 @@ def print_skirmisher_list(file_list, select_l, header):
 
 ## Brawler listing
 
-def print_brawler_list(file_list, select_l, header):
+def print_brawler_list(file_list, select_l, header_l):
     """
     brawler_list output
 
@@ -820,6 +869,9 @@ def print_brawler_list(file_list, select_l, header):
     # - BF armor value at least 4
     # - Do more damage at range 15 than range 18
     select_l.append(lambda x, y: (x.is_brawler(y)))
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l,
@@ -897,7 +949,7 @@ def create_headcap_list_item(mech, i, var):
 
     return (name_str, weight, batt_val, cap, mov, armor, tarcomp, l_str)
 
-def print_headcap_list(file_list, select_l, header):
+def print_headcap_list(file_list, select_l, header_l):
     """
     headcap_list output
 
@@ -905,6 +957,9 @@ def print_headcap_list(file_list, select_l, header):
     weapon details
     sorted by number of headcappers, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_headcap_list_item, 0)
@@ -939,7 +994,7 @@ def create_battle_force_list_item(mech, i, var):
 
     return (name_str, weight, batt_val, mov, armor)
 
-def print_battle_force_list(file_list, select_l, header):
+def print_battle_force_list(file_list, select_l, header_l):
     """
     battle_force_list output
 
@@ -947,6 +1002,9 @@ def print_battle_force_list(file_list, select_l, header):
     weapon details
     sorted by number of headcappers, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_battle_force_list_item, 0)
@@ -988,13 +1046,16 @@ def create_damage_range_list_item(mech, i, var):
     return (name_str, weight, batt_val, dam3, dam6, dam9, dam12, dam15, dam18,
             dam21, dam24)
 
-def print_damage_range_list(file_list, select_l, header):
+def print_damage_range_list(file_list, select_l, header_l):
     """
     range_list output
 
     In the form of name, weight, BV, damage
     sorted by damage, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l,
                                  create_damage_range_list_item, 0)
@@ -1060,13 +1121,16 @@ def create_type_list_item(mech, i, var):
     return (name_str, weight, batt_val, sco, stri, skir, brw, mis, snp, jug,
             warn)
 
-def print_type_list(file_list, select_l, header):
+def print_type_list(file_list, select_l, header_l):
     """
     type_list output
 
     In the form of name, weight, BV, damage
     sorted by damage, descending
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_type_list_item, 0)
 
@@ -1101,13 +1165,16 @@ def create_cost_list_item(mech, i, var):
 
     return (name_str, weight, batt_val, cost, cost_ssw, cost_diff)
 
-def print_cost_list(file_list, select_l, header):
+def print_cost_list(file_list, select_l, header_l):
     """
     cost_list output
 
     In the form of name, weight, BV, cost
     sorted by cost, descending
     """
+
+    # Construct header
+    header = create_header(header_l)
 
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_cost_list_item, 0)
@@ -1145,13 +1212,16 @@ def create_def_list_item(mech, i, var):
     return (name_str, weight, batt_val, source, rules, prod_era, year)
 
 
-def print_default(file_list, select_l, header):
+def print_default(file_list, select_l, header_l):
     """
     Default output format
 
     In the form of name, weight, BV, source, era
     Intended to conform to the MUL format
     """
+    # Construct header
+    header = create_header(header_l)
+
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_def_list_item, 0)
 
@@ -1444,17 +1514,14 @@ def main():
         'cost' : print_cost_list
         }
 
-    # Construct header
-    header = create_header(header_l)
-
     # Special case, damage at range <d>
     if args.r > 0:
-        print_range_list(file_list, select_l, header, args.r)
+        print_range_list(file_list, select_l, header_l, args.r)
     # Otherwise use dictionary lookup
     elif args.output:
-        arg_calls[args.output](file_list, select_l, header)
+        arg_calls[args.output](file_list, select_l, header_l)
     else:
-        print_default(file_list, select_l, header)
+        print_default(file_list, select_l, header_l)
 
 if __name__ == "__main__":
     main()
