@@ -704,16 +704,16 @@ def print_snipe_list(file_list, select_l, header):
 
 ## Range 18 listing
 
-def print_range_18_list(file_list, select_l, header):
+def print_range_list(file_list, select_l, header, rng):
     """
-    range_18_list output
+    range_list output
 
     In the form of name, weight, BV, damage, heat, movement, weapon details
     sorted by damage, descending
     """
     # Build list
     mech_list = create_mech_list(file_list, select_l,
-                                 create_std_list_item, 18)
+                                 create_std_list_item, rng)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -951,9 +951,9 @@ def print_battle_force_list(file_list, select_l, header):
 
 ## Damage/range listing
 
-def create_range_list_item(mech, i, var):
+def create_damage_range_list_item(mech, i, var):
     """
-    Compile info used by print_range_list()
+    Compile info used by print_damage_range_list()
     """
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
@@ -971,7 +971,7 @@ def create_range_list_item(mech, i, var):
     return (name_str, weight, batt_val, dam3, dam6, dam9, dam12, dam15, dam18,
             dam21, dam24)
 
-def print_range_list(file_list, select_l, header):
+def print_damage_range_list(file_list, select_l, header):
     """
     range_list output
 
@@ -979,7 +979,8 @@ def print_range_list(file_list, select_l, header):
     sorted by damage, descending
     """
     # Build list
-    mech_list = create_mech_list(file_list, select_l, create_range_list_item, 0)
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_damage_range_list_item, 0)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
@@ -1172,8 +1173,9 @@ def parse_arg():
     parser.add_argument('-cap', action='store_const',
                         help='Headcap list output',
                         dest = 'output', const = 'cap')
-    parser.add_argument('-r', action='store_const', help='Range list output',
-                        dest = 'output', const = 'r')
+    parser.add_argument('-dr', action='store_const',
+                        help='Print damage over range list output',
+                        dest = 'output', const = 'dr')
     parser.add_argument('-str', action='store_const',
                         help='Striker list output',
                         dest = 'output', const = 'str')
@@ -1202,9 +1204,8 @@ def parse_arg():
     parser.add_argument('-bf', action='store_const',
                         help='Battle Force list output',
                         dest = 'output', const = 'bf')
-    parser.add_argument('-r18', action='store_const',
-                        help='Range 18 list output',
-                        dest = 'output', const = 'r18')
+    parser.add_argument('-r', action='store', default = 0, type=int,
+                        help='Range <d> damage list output',)
     parser.add_argument('-cost', action='store_const',
                         help='Cost list output',
                         dest = 'output', const = 'cost')
@@ -1408,8 +1409,7 @@ def main():
         'l' : print_missile_list,
         'sn' : print_snipe_list,
         'cap' : print_headcap_list,
-        'r' : print_range_list,
-        'r18' : print_range_18_list,
+        'dr' : print_damage_range_list,
         'str' : print_striker_list,
         'skir' : print_skirmisher_list,
         'brwl' : print_brawler_list,
@@ -1426,7 +1426,11 @@ def main():
     # Construct header
     header = create_header(header_l)
 
-    if args.output:
+    # Special case, damage at range <d>
+    if args.r > 0:
+        print_range_list(file_list, select_l, header, args.r)
+    # Otherwise use dictionary lookup
+    elif args.output:
         arg_calls[args.output](file_list, select_l, header)
     else:
         print_default(file_list, select_l, header)

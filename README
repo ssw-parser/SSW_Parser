@@ -45,11 +45,11 @@ file.
 -cap: Output a list of headcappers mounted on the mech, sorted by
  number of cappers.
 
--r: Output a list of how max damage varies over range, sorted by
+-dr: Output a list of how max damage varies over range, sorted by
  short-range damage. (No heat taken into account.)
 
--r18: Output a list of weapons with reach 18 mounted on the mech, sorted
- by damage at range 18. (Less strict in filtering out designs than -sn.)
+-r <d>: Output a list of weapons with reach <d> mounted on the mech, sorted
+ by damage at range <d>. (Less strict in filtering out designs than -sn.)
 
 -str: Output a list of strikers, sorted by damage.
 

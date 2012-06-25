@@ -346,7 +346,6 @@ code or in SSW.
 
 - Add header that describes the different types of output.
 
-- Change r18 to allow for an argument to specify range.
 - Use a variable to select sorting for the BV lists.
 
 - List special equipment:
