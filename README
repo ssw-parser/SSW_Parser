@@ -59,6 +59,10 @@ file.
 
 -jug: Output a list of juggernauts. (Needs work.)
 
+-mb: Output a list of missile boats.
+
+-scout: Output a list of scouts.
+
 -typ: Output info on which roles mechs qualify for.
 
 -ac: Output a list of autocannons that can use special ammo.

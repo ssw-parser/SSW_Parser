@@ -922,6 +922,92 @@ def print_brawler_list(file_list, select_l, header_l):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
+## Scout listing
+
+def print_scout_list(file_list, select_l, header_l):
+    """
+    scout_list output
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Add striker selector
+    # - Walk 5 or Jump 5
+    # - At least 10 damage at range 3
+#    spd = 5 # Minimum speed
+#    dam = 15 # Minimum damage
+#    rng = 3 # Selected range
+#    select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+#    header_l.append("with at least speed %d" % spd)
+#    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+#    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
+    select_l.append(lambda x, y: (x.is_scout(y)))
+
+    # Construct header
+    header = create_header(header_l)
+
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_std_list_item, 3)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print "=== List of 'Scouts' (Alpha) ==="
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+## Missile Boat listing
+
+def print_missile_boat_list(file_list, select_l, header_l):
+    """
+    missile_boat_list output
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Add striker selector
+    # - Walk 5 or Jump 5
+    # - At least 10 damage at range 3
+#    spd = 5 # Minimum speed
+#    dam = 15 # Minimum damage
+#    rng = 3 # Selected range
+#    select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
+#    header_l.append("with at least speed %d" % spd)
+#    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+#    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
+    select_l.append(lambda x, y: (x.is_missile_boat(y)))
+
+    # Construct header
+    header = create_header(header_l)
+
+    # Build list
+    mech_list = create_mech_list(file_list, select_l,
+                                 create_std_list_item, 21)
+
+    # Sort by speed
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print "=== List of 'Missile Boats' (Alpha) ==="
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+
+
 ## Head-capper listing
 
 def create_headcap_list_item(mech, i, var):
@@ -1307,6 +1393,12 @@ def parse_arg():
     parser.add_argument('-brwl', action='store_const',
                         help='Brawler list output',
                         dest = 'output', const = 'brwl')
+    parser.add_argument('-scout', action='store_const',
+                        help='Scout list output',
+                        dest = 'output', const = 'scout')
+    parser.add_argument('-mb', action='store_const',
+                        help='Missile Boat list output',
+                        dest = 'output', const = 'mb')
     parser.add_argument('-jug', action='store_const',
                         help='Juggernaut list output',
                         dest = 'output', const = 'jug')
@@ -1528,17 +1620,22 @@ def main():
         'bv' : print_bv_list,
         'a' : print_armor_list,
         's' : print_speed_list,
-        'l' : print_missile_list,
-        'sn' : print_snipe_list,
         'cap' : print_headcap_list,
         'dr' : print_damage_range_list,
+        # Mech types
+        'sn' : print_snipe_list,
         'str' : print_striker_list,
         'skir' : print_skirmisher_list,
         'brwl' : print_brawler_list,
         'jug' : print_juggernaut_list,
+        'mb' : print_missile_boat_list,
+        'scout' : print_scout_list,
         'typ' : print_type_list,
+        # Special ammo users
+        'l' : print_missile_list,
         'ac' : print_autocannon_list,
         'srm' : print_srm_list,
+        # Misc
         'w' : print_weapon_list,
         'mw' : print_main_weapon_list,
         'bf' : print_battle_force_list,
