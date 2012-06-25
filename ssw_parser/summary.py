@@ -731,13 +731,17 @@ def print_snipe_list(file_list, select_l, header_l):
     """
     # Add sniper selector
     # - At least 10 damage at range 18
-    select_l.append(lambda x, y: (x.is_sniper(y)))
+    dam = 10 # Minimum damage
+    rng = 18 # Selected range
+    select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
+    header_l.append(("with at least damage %d at range %d" % (dam, rng)))
+#    select_l.append(lambda x, y: (x.is_sniper(y)))
 
     # Construct header
     header = create_header(header_l)
 
     # Build list
-    mech_list = create_mech_list(file_list, select_l, create_std_list_item, 18)
+    mech_list = create_mech_list(file_list, select_l, create_std_list_item, rng)
 
     # Sort by speed
     mech_list.sort(key=itemgetter(3), reverse=True)
