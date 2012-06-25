@@ -349,7 +349,7 @@ code or in SSW.
 - Use summary.py's own filters, instead of the is_xxx methods, so
   headers can be built.
 
-- Figure out a way to create a damage cutoff filter.
+- Figure out how to exclude missile boats from the sniper category.
 
 - List special equipment:
 -- Stealth
