@@ -344,8 +344,6 @@ code or in SSW.
 
 == summary.py ==
 
-- Add header that describes the different types of output.
-
 - Use a variable to select sorting for the BV lists.
 
 - List special equipment:
@@ -363,6 +361,7 @@ code or in SSW.
 
 - Add ability to filter out L and XL engines (a cheap mechs only filter.)
 -- Implement cost and use that instead
+-- Cost/ton sorting for mechs?
 
 - Speed listing:
 -- Show UMU, liquid cargo for space

@@ -194,6 +194,7 @@ def print_bvt_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== Battle Value List by BV/weight ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
@@ -218,6 +219,7 @@ def print_bv_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
+    print "=== Battle Value List by BV ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
@@ -279,6 +281,7 @@ def print_armor_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(6), reverse=True)
 
     # Print output
+    print "=== Armor List ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Armr Exp Sth | Points  Tons  BF Type"
@@ -328,6 +331,7 @@ def print_speed_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== Speed List ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV    Speed   Enh  Mod BF    Super"
@@ -372,6 +376,7 @@ def print_weapon_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
+    print "=== List of All Weapons ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Mov Weapons/turns of fire"
@@ -419,6 +424,7 @@ def print_main_weapon_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
+    print "=== List of 'Main' Weapons ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Mov Weapons/turns of fire"
@@ -481,6 +487,7 @@ def print_missile_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of LRM Tubes ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
@@ -543,6 +550,7 @@ def print_srm_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of SRM Tubes ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   SRM Art Heat  Mov Lnchrs/turns of fire"
@@ -604,6 +612,7 @@ def print_autocannon_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of Special Ammo Capable Autocannons ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam TC  Heat  Mov Guns/turns of fire"
@@ -663,6 +672,7 @@ def print_juggernaut_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of 'Juggernauts' (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
@@ -693,6 +703,7 @@ def print_snipe_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of 'Snipers' (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
@@ -719,6 +730,7 @@ def print_range_list(file_list, select_l, header, rng):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print ("=== List of Damage at Range %d ===" % (rng))
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
@@ -750,6 +762,7 @@ def print_striker_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of 'Strikers' (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
@@ -782,6 +795,7 @@ def print_skirmisher_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of 'Skirmishers' (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
@@ -815,6 +829,7 @@ def print_brawler_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of 'Brawlers' (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
@@ -898,6 +913,7 @@ def print_headcap_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of Headcappers ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV   Cap Mov Armr TC Weapons/turns of fire"
@@ -939,6 +955,7 @@ def print_battle_force_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
+    print "=== BattleForce Data List (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Wg Pt Mov  Arm"
@@ -986,6 +1003,7 @@ def print_damage_range_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== Damage by Range List ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV    D3  D6  D9 D12 D15 D18 D21 D24"
@@ -1056,6 +1074,7 @@ def print_type_list(file_list, select_l, header):
     # mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of Mechs by Type (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV    SCT STR SKR BRW MIS SNP JUG WARN"
@@ -1097,6 +1116,7 @@ def print_cost_list(file_list, select_l, header):
     mech_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
+    print "=== List of Mech Costs (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV      cost       cost(SSW)     difference"
@@ -1136,6 +1156,7 @@ def print_default(file_list, select_l, header):
     mech_list = create_mech_list(file_list, select_l, create_def_list_item, 0)
 
     # Print output
+    print "=== MUL-Type Listing of Mech ==="
     print header
     print "Name                          Tons BV   Source   Rul Era   Year"
     for i in mech_list:
