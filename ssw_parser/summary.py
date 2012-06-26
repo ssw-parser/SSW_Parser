@@ -687,6 +687,29 @@ def create_std_list_item(mech, i, rnge):
     return (name_str, weight, batt_val, dam, l_heat, mov, arm_p, l_str)
 
 
+def print_std_list(mech_list, title, header):
+    """
+    print out lists created by create_std_list_item
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Sort by damage
+    mech_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print title
+    print header
+    header2 = "Name                          "
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
+    print header2
+    for i in mech_list:
+        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+## Juggernaut listing
+
 def print_juggernaut_list(file_list, select_l, header_l):
     """
     juggernaut_list output
@@ -713,20 +736,7 @@ def print_juggernaut_list(file_list, select_l, header_l):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Juggernauts' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
-
+    print_std_list(mech_list, "=== List of 'Juggernauts' (Alpha) ===", header)
 
 ## Sniper listing
 
@@ -751,19 +761,7 @@ def print_snipe_list(file_list, select_l, header_l):
     # Build list
     mech_list = create_mech_list(file_list, select_l, create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Snipers' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
+    print_std_list(mech_list, "=== List of 'Snipers' (Alpha) ===", header)
 
 ## Range listing
 
@@ -781,19 +779,8 @@ def print_range_list(file_list, select_l, header_l, rng):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print ("=== List of Damage at Range %d ===" % (rng))
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
+    print_std_list(mech_list, ("=== List of Damage at Range %d ===" % (rng)),
+                   header)
 
 ## Striker listing
 
@@ -823,19 +810,7 @@ def print_striker_list(file_list, select_l, header_l):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Strikers' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
+    print_std_list(mech_list, "=== List of 'Strikers' (Alpha) ===", header)
 
 ## Skirmisher listing
 
@@ -869,19 +844,7 @@ def print_skirmisher_list(file_list, select_l, header_l):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Skirmishers' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
+    print_std_list(mech_list, "=== List of 'Skirmishers' (Alpha) ===", header)
 
 ## Brawler listing
 
@@ -920,19 +883,7 @@ def print_brawler_list(file_list, select_l, header_l):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Brawlers' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
+    print_std_list(mech_list, "=== List of 'Brawlers' (Alpha) ===", header)
 
 ## Scout listing
 
@@ -958,19 +909,7 @@ def print_scout_list(file_list, select_l, header_l):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Scouts' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
+    print_std_list(mech_list, "=== List of 'Scouts' (Alpha) ===", header)
 
 ## Missile Boat listing
 
@@ -996,20 +935,7 @@ def print_missile_boat_list(file_list, select_l, header_l):
     mech_list = create_mech_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    # Sort by speed
-    mech_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print "=== List of 'Missile Boats' (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in mech_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
-
+    print_std_list(mech_list, "=== List of 'Missile Boats' (Alpha) ===", header)
 
 
 ## Head-capper listing
