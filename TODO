@@ -115,11 +115,7 @@ Priority: Medium
 
 === Year Info stuff ===
 
-Priority: Medium
-
-- Add year-era check for omni configs.
-
-- CHECK: Medium
+Priority: Medium (need MUL to update)
 
 - Missing year info in MUL:
 -- Clint CLNT-2-4T (3039)

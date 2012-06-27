@@ -26,7 +26,7 @@ from math import ceil
 from operator import itemgetter
 from movement import JumpJets, JumpBoosters, PartialWing
 from gear import Equip, Gear, Heatsinks
-from util import ceil_05, gettext, get_child, get_child_data
+from util import ceil_05, gettext, get_child, get_child_data, year_era_test
 from item import Item
 
 class BoobyTrap(Item):
@@ -568,6 +568,10 @@ class Loadout(Load):
 
         # Get cost
         cost = float(get_child_data(load, 'cost'))
+
+        # Sanity check for year
+        year_era_test(self.year, prod_era,
+                      mech.name + " " + mech.model + self.name)
 
         # Get equipment
         self.equip = list(base.equip)
