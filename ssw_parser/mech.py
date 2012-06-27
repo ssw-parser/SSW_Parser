@@ -77,6 +77,51 @@ class Mech:
             self.year = int(get_child_data(mmech, 'year'))
 
             # Sanity check for year
+            if (self.year <= 2570 and self.prod_era != 0):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 2571 and self.year <= 2780 and self.prod_era != 1):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 2781 and self.year <= 2900 and self.prod_era != 2):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 2901 and self.year <= 3048 and self.prod_era != 3):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 3049 and self.year <= 3061 and self.prod_era != 4):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 3062 and self.year <= 3067 and self.prod_era != 5):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 3068 and self.year <= 3085 and self.prod_era != 6):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 3086 and self.year <= 3130 and self.prod_era != 7):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
+            if (self.year >= 3131 and self.prod_era != 8):
+                print self.name, self.model
+                print "Year-Era mis-match!", self.year, self.prod_era
+                sys.exit(1)
+
             if (self.year < 2439):
                 print self.name, self.model
                 print "Battlemech older than Mackie!"

@@ -80,7 +80,8 @@ Comment: Not really a programming task.
 - Dossiers
 - Starter books
 - WoR: Supplementals (wait for MUL)
-- Klondike industrial mechs (low priority)
+- Klondike industrial mechs (low priority, since this program does not
+  handle industrial mechs (at least for now).)
 
 Primitive Jump-jets:
 - Change Wasp WSP-1 to use primitive jump-jets when available.
@@ -116,7 +117,9 @@ Priority: Medium
 
 Priority: Medium
 
-- Add a check if year and era match up.
+- Add year-era check for omni configs.
+
+- CHECK: Medium, Heavy, Assault
 
 - Missing year info in MUL:
 -- Clint CLNT-2-4T (3039)
