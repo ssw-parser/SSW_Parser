@@ -23,6 +23,7 @@ Prints out a one-line summary of a mech
 """
 
 import argparse
+import os
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
@@ -1421,7 +1422,16 @@ def main():
                     continue
                 # Ignore comments
                 if fname[0] == '#':
-                    continue
+                    # We have a command
+                    if fname[1] == '!':
+                        # Change working directory
+                        if fname[2:4] == "cd":
+                            d_string = fname[5:]
+                            work_dir = os.getcwdu()
+                            os.chdir(work_dir + "/" + d_string)
+                            continue
+                    else:
+                        continue
                 file_list.append(fname)
 
     # Remove duplicates

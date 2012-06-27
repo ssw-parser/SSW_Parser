@@ -23,8 +23,12 @@ file.
 === A brief overview of command-line arguments for summary.py ===
 
 ==== Input Switches ====
--f <file>: Reads a from the file a list of mech .ssw files.
-
+-f <file>: Reads from the file a list of mech .ssw files. Lines that
+begins with '#' are comments. However adding a line containing the
+following: '#!cd <dir_name>' allows change of working directory, which
+is useful when wanting to avoid putting the file containing the list
+and the .ssw files in the same directory.
+   
 <file>: A file name without switches, is expected to be a valid .ssw
 file.
 
