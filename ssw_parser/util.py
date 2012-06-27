@@ -74,7 +74,23 @@ def calc_average(size, adj):
     total += cluster(size, 10 + adj)
     return float(total) / 36.0
 
-
+def conv_era(era):
+    """
+    Convert era to string
+    """
+    conv = {
+        0 : "AoW",
+        1 : "SL",
+        2 : "SW-E",
+        3 : "SW-L",
+        4 : "Clan",
+        5 : "CW",
+        6 : "Jihad",
+        7 : "Rep",
+        8 : "DA"
+        }
+    return conv[era]
+    
 def year_era_test(year, era, name):
     """
     Test if years and production eras are conpatible,
@@ -82,47 +98,47 @@ def year_era_test(year, era, name):
     """
     if (year <= 2570 and era != 0):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 2571 and year <= 2780 and era != 1):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 2781 and year <= 2900 and era != 2):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 2901 and year <= 3048 and era != 3):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 3049 and year <= 3061 and era != 4):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 3062 and year <= 3067 and era != 5):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 3068 and year <= 3085 and era != 6):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 3086 and year <= 3130 and era != 7):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
     if (year >= 3131 and era != 8):
         print name
-        print "Year-Era mis-match!", year, era
+        print "Year-Era mis-match!", year, conv_era(era)
         sys.exit(1)
 
 

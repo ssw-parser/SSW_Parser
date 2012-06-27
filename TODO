@@ -119,7 +119,7 @@ Priority: Medium
 
 - Add year-era check for omni configs.
 
-- CHECK: Medium, Heavy
+- CHECK: Medium
 
 - Missing year info in MUL:
 -- Clint CLNT-2-4T (3039)

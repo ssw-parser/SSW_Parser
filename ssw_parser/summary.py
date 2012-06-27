@@ -28,28 +28,11 @@ from operator import itemgetter
 from mech import Mech
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
+from util import conv_era
 
 #############################
 ##### Utility functions #####
 #############################
-
-def conv_era(era):
-    """
-    Convert era to string
-    """
-    conv = {
-        0 : "AoW",
-        1 : "SL",
-        2 : "SW-E",
-        3 : "SW-L",
-        4 : "Clan",
-        5 : "CW",
-        6 : "Jihad",
-        7 : "Rep",
-        8 : "DA"
-        }
-    return conv[era]
-    
 
 def conv_rules(rule):
     """
