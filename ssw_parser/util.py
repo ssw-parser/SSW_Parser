@@ -26,6 +26,7 @@ ceil_5 rounds up to nearest five ton
 gettext, get_child, and get_child_data are used for parsing xml
 """
 
+import sys
 from math import ceil
 
 CLUSTER_TABLE = {
@@ -72,6 +73,59 @@ def calc_average(size, adj):
     total += cluster(size, 9 + adj) * 2
     total += cluster(size, 10 + adj)
     return float(total) / 36.0
+
+
+def year_era_test(year, era, name):
+    """
+    Test if years and production eras are conpatible,
+    exit if not.
+    """
+    if (year <= 2570 and era != 0):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 2571 and year <= 2780 and era != 1):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 2781 and year <= 2900 and era != 2):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 2901 and year <= 3048 and era != 3):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 3049 and year <= 3061 and era != 4):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 3062 and year <= 3067 and era != 5):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 3068 and year <= 3085 and era != 6):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 3086 and year <= 3130 and era != 7):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+    if (year >= 3131 and era != 8):
+        print name
+        print "Year-Era mis-match!", year, era
+        sys.exit(1)
+
+
 
 
 def ceil_05(value):
