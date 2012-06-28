@@ -492,7 +492,7 @@ class Load:
                 bwbr += i[0]
                 heat += i[1]
             # We have to much heat, halve future weapon BV
-            if heat >= heat_eff:
+            if heat >= heat_eff and mech.type != "CV":
                 over = 1
             if (printq):
                 print i

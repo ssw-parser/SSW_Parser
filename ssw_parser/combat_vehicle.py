@@ -138,6 +138,10 @@ class CombatVehicle:
         else:
             r_mod = 6
 
+        # VTOLs gets +1 for being airborne
+        if self.mot_type == "VTOL":
+            r_mod += 1
+
         if (jump_speed < 3):
             j_mod = 0
         elif (jump_speed < 5):
@@ -242,7 +246,8 @@ class CombatVehicle:
         """
         Get the BV of a specific loadout. Use vehicle.load if not an omni.
         """
-        batt_val = self.off_bv(load, False) + self.def_bv(load, False)
+        batt_val = int(round(self.off_bv(load, False) +
+                             self.def_bv(load, False)))
  
         if batt_val != load.batt_val:
             print ("%s %s%s: %d %d" % (self.name, self.model, load.get_name(),
