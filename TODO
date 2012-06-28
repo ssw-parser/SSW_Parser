@@ -353,6 +353,8 @@ Priority: Medium
 
 - Add I.C.E. Engine
 
+- Missing Engines: Fuel Cell, Fission
+
 == weapons.py ==
 - Track if linked to tarcomp?
 - ammo issue, try to avoid using both ammocount & ammo_ton. 
