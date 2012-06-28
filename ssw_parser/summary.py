@@ -116,33 +116,33 @@ def create_unit_list(file_list, select_l, creator, var):
     # Loop over input
     for i in file_list:
         # Load unit from file
-        mech = load_unit(i)
+        unit = load_unit(i)
 
         # Construct data
-        if mech.omni == "TRUE":
-            for i in mech.loads:
+        if unit.omni == "TRUE":
+            for i in unit.loads:
                 sel = True
                 # Go through the list of selections
                 for select in select_l:
-                    if select(mech, i) and sel:
+                    if select(unit, i) and sel:
                         sel = True
                     else:
                         sel = False
                 if sel:
-                    item = creator(mech, i, var)
+                    item = creator(unit, i, var)
                     if item:
                         unit_list.append(item)
         else:
             sel = True
             # Go through the list of selections
             for select in select_l:
-                if select(mech, mech.load) and sel:
+                if select(unit, unit.load) and sel:
                     sel = True
                 else:
                     sel = False
             if sel:
                 # Creator returns false if the entry is rejected
-                item = creator(mech, mech.load, var)
+                item = creator(unit, unit.load, var)
                 if item:
                     unit_list.append(item)
 
