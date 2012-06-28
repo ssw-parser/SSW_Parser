@@ -22,6 +22,7 @@
 Contains the master class for a combat vehicle
 """
 
+import sys
 from util import get_child_data
 
 class CombatVehicle:
@@ -32,15 +33,17 @@ class CombatVehicle:
 
         # Get top-level structure data
         for cveh in xmldoc.getElementsByTagName('combatvehicle'):
-            self.model = cveh.attributes.["model"].value
-            self.name = cveh.attributes.["name"].value
-            self.motive = cveh.attributes.["motive"].value
-            self.omni = cveh.attributes.["omni"].value
-            self.weight = int(cveh.attributes.["tons"].value)
+            self.model = cveh.attributes["model"].value
+            self.name = cveh.attributes["name"].value
+            self.motive = cveh.attributes["motive"].value
+            self.omni = cveh.attributes["omni"].value
+            self.weight = int(cveh.attributes["tons"].value)
 
             # Get BV. Should give prime variant BV for Omni-vehicles
             # get first instance only to avoid problems with Omni-vehicles
             self.batt_val = int(get_child_data(cveh, 'battle_value'))
+
+            # Motive
 
             # Get Cost.
             cost = float(get_child_data(cveh, 'cost'))
@@ -51,3 +54,27 @@ class CombatVehicle:
             # Get techbase (IS, Clan)
             # get first instance only to avoid problems with Omni-vehicles
             self.techbase = get_child_data(cveh, 'techbase')
+
+            # Get year
+            self.year = int(get_child_data(cveh, 'year'))
+
+            # Sanity check for year
+            if (self.year < 2470):
+                print self.name, self.model
+                print "Combat Vehicles not available before 2470!"
+                sys.exit(1)
+
+            if (self.year < 2854 and self.omni == "TRUE"):
+                print self.name, self.model
+                print "OmniVehicles not available before 2854!"
+                sys.exit(1)
+
+            ### Components starts here ###
+
+            # Structure
+
+            # Engine
+
+            # Armor
+
+            # Loadout

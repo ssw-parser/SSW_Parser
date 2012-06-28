@@ -113,7 +113,12 @@ Priority: Medium
 
 Priority: Medium-High
 
-- Remember to disallow Combat Vehicles with a year older than 2470.
+- Create a way to output data.
+- Motive type.
+- Structure.
+- Engine.
+- Armor.
+- Loadout.
 
 === Test data into repository ===
 
