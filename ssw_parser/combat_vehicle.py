@@ -114,6 +114,47 @@ class CombatVehicle:
             rspeed -= 1
         return rspeed
 
+    def get_move_target_modifier(self, load):
+        """
+        Get target modifier from movement, see Total Warfare for details
+        """
+        run_speed = self.get_max_run()
+        jump_speed = load.get_jump()
+
+        if (run_speed < 3):
+            r_mod = 0
+        elif (run_speed < 5):
+            r_mod = 1
+        elif (run_speed < 7):
+            r_mod = 2
+        elif (run_speed < 10):
+            r_mod = 3
+        elif (run_speed < 18):
+            r_mod = 4
+        elif (run_speed < 25):
+            r_mod = 5
+        else:
+            r_mod = 6
+
+        if (jump_speed < 3):
+            j_mod = 0
+        elif (jump_speed < 5):
+            j_mod = 1
+        elif (jump_speed < 7):
+            j_mod = 2
+        elif (jump_speed < 10):
+            j_mod = 3
+        elif (jump_speed < 18):
+            j_mod = 4
+        elif (jump_speed < 25):
+            j_mod = 5
+        else:
+            j_mod = 6
+
+        j_mod += 1
+
+        return max(j_mod, r_mod)
+
     def def_bv(self, load, printq):
         """
         Get defensive BV
@@ -124,6 +165,9 @@ class CombatVehicle:
         dbv += cur
         if (printq):
             print "Armor Def BV: ", cur
+
+        # TODO: Internal Structure
+
         # Defensive equipment
         cur = load.get_def_bv(self)
         dbv += cur
