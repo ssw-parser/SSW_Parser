@@ -24,7 +24,7 @@ Contains the master class for a combat vehicle
 
 import sys
 from math import ceil
-from defensive import Vehicle_Armor
+from defensive import CV_IS, Vehicle_Armor
 from movement import Engine
 from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout
@@ -54,6 +54,7 @@ class CombatVehicle:
             for mot in cveh.getElementsByTagName('motive'):
                 self.mot_type = mot.attributes["type"].value
                 self.cruise = int(mot.attributes["cruise"].value)
+                self.turret = mot.attributes["turret"].value
 
             # Get Cost.
             cost = float(get_child_data(cveh, 'cost'))
@@ -84,7 +85,8 @@ class CombatVehicle:
 
             ### Components starts here ###
 
-            # Structure
+            self.structure = CV_IS(get_child(cveh, 'structure'), self.weight,
+                                   self.mot_type, self.turret)
 
             self.engine = Engine(get_child(cveh, 'engine'), self.weight)
 
@@ -166,7 +168,11 @@ class CombatVehicle:
         if (printq):
             print "Armor Def BV: ", cur
 
-        # TODO: Internal Structure
+        # Internal Structure
+        cur = self.structure.points * 1.5
+        dbv += cur
+        if (printq):
+            print "Structure Def BV: ", cur
 
         # Defensive equipment
         cur = load.get_def_bv(self)

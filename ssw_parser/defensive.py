@@ -22,7 +22,7 @@
 Mech internal structure and armor classes
 """
 
-from math import floor
+from math import floor, ceil
 from error import error_exit
 from util import ceil_05, get_child_data
 from item import Item
@@ -152,9 +152,9 @@ ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0, 10000, ""],
          ["Ferro-Lamellor", 1, 1.2, 0.9, 2, 35000, "FL"]]
 
 
-class IS(Item):
+class Mech_IS(Item):
     """
-    A class to hold info about the internal stucture
+    A class to hold info about the internal stucture of mechs
     """
     def __init__(self, stru, weight, motive):
         Item.__init__(self)
@@ -198,6 +198,78 @@ class IS(Item):
             self.points += ARM_IS[weight] * 2
         else:
             error_exit(motive)
+
+        # Calculate cost
+        self.cost = weight * costf
+
+    def get_type(self):
+        """
+        Return internal structure type
+        """
+        return self.type
+
+    def get_rules_level(self):
+        """
+        Return armor rules level
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
+        """
+        return self.r_level
+
+    def get_weight(self):
+        """
+        Return structure weight
+        """
+        return self.wgt
+
+    def get_cost(self):
+        """
+        Return structure cost
+        """
+        return self.cost
+
+    def get_bv_factor(self):
+        """
+        Return IS BV factor
+        """
+        return self.points * 1.5 * self.is_bv
+
+class CV_IS(Item):
+    """
+    A class to hold info about the internal stucture of combat vehicles
+    """
+    def __init__(self, stru, weight, mot_type, turrets):
+        Item.__init__(self)
+        self.tech_base = int(stru.attributes["techbase"].value)
+        self.type = get_child_data(stru, "type")
+        wgt = weight
+
+        # Check for legal structure type, save data
+        ident = False
+        for i in STRUCTURE:
+            if (i[0] == self.type and i[1] == self.tech_base):
+                ident = True
+                self.is_bv = i[2]
+                wgtf = i[3]
+                self.r_level = i[4]
+                costf = i[5]
+        if not ident:
+            error_exit((self.type, self.tech_base))
+
+        # Calculate IS weight
+        wgt *= wgtf
+        # hack to get half-ton rounding up
+        wgt = ceil_05(wgt)
+        self.wgt = wgt
+
+        # Calculate IS points, start with the four basic sides
+        base = ceil(weight * 0.1)
+        self.points = base * 4
+        # Add rotor, max 3 points
+        if mot_type == "VTOL":
+            self.points += min(base, 3)
+        if turrets == "Single Turret":
+            self.points += base
+        # TODO: Dual turret
 
         # Calculate cost
         self.cost = weight * costf
