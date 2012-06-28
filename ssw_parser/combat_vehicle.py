@@ -23,7 +23,8 @@ Contains the master class for a combat vehicle
 """
 
 import sys
-from util import get_child_data
+from util import get_child_data, year_era_test
+from loadout import Baseloadout
 
 class CombatVehicle:
     """
@@ -59,6 +60,9 @@ class CombatVehicle:
             self.year = int(get_child_data(cveh, 'year'))
 
             # Sanity check for year
+            year_era_test(self.year, self.prod_era,
+                          self.name + " " + self.model)
+
             if (self.year < 2470):
                 print self.name, self.model
                 print "Combat Vehicles not available before 2470!"
@@ -77,4 +81,11 @@ class CombatVehicle:
 
             # Armor
 
-            # Loadout
+            ### Loadout stuff starts here ###
+
+            # Get baseloadout
+            blo = cveh.getElementsByTagName('baseloadout')[0]
+
+            # Costruct current loadout, empty name for base loadout
+            self.load = Baseloadout(blo, self, self.batt_val,
+                                    False, self.prod_era, cost)
