@@ -396,11 +396,11 @@ def print_weapon_list(file_list, select_l, header_l):
     # Print output
     print "=== List of All Weapons ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   Mov Weapons/turns of fire"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %-3s %s" %
+        print ("%-32.32s %3d %4d %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4]))
 
 
@@ -447,11 +447,11 @@ def print_main_weapon_list(file_list, select_l, header_l):
     # Print output
     print "=== List of 'Main' Weapons ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   Mov Weapons/turns of fire"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %-3s %s" %
+        print ("%-32.32s %3d %4d %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4]))
 
 
@@ -513,11 +513,11 @@ def print_missile_list(file_list, select_l, header_l):
     # Print output
     print "=== List of LRM Tubes ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
@@ -579,11 +579,11 @@ def print_srm_list(file_list, select_l, header_l):
     # Print output
     print "=== List of SRM Tubes ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   SRM Art Heat  Mov Lnchrs/turns of fire"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
@@ -644,11 +644,11 @@ def print_autocannon_list(file_list, select_l, header_l):
     # Print output
     print "=== List of Special Ammo Capable Autocannons ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   Dam TC  Heat  Mov Guns/turns of fire"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %3d %-3s %-5s %-3s %s" %
+        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
@@ -1270,9 +1270,9 @@ def print_default(file_list, select_l, header_l):
     # Print output
     print "=== MUL-Type Listing of Mech ==="
     print header
-    print "Name                          Tons BV   Source   Rul Era   Year"
+    print "Name                            Tons BV   Source   Rul Era   Year"
     for i in unit_list:
-        print ("%-30s %3d %4d %-8s %-3s %-5s %4d" %
+        print ("%-32.32s %3d %4d %-8s %-3s %-5s %4d" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
 
 
