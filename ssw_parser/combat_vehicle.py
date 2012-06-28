@@ -23,6 +23,7 @@ Contains the master class for a combat vehicle
 """
 
 import sys
+from math import ceil
 from movement import Engine
 from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout
@@ -49,6 +50,9 @@ class CombatVehicle:
             self.batt_val = int(get_child_data(cveh, 'battle_value'))
 
             # Motive
+            for mot in cveh.getElementsByTagName('motive'):
+                self.mot_type = mot.attributes["type"].value
+                self.cruise = int(mot.attributes["cruise"].value)
 
             # Get Cost.
             cost = float(get_child_data(cveh, 'cost'))
@@ -93,3 +97,60 @@ class CombatVehicle:
             # Costruct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self, self.batt_val,
                                     False, self.prod_era, cost)
+
+    def get_max_run(self):
+        """
+        Get maximum running speed
+        """
+        spd = self.cruise + self.load.gear.get_speed_adj()
+        factor = 1.5
+        if self.load.gear.supercharger.has_sc():
+            factor += 0.5
+        rspeed = int(ceil(spd * factor))
+        # Hardened Armor
+        if self.armor.atype == "Hardened Armor":
+            rspeed -= 1
+        return rspeed
+
+    def off_bv(self, load, printq):
+        """
+        Get offensive BV
+        """
+        obv = load.off_bv(self, printq)
+
+        # Tonnage
+        if (printq):
+            print "Weight BV: ", 0.5 * self.weight
+        obv += 0.5 * self.weight
+
+        # total
+        if (printq):
+            print "Total Base Offensive: ", obv
+
+        # speed factor
+        speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
+        if (printq):
+            print "Speed Factor: ", speed_factor
+        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0 
+        off_speed_factor = round(pow(adj_sf, 1.2), 2)
+        if (printq):
+            print "Offensive Speed Factor: ", off_speed_factor
+
+        # Final result
+        obv *= off_speed_factor
+        if (printq):
+            print "Offensive BV: ", obv
+        return obv
+
+    def get_bv(self, load):
+        """
+        Get the BV of a specific loadout. Use vehicle.load if not an omni.
+        """
+        batt_val = self.off_bv(load, False) + self.def_bv(load, False)
+ 
+        if batt_val != load.batt_val:
+            print ("%s %s%s: %d %d" % (self.name, self.model, load.get_name(),
+                                       batt_val, load.batt_val))
+
+        assert batt_val == load.batt_val, "Error in BV calculation!"
+        return batt_val
