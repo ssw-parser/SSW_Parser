@@ -251,8 +251,8 @@ class CombatVehicle:
         """
         Get the BV of a specific loadout. Use vehicle.load if not an omni.
         """
-        batt_val = int(round(self.off_bv(load, True) +
-                             self.def_bv(load, True)))
+        batt_val = int(round(self.off_bv(load, False) +
+                             self.def_bv(load, False)))
  
         if batt_val != load.batt_val:
             print ("%s %s%s: %d %d" % (self.name, self.model, load.get_name(),

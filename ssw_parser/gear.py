@@ -95,6 +95,7 @@ AMMO = {
     "(IS) @ Ultra AC/5" : [["(IS) Ultra AC/5"], 20, 1, "X", 9000],
     "(IS) @ Ultra AC/10" : [["(IS) Ultra AC/10"], 10, 1, "X", 12000],
     "(IS) @ Ultra AC/20" : [["(IS) Ultra AC/20"], 5, 1, "X", 20000],
+    "(IS) @ Vehicle Flamer" : [["Vehicle Flamer"], 20, 1, "X", 1000],
     "(IS) @ Plasma Rifle" : [["(IS) Plasma Rifle"], 10, 1, "", 10000],
     "(IS) @ LRM-5" : [["(IS) LRM-5"], 24, 1, "X", 30000],
     "(IS) @ LRM-10" : [["(IS) LRM-10"], 12, 1, "X", 30000],
@@ -162,6 +163,8 @@ AMMO = {
     "(IS) @ iNarc (Homing)" : [["(IS) iNarc Launcher"], 4, 1, "X", 7500],
     "(IS) @ Anti-Missile System" :
         [["(IS) Anti-Missile System"], 12, 1, "X", 2000],
+    "@ Remote Sensors (1/2)" :
+        [["Remote Sensor Dispenser"], 30, 0.5, "", 10500],
     # Clan
     "(CL) @ LB 2-X AC (Slug)" : [["(CL) LB 2-X AC"], 45, 1, "X", 2000],
     "(CL) @ LB 2-X AC (Cluster)" : [["(CL) LB 2-X AC"], 45, 1, "X", 3300],
@@ -287,6 +290,7 @@ EQUIPMENT = {
     "Cargo, Standard, Vehicular" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
     "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0, 10000],
     "Infantry Compartment" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
+    "MASH" : [[0, 0], [0, 0], 1, 3.5, 0, 0, 35000],
     "Remote Sensor Dispenser" : [[0, 0], [0, 0], 1, 0.5, 1, 0, 30000],
     "Lift Hoist" : [[0, 0], [0, 0], 1, 3, 0, 0, 50000],
     # New TL

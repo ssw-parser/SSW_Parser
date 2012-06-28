@@ -207,7 +207,7 @@ def lvspl_damage(rnge):
 
 
 
-# Weapons in the order of name, shorthand, BV[main, ammo], rules level,
+# Weapons in the order of name, shorthand, BV[main, ammo], rules level, cost,
 # heat (as used for BV calcs), damage as a function of range,
 # range (min, short, med, long),
 # enhancement(A=artemis, T=tarcomp P=apollo),
@@ -224,8 +224,7 @@ def lvspl_damage(rnge):
 #
 # To be loaded into the gear class
 #
-# TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, Flamer (Vehicle), One-shots, LRT-20,
-# SRT-2, SRT-6
+# TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, One-shots, LRT-20, SRT-2, SRT-6
 # TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
@@ -335,7 +334,9 @@ WEAPONS = {
     "(IS) Flamer" : ["Flmr", [6, 0], 0, 7500,
                      3, (lambda x, y : 2), [0, 1, 2, 3],
                      "", 0, 1, 1, ""],
-    # Flamer (Vehicle)
+    "Vehicle Flamer" : ["VFlmr", [5, 1], 0, 7500,
+                        3, (lambda x, y : 2), [0, 1, 2, 3],
+                        "", 1, 0.5, 1, ""],
     "(IS) ER Small Laser" : ["ERSL", [17, 0], 1, 11250,
                              2, (lambda x, y : 3), [0, 2, 4, 5],
                              "T", 0, 0.5, 1, ""],
