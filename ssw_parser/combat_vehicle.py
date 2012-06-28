@@ -163,6 +163,15 @@ class CombatVehicle:
 
         return max(j_mod, r_mod)
 
+    def get_stealth(self):
+        """
+        Returns true if the mech mounts a stealth system
+        """
+        stlth = False
+        if self.armor.atype == "Stealth Armor":
+            stlth = True
+        return stlth 
+
     def def_bv(self, load, printq):
         """
         Get defensive BV
