@@ -24,9 +24,11 @@ Prints out a one-line summary of a mech
 
 import argparse
 import os
+import sys
 from xml.dom import minidom
 from operator import itemgetter
 from mech import Mech
+from combat_vehicle import CombatVehicle
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
 from util import conv_era
@@ -49,11 +51,11 @@ def conv_rules(rule):
     return conv[rule]
 
 
-def load_mech(file_name):
+def load_unit(file_name):
     """
     Load mech from file
 
-    Takes a file name as argument, returns a mech object
+    Takes a file name as argument, returns a mech or combat vehicle object
     """
     # Read file
     fsock = open(file_name)
@@ -61,15 +63,21 @@ def load_mech(file_name):
     fsock.close()
 
     # Get mech
-    return Mech(xmldoc)
-
+    if file_name[-4:] == ".ssw":
+        return Mech(xmldoc)
+    # Get Combat Vehicle
+    elif file_name[-4:] == ".saw":
+        return CombatVehicle(xmldoc)
+    else:
+        print "Unknown file extension: ", file_name
+        sys.exit(1)
 
 def create_header(header_l):
     """
     Construct filter header
     """
-    # Start with Mechs
-    header = "Mechs "
+    # Start with Units
+    header = "Units "
     count = 5
 
     # Add specific filter description(s)
@@ -107,8 +115,8 @@ def create_mech_list(file_list, select_l, creator, var):
     mech_list = []
     # Loop over input
     for i in file_list:
-        # Load mech from file
-        mech = load_mech(i)
+        # Load unit from file
+        mech = load_unit(i)
 
         # Construct data
         if mech.omni == "TRUE":
