@@ -114,6 +114,50 @@ class CombatVehicle:
             rspeed -= 1
         return rspeed
 
+    def def_bv(self, load, printq):
+        """
+        Get defensive BV
+        """
+        dbv = 0.0
+        # Armor
+        cur = self.armor.get_armor_bv()
+        dbv += cur
+        if (printq):
+            print "Armor Def BV: ", cur
+        # Defensive equipment
+        cur = load.get_def_bv(self)
+        dbv += cur
+        if (printq):
+            print "Equipment Def BV: ", cur
+
+        # Multiply with vehicle type modifier
+        # Missing: Naval, WiGE
+        if self.mot_type == "VTOL":
+            dbv *= 0.7
+        elif self.mot_type == "Hovercraft":
+            dbv *= 0.7
+        elif self.mot_type == "Tracked":
+            dbv *= 0.9
+        elif self.mot_type == "Wheeled":
+            dbv *= 0.8
+
+        # Defensive factor
+        mtm = self.get_move_target_modifier(load)
+        # Stealth armor adds to to-hit
+        if self.armor.atype == "Stealth Armor":
+            mtm += 2
+        assert mtm >= 0, "Negative defensive modifier!"
+        def_factor = 1.0 + (mtm / 10.0)
+        if (printq):
+            print "Target modifier: ", mtm
+            print "Defensive Faction: ", def_factor
+
+        # Final result
+        dbv *= def_factor
+        if (printq):
+            print "Defensive BV: ", dbv
+        return dbv
+
     def off_bv(self, load, printq):
         """
         Get offensive BV

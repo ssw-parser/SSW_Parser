@@ -554,16 +554,11 @@ class Vehicle_Armor(Item):
                 self.r_leg.arm += mod[item]
                 self.total.arm += mod[item]
 
-    def get_armor_bv(self, torso):
+    def get_armor_bv(self):
         """
         Return armor BV
         """
-        if torso:
-            # count center torso armor twice for torso cockpit
-            armor = self.total.arm + self.c_torso.get_total()
-            return (self.armor_bv * 2.5 * armor)
-        else:
-            return (self.armor_bv * 2.5 * self.total.arm)
+        return (self.armor_bv * 2.5 * self.total.arm)
        
     def get_type(self):
         """
