@@ -42,7 +42,7 @@ class Mech:
         # Set some data to zero that sometimes will not get set otherwise
         self.multi = []
  
-        # Get top-level stucture data
+        # Get top-level structure data
         for mmech in xmldoc.getElementsByTagName('mech'):
             self.model = mmech.attributes["model"].value
             self.name = mmech.attributes["name"].value

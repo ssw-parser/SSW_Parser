@@ -1,4 +1,9 @@
 
+Note that parts of this file contains info related to my own database
+of mech and combat vehicles which are not included in the
+program.
+
+
 == UNABLE TO PARSE ==
 
 === Armored components stuff ===
@@ -99,6 +104,17 @@ Priority: Medium
 - Klondike
 - XTROs
 
+- Missing Record Sheets:
+
+- Cannot Build:
+-- Harasser Missile Platform Leaping Lisa (3039) -- No vehicle jump-jets.
+
+=== Support Combat Vehicles ===
+
+Priority: Medium-High
+
+- Remember to disallow Combat Vehicles with a year older than 2470.
+
 === Test data into repository ===
 
 Priority: Medium - nice to have, but not vital.
@@ -117,13 +133,15 @@ Priority: Medium
 
 Priority: Medium (need MUL to update)
 
-- Missing year info in MUL:
+- Missing year info, Mechs in MUL:
 -- Clint CLNT-2-4T (3039)
 -- Thug THG-11E Reich (3050)
 -- Highlander HGN-694 (3050)
 -- Stooping Hawk Prime, A, B, C, D, E (3060)
 -- Von Rohrs VON 4RH-6 (3075)
 
+- Missing/wrong year info, Combat Vehicles in MUL:
+-- All standard APCs (3039)
 
 === Weight calculations ===
 
@@ -230,12 +248,6 @@ Missing from TO:
 Physical stuff:
 - Missing: Medium Shield, industrial equipment
 
-
-=== Support Combat Vehicles ===
-
-Priority: Low-Medium
-
-- Remember to disallow Combat Vehicles with a year older than 2470.
 
 === Support Industrial Mechs ===
 
