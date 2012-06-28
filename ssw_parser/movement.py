@@ -519,6 +519,7 @@ ENGINE = [["I.C.E. Engine", 2, 1.0, (lambda x : ICE_ENGINE[x]), 1, 1250],
            (lambda x : LGT_ENGINE[x]), 1, 15000],
           ["Compact Fusion Engine", 0, 1.0,
            (lambda x : CMP_ENGINE[x]), 1, 10000],
+          ["No Engine", 2, 0.0, (lambda x : 0.0), 1, 0],
           # Advanced
           ["XXL Engine", 0, 0.25,
            (lambda x : ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000],

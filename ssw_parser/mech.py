@@ -239,7 +239,9 @@ class Mech:
         else:
             j_mod = 6
 
-        j_mod += 1
+        # Do not give jump mods if no jumpjets
+        if (jump_speed > 0):
+            j_mod += 1
 
         return max(j_mod, r_mod)
 

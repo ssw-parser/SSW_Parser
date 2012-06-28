@@ -115,6 +115,7 @@ Priority: Medium-High
 
 - Suspension factors.
 - Bugchecking and cleanup.
+- Hitches needing special treatment?
 
 === Test data into repository ===
 
@@ -328,6 +329,8 @@ code or in SSW.
 === Other ===
 
 - Law of Demeter, avoid accessing low-level object data
+
+- Move get_move_target_modifier to util to avoid excessive code dublication.
 
 - Handle armored components better
 - Handle M-pods (should work on this end, problem in SSW)

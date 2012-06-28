@@ -284,7 +284,9 @@ EQUIPMENT = {
     "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0, 100000],
     # Industrial gear, TM
     "Cargo, Liquid" : [[0, 0], [0, 0], 1, 1, 0, 0, 100],
+    "Cargo, Standard, Vehicular" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
     "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0, 10000],
+    "Infantry Compartment" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
     "Remote Sensor Dispenser" : [[0, 0], [0, 0], 1, 0.5, 1, 0, 30000],
     "Lift Hoist" : [[0, 0], [0, 0], 1, 3, 0, 0, 50000],
     # New TL
@@ -724,6 +726,9 @@ class Gear:
                     self.mod_armor[name.loc] = mod
                     self.mod_weight = 1.0
                     self.has_mod_armor = True
+                # Ignore Hitches for now
+                if name.name == "Hitch":
+                    ident = True
 
             # Ammunition
             elif (name.typ == 'ammunition'):

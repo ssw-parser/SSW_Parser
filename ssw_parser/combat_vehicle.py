@@ -157,7 +157,9 @@ class CombatVehicle:
         else:
             j_mod = 6
 
-        j_mod += 1
+        # Do not give jump mods if no jumpjets
+        if (jump_speed > 0):
+            j_mod += 1
 
         return max(j_mod, r_mod)
 
@@ -187,13 +189,16 @@ class CombatVehicle:
         # Multiply with vehicle type modifier
         # Missing: Naval, WiGE
         if self.mot_type == "VTOL":
-            dbv *= 0.7
+            cur = 0.7
         elif self.mot_type == "Hovercraft":
-            dbv *= 0.7
+            cur = 0.7
         elif self.mot_type == "Tracked":
-            dbv *= 0.9
+            cur = 0.9
         elif self.mot_type == "Wheeled":
-            dbv *= 0.8
+            cur = 0.8
+        dbv *= cur
+        if (printq):
+            print "Vehicle Type Modifier: ", cur
 
         # Defensive factor
         mtm = self.get_move_target_modifier(load)
@@ -246,8 +251,8 @@ class CombatVehicle:
         """
         Get the BV of a specific loadout. Use vehicle.load if not an omni.
         """
-        batt_val = int(round(self.off_bv(load, False) +
-                             self.def_bv(load, False)))
+        batt_val = int(round(self.off_bv(load, True) +
+                             self.def_bv(load, True)))
  
         if batt_val != load.batt_val:
             print ("%s %s%s: %d %d" % (self.name, self.model, load.get_name(),
