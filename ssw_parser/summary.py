@@ -490,6 +490,10 @@ def create_missile_list_item(mech, i, var):
 
     l_heat = str(heat) + "/" + str(i.get_sink())
 
+    # Ignore heat for combat vehicles
+    if mech.type == "CV":
+        l_heat = "---"
+
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
 def print_missile_list(file_list, select_l, header_l):
@@ -556,6 +560,10 @@ def create_srm_list_item(mech, i, var):
     (l_str, dam, heat) = i.gear.weaponlist.list_summary(SRM_LIST, 6)
 
     l_heat = str(heat) + "/" + str(i.get_sink())
+
+    # Ignore heat for combat vehicles
+    if mech.type == "CV":
+        l_heat = "---"
                
     return (name_str, weight, batt_val, srm, art, l_heat, mov, l_str)
 
@@ -620,6 +628,10 @@ def create_autocannon_list_item(mech, i, var):
     (l_str, dam, heat) = i.gear.weaponlist.list_summary(AC_LIST, 9)
 
     l_heat = str(heat) + "/" + str(i.get_sink())
+
+    # Ignore heat for combat vehicles
+    if mech.type == "CV":
+        l_heat = "---"
                
     return (name_str, weight, batt_val, dam, tarcomp, l_heat, mov, l_str)
 
@@ -674,6 +686,9 @@ def create_std_list_item(mech, i, rnge):
     arm_p = mech.armor.total.arm
 
     l_heat = str(int(heat)) + "/" + str(i.get_sink())
+    # Ignore heat for combat vehicles
+    if mech.type == "CV":
+        l_heat = "---"
 
     # Ignore mechs that has no damage at this range
     if dam == 0:
@@ -695,11 +710,11 @@ def print_std_list(unit_list, title, header):
     # Print output
     print title
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %3d %-5s %-3s %3d %s" %
+        print ("%-32.32s %3d %4d %3d %-5s %-3s %3d %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
