@@ -116,6 +116,8 @@ Priority: Medium-High
 - Suspension factors.
 - Bugchecking and cleanup.
 - Hitches needing special treatment?
+- Type list (summary.py) is broken for combat vehicles. (low priority)
+- No support for cost list yet.
 
 === Test data into repository ===
 
@@ -374,6 +376,8 @@ Priority: Medium
 
 - Figure out how to exclude missile boats from the sniper category.
 
+- Type_list is broken for combat vehicles.
+
 - List special equipment:
 -- Stealth
 -- Artillery
@@ -382,10 +386,6 @@ Priority: Medium
 
 - Count and list specific weapon types
 -- Head-capper list: iHLL
-
-- Range type listing:
--- Allow selection of range instead of using separate switches for
-   each range. (Problem due to how the code internals works.)
 
 - Add ability to filter out L and XL engines (a cheap mechs only filter.)
 -- Implement cost and use that instead

@@ -1027,12 +1027,12 @@ def print_headcap_list(file_list, select_l, header_l):
     # Print output
     print "=== List of Headcappers ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV   Cap Mov Armr TC Weapons/turns of fire"
     print header2
     for i in unit_list:
         if i[3] > 0:
-            print ("%-30s %3d %4d %3d %-3s %3.0f%% %-2s %s" %
+            print ("%-32.32s %3d %4d %3d %-3s %3.0f%% %-2s %s" %
                    (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
 
 
@@ -1072,12 +1072,12 @@ def print_battle_force_list(file_list, select_l, header_l):
     # Print output
     print "=== BattleForce Data List (Alpha) ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Wg Pt Mov  Arm"
     print header2
     for i in unit_list:
         if i[3] > 0:
-            print ("%-30s %1d %2d %-5s %2d" %
+            print ("%-32.32s %1d %2d %-5s %2d" %
                    (i[0], i[1], i[2], i[3], i[4]))
 
 
@@ -1123,11 +1123,11 @@ def print_damage_range_list(file_list, select_l, header_l):
     # Print output
     print "=== Damage by Range List ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV    D3  D6  D9 D12 D15 D18 D21 D24"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %3d %3d %3d %3d %3d %3d %3d %3d" %
+        print ("%-32.32s %3d %4d %3d %3d %3d %3d %3d %3d %3d %3d" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
 
