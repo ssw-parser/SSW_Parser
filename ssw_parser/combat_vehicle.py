@@ -23,7 +23,8 @@ Contains the master class for a combat vehicle
 """
 
 import sys
-from util import get_child_data, year_era_test
+from movement import Engine
+from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout
 
 class CombatVehicle:
@@ -80,7 +81,7 @@ class CombatVehicle:
 
             # Structure
 
-            # Engine
+            self.engine = Engine(get_child(cveh, 'engine'), self.weight)
 
             # Armor
 

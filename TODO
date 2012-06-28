@@ -116,7 +116,7 @@ Priority: Medium-High
 - Create a way to output data.
 - Motive type.
 - Structure.
-- Engine.
+- ICE Engine.
 - Armor.
 - Loadout.
 
@@ -344,6 +344,14 @@ code or in SSW.
 
 - Move shots/ton info for ammo to weapons?
 
+== movement.py ==
+
+Priority: Medium
+
+- Move speed calculation out of engine class. Does not belong when
+  using combat vehicles.
+
+- Add I.C.E. Engine
 
 == weapons.py ==
 - Track if linked to tarcomp?
