@@ -986,7 +986,7 @@ class Engine(Item):
             if (i[0] == self.etype and i[1] == self.e_base):
                 ident = True
                 self.eng_bv = i[2]
-                self.eweight = i[3](self.erating)
+                self.eweight = i[3](ceil_5(self.erating))
                 self.r_level = i[4]
                 self.cost = i[5]
         if not ident:

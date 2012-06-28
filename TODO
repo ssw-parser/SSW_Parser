@@ -116,9 +116,10 @@ Priority: Medium-High
 - Create a way to output data.
 - Motive type.
 - Structure.
-- ICE Engine.
+- Suspension factors.
 - Armor.
 - Loadout.
+- Battle Value.
 
 === Test data into repository ===
 
@@ -351,7 +352,7 @@ Priority: Medium
 - Move speed calculation out of engine class. Does not belong when
   using combat vehicles.
 
-- Add I.C.E. Engine
+- Add Suspension factors.
 
 - Missing Engines: Fuel Cell, Fission
 
