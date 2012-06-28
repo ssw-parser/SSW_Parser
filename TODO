@@ -113,13 +113,8 @@ Priority: Medium
 
 Priority: Medium-High
 
-- Create a way to output data.
-- Motive type.
-- Structure.
 - Suspension factors.
-- Armor.
-- Loadout.
-- Battle Value.
+- Bugchecking and cleanup.
 
 === Test data into repository ===
 

@@ -255,3 +255,39 @@ class CombatVehicle:
 
         assert batt_val == load.batt_val, "Error in BV calculation!"
         return batt_val
+
+    def get_year(self, load):
+        """
+        Get year
+        """
+        if self.omni == "TRUE":
+            return load.year
+        else:
+            return self.year
+
+    def get_rules_level(self, load):
+        """
+        Return rules level of mech
+        """
+        r_level = 0
+        # Mixed tech is advanced rules
+        if self.techbase == "Mixed":
+            r_level = 2
+        tmp = self.structure.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.engine.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.armor.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        # Hack -- turrets are advanced rules
+        if load.turret and r_level < 2:
+            r_level = 2
+
+        tmp = load.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+
+        return r_level
