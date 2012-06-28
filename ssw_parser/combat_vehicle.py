@@ -32,6 +32,9 @@ class CombatVehicle:
     """
     def __init__(self, xmldoc):
 
+        # This is a combat vehicle
+        self.type = "CV"
+
         # Get top-level structure data
         for cveh in xmldoc.getElementsByTagName('combatvehicle'):
             self.model = cveh.attributes["model"].value

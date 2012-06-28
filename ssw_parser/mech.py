@@ -39,6 +39,9 @@ class Mech:
     """
     def __init__(self, xmldoc):
 
+        # This is a mech
+        self.type = "BM"
+
         # Set some data to zero that sometimes will not get set otherwise
         self.multi = []
  
