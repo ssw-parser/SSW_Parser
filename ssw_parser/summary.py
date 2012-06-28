@@ -314,7 +314,10 @@ def create_speed_list_item(mech, i, var):
     run = mech.get_run()
     jump = i.get_jump()
     spd = max(walk, jump)
-    enh = mech.enhancement.get_type()
+    if mech.type == "BM":
+        enh = mech.enhancement.get_type()
+    else:
+        enh = ""
     mod = mech.get_move_target_modifier(i)
     batt_f = BattleForce(mech, i)
     bf_str = batt_f.get_move()
@@ -345,11 +348,11 @@ def print_speed_list(file_list, select_l, header_l):
     # Print output
     print "=== Speed List ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV    Speed   Enh  Mod BF    Super"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d %2d/%2d/%2d %-4s %d   %-5s %s" % 
+        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %d   %-5s %s" % 
                (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10]))
 
 ## Weapons listing

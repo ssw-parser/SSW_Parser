@@ -64,13 +64,26 @@ class BattleForce:
             jump = 0
 
         factor = 1
-        if self.mech.enhancement.is_masc():
+        if self.mech.type == "BM" and self.mech.enhancement.is_masc():
             factor += 0.25
         if self.load.gear.supercharger.has_sc():
             factor += 0.25
 
         bf_str = str(int(walk * factor))
-        if jump == walk:
+
+        # Combat vehicle movement type
+        if self.mech.type == "CV":
+            if self.mech.mot_type == "VTOL":
+                bf_str += "v"
+            elif self.mech.mot_type == "Hovercraft":
+                bf_str += "h"
+            elif self.mech.mot_type == "Tracked":
+                bf_str += "t"
+            elif self.mech.mot_type == "Wheeled":
+                bf_str += "w"
+
+        # Handle jumping
+        if jump == walk and jump > 0:
             if factor == 1:
                 bf_str += "j"
             else:

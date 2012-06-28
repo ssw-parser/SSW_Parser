@@ -102,6 +102,25 @@ class CombatVehicle:
             self.load = Baseloadout(blo, self, self.batt_val,
                                     False, self.prod_era, cost)
 
+    def get_walk(self):
+        """
+        Get walk speed
+        """
+        return self.cruise + self.load.gear.get_speed_adj()
+
+    def get_run(self):
+        """
+        Get standard running speed, with no modifiers
+        """
+        spd = self.cruise + self.load.gear.get_speed_adj()
+        factor = 1.5
+        rspeed = int(ceil(spd * factor))
+        # Hardened Armor
+        if self.armor.atype == "Hardened Armor":
+            rspeed -= 1
+        return rspeed
+
+
     def get_max_run(self):
         """
         Get maximum running speed
