@@ -24,6 +24,7 @@ Contains the master class for a combat vehicle
 
 import sys
 from math import ceil
+from defensive import Vehicle_Armor
 from movement import Engine
 from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout
@@ -87,7 +88,8 @@ class CombatVehicle:
 
             self.engine = Engine(get_child(cveh, 'engine'), self.weight)
 
-            # Armor
+            self.armor = Vehicle_Armor(get_child(cveh, 'armor'),
+                                       self.weight)
 
             ### Loadout stuff starts here ###
 

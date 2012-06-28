@@ -22,6 +22,7 @@
 Mech internal structure and armor classes
 """
 
+from math import floor
 from error import error_exit
 from util import ceil_05, get_child_data
 from item import Item
@@ -311,7 +312,7 @@ class TorsoArmor:
         return self.total.max
 
 
-class Armor(Item):
+class Mech_Armor(Item):
     """
     A class to hold armor info for a mech
     """
@@ -385,6 +386,144 @@ class Armor(Item):
                     self.l_torso.get_max() +
                     self.r_torso.get_max() + self.l_arm.max + self.r_arm.max +
                     self.l_leg.max + self.r_leg.max)
+        self.total = ArmorLoc("Total", armortotal, (maxtotal - 9) / 2 + 3,
+                              maxtotal)
+
+    def apply_modular(self, mod):
+        """
+        Add modular armor to normal
+        """
+        for item in mod:
+            if item == "CT":
+                self.c_torso.front.arm += mod[item]
+                self.total.arm += mod[item]
+            elif item == "RT":
+                self.r_torso.front.arm += mod[item]
+                self.total.arm += mod[item]
+            elif item == "LT":
+                self.l_torso.front.arm += mod[item]
+                self.total.arm += mod[item]
+            elif item == "LA":
+                self.l_arm.arm += mod[item]
+                self.total.arm += mod[item]
+            elif item == "RA":
+                self.r_arm.arm += mod[item]
+                self.total.arm += mod[item]
+            elif item == "LL":
+                self.l_leg.arm += mod[item]
+                self.total.arm += mod[item]
+            elif item == "RL":
+                self.r_leg.arm += mod[item]
+                self.total.arm += mod[item]
+
+    def get_armor_bv(self, torso):
+        """
+        Return armor BV
+        """
+        if torso:
+            # count center torso armor twice for torso cockpit
+            armor = self.total.arm + self.c_torso.get_total()
+            return (self.armor_bv * 2.5 * armor)
+        else:
+            return (self.armor_bv * 2.5 * self.total.arm)
+       
+    def get_type(self):
+        """
+        Return armor type
+        """
+        if self.tech_base == 0:
+            base = "(IS)"
+        elif self.tech_base == 1:
+            base = "(Clan)"
+        elif self.tech_base == 2:
+            base = ""
+        return self.atype + " " + base
+
+    def get_rules_level(self):
+        """
+        Return armor rules level
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
+        """
+        return self.r_level
+
+    def get_weight(self):
+        """
+        Return armor weight
+        """
+        wgt = self.total.arm / (16 * self.armor_multipler)
+        # hack to get half-ton rounding up
+        wgt = ceil_05(wgt)
+        return wgt
+
+    def get_cost(self):
+        """
+        Return armor cost
+        """
+        return self.get_weight() * self.cost
+
+    def get_armor_percent(self):
+        """
+        Return armor percent
+        """
+        ratio = float(self.total.arm) / float(self.total.max)
+        return (ratio * 100)
+
+    def armor_total_report(self):
+        """
+        Report total armor
+        """
+        print self.summary_string()
+        print self.total.get_report()
+
+    def parse_armor(self):
+        """
+        Print out all armor reports
+        """
+        self.armor_total_report()
+        print self.head.get_report()
+        self.c_torso.report()
+        self.l_torso.report()
+        self.r_torso.report()
+        print self.l_leg.get_report()
+        print self.r_leg.get_report()
+        print self.l_arm.get_report()
+        print self.r_arm.get_report()
+
+class Vehicle_Armor(Item):
+    """
+    A class to hold armor info for a vehicle
+    """
+    def __init__(self, arm, weight):
+        Item.__init__(self)
+        self.tech_base = int(arm.attributes["techbase"].value)
+        self.atype = get_child_data(arm, "type")
+        self.front = int(get_child_data(arm, "front"))
+        self.left = int(get_child_data(arm, "left"))
+        self.right = int(get_child_data(arm, "right"))
+        self.rear = int(get_child_data(arm, "rear"))
+        self.p_turret = int(get_child_data(arm, "primaryturret"))
+        self.s_turret = int(get_child_data(arm, "secondaryturret"))
+        self.rotor = int(get_child_data(arm, "rotor"))
+
+        # Check for legal armor type, save data
+        ident = False
+        for i in ARMOR:
+            if (i[0] == self.atype and i[1] == self.tech_base):
+                ident = True
+                self.armor_bv = i[2]
+                self.armor_multipler = i[3]
+                self.r_level = i[4]
+                self.cost = i[5]
+                self.short = i[6]
+        if not ident:
+            error_exit((self.atype, self.tech_base))
+
+
+        # Last sum up total
+        armortotal = (self.front + self.left + self.right + self.rear +
+                      self.p_turret + self.s_turret + self.rotor)
+        maxtotal = floor(3.5 * weight + 40)
+
         self.total = ArmorLoc("Total", armortotal, (maxtotal - 9) / 2 + 3,
                               maxtotal)
 
