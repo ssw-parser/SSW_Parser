@@ -23,6 +23,7 @@ Contains objects related to moving a mech: cockpit, engine, gyro, myomer,
 jumpjets, partial wing, jump boosters.
 """
 
+import sys
 from math import ceil
 from error import error_exit
 from util import ceil_05, ceil_5, gettext
@@ -499,7 +500,27 @@ ICE_ENGINE = {
     385 : 87.0,
     390 : 92.0,
     395 : 98.0,
-    400 : 105.0
+    400 : 105.0,
+    405 : 113.0,
+    410 : 122.0,
+    415 : 133.0,
+    420 : 145.0,
+    425 : 159.0,
+    430 : 175.0,
+    435 : 194.0,
+    440 : 215.0,
+    445 : 239.0,
+    450 : 267.0,
+    455 : 300.0,
+    460 : 337.0,
+    465 : 380.0,
+    470 : 429.0,
+    475 : 486.0,
+    480 : 551.0,
+    485 : 626.0,
+    490 : 712.0,
+    495 : 811.0,
+    500 : 925.0
 }
 
 # Engine types
@@ -987,12 +1008,52 @@ class Engine(Item):
             if (i[0] == self.etype and i[1] == self.e_base):
                 ident = True
                 self.eng_bv = i[2]
-                self.eweight = i[3](ceil_5(self.erating))
+                if self.unit.type == "CV":
+                    self.eweight = i[3](ceil_5(self.erating -
+                                               self.get_suspension_factor()))
+                else:
+                    self.eweight = i[3](ceil_5(self.erating))
                 self.r_level = i[4]
                 self.cost = i[5]
         if not ident:
             error_exit((self.etype, self.e_base))
 
+
+    def get_suspension_factor(self):
+        """
+        Calculates suspension factor
+        """
+        if self.unit.mot_type == "Hovercraft":
+            if self.unit.weight <= 10:
+                return 40
+            elif self.unit.weight <= 20:
+                return 85
+            elif self.unit.weight <= 30:
+                return 130
+            elif self.unit.weight <= 40:
+                return 175
+            elif self.unit.weight <= 50:
+                return 235
+            else:
+                print "Invalid weight-motive type!"
+                sys.exit(1)
+        elif self.unit.mot_type == "Tracked":
+            return 0
+        elif self.unit.mot_type == "VTOL":
+            if self.unit.weight <= 10:
+                return 50
+            elif self.unit.weight <= 20:
+                return 95
+            elif self.unit.weight <= 30:
+                return 140
+            else:
+                print "Invalid weight-motive type!"
+                sys.exit(1)
+        elif self.unit.mot_type == "Wheeled":
+            return 20
+        else:
+            print "Invalid weight-motive type!"
+            sys.exit(1)
 
     def get_type(self):
         """
@@ -1014,7 +1075,6 @@ class Engine(Item):
         """
         Return weight of engine
         """
-        # TODO: Suspension factor
         wgt = self.eweight
         # Add shielding
         if self.unit.type == "CV" and self.etype != "I.C.E. Engine":

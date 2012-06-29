@@ -113,13 +113,11 @@ Priority: Medium
 
 Priority: Medium-High
 
-- Suspension factors.
 - Bugchecking and cleanup.
 - Hitches needing special treatment?
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications.
-- Engine shielding weights.
 - Heatsinks needs to be adjusted for ICE.
 
 === Test data into repository ===
@@ -353,8 +351,6 @@ Priority: Medium
 
 - Move speed calculation out of engine class. Does not belong when
   using combat vehicles.
-
-- Add Suspension factors.
 
 - Missing Engines: Fuel Cell, Fission
 
