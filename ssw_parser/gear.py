@@ -287,6 +287,7 @@ EQUIPMENT = {
     "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0, 100000],
     # Industrial gear, TM
     "Cargo, Liquid" : [[0, 0], [0, 0], 1, 1, 0, 0, 100],
+    "Cargo, Insulated, Vehicular" : [[0, 0], [0, 0], 1, 1, 0, 0, 250],
     "Cargo, Standard, Vehicular" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
     "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0, 10000],
     "Infantry Compartment" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
