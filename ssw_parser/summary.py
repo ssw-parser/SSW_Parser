@@ -1242,11 +1242,11 @@ def print_cost_list(file_list, select_l, header_l):
     # Print output
     print "=== List of Mech Costs (Alpha) ==="
     print header
-    header2 = "Name                          "
+    header2 = "Name                            "
     header2 += "Tons BV      cost       cost(SSW)     difference"
     print header2
     for i in unit_list:
-        print ("%-30s %3d %4d  %11d %11d %11d" %
+        print ("%-32.32s %3d %4d  %11d %11d %11d" %
                (i[0], i[1], i[2], i[3], i[4], i[5]))
 
 

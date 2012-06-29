@@ -117,7 +117,10 @@ Priority: Medium-High
 - Bugchecking and cleanup.
 - Hitches needing special treatment?
 - Type list (summary.py) is broken for combat vehicles. (low priority)
-- No support for cost list yet.
+- Costs needs to be debugged and missing stuff needs to be added.
+- CASE will at least need some modifications.
+- Engine shielding weights.
+- Heatsinks needs to be adjusted for ICE.
 
 === Test data into repository ===
 

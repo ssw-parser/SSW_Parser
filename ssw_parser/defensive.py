@@ -272,7 +272,7 @@ class CV_IS(Item):
         # TODO: Dual turret
 
         # Calculate cost
-        self.cost = weight * costf
+        self.cost = self.wgt * 10000
 
     def get_type(self):
         """

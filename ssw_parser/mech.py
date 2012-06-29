@@ -195,11 +195,6 @@ class Mech:
         # Hardened Armor
         if self.armor.atype == "Hardened Armor":
             rspeed -= 1
-#        rspeed = int(ceil(spd * 1.5))
-#        if self.engine.enhancement == "TSM":
-#            rspeed = int(ceil((spd + 1) * 1.5))
-#        elif self.engine.enhancement == "MASC":
-#            rspeed = int(ceil(spd * 2.0))
         return rspeed
 
     def get_move_target_modifier(self, load):

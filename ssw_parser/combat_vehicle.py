@@ -324,3 +324,59 @@ class CombatVehicle:
             r_level = tmp
 
         return r_level
+
+    def calculate_cost(self, i):
+        """
+        Calculate the cost of a combat vehicle
+        """
+
+        # Structural costs
+        cost = 0
+
+        # Internal structure
+        cost += self.structure.get_cost()
+
+        # Control Components ?
+
+        # Engine
+        cost += self.engine.get_cost()
+        # Jump Jets
+        cost += i.jjets.get_cost()
+        # Heat Sinks
+        cost += i.heatsinks.get_cost()
+
+        # Armor
+        cost += self.armor.get_cost()
+
+        # Add Turrets
+
+        # Add Power Amplifiers here if/when implemented
+
+        # Partial Wing, jump boosters
+        cost += i.partw.get_cost()
+        cost += i.jumpb.get_cost()
+
+        # Booby trap
+        cost += i.btrap.get_cost()
+
+        # Hack: Armored components
+        cost += len(i.arm_loc) * 150000
+
+        # Gear
+        cost += i.gear.get_cost()
+
+        # Final calculation
+        if self.mot_type == "VTOL":
+            divisor = 30.0
+        elif self.mot_type == "Hovercraft":
+            divisor = 50.0
+        elif self.mot_type == "Tracked":
+            divisor = 100.0
+        elif self.mot_type == "Wheeled":
+            divisor = 200.0
+
+        cost *= (1.0 + (self.weight / divisor))
+        if self.omni == "TRUE":
+            cost *= 1.25
+
+        return round(cost)
