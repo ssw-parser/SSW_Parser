@@ -89,6 +89,7 @@ class Load:
         self.artemis5 = load.attributes["fcsa5"].value
         self.apollo = load.attributes["fcsapollo"].value
         self.cost = cost
+        self.unit = mech # Reference to parent
 
         # Create a container for special abilities
         # ES, SEAL, SOA, SRCH is always available for mechs
@@ -118,7 +119,7 @@ class Load:
 
         self.batt_val = batt_val
         # Set to zero things that might not get defined otherwise
-        self.heatsinks = Heatsinks(None)
+        self.heatsinks = Heatsinks(None, self)
         self.jjets = JumpJets(None, mech.weight)
         self.partw = PartialWing(mech.weight, partw)
 
@@ -551,7 +552,7 @@ class Baseloadout(Load):
             self.jjets = JumpJets(jets, self.weight)
 
         # Get heat sinks
-        self.heatsinks = Heatsinks(get_child(load, 'heatsinks'))
+        self.heatsinks = Heatsinks(get_child(load, 'heatsinks'), self)
 
     def get_name(self):
         """
@@ -603,7 +604,7 @@ class Loadout(Load):
 
         # Get heat sinks
         for heat in load.getElementsByTagName('heatsinks'):
-            self.heatsinks = Heatsinks(heat)
+            self.heatsinks = Heatsinks(heat, self)
 
     def get_name(self):
         """

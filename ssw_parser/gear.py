@@ -355,8 +355,9 @@ class Heatsinks(Item):
 
     Warning: fusion engine with 10 free sinks is assumed
     """
-    def __init__(self, heat):
+    def __init__(self, heat, load):
         Item.__init__(self)
+        self.load = load # Reference to parent
         # Handle default
         if heat is None:
             self.number = 0
@@ -394,16 +395,20 @@ class Heatsinks(Item):
     def get_weight(self):
         """
         Return heatsink weight
-        1 ton/sink, 10 free
+        1 ton/sink, 10 free for fusion types
         """
-        return self.number - 10
+        if self.load.unit.engine.etype == "I.C.E. Engine":
+            return self.number
+        else:
+            return self.number - 10
 
     def get_cost(self):
         """
         Return heatsink cost
         10 single heat sinks in fusion engine costs nothing
         """
-        if self.type == "Single Heat Sink":
+        if (self.type == "Single Heat Sink" and
+            self.load.unit.engine.etype != "I.C.E. Engine"):
             return (self.number - 10) * self.cost
         else:
             return self.number * self.cost

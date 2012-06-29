@@ -118,7 +118,6 @@ Priority: Medium-High
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications.
-- Heatsinks needs to be adjusted for ICE.
 
 === Test data into repository ===
 
