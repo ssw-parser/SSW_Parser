@@ -968,13 +968,13 @@ class Engine(Item):
     """
     A class to hold engine info for a mech
     """
-    def __init__(self, eng, weight):
+    def __init__(self, eng, unit):
         Item.__init__(self)
         self.erating = int(eng.attributes["rating"].value)
         self.e_base = int(eng.attributes["techbase"].value)
         self.etype = gettext(eng.childNodes)
-        self.speed = self.erating / weight
-        self.weight = weight
+        self.speed = self.erating / unit.weight
+        self.unit = unit # Reference to parent unit
         # A note on primitive engines:
         # It seems like using engine rating directly does give
         # the right speed, even if rules says otherwise
@@ -1014,7 +1014,17 @@ class Engine(Item):
         """
         Return weight of engine
         """
-        return self.eweight
+        # TODO: Suspension factor
+        wgt = self.eweight
+        # Add shielding
+        if self.unit.type == "CV" and self.etype != "I.C.E. Engine":
+            wgt *= 1.5
+
+        # Hovercraft minimum weight
+        if self.unit.type == "CV" and self.unit.mot_type == "Hovercraft":
+            wgt = max(wgt, self.unit.weight * 0.2)
+
+        return wgt
 
     def get_cost(self):
         """
@@ -1023,7 +1033,7 @@ class Engine(Item):
         erating = self.erating
         if self.etype == "Primitive Fusion Engine":
             erating = ceil_5(self.erating * 1.2)
-        cost = (self.cost * erating * self.weight) / 75
+        cost = (self.cost * erating * self.unit.weight) / 75
         # Large engines have double cost compared to a comparable normal
         if self.erating > 400:
             cost *= 2

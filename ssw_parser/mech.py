@@ -108,7 +108,7 @@ class Mech:
                                      self.weight, self.motive)
            
             # Get engine data
-            self.engine = Engine(get_child(mmech, 'engine'), self.weight)
+            self.engine = Engine(get_child(mmech, 'engine'), self)
 
             # Get gyro
             self.gyro = Gyro(get_child(mmech, 'gyro'),

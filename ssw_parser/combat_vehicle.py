@@ -88,7 +88,7 @@ class CombatVehicle:
             self.structure = CV_IS(get_child(cveh, 'structure'), self.weight,
                                    self.mot_type, self.turret)
 
-            self.engine = Engine(get_child(cveh, 'engine'), self.weight)
+            self.engine = Engine(get_child(cveh, 'engine'), self)
 
             self.armor = Vehicle_Armor(get_child(cveh, 'armor'),
                                        self.weight)
