@@ -228,7 +228,7 @@ def lvspl_damage(rnge):
 # TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
-# TODO: Advanced: Thumper, PMAC/2, iHSL, iHLL,
+# TODO: Advanced: PMAC/2, iHSL, iHLL,
 # Mech Mortars, Imp OS, Thumper & Sniper Artillery Cannon, HVAC2, HVAC5,
 # Chemical Lasers, ELRM5, ELRM15, SLRM-5, SLRM-20
 WEAPONS = {
@@ -743,7 +743,9 @@ WEAPONS = {
     "(CL) Arrow IV Missile" : ["ArwIV", [240, 30], 2, 450000,
                                10, (lambda x, y : 20), [6, 135, 135, 135],
                                "", 1, 12, 12, ""],
-    # Thumper
+    "(IS) Thumper" : ["Thmp", [43, 5], 2, 187500,
+                      6, (lambda x, y : 15), [6, 315, 315, 315],
+                      "", 1, 15, 15, ""],
     "(IS) Sniper" : ["Snpr", [85, 11], 2, 300000,
                      10, (lambda x, y : 20), [6, 270, 270, 270],
                      "", 1, 20, 20, ""],
