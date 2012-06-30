@@ -1067,8 +1067,12 @@ class Engine(Item):
         """
         r_lev = self.r_level
         # Large engines are advanced
-        if self.erating > 400:
-            r_lev = max(r_lev, 2)
+        if self.unit.type == "CV":
+            if (self.erating - self.get_suspension_factor()) > 400:
+                r_lev = max(r_lev, 2)
+        else:
+            if self.erating > 400:
+                r_lev = max(r_lev, 2)
         return r_lev
 
     def get_weight(self):
