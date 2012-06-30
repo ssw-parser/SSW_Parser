@@ -95,7 +95,7 @@ Primitive Jump-jets:
 
 Priority: Medium
 
-- 3039
+- 3039: Medium, Heavy & Assualt TODO
 - 3050
 - 3058
 - 3060
@@ -120,12 +120,16 @@ Priority: Medium-High
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications.
 
+- Issue with some vehicles showing up as intro-tech, while others are
+  T-L. Intro-tech should probably be limited to mechs?
+
 === Test data into repository ===
 
 Priority: Medium - nice to have, but not vital.
 
 - Add test data:
 -- 3050: 16 Clan omnis (wait for Z configs?)
+-- 3039: Combat Vehicles
 
 === Disutils ===
 
@@ -148,6 +152,8 @@ Priority: Medium (need MUL to update)
 - Missing/wrong year info, Combat Vehicles in MUL:
 -- All standard APCs (3039)
 -- Karnov UR Transport (3039)
+-- Karnov UR Transport (AC) (3039)
+-- Karnov UR Transport (Artillery) (3039)
 
 === Weight calculations ===
 
