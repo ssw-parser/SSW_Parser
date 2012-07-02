@@ -51,6 +51,12 @@ and offensive speed factor. (reported)
 
 Mobile Long Tom (Ammo Carriage) (3039) -- Ammo without weapon.
 
+Von Luckner Heavy Tank VNL-K70 (3039) -- SSW calculates rear-firing
+BV wrong.
+Von Luckner Heavy Tank VNL-K65N (3039) -- SSW calculates rear-firing
+BV wrong.
+
+
 === Other reasons ===
 
 Highlander HGN-732 Colleen (Klondike) -- Experimental Streaks
@@ -102,7 +108,7 @@ Primitive Jump-jets:
 Priority: Medium
 
 TODO:
-- 3039: Heavy & Assualt
+- 3039: Assault
 - 3050
 - 3058
 - 3060
@@ -113,7 +119,7 @@ TODO:
 
 - Missing Record Sheets:
 - Sea Skimmer Hydrofoil (3039)
-
+- Monitor Naval Vessel (3039)
 
 === Support Combat Vehicles ===
 
