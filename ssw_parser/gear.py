@@ -1024,10 +1024,10 @@ class Gear:
         bv_rear = 0.0
         # Weapons
         for weap in self.weaponlist.list.itervalues():
-            if (weap.count - weap.count_la - weap.count_ra) > 0:
-                bv_front += weap.get_bv(self.tarcomp) * (weap.count -
-                                                         weap.count_la -
-                                                         weap.count_ra)
+            fr_count = (weap.count - weap.count_la - weap.count_ra -
+                        weap.count_tur)
+            if (fr_count) > 0:
+                bv_front += weap.get_bv(self.tarcomp) * (fr_count)
 
             if weap.countrear > 0:
                 bv_rear += weap.get_bv(self.tarcomp) * weap.countrear

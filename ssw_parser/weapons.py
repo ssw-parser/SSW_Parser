@@ -900,6 +900,7 @@ class Weapon:
         self.countrear = 0
         self.count_la = 0 # We count arm weapons also, to help with BV calcs
         self.count_ra = 0 # and A.E.S.
+        self.count_tur = 0 # Count turret weapons, to help with BV calcs
         self.ammocount = 0
         self.ammo_ton = 0
 
@@ -1075,6 +1076,8 @@ class Weapon:
             self.count_la = self.count_la + 1
         elif loc == "RA":
             self.count_ra = self.count_ra + 1
+        elif loc == "Turret":
+            self.count_tur = self.count_tur + 1
 
     def addone_rear(self):
         """
