@@ -749,6 +749,9 @@ WEAPONS = {
     "(IS) Sniper" : ["Snpr", [85, 11], 2, 300000,
                      10, (lambda x, y : 20), [6, 270, 270, 270],
                      "", 1, 20, 20, ""],
+    "(IS) Long Tom" : ["LTom", [368, 46], 2, 450000,
+                       20, (lambda x, y : 25), [6, 450, 450, 450],
+                       "", 1, 30, 30, ""],
     # Thumper Cannon
     # Sniper Cannon
     "Long Tom Artillery Cannon" : ["LTArtC", [329, 41], 2, 650000,
