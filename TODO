@@ -68,7 +68,11 @@ WHM-X7 Warhammer The Lich (XTRO:Gladiators) -- Frankenmech
 TMC-NB Temax Cat Ninjabolt (XTRO:Boondocks) -- Frankenmech
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
+== UNABLE TO BUILD IN SAW ==
 
+-- Harasser Missile Platform Leaping Lisa (3039) -- No vehicle jump-jets.
+-- Hi-Scout Drone (NapFind) (3039) -- No drone operating system, SV.
+-- Hi-Scout Drone (PathTrack) (3039) -- No drone operating system, SV.
 
 
 == Goals ==
@@ -108,8 +112,6 @@ TODO:
 - Missing Record Sheets:
 - Sea Skimmer Hydrofoil (3039)
 
-- Cannot Build:
--- Harasser Missile Platform Leaping Lisa (3039) -- No vehicle jump-jets.
 
 === Support Combat Vehicles ===
 
@@ -161,6 +163,8 @@ Priority: Medium (need MUL to update)
 -- Goblin Medium Tank (LRM) (3039)
 -- Goblin Medium Tank (MG) (3039)
 -- Goblin Medium Tank (SRM) (3039)
+-- LRM Carrier (3039)
+-- SRM Carrier (3039)
 
 === Weight calculations ===
 

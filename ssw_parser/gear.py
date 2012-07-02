@@ -298,7 +298,7 @@ EQUIPMENT = {
     # New TL
     "Watchdog CEWS" : [[0, 0], [68, 0], 1, 1.5, 0, 0, 600000],
 
-    # Advandced
+    # Advanced
     "Angel ECM" : [[0, 0], [100, 0], 2, 2, 0, 0, 750000],
     "Bloodhound Active Probe" : [[0, 0], [25, 0], 2, 2, 0, 0, 500000],
     "Chaff Pod" : [[0, 0], [19, 0], 2, 1, 0, 1, 2000],
@@ -307,6 +307,7 @@ EQUIPMENT = {
     "(CL) Laser Anti-Missile System" : [[0, 0], [45, 0], 2, 1, 0, 0, 225000],
     "M-Pod" : [[5, 0], [0, 0], 2, 1, 0, 1, 6000],
     "MW Aquatic Survival System" : [[0, 0], [9, 0], 2, 1.5, 0, 0, 4000],
+    "Drone Carrier Control System" : [[0, 0], [0, 0], 2, 2.5, 0, 0, 25000],
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], [0, 0], 3, 16, 0, 0, 500000],
     "C3 Boosted Computer (Slave)" : [[0, 0], [0, 0], 3, 3, 0, 0, 500000],
