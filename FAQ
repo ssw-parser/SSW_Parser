@@ -1,0 +1,9 @@
+
+Q: My system does not have Python installed, from where do I get it?
+A: http://www.python.org/
+
+Q: Why Python instead of Java?
+A: Well, I started this project in Python, because I was more familiar
+with it. I tried, and started a rewrite in Java, but the issues with
+getting the tables implemented in it was not worth the effort.
+
