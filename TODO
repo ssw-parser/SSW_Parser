@@ -84,7 +84,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 Priority: Medium
 
-Comment: Not really a programming task.
+Comment: Not really a programming task. Catch up with combat vehicles
+before adding more mechs first.
 
 - Turning Points series (quite high priority, due to some design
   showing up on faction lists)
@@ -103,7 +104,7 @@ Primitive Jump-jets:
 Priority: Medium
 
 TODO:
-- 3050
+- 3050 -- Mediums, Heavies & Assaults
 - 3058
 - 3060
 - 3075
@@ -121,7 +122,7 @@ TODO:
 Priority: Medium-High
 
 - Bugchecking and cleanup.
-- Hitches needing special treatment?
+- Hitches needing special treatment? (probably not)
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications.
