@@ -76,7 +76,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Harasser Missile Platform Leaping Lisa (3039) -- No vehicle jump-jets.
 -- Hi-Scout Drone (NapFind) (3039) -- No drone operating system, SV.
 -- Hi-Scout Drone (PathTrack) (3039) -- No drone operating system, SV.
-
+-- Kanga Medium Hovertank (3050) -- No vehicle jump-jets.
+-- Thor Artillery Vehicle (Clan) (3050) -- Clan CASE broken.
 
 == Goals ==
 
@@ -104,7 +105,7 @@ Primitive Jump-jets:
 Priority: Medium
 
 TODO:
-- 3050 -- Mediums, Heavies & Assaults
+- 3050 -- Heavies & Assaults
 - 3058
 - 3060
 - 3075
@@ -197,7 +198,7 @@ of hacks in their parent object.
 
 Priority: Medium
 
-- Find a way be selective with omni-configs.
+- Find a way to select which omni-configs are desired.
 
 === Improve upgrade evaluator in report.py ===
 
