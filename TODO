@@ -126,7 +126,7 @@ Priority: Medium-High
 - Hitches needing special treatment? (probably not)
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
-- CASE will at least need some modifications.
+- CASE will at least need some modifications. (seems to work?!)
 
 - Issue with some vehicles showing up as intro-tech, while others are
   T-L. Intro-tech should probably be limited to mechs?
@@ -255,7 +255,6 @@ Priority: Medium
 
 Missing from TM:
 - MG Arrays, IS: 2MG, 2HMG, 4 HMG
-- IS HMG
 - IS LRT-20
 - IS SRT-2
 - IS SRT-6

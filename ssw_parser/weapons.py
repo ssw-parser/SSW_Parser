@@ -224,7 +224,7 @@ def lvspl_damage(rnge):
 #
 # To be loaded into the gear class
 #
-# TODO: IS: 2 MG, HMG, 2 HMG, 4 HMG, One-shots, LRT-20, SRT-2, SRT-6
+# TODO: IS: 2 MG, 2 HMG, 4 HMG, One-shots, LRT-20, SRT-2, SRT-6
 # TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
@@ -324,7 +324,9 @@ WEAPONS = {
         ["MG4A", [33.4, 1], 1, 21250,
          0, (lambda x, y : 2 * calc_average(4, 0)), [0, 1, 2, 3],
          "", 4, 2.5, 5, ""],
-    # HMG
+    "(IS) Heavy Machine Gun" : ["HMG", [6, 1], 1, 7500,
+                                0, (lambda x, y : 3), [0, 1, 2, 2],
+                                "", 1, 1.0, 1, ""],
     # HMG 2
     "(IS) MG Array (3 Heavy Machine Gun)" :
         ["HMG3A", [30.06, 1], 1, 23750,

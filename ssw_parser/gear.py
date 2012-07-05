@@ -80,7 +80,7 @@ AMMO = {
           "(IS) MG Array (4 Machine Gun)",
           "(CL) MG Array (4 Machine Gun)"], 100, 0.5, "X", 500],
     "@ Heavy Machine Gun" :
-        [["(CL) Heavy Machine Gun",
+        [["(IS) Heavy Machine Gun", "(CL) Heavy Machine Gun",
           "(IS) MG Array (3 Heavy Machine Gun)",
           "(CL) MG Array (3 Heavy Machine Gun)",
           "(CL) MG Array (4 Heavy Machine Gun)"], 100, 1, "X", 1000],
