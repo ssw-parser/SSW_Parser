@@ -78,7 +78,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Hi-Scout Drone (PathTrack) (3039) -- No drone operating system, SV.
 -- Kanga Medium Hovertank (3050) -- No vehicle jump-jets.
 -- Thor Artillery Vehicle (Clan) (3050) -- Clan CASE broken.
-
+-- Magi Infantry Support Vehicle (UCSV) (3050) -- No MG Arrays.
 == Goals ==
 
 === Add missing mechs to database ===
@@ -105,7 +105,7 @@ Primitive Jump-jets:
 Priority: Medium
 
 TODO:
-- 3050 -- Heavies & Assaults
+- 3050 -- Assaults
 - 3058
 - 3060
 - 3075
