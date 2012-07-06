@@ -191,7 +191,7 @@ Priority: Medium-High
 
 Comment: Work on this!!!!!
 
-- Weight calculations - detect under-weight mechs
+- Use decimal format
 - Modular armor weight needs to be added up
 - Cargo and other variable weight items calculated wrong
 
@@ -202,12 +202,24 @@ Missing:
 -- Armored components
 
 Mechs under-overweight:
-- Hauptmann - 0.5 over -- Some CASE issue??
-- Awesome AWS-9Ma - 1 under -- Comm equipment (known error)
 - Turkina X - 3 under -- Talons ???
 - Annihilator ANH-2AX - 3 under -- armored components??
+- Hachiwara HCA-6P - 0.5 under -- unknown issue???
+- No-Dachi NDA-3X - 1 under - armored components??
 
 
+- Awesome AWS-9Ma - 1 under -- Comm equipment (known error)
+
+
+- Rifleman IIC 6 - 0.5 under -- OK, canon
+- Grasshopper GHR-7X - 0.5 under -- OK, canon
+- Viper - 1 under -- OK, canon
+- Archer C - 10 under -- OK, canon
+- Rifleman C - 2 under -- OK, canon
+- Patriot C - 2 under -- OK, canon
+- Warhammer C - 2 under -- OK, canon
+- Marauder C - 2.5 under -- OK, canon
+- Thunderbolt C - 9 under -- OK, canon
 - Warlord BLR-2G - 0.5 under -- OK, canon
 - Victor C - 2 under -- OK, canon
 - Atlas C - 7 under -- OK, canon
