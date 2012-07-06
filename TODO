@@ -107,6 +107,9 @@ Primitive Jump-jets:
 
 Priority: Medium
 
+Comment: The main issue here is the Clan CASE bug that makes me
+unwilling to start on sources with Clan vehicles.
+
 TODO:
 - 3058
 - 3060
@@ -135,7 +138,10 @@ Priority: Medium-High
 
 === Test data into repository ===
 
-Priority: Medium - nice to have, but not vital.
+Priority: Medium
+
+Comments: This issue here is how much test data to include. I am
+unwilling to add anything introduced after 3052.
 
 - Add test data:
 -- 3050: 16 Clan omnis (wait for Z configs?)
@@ -145,12 +151,17 @@ Priority: Medium - nice to have, but not vital.
 
 Priority: Medium
 
+Comments: Do this when ready for release.
+
 - Complete setup.py: url, desciptions ...
 - Include TODO or not?
 
 === Year Info stuff ===
 
 Priority: Medium (need MUL to update)
+
+Comments: Nothing that can be done right now. (Except pestering the
+MUL team.)
 
 - Missing year info, Mechs in MUL:
 -- Clint CLNT-2-4T (3039)
@@ -176,7 +187,9 @@ Priority: Medium (need MUL to update)
 
 === Weight calculations ===
 
-Priority: Medium
+Priority: Medium-High
+
+Comment: Work on this!!!!!
 
 - Weight calculations - detect under-weight mechs
 - Turret weights
@@ -197,11 +210,21 @@ of hacks in their parent object.
 - Armored Locations -- Issue: Need to know which items are armored.
 - Turrets -- Issue: Need to keep track of weight of items mounted in it.
 
-=== File handling ===
+=== Input File handling ===
 
 Priority: Medium
 
+Comment: Implementing the filter is easy, figuring out how to input
+the info on desired configs into the program is hard.
+
 - Find a way to select which omni-configs are desired.
+
+=== Add common interfaces ===
+
+Priority: Medium
+
+- Add a common interface for Mech and CombatVehicle.
+
 
 === Improve upgrade evaluator in report.py ===
 
@@ -282,12 +305,19 @@ Physical stuff:
 
 Priority: Low
 
+Comment: I honestly does not care about them, since I have no desire
+of using Industrials in combat. The main gain would be that they use
+equipment not used on BattleMechs, giving me a reason to implement
+said pieces of gear.
+
 === Battleforce ===
 
 Priority: Low
 
 Comment: Bits and pieces of BF has been added due to being useful
-elsewhere, no real need for complete BF info at this point.
+elsewhere, no real need for complete BF info at this point. The
+structure point calculation is a major issue to me, since that seems a
+lot of work for so little gain.
 
 - BattleForce information
 - A lot to do
@@ -339,6 +369,8 @@ code or in SSW.
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
+- Combat Vehicle costs are missing several items.
+
 ==== Cost Issues ====
 - Some dual cockpit issue
 - Turret cost: GOL-6M
@@ -357,7 +389,7 @@ code or in SSW.
 
 - Law of Demeter, avoid accessing low-level object data
 
-- Move get_move_target_modifier to util to avoid excessive code dublication.
+- Move get_move_target_modifier to util to avoid excessive code duplication.
 
 - Handle armored components better
 - Handle M-pods (should work on this end, problem in SSW)
