@@ -127,8 +127,8 @@ TODO:
 
 Priority: Medium-High
 
+- Add support for omni-vehicles.
 - Bugchecking and cleanup.
-- Hitches needing special treatment? (probably not)
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications. (seems to work?!)
@@ -407,7 +407,7 @@ code or in SSW.
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
-- Combat Vehicle costs are missing several items.
+- Combat Vehicle costs are missing power amplifiers and control equipment.
 
 ==== Cost Issues ====
 - Some dual cockpit issue

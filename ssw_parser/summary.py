@@ -1268,6 +1268,9 @@ def create_weight_list_item(mech, i, var):
     if mech.type == "BM":
         e_w += mech.gyro.get_weight()
         e_w += mech.enhancement.get_weight()
+    # Add lift/dive equipment & rotors for combat vehicles
+    elif mech.type == "CV":
+        e_w += mech.lift.get_weight()
     a_w = mech.armor.get_weight()
     # Cockpits and other controls
     c_w = 0

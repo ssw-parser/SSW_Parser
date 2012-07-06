@@ -26,8 +26,57 @@ import sys
 from math import ceil
 from defensive import CV_IS, Vehicle_Armor
 from movement import Engine
-from util import get_child, get_child_data, year_era_test
+from util import ceil_05, get_child, get_child_data, year_era_test
 from loadout import Baseloadout
+from item import Item
+
+class LiftEquipment(Item):
+    """
+    A class to hold information about lift/dive equipment or rotors
+    """
+    def __init__(self, mweight, mot_type):
+        Item.__init__(self)
+        self.weight = mweight # Mech weight
+        self.mot_type = mot_type
+
+    def get_type(self):
+        """
+        Return type of equipment
+        """
+        if self.mot_type == "VTOL":
+            return "Rotors"
+        elif self.mot_Type == "Hovercraft":
+            return "Lift Equipment"
+        else:
+            return ""
+
+    def get_rules_level(self):
+        """
+        Standard rules
+        """
+        return 1
+
+    def get_weight(self):
+        """
+        Get weight
+        """
+        if self.mot_type == "VTOL" or self.mot_type == "Hovercraft":
+            return ceil_05(0.1 * self.weight)
+        else:
+            return 0
+
+    def get_cost(self):
+        """
+        Get cost
+        """
+        if self.mot_type == "Hovercraft":
+            return  20000 * self.get_weight()
+        elif self.mot_type == "VTOL":
+            return 40000 * self.get_weight()
+        else:
+            return 0
+
+
 
 class CombatVehicle:
     """
@@ -90,6 +139,8 @@ class CombatVehicle:
 
             self.engine = Engine(get_child(cveh, 'engine'), self)
 
+            self.lift = LiftEquipment(self.weight, self.mot_type)
+
             self.armor = Vehicle_Armor(get_child(cveh, 'armor'),
                                        self.weight)
 
@@ -100,7 +151,7 @@ class CombatVehicle:
 
             # Costruct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self, self.batt_val,
-                                    False, self.prod_era, cost)
+                                    self.prod_era, cost)
 
     def get_walk(self):
         """
@@ -338,6 +389,9 @@ class CombatVehicle:
 
         # Control Components ?
 
+        # Lift/Dive Equipment & Rotors
+        cost += self.lift.get_cost()
+
         # Engine
         cost += self.engine.get_cost()
         # Jump Jets
@@ -348,7 +402,8 @@ class CombatVehicle:
         # Armor
         cost += self.armor.get_cost()
 
-        # Add Turrets
+        # HACK: Turrets
+        cost += i.gear.tur_weight * 5000
 
         # Add Power Amplifiers here if/when implemented
 
