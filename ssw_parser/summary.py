@@ -1268,11 +1268,16 @@ def create_weight_list_item(mech, i, var):
     if mech.type == "BM":
         e_w += mech.gyro.get_weight()
     a_w = mech.armor.get_weight()
+    # Cockpits and other controls
+    c_w = 0
+    if mech.type == "BM":
+        c_w = mech.cockpit.get_weight()
+    j_w = i.jjets.get_weight() + i.partw.get_weight() + i.jumpb.get_weight()
     h_w = i.heatsinks.get_weight()
     g_w = i.gear.get_weight()
-    rest = weight - s_w - e_w - a_w - h_w - g_w
+    rest = weight - s_w - e_w - a_w - c_w - j_w - h_w - g_w
 
-    return (name_str, weight, s_w, e_w, a_w, h_w, g_w, rest)
+    return (name_str, weight, s_w, e_w, a_w, c_w, j_w, h_w, g_w, rest)
 
 def print_weight_list(file_list, select_l, header_l):
     """
@@ -1296,11 +1301,11 @@ def print_weight_list(file_list, select_l, header_l):
     print "=== List of Mech Weight Distributions (Alpha) ==="
     print header
     header2 = "Name                            "
-    header2 += "Tons | Str Eng Arm Hea Gea rest"
+    header2 += "Tons | Str Eng Arm Ctl Jmp Hea Gea rest"
     print header2
     for i in unit_list:
-        print ("%-32.32s %3d | %3d %3d %3d %3d %3d %3d" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+        print ("%-32.32s %3d | %3d %3d %3d %3d %3d %3d %3d %3d" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9]))
 
 
 

@@ -713,7 +713,7 @@ class JumpJets(Item):
             base = 1.0
         else:
             base = 2.0
-        if self.jjtype == "Standard Jump Jet":
+        if self.jjtype == "Standard Jump Jet" or self.jjtype == "Mech UMU":
             base = base * 1.0
         elif self.jjtype == "Improved Jump Jet":
             base = base * 2.0
