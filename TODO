@@ -128,6 +128,7 @@ TODO:
 Priority: Medium-High
 
 - Add support for omni-vehicles.
+- Power amplifiers missing.
 - Bugchecking and cleanup.
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
@@ -136,6 +137,19 @@ Priority: Medium-High
 
 - Issue with some vehicles showing up as intro-tech, while others are
   T-L. Intro-tech should probably be limited to mechs?
+
+=== Keep track of weapon types ===
+
+Priority: High
+
+- Needed to implement power amplifiers.
+- Split WEAPONS into weapon types?
+
+=== Find a way to have equipment of variable weights ===
+
+Priority: Medium-High
+
+- Requires extensive interal rewrite?
 
 === Test data into repository ===
 
@@ -190,13 +204,13 @@ MUL team.)
 
 Priority: Medium-High
 
-Comment: Work on this!!!!!
+Comment: The easy things have been implemented. Power amplifiers has
+highest priority, but needs changes elsewhere before they gets implemented.
 
 - Modular armor weight needs to be added up
 - Cargo and other variable weight items calculated wrong
 
 Missing:
--- CV: Controls weight
 -- CV: Power amps
 -- Modular armor (implemented, hackish)
 -- Armored components
@@ -451,12 +465,12 @@ Priority: Medium
 - Missing Engines: Fuel Cell, Fission
 
 == weapons.py ==
+
 - Track if linked to tarcomp?
 - ammo issue, try to avoid using both ammocount & ammo_ton. 
-- Split WEAPONS into weapon types.
 
 == gear.py ==
-- Split WEAPONS into weapon types.
+
 - Handle Tarcomp & CASE better.
 - Move weight calculations.
 
@@ -477,7 +491,7 @@ Priority: Medium
 -- Stealth
 -- Artillery
 
-- Allow filtering by tonnage range.
+- Allow filtering by tonnage range. (How to input two variables with a flag?)
 
 - Count and list specific weapon types
 -- Head-capper list: iHLL
