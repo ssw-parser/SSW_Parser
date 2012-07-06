@@ -133,7 +133,7 @@ class Load:
     """
     Parent class for omni loadouts
     """
-    def __init__(self, load, mech, batt_val, partw, prod_era, equip, cost):
+    def __init__(self, load, mech, batt_val, prod_era, equip, cost):
         self.weight = mech.weight # Save weight just in case
         self.artemis4 = load.attributes["fcsa4"].value
         self.artemis5 = load.attributes["fcsa5"].value
@@ -171,7 +171,7 @@ class Load:
         # Set to zero things that might not get defined otherwise
         self.heatsinks = Heatsinks(None, self)
         self.jjets = JumpJets(None, mech.weight)
-        self.partw = PartialWing(mech.weight, partw)
+        self.partw = PartialWing(mech.weight, False, 2)
 
         # Assume not mixed tech
         self.mixed = False
@@ -586,7 +586,7 @@ class Baseloadout(Load):
     """
     An base omni loadout
     """
-    def __init__(self, load, mech, batt_val, partw, prod_era, cost):
+    def __init__(self, load, mech, batt_val, prod_era, cost):
 
         # Save year
         self.year = mech.year
@@ -597,7 +597,7 @@ class Baseloadout(Load):
         for node in load.getElementsByTagName('equipment'):
             self.equip.append(Equip(node))
 
-        Load.__init__(self, load, mech, batt_val, partw, prod_era,
+        Load.__init__(self, load, mech, batt_val, prod_era,
                       self.equip, cost)
 
         # Get jumpjets, needs for loop
@@ -607,6 +607,16 @@ class Baseloadout(Load):
 
         # Get heat sinks
         self.heatsinks = Heatsinks(get_child(load, 'heatsinks'), self)
+
+        # Get partial wing
+        partw = False
+        tech = 2
+        for paw in load.getElementsByTagName('partialwing'):
+            partw = True
+            tech = int(paw.attributes["tech"].value)
+
+        self.partw = PartialWing(mech.weight, partw, tech)
+
 
     def get_name(self):
         """
@@ -618,7 +628,7 @@ class Loadout(Load):
     """
     An omni loadout
     """
-    def __init__(self, load, base, mech, partw):
+    def __init__(self, load, base, mech):
         self.name = load.attributes["name"].value
 
         # Get production era
@@ -643,7 +653,7 @@ class Loadout(Load):
         for node in load.getElementsByTagName('equipment'):
             self.equip.append(Equip(node))
 
-        Load.__init__(self, load, mech, batt_val, partw, prod_era,
+        Load.__init__(self, load, mech, batt_val, prod_era,
                       self.equip, cost)
         # These needs to be set after call to Load
 
@@ -651,6 +661,8 @@ class Loadout(Load):
         self.heatsinks = base.heatsinks
         # Use base config jump-jets if not overriden
         self.jjets = base.jjets
+        # Use base config partial wing (no over-ride cannot be pod-mounted)
+        self.partw = base.partw
 
         # Get jumpjets
         for jets in load.getElementsByTagName('jumpjets'):

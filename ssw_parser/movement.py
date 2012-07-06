@@ -802,10 +802,11 @@ class PartialWing(Item):
     """
     A class to hold information about partial wings
     """
-    def __init__(self, weight, wing):
+    def __init__(self, weight, wing, tech):
         Item.__init__(self)
         self.weight = weight # Mech weight, not JJ weight
         self.wing = wing # Bool: Do we mount a partial wing?
+        self.tech = tech
 
     def get_type(self):
         """
@@ -826,8 +827,12 @@ class PartialWing(Item):
         """
         Get weight of partial wing
         """
-        if self.wing:
+        # Clan
+        if self.wing and self.tech == 1:
             return ceil_05(0.05 * self.weight)
+        # IS
+        elif self.wing and self.tech == 0:
+            return ceil_05(0.07 * self.weight)
         else:
             return 0
 

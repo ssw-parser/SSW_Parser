@@ -139,13 +139,9 @@ class Mech:
                 slot = mlts.attributes["name"].value
                 self.multi.append(slot)
 
-            # Get partial wing
-            for paw in blo.getElementsByTagName('partialwing'):
-                partw = True
-
             # Construct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self, self.batt_val,
-                                    partw, self.prod_era, cost)
+                                    self.prod_era, cost)
 
             # HACK -- Apply modular armor
             if self.load.gear.has_mod_armor:
@@ -156,7 +152,7 @@ class Mech:
             for load in mmech.getElementsByTagName('loadout'):
  
                 # Construct current loadout
-                current = Loadout(load, self.load, self, partw)
+                current = Loadout(load, self.load, self)
 
                 self.loads.append(current)
                 
