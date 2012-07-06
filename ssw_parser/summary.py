@@ -1309,10 +1309,10 @@ def print_weight_list(file_list, select_l, header_l):
     print "=== List of Mech Weight Distributions (Alpha) ==="
     print header
     header2 = "Name                            "
-    header2 += "Tons | Str Eng Arm Ctl Jmp Hea Tur Gea Rest"
+    header2 += "Tons | Str  Eng  Arm  Ctl  Jmp  Hea  Tur  Gea  Rest"
     print header2
     for i in unit_list:
-        print ("%-32.32s %3d | %3d %3d %3d %3d %3d %3d %3d %3d %s" %
+        print ("%-32.32s %3d | %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
 

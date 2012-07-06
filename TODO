@@ -191,14 +191,13 @@ Priority: Medium-High
 
 Comment: Work on this!!!!!
 
-- Use decimal format
 - Modular armor weight needs to be added up
 - Cargo and other variable weight items calculated wrong
 
 Missing:
 -- CV: Controls weight
 -- CV: Power amps
--- Modular armor
+-- Modular armor (implemented, hackish)
 -- Armored components
 
 Mechs under-overweight:
@@ -208,11 +207,16 @@ Mechs under-overweight:
 - No-Dachi NDA-3X - 1 under - armored components??
 - Thunder Fox TFT-C3 - 1 over -- ???
 - Goshawk II 3 - 1 under - armored components??
-
+- Volkh VKH-1 - 1 under -- ???
+- Volkh WKH-7 - 1 under -- ???
+- Hunchback HBK-7X-4 - 2 under - armored components??
 
 - Awesome AWS-9Ma - 1 under -- Comm equipment (known error)
 
 
+- Blackjack BJ2-OX - 1.5 under -- OK, canon
+- Gladiator Keller - 2 under -- OK, canon
+- Shadow Hawk C - 2 under -- OK, canon
 - Rifleman IIC 6 - 0.5 under -- OK, canon
 - Grasshopper GHR-7X - 0.5 under -- OK, canon
 - Viper - 1 under -- OK, canon
