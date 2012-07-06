@@ -199,6 +199,18 @@ Missing:
 -- CV: Controls weight
 -- CV: Power amps
 -- Modular armor
+-- Armored components
+
+Mechs under-overweight:
+- Hauptmann - 0.5 over -- Some CASE issue??
+- Awesome AWS-9Ma - 1 under -- Comm equipment (known error)
+- Turkina X - 3 under -- Talons ???
+- Annihilator ANH-2AX - 3 under -- armored components??
+
+
+- Warlord BLR-2G - 0.5 under -- OK, canon
+- Victor C - 2 under -- OK, canon
+- Atlas C - 7 under -- OK, canon
 
 === Turn hackish implementations into real items ===
 
