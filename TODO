@@ -192,14 +192,14 @@ Priority: Medium-High
 Comment: Work on this!!!!!
 
 - Weight calculations - detect under-weight mechs
-- Turret weights
 - Modular armor weight needs to be added up
 - Some error making Celestial gear very overweight
 - Cargo and other variable weight items calculated wrong
 
 Missing:
--- MASC
--- Turrets
+-- CV: Controls weight
+-- CV: Power amps
+-- Modular armor
 
 === Turn hackish implementations into real items ===
 
@@ -213,7 +213,7 @@ of hacks in their parent object.
 - CASE -- Issue: The way CASE information is stored.
 - Tarcomp -- Issue: The way the code access current tarcomp variable.
 - Armored Locations -- Issue: Need to know which items are armored.
-- Turrets -- Issue: Need to keep track of weight of items mounted in it.
+- Turrets
 
 === Input File handling ===
 

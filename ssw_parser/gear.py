@@ -438,6 +438,8 @@ class Equip:
         if (lnd):
             lnode = lnd[0]
             self.loc = gettext(lnode.childNodes)
+            if self.loc == "Turret":
+                self.turret = True
         # Split location
         else:
             self.loc = []
@@ -450,7 +452,7 @@ class Equip:
         if self.name[0:4] == "(R) ":
             self.rear = True
             self.name = self.name[4:]
-        # Hack -- also check for turreted
+        # Also check if turret-mounted
         elif self.name[0:4] == "(T) ":
             self.turret = True
             self.name = self.name[4:]
@@ -658,6 +660,7 @@ class Gear:
         self.e_weight = 0.0
         self.tc_weight = 0.0
         self.mod_weight = 0.0
+        self.tur_weight = 0.0
         # Track explosive ammo by locations
         self.exp_ammo = {}
         # Save reference to explosive weapon count
@@ -680,7 +683,8 @@ class Gear:
             if (name.typ == 'ballistic' or name.typ == 'energy' or
                 name.typ == 'missile' or name.typ == 'artillery' or
                 name.typ == 'mgarray'):
-                found = self.weaponlist.add(name.name, name.loc, name.rear)
+                found = self.weaponlist.add(name.name, name.loc, name.rear,
+                                            name.turret)
                 if found:
                     ident = True
 
@@ -766,6 +770,9 @@ class Gear:
             self.tc_weight = ceil(self.weaponlist.tcw_weight / 4.0)
         if self.tarcomp == 2:  #Clan
             self.tc_weight = ceil(self.weaponlist.tcw_weight / 5.0)
+
+        # Calculate turret weight
+        self.tur_weight = ceil_05(self.weaponlist.tur_weight / 10.0)
 
         # Add ammo to weapon
         for ammo in self.ammolist.list:

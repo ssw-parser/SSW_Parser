@@ -155,13 +155,15 @@ class Weaponlist:
         self.w_weight = 0
         # Weight of targeting computer weapons
         self.tcw_weight = 0
+        # Weight of turreted weapons
+        self.tur_weight = 0
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
         self.lrms = 0
         self.exp_weapon = ExplosiveWeapons()
 
-    def add(self, name, location, rear):
+    def add(self, name, location, rear, turret):
         """
         Add a weapon
         """
@@ -174,6 +176,8 @@ class Weaponlist:
                 self.w_weight += weap.get_weight()
                 if weap.enhance == "TC":
                     self.tcw_weight += weap.get_weight()
+                if turret:
+                    self.tur_weight += weap.get_weight()
 
                 # Count LRM tubes that can fire special ammo
                 # Missing: NLRM-10, NLRM-15, NLRM-20
