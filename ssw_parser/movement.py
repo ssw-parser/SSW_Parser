@@ -1087,6 +1087,7 @@ class Engine(Item):
         # Add shielding
         if self.unit.type == "CV" and self.etype != "I.C.E. Engine":
             wgt *= 1.5
+            wgt = ceil_05(wgt)
 
         # Hovercraft minimum weight
         if self.unit.type == "CV" and self.unit.mot_type == "Hovercraft":
