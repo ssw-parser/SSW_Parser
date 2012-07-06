@@ -67,7 +67,7 @@ file.
 
 -scout: Output a list of scouts.
 
--typ: Output info on which roles mechs qualify for.
+-typ: Output info on which roles mechs qualify for. (Needs work.)
 
 -ac: Output a list of autocannons that can use special ammo.
 
@@ -80,6 +80,8 @@ file.
 -bf: Output Battle Force information. (incomplete)
 
 -cost: Output cost information. (incomplete)
+
+-weight: Output weight distribution information. (under work)
 
 The default output (no switch) is modeled after the MUL.
 

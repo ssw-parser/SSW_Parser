@@ -882,6 +882,14 @@ class Gear:
         """
         return self.physicallist.p_weight
 
+    def get_weight(self):
+        """
+        Get weight of all gear
+        """
+        wgt = (self.get_w_weight() + self.get_a_weight() +
+               self.get_e_weight() + self.get_p_weight())
+        return wgt
+
     def get_speed_adj(self):
         """
         Get speed reduction from certain items, like shields and modular armor.

@@ -1253,6 +1253,59 @@ def print_cost_list(file_list, select_l, header_l):
 
 
 
+## Weight listing
+
+def create_weight_list_item(mech, i, var):
+    """
+    Compile info used by print_weight_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    s_w = mech.structure.get_weight()
+    e_w = mech.engine.get_weight()
+    # Add gyro for mechs
+    if mech.type == "BM":
+        e_w += mech.gyro.get_weight()
+    a_w = mech.armor.get_weight()
+    h_w = i.heatsinks.get_weight()
+    g_w = i.gear.get_weight()
+    rest = weight - s_w - e_w - a_w - h_w - g_w
+
+    return (name_str, weight, s_w, e_w, a_w, h_w, g_w, rest)
+
+def print_weight_list(file_list, select_l, header_l):
+    """
+    weight_list output
+
+    In the form of name, weight, BV, cost
+    sorted by cost, descending
+    """
+
+    # Construct header
+    header = create_header(header_l)
+
+    # Build list
+    unit_list = create_unit_list(file_list, select_l,
+                                 create_weight_list_item, 0)
+
+    # Sort by BV/ton
+#    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print "=== List of Mech Weight Distributions (Alpha) ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons | Str Eng Arm Hea Gea rest"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d | %3d %3d %3d %3d %3d %3d" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+
+
+
 ## Default listing
 
 def create_def_list_item(mech, i, var):
@@ -1363,6 +1416,9 @@ def parse_arg():
     parser.add_argument('-cost', action='store_const',
                         help='Cost list output',
                         dest = 'output', const = 'cost')
+    parser.add_argument('-weight', action='store_const',
+                        help='Weight list output',
+                        dest = 'output', const = 'weight')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
                         help='Select mechs with TAG')
@@ -1588,7 +1644,8 @@ def main():
         'w' : print_weapon_list,
         'mw' : print_main_weapon_list,
         'bf' : print_battle_force_list,
-        'cost' : print_cost_list
+        'cost' : print_cost_list,
+        'weight' : print_weight_list
         }
 
     # Special case, damage at range <d>
