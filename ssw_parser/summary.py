@@ -1300,8 +1300,9 @@ def print_weight_list(file_list, select_l, header_l):
     unit_list = create_unit_list(file_list, select_l,
                                  create_weight_list_item, 0)
 
-    # Sort by BV/ton
-#    unit_list.sort(key=itemgetter(3), reverse=True)
+    # Separate out mechs where the weight does not add up right, and put them
+    # at the bottom
+    unit_list.sort(key=itemgetter(10))
 
     # Print output
     print "=== List of Mech Weight Distributions (Alpha) ==="

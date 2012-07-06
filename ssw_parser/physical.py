@@ -47,7 +47,7 @@ PHYSICAL = {
                (lambda x : ceil_05(x / 20.0)), 0, 1, (lambda x, y : x * 10000)],
     "Retractable Blade" :
         [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0)),
-         (lambda x : ceil_05(x / 2.0) + 0.5), 0, 1,
+         (lambda x : ceil_05(x / 20.0) + 0.5), 0, 1,
          (lambda x, y : x * 10000 + 10000)], 
     "Backhoe" : [(lambda x : 8), 0, (lambda x: 6),
                  (lambda x : 5), 0, 1, (lambda x, y : 50000)],
