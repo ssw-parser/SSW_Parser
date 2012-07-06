@@ -132,6 +132,7 @@ Priority: Medium-High
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications. (seems to work?!)
+- Trailers probably quite buggy.
 
 - Issue with some vehicles showing up as intro-tech, while others are
   T-L. Intro-tech should probably be limited to mechs?
@@ -407,7 +408,7 @@ code or in SSW.
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
 
-- Combat Vehicle costs are missing power amplifiers and control equipment.
+- Combat Vehicle costs are missing power amplifiers.
 
 ==== Cost Issues ====
 - Some dual cockpit issue

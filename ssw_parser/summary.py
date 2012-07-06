@@ -1276,6 +1276,8 @@ def create_weight_list_item(mech, i, var):
     c_w = 0
     if mech.type == "BM":
         c_w = mech.cockpit.get_weight()
+    elif mech.type == "CV":
+        c_w = mech.control.get_weight()
     j_w = i.jjets.get_weight() + i.partw.get_weight() + i.jumpb.get_weight()
     h_w = i.heatsinks.get_weight()
     t_w = i.gear.tur_weight

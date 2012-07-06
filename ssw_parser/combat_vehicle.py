@@ -78,6 +78,39 @@ class LiftEquipment(Item):
 
 
 
+class ControlSystems(Item):
+    """
+    A class to hold control systems
+    """
+    def __init__(self, mweight):
+        Item.__init__(self)
+        self.weight = mweight # Mech weight
+
+    def get_type(self):
+        """
+        Return type of equipment
+        """
+        return "Control Systems"
+
+    def get_rules_level(self):
+        """
+        Standard rules
+        """
+        return 1
+
+    def get_weight(self):
+        """
+        Get weight
+        """
+        return ceil_05(0.05 * self.weight)
+ 
+    def get_cost(self):
+        """
+        Get cost
+        """
+        return 10000 * self.get_weight()
+
+
 class CombatVehicle:
     """
     A master class holding info about a combat vehicle.
@@ -140,6 +173,8 @@ class CombatVehicle:
             self.engine = Engine(get_child(cveh, 'engine'), self)
 
             self.lift = LiftEquipment(self.weight, self.mot_type)
+
+            self.control = ControlSystems(self.weight)
 
             self.armor = Vehicle_Armor(get_child(cveh, 'armor'),
                                        self.weight)
@@ -387,7 +422,8 @@ class CombatVehicle:
         # Internal structure
         cost += self.structure.get_cost()
 
-        # Control Components ?
+        # Control Components
+        cost += self.control.get_cost()
 
         # Lift/Dive Equipment & Rotors
         cost += self.lift.get_cost()
