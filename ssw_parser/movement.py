@@ -783,8 +783,7 @@ class JumpBoosters(Item):
         """
         Get weight of jump-boosters
         """
-        base = ceil_05(0.05 * self.weight)
-        return base * self.jump
+        return ceil_05(0.05 * self.weight * self.jump)
 
     def get_cost(self):
         """

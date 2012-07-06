@@ -199,21 +199,25 @@ Missing:
 -- CV: Power amps
 -- Modular armor (implemented, hackish)
 -- Armored components
+-- Some strange issue with lances, and rounding. TO and SSW does
+things differently, following TO would make many designs underweight.
 
 Mechs under-overweight:
 - Turkina X - 3 under -- Talons ???
 - Annihilator ANH-2AX - 3 under -- armored components??
 - Hachiwara HCA-6P - 0.5 under -- unknown issue???
 - No-Dachi NDA-3X - 1 under - armored components??
-- Thunder Fox TFT-C3 - 1 over -- ???
 - Goshawk II 3 - 1 under - armored components??
-- Volkh VKH-1 - 1 under -- ???
-- Volkh WKH-7 - 1 under -- ???
+- Volkh VKH-1 - 1 under -- lance?
+- Volkh WKH-7 - 1 under -- lance?
 - Hunchback HBK-7X-4 - 2 under - armored components??
+- Mantis MTS-L - 0.5 under - lance??
+- Stiletto STO-6X - 0.5 under - dual turret issue?
+- Nyx NX-90 - 1 under - lance??
 
 - Awesome AWS-9Ma - 1 under -- Comm equipment (known error)
 
-
+- Arbalest 2 -- 1 under -- OK, canon
 - Blackjack BJ2-OX - 1.5 under -- OK, canon
 - Gladiator Keller - 2 under -- OK, canon
 - Shadow Hawk C - 2 under -- OK, canon
