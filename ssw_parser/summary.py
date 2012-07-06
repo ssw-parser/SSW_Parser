@@ -1276,7 +1276,8 @@ def create_weight_list_item(mech, i, var):
     j_w = i.jjets.get_weight() + i.partw.get_weight() + i.jumpb.get_weight()
     h_w = i.heatsinks.get_weight()
     t_w = i.gear.tur_weight
-    g_w = i.gear.get_weight() + i.btrap.get_weight()
+    g_w = (i.gear.get_weight() + i.btrap.get_weight() +
+           i.aes_ra.get_weight() + i.aes_la.get_weight())
     rest = weight - s_w - e_w - a_w - c_w - j_w - h_w - t_w - g_w
     if rest == 0:
         r_str = ""

@@ -79,6 +79,56 @@ class BoobyTrap(Item):
 
 
 
+class AES(Item):
+    """
+    A class to hold information about actuator enhancement system
+    """
+    def __init__(self, mweight, motive, typ):
+        Item.__init__(self)
+        self.weight = mweight # Mech weight, not booby trap weight
+        self.motive = motive
+        self.type = typ
+
+    def get_type(self):
+        """
+        Return AES
+        """
+        return "AES"
+
+    def get_rules_level(self):
+        """
+        AES is experimental rules
+        """
+        if self.type == "None":
+            return 0
+        else:
+            return 3
+
+    def get_weight(self):
+        """
+        Get weight of AES
+        """
+        if self.type == "None":
+            return 0.0
+
+        if self.motive == "Quad":
+            return ceil_05(self.weight / 50.0)
+        elif self.motive == "Biped":
+            return ceil_05(self.weight / 35.0)
+        else:
+            error_exit(self.motive)
+
+    def get_cost(self):
+        """
+        Get cost of AES
+        """
+        if self.type == "Arm":
+            return self.weight * 500
+        elif self.type == "Leg":
+            return self.weight * 700
+        else:
+            return 0
+
 class Load:
     """
     Parent class for omni loadouts
@@ -130,13 +180,13 @@ class Load:
                 self.mixed = True
 
         # Get Actuator Enhancement System
-        self.aes_ra = False
-        self.aes_la = False
+        self.aes_ra = AES(mech.weight, mech.motive, "None")
+        self.aes_la = AES(mech.weight, mech.motive, "None")
         for aes in load.getElementsByTagName('arm_aes'):
             if aes.attributes["location"].value == "LA":
-                self.aes_la = True
+                self.aes_la = AES(mech.weight, mech.motive, "Arm")
             elif aes.attributes["location"].value == "RA":
-                self.aes_ra = True
+                self.aes_ra = AES(mech.weight, mech.motive, "Arm")
 
         # Get jump booster
         jumpb = 0
@@ -285,13 +335,16 @@ class Load:
         tmp = self.btrap.get_rules_level()
         if tmp > r_level:
             r_level = tmp
+        tmp = self.aes_ra.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
+        tmp = self.aes_la.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
 
         # Hack: Armored location
         if self.armored == True and r_level < 2:
             r_level = 2
-        # Hack: AES
-        if (self.aes_ra == True or self.aes_la == True) and r_level < 3:
-            r_level = 3
 
         return r_level
 
@@ -434,10 +487,10 @@ class Load:
                 else:
                     batt_val = weap.get_bv(self.gear.tarcomp)
                 # Handle AES
-                if (left_arm > 0 and self.aes_la):
+                if (left_arm > 0 and self.aes_la.type == "Arm"):
                     batt_val *= 1.5
                     left_arm -= 1
-                elif (right_arm > 0 and self.aes_ra):
+                elif (right_arm > 0 and self.aes_ra.type == "Arm"):
                     batt_val *= 1.5
                     right_arm -= 1
                 while (i):
@@ -467,10 +520,10 @@ class Load:
                 right_arm = weap.count_ra
                 batt_val = weap.get_bv()
                 # Handle AES
-                if (left_arm > 0 and self.aes_la):
+                if (left_arm > 0 and self.aes_la.type == "Arm"):
                     batt_val *= 1.5
                     left_arm -= 1
-                elif (right_arm > 0 and self.aes_ra):
+                elif (right_arm > 0 and self.aes_ra.type == "Arm"):
                     batt_val *= 1.5
                     right_arm -= 1
                 while (i):

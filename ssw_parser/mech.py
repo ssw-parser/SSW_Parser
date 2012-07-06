@@ -334,9 +334,9 @@ class Mech:
 
         # Tonnage (physical)
         weight_factor = 1.0
-        if (self.load.aes_ra):
+        if (self.load.aes_ra.type == "Arm"):
             weight_factor += 0.1
-        if (self.load.aes_la):
+        if (self.load.aes_la.type == "Arm"):
             weight_factor += 0.1
         if (self.enhancement.is_tsm()):
             weight_factor *= 1.5
@@ -749,11 +749,9 @@ class Mech:
             elif m == "Void Signature System":
                 cost += 2000000
 
-        # Hack: AES
-        if i.aes_ra:
-            cost += self.weight * 500
-        if i.aes_la:
-            cost += self.weight * 500
+        # AES
+        cost += i.aes_ra.get_cost()
+        cost += i.aes_la.get_cost()
 
         # Hack: Armored components
         cost += len(i.arm_loc) * 150000

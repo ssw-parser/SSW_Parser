@@ -206,6 +206,8 @@ Mechs under-overweight:
 - Annihilator ANH-2AX - 3 under -- armored components??
 - Hachiwara HCA-6P - 0.5 under -- unknown issue???
 - No-Dachi NDA-3X - 1 under - armored components??
+- Thunder Fox TFT-C3 - 1 over -- ???
+- Goshawk II 3 - 1 under - armored components??
 
 
 - Awesome AWS-9Ma - 1 under -- Comm equipment (known error)
@@ -232,7 +234,6 @@ Comment: This requires the items to be implemented as objects, instead
 of hacks in their parent object.
 
 - Null sig, chameleon, void sig
-- AES
 - CASE -- Issue: The way CASE information is stored.
 - Tarcomp -- Issue: The way the code access current tarcomp variable.
 - Armored Locations -- Issue: Need to know which items are armored.
