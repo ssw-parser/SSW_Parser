@@ -401,7 +401,8 @@ class Heatsinks(Item):
         Return heatsink weight
         1 ton/sink, 10 free for fusion types
         """
-        if self.load.unit.engine.etype == "I.C.E. Engine":
+        if (self.load.unit.engine.etype == "I.C.E. Engine" or
+            self.load.unit.engine.etype == "No Engine"):
             return self.number
         else:
             return self.number - 10
@@ -433,6 +434,11 @@ class Equip:
         self.typ = get_child_data(node, "type")
         self.rear = False
         self.turret = False
+
+        # Extract tonnage for variable weight gear
+        tons = node.getElementsByTagName("tons")
+
+        # Handle location info
         lnd = node.getElementsByTagName("location")
         # Normal case, no split
         if (lnd):

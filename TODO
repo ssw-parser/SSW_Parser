@@ -150,6 +150,9 @@ Priority: High
 Priority: Medium-High
 
 - Requires extensive interal rewrite?
+- For variable weight items, add weights in and count up when adding
+  items to weaponlist.
+
 
 === Test data into repository ===
 
