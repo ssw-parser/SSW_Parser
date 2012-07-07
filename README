@@ -1,15 +1,19 @@
 
 The SSW_Parser 'program suite' right now consists of two Python
-programs that reads .ssw mech data files produced by Solaris Skunk Werks:
+programs that reads .ssw/.saw unit data files produced by Solaris
+Skunk Werks & Solaris Armor Werks. (BattleMechs only for SSW,
+Industrials are not supported.)
 
-- summary.py that takes a list of mechs and output a summary based on
+- summary.py that takes a list of units and output a summary based on
 the command-line switches used.
 
-- report.py that output a more detailed analysis of one mech.
+- report.py that output a more detailed analysis of one mech. Note
+  that report.py does not handle combat vehicles at this point.
+
 
 summary.py is quite usable, report.py is quite raw and still needs work.
 
-=== A brief overview of command-line arguments for report.py ===
+== A brief overview of command-line arguments for report.py ==
 
 <file>: A file name without switches, is expected to be a valid .ssw
 file.
@@ -20,19 +24,19 @@ file.
 
 -u: List possible upgrades.
 
-=== A brief overview of command-line arguments for summary.py ===
+== A brief overview of command-line arguments for summary.py ==
 
-==== Input Switches ====
--f <file>: Reads from the file a list of mech .ssw files. Lines that
+=== Input Switches ===
+-f <file>: Reads from the file a list of unit .ssw/.saw files. Lines that
 begins with '#' are comments. However adding a line containing the
 following: '#!cd <dir_name>' allows change of working directory, which
 is useful when wanting to avoid putting the file containing the list
-and the .ssw files in the same directory.
+and the .ssw/.saw files in the same directory.
    
 <file>: A file name without switches, is expected to be a valid .ssw
-file.
+or .saw file.
 
-==== Output Switches ====
+=== Output Switches ===
 -b: Output that gives a summary of battle values, sorted by BV/ton.
 
 -bv: Output that gives a summary of battle values, sorted by BV.
@@ -43,17 +47,17 @@ file.
 
 -l: Output that gives a summary of lrm tubes, sorted by tubes.
 
--sn: Output a list of long-range weapons mounted on the mech, sorted
- by long-range damage.
-
--cap: Output a list of headcappers mounted on the mech, sorted by
+-cap: Output a list of headcappers mounted on the unit, sorted by
  number of cappers.
 
 -dr: Output a list of how max damage varies over range, sorted by
  short-range damage. (No heat taken into account.)
 
--r <d>: Output a list of weapons with reach <d> mounted on the mech, sorted
+-r <d>: Output a list of weapons with reach <d> mounted on the unit, sorted
  by damage at range <d>. (Less strict in filtering out designs than -sn.)
+
+-sn: Output a list of sniper weapons mounted on the unit, sorted
+ by long-range damage.
 
 -str: Output a list of strikers, sorted by damage.
 
@@ -67,7 +71,8 @@ file.
 
 -scout: Output a list of scouts.
 
--typ: Output info on which roles mechs qualify for. (Needs work.)
+-typ: Output info on which roles mechs qualify for. (Needs work,
+ Combat Vehicles not supported.)
 
 -ac: Output a list of autocannons that can use special ammo.
 
@@ -81,54 +86,56 @@ file.
 
 -cost: Output cost information. (incomplete)
 
--weight: Output weight distribution information. (under work)
+-weight: Output weight distribution information.
 
 The default output (no switch) is modeled after the MUL.
 
-==== Filter Switches ====
+=== Filter Switches ===
 
--tag: Only list mechs that has a TAG, or other gear with the same
+These switches are used to limit the number of units displayed.
+
+-tag: Only list units that has a TAG, or other gear with the same
  functionality (C3 Master).
 
--c3s: Only list mechs that mounts C3 slaves.
+-c3s: Only list units that mounts C3 slaves.
 
--c3m: Only list mechs that mounts C3 masters.
+-c3m: Only list units that mounts C3 masters.
 
--c3i: Only list mechs that mounts C3i.
+-c3i: Only list units that mounts C3i.
 
--narc: Only list mechs that mounts Narc launchers.
+-narc: Only list units that mounts Narc launchers.
 
--ecm: Only list mechs that mounts an ECM system.
+-ecm: Only list units that mounts an ECM system.
 
--probe: Only list mechs that mounts an Active Probe.
+-probe: Only list units that mounts an Active Probe.
 
--taser: Only list mechs that mounts a Battlemech Taser.
+-taser: Only list units that mounts a Battlemech Taser.
 
--i: Only list Inner Sphere techbase mechs.
+-i: Only list Inner Sphere techbase units.
 
--cl: Only list Clan techbase mechs.
+-cl: Only list Clan techbase units.
 
--cc: Only list mechs with a Command Console.
+-cc: Only list units with a Command Console.
 
--e <d>: Only list mechs that are available during era <d>. Where <d>
+-e <d>: Only list units that are available during era <d>. Where <d>
  can be 2 = SW-E, 3 = SW-L, 4 = Clan, 5 = CW, 6 = Jihad.
 
--y <d>: Only list mechs that are available at year <d>. That is mechs
+-y <d>: Only list units that are available at year <d>. That is units
  that has a introduction year of <d> or earlier. Extinction is not
  taken into account.
 
--se <d>: Only list mechs as fast as <d>.
+-se <d>: Only list units as fast as <d>.
 
--sf <d>: Only list mechs at least as fast as <d>.
+-sf <d>: Only list units at least as fast as <d>.
 
--af <d>: Only list mechs at least <d> points of armor.
+-af <d>: Only list units at least <d> points of armor.
 
--lrm <d>: Only list mechs with at least <d> LRM tubes. Enhanced LRMs
+-lrm <d>: Only list units with at least <d> LRM tubes. Enhanced LRMs
  and MMLs count, Extended LRMs does not. Basically only tubes that
  can use standard LRM ammo variantions.
 
--npr: Only list non-primitive mechs.
+-npr: Only list non-primitive units.
 
--wgt <d>: Only list mechs of weight <d>.
+-wgt <d>: Only list units of weight <d>.
 
--rule <d>: Only list mechs with rules level <d> or lower.
+-rule <d>: Only list units with rules level <d> or lower.

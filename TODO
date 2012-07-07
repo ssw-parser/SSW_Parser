@@ -135,6 +135,8 @@ Priority: Medium-High
 - CASE will at least need some modifications. (seems to work?!)
 - Trailers probably quite buggy.
 
+- Adapt report.py to be able to deal with combat vehicles.
+
 - Issue with some vehicles showing up as intro-tech, while others are
   T-L. Intro-tech should probably be limited to mechs?
 
