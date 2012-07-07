@@ -1236,7 +1236,7 @@ def print_cost_list(file_list, select_l, header_l):
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_cost_list_item, 0)
 
-    # Sort by BV/ton
+    # Sort by cost
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output

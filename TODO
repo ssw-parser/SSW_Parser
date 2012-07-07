@@ -144,6 +144,7 @@ Priority: High
 
 - Needed to implement power amplifiers.
 - Split WEAPONS into weapon types?
+- Needed to separate Class A and B refits.
 
 === Test data into repository ===
 
@@ -266,6 +267,8 @@ the info on desired configs into the program is hard.
 === Add common interfaces ===
 
 Priority: Medium
+
+Comment: This is about code interface, not user interface.
 
 - Add a common interface for Mech and CombatVehicle.
 
@@ -417,10 +420,11 @@ code or in SSW.
 
 ==== Cost Issues ====
 - Some dual cockpit issue
-- Turret cost: GOL-6M
 - Retractable blade
 - Talons (which way is right?)
 - Unknown issues:
+-- Banshee BNC-1E
+-- Mackie MSK-5S & Mackie MSK-6S
 -- Hatamoto-Kaeru
 -- Banzai
 -- BattleMaster BLR- 6X

@@ -752,6 +752,9 @@ class Mech:
         # Hack: Armored components
         cost += len(i.arm_loc) * 150000
 
+        # Hack: Turrets
+        cost += i.gear.tur_weight * 10000
+
         # Gear
         cost += i.gear.get_cost()
 
