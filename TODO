@@ -145,15 +145,6 @@ Priority: High
 - Needed to implement power amplifiers.
 - Split WEAPONS into weapon types?
 
-=== Find a way to have equipment of variable weights ===
-
-Priority: Medium-High
-
-- Requires extensive interal rewrite?
-- For variable weight items, add weights in and count up when adding
-  items to weaponlist.
-
-
 === Test data into repository ===
 
 Priority: Medium
@@ -210,8 +201,7 @@ Priority: Medium-High
 Comment: The easy things have been implemented. Power amplifiers has
 highest priority, but needs changes elsewhere before they gets implemented.
 
-- Modular armor weight needs to be added up
-- Cargo and other variable weight items calculated wrong
+- Modular armor weight needs to be added up (done?)
 
 Missing:
 -- CV: Power amps
@@ -232,8 +222,6 @@ Mechs under-overweight:
 - Mantis MTS-L - 0.5 under -- lance??
 - Stiletto STO-6X - 0.5 under -- dual turret issue?
 - Nyx NX-90 - 1 under -- lance??
-
-- Awesome AWS-9Ma - 1 under -- Comm equipment (known error, hard to fix)
 
 - Arbalest 2 -- 1 under -- OK, canon
 - Firebee FRB-1E - 4 under -- OK, canon

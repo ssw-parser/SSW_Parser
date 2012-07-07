@@ -437,6 +437,11 @@ class Equip:
 
         # Extract tonnage for variable weight gear
         tons = node.getElementsByTagName("tons")
+        if (tons):
+            self.wgt = float(gettext(tons[0].childNodes))
+        # Handle no info, we use 0.0 to indicate we get the weight from tables
+        else:
+            self.wgt = 0.0
 
         # Handle location info
         lnd = node.getElementsByTagName("location")
@@ -560,6 +565,7 @@ class Equipment:
         self.count = 0
         self.ammocount = 0
         self.ammo_ton = 0
+        self.weight = 0.0
 
     def get_rules_level(self):
         """
@@ -571,7 +577,7 @@ class Equipment:
         """
         Get weight of equipment
         """
-        return EQUIPMENT[self.name][3]
+        return self.weight / self.count
 
     def get_cost(self):
         """
@@ -579,11 +585,16 @@ class Equipment:
         """
         return EQUIPMENT[self.name][6]
 
-    def addone(self):
+    def addone(self, tons):
         """
         Add one piece of equipment
         """
         self.count = self.count + 1
+        if tons > 0.0:
+            self.weight += tons
+        else:
+            self.weight += EQUIPMENT[self.name][3]
+
 
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works
@@ -698,7 +709,7 @@ class Gear:
             elif (name.typ == 'equipment'):
                 for equip in self.equiplist.list:
                     if (name.name == equip.name):
-                        equip.addone()
+                        equip.addone(name.wgt)
                         self.e_weight += equip.get_weight()
                         ident = True
                         # Hack, coolant pods
