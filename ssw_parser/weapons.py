@@ -944,6 +944,12 @@ class Weapon:
 
         return slots
 
+    def get_type(self):
+        """
+        Return weapon type
+        """
+        return self.entry[1]
+
     def get_rules_level(self):
         """
         Return rules level

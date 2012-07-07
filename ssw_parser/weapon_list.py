@@ -152,11 +152,13 @@ class Weaponlist:
         self.list = {}
         for weap in WEAPONS.keys():
             self.list[weap] = Weapon(weap, art4, art5, apollo)
-        self.w_weight = 0
+        self.w_weight = 0.0
         # Weight of targeting computer weapons
-        self.tcw_weight = 0
+        self.tcw_weight = 0.0
         # Weight of turreted weapons
-        self.tur_weight = 0
+        self.tur_weight = 0.0
+        # Weight of energy weapons (for power amps)
+        self.ene_weight = 0.0
         # Track LRM tubes (IS, Clan, NLRM, MMLs)
         # no ATMs, no streaks and no ELRMs
         # only launchers that can use special ammo
@@ -178,6 +180,8 @@ class Weaponlist:
                     self.tcw_weight += weap.get_weight()
                 if turret:
                     self.tur_weight += weap.get_weight()
+                if weap.get_type() == "DE":
+                    self.ene_weight += weap.get_weight()
 
                 # Count LRM tubes that can fire special ammo
                 # Missing: NLRM-10, NLRM-15, NLRM-20

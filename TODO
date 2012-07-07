@@ -143,8 +143,7 @@ Priority: Medium-High
 Priority: High
 
 - Needed to implement power amplifiers.
-- Split WEAPONS into weapon types?
-- Needed to separate Class A and B refits.
+- Use to separate snipers from missile boats?
 
 === Test data into repository ===
 
@@ -277,7 +276,6 @@ Comment: This is about code interface, not user interface.
 
 Priority: Medium
 
-- Figure out a way to separate Class A & Class B
 - Better ammo handling for Class A & B (know minimum required ammo for upgrades)
 
 - Consider suggesting engine size changes if very big or very small

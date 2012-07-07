@@ -239,8 +239,11 @@ def print_upgrade(wlist, upgr, orig):
     if (battv < 0):
         return
     slots = wlist[upgr].slots() - wlist[orig].slots()
-    # Assume Class B upgrades for now, since we cannot detect the difference
+    # Assume Class B upgrades
     uclass = "B"
+    # Detect same type for class A upgrades
+    if wlist[upgr].get_type() == wlist[orig].get_type():
+        uclass = "A"
     # Increase in size is not allowed for Class A or B
     if (slots > 0):
         uclass = "C"
