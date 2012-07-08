@@ -1279,7 +1279,7 @@ def create_weight_list_item(mech, i, var):
     elif mech.type == "CV":
         c_w = mech.control.get_weight()
     j_w = i.jjets.get_weight() + i.partw.get_weight() + i.jumpb.get_weight()
-    h_w = i.heatsinks.get_weight()
+    h_w = i.heatsinks.get_weight() + i.power_amp.get_weight()
     t_w = i.gear.tur_weight
     g_w = (i.gear.get_weight() + i.btrap.get_weight() +
            i.aes_ra.get_weight() + i.aes_la.get_weight())

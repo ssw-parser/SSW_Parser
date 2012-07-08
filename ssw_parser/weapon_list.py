@@ -180,7 +180,7 @@ class Weaponlist:
                     self.tcw_weight += weap.get_weight()
                 if turret:
                     self.tur_weight += weap.get_weight()
-                if weap.get_type() == "DE":
+                if weap.get_type() == "DE" and weap.name != "Vehicle Flamer":
                     self.ene_weight += weap.get_weight()
 
                 # Count LRM tubes that can fire special ammo

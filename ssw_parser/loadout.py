@@ -393,6 +393,9 @@ class Load:
         tmp = self.aes_la.get_rules_level()
         if tmp > r_level:
             r_level = tmp
+        tmp = self.power_amp.get_rules_level()
+        if tmp > r_level:
+            r_level = tmp
 
         # Hack: Armored location
         if self.armored == True and r_level < 2:

@@ -441,7 +441,8 @@ class CombatVehicle:
         # HACK: Turrets
         cost += i.gear.tur_weight * 5000
 
-        # Add Power Amplifiers here if/when implemented
+        # Power Amplifiers
+        cost += i.power_amp.get_cost()
 
         # Partial Wing, jump boosters
         cost += i.partw.get_cost()

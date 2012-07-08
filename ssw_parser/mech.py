@@ -722,7 +722,8 @@ class Mech:
         cost += self.enhancement.get_cost()
         # Heat Sinks
         cost += i.heatsinks.get_cost()
-        # Add Power Amplifiers here if/when implemented
+        # Power Amplifiers
+        cost += i.power_amp.get_cost()
 
         # Add Tracks here if/when implemented
 

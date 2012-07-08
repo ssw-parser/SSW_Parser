@@ -128,7 +128,6 @@ TODO:
 Priority: Medium-High
 
 - Add support for omni-vehicles.
-- Power amplifiers missing.
 - Bugchecking and cleanup.
 - Type list (summary.py) is broken for combat vehicles. (low priority)
 - Costs needs to be debugged and missing stuff needs to be added.
@@ -142,9 +141,8 @@ Priority: Medium-High
 
 === Keep track of weapon types ===
 
-Priority: High
+Priority: Medium-Low
 
-- Needed to implement power amplifiers.
 - Use to separate snipers from missile boats?
 
 === Test data into repository ===
@@ -200,13 +198,11 @@ MUL team.)
 
 Priority: Medium-High
 
-Comment: The easy things have been implemented. Power amplifiers has
-highest priority, but needs changes elsewhere before they gets implemented.
+Comment: The easy things have been implemented.
 
 - Modular armor weight needs to be added up (done?)
 
 Missing:
--- CV: Power amps
 -- Modular armor (implemented, hackish)
 -- Armored components
 -- Some strange issue with lances, and rounding. TO and SSW does
