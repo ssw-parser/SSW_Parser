@@ -355,9 +355,7 @@ HEATSINK = [["Single Heat Sink", 2, 1, 0, 2000],
 
 class Heatsinks(Item):
     """
-    Heatsinks for a mech
-
-    Warning: fusion engine with 10 free sinks is assumed
+    Heatsinks for an unit
     """
     def __init__(self, heat, load):
         Item.__init__(self)
@@ -424,6 +422,51 @@ class Heatsinks(Item):
         """
         return self.number * self.cap
 
+
+class PowerAmp(Item):
+    """
+    Power Amplifiers
+
+    Check if needed at creation, and if not set en_weight to zero.
+    """
+    def __init__(self, load, ene_weight):
+        Item.__init__(self)
+        self.load = load # Reference to parent
+        self.ene_weight = ene_weight
+        
+    def get_type(self):
+        """
+        Return Power Amplifiers
+        """
+        if self.ene_weight > 0.0:
+            return "Power Amplifiers"
+        else:
+            return ""
+
+    def get_rules_level(self):
+        """
+        Return power amplifier rules level
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
+        """
+        if self.ene_weight > 0.0:
+            return 1
+        else:
+            return 0
+
+    def get_weight(self):
+        """
+        Return power amplifier weight
+        """
+        if self.ene_weight > 0.0:
+            return ceil_05(self.ene_weight * 0.1)
+        else:
+            return 0.0
+
+    def get_cost(self):
+        """
+        Return power amplifier cost
+        """
+        return self.get_weight() * 20000
 
 class Equip:
     """
