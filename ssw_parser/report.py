@@ -351,7 +351,6 @@ def main():
 
     print "================================="
     print "Name: ", mech.name, mech.model
-#    mech.weight_summary(False)
 
     print "-Basic---------------------------"
     print "Tech:      ", mech.techbase

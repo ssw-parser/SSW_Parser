@@ -26,7 +26,7 @@ import sys
 from math import ceil
 from defensive import Mech_IS, Mech_Armor
 from movement import Cockpit, Enhancement, Gyro, Engine
-from util import ceil_05, get_child, get_child_data, year_era_test
+from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout, Loadout
 from battle_force import BattleForce
 
@@ -132,7 +132,6 @@ class Mech:
 
             # Get baseloadout
             blo = mmech.getElementsByTagName('baseloadout')[0]
-            partw = False
 
             # Get multi-slot stuff
             for mlts in blo.getElementsByTagName('multislot'):
@@ -384,57 +383,6 @@ class Mech:
             return load.year
         else:
             return self.year
-
-
-    def weight_summary(self, short):
-        """
-        Create a report on what the mech spends its tonnage on
-        """
-        # Motive stuff
-        motive = self.engine.get_weight()
-        motive += self.gyro.get_weight()
-        motive += self.load.jjets.get_weight()
-        motive += self.enhancement.get_weight()
-        motive += self.cockpit.get_weight()
-        if self.load.gear.supercharger.has_sc():
-            motive += ceil_05(self.engine.get_weight() * 0.1)
-        mratio = float(motive) / float(self.weight) * 100
-
-        # Defensive stuff
-        defensive = self.structure.get_weight()
-        defensive += self.armor.get_weight()
-        dratio = float(defensive) / float(self.weight) * 100
-
-        # Offensive stuff
-        # Heat sinks
-        offensive = self.load.heatsinks.get_weight()
-        # Weapons
-        offensive += self.load.gear.get_w_weight()
-        # Ammo
-        offensive += self.load.gear.get_a_weight()
-        # Offensive gear
-        offensive += self.load.gear.get_e_weight()
-        # Physical weapons
-        offensive += self.load.gear.get_p_weight()
-        oratio = float(offensive) / float(self.weight) * 100
-
-        # leftover
-        left = self.weight - motive - defensive - offensive
-        assert left >= 0.0, "Mech is overweight!"
-        if (short):
-            # Only show leftover if there is something to show
-            if (left):
-                return ("%2.1f%% %2.1f%% %2.1f%% Left: %3.1ft" %
-                        (mratio, dratio, oratio, left))
-            else:
-                return ("%2.1f%% %2.1f%% %2.1f%%" % (mratio, dratio, oratio))
-        else:
-            print ("Total weight    : %3.1ft" % (self.weight))
-            print ("Motive weight   : %3.1ft %2.1f%%" % (motive, mratio))
-            print ("Defensive weight: %3.1ft %2.1f%%" % (defensive, dratio))
-            print ("Offensive weight: %3.1ft %2.1f%%" % (offensive, oratio))
-            print ("Other           : %3.1ft" % (left))
-            return
 
 
     def get_move_string(self):
@@ -738,12 +686,12 @@ class Mech:
         cost += i.btrap.get_cost()
 
         # Multi-slot stuff
-        for m in self.multi:
-            if m == "Chameleon LPS":
+        for mult in self.multi:
+            if mult == "Chameleon LPS":
                 cost += 600000
-            elif m == "Null Signature System":
+            elif mult == "Null Signature System":
                 cost += 1400000
-            elif m == "Void Signature System":
+            elif mult == "Void Signature System":
                 cost += 2000000
 
         # AES

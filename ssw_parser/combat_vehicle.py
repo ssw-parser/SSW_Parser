@@ -45,7 +45,7 @@ class LiftEquipment(Item):
         """
         if self.mot_type == "VTOL":
             return "Rotors"
-        elif self.mot_Type == "Hovercraft":
+        elif self.mot_type == "Hovercraft":
             return "Lift Equipment"
         else:
             return ""

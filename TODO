@@ -436,8 +436,7 @@ code or in SSW.
 
 - Modular armor -- TODO
 - Ammo -- Done costs, code missing, not used in dry costs
-
-- Combat Vehicle costs are missing power amplifiers.
+- Cost of variable weight items are most probably wrong.
 
 ==== Cost Issues ====
 - Some dual cockpit issue

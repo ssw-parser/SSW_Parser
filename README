@@ -84,7 +84,9 @@ or .saw file.
 
 -bf: Output Battle Force information. (incomplete)
 
--cost: Output cost information. (incomplete)
+-cost: Output cost information. Note that this listing is very much
+ work in progress and that the cost calculations have not been
+ debugged. (incomplete)
 
 -weight: Output weight distribution information.
 
