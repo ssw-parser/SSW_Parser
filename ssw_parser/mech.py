@@ -24,7 +24,7 @@ Contains the master class for a mech
 
 import sys
 from math import ceil
-from defensive import Mech_IS, Mech_Armor
+from defensive import Mech_IS, MechArmor
 from movement import Cockpit, Enhancement, Gyro, Engine
 from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout, Loadout
@@ -125,8 +125,8 @@ class Mech:
                                                self.engine.erating)
 
             # Get armor.
-            self.armor = Mech_Armor(get_child(mmech, 'armor'),
-                                    self.weight, self.motive)
+            self.armor = MechArmor(get_child(mmech, 'armor'),
+                                   self.weight, self.motive)
 
             ### Loadout stuff starts here ###
 

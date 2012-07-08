@@ -251,7 +251,6 @@ class CV_IS(Item):
                 self.is_bv = i[2]
                 wgtf = i[3]
                 self.r_level = i[4]
-                costf = i[5]
         if not ident:
             error_exit((self.type, self.tech_base))
 
@@ -384,7 +383,7 @@ class TorsoArmor:
         return self.total.max
 
 
-class Mech_Armor(Item):
+class MechArmor(Item):
     """
     A class to hold armor info for a mech
     """
@@ -561,7 +560,7 @@ class Mech_Armor(Item):
         print self.l_arm.get_report()
         print self.r_arm.get_report()
 
-class Vehicle_Armor(Item):
+class VehicleArmor(Item):
     """
     A class to hold armor info for a vehicle
     """
@@ -598,33 +597,6 @@ class Vehicle_Armor(Item):
 
         self.total = ArmorLoc("Total", armortotal, (maxtotal - 9) / 2 + 3,
                               maxtotal)
-
-    def apply_modular(self, mod):
-        """
-        Add modular armor to normal
-        """
-        for item in mod:
-            if item == "CT":
-                self.c_torso.front.arm += mod[item]
-                self.total.arm += mod[item]
-            elif item == "RT":
-                self.r_torso.front.arm += mod[item]
-                self.total.arm += mod[item]
-            elif item == "LT":
-                self.l_torso.front.arm += mod[item]
-                self.total.arm += mod[item]
-            elif item == "LA":
-                self.l_arm.arm += mod[item]
-                self.total.arm += mod[item]
-            elif item == "RA":
-                self.r_arm.arm += mod[item]
-                self.total.arm += mod[item]
-            elif item == "LL":
-                self.l_leg.arm += mod[item]
-                self.total.arm += mod[item]
-            elif item == "RL":
-                self.r_leg.arm += mod[item]
-                self.total.arm += mod[item]
 
     def get_armor_bv(self):
         """
@@ -680,16 +652,3 @@ class Vehicle_Armor(Item):
         print self.summary_string()
         print self.total.get_report()
 
-    def parse_armor(self):
-        """
-        Print out all armor reports
-        """
-        self.armor_total_report()
-        print self.head.get_report()
-        self.c_torso.report()
-        self.l_torso.report()
-        self.r_torso.report()
-        print self.l_leg.get_report()
-        print self.r_leg.get_report()
-        print self.l_arm.get_report()
-        print self.r_arm.get_report()

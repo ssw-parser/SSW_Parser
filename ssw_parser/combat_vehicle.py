@@ -24,7 +24,7 @@ Contains the master class for a combat vehicle
 
 import sys
 from math import ceil
-from defensive import CV_IS, Vehicle_Armor
+from defensive import CV_IS, VehicleArmor
 from movement import Engine
 from util import ceil_05, get_child, get_child_data, year_era_test
 from loadout import Baseloadout
@@ -179,8 +179,8 @@ class CombatVehicle:
             else:
                 self.control = ControlSystems(self.weight)
 
-            self.armor = Vehicle_Armor(get_child(cveh, 'armor'),
-                                       self.weight)
+            self.armor = VehicleArmor(get_child(cveh, 'armor'),
+                                      self.weight)
 
             ### Loadout stuff starts here ###
 
