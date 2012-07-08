@@ -511,6 +511,17 @@ class Equiplist:
         for equip in EQUIPMENT.keys():
             self.list.append(Equipment(equip))
 
+    def get_turret_weight(self):
+        """
+        Get weight of turret mounted gear
+        """
+        tur_weight = 0.0
+        for equip in self.list:
+            if equip.tur_count > 0:
+                tur_weight += equip.tur_count * equip.get_weight()
+
+        return tur_weight
+
     def get_rules_level(self):
         """
         Return rules level for all equipment
@@ -561,6 +572,7 @@ class Equipment:
         self.useammo = EQUIPMENT[key][4]
         self.expl = EQUIPMENT[key][5]
         self.count = 0
+        self.tur_count = 0
         self.ammocount = 0
         self.ammo_ton = 0
         self.weight = 0.0
@@ -575,7 +587,7 @@ class Equipment:
         """
         Get weight of equipment
         """
-        return self.weight / self.count
+        return (self.weight / float(self.count))
 
     def get_cost(self):
         """
@@ -583,11 +595,13 @@ class Equipment:
         """
         return EQUIPMENT[self.name][6]
 
-    def addone(self, tons):
+    def addone(self, tons, turret):
         """
         Add one piece of equipment
         """
         self.count = self.count + 1
+        if turret:
+            self.tur_count += 1
         if tons > 0.0:
             self.weight += tons
         else:
@@ -707,7 +721,7 @@ class Gear:
             elif (name.typ == 'equipment'):
                 for equip in self.equiplist.list:
                     if (name.name == equip.name):
-                        equip.addone(name.wgt)
+                        equip.addone(name.wgt, name.turret)
                         self.e_weight += equip.get_weight()
                         ident = True
                         # Hack, coolant pods
@@ -789,7 +803,8 @@ class Gear:
             self.tc_weight = ceil(self.weaponlist.tcw_weight / 5.0)
 
         # Calculate turret weight
-        self.tur_weight = ceil_05(self.weaponlist.tur_weight / 10.0)
+        self.tur_weight = ceil_05((self.weaponlist.tur_weight +
+                                   self.equiplist.get_turret_weight()) / 10.0)
 
         # Add ammo to weapon
         for ammo in self.ammolist.list:

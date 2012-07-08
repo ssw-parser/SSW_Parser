@@ -205,6 +205,7 @@ Comment: The easy things have been implemented.
 Missing:
 -- Modular armor (implemented, hackish)
 -- Armored components
+-- Non-weapon gear in turret
 -- Some strange issue with lances, and rounding. TO and SSW does
 things differently, following TO would make many designs underweight.
 
@@ -241,7 +242,22 @@ Mechs under-overweight:
 
 Combat Vehicles underweight:
 - Engineering Vehicle - 0.5 under -- Non-weapon gear in turret
+- Coolant Truck (Hover) - 1 over -- Gear overweight, unknown reason
+- Coolant Truck (Tracked) - 1.5 over -- Gear overweight, unknown reason
+- Coolant Truck 135-K - 2.0 under -- Gear underweight, unknown reason
 
+- J-27 Ordnance Transport (Fusion) - 0.5 under -- OK, canon
+- Skulker Wheeled Scout Tank (MG) - 0.5 under -- OK, canon
+- Skulker Wheeled Scout Tank (SRM) - 0.5 under -- OK, canon
+- Harasser Missile Platform Mini-Peggy - 0.5 under -- OK, canon
+- Mobile Headquarters (LL) - 0.5 under -- OK, canon
+- Mobile Headquarters (LRM) - 0.5 under -- OK, canon
+- Pegasus Scout Hovertank (Missile) - 0.5 under -- OK, canon
+- Pegasus Scout Hovertank (Sensors) - 0.5 under -- OK, canon
+- Pegasus Scout Hovertank (Unarmed) - 0.5 under -- OK, canon
+- APC (Hover Sensors) - 1.0 under -- OK, canon
+- APC (Tracked SRM) - 1.0 under -- OK, canon
+- APC (Wheeled LRM) - 1.0 under -- OK, canon
 - Hetzer Wheeled Assault Gun (Laser) - 0.5 under -- OK, canon
 - Hetzer Wheeled Assault Gun (Scout) - 0.5 under -- OK, canon
 - Zephyr Hovertank (LRM) - 0.5 under -- OK, canon
