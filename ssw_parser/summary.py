@@ -1195,7 +1195,7 @@ def print_type_list(file_list, select_l, header_l):
     # unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of Mechs by Type (Alpha) ==="
+    print "=== List of Units by Type (Alpha) ==="
     print header
     header2 = "Name                          "
     header2 += "Tons BV    SCT STR SKR BRW MIS SNP JUG WARN"
@@ -1240,7 +1240,7 @@ def print_cost_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of Mech Costs (Alpha) ==="
+    print "=== List of Unit Costs (Alpha) ==="
     print header
     header2 = "Name                            "
     header2 += "Tons BV      cost       cost(SSW)     difference"
@@ -1311,10 +1311,10 @@ def print_weight_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(10))
 
     # Print output
-    print "=== List of Mech Weight Distributions (Alpha) ==="
+    print "=== List of Unit Weight Distributions ==="
     print header
     header2 = "Name                            "
-    header2 += "Tons | Str  Eng  Arm  Ctl  Jmp  Hea  Tur  Gea  Rest"
+    header2 += "Tons | Stru Eng  Arm  Ctrl Jmp  Heat Tur  Gear Rest"
     print header2
     for i in unit_list:
         print ("%-32.32s %3d | %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %s" %
@@ -1355,7 +1355,7 @@ def print_default(file_list, select_l, header_l):
     unit_list = create_unit_list(file_list, select_l, create_def_list_item, 0)
 
     # Print output
-    print "=== MUL-Type Listing of Mech ==="
+    print "=== MUL-Type Listing of Units ==="
     print header
     print "Name                            Tons BV   Source   Rul Era   Year"
     for i in unit_list:
