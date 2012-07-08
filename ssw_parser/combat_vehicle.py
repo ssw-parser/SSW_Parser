@@ -174,7 +174,10 @@ class CombatVehicle:
 
             self.lift = LiftEquipment(self.weight, self.mot_type)
 
-            self.control = ControlSystems(self.weight)
+            if self.engine.etype == "No Engine":
+                self.control = ControlSystems(0.0)
+            else:
+                self.control = ControlSystems(self.weight)
 
             self.armor = Vehicle_Armor(get_child(cveh, 'armor'),
                                        self.weight)

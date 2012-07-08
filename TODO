@@ -239,6 +239,17 @@ Mechs under-overweight:
 - Victor C - 2 under -- OK, canon
 - Atlas C - 7 under -- OK, canon
 
+Combat Vehicles underweight:
+- Engineering Vehicle - 0.5 under -- Non-weapon gear in turret
+
+- Hetzer Wheeled Assault Gun (Laser) - 0.5 under -- OK, canon
+- Hetzer Wheeled Assault Gun (Scout) - 0.5 under -- OK, canon
+- Zephyr Hovertank (LRM) - 0.5 under -- OK, canon
+- Demon Tank (PPC) - 0.5 under -- OK, canon
+- Laser Carrier - 1 under -- OK, canon
+- Fury Command Tank (Original) - 1 under -- OK, canon
+
+
 === Turn hackish implementations into real items ===
 
 Priority: Medium
