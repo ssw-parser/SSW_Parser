@@ -1260,7 +1260,7 @@ def create_weight_list_item(mech, i, var):
     Compile info used by print_weight_list()
     """
     name_str = mech.name + " " + mech.model + i.get_name()
-    batt_val = mech.get_bv(i)
+#    batt_val = mech.get_bv(i)
     weight = mech.weight
     s_w = mech.structure.get_weight()
     e_w = mech.engine.get_weight()

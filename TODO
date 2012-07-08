@@ -495,6 +495,10 @@ Priority: Medium
 
 - Use a variable to select sorting for the BV lists.
 
+- Armor list does not detect un-cased explosive stuff for combat vehicles.
+
+- Figure out more uses for argument var.
+
 - Use summary.py's own filters, instead of the is_xxx methods, so
   headers can be built.
 
