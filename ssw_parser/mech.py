@@ -24,7 +24,7 @@ Contains the master class for a mech
 
 import sys
 from math import ceil
-from defensive import Mech_IS, MechArmor
+from defensive import MechStructure, MechArmor
 from movement import Cockpit, Enhancement, Gyro, Engine
 from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout, Loadout
@@ -104,8 +104,8 @@ class Mech:
             ### Components starts here ###
 
             # Get internal structure type
-            self.structure = Mech_IS(get_child(mmech, 'structure'),
-                                     self.weight, self.motive)
+            self.structure = MechStructure(get_child(mmech, 'structure'),
+                                           self.weight, self.motive)
            
             # Get engine data
             self.engine = Engine(get_child(mmech, 'engine'), self)

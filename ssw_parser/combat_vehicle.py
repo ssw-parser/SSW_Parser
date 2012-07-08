@@ -24,7 +24,7 @@ Contains the master class for a combat vehicle
 
 import sys
 from math import ceil
-from defensive import CV_IS, VehicleArmor
+from defensive import VehicleStructure, VehicleArmor
 from movement import Engine
 from util import ceil_05, get_child, get_child_data, year_era_test
 from loadout import Baseloadout
@@ -167,8 +167,9 @@ class CombatVehicle:
 
             ### Components starts here ###
 
-            self.structure = CV_IS(get_child(cveh, 'structure'), self.weight,
-                                   self.mot_type, self.turret)
+            self.structure = VehicleStructure(get_child(cveh, 'structure'),
+                                              self.weight,
+                                              self.mot_type, self.turret)
 
             self.engine = Engine(get_child(cveh, 'engine'), self)
 

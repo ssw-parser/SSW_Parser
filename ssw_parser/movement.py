@@ -1027,37 +1027,41 @@ class Engine(Item):
         """
         Calculates suspension factor
         """
+        susp = 0
+
         if self.unit.mot_type == "Hovercraft":
             if self.unit.weight <= 10:
-                return 40
+                susp = 40
             elif self.unit.weight <= 20:
-                return 85
+                susp = 85
             elif self.unit.weight <= 30:
-                return 130
+                susp = 130
             elif self.unit.weight <= 40:
-                return 175
+                susp = 175
             elif self.unit.weight <= 50:
-                return 235
+                susp = 235
             else:
                 print "Invalid weight-motive type!"
                 sys.exit(1)
         elif self.unit.mot_type == "Tracked":
-            return 0
+            susp = 0
         elif self.unit.mot_type == "VTOL":
             if self.unit.weight <= 10:
-                return 50
+                susp = 50
             elif self.unit.weight <= 20:
-                return 95
+                susp = 95
             elif self.unit.weight <= 30:
-                return 140
+                susp = 140
             else:
                 print "Invalid weight-motive type!"
                 sys.exit(1)
         elif self.unit.mot_type == "Wheeled":
-            return 20
+            susp = 20
         else:
             print "Invalid weight-motive type!"
             sys.exit(1)
+
+        return susp
 
     def get_type(self):
         """

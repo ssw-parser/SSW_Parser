@@ -152,7 +152,7 @@ ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0, 10000, ""],
          ["Ferro-Lamellor", 1, 1.2, 0.9, 2, 35000, "FL"]]
 
 
-class Mech_IS(Item):
+class MechStructure(Item):
     """
     A class to hold info about the internal stucture of mechs
     """
@@ -233,7 +233,7 @@ class Mech_IS(Item):
         """
         return self.points * 1.5 * self.is_bv
 
-class CV_IS(Item):
+class VehicleStructure(Item):
     """
     A class to hold info about the internal stucture of combat vehicles
     """
