@@ -270,6 +270,13 @@ class Load:
         self.gear = Gear(mech, self.artemis4, self.artemis5, self.apollo,
                          equip, clanc)
 
+        # Add Power Amplifiers
+        if (self.unit.engine.etype == "I.C.E. Engine" or
+            self.unit.engine.etype == "No Engine"):
+            self.power_amp = PowerAmp(self, self.gear.weaponlist.ene_weight)
+        else:
+            self.power_amp = PowerAmp(self, 0.0)
+
         self.build_special()
 
 
