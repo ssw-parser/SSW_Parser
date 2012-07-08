@@ -95,6 +95,17 @@ class Physicallist:
         self.p_weight = 0
         self.p_speed = 0
 
+    def get_turret_weight(self):
+        """
+        Get weight of turret mounted gear
+        """
+        tur_weight = 0.0
+        for phys in self.list:
+            if phys.tur_count > 0:
+                tur_weight += phys.tur_count * phys.get_weight()
+
+        return tur_weight
+
     def get_rules_level(self):
         """
         Return rules level for all weapons
@@ -115,13 +126,13 @@ class Physicallist:
                 cost += phys.count * phys.get_cost()
         return cost
 
-    def add(self, entry, loc):
+    def add(self, entry, loc, turret):
         """
         Add a physical weapon
         """
         for phys in self.list:
             if (entry == phys.name):
-                phys.addone(loc)
+                phys.addone(loc, turret)
                 self.p_weight += phys.get_weight()
                 # Speed reduction from shields
                 if phys.name == "Large Shield":
@@ -158,6 +169,7 @@ class Physical:
         self.bv_mult = PHYSICAL[key][0]
         self.heat = PHYSICAL[key][4]
         self.count = 0
+        self.tur_count = 0
         self.count_la = 0 # Needed for AES
         self.count_ra = 0
 
@@ -185,11 +197,13 @@ class Physical:
         """
         return PHYSICAL[self.name][2](self.m_weight)
 
-    def addone(self, loc):
+    def addone(self, loc, turret):
         """
         Add a physical weapon
         """
         self.count = self.count + 1
+        if turret:
+            self.tur_count += 1
         # Also keep track of arm locations
         if loc == "LA":
             self.count_la = self.count_la + 1

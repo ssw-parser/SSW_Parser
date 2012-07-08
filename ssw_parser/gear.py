@@ -761,7 +761,7 @@ class Gear:
 
             # A possible physical weapon
             elif (name.typ == 'physical'):
-                found = self.physicallist.add(name.name, name.loc)
+                found = self.physicallist.add(name.name, name.loc, name.turret)
                 if found:
                     ident = True
 
@@ -804,7 +804,9 @@ class Gear:
 
         # Calculate turret weight
         self.tur_weight = ceil_05((self.weaponlist.tur_weight +
-                                   self.equiplist.get_turret_weight()) / 10.0)
+                                   self.equiplist.get_turret_weight() +
+                                   self.physicallist.get_turret_weight()) /
+                                  10.0)
 
         # Add ammo to weapon
         for ammo in self.ammolist.list:

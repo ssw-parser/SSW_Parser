@@ -205,7 +205,6 @@ Comment: The easy things have been implemented.
 Missing:
 -- Modular armor (implemented, hackish)
 -- Armored components
--- Non-weapon gear in turret
 -- Some strange issue with lances, and rounding. TO and SSW does
 things differently, following TO would make many designs underweight.
 
@@ -241,7 +240,6 @@ Mechs under-overweight:
 - Atlas C - 7 under -- OK, canon
 
 Combat Vehicles underweight:
-- Engineering Vehicle - 0.5 under -- Non-weapon gear in turret
 - Coolant Truck (Hover) - 1 over -- Gear overweight, unknown reason
 - Coolant Truck (Tracked) - 1.5 over -- Gear overweight, unknown reason
 - Coolant Truck 135-K - 2.0 under -- Gear underweight, unknown reason
