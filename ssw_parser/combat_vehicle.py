@@ -27,7 +27,7 @@ from math import ceil
 from defensive import VehicleStructure, VehicleArmor
 from movement import Engine
 from util import ceil_05, get_child, get_child_data, year_era_test
-from loadout import Baseloadout
+from loadout import Baseloadout, Loadout
 from item import Item
 
 class LiftEquipment(Item):
