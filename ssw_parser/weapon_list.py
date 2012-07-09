@@ -186,7 +186,7 @@ class Weaponlist:
                 # Count LRM tubes that can fire special ammo
                 # Missing: NLRM-10, NLRM-15, NLRM-20
                 for launcher in LRM_LIST:
-                    if (name == launcher[0]):
+                    if (name == launcher[0] and not rear):
                         self.lrms += launcher[2]
 
                 # Add explosive weapon to location
