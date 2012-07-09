@@ -188,9 +188,19 @@ class CombatVehicle:
             # Get baseloadout
             blo = cveh.getElementsByTagName('baseloadout')[0]
 
-            # Costruct current loadout, empty name for base loadout
+            # Construct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self, self.batt_val,
                                     self.prod_era, cost)
+
+            # Get omni loadouts
+            self.loads = []
+            for load in cveh.getElementsByTagName('loadout'):
+ 
+                # Construct current loadout
+                current = Loadout(load, self.load, self)
+
+                self.loads.append(current)
+
 
     def get_walk(self):
         """
