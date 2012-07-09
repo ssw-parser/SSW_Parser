@@ -294,6 +294,7 @@ EQUIPMENT = {
     "Communications Equipment" : [[0, 0], [0, 0], 1, 1, 0, 0, 10000],
     "Infantry Compartment" : [[0, 0], [0, 0], 1, 1, 0, 0, 0],
     "MASH" : [[0, 0], [0, 0], 1, 3.5, 0, 0, 35000],
+    "Paramadic Equipment" : [[0, 0], [0, 0], 1, 0.25, 0, 0, 7500],
     "Remote Sensor Dispenser" : [[0, 0], [0, 0], 1, 0.5, 1, 0, 30000],
     "Lift Hoist" : [[0, 0], [0, 0], 1, 3, 0, 0, 50000],
     # New TL

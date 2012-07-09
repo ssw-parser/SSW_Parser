@@ -80,6 +80,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Thor Artillery Vehicle (Clan) (3050) -- Clan CASE broken.
 -- Magi Infantry Support Vehicle (UCSV) (3050) -- No MG Arrays.
 -- Puma Assault Tank PAT-007 (3050) -- No MG Arrays.
+-- Kestrel VTOL (Clan) (3058) -- Clan CASE broken.
 
 
 == Goals ==
@@ -504,7 +505,9 @@ Priority: Medium
 
 - Figure out how to exclude missile boats from the sniper category.
 
-- Transmission type filter?
+- Transmission type filter? At least VTOL.
+
+- Infantry transport capability?
 
 - Type_list is broken for combat vehicles.
 
