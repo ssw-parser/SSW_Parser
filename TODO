@@ -159,12 +159,11 @@ unwilling to add anything introduced after 3052.
 
 === Disutils ===
 
-Priority: Medium
+Priority: Medium-High
 
 Comments: Do this when ready for release.
 
 - Complete setup.py: url, desciptions ...
-- Include TODO or not?
 
 === Year Info stuff ===
 
