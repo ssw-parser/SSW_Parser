@@ -29,14 +29,14 @@ from weapons import Weapon, WEAPONS
 # These weapons are meant to be filtered out when considering a mech's main
 # armaments.
 #
-SECONDARY_LIST = ["(IS) Small Laser", # 0.5t
-                  "(IS) Flamer", # 1t
-                  "(IS) Machine Gun", # 0.5t
-                  "(IS) Medium Laser", # 1t
-                  "(IS) Small Pulse Laser", # 1t
-                  "(IS) ER Medium Laser", # 1t
-                  "(IS) Medium Pulse Laser", # 2t
-                  "(IS) ER Small Laser" # 0.5t
+SECONDARY_LIST = ["(IS) Small Laser",  # 0.5t
+                  "(IS) Flamer",  # 1t
+                  "(IS) Machine Gun",  # 0.5t
+                  "(IS) Medium Laser",  # 1t
+                  "(IS) Small Pulse Laser",  # 1t
+                  "(IS) ER Medium Laser",  # 1t
+                  "(IS) Medium Pulse Laser",  # 2t
+                  "(IS) ER Small Laser"  # 0.5t
                   ]
 
 # List of LRM launcher names, shorthand and tubes
@@ -230,7 +230,6 @@ class Weaponlist:
 
         return dam
 
-
     def count_srms(self):
         """
         Count number of SRM tubes that can fire special ammo
@@ -264,7 +263,6 @@ class Weaponlist:
 
         return w_str
 
-
     def main_summary(self):
         """
         Return a short description string for main weapons.
@@ -281,7 +279,6 @@ class Weaponlist:
                     w_str += weap.get_short_count() + " "
 
         return w_str
-
 
     def std_summary(self, rnge):
         """
@@ -300,7 +297,6 @@ class Weaponlist:
 
         return (w_str, dam, heat)
 
-
     def list_summary(self, w_list, rnge):
         """
         Count total damage and heat from weapons in w_list at a given range.
@@ -318,5 +314,3 @@ class Weaponlist:
                     heat += weap.get_heat() * weap.count
 
         return (w_str, dam, heat)
-
-

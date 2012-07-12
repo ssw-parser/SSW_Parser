@@ -22,6 +22,7 @@
 Contains BattleForce data for a mech
 """
 
+
 class BattleForce:
     """
     A master class to hold data specific to BattleForce.
@@ -30,7 +31,7 @@ class BattleForce:
         # Save pointers to data
         self.mech = mech
         self.load = load
- 
+
     def get_weight_class(self):
         """
         Get BattleForce weight class

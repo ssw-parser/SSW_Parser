@@ -44,11 +44,12 @@ PHYSICAL = {
     "Hatchet" : [(lambda x : x * 1.5), 0, (lambda x : ceil(x / 5.0)),
                  (lambda x : ceil(x / 15.0)), 0, 0, (lambda x, y : x * 5000)],
     "Sword" : [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0) + 1),
-               (lambda x : ceil_05(x / 20.0)), 0, 1, (lambda x, y : x * 10000)],
+               (lambda x : ceil_05(x / 20.0)), 0, 1,
+               (lambda x, y : x * 10000)],
     "Retractable Blade" :
         [(lambda x : x * 1.725), 0, (lambda x : ceil(x / 10.0)),
          (lambda x : ceil_05(x / 20.0) + 0.5), 0, 1,
-         (lambda x, y : x * 10000 + 10000)], 
+         (lambda x, y : x * 10000 + 10000)],
     "Backhoe" : [(lambda x : 8), 0, (lambda x: 6),
                  (lambda x : 5), 0, 1, (lambda x, y : 50000)],
     "Spot Welder" : [(lambda x : 5), 0, (lambda x : 5),
@@ -82,6 +83,7 @@ PHYSICAL = {
     "Spikes" : [(lambda x : 0), 4, (lambda x : 0),
                       (lambda x : 0.5), 0, 2, (lambda x, y : y * 50)]
     }
+
 
 class Physicallist:
     """
@@ -170,7 +172,7 @@ class Physical:
         self.heat = PHYSICAL[key][4]
         self.count = 0
         self.tur_count = 0
-        self.count_la = 0 # Needed for AES
+        self.count_la = 0  # Needed for AES
         self.count_ra = 0
 
     def get_weight(self):

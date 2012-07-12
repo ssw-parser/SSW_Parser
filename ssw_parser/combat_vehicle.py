@@ -30,13 +30,14 @@ from util import ceil_05, get_child, get_child_data, year_era_test
 from loadout import Baseloadout, Loadout
 from item import Item
 
+
 class LiftEquipment(Item):
     """
     A class to hold information about lift/dive equipment or rotors
     """
     def __init__(self, mweight, mot_type):
         Item.__init__(self)
-        self.weight = mweight # Mech weight
+        self.weight = mweight  # Mech weight
         self.mot_type = mot_type
 
     def get_type(self):
@@ -77,14 +78,13 @@ class LiftEquipment(Item):
             return 0
 
 
-
 class ControlSystems(Item):
     """
     A class to hold control systems
     """
     def __init__(self, mweight):
         Item.__init__(self)
-        self.weight = mweight # Mech weight
+        self.weight = mweight  # Mech weight
 
     def get_type(self):
         """
@@ -103,7 +103,7 @@ class ControlSystems(Item):
         Get weight
         """
         return ceil_05(0.05 * self.weight)
- 
+
     def get_cost(self):
         """
         Get cost
@@ -195,12 +195,11 @@ class CombatVehicle:
             # Get omni loadouts
             self.loads = []
             for load in cveh.getElementsByTagName('loadout'):
- 
+
                 # Construct current loadout
                 current = Loadout(load, self.load, self)
 
                 self.loads.append(current)
-
 
     def get_walk(self):
         """
@@ -219,7 +218,6 @@ class CombatVehicle:
         if self.armor.atype == "Hardened Armor":
             rspeed -= 1
         return rspeed
-
 
     def get_max_run(self):
         """
@@ -289,7 +287,7 @@ class CombatVehicle:
         stlth = False
         if self.armor.atype == "Stealth Armor":
             stlth = True
-        return stlth 
+        return stlth
 
     def def_bv(self, load, printq):
         """
@@ -364,7 +362,7 @@ class CombatVehicle:
         speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
         if (printq):
             print "Speed Factor: ", speed_factor
-        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0 
+        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0
         off_speed_factor = round(pow(adj_sf, 1.2), 2)
         if (printq):
             print "Offensive Speed Factor: ", off_speed_factor
@@ -381,7 +379,7 @@ class CombatVehicle:
         """
         batt_val = int(round(self.off_bv(load, False) +
                              self.def_bv(load, False)))
- 
+
         if batt_val != load.batt_val:
             print ("%s %s%s: %d %d" % (self.name, self.model, load.get_name(),
                                        batt_val, load.batt_val))
