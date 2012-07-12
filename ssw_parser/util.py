@@ -46,6 +46,7 @@ CLUSTER_TABLE = {
     40 : [12, 12, 18, 24, 24, 24, 24, 32, 32, 40, 40]
     }
 
+
 def cluster(size, col):
     """
     Access cluster table with adjustment
@@ -55,6 +56,7 @@ def cluster(size, col):
     elif col > 10:
         col = 10
     return CLUSTER_TABLE[size][col]
+
 
 def calc_average(size, adj):
     """
@@ -74,6 +76,7 @@ def calc_average(size, adj):
     total += cluster(size, 10 + adj)
     return float(total) / 36.0
 
+
 def conv_era(era):
     """
     Convert era to string
@@ -90,7 +93,8 @@ def conv_era(era):
         8 : "DA"
         }
     return conv[era]
-    
+
+
 def year_era_test(year, era, name):
     """
     Test if years and production eras are conpatible,
@@ -142,8 +146,6 @@ def year_era_test(year, era, name):
         sys.exit(1)
 
 
-
-
 def ceil_05(value):
     """
     Round up to nearest half-ton
@@ -156,6 +158,7 @@ def ceil_05(value):
     calc = ceil(calc)
     calc /= 2
     return calc
+
 
 def ceil_5(value):
     """
@@ -170,19 +173,22 @@ def ceil_5(value):
     calc *= 5
     return calc
 
+
 def gettext(nodes):
     """
     Get a text node data
     """
     for node in nodes:
         if node.nodeType == node.TEXT_NODE:
-            return node.data  
+            return node.data
+
 
 def get_child(parent, name):
     """
     Get first child node
     """
     return parent.getElementsByTagName(name)[0]
+
 
 def get_child_data(parent, name):
     """

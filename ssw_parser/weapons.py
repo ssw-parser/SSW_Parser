@@ -24,6 +24,7 @@ Contains classes for standard weapons.
 
 from util import calc_average
 
+
 def hgr_damage(rnge):
     """
     Calculates Heavy Gauss Rifle damage.
@@ -34,6 +35,7 @@ def hgr_damage(rnge):
         return 20
     else:
         return 10
+
 
 def sn_damage(rnge):
     """
@@ -46,6 +48,7 @@ def sn_damage(rnge):
     else:
         return 5
 
+
 def mml3_damage(rnge, art):
     """
     Calculates MML3 damage.
@@ -55,6 +58,7 @@ def mml3_damage(rnge, art):
         return 2 * calc_average(3, art)
     else:
         return calc_average(3, art)
+
 
 def mml5_damage(rnge, art):
     """
@@ -66,6 +70,7 @@ def mml5_damage(rnge, art):
     else:
         return calc_average(5, art)
 
+
 def mml7_damage(rnge, art):
     """
     Calculates MML7 damage.
@@ -76,6 +81,7 @@ def mml7_damage(rnge, art):
     else:
         return calc_average(7, art)
 
+
 def mml9_damage(rnge, art):
     """
     Calculates MML9 damage.
@@ -85,6 +91,7 @@ def mml9_damage(rnge, art):
         return 2 * calc_average(9, art)
     else:
         return calc_average(9, art)
+
 
 def hag20_damage(rnge):
     """
@@ -120,6 +127,7 @@ def hag40_damage(rnge):
         return calc_average(40, 0)
     else:
         return calc_average(40, -2)
+
 
 def atm3_damage(rnge):
     """
@@ -172,6 +180,7 @@ def atm12_damage(rnge):
     else:
         return calc_average(12, 2)
 
+
 def svspl_damage(rnge):
     """
     Calculates Small VSPL damage.
@@ -182,6 +191,7 @@ def svspl_damage(rnge):
         return 4
     else:
         return 3
+
 
 def mvspl_damage(rnge):
     """
@@ -194,6 +204,7 @@ def mvspl_damage(rnge):
     else:
         return 5
 
+
 def lvspl_damage(rnge):
     """
     Calculates Large VSPL damage.
@@ -204,7 +215,6 @@ def lvspl_damage(rnge):
         return 9
     else:
         return 7
-
 
 
 # Weapons in the order of:
@@ -464,7 +474,7 @@ WEAPONS = {
     "(IS) MRM-30" :
         ["MRM30", "M", [168, 21], 1, 225000,
          10, (lambda x, y : calc_average(30, y)), [0, 3, 8, 15],
-         "P", 1, 10, 5,""],
+         "P", 1, 10, 5, ""],
     "(IS) MRM-40" :
         ["MRM40", "M", [224, 28], 1, 350000,
          12, (lambda x, y : calc_average(40, y)), [0, 3, 8, 15],
@@ -722,7 +732,7 @@ WEAPONS = {
     "(CL) Narc Missile Beacon (iOS)" : ["NarciOS", "M", [6, 0], 1, 80000,
                                         0, (lambda x, y : 0), [0, 4, 8, 12],
                                         "", 0, 1.5, 1, ""],
-                                        
+
     # Light Rifle
     # Medium Rifle
     # Heavy Rifle
@@ -891,6 +901,7 @@ WEAPONS = {
          "T", 0, 6.5, 4, ""]
     }
 
+
 class Weapon:
     """
     An individual weapon type
@@ -901,9 +912,9 @@ class Weapon:
         self.batt_val = self.entry[2]
         self.count = 0
         self.countrear = 0
-        self.count_la = 0 # We count arm weapons also, to help with BV calcs
-        self.count_ra = 0 # and A.E.S.
-        self.count_tur = 0 # Count turret weapons, to help with BV calcs
+        self.count_la = 0  # We count arm weapons also, to help with BV calcs
+        self.count_ra = 0  # and A.E.S.
+        self.count_tur = 0  # Count turret weapons, to help with BV calcs
         self.ammocount = 0
         self.ammo_ton = 0
 
@@ -1052,7 +1063,7 @@ class Weapon:
         name = self.entry[0].lower() + ":" + str(self.count)
         if self.entry[9] > 0:
             name += "/" + str(self.get_ammo_per_weapon())
-            
+
         return name
 
     def get_damage(self, rnge):
@@ -1118,7 +1129,6 @@ class Weapon:
             batt_val *= 1.15
         return batt_val
 
-
     def get_ammo_bv(self):
         """
         Get the BV of the total ammo
@@ -1145,6 +1155,3 @@ class Weapon:
         # For no weapons, ammo matters not
         else:
             return 0
-
-
-

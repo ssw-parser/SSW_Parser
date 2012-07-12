@@ -30,14 +30,15 @@ from util import ceil_05, gettext, get_child, get_child_data, year_era_test
 from item import Item
 from error import error_exit
 
+
 class BoobyTrap(Item):
     """
     A class to hold information about booby traps
     """
     def __init__(self, mweight, booby):
         Item.__init__(self)
-        self.weight = mweight # Mech weight, not booby trap weight
-        self.booby = booby # Bool: Do we mount a booby trap
+        self.weight = mweight  # Mech weight, not booby trap weight
+        self.booby = booby  # Bool: Do we mount a booby trap
 
     def get_type(self):
         """
@@ -79,14 +80,13 @@ class BoobyTrap(Item):
 #        return self.booby
 
 
-
 class AES(Item):
     """
     A class to hold information about actuator enhancement system
     """
     def __init__(self, mweight, motive, typ):
         Item.__init__(self)
-        self.weight = mweight # Mech weight, not booby trap weight
+        self.weight = mweight  # Mech weight, not booby trap weight
         self.motive = motive
         self.type = typ
 
@@ -130,6 +130,7 @@ class AES(Item):
         else:
             return 0
 
+
 class PowerAmp(Item):
     """
     Power Amplifiers
@@ -138,9 +139,9 @@ class PowerAmp(Item):
     """
     def __init__(self, load, ene_weight):
         Item.__init__(self)
-        self.load = load # Reference to parent
+        self.load = load  # Reference to parent
         self.ene_weight = ene_weight
-        
+
     def get_type(self):
         """
         Return Power Amplifiers
@@ -175,17 +176,18 @@ class PowerAmp(Item):
         """
         return self.get_weight() * 20000
 
+
 class Load:
     """
     Parent class for omni loadouts
     """
     def __init__(self, load, mech, batt_val, prod_era, equip, cost):
-        self.weight = mech.weight # Save weight just in case
+        self.weight = mech.weight  # Save weight just in case
         self.artemis4 = load.attributes["fcsa4"].value
         self.artemis5 = load.attributes["fcsa5"].value
         self.apollo = load.attributes["fcsapollo"].value
         self.cost = cost
-        self.unit = mech # Reference to parent
+        self.unit = mech  # Reference to parent
 
         # Create a container for special abilities
         # ES, SEAL, SOA, SRCH is always available for mechs
@@ -280,7 +282,6 @@ class Load:
 
         self.build_special()
 
-
     def build_special(self):
         """
         Add special abilities to list
@@ -329,13 +330,12 @@ class Load:
                 self.specials["RCN"] = 1
             if (equip.count > 0 and equip.name == "C3 Remote Sensor Launcher"):
                 self.specials["C3RS"] = 1
-            if (equip.count > 0 and 
+            if (equip.count > 0 and
                 (equip.name == "(IS) Anti-Missile System" or
                  equip.name == "(CL) Anti-Missile System" or
                  equip.name == "(IS) Laser Anti-Missile System" or
                  equip.name == "(CL) Laser Anti-Missile System")):
                 self.specials["AMS"] = 1
-
 
         # Scan weapons
         for weap in self.gear.weaponlist.list.itervalues():
@@ -404,8 +404,6 @@ class Load:
 
         return r_level
 
-
-
     def get_sink(self):
         """
         Get heatsinking capability
@@ -428,7 +426,6 @@ class Load:
         Get production era
         """
         return self.prod_era
-
 
     def get_jump(self):
         """
@@ -474,8 +471,9 @@ class Load:
                 # Track things left
                 arm_loc.remove(i)
             # Standard cockpit: command console
-            elif ((i[0] == "HD" and mech.cockpit.type == "Standard Cockpit") and
-                i[1] == 3 and mech.cockpit.console == "TRUE"):
+            elif ((i[0] == "HD" and
+                   mech.cockpit.type == "Standard Cockpit") and
+                  i[1] == 3 and mech.cockpit.console == "TRUE"):
                 dbv += 5
                 # Track things left
                 arm_loc.remove(i)
@@ -588,8 +586,8 @@ class Load:
 
         # Sort list, from largest BV to smallest,
         # and from lowest heat to highest
-        w_list.sort(key=itemgetter(1)) # secondary by heat
-        w_list.sort(key=itemgetter(0), reverse=True) # primary by BV
+        w_list.sort(key=itemgetter(1))  # secondary by heat
+        w_list.sort(key=itemgetter(0), reverse=True)  # primary by BV
 
         # Calculate weapon BV
         over = 0
@@ -638,6 +636,7 @@ class Load:
 
         return obv
 
+
 class Baseloadout(Load):
     """
     An base omni loadout
@@ -673,12 +672,12 @@ class Baseloadout(Load):
 
         self.partw = PartialWing(mech.weight, partw, tech)
 
-
     def get_name(self):
         """
         Return empty string for name
         """
         return ""
+
 
 class Loadout(Load):
     """
@@ -733,4 +732,3 @@ class Loadout(Load):
         Return configuration name
         """
         return self.name
-

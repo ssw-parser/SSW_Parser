@@ -22,6 +22,7 @@
 Contains a base class to force common interfaces
 """
 
+
 class Item:
     """
     A base class supposed to contains the interface elements shared by
@@ -63,6 +64,6 @@ class Item:
 
     def summary_string(self):
         """
-        Returns a summary string with type and weight.        
+        Returns a summary string with type and weight.
         """
         return self.get_type() + " " + str(self.get_weight()) + " tons"
