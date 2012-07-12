@@ -164,6 +164,7 @@ Priority: Medium-High
 Comments: Do this when ready for release.
 
 - Complete setup.py: url, desciptions ...
+- Add missing files: INSTALL, AUTHORS, ANNOUNCE/CHANGES, NEWS
 
 === Year Info stuff ===
 
