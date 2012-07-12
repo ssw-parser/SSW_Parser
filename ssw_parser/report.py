@@ -30,6 +30,7 @@ from xml.dom import minidom
 from mech import Mech
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 
+
 def print_weapon(mech, weap):
     """
     Print out info about a weapon
@@ -48,7 +49,7 @@ def print_weapon(mech, weap):
         enh = "ap"
     elif mech.gear.tarcomp > 0 and weap.enhance == "TC":
         enh = "tc"
-    print ("%-7s %-27s %3d %1d/%1d/%2d/%2d %-2s" % 
+    print ("%-7s %-27s %3d %1d/%1d/%2d/%2d %-2s" %
            (report, weap.name, weap.count * weap.get_heat(),
             weap.get_min_range(), weap.get_short_range(), weap.get_med_range(),
             weap.get_range(), enh))
@@ -205,6 +206,7 @@ def parse_gear(mech):
     if mech.gear.weaponlist.has_ac():
         print_ac(mech)
 
+
 def print_upgrade(wlist, upgr, orig):
     """
     Print out a suggested Class A or B upgrade
@@ -234,7 +236,7 @@ def print_upgrade(wlist, upgr, orig):
     # But not for energy weapons
     elif (wgt > 0 and wlist[orig].ammocount == 0):
         return
-    battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0) # No tarcomp
+    battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0)  # No tarcomp
     # Assume that an upgrade increases BV
     if (battv < 0):
         return
@@ -249,6 +251,7 @@ def print_upgrade(wlist, upgr, orig):
         uclass = "C"
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
            (wlist[upgr].get_short(), uclass, heat, dam, rng, wgt, battv))
+
 
 def evaluate_upgrades(mech, i):
     """
@@ -273,7 +276,8 @@ def evaluate_upgrades(mech, i):
 
     if i.heatsinks.type == "Single Heat Sink":
         print "Upgrade heatsinks to doubles (Class D)"
-                
+
+
 def parse_omni(mech, args):
     """
     Handle omni-mechs
@@ -312,7 +316,7 @@ def print_bv(mech):
     print "-------------------------------"
     if not mech.omni == "TRUE":
         print "BV: ", mech.get_bv(mech.load)
-        print ("BV/ton: %.2f" % (float(mech.batt_val)/float(mech.weight)))
+        print ("BV/ton: %.2f" % (float(mech.batt_val) / float(mech.weight)))
     print "==============================="
 
 
@@ -332,7 +336,7 @@ def main():
     parser.add_argument('-u', action='store_true',
                         help='Suggest weapon upgrades')
     # Default: one filename
-    parser.add_argument('file', nargs=1)    
+    parser.add_argument('file', nargs=1)
 
     args = parser.parse_args()
 
@@ -343,7 +347,7 @@ def main():
 
     # Print raw info for debugging
     if args.r:
-        print xmldoc.toxml() 
+        print xmldoc.toxml()
         print "===BREAK==="
 
     # Get mech

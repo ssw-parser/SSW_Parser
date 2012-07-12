@@ -37,6 +37,7 @@ from util import conv_era
 ##### Utility functions #####
 #############################
 
+
 def conv_rules(rule):
     """
     Convert rules to string
@@ -71,6 +72,7 @@ def load_unit(file_name):
     else:
         print "Unknown file extension: ", file_name
         sys.exit(1)
+
 
 def create_header(header_l):
     """
@@ -171,13 +173,14 @@ def create_bv_list_item(mech, i, var):
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
-    bv_ton = float(batt_val)/float(weight)
+    bv_ton = float(batt_val) / float(weight)
     bv_def = mech.def_bv(i, False)
     bv_off = mech.off_bv(i, False)
     cockp = ""
     if mech.type == "BM" and mech.cockpit.type == "Small Cockpit":
         cockp = "SML"
     return (name_str, weight, batt_val, bv_ton, bv_def, bv_off, cockp)
+
 
 def print_bvt_list(file_list, select_l, header_l):
     """
@@ -272,6 +275,7 @@ def create_armor_list_item(mech, i, var):
     return (name_str, weight, batt_val, armor, e_str, s_str, arm_p, max_p,
             wgt, bf_a, short)
 
+
 def print_armor_list(file_list, select_l, header_l):
     """
     armor_list output
@@ -284,7 +288,8 @@ def print_armor_list(file_list, select_l, header_l):
     header = create_header(header_l)
 
     # Build list
-    unit_list = create_unit_list(file_list, select_l, create_armor_list_item, 0)
+    unit_list = create_unit_list(file_list, select_l,
+                                 create_armor_list_item, 0)
 
     # Sort by armor points
     unit_list.sort(key=itemgetter(6), reverse=True)
@@ -296,7 +301,7 @@ def print_armor_list(file_list, select_l, header_l):
     header2 += "Tons BV   Armr Exp Sth | Points  Tons  BF Type"
     print header2
     for i in unit_list:
-        print ("%-32.32s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %2d %-5s" % 
+        print ("%-32.32s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %2d %-5s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
 
@@ -324,9 +329,10 @@ def create_speed_list_item(mech, i, var):
     sup = ""
     if i.gear.supercharger.supercharger:
         sup = "SupC"
- 
+
     return (name_str, weight, batt_val, spd, walk, run, jump, enh, mod, bf_str,
             sup)
+
 
 def print_speed_list(file_list, select_l, header_l):
     """
@@ -340,7 +346,8 @@ def print_speed_list(file_list, select_l, header_l):
     header = create_header(header_l)
 
     # Build list
-    unit_list = create_unit_list(file_list, select_l, create_speed_list_item, 0)
+    unit_list = create_unit_list(file_list, select_l,
+                                 create_speed_list_item, 0)
 
     # Sort by speed
     unit_list.sort(key=itemgetter(3), reverse=True)
@@ -352,10 +359,11 @@ def print_speed_list(file_list, select_l, header_l):
     header2 += "Tons BV    Speed   Enh  Mod BF    Super"
     print header2
     for i in unit_list:
-        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %d   %-5s %s" % 
+        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %d   %-5s %s" %
                (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10]))
 
 ## Weapons listing
+
 
 def create_weapon_list_item(mech, i, var):
     """
@@ -373,8 +381,9 @@ def create_weapon_list_item(mech, i, var):
 
     l_str = ""
     l_str = i.gear.weaponlist.all_summary()
-               
+
     return (name_str, weight, batt_val, mov, l_str)
+
 
 def print_weapon_list(file_list, select_l, header_l):
     """
@@ -424,8 +433,9 @@ def create_main_weapon_list_item(mech, i, var):
     # No big main weapon
     if l_str == "":
         return False
-               
+
     return (name_str, weight, batt_val, mov, l_str)
+
 
 def print_main_weapon_list(file_list, select_l, header_l):
     """
@@ -496,6 +506,7 @@ def create_missile_list_item(mech, i, var):
 
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
+
 def print_missile_list(file_list, select_l, header_l):
     """
     missile_list output
@@ -564,8 +575,9 @@ def create_srm_list_item(mech, i, var):
     # Ignore heat for combat vehicles
     if mech.type == "CV":
         l_heat = "---"
-               
+
     return (name_str, weight, batt_val, srm, art, l_heat, mov, l_str)
+
 
 def print_srm_list(file_list, select_l, header_l):
     """
@@ -632,8 +644,9 @@ def create_autocannon_list_item(mech, i, var):
     # Ignore heat for combat vehicles
     if mech.type == "CV":
         l_heat = "---"
-               
+
     return (name_str, weight, batt_val, dam, tarcomp, l_heat, mov, l_str)
+
 
 def print_autocannon_list(file_list, select_l, header_l):
     """
@@ -730,9 +743,9 @@ def print_juggernaut_list(file_list, select_l, header_l):
     # Add juggernaut selector
     # - At least 30 damage at range 6
     # - BF armor at least 5
-    arm = 135 # Minimum armor
-    dam = 30 # Minimum damage
-    rng = 6 # Selected range
+    arm = 135  # Minimum armor
+    dam = 30  # Minimum damage
+    rng = 6  # Selected range
     select_l.append(lambda x, y: (x.armor.total.arm >= arm))
     header_l.append(("with at least armor %d" % arm))
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
@@ -750,6 +763,7 @@ def print_juggernaut_list(file_list, select_l, header_l):
 
 ## Sniper listing
 
+
 def print_snipe_list(file_list, select_l, header_l):
     """
     snipe_list output
@@ -759,8 +773,8 @@ def print_snipe_list(file_list, select_l, header_l):
     """
     # Add sniper selector
     # - At least 10 damage at range 18
-    dam = 10 # Minimum damage
-    rng = 18 # Selected range
+    dam = 10  # Minimum damage
+    rng = 18  # Selected range
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_sniper(y)))
@@ -769,11 +783,13 @@ def print_snipe_list(file_list, select_l, header_l):
     header = create_header(header_l)
 
     # Build list
-    unit_list = create_unit_list(file_list, select_l, create_std_list_item, rng)
+    unit_list = create_unit_list(file_list, select_l,
+                                 create_std_list_item, rng)
 
     print_std_list(unit_list, "=== List of 'Snipers' (Alpha) ===", header)
 
 ## Range listing
+
 
 def print_range_list(file_list, select_l, header_l, rng):
     """
@@ -794,6 +810,7 @@ def print_range_list(file_list, select_l, header_l, rng):
 
 ## Striker listing
 
+
 def print_striker_list(file_list, select_l, header_l):
     """
     striker_list output
@@ -804,9 +821,9 @@ def print_striker_list(file_list, select_l, header_l):
     # Add striker selector
     # - Walk 5 or Jump 5
     # - At least 15 damage at range 3
-    spd = 5 # Minimum speed
-    dam = 15 # Minimum damage
-    rng = 3 # Selected range
+    spd = 5  # Minimum speed
+    dam = 15  # Minimum damage
+    rng = 3  # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
@@ -824,6 +841,7 @@ def print_striker_list(file_list, select_l, header_l):
 
 ## Skirmisher listing
 
+
 def print_skirmisher_list(file_list, select_l, header_l):
     """
     skirmisher_list output
@@ -835,10 +853,10 @@ def print_skirmisher_list(file_list, select_l, header_l):
     # - Walk 5 or Jump 5
     # - At least 5 damage at range 15
     # - BF armor value at least 3
-    spd = 5 # Minimum speed
-    arm = 75 # Minimum armor
-    dam = 5 # Minimum damage
-    rng = 15 # Selected range
+    spd = 5  # Minimum speed
+    arm = 75  # Minimum armor
+    dam = 5  # Minimum damage
+    rng = 15  # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
     select_l.append(lambda x, y: (x.armor.total.arm >= arm))
@@ -858,6 +876,7 @@ def print_skirmisher_list(file_list, select_l, header_l):
 
 ## Brawler listing
 
+
 def print_brawler_list(file_list, select_l, header_l):
     """
     brawler_list output
@@ -870,10 +889,10 @@ def print_brawler_list(file_list, select_l, header_l):
     # - At least 10 damage at range 15
     # - BF armor value at least 4
     # - Do more damage at range 15 than range 18
-    spd = 4 # Minimum speed
-    arm = 105 # Minimum armor
-    dam = 10 # Minimum damage
-    rng = 15 # Selected range
+    spd = 4  # Minimum speed
+    arm = 105  # Minimum armor
+    dam = 10  # Minimum damage
+    rng = 15  # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
     select_l.append(lambda x, y: (x.armor.total.arm >= arm))
@@ -881,9 +900,9 @@ def print_brawler_list(file_list, select_l, header_l):
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
     select_l.append(lambda x, y: ((y.gear.weaponlist.count_damage(rng) >
-                                   y.gear.weaponlist.count_damage(rng+3))))
+                                   y.gear.weaponlist.count_damage(rng + 3))))
     header_l.append(("does more damage at range %d than range %d" %
-                     (rng, rng+3)))
+                     (rng, rng + 3)))
 #    select_l.append(lambda x, y: (x.is_brawler(y)))
 
     # Construct header
@@ -897,6 +916,7 @@ def print_brawler_list(file_list, select_l, header_l):
 
 ## Scout listing
 
+
 def print_scout_list(file_list, select_l, header_l):
     """
     scout_list output
@@ -906,8 +926,8 @@ def print_scout_list(file_list, select_l, header_l):
     """
     # Add scout selector
     # - Walk 6 or Jump 6
-    spd = 6 # Minimum speed
-    rng = 3 # Selected range
+    spd = 6  # Minimum speed
+    rng = 3  # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
 #    select_l.append(lambda x, y: (x.is_scout(y)))
@@ -923,6 +943,7 @@ def print_scout_list(file_list, select_l, header_l):
 
 ## Missile Boat listing
 
+
 def print_missile_boat_list(file_list, select_l, header_l):
     """
     missile_boat_list output
@@ -932,8 +953,8 @@ def print_missile_boat_list(file_list, select_l, header_l):
     """
     # Add missile boat selector
     # - At least 20 lrm tubes
-    lrms = 20 # LRM tubes
-    rng = 21 # Selected range
+    lrms = 20  # LRM tubes
+    rng = 21  # Selected range
     select_l.append(lambda x, y: (y.gear.weaponlist.lrms >= lrms))
     header_l.append(("with at least %d lrm tubes" % lrms))
 #    select_l.append(lambda x, y: (x.is_missile_boat(y)))
@@ -945,7 +966,8 @@ def print_missile_boat_list(file_list, select_l, header_l):
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Missile Boats' (Alpha) ===", header)
+    print_std_list(unit_list, "=== List of 'Missile Boats' (Alpha) ===",
+                   header)
 
 
 ## Head-capper listing
@@ -1006,6 +1028,7 @@ def create_headcap_list_item(mech, i, var):
 
     return (name_str, weight, batt_val, cap, mov, armor, tarcomp, l_str)
 
+
 def print_headcap_list(file_list, select_l, header_l):
     """
     headcap_list output
@@ -1050,6 +1073,7 @@ def create_battle_force_list_item(mech, i, var):
     armor = batt_f.get_armor()
 
     return (name_str, weight, batt_val, mov, armor)
+
 
 def print_battle_force_list(file_list, select_l, header_l):
     """
@@ -1103,6 +1127,7 @@ def create_damage_range_list_item(mech, i, var):
     return (name_str, weight, batt_val, dam3, dam6, dam9, dam12, dam15, dam18,
             dam21, dam24)
 
+
 def print_damage_range_list(file_list, select_l, header_l):
     """
     range_list output
@@ -1130,8 +1155,6 @@ def print_damage_range_list(file_list, select_l, header_l):
         print ("%-32.32s %3d %4d %3d %3d %3d %3d %3d %3d %3d %3d" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
-
-
 
 
 ## Mech type listing
@@ -1178,6 +1201,7 @@ def create_type_list_item(mech, i, var):
     return (name_str, weight, batt_val, sco, stri, skir, brw, mis, snp, jug,
             warn)
 
+
 def print_type_list(file_list, select_l, header_l):
     """
     type_list output
@@ -1206,7 +1230,6 @@ def print_type_list(file_list, select_l, header_l):
                 i[10]))
 
 
-
 ## Cost listing
 
 def create_cost_list_item(mech, i, var):
@@ -1221,6 +1244,7 @@ def create_cost_list_item(mech, i, var):
     cost_diff = cost_ssw - cost
 
     return (name_str, weight, batt_val, cost, cost_ssw, cost_diff)
+
 
 def print_cost_list(file_list, select_l, header_l):
     """
@@ -1249,11 +1273,8 @@ def print_cost_list(file_list, select_l, header_l):
         print ("%-32.32s %3d %4d  %11d %11d %11d" %
                (i[0], i[1], i[2], i[3], i[4], i[5]))
 
-
-
-
-
 ## Weight listing
+
 
 def create_weight_list_item(mech, i, var):
     """
@@ -1291,6 +1312,7 @@ def create_weight_list_item(mech, i, var):
 
     return (name_str, weight, s_w, e_w, a_w, c_w, j_w, h_w, t_w, g_w, r_str)
 
+
 def print_weight_list(file_list, select_l, header_l):
     """
     weight_list output
@@ -1320,9 +1342,6 @@ def print_weight_list(file_list, select_l, header_l):
         print ("%-32.32s %3d | %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
-
-
-
 
 
 ## Default listing
@@ -1379,65 +1398,65 @@ def parse_arg():
     parser.add_argument('-f', action='append', help='list of .ssw files')
     # Output type selection arguments
     parser.add_argument('-b', action='store_const', help='BV/ton list output',
-                        dest = 'output', const = 'b')
+                        dest='output', const='b')
     parser.add_argument('-bv', action='store_const', help='BV list output',
-                        dest = 'output', const = 'bv')
+                        dest='output', const='bv')
     parser.add_argument('-a', action='store_const', help='Armor list output',
-                        dest = 'output', const = 'a')
+                        dest='output', const='a')
     parser.add_argument('-s', action='store_const', help='Speed list output',
-                        dest = 'output', const = 's')
+                        dest='output', const='s')
     parser.add_argument('-l', action='store_const', help='LRM list output',
-                        dest = 'output', const = 'l')
+                        dest='output', const='l')
     parser.add_argument('-sn', action='store_const', help='Snipe list output',
-                        dest = 'output', const = 'sn')
+                        dest='output', const='sn')
     parser.add_argument('-cap', action='store_const',
                         help='Headcap list output',
-                        dest = 'output', const = 'cap')
+                        dest='output', const='cap')
     parser.add_argument('-dr', action='store_const',
                         help='Print damage over range list output',
-                        dest = 'output', const = 'dr')
+                        dest='output', const='dr')
     parser.add_argument('-str', action='store_const',
                         help='Striker list output',
-                        dest = 'output', const = 'str')
+                        dest='output', const='str')
     parser.add_argument('-skir', action='store_const',
                         help='Skirmisher list output',
-                        dest = 'output', const = 'skir')
+                        dest='output', const='skir')
     parser.add_argument('-brwl', action='store_const',
                         help='Brawler list output',
-                        dest = 'output', const = 'brwl')
+                        dest='output', const='brwl')
     parser.add_argument('-scout', action='store_const',
                         help='Scout list output',
-                        dest = 'output', const = 'scout')
+                        dest='output', const='scout')
     parser.add_argument('-mb', action='store_const',
                         help='Missile Boat list output',
-                        dest = 'output', const = 'mb')
+                        dest='output', const='mb')
     parser.add_argument('-jug', action='store_const',
                         help='Juggernaut list output',
-                        dest = 'output', const = 'jug')
+                        dest='output', const='jug')
     parser.add_argument('-typ', action='store_const',
                         help='Mech type list output',
-                        dest = 'output', const = 'typ')
+                        dest='output', const='typ')
     parser.add_argument('-ac', action='store_const',
                         help='Autocannon list output',
-                        dest = 'output', const = 'ac')
+                        dest='output', const='ac')
     parser.add_argument('-srm', action='store_const',
                         help='SRM list output',
-                        dest = 'output', const = 'srm')
+                        dest='output', const='srm')
     parser.add_argument('-w', action='store_const', help='Weapon list output',
-                        dest = 'output', const = 'w')
+                        dest='output', const='w')
     parser.add_argument('-mw', action='store_const', help='Weapon list output',
-                        dest = 'output', const = 'mw')
+                        dest='output', const='mw')
     parser.add_argument('-bf', action='store_const',
                         help='Battle Force list output',
-                        dest = 'output', const = 'bf')
-    parser.add_argument('-r', action='store', default = 0, type=int,
+                        dest='output', const='bf')
+    parser.add_argument('-r', action='store', default=0, type=int,
                         help='Range <d> damage list output',)
     parser.add_argument('-cost', action='store_const',
                         help='Cost list output',
-                        dest = 'output', const = 'cost')
+                        dest='output', const='cost')
     parser.add_argument('-weight', action='store_const',
                         help='Weight list output',
-                        dest = 'output', const = 'weight')
+                        dest='output', const='weight')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
                         help='Select mechs with TAG')
@@ -1461,23 +1480,23 @@ def parse_arg():
                         help='Select Clan tech mechs')
     parser.add_argument('-cc', action='store_true',
                         help='Select mechs with Command Console')
-    parser.add_argument('-e', action='store', default = 99, type=int,
+    parser.add_argument('-e', action='store', default=99, type=int,
                         help='Select mechs up to era <n>')
-    parser.add_argument('-y', action='store', default = 0, type=int,
+    parser.add_argument('-y', action='store', default=0, type=int,
                         help='Select mechs up to year <n>')
-    parser.add_argument('-se', action='store', default = 0, type=int,
+    parser.add_argument('-se', action='store', default=0, type=int,
                         help='Select mechs with speed <n>')
-    parser.add_argument('-sf', action='store', default = 0, type=int,
+    parser.add_argument('-sf', action='store', default=0, type=int,
                         help='Select mechs with at least speed <n>')
-    parser.add_argument('-lrm', action='store', default = 0, type=int,
+    parser.add_argument('-lrm', action='store', default=0, type=int,
                         help='Select mechs with at least <n> lrms')
     parser.add_argument('-npr', action='store_true',
                         help='Select non-Primitive mechs')
-    parser.add_argument('-wgt', action='store', default = 0, type=int,
+    parser.add_argument('-wgt', action='store', default=0, type=int,
                         help='Select mechs of weight <n>')
-    parser.add_argument('-rule', action='store', default = 99, type=int,
+    parser.add_argument('-rule', action='store', default=99, type=int,
                         help='Select mechs with highest rules level <n>')
-    parser.add_argument('-af', action='store', default = 0, type=int,
+    parser.add_argument('-af', action='store', default=0, type=int,
                         help='Select mechs with at least armor points <n>')
     # Default: one filename
     parser.add_argument('file', nargs='*')
@@ -1537,7 +1556,6 @@ def main():
 
     # Remove duplicates
     file_list = list(set(file_list))
-
 
     ### Activate selectors ###
 

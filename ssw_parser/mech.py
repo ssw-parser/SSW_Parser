@@ -33,6 +33,7 @@ from battle_force import BattleForce
 # A mech class with data read from SSW xml data for use in various
 # applications.
 
+
 class Mech:
     """
     A master class holding info about a mech.
@@ -44,7 +45,7 @@ class Mech:
 
         # Set some data to zero that sometimes will not get set otherwise
         self.multi = []
- 
+
         # Get top-level structure data
         for mmech in xmldoc.getElementsByTagName('mech'):
             self.model = mmech.attributes["model"].value
@@ -106,7 +107,7 @@ class Mech:
             # Get internal structure type
             self.structure = MechStructure(get_child(mmech, 'structure'),
                                            self.weight, self.motive)
-           
+
             # Get engine data
             self.engine = Engine(get_child(mmech, 'engine'), self)
 
@@ -149,12 +150,11 @@ class Mech:
             # Get omni loadouts
             self.loads = []
             for load in mmech.getElementsByTagName('loadout'):
- 
+
                 # Construct current loadout
                 current = Loadout(load, self.load, self)
 
                 self.loads.append(current)
-                
 
     def get_walk(self):
         """
@@ -249,7 +249,7 @@ class Mech:
                 stlth = True
         if self.armor.atype == "Stealth Armor":
             stlth = True
-        return stlth 
+        return stlth
 
     def def_bv(self, load, printq):
         """
@@ -320,7 +320,6 @@ class Mech:
             print "Defensive BV: ", dbv
         return dbv
 
-
     def off_bv(self, load, printq):
         """
         Get offensive BV
@@ -347,7 +346,7 @@ class Mech:
         speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
         if (printq):
             print "Speed Factor: ", speed_factor
-        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0 
+        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0
         off_speed_factor = round(pow(adj_sf, 1.2), 2)
         if (printq):
             print "Offensive Speed Factor: ", off_speed_factor
@@ -383,7 +382,6 @@ class Mech:
             return load.year
         else:
             return self.year
-
 
     def get_move_string(self):
         """
@@ -434,7 +432,6 @@ class Mech:
         # Battle force armor
         batt_f = BattleForce(self, self.load)
         print "BF Armor: ", batt_f.get_armor()
-
 
     def get_rules_level(self, load):
         """
@@ -640,8 +637,8 @@ class Mech:
         cost += self.structure.get_cost()
 
         # Acutuators
-        if self.motive == "Biped": # Arms
-            cost += 2 * 100 * self.weight # Upper arms
+        if self.motive == "Biped":  # Arms
+            cost += 2 * 100 * self.weight  # Upper arms
             if i.left_arm == "TRUE":
                 cost += 50 * self.weight
             if i.right_arm == "TRUE":
@@ -650,15 +647,15 @@ class Mech:
                 cost += 80 * self.weight
             if i.right_hand == "TRUE":
                 cost += 80 * self.weight
-        elif self.motive == "Quad": # Front legs
-            cost += 2 * 150 * self.weight # Upper legs
-            cost += 2 * 80 * self.weight # Lower legs
-            cost += 2 * 120 * self.weight # Feet
+        elif self.motive == "Quad":  # Front legs
+            cost += 2 * 150 * self.weight  # Upper legs
+            cost += 2 * 80 * self.weight  # Lower legs
+            cost += 2 * 120 * self.weight  # Feet
 
         # Legs/Rear legs
-        cost += 2 * 150 * self.weight # Upper legs
-        cost += 2 * 80 * self.weight # Lower legs
-        cost += 2 * 120 * self.weight # Feet
+        cost += 2 * 150 * self.weight  # Upper legs
+        cost += 2 * 80 * self.weight  # Lower legs
+        cost += 2 * 120 * self.weight  # Feet
 
         # Engine
         cost += self.engine.get_cost()
