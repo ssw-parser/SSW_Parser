@@ -3,7 +3,7 @@
 
 from distutils.core import setup
 
-setup(name = "SSW Parser",
+setup(name = "SSW_Parser",
       version = "0.0.1",
       author = "Christer Nyfält",
       author_email = "cjnyfalt@yahoo.co.uk",
