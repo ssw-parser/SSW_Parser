@@ -43,11 +43,11 @@ def conv_rules(rule):
     Convert rules to string
     """
     conv = {
-        0 : "Int",
-        1 : "T-L",
-        2 : "Adv",
-        3 : "Exp",
-        4 : "Pri"
+        0: "Int",
+        1: "T-L",
+        2: "Adv",
+        3: "Exp",
+        4: "Pri"
         }
     return conv[rule]
 
@@ -1658,31 +1658,31 @@ def main():
     ### Process output ###
 
     arg_calls = {
-        'b' : print_bvt_list,
-        'bv' : print_bv_list,
-        'a' : print_armor_list,
-        's' : print_speed_list,
-        'cap' : print_headcap_list,
-        'dr' : print_damage_range_list,
+        'b': print_bvt_list,
+        'bv': print_bv_list,
+        'a': print_armor_list,
+        's': print_speed_list,
+        'cap': print_headcap_list,
+        'dr': print_damage_range_list,
         # Mech types
-        'sn' : print_snipe_list,
-        'str' : print_striker_list,
-        'skir' : print_skirmisher_list,
-        'brwl' : print_brawler_list,
-        'jug' : print_juggernaut_list,
-        'mb' : print_missile_boat_list,
-        'scout' : print_scout_list,
-        'typ' : print_type_list,
+        'sn': print_snipe_list,
+        'str': print_striker_list,
+        'skir': print_skirmisher_list,
+        'brwl': print_brawler_list,
+        'jug': print_juggernaut_list,
+        'mb': print_missile_boat_list,
+        'scout': print_scout_list,
+        'typ': print_type_list,
         # Special ammo users
-        'l' : print_missile_list,
-        'ac' : print_autocannon_list,
-        'srm' : print_srm_list,
+        'l': print_missile_list,
+        'ac': print_autocannon_list,
+        'srm': print_srm_list,
         # Misc
-        'w' : print_weapon_list,
-        'mw' : print_main_weapon_list,
-        'bf' : print_battle_force_list,
-        'cost' : print_cost_list,
-        'weight' : print_weight_list
+        'w': print_weapon_list,
+        'mw': print_main_weapon_list,
+        'bf': print_battle_force_list,
+        'cost': print_cost_list,
+        'weight': print_weight_list
         }
 
     # Special case, damage at range <d>

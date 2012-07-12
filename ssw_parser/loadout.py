@@ -193,9 +193,9 @@ class Load:
         # ES, SEAL, SOA, SRCH is always available for mechs
         # Combat Vehicles gets SRCH
         if mech.type == "BM":
-            self.specials = {"ES" : 1, "SEAL" : 1, "SOA" : 1, "SRCH" : 1}
+            self.specials = {"ES": 1, "SEAL": 1, "SOA": 1, "SRCH": 1}
         elif mech.type == "CV":
-            self.specials = {"SRCH" : 1}
+            self.specials = {"SRCH": 1}
 
         # Get source
         self.source = get_child_data(load, 'source')
