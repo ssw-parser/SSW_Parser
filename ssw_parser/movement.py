@@ -577,7 +577,7 @@ JUMP_JET = [["Standard Jump Jet", 1, 0, 200],
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 #
-ENHANCEMENT = [["---", 2, (lambda x : 0)], #None
+ENHANCEMENT = [["---", 2, (lambda x : 0)],  # None
                ["MASC", 0, (lambda x : round(x * 0.05))],
                ["MASC", 1, (lambda x : round(x * 0.04))],
                ["TSM", 0, (lambda x : 0)]]
@@ -593,7 +593,6 @@ COCKPIT = [["Standard Cockpit", 3, 0, 200000],
            ["Small Cockpit", 2, 1, 175000],
            ["Torso-Mounted Cockpit", 4, 2, 750000],
            ["Primitive Cockpit", 5, 4, 100000]]
-
 
 
 class Cockpit(Item):
@@ -660,13 +659,14 @@ class Cockpit(Item):
         else:
             return self.cost
 
+
 class JumpJets(Item):
     """
     A class to hold info about jump-jets
     """
     def __init__(self, jets, weight):
         Item.__init__(self)
-        self.weight = weight # Mech weight, not JJ weight
+        self.weight = weight  # Mech weight, not JJ weight
         # Handle default
         if jets is None:
             self.jump = 0
@@ -761,7 +761,7 @@ class JumpBoosters(Item):
     """
     def __init__(self, weight, jump):
         Item.__init__(self)
-        self.weight = weight # Mech weight, not JJ weight
+        self.weight = weight  # Mech weight, not JJ weight
         self.jump = jump
 
     def get_type(self):
@@ -804,8 +804,8 @@ class PartialWing(Item):
     """
     def __init__(self, weight, wing, tech):
         Item.__init__(self)
-        self.weight = weight # Mech weight, not JJ weight
-        self.wing = wing # Bool: Do we mount a partial wing?
+        self.weight = weight  # Mech weight, not JJ weight
+        self.wing = wing  # Bool: Do we mount a partial wing?
         self.tech = tech
 
     def get_type(self):
@@ -847,9 +847,10 @@ class PartialWing(Item):
 
     def has_wing(self):
         """
-        Return true if we have a wing 
+        Return true if we have a wing
         """
         return self.wing
+
 
 class Enhancement(Item):
     """
@@ -927,6 +928,7 @@ class Enhancement(Item):
         else:
             return False
 
+
 class Gyro(Item):
     """
     A class to hold gyroscope information
@@ -999,7 +1001,7 @@ class Engine(Item):
         self.e_base = int(eng.attributes["techbase"].value)
         self.etype = gettext(eng.childNodes)
         self.speed = self.erating / unit.weight
-        self.unit = unit # Reference to parent unit
+        self.unit = unit  # Reference to parent unit
         # A note on primitive engines:
         # It seems like using engine rating directly does give
         # the right speed, even if rules says otherwise
@@ -1021,7 +1023,6 @@ class Engine(Item):
                 self.cost = i[5]
         if not ident:
             error_exit((self.etype, self.e_base))
-
 
     def get_suspension_factor(self):
         """

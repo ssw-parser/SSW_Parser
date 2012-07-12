@@ -25,10 +25,10 @@ Handle error and warning messages
 
 import sys
 
+
 def error_exit(msg):
     """
     Exit because of unknown component
     """
     print "WARNING: Unknown", msg, "!"
     sys.exit(1)
-

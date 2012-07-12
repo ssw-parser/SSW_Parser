@@ -233,6 +233,7 @@ class MechStructure(Item):
         """
         return self.points * 1.5 * self.is_bv
 
+
 class VehicleStructure(Item):
     """
     A class to hold info about the internal stucture of combat vehicles
@@ -303,6 +304,7 @@ class VehicleStructure(Item):
         Return IS BV factor
         """
         return self.points * 1.5 * self.is_bv
+
 
 class ArmorLoc:
     """
@@ -416,7 +418,6 @@ class MechArmor(Item):
         if not ident:
             error_exit((self.atype, self.tech_base))
 
-
         # Head always have max 9 armor
         self.head = ArmorLoc("Head", head, 3, 9)
 
@@ -497,7 +498,7 @@ class MechArmor(Item):
             return (self.armor_bv * 2.5 * armor)
         else:
             return (self.armor_bv * 2.5 * self.total.arm)
-       
+
     def get_type(self):
         """
         Return armor type
@@ -560,6 +561,7 @@ class MechArmor(Item):
         print self.l_arm.get_report()
         print self.r_arm.get_report()
 
+
 class VehicleArmor(Item):
     """
     A class to hold armor info for a vehicle
@@ -589,7 +591,6 @@ class VehicleArmor(Item):
         if not ident:
             error_exit((self.atype, self.tech_base))
 
-
         # Last sum up total
         armortotal = (self.front + self.left + self.right + self.rear +
                       self.p_turret + self.s_turret + self.rotor)
@@ -603,7 +604,7 @@ class VehicleArmor(Item):
         Return armor BV
         """
         return (self.armor_bv * 2.5 * self.total.arm)
-       
+
     def get_type(self):
         """
         Return armor type
@@ -651,4 +652,3 @@ class VehicleArmor(Item):
         """
         print self.summary_string()
         print self.total.get_report()
-

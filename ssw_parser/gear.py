@@ -41,7 +41,8 @@ AMMO = {
     "(IS) @ AC/5" : [["(IS) Autocannon/5"], 20, 1, "X", 4500],
     "(IS) @ AC/10" : [["(IS) Autocannon/10"], 10, 1, "X", 6000],
     "(IS) @ AC/20" : [["(IS) Autocannon/20"], 5, 1, "X", 10000],
-    "(IS) @ Light Gauss Rifle" : [["(IS) Light Gauss Rifle"], 16, 1, "", 20000],
+    "(IS) @ Light Gauss Rifle" :
+        [["(IS) Light Gauss Rifle"], 16, 1, "", 20000],
     "@ Gauss Rifle" :
         [["(IS) Gauss Rifle", "(CL) Gauss Rifle"], 8, 1, "", 20000],
     "(IS) @ Heavy Gauss Rifle" : [["(IS) Heavy Gauss Rifle"], 4, 1, "", 20000],
@@ -102,7 +103,8 @@ AMMO = {
     "(IS) @ LRM-15" : [["(IS) LRM-15"], 8, 1, "X", 30000],
     "(IS) @ LRM-20" : [["(IS) LRM-20"], 6, 1, "X", 30000],
     "(IS) @ LRM-5 (Artemis IV Capable)" : [["(IS) LRM-5"], 24, 1, "X", 60000],
-    "(IS) @ LRM-10 (Artemis IV Capable)" : [["(IS) LRM-10"], 12, 1, "X", 60000],
+    "(IS) @ LRM-10 (Artemis IV Capable)" :
+        [["(IS) LRM-10"], 12, 1, "X", 60000],
     "(IS) @ LRM-15 (Artemis IV Capable)" : [["(IS) LRM-15"], 8, 1, "X", 60000],
     "(IS) @ LRM-20 (Artemis IV Capable)" : [["(IS) LRM-20"], 6, 1, "X", 60000],
     "(IS) @ LRM-5 (Narc Capable)" : [["(IS) LRM-5"], 24, 1, "X", 60000],
@@ -203,11 +205,12 @@ AMMO = {
     "(CL) @ LRM-15" : [["(CL) LRM-15"], 8, 1, "X", 30000],
     "(CL) @ LRM-20" : [["(CL) LRM-20"], 6, 1, "X", 30000],
     "(CL) @ LRM-5 (Artemis IV Capable)" : [["(CL) LRM-5"], 24, 1, "X", 60000],
-    "(CL) @ LRM-10 (Artemis IV Capable)" : [["(CL) LRM-10"], 12, 1, "X", 60000],
+    "(CL) @ LRM-10 (Artemis IV Capable)" :
+        [["(CL) LRM-10"], 12, 1, "X", 60000],
     "(CL) @ LRM-15 (Artemis IV Capable)" : [["(CL) LRM-15"], 8, 1, "X", 60000],
     "(CL) @ LRM-20 (Artemis IV Capable)" : [["(CL) LRM-20"], 6, 1, "X", 60000],
-    "(CL) @ LRM-15 (Artemis V)" : [["(CL) LRM-15"], 8, 1, "X", 150000],        
-    "(CL) @ LRM-20 (Artemis V)" : [["(CL) LRM-20"], 6, 1, "X", 150000],        
+    "(CL) @ LRM-15 (Artemis V)" : [["(CL) LRM-15"], 8, 1, "X", 150000],
+    "(CL) @ LRM-20 (Artemis V)" : [["(CL) LRM-20"], 6, 1, "X", 150000],
     "(CL) @ LRM-5 (Narc Capable)" : [["(CL) LRM-5"], 24, 1, "X", 60000],
     "(CL) @ LRM-15 (Narc Capable)" : [["(CL) LRM-15"], 8, 1, "X", 60000],
     "(CL) @ LRM-20 (Narc Capable)" : [["(CL) LRM-20"], 6, 1, "X", 60000],
@@ -232,7 +235,8 @@ AMMO = {
     "(IS) @ ELRM-10" : [["(IS) Extended LRM-10"], 9, 1, "X", 35000],
     "(IS) @ ELRM-20" : [["(IS) Extended LRM-20"], 4, 1, "X", 35000],
     "@ Fluid Gun (Water)" : [["(IS) Fluid Gun"], 20, 1, "", 500],
-    "@ C3 Remote Launcher" : [["C3 Remote Sensor Launcher"], 4, 1, "X", 100000],
+    "@ C3 Remote Launcher" :
+        [["C3 Remote Sensor Launcher"], 4, 1, "X", 100000],
     "(CL) @ Rotary AC/2" : [["(CL) Rotary AC/2"], 45, 1, "X", 3000],
     "(CL) @ Rotary AC/5" : [["(CL) Rotary AC/5"], 20, 1, "X", 12000],
     "(CL) @ Protomech AC/4" : [["(CL) Protomech AC/4"], 20, 1, "X", 4800],
@@ -283,8 +287,8 @@ EQUIPMENT = {
     "(IS) Anti-Missile System" : [[0, 0], [32, 11], 1, 0.5, 1, 0, 100000],
     "Guardian ECM Suite" : [[0, 0], [61, 0], 1, 1.5, 0, 0, 200000],
     "Beagle Active Probe" : [[0, 0], [10, 0], 1, 1.5, 0, 0, 200000],
-    "ECM Suite" : [[0, 0], [61, 0], 1, 1, 0, 0, 200000], # Clan
-    "Active Probe" : [[0, 0], [12, 0], 1, 1, 0, 0, 200000], # Clan
+    "ECM Suite" : [[0, 0], [61, 0], 1, 1, 0, 0, 200000],  # Clan
+    "Active Probe" : [[0, 0], [12, 0], 1, 1, 0, 0, 200000],  # Clan
     "Light Active Probe" : [[0, 0], [7, 0], 1, 0.5, 0, 0, 50000],
     "(CL) Anti-Missile System" : [[0, 0], [32, 22], 1, 0.5, 1, 0, 100000],
     # Industrial gear, TM
@@ -313,7 +317,7 @@ EQUIPMENT = {
     # Experimental
     "Collapsible Command Module (CCM)" : [[0, 0], [0, 0], 3, 16, 0, 0, 500000],
     "C3 Boosted Computer (Slave)" : [[0, 0], [0, 0], 3, 3, 0, 0, 500000],
-    "C3 Boosted Computer (Master)" : [[0, 0], [0, 0], 3, 6, 0, 0, 3000000], 
+    "C3 Boosted Computer (Master)" : [[0, 0], [0, 0], 3, 6, 0, 0, 3000000],
     "Electronic Warfare Equipment" : [[0, 0], [39, 0], 3, 7.5, 0, 0, 500000],
     "HarJel" : [[0, 0], [0, 0], 3, 1, 0, 0, 120000],
     "C3 Remote Sensor Launcher" : [[30, 6], [0, 0], 3, 4, 1, 0, 400000],
@@ -354,13 +358,14 @@ HEATSINK = [["Single Heat Sink", 2, 1, 0, 2000],
             ["Double Heat Sink", 1, 2, 1, 6000],
             ["Laser Heat Sink", 1, 2, 2, 6000]]
 
+
 class Heatsinks(Item):
     """
     Heatsinks for an unit
     """
     def __init__(self, heat, load):
         Item.__init__(self)
-        self.load = load # Reference to parent
+        self.load = load  # Reference to parent
         # Handle default
         if heat is None:
             self.number = 0
@@ -370,7 +375,7 @@ class Heatsinks(Item):
             self.number = int(heat.attributes["number"].value)
             self.tech_b = int(heat.attributes["techbase"].value)
             self.type = get_child_data(heat, "type")
-        
+
         # Check for heatsink type, save data
         ident = False
         for i in HEATSINK:
@@ -477,6 +482,7 @@ class Ammolist:
         for ammo in AMMO.keys():
             self.list.append(Ammo(ammo))
 
+
 class Ammo:
     """
     An individual ammo type
@@ -500,7 +506,6 @@ class Ammo:
         Return ammo weight for one item
         """
         return AMMO[self.name][2]
-
 
 
 class Equiplist:
@@ -562,6 +567,7 @@ class Equiplist:
                     batt_val += bv_ammo
         return batt_val
 
+
 class Equipment:
     """
     An equipment type
@@ -608,7 +614,6 @@ class Equipment:
         else:
             self.weight += EQUIPMENT[self.name][3]
 
-
     # We need to track tonnage and rounds separately due to BV
     # calculations and how MML ammo works
     def add_ammo(self, count, amount):
@@ -617,6 +622,7 @@ class Equipment:
         """
         self.ammocount = self.ammocount + amount
         self.ammo_ton += count
+
 
 class Supercharger:
     """
@@ -666,6 +672,7 @@ class Supercharger:
         """
         return self.supercharger
 
+
 class Gear:
     """
     Store Gear
@@ -674,7 +681,7 @@ class Gear:
     """
     def __init__(self, mech, art4, art5, apollo, equip, clan_case):
         self.equip = equip
-        self.c_case = clan_case # Clan CASE
+        self.c_case = clan_case  # Clan CASE
 
         # We need to create local lists for avoid trouble with Omni-mechs
         self.weaponlist = Weaponlist(art4, art5, apollo)
@@ -747,11 +754,11 @@ class Gear:
 
             # Hack, handle targeting computer
             elif (name.name == "(IS) Targeting Computer" and
-                name.typ =='TargetingComputer'):
+                name.typ == 'TargetingComputer'):
                 self.tarcomp = 1
                 ident = True
             elif (name.name == "(CL) Targeting Computer" and
-                name.typ =='TargetingComputer'):
+                name.typ == 'TargetingComputer'):
                 self.tarcomp = 2
                 ident = True
 
@@ -798,9 +805,9 @@ class Gear:
                 error_exit("gear")
 
         # Calculate tarcomp weight
-        if self.tarcomp == 1:  #IS
+        if self.tarcomp == 1:  # IS
             self.tc_weight = ceil(self.weaponlist.tcw_weight / 4.0)
-        if self.tarcomp == 2:  #Clan
+        if self.tarcomp == 2:  # Clan
             self.tc_weight = ceil(self.weaponlist.tcw_weight / 5.0)
 
         # Calculate turret weight
@@ -896,7 +903,6 @@ class Gear:
             cost += len(case_list) * 50000
 
         return cost
-
 
     def get_w_weight(self):
         """
@@ -1081,10 +1087,8 @@ class Gear:
 
             if weap.countrear > 0:
                 bv_rear += weap.get_bv(self.tarcomp) * weap.countrear
- 
+
         if (bv_rear > bv_front):
             return True
         else:
             return False
-        
-

@@ -55,7 +55,7 @@ def load_unit(file_name):
     """
     Load unit from file
 
-    Takes a file name as argument, returns a mech or combat vehicle object
+    Takes a file name as argument, returns a mech or combat vehicle object.
     """
     # Read file
     fsock = open(file_name)

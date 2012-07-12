@@ -166,6 +166,13 @@ Comments: Do this when ready for release.
 - Complete setup.py: url, desciptions ...
 - Add missing files: INSTALL, ANNOUNCE/CHANGES, NEWS
 
+=== Documentation ===
+
+Priority: Medium-High
+
+- Add more documentation.
+- Formated docstrings.
+
 === Year Info stuff ===
 
 Priority: Medium (need MUL to update)
