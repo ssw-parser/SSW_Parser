@@ -27,6 +27,7 @@ from math import ceil
 from defensive import VehicleStructure, VehicleArmor
 from movement import Engine
 from util import ceil_05, get_child, get_child_data, year_era_test
+from util import get_move_target_modifier
 from loadout import Baseloadout, Loadout
 from item import Item
 
@@ -240,39 +241,12 @@ class CombatVehicle:
         run_speed = self.get_max_run()
         jump_speed = load.get_jump()
 
-        if (run_speed < 3):
-            r_mod = 0
-        elif (run_speed < 5):
-            r_mod = 1
-        elif (run_speed < 7):
-            r_mod = 2
-        elif (run_speed < 10):
-            r_mod = 3
-        elif (run_speed < 18):
-            r_mod = 4
-        elif (run_speed < 25):
-            r_mod = 5
-        else:
-            r_mod = 6
+        r_mod = get_move_target_modifier(run_speed)
+        j_mod = get_move_target_modifier(jump_speed)
 
         # VTOLs gets +1 for being airborne
         if self.mot_type == "VTOL":
             r_mod += 1
-
-        if (jump_speed < 3):
-            j_mod = 0
-        elif (jump_speed < 5):
-            j_mod = 1
-        elif (jump_speed < 7):
-            j_mod = 2
-        elif (jump_speed < 10):
-            j_mod = 3
-        elif (jump_speed < 18):
-            j_mod = 4
-        elif (jump_speed < 25):
-            j_mod = 5
-        else:
-            j_mod = 6
 
         # Do not give jump mods if no jumpjets
         if (jump_speed > 0):

@@ -95,6 +95,28 @@ def conv_era(era):
     return conv[era]
 
 
+def get_move_target_modifier(speed):
+    """
+    Get target movement modifier for a specific speed.
+    """
+    if (speed < 3):
+        mod = 0
+    elif (speed < 5):
+        mod = 1
+    elif (speed < 7):
+        mod = 2
+    elif (speed < 10):
+        mod = 3
+    elif (speed < 18):
+        mod = 4
+    elif (speed < 25):
+        mod = 5
+    else:
+        mod = 6
+
+    return mod
+
+
 def year_era_test(year, era, name):
     """
     Test if years and production eras are conpatible,
