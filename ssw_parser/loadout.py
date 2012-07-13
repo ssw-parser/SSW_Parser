@@ -24,7 +24,7 @@ Contains mech loadouts
 
 from math import ceil
 from operator import itemgetter
-from movement import JumpJets, JumpBoosters, PartialWing
+from jump import JumpJets, JumpBoosters, PartialWing
 from gear import Equip, Gear, Heatsinks
 from util import ceil_05, gettext, get_child, get_child_data, year_era_test
 from item import Item
