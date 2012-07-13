@@ -1561,44 +1561,44 @@ def main():
 
     # TAG
     if args.tag:
-        select_l.append(lambda x, y: (y.specials.has_key("TAG") or
-                                      y.specials.has_key("LTAG")))
+        select_l.append(lambda x, y: ("TAG" in y.specials or
+                                      "LTAG" in y.specials))
         header_l.append("with TAG")
     # C3 Slave
     if args.c3s:
-        select_l.append(lambda x, y: (y.specials.has_key("C3S") or
-                                      y.specials.has_key("C3BSS")))
+        select_l.append(lambda x, y: ("C3S" in y.specials or
+                                      "C3BSS" in y.specials))
         header_l.append("with C3 Slave")
     # C3 Master
     if args.c3m:
-        select_l.append(lambda x, y: (y.specials.has_key("C3M") or
-                                      y.specials.has_key("C3BSM")))
+        select_l.append(lambda x, y: ("C3M" in y.specials or
+                                      "C3BSM" in y.specials))
         header_l.append("with C3 Master")
     # C3i
     if args.c3i:
-        select_l.append(lambda x, y: y.specials.has_key("C3I"))
+        select_l.append(lambda x, y: "C3I" in y.specials)
         header_l.append("with C3i")
     # Narc
     if args.narc:
-        select_l.append(lambda x, y: (y.specials.has_key("SNARC") or
-                                      y.specials.has_key("INARC")))
+        select_l.append(lambda x, y: ("SNARC" in y.specials or
+                                      "INARC" in y.specials))
         header_l.append("with Narc")
     # ECM
     if args.ecm:
-        select_l.append(lambda x, y: (y.specials.has_key("ECM") or
-                                      y.specials.has_key("AECM") or
-                                      y.specials.has_key("WAT")))
+        select_l.append(lambda x, y: ("ECM" in y.specials or
+                                      "AECM" in y.specials or
+                                      "WAT" in y.specials))
         header_l.append("with ECM")
     # Active Probe
     if args.probe:
-        select_l.append(lambda x, y: (y.specials.has_key("PRB") or
-                                      y.specials.has_key("BH") or
-                                      y.specials.has_key("LPRB") or
-                                      y.specials.has_key("WAT")))
+        select_l.append(lambda x, y: ("PRB" in y.specials or
+                                      "BH" in y.specials or
+                                      "LPRB" in y.specials or
+                                      "WAT" in y.specials))
         header_l.append("with Active Probe")
     # Taser
     if args.taser:
-        select_l.append(lambda x, y: y.specials.has_key("MTAS"))
+        select_l.append(lambda x, y: "MTAS" in y.specials)
         header_l.append("with Battlemech Taser")
     # Inner Sphere
     if args.i:

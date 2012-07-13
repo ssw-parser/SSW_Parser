@@ -743,7 +743,7 @@ class Gear:
                 for cas in CASE.keys():
                     if (name.name == cas):
                         # Hack SSW store fixed CASE on omnis twice
-                        if not self.case.has_key(name.loc):
+                        if not name.loc in self.case:
                             self.e_weight += CASE[cas][1]
                         ident = True
                         # Save CASE status
