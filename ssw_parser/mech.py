@@ -29,9 +29,104 @@ from movement import Cockpit, Enhancement, Gyro, Engine
 from util import get_child, get_child_data, year_era_test
 from loadout import Baseloadout, Loadout
 from battle_force import BattleForce
+from item import Item
 
 # A mech class with data read from SSW xml data for use in various
 # applications.
+
+
+class Multi(Item):
+    """
+    Multi-slot items (chameleon, void, null)
+    """
+    def __init__(self):
+        Item.__init__(self)
+        self.multi = []
+
+    def add(self, string):
+        """
+        Add an item
+        """
+        self.multi.append(string)
+
+    def get_type(self):
+        """
+        Return all strings
+        """
+        desc = ""
+        for string in self.multi:
+            desc += " " + string
+        return desc
+
+    def get_rules_level(self):
+        """
+        Return heat-sink rules level
+        0 = intro, 1 = tournament legal, 2 = advanced, 3 = experimental
+        """
+        r_level = 0
+        for i in self.multi:
+            if i == "Chameleon LPS":
+                tmp = 3
+            elif i == "Null Signature System":
+                tmp = 3
+            elif i == "Void Signature System":
+                tmp = 2
+            if tmp > r_level:
+                r_level = tmp
+
+        return r_level
+
+    def get_stealth(self):
+        """
+        Check for stealth items.
+        """
+        stlth = False
+        for i in self.multi:
+            if i == "Chameleon LPS":
+                stlth = True
+            elif i == "Null Signature System":
+                stlth = True
+            elif i == "Void Signature System":
+                stlth = True
+
+        return stlth
+
+    def get_def_mod(self):
+        """
+        Get defensive move target modifier
+        """
+        mtm = 0
+        # Chameleon LPS & Null-sig system
+        for i in self.multi:
+            if i == "Chameleon LPS":
+                mtm += 2
+            elif i == "Null Signature System":
+                mtm += 2
+            elif i == "Void Signature System":
+                mtm += 3
+
+        return mtm
+
+    def get_weight(self):
+        """
+        All these items are weighless
+        """
+        return 0.0
+
+    def get_cost(self):
+        """
+        Return costs
+        """
+        cost = 0
+        for mult in self.multi:
+            if mult == "Chameleon LPS":
+                cost += 600000
+            elif mult == "Null Signature System":
+                cost += 1400000
+            elif mult == "Void Signature System":
+                cost += 2000000
+
+        return cost
 
 
 class Mech:
@@ -44,7 +139,7 @@ class Mech:
         self.type = "BM"
 
         # Set some data to zero that sometimes will not get set otherwise
-        self.multi = []
+        self.multi = Multi()
 
         # Get top-level structure data
         for mmech in xmldoc.getElementsByTagName('mech'):
@@ -137,7 +232,7 @@ class Mech:
             # Get multi-slot stuff
             for mlts in blo.getElementsByTagName('multislot'):
                 slot = mlts.attributes["name"].value
-                self.multi.append(slot)
+                self.multi.add(slot)
 
             # Construct current loadout, empty name for base loadout
             self.load = Baseloadout(blo, self, self.batt_val,
@@ -240,13 +335,8 @@ class Mech:
         Returns true if the mech mounts a stealth system
         """
         stlth = False
-        for i in self.multi:
-            if i == "Chameleon LPS":
-                stlth = True
-            elif i == "Null Signature System":
-                stlth = True
-            elif i == "Void Signature System":
-                stlth = True
+        if self.multi.get_stealth():
+            stlth = True
         if self.armor.atype == "Stealth Armor":
             stlth = True
         return stlth
@@ -301,13 +391,7 @@ class Mech:
         if self.armor.atype == "Stealth Armor":
             mtm += 2
         # Chameleon LPS & Null-sig system
-        for i in self.multi:
-            if i == "Chameleon LPS":
-                mtm += 2
-            elif i == "Null Signature System":
-                mtm += 2
-            elif i == "Void Signature System":
-                mtm += 3
+        mtm += self.multi.get_def_mod()
         assert mtm >= 0, "Negative defensive modifier!"
         def_factor = 1.0 + (mtm / 10.0)
         if (printq):
@@ -447,16 +531,7 @@ class Mech:
         r_level = max(r_level, self.cockpit.get_rules_level())
         r_level = max(r_level, self.enhancement.get_rules_level())
         r_level = max(r_level, self.armor.get_rules_level())
-        # Hack -- multi-slot
-        for i in self.multi:
-            if i == "Chameleon LPS":
-                tmp = 3
-            elif i == "Null Signature System":
-                tmp = 3
-            elif i == "Void Signature System":
-                tmp = 2
-            if tmp > r_level:
-                r_level = tmp
+        r_level = max(r_level, self.multi.get_rules_level())
         # Hack -- turrets are advanced rules
         if load.turret and r_level < 2:
             r_level = 2
@@ -669,13 +744,7 @@ class Mech:
         cost += i.btrap.get_cost()
 
         # Multi-slot stuff
-        for mult in self.multi:
-            if mult == "Chameleon LPS":
-                cost += 600000
-            elif mult == "Null Signature System":
-                cost += 1400000
-            elif mult == "Void Signature System":
-                cost += 2000000
+        cost += self.multi.get_cost()
 
         # AES
         cost += i.aes_ra.get_cost()
