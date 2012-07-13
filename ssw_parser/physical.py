@@ -168,7 +168,6 @@ class Physical:
     def __init__(self, key, m_weight):
         self.name = key
         self.m_weight = m_weight
-        self.bv_mult = PHYSICAL[key][0]
         self.heat = PHYSICAL[key][4]
         self.count = 0
         self.tur_count = 0
@@ -217,7 +216,7 @@ class Physical:
         Get offensive BV of physical weapon
         """
         dam = PHYSICAL[self.name][2](self.m_weight)
-        return self.bv_mult(dam)
+        return PHYSICAL[self.name][0](dam)
 
     def get_defensive_bv(self):
         """

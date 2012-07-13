@@ -211,35 +211,37 @@ def print_upgrade(wlist, upgr, orig):
     """
     Print out a suggested Class A or B upgrade
     """
+    skip = False
+
     # Skip same weapon
     if upgr == orig:
-        return
+        skip = True
     # Skip upgrades between techbase
     if upgr[0:4] == "(IS)" and orig[0:4] == "(CL)":
-        return
+        skip = True
     if upgr[0:4] == "(CL)" and orig[0:4] == "(IS)":
-        return
+        skip = True
     # Skip advanced & experimental weapons
     if wlist[upgr].get_rules_level() > 1:
-        return
+        skip = True
     heat = wlist[upgr].get_heat() - wlist[orig].get_heat()
     dam = (wlist[upgr].get_damage(wlist[upgr].get_range()) -
            wlist[orig].get_damage(wlist[orig].get_range()))
     rng = wlist[upgr].get_range() - wlist[orig].get_range()
     # Ignore big reductions in range, since that would change the mech role
     if rng < -3:
-        return
+        skip = True
     wgt = wlist[upgr].get_weight() - wlist[orig].get_weight()
     # Allow one ton increase for ammo users due to possibility of removing ammo
     if (wgt > 1 and wlist[orig].ammocount > 0):
-        return
+        skip = True
     # But not for energy weapons
     elif (wgt > 0 and wlist[orig].ammocount == 0):
-        return
+        skip = True
     battv = wlist[upgr].get_bv(0) - wlist[orig].get_bv(0)  # No tarcomp
     # Assume that an upgrade increases BV
     if (battv < 0):
-        return
+        skip = True
     slots = wlist[upgr].slots() - wlist[orig].slots()
     # Assume Class B upgrades
     uclass = "B"
@@ -249,6 +251,10 @@ def print_upgrade(wlist, upgr, orig):
     # Increase in size is not allowed for Class A or B
     if (slots > 0):
         uclass = "C"
+
+    if skip:
+        return
+
     print ("  %-6s (Class %c) | %d heat, %.1f dam, %d range, %.1f ton, %d BV" %
            (wlist[upgr].get_short(), uclass, heat, dam, rng, wgt, battv))
 

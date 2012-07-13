@@ -441,24 +441,12 @@ class Mech:
         # Mixed tech is advanced rules
         if self.techbase == "Mixed":
             r_level = 2
-        tmp = self.structure.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.engine.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.gyro.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.cockpit.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.enhancement.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.armor.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
+        r_level = max(r_level, self.structure.get_rules_level())
+        r_level = max(r_level, self.engine.get_rules_level())
+        r_level = max(r_level, self.gyro.get_rules_level())
+        r_level = max(r_level, self.cockpit.get_rules_level())
+        r_level = max(r_level, self.enhancement.get_rules_level())
+        r_level = max(r_level, self.armor.get_rules_level())
         # Hack -- multi-slot
         for i in self.multi:
             if i == "Chameleon LPS":
@@ -473,9 +461,7 @@ class Mech:
         if load.turret and r_level < 2:
             r_level = 2
 
-        tmp = load.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
+        r_level = max(r_level, load.get_rules_level())
 
         return r_level
 

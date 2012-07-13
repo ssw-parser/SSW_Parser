@@ -370,33 +370,15 @@ class Load:
         # Mixed Tech is advanced rules
         if self.mixed:
             r_level = 2
-        tmp = self.gear.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.heatsinks.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.jjets.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.partw.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.jumpb.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.btrap.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.aes_ra.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.aes_la.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.power_amp.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
+        r_level = max(r_level, self.gear.get_rules_level())
+        r_level = max(r_level, self.heatsinks.get_rules_level())
+        r_level = max(r_level, self.jjets.get_rules_level())
+        r_level = max(r_level, self.partw.get_rules_level())
+        r_level = max(r_level, self.jumpb.get_rules_level())
+        r_level = max(r_level, self.btrap.get_rules_level())
+        r_level = max(r_level, self.aes_ra.get_rules_level())
+        r_level = max(r_level, self.aes_la.get_rules_level())
+        r_level = max(r_level, self.power_amp.get_rules_level())
 
         # Hack: Armored location
         if self.armored == True and r_level < 2:

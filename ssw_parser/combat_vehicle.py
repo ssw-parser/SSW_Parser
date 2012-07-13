@@ -404,22 +404,14 @@ class CombatVehicle:
         # Mixed tech is advanced rules
         if self.techbase == "Mixed":
             r_level = 2
-        tmp = self.structure.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.engine.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.armor.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
+        r_level = max(r_level, self.structure.get_rules_level())
+        r_level = max(r_level, self.engine.get_rules_level())
+        r_level = max(r_level, self.armor.get_rules_level())
         # Hack -- turrets are advanced rules
         if load.turret and r_level < 2:
             r_level = 2
 
-        tmp = load.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
+        r_level = max(r_level, load.get_rules_level())
 
         return r_level
 

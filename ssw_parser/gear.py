@@ -846,18 +846,10 @@ class Gear:
         and that more advanced ammo can be switched out
         """
         r_level = 0
-        tmp = self.weaponlist.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.physicallist.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.equiplist.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
-        tmp = self.supercharger.get_rules_level()
-        if tmp > r_level:
-            r_level = tmp
+        r_level = max(r_level, self.weaponlist.get_rules_level())
+        r_level = max(r_level, self.physicallist.get_rules_level())
+        r_level = max(r_level, self.equiplist.get_rules_level())
+        r_level = max(r_level, self.supercharger.get_rules_level())
         # Hack: Targeting computer
         if self.tarcomp > 0 and r_level < 1:
             r_level = 1
