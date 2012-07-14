@@ -13,6 +13,20 @@ the command-line switches used.
 
 summary.py is quite usable, report.py is quite raw and still needs work.
 
+
+== Using test data ==
+
+The test directory contains a collection of a few mech files from
+Intro Box/3025/3029.
+
+Some example uses:
+summary.py -f Intro_box.txt
+-- Prints out a summary in MUL style of the Intro Box mechs.
+
+summary.py -f 3025.txt -r 18
+-- Prints out a summary of damage at range 18 of the TRO 3025 mechs.
+
+
 == A brief overview of command-line arguments for report.py ==
 
 <file>: A file name without switches, is expected to be a valid .ssw
@@ -23,6 +37,7 @@ file.
 -r: Add raw xml data (.ssw file dump) to output.
 
 -u: List possible upgrades.
+
 
 == A brief overview of command-line arguments for summary.py ==
 

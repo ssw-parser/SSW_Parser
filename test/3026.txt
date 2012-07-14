@@ -1,0 +1,40 @@
+#!cd saw/
+Ferret Light Scout VTOL.saw
+Savannah Master Hovercraft.saw
+APC (Wheeled).saw
+APC (Tracked).saw
+APC (Hover).saw
+Skulker Wheeled Scout Tank.saw
+Warrior H-7.saw
+Harasser Missile Platform.saw
+J. Edgar Light Hover Tank.saw
+Scorpion Light Tank.saw
+#Sea Skimmer Hydrofoil
+Karnov UR Transport.saw
+Hunter Light Support Tank.saw
+Pegasus Scout Hovertank.saw
+Saladin Assault Hover Tank.saw
+Saracen Medium Hover Tank.saw
+Scimitar Medium Hover Tank.saw
+Striker Light Tank.saw
+Engineering Vehicle.saw
+Hetzer Wheeled Assault Gun.saw
+Goblin Medium Tank.saw
+Condor Heavy Hover Tank.saw
+Drillson Heavy Hover Tank.saw
+Maxim Heavy Hover Transport.saw
+Vedette Medium Tank.saw
+Bulldog Medium Tank.saw
+Hi-Scout Drone Carrier.saw
+LRM Carrier.saw
+SRM Carrier.saw
+Manticore Heavy Tank.saw
+Pike Support Vehicle.saw
+#Monitor Naval Vessel
+Demolisher Heavy Tank.saw
+Partisan Heavy Tank.saw
+Schrek PPC Carrier.saw
+Sturmfeur Heavy Tank.saw
+Ontos Heavy Tank.saw
+Behemoth Heavy Tank.saw
+#Neptune Submarine
