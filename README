@@ -81,24 +81,6 @@ or .saw file.
 -r <d>: Output a list of weapons with reach <d> mounted on the unit, sorted
  by damage at range <d>. (Less strict in filtering out designs than -sn.)
 
--sn: Output a list of sniper weapons mounted on the unit, sorted
- by long-range damage.
-
--str: Output a list of strikers, sorted by damage.
-
--skir: Output a list of skirmishers. (Needs work.)
-
--brwl: Output a list of brawlers. (Needs work.)
-
--jug: Output a list of juggernauts. (Needs work.)
-
--mb: Output a list of missile boats.
-
--scout: Output a list of scouts.
-
--typ: Output info on which roles mechs qualify for. (Needs work,
- Combat Vehicles not supported.)
-
 -ac: Output a list of autocannons that can use special ammo.
 
 -srm: Output a list of srm tubes that can use special ammo, sorted by tubes.
@@ -115,7 +97,32 @@ or .saw file.
 
 -weight: Output weight distribution information.
 
+==== Output switches are related to mech types ====
+
+These listings are not yet nailed down, and may change (a lot).
+
+-sn: Output a list of sniper weapons mounted on the unit, sorted
+ by long-range damage. More restrictive than -r 18, since pure missile
+ boats are excluded. Also requires a minimum damage of 10.
+
+-str: Output a list of strikers, sorted by damage.
+
+-skir: Output a list of skirmishers. (Needs work.)
+
+-brwl: Output a list of brawlers. (Needs work.)
+
+-jug: Output a list of juggernauts. (Needs work.)
+
+-mb: Output a list of missile boats.
+
+-scout: Output a list of scouts.
+
+-typ: Output info on which roles mechs qualify for. (Needs work,
+ Combat Vehicles not supported.)
+
+
 The default output (no switch) is modeled after the MUL.
+
 
 === Filter Switches ===
 

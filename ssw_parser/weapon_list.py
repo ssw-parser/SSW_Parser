@@ -164,6 +164,8 @@ class Weaponlist:
         # only launchers that can use special ammo
         self.lrms = 0
         self.exp_weapon = ExplosiveWeapons()
+        # Set to true if a non-missile, long-range weapon is present
+        self.snipe = False
 
     def add(self, name, location, rear, turret):
         """
@@ -188,6 +190,11 @@ class Weaponlist:
                 for launcher in LRM_LIST:
                     if (name == launcher[0] and not rear):
                         self.lrms += launcher[2]
+
+                # Do we have a sniper weapon
+                if (weap.get_range() >= 18 and (weap.get_type() == "DB"
+                                                or weap.get_type() == "DE")):
+                    self.snipe = True
 
                 # Add explosive weapon to location
                 if weap.explosive_slots() > 0:

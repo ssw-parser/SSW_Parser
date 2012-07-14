@@ -777,6 +777,8 @@ def print_snipe_list(file_list, select_l, header_l):
     rng = 18  # Selected range
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
+    select_l.append(lambda x, y: (y.gear.weaponlist.snipe == True))
+    header_l.append("with at least one non-missile long-range weapon")
 #    select_l.append(lambda x, y: (x.is_sniper(y)))
 
     # Construct header
