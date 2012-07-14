@@ -1,3 +1,4 @@
+#!cd ssw/
 Commando COM-2D.ssw
 Javelin JVN-10N.ssw
 Spider SDR-5V.ssw

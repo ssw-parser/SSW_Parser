@@ -1,3 +1,4 @@
+#!cd ssw/
 Commando COM-2D.ssw
 Spider SDR-5V.ssw
 Jenner JR7-D.ssw
