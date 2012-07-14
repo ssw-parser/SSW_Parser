@@ -26,6 +26,12 @@ summary.py -f Intro_box.txt
 summary.py -f 3025.txt -r 18
 -- Prints out a summary of damage at range 18 of the TRO 3025 mechs.
 
+summary.py -f 3026.txt -s
+-- Prints out a speed summary of the TRO 3026 combat vehicles.
+
+summary.py -f 3025.txt -f 3026.txt -a
+-- Prints out an armor summary of the TRO 3025 mechs and the TRO 3026
+   combat vehicles.
 
 == A brief overview of command-line arguments for report.py ==
 
@@ -46,7 +52,9 @@ file.
 begins with '#' are comments. However adding a line containing the
 following: '#!cd <dir_name>' allows change of working directory, which
 is useful when wanting to avoid putting the file containing the list
-and the .ssw/.saw files in the same directory.
+and the .ssw/.saw files in the same directory. (note that the change
+of working directory does not really happen, instead all input
+filenames are adjusted.)
    
 <file>: A file name without switches, is expected to be a valid .ssw
 or .saw file.
@@ -56,7 +64,9 @@ or .saw file.
 
 -bv: Output that gives a summary of battle values, sorted by BV.
 
--a: Output that gives a summary of armor status, sorted by armor points.
+-a: Output that gives a summary of armor status, sorted by armor
+    points. (Note that this listing contains an error where explosive
+    ammo on combat vehicles are not noted.)
 
 -s: Output that gives a summary of speed, sorted by speed.
 

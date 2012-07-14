@@ -23,7 +23,7 @@ Prints out a one-line summary of an unit
 """
 
 import argparse
-import os
+#import os
 import sys
 from xml.dom import minidom
 from operator import itemgetter
@@ -1518,6 +1518,7 @@ def main():
 
     # Create lists
     file_list = []
+    d_string = ""
     select = lambda x, y: True
     select_l = []
     select_l.append(select)
@@ -1547,12 +1548,15 @@ def main():
                         # Change working directory
                         if fname[2:4] == "cd":
                             d_string = fname[5:]
-                            work_dir = os.getcwdu()
-                            os.chdir(work_dir + "/" + d_string)
+                            #work_dir = os.getcwdu()
+                            #os.chdir(work_dir + "/" + d_string)
                             continue
                     else:
                         continue
-                file_list.append(fname)
+                if d_string != "":
+                    file_list.append(d_string + "/" + fname)
+                else:
+                    file_list.append(fname)
 
     # Remove duplicates
     file_list = list(set(file_list))
