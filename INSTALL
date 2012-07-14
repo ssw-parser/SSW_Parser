@@ -1,0 +1,36 @@
+
+INSTALLATION INSTRUCTIONS:
+
+== Installing Python ==
+
+First you need to have Python installed, which you probably will if
+you are running an Unix or Mac system, and probably not if you are
+running a Windows system.
+
+Python can be found here:
+
+http://www.python.org/
+
+Its installation instructions should also be at that site.
+
+== Creating a distribution-grade package (optional) ==
+
+There are two probable ways that you could have gotten this program
+in:
+1. Directly from version control. (probably also packaged)
+2. From a distribution-grade .tar.gz package.
+(You can tell the difference (at least for now) that version control
+contains the java/ directory, which is not included in any
+distribution-grade package.)
+
+If you want to create a distribution-grade package run:
+
+python setup.py sdist
+
+This will create a distribution-grade package in the dist/ directory.
+
+== Installing ==
+
+Run:
+
+python setup.py install
