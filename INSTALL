@@ -34,3 +34,11 @@ This will create a distribution-grade package in the dist/ directory.
 Run:
 
 python setup.py install
+
+or if you need root access
+
+sudo python setup.py install
+
+For more documentation about how the installer work, see:
+
+http://docs.python.org/install/index.html
