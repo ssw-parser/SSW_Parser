@@ -853,12 +853,12 @@ def print_skirmisher_list(file_list, select_l, header_l):
     """
     # Add skirimisher selector
     # - Walk 5 or Jump 5
-    # - At least 5 damage at range 15
+    # - At least 1 damage at range 18
     # - BF armor value at least 3
     spd = 5  # Minimum speed
     arm = 75  # Minimum armor
-    dam = 5  # Minimum damage
-    rng = 15  # Selected range
+    dam = 1  # Minimum damage
+    rng = 18  # Selected range
     select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
     header_l.append("with at least speed %d" % spd)
     select_l.append(lambda x, y: (x.armor.total.arm >= arm))

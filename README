@@ -142,23 +142,30 @@ or .saw file.
 
 ==== Output switches are related to mech types ====
 
-These listings are not yet nailed down, and may change (a lot).
+These listings are not yet nailed down, and may change (a lot). Note
+that these terms originate from products that use intro-rules.
 
--sn: Output a list of sniper weapons mounted on the unit, sorted
+-sn: Output a list of units that has sniper weapons mounted, sorted
  by long-range damage. More restrictive than -r 18, since pure missile
- boats are excluded. Also requires a minimum damage of 10.
+ boats are excluded. Also requires a minimum damage of 10. (should
+ this be lower than 10?)
 
--str: Output a list of strikers, sorted by damage.
+-str: Output a list of strikers, sorted by damage. These are fast 5/8+
+ units, that can do at least 15 damage at long range.
 
--skir: Output a list of skirmishers. (Needs work.)
+-skir: Output a list of skirmishers. These are units useful for
+ harassing the enemy with long-range fire, and are able to switch
+ positions fast if needed. They mount at least one long-range weapon,
+ have decent speed (5/8), and at least some armor.
 
--brwl: Output a list of brawlers. (Needs work.)
+-brwl: Output a list of 'brawlers'. Yes, there is conflict on what the
+ term 'brawler' really mean. (Needs work.)
 
 -jug: Output a list of juggernauts. (Needs work.)
 
 -mb: Output a list of missile boats.
 
--scout: Output a list of scouts.
+-scout: Output a list of scouts. Speed at least 6/9 (boring).
 
 -typ: Output info on which roles mechs qualify for. (Needs work,
  Combat Vehicles not supported.)

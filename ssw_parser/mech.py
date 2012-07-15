@@ -516,6 +516,8 @@ class Mech:
 
     ### Mech type tests ###
 
+    # These functions should probably be removed?
+
     def is_juggernaut(self, i):
         """
         Check if a mech is a juggernaut
