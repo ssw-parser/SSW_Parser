@@ -69,6 +69,13 @@ summary.py -f 3025.txt -f 3026.txt -a
 -- Prints out an armor summary of the TRO 3025 mechs and the TRO 3026
    combat vehicles.
 
+summary.py -f Intro_box.txt -b
+-- Prints out a BV summary of the Intro Box mechs, sorted by BV/tons.
+
+summary.py -f 3025.txt -f 3026.txt -r 6 -sf 6
+-- Prints out a summary of damage at range 6 for TRO 3025 mechs and
+TRO 3026 vehicles that has at least a walk/cruise/jump speed of 6.
+
 == A brief overview of command-line arguments for report.py ==
 
 <file>: A file name without switches, is expected to be a valid .ssw
