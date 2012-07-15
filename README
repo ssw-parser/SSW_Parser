@@ -13,6 +13,42 @@ the command-line switches used.
 
 summary.py is quite usable, report.py is quite raw and still needs work.
 
+== On the subject of errors ==
+
+These tools does error checking of BV and also that production years
+and production eras are valid combinations.
+
+So, note that illegal combinations in the Prod Year/Era boxes will
+result in errors. Also note that the year of the base config of an
+omni-unit gets checked - if this produces errors I would suggest
+correcting the issue with a text editor, since that is easier than
+changing it by the relevant program. Also note that there is some
+disagreement on when the Jihad Era ends, I have gone with 3085 since
+that was mentioned to be the current plans of the TPTB in the MUL
+thread.
+
+Regarding BV, if you gets an error, the first this to try is to load
+the unit in SSW/SAW and resave it. This will remove errors caused by
+errors in old versions. Still there are a couple of BV errors in the
+latest release of SSW regarding Claws, EW Equipment (used by 4th SW
+Era Ravens), armored command consoles and M-pods.
+Other BV issues caused by unclear rules is modular armor (which we
+disagree on how to interpret) and cases like the Mobile Long Tom (Ammo
+Carriage) which has ammo on a trailer separate from the weapon (this
+is an issue I have not discussed with the SSW team).
+
+Other errors can be result of equipment that I do not yet support in
+this tool. I have added gear to the program on a need basis, so once I
+have created an unit that uses a certain gear it will be added to the
+program. Naturally gears that have not shown up have not gotten
+implemented.
+
+Finally there are items that have shown up but which causes we
+problems to implement. The most common one is armored components,
+which only works in certain cases (only fixed head components, gyros,
+shoulders and hips). Blue Shield and Klondike experimental stuff and
+Patchwork armor are also items that I have encountered but not implemented.
+
 
 == Using test data ==
 
