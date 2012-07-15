@@ -1,3 +1,4 @@
 
-include LICENSE FAQ TODO THANKS AUTHORS INSTALL ssw_report.py ssw_summary.py
+include LICENSE FAQ TODO THANKS AUTHORS INSTALL NEWS CHANGES
+include  ssw_report.py ssw_summary.py
 recursive-include test *
