@@ -1,5 +1,7 @@
 2012-07-16  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
+	* Added offensive speed factor to speed listing.
+
 	* Added a common code interface Unit, for mechs and combat vehicles.
 
 2012-07-15  Christer Nyfält  <cjnyfalt@yahoo.co.uk>

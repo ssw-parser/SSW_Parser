@@ -151,14 +151,6 @@ to inflate the size of the archive with too many files.
 - Add test data:
 -- 3050: 16 Clan omnis? (wait for Z configs?)
 
-=== Add output of Offensive Speed Factor ===
-
-Priority: High
-
-Comments: Has been requested.
-
-- Create separate OSF function.
-
 === Disutils ===
 
 Priority: High
