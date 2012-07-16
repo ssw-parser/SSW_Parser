@@ -30,6 +30,7 @@ from util import ceil_05, get_child, get_child_data, year_era_test
 from util import get_move_target_modifier
 from loadout import Baseloadout, Loadout
 from item import Item
+from unit import Unit
 
 
 class LiftEquipment(Item):
@@ -112,11 +113,12 @@ class ControlSystems(Item):
         return 10000 * self.get_weight()
 
 
-class CombatVehicle:
+class CombatVehicle(Unit):
     """
     A master class holding info about a combat vehicle.
     """
     def __init__(self, xmldoc):
+        Unit.__init__(self)
 
         # This is a combat vehicle
         self.type = "CV"
@@ -333,13 +335,7 @@ class CombatVehicle:
             print "Total Base Offensive: ", obv
 
         # speed factor
-        speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
-        if (printq):
-            print "Speed Factor: ", speed_factor
-        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0
-        off_speed_factor = round(pow(adj_sf, 1.2), 2)
-        if (printq):
-            print "Offensive Speed Factor: ", off_speed_factor
+        off_speed_factor = self.get_off_speed_factor(load, printq)
 
         # Final result
         obv *= off_speed_factor
@@ -360,15 +356,6 @@ class CombatVehicle:
 
         assert batt_val == load.batt_val, "Error in BV calculation!"
         return batt_val
-
-    def get_year(self, load):
-        """
-        Get year
-        """
-        if self.omni == "TRUE":
-            return load.year
-        else:
-            return self.year
 
     def get_rules_level(self, load):
         """

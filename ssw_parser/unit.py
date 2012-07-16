@@ -19,27 +19,52 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
-Contains a base class for items to force common interfaces
+Contains a base class for units to force common interfaces
 """
 
+from math import ceil
 
-class Item:
+
+class Unit:
     """
     A base class supposed to contains the interface elements shared by
-    all item types.
+    all unit types.
     """
     def __init__(self):
-        pass
+        # Declare some variables to shut up error checkers
+        self.year = 0
+        self.omni = "FALSE"
 
-    def get_type(self):
+    def get_year(self, load):
         """
-        Return a string describing the type of the item.
-        Note that it is not intended to be used in any conditionals,
-        this is just for textual output.
+        Get year
+        """
+        if self.omni == "TRUE":
+            return load.year
+        else:
+            return self.year
+
+    def get_off_speed_factor(self, load, printq):
+        """
+        Calculates offensive speed factor for BV calculations.
+        """
+        speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
+        if (printq):
+            print "Speed Factor: ", speed_factor
+        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0
+        off_speed_factor = round(pow(adj_sf, 1.2), 2)
+        if (printq):
+            print "Offensive Speed Factor: ", off_speed_factor
+
+        return off_speed_factor
+
+    def get_max_run(self):
+        """
+        Get maximum running speed
         """
         raise NotImplementedError
 
-    def get_rules_level(self):
+    def get_rules_level(self, load):
         """
         Return rules level
         0 = Intro-tech,
@@ -49,21 +74,3 @@ class Item:
         4 = Primitive (special)
         """
         raise NotImplementedError
-
-    def get_weight(self):
-        """
-        Returns the weight of the item
-        """
-        raise NotImplementedError
-
-    def get_cost(self):
-        """
-        Returns the cost of the item
-        """
-        raise NotImplementedError
-
-    def summary_string(self):
-        """
-        Returns a summary string with type and weight.
-        """
-        return self.get_type() + " " + str(self.get_weight()) + " tons"

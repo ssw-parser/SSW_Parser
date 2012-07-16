@@ -145,10 +145,19 @@ Priority: Medium-High
 Priority: Medium
 
 Comments: This issue here is how much test data to include. I am
-unwilling to add anything introduced after 3052.
+unwilling to add anything introduced after 3052. I am also unwilling
+to inflate the size of the archive with too many files.
 
 - Add test data:
 -- 3050: 16 Clan omnis? (wait for Z configs?)
+
+=== Add output of Offensive Speed Factor ===
+
+Priority: High
+
+Comments: Has been requested.
+
+- Create separate OSF function.
 
 === Disutils ===
 
@@ -285,14 +294,6 @@ Comment: Implementing the filter is easy, figuring out how to input
 the info on desired configs into the program is hard.
 
 - Find a way to select which omni-configs are desired.
-
-=== Add common interfaces ===
-
-Priority: Medium
-
-Comment: This is about code interface, not user interface.
-
-- Add a common interface for Mech and CombatVehicle.
 
 
 === Improve upgrade evaluator in report.py ===

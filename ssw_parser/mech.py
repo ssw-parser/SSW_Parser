@@ -31,6 +31,7 @@ from util import get_move_target_modifier
 from loadout import Baseloadout, Loadout
 from battle_force import BattleForce
 from item import Item
+from unit import Unit
 
 # A mech class with data read from SSW xml data for use in various
 # applications.
@@ -130,11 +131,12 @@ class Multi(Item):
         return cost
 
 
-class Mech:
+class Mech(Unit):
     """
     A master class holding info about a mech.
     """
     def __init__(self, xmldoc):
+        Unit.__init__(self)
 
         # This is a mech
         self.type = "BM"
@@ -401,13 +403,7 @@ class Mech:
             print "Total Base Offensive: ", obv
 
         # speed factor
-        speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
-        if (printq):
-            print "Speed Factor: ", speed_factor
-        adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0
-        off_speed_factor = round(pow(adj_sf, 1.2), 2)
-        if (printq):
-            print "Offensive Speed Factor: ", off_speed_factor
+        off_speed_factor = self.get_off_speed_factor(load, printq)
 
         # Final result
         obv *= off_speed_factor
@@ -431,15 +427,6 @@ class Mech:
 
         assert batt_val == load.batt_val, "Error in BV calculation!"
         return batt_val
-
-    def get_year(self, load):
-        """
-        Get year
-        """
-        if self.omni == "TRUE":
-            return load.year
-        else:
-            return self.year
 
     def get_move_string(self):
         """
