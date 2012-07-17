@@ -153,11 +153,10 @@ to inflate the size of the archive with too many files.
 
 === Disutils ===
 
-Priority: High
+Priority: Medium
 
 Comments: Do this when ready for release.
 
-- Add missing files: ANNOUNCE/CHANGES, NEWS
 - Add missing diretories: doc, demo?
 
 === Documentation ===
@@ -353,10 +352,85 @@ Missing from TM:
 *non-weapons & physical weapons still to be checked*
 
 Missing from TO:
-*needs to be checked*
+- AES for Legs
+- Modular armor (in, but implementation has problems)
+- Clan Reactive Armor
+- Vehicular Stealth
+- Armored Components (implemented partially)
+- Armored motive system (IS)
+- Armored motive system (Clan)
+- Clan Thumper
+- Clan Sniper
+- Clan Long Tom
+- Cruise Missile/50
+- Cruise Missile/70
+- Cruise Missile/90
+- Cruise Missile/120
+- Thumper Artillery Cannon
+- Sniper Artillery Cannon
+- HVAC/2
+- HVAC/5
+- PAC/2
+- Medium Shield
+- Jump Pack / Drop Pack
+- Blue Shield
+- C3 Emergency Master
+- CV Chassis: Flotation Hull
+- CV Chassis: Limited Amphibious
+- CV Chassis: Fully Amphibious
+- CV Chassis: Dune Buggy
+- CV Chassis: Enviro Sealing
+- Drone Operating System
+- Engine: Combat Vehicle Fission
+- Engine: Combat Vehicle Fuel Cell
+- Combat Vehicle Escape Pod
+- Full-Head Ejection System
+- Fluid Gun (Clan)
+- Vehicular Grenade Launcher
+- Compact Heat Sinks
+- Chemical Laser Small
+- Chemical Laser Medium
+- Chemical Laser Large
+- Improved Heavy Small Laser
+- Improved Heavy Large Laser
+- Laser Insulators (implemented for a few items)
+- Mech Mortar/1 IS
+- Mech Mortar/1 Clan
+- Mech Mortar/2 IS
+- Mech Mortar/2 Clan
+- Mech Mortar/4 IS
+- Mech Mortar/4 Clan
+- Mech Mortar/8 IS
+- Mine Dispenser
+- Minesweeper
+- NLRM-10
+- NLRM-15
+- NLRM-20
+- ELRM-5
+- ELRM-15
+- Improved One-Shot (a few implemented)
+- Streak LRM-5
+- Streak LRM-20
+- Mobile Field Base
+- Ground-Mobile HPG
+- Clan ERPPC + Capacitor (legal?)
+- Recon Camera
+- Light Rifle
+- Medium Rifle
+- Heavy Rifle
+- Hi-Res Imager
+- Hyperspectral Imager
+- Infrared Imager
+- Look-Down Radar
+- Turrets: Multiple
+- VTOL Chin Turret (works by default?)
+- Sponson Turrets
+- Vehicular DropChute
+- Vehicular Jump Jets (works?, but not in SAW yet)
+- VTOL Jet Booster
+- VTOL Mast Mount
 
-- Tacops Clan reactive, modular & patchwork armor
-- missing ammo, missing TO stuff
+- missing ammo
 
 Physical stuff:
 - Missing: Medium Shield, industrial equipment
@@ -515,7 +589,9 @@ Priority: Medium
 -- Cost/ton sorting for mechs?
 
 - Speed listing:
+
 -- Show UMU, liquid cargo for space
+-- Add secondary sorting by jump range?
 
 - LRM listing:
 -- Missile boat score: tubes * ammo? Heat? 
