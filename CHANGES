@@ -1,3 +1,7 @@
+2012-07-19  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
+
+	* Added secondary sort by jump-distance for speed listing.
+
 2012-07-16  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
 	* Added offensive speed factor to speed listing.

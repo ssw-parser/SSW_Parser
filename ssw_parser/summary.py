@@ -350,7 +350,8 @@ def print_speed_list(file_list, select_l, header_l):
     unit_list = create_unit_list(file_list, select_l,
                                  create_speed_list_item, 0)
 
-    # Sort by speed
+    # Sort by jump, speed
+    unit_list.sort(key=itemgetter(6), reverse=True)
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output

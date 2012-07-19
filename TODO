@@ -82,6 +82,8 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Puma Assault Tank PAT-007 (3050) -- No MG Arrays.
 -- Kestrel VTOL (Clan) (3058) -- Clan CASE broken.
 -- Badger (C) Tracked Transport Prime, A, B, C, D, E, F, H -- Clan CASE broken.
+-- Saladin Assault Hover Tank (Clan Cargo) -- Clan CASE broken.
+
 
 == Goals ==
 
@@ -112,7 +114,7 @@ Comment: The main issue here is the Clan CASE bug that makes me
 unwilling to start on sources with Clan vehicles.
 
 TODO:
-- 3058
+- 3058 Medium, Heavy & Assault
 - 3060
 - 3075
 - 3085
@@ -172,6 +174,8 @@ Priority: Medium (need MUL to update)
 
 Comments: Nothing that can be done right now. (Except pestering the
 MUL team.)
+
+- Consider making failed year-era check non-interrupting?
 
 - Missing year info, Mechs in MUL:
 -- Clint CLNT-2-4T (3039)
@@ -454,6 +458,10 @@ elsewhere, no real need for complete BF info at this point. The
 structure point calculation is a major issue to me, since that seems a
 lot of work for so little gain.
 
+Note that the Battleforce calculations and missing stuff has not been
+updated for some time, so Combat Vehicle exclusive stuff is missing
+from the list below.
+
 - BattleForce information
 - A lot to do
 -- Weapon Damage
@@ -591,7 +599,10 @@ Priority: Medium
 - Speed listing:
 
 -- Show UMU, liquid cargo for space
--- Add secondary sorting by jump range?
+
+- Missile boat listing:
+-- Exclude designs that mounts other long-range weapons beside missiles?
+-- Allow non-LRM weapons (ELRMs, ATMs & Thunderbolts)?
 
 - LRM listing:
 -- Missile boat score: tubes * ammo? Heat? 
