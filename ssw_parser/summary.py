@@ -776,6 +776,7 @@ def print_snipe_list(file_list, select_l, header_l):
     """
     # Add sniper selector
     # - At least 10 damage at range 18
+    # - At least one non-missile long-range weapon
     dam = 10  # Minimum damage
     rng = 18  # Selected range
     select_l.append(lambda x, y: (y.gear.weaponlist.count_damage(rng) >= dam))
@@ -958,10 +959,13 @@ def print_missile_boat_list(file_list, select_l, header_l):
     """
     # Add missile boat selector
     # - At least 20 lrm tubes
+    # - No non-missile long-range weapons
     lrms = 20  # LRM tubes
     rng = 21  # Selected range
     select_l.append(lambda x, y: (y.gear.weaponlist.lrms >= lrms))
     header_l.append(("with at least %d lrm tubes" % lrms))
+    select_l.append(lambda x, y: (y.gear.weaponlist.snipe == False))
+    header_l.append("with no non-missile long-range weapon")
 #    select_l.append(lambda x, y: (x.is_missile_boat(y)))
 
     # Construct header

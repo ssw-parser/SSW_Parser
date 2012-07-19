@@ -601,7 +601,6 @@ Priority: Medium
 -- Show UMU, liquid cargo for space
 
 - Missile boat listing:
--- Exclude designs that mounts other long-range weapons beside missiles?
 -- Allow non-LRM weapons (ELRMs, ATMs & Thunderbolts)?
 
 - LRM listing:

@@ -1,5 +1,8 @@
 2012-07-19  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
+	* Exclude designs with non-missile long-range weapons from being
+	classed as missile boats.
+
 	* Added secondary sort by jump-distance for speed listing.
 
 2012-07-16  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
