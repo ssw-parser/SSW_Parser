@@ -20,6 +20,9 @@
 
 """
 Prints out a one-line summary of an unit
+========================================
+
+Note that this is one of the top-level modules that contains a main() function.
 """
 
 import argparse

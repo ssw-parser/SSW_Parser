@@ -20,6 +20,9 @@
 
 """
 Contains the master class for a mech
+====================================
+
+Also contains the Multi class.
 """
 
 import sys

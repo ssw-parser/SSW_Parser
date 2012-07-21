@@ -11,6 +11,12 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+.. automodule:: mech
+   :members:
+
+.. automodule:: summary
+   :members:
+
 .. automodule:: util
    :members:
 
