@@ -20,8 +20,12 @@
 
 
 """
+report.py
+=========
 Analyze and print out some data about a mech.
+
 Takes a SSW file as argument.
+
 Uses external file mech.py to read in data.
 """
 

@@ -20,6 +20,8 @@
 
 
 """
+error.py
+========
 Handle error and warning messages
 """
 

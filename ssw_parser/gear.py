@@ -19,6 +19,8 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
+gear.py
+=======
 Contains master gear class and misc other related classes.
 """
 

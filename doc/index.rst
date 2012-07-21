@@ -14,7 +14,19 @@ Contents:
 .. automodule:: defensive
    :members:
 
+.. automodule:: error
+   :members:
+
+.. automodule:: gear
+   :members:
+
+.. automodule:: item
+   :members:
+
 .. automodule:: jump
+   :members:
+
+.. automodule:: loadout
    :members:
 
 .. automodule:: mech
@@ -24,6 +36,9 @@ Contents:
    :members:
 
 .. automodule:: physical
+   :members:
+
+.. automodule:: report
    :members:
 
 .. automodule:: summary
