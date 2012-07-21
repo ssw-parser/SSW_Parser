@@ -21,8 +21,14 @@
 """
 Utility functions
 
+cluster, and calc_average are used for cluster calculations
+
+conv_era returns era string
+
 ceil_05 rounds up to nearest half-ton
+
 ceil_5 rounds up to nearest five ton
+
 gettext, get_child, and get_child_data are used for parsing xml
 """
 
@@ -49,7 +55,17 @@ CLUSTER_TABLE = {
 
 def cluster(size, col):
     """
-    Access cluster table with adjustment
+    An helper function for calc_average used to access cluster table.
+
+    :param size: cluster size
+    :type size: int
+    :param col: which cluster roll column to access
+    :type col: int
+    :return: amount of clusters that hits
+    :rtype: int
+
+    This helper function is used to prevent cluster adjustments from causing
+    index errors when accessing the cluster table.
     """
     if col < 0:
         col = 0
@@ -60,7 +76,14 @@ def cluster(size, col):
 
 def calc_average(size, adj):
     """
-    Calculate average cluster.
+    Calculate average cluster table 2d6 rolls.
+
+    :param size: cluster size
+    :type size: int
+    :param adj: adjustment to cluster die roll
+    :type adj: int
+    :return: An average cluster rolls of at the specified size adjusted by adj.
+    :rtype: float
     """
     total = 0
     total += cluster(size, 0 + adj)
@@ -79,7 +102,13 @@ def calc_average(size, adj):
 
 def conv_era(era):
     """
-    Convert era to string
+    Convert era to string.
+
+    :param era: Production Era
+    :type era: int
+    :return: An up to five character abbreviation string of the era.
+    :rtype: string
+
     """
     conv = {
         0: "AoW",
@@ -172,13 +201,18 @@ def ceil_05(value):
     """
     Round up to nearest half-ton
 
+    :param value: Value to round
+    :type value: float
+    :return: Rounded value
+    :rtype: float
+
     We do this by multiplying with two, rounding up to nearest ton,
     and finally dividing the result with two
     """
     calc = value
-    calc *= 2
+    calc *= 2.0
     calc = ceil(calc)
-    calc /= 2
+    calc /= 2.0
     return calc
 
 
@@ -186,19 +220,27 @@ def ceil_5(value):
     """
     Round up to nearest five ton
 
+    :param value: Value to round
+    :type value: float
+    :return: Rounded value
+    :rtype: float
+
     We do this by dividing with five, rounding up to nearest ton,
     and finally multiplying the result with five
     """
     calc = value
     calc /= 5.0
     calc = ceil(calc)
-    calc *= 5
+    calc *= 5.0
     return calc
 
 
 def gettext(nodes):
     """
     Get a text node data
+
+    :return: Textual value
+    :rtype: string
     """
     for node in nodes:
         if node.nodeType == node.TEXT_NODE:

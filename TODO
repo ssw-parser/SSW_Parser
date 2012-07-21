@@ -49,7 +49,8 @@ offensive speed factor. (reported)
 TBT-XK7 Trebuchet (XTRO:Periphery) -- Some issue with modular armor
 and offensive speed factor. (reported)
 
-Mobile Long Tom (Ammo Carriage) (3039) -- Ammo without weapon.
+Mobile Long Tom (Ammo Carriage) (3039) -- Ammo without weapon. (what
+is the right way to handle this?)
 
 
 === Other reasons ===
@@ -118,8 +119,8 @@ TODO:
 - 3060
 - 3075
 - 3085
-- Klondike
-- XTROs
+- Klondike -- Note that most vehicles uses Klondike-specific gear.
+- XTROs  -- Note that a lot of Experimental equipment is missing from SAW.
 
 - Missing Record Sheets:
 - Sea Skimmer Hydrofoil (3039)
@@ -152,6 +153,7 @@ to inflate the size of the archive with too many files.
 
 - Add test data:
 -- 3050: 16 Clan omnis? (wait for Z configs?)
+-- 3039: Probably a better idea than 3050?
 
 === Disutils ===
 
@@ -160,6 +162,7 @@ Priority: Medium
 Comments: Do this when ready for release.
 
 - Add missing diretories: doc, demo?
+- Distribute generated documentation with package.
 
 === Documentation ===
 
@@ -167,6 +170,7 @@ Priority: Medium-High
 
 - Add more documentation.
 - Formated docstrings.
+- Create a man page?
 
 === Year Info stuff ===
 

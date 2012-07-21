@@ -1,3 +1,8 @@
+2012-07-21  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
+
+	* Started using Sphinx for autodocumention, added more
+	documentation to util.py functions.
+
 2012-07-19  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
 	* Exclude designs with non-missile long-range weapons from being
