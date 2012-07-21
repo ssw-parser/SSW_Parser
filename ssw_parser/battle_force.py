@@ -19,6 +19,8 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
+battle_force.py
+===============
 Contains BattleForce data for a mech
 """
 

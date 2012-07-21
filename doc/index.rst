@@ -11,6 +11,15 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+.. automodule:: ammo
+   :members:
+
+.. automodule:: battle_force
+   :members:
+
+.. automodule:: combat_vehicle
+   :members:
+
 .. automodule:: defensive
    :members:
 
@@ -44,7 +53,13 @@ Contents:
 .. automodule:: summary
    :members:
 
+.. automodule:: unit
+   :members:
+
 .. automodule:: util
+   :members:
+
+.. automodule:: weapon_list
    :members:
 
 .. automodule:: weapons
