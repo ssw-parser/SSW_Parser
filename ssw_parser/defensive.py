@@ -19,6 +19,9 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
+defensive.py
+============
+
 Mech internal structure and armor classes
 """
 

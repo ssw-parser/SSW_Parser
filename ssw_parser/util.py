@@ -19,8 +19,9 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
+util.py
+=======
 Utility functions
-=================
 
 cluster, and calc_average are used for cluster calculations
 

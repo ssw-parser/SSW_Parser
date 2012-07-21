@@ -11,13 +11,28 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+.. automodule:: defensive
+   :members:
+
+.. automodule:: jump
+   :members:
+
 .. automodule:: mech
+   :members:
+
+.. automodule:: movement
+   :members:
+
+.. automodule:: physical
    :members:
 
 .. automodule:: summary
    :members:
 
 .. automodule:: util
+   :members:
+
+.. automodule:: weapons
    :members:
 
 

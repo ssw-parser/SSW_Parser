@@ -19,8 +19,9 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
+mech.py
+=======
 Contains the master class for a mech
-====================================
 
 Also contains the Multi class.
 """

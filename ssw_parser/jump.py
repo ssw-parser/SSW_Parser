@@ -19,8 +19,11 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
-Contains objects related to jump movement: jumpjets, partial wing,
- jump boosters.
+jump.py
+=======
+Contains objects related to jump movement
+
+This includes jumpjets, partial wing, jump boosters.
 """
 
 from math import ceil

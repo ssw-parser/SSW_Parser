@@ -19,7 +19,11 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
-Contains objects related to moving a mech: cockpit, engine, gyro, myomer.
+movement.py
+===========
+Contains objects related to moving a mech
+
+This includes cockpit, engine, gyro, myomer.
 """
 
 import sys

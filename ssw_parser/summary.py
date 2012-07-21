@@ -19,8 +19,9 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """
+summary.py
+==========
 Prints out a one-line summary of an unit
-========================================
 
 Note that this is one of the top-level modules that contains a main() function.
 """
