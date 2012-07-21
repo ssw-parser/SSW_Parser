@@ -29,6 +29,10 @@ class Item:
     """
     A base class supposed to contains the interface elements shared by
     all item types.
+
+    Note that this class only intended to be used on bigger items like engines,
+    armor, jump-jets and similar. Things that falls under gear should be
+    handled differently.
     """
     def __init__(self):
         pass

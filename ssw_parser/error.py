@@ -23,6 +23,8 @@
 error.py
 ========
 Handle error and warning messages
+
+This module used to be bigger, and should probably be merged with util.
 """
 
 import sys
@@ -31,6 +33,10 @@ import sys
 def error_exit(msg):
     """
     Exit because of unknown component
+
+    :param msg: name of unknown component
+    :type msg: string
+    :return: does not return
     """
     print "WARNING: Unknown", msg, "!"
     sys.exit(1)
