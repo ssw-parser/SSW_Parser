@@ -23,7 +23,7 @@ jump.py
 =======
 Contains objects related to jump movement
 
-This includes jumpjets, partial wing, jump boosters.
+This includes jumpjets, partial wings, jump boosters.
 """
 
 from math import ceil
@@ -45,6 +45,11 @@ JUMP_JET = [["Standard Jump Jet", 1, 0, 200],
 class JumpJets(Item):
     """
     A class to hold info about jump-jets
+
+    :param jets: XML node that contains jump-jet info.
+    :type jets: xml node
+    :param weight: Mech weight.
+    :type weight: int
     """
     def __init__(self, jets, weight):
         Item.__init__(self)
@@ -73,19 +78,28 @@ class JumpJets(Item):
 
     def get_type(self):
         """
-        Return jump-jet type
+        Return jump-jet type description
+
+        :return: jump distance + jump-jet type
+        :rtype: string
         """
         return str(self.jump) + " " + self.jjtype
 
     def get_rules_level(self):
         """
         Return jump-jet rules level
+
+        :return: rules level of jump-jets
+        :rtype: int
         """
         return self.r_level
 
     def get_weight(self):
         """
         Get weight of jumpjets
+
+        :return: the total weight of jump-jets
+        :rtype: float
         """
         if self.jump == 0:
             return 0
@@ -105,7 +119,10 @@ class JumpJets(Item):
 
     def get_cost(self):
         """
-        Get cost
+        Get jump-jets cost
+
+        :return: Total cost of all jump-jets
+        :rtype: int
         """
         if self.jump == 0:
             return 0
@@ -114,13 +131,19 @@ class JumpJets(Item):
 
     def get_jump(self):
         """
-        Return distance
+        Returns max jump distance
+
+        :return: max jump distance
+        :rtype: int
         """
         return self.jump
 
     def get_heat(self, mech):
         """
         Get jumping heat, minimum 3
+
+        :return: Maximum jumping heat
+        :rtype: int
         """
         # No jump jets generate no heat
         if self.jump == 0:
@@ -139,7 +162,15 @@ class JumpJets(Item):
 
 class JumpBoosters(Item):
     """
-    A class to hold info about jump booster
+    A class to hold info about jump boosters.
+
+    :param weight: Mech weight.
+    :type weight: int
+    :param jump: Booster jump distance.
+    :type jump: int
+
+    Unlike some Items, this one requires the xml processing to be done before
+    creation.
     """
     def __init__(self, weight, jump):
         Item.__init__(self)
@@ -148,13 +179,19 @@ class JumpBoosters(Item):
 
     def get_type(self):
         """
-        Return type
+        Returns type description
+
+        :return: the string "Mechanical jump boosters"
+        :rtype: string
         """
         return "Mechanical jump boosters"
 
     def get_rules_level(self):
         """
         Jump boosters are advanced rules
+
+        :return: The rules level of jump boosters, or zero if none exists.
+        :rtype: int
         """
         if self.jump:
             return 2
@@ -164,18 +201,27 @@ class JumpBoosters(Item):
     def get_weight(self):
         """
         Get weight of jump-boosters
+
+        :return: weight
+        :rtype: float
         """
         return ceil_05(0.05 * self.weight * self.jump)
 
     def get_cost(self):
         """
-        Get cost
+        Get cost of jump boosters
+
+        :return: cost
+        :rtype: int
         """
         return (self.weight * self.jump * self.jump * 150)
 
     def get_jump(self):
         """
-        Return distance
+        Returns jump distance
+
+        :return: maximum jump distance
+        :rtype: int
         """
         return self.jump
 
@@ -183,6 +229,16 @@ class JumpBoosters(Item):
 class PartialWing(Item):
     """
     A class to hold information about partial wings
+
+    :param weight: Mech weight.
+    :type weight: int
+    :param wing: Status of partial wings.
+    :type wing: bool
+    :param tech: Partial wing tech base.
+    :type tech: int
+
+    Unlike some Items, this one requires the xml processing to be done before
+    creation.
     """
     def __init__(self, weight, wing, tech):
         Item.__init__(self)
@@ -192,13 +248,19 @@ class PartialWing(Item):
 
     def get_type(self):
         """
-        Return partial wing
+        Return partial wing type description
+
+        :return: the string "Partial Wing"
+        :rtype: string
         """
         return "Partial Wing"
 
     def get_rules_level(self):
         """
         Partial wing are advanced rules
+
+        :return: partial wing rules level
+        :rtype: int
         """
         if self.wing:
             return 2
@@ -208,6 +270,9 @@ class PartialWing(Item):
     def get_weight(self):
         """
         Get weight of partial wing
+
+        :return: Weight of partial wing
+        :rtype: float
         """
         # Clan
         if self.wing and self.tech == 1:
@@ -216,11 +281,14 @@ class PartialWing(Item):
         elif self.wing and self.tech == 0:
             return ceil_05(0.07 * self.weight)
         else:
-            return 0
+            return 0.0
 
     def get_cost(self):
         """
         Get cost of partial wing
+
+        :return: Cost of partial wing
+        :rtype: int
         """
         if self.wing:
             return (self.get_weight() * 50000)
@@ -230,5 +298,8 @@ class PartialWing(Item):
     def has_wing(self):
         """
         Return true if we have a wing
+
+        :return: True if a partial wing is mounted, False otherwise.
+        :rtype: bool
         """
         return self.wing

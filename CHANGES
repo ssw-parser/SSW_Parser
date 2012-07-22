@@ -1,3 +1,7 @@
+2012-07-23  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
+
+	* Added more code documentation to jump.py.
+
 2012-07-21  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
 	* Started using Sphinx for autodocumention, added more
