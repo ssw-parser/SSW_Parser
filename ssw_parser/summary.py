@@ -1472,45 +1472,47 @@ def parse_arg():
                         dest='output', const='weight')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
-                        help='Select mechs with TAG')
+                        help='Select units with TAG')
     parser.add_argument('-c3s', action='store_true',
-                        help='Select mechs with C3 Slave')
+                        help='Select units with C3 Slave')
     parser.add_argument('-c3m', action='store_true',
-                        help='Select mechs with C3 Master')
+                        help='Select units with C3 Master')
     parser.add_argument('-c3i', action='store_true',
-                        help='Select mechs with C3i')
+                        help='Select units with C3i')
     parser.add_argument('-narc', action='store_true',
-                        help='Select mechs with Narc')
+                        help='Select units with Narc')
     parser.add_argument('-ecm', action='store_true',
-                        help='Select mechs with ECM')
+                        help='Select units with ECM')
     parser.add_argument('-probe', action='store_true',
-                        help='Select mechs with Active Probe')
+                        help='Select units with Active Probe')
     parser.add_argument('-taser', action='store_true',
-                        help='Select mechs with Taser')
+                        help='Select units with Taser')
     parser.add_argument('-i', action='store_true',
-                        help='Select Inner Sphere tech mechs')
+                        help='Select Inner Sphere tech units')
     parser.add_argument('-cl', action='store_true',
-                        help='Select Clan tech mechs')
+                        help='Select Clan tech units')
     parser.add_argument('-cc', action='store_true',
-                        help='Select mechs with Command Console')
+                        help='Select units with Command Console')
     parser.add_argument('-e', action='store', default=99, type=int,
-                        help='Select mechs up to era <n>')
+                        help='Select units up to era <n>')
     parser.add_argument('-y', action='store', default=0, type=int,
-                        help='Select mechs up to year <n>')
+                        help='Select units up to year <n>')
     parser.add_argument('-se', action='store', default=0, type=int,
-                        help='Select mechs with speed <n>')
+                        help='Select units with speed <n>')
     parser.add_argument('-sf', action='store', default=0, type=int,
-                        help='Select mechs with at least speed <n>')
+                        help='Select units with at least speed <n>')
     parser.add_argument('-lrm', action='store', default=0, type=int,
-                        help='Select mechs with at least <n> lrms')
+                        help='Select units with at least <n> lrms')
     parser.add_argument('-npr', action='store_true',
-                        help='Select non-Primitive mechs')
+                        help='Select non-Primitive units')
     parser.add_argument('-wgt', action='store', default=0, type=int,
-                        help='Select mechs of weight <n>')
+                        help='Select units of weight <n>')
     parser.add_argument('-rule', action='store', default=99, type=int,
-                        help='Select mechs with highest rules level <n>')
+                        help='Select units with highest rules level <n>')
     parser.add_argument('-af', action='store', default=0, type=int,
-                        help='Select mechs with at least armor points <n>')
+                        help='Select units with at least armor points <n>')
+    parser.add_argument('-vtol', action='store_true',
+                        help='Select VTOL units')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -1523,7 +1525,7 @@ def parse_arg():
 
 def main():
     """
-    main() function for summary.py. Prints out a summary of mechs
+    main() function for summary.py. Prints out a summary of units
     according to the command-line switches.
     """
     # Parse arguments
@@ -1671,6 +1673,10 @@ def main():
     if args.rule < 99:
         select_l.append(lambda x, y: (x.get_rules_level(y) <= args.rule))
         header_l.append(("with highest rules level %d" % args.rule))
+    # Clan
+    if args.vtol:
+        select_l.append(lambda x, y: (x.type == "CV" and x.mot_type == "VTOL"))
+        header_l.append("VTOL")
 
     ### Process output ###
 

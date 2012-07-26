@@ -581,7 +581,9 @@ Priority: Medium
 - Use summary.py's own filters, instead of the is_xxx methods, so
   headers can be built.
 
-- Transmission type filter? At least VTOL.
+- Transmission type filters? (VTOL done)
+-- Mech or Combat vehicle?
+-- Ground only?
 
 - Infantry transport capability?
 
