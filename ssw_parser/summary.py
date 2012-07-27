@@ -1567,29 +1567,20 @@ def create_file_list(args):
 
     return file_list
 
-####################################
-##### Main program starts here #####
-####################################
 
-def main():
-    """
-    main() function for summary.py. Prints out a summary of units
-    according to the command-line switches.
-    """
-    # Parse arguments
-    args = parse_arg()
+###########################
+##### Build file list #####
+###########################
 
+def create_selector_list(args):
+    """
+    Builds select lists from arguments
+    """
     # Create lists
     select = lambda x, y: True
     select_l = []
     select_l.append(select)
     header_l = []
-
-    ### Create file_list ###
-
-    file_list = create_file_list(args)
-
-    ### Activate selectors ###
 
     # TAG
     if args.tag:
@@ -1690,6 +1681,30 @@ def main():
     if args.vtol:
         select_l.append(lambda x, y: (x.type == "CV" and x.mot_type == "VTOL"))
         header_l.append("VTOL")
+
+    return (select_l, header_l)
+
+
+####################################
+##### Main program starts here #####
+####################################
+
+def main():
+    """
+    main() function for summary.py. Prints out a summary of units
+    according to the command-line switches.
+    """
+
+    ### Parse arguments ###
+    args = parse_arg()
+
+    ### Create file_list ###
+
+    file_list = create_file_list(args)
+
+    ### Activate selectors ###
+
+    (select_l, header_l) = create_selector_list(args)
 
     ### Process output ###
 
