@@ -1519,27 +1519,16 @@ def parse_arg():
     return parser.parse_args()
 
 
-####################################
-##### Main program starts here #####
-####################################
+###########################
+##### Build file list #####
+###########################
 
-def main():
+def create_file_list(args):
     """
-    main() function for summary.py. Prints out a summary of units
-    according to the command-line switches.
+    Builds the list of input files from the argument list.
     """
-    # Parse arguments
-    args = parse_arg()
-
-    # Create lists
-    file_list = []
     d_string = ""
-    select = lambda x, y: True
-    select_l = []
-    select_l.append(select)
-    header_l = []
-
-    ### Create file_list ###
+    file_list = []
 
     # We have a single file name
     if args.file:
@@ -1575,6 +1564,30 @@ def main():
 
     # Remove duplicates
     file_list = list(set(file_list))
+
+    return file_list
+
+####################################
+##### Main program starts here #####
+####################################
+
+def main():
+    """
+    main() function for summary.py. Prints out a summary of units
+    according to the command-line switches.
+    """
+    # Parse arguments
+    args = parse_arg()
+
+    # Create lists
+    select = lambda x, y: True
+    select_l = []
+    select_l.append(select)
+    header_l = []
+
+    ### Create file_list ###
+
+    file_list = create_file_list(args)
 
     ### Activate selectors ###
 

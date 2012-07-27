@@ -1,5 +1,7 @@
 2012-07-27  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
+	* Moved file list creation in summary.py to separate function.
+
 	* Added VTOL filter.
 
 2012-07-23  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
