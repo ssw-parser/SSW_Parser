@@ -276,16 +276,16 @@ def create_armor_list_item(mech, i, var):
     bf_a = batt_f.get_armor()
     short = mech.armor.short
 
-    return (name_str, weight, batt_val, armor, e_str, s_str, arm_p, max_p,
-            wgt, bf_a, short)
+    return (name_str, weight, batt_val, arm_p, max_p, armor, wgt, short,
+            bf_a, e_str, s_str)
 
 
 def print_armor_list(file_list, select_l, header_l):
     """
     armor_list output
 
-    In the form of name, weight, BV, Armor%, Explosive, Stealth, points/max,
-    armor tonnage, battleforce armor value, armor type
+    In the form of name, weight, BV, points/max, Armor%, armor tonnage,
+    armor type, battleforce armor value, Explosive, Stealth,
     sorted by armor points, descending
     """
     # Construct header
@@ -296,16 +296,16 @@ def print_armor_list(file_list, select_l, header_l):
                                  create_armor_list_item, 0)
 
     # Sort by armor points
-    unit_list.sort(key=itemgetter(6), reverse=True)
+    unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
     print "=== Armor List ==="
     print header
     header2 = "Name                            "
-    header2 += "Tons BV   Armr Exp Sth | Points  Tons  BF Type"
+    header2 += "Tons BV   Points  Armr Tons  Type  | BF Exp Sth"
     print header2
     for i in unit_list:
-        print ("%-32.32s %3d %4d %3.0f%% %3s %3s | %3d/%3d %4.1ft %2d %-5s" %
+        print ("%-32.32s %3d %4d %3d/%3d %3.0f%% %4.1ft %-5s | %2d %3s %3s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
 

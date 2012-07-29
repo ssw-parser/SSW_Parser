@@ -1,3 +1,7 @@
+2012-07-29  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
+
+	* Reorganized armor listing.
+
 2012-07-27  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
 	* Moved selector list creation in summary.py to separate function.
