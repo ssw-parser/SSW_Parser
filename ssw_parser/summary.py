@@ -334,9 +334,10 @@ def create_speed_list_item(mech, i, var):
     sup = ""
     if i.gear.supercharger.supercharger:
         sup = "SupC"
+    eng_s = mech.engine.short
 
-    return (name_str, weight, batt_val, spd, walk, run, jump, enh, mod, bf_str,
-            osf, sup)
+    return (name_str, weight, batt_val, spd, walk, run, jump, enh, eng_s, mod,
+            bf_str, osf, sup)
 
 
 def print_speed_list(file_list, select_l, header_l):
@@ -362,12 +363,12 @@ def print_speed_list(file_list, select_l, header_l):
     print "=== Speed List ==="
     print header
     header2 = "Name                            "
-    header2 += "Tons BV    Speed   Enh  Mod BF    OSF  Super"
+    header2 += "Tons BV    Speed   Enh  Eng Mod BF    OSF  Super"
     print header2
     for i in unit_list:
-        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %d   %-5s %4.2f %s" %
+        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %-3s %d   %-5s %4.2f %s" %
                (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
-                i[11]))
+                i[11], i[12]))
 
 ## Weapons listing
 

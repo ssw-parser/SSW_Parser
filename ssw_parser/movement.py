@@ -528,29 +528,29 @@ ICE_ENGINE = {
 
 # Engine types
 #
-# Name, techbase, BV multiplier, weight, rules level, cost factor
+# Name, techbase, BV multiplier, weight, rules level, cost factor, short name
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is: 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Fuel Cell, Fission
-ENGINE = [["I.C.E. Engine", 2, 1.0, (lambda x: ICE_ENGINE[x]), 1, 1250],
-          ["Fusion Engine", 2, 1.0, (lambda x: STD_ENGINE[x]), 0, 5000],
-          ["XL Engine", 0, 0.5, (lambda x: XL_ENGINE[x]), 1, 20000],
-          ["XL Engine", 1, 0.75, (lambda x: XL_ENGINE[x]), 1, 20000],
+ENGINE = [["I.C.E. Engine", 2, 1.0, (lambda x: ICE_ENGINE[x]), 1, 1250, "ICE"],
+          ["Fusion Engine", 2, 1.0, (lambda x: STD_ENGINE[x]), 0, 5000, ""],
+          ["XL Engine", 0, 0.5, (lambda x: XL_ENGINE[x]), 1, 20000, "XL"],
+          ["XL Engine", 1, 0.75, (lambda x: XL_ENGINE[x]), 1, 20000, "XL"],
           ["Light Fusion Engine", 0, 0.75,
-           (lambda x: LGT_ENGINE[x]), 1, 15000],
+           (lambda x: LGT_ENGINE[x]), 1, 15000, "L"],
           ["Compact Fusion Engine", 0, 1.0,
-           (lambda x: CMP_ENGINE[x]), 1, 10000],
-          ["No Engine", 2, 0.0, (lambda x: 0.0), 1, 0],
+           (lambda x: CMP_ENGINE[x]), 1, 10000, "C"],
+          ["No Engine", 2, 0.0, (lambda x: 0.0), 1, 0, "---"],
           # Advanced
           ["XXL Engine", 0, 0.25,
-           (lambda x: ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000],
+           (lambda x: ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000, "XXL"],
           ["XXL Engine", 1, 0.5,
-           (lambda x: ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000],
+           (lambda x: ceil_05(STD_ENGINE[x] * 0.333)), 3, 100000, "XXL"],
           ["Primitive Fusion Engine", 2, 1.0,
-           (lambda x: STD_ENGINE[ceil_5(x * 1.2)]), 4, 5000]]
+           (lambda x: STD_ENGINE[ceil_5(x * 1.2)]), 4, 5000, "Pri"]]
 
 # Gyro types
 #
@@ -822,6 +822,7 @@ class Engine(Item):
                     self.eweight = i[3](ceil_5(self.erating))
                 self.r_level = i[4]
                 self.cost = i[5]
+                self.short = i[6]
         if not ident:
             error_exit((self.etype, self.e_base))
 

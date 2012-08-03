@@ -549,6 +549,8 @@ code or in SSW.
 
 - Move shots/ton info for ammo to weapons?
 
+- Able to use tuples as keys?
+
 == movement.py ==
 
 Priority: Medium
