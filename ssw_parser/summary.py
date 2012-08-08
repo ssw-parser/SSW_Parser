@@ -44,7 +44,12 @@ from util import conv_era
 
 def conv_rules(rule):
     """
-    Convert rules to string
+    Convert rules level to string.
+
+    :param rule: rules level
+    :type rule: int
+    :return: rules level as 3-character string
+    :rtype: string
     """
     conv = {
         0: "Int",
@@ -59,6 +64,11 @@ def conv_rules(rule):
 def load_unit(file_name):
     """
     Load unit from file
+
+    :param file_name: file name
+    :type file_name: string
+    :return: Loaded and constructed unit
+    :rtype: Unit object
 
     Takes a file name as argument, returns a mech or combat vehicle object.
     """
@@ -81,6 +91,11 @@ def load_unit(file_name):
 def create_header(header_l):
     """
     Construct filter header
+
+    :param header_l: List of header segments
+    :type header_l: list of strings
+    :return: merged header
+    :rtype: string
     """
     # Start with Units
     header = "Units "
