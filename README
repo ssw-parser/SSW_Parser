@@ -140,6 +140,8 @@ or .saw file.
 
 -weight: Output weight distribution information.
 
+-tl: Output mechs sorted by year.
+
 ==== Output switches are related to mech types ====
 
 These listings are not yet nailed down, and may change (a lot). Note

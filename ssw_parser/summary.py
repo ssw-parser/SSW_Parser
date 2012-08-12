@@ -488,6 +488,57 @@ def print_main_weapon_list(file_list, select_l, header_l):
                (i[0], i[1], i[2], i[3], i[4]))
 
 
+## Timeline listing
+
+def create_timeline_list_item(mech, i, var):
+    """
+    Compile info used by print_timeline_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    year = mech.get_year(i)
+
+    walk = mech.get_walk()
+    jump = i.get_jump()
+    mov = str(walk)
+    if jump > 0:
+        mov += "j"
+
+    l_str = ""
+    l_str = i.gear.weaponlist.all_summary()
+
+    return (name_str, weight, batt_val, year, mov, l_str)
+
+
+def print_timeline_list(file_list, select_l, header_l):
+    """
+    timeline_list output
+
+    In the form of year, name, weight, BV, Movement, weapon details
+    sorted by BV, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Build list
+    unit_list = create_unit_list(file_list, select_l,
+                                 create_timeline_list_item, 0)
+
+    # Sort by year
+    unit_list.sort(key=itemgetter(3))
+
+    # Print output
+    print "=== List of mechs sorted by year ==="
+    print header
+    header2 = "Year Name                            "
+    header2 += "Tons BV   Mov Weapons/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%4d %-32.32s %3d %4d %-3s %s" %
+               (i[3], i[0], i[1], i[2], i[4], i[5]))
+
+
 ## LRM tubes listing
 
 def create_missile_list_item(mech, i, var):
@@ -1475,6 +1526,8 @@ def parse_arg():
                         dest='output', const='w')
     parser.add_argument('-mw', action='store_const', help='Weapon list output',
                         dest='output', const='mw')
+    parser.add_argument('-tl', action='store_const', help='Timeline output',
+                        dest='output', const='tl')
     parser.add_argument('-bf', action='store_const',
                         help='Battle Force list output',
                         dest='output', const='bf')
@@ -1749,7 +1802,8 @@ def main():
         'mw': print_main_weapon_list,
         'bf': print_battle_force_list,
         'cost': print_cost_list,
-        'weight': print_weight_list
+        'weight': print_weight_list,
+        'tl': print_timeline_list
         }
 
     # Special case, damage at range <d>
