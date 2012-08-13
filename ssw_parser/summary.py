@@ -505,12 +505,13 @@ def create_timeline_list_item(mech, i, var):
     if jump > 0:
         mov += "j"
 
+    e_short = mech.engine.short
     a_short = mech.armor.short
     s_short = mech.structure.short
     l_str = ""
     l_str = i.gear.weaponlist.all_summary()
 
-    return (name_str, weight, batt_val, year, mov, s_short, a_short, l_str)
+    return (name_str, weight, e_short, year, mov, s_short, a_short, l_str)
 
 
 def print_timeline_list(file_list, select_l, header_l):
@@ -535,11 +536,11 @@ def print_timeline_list(file_list, select_l, header_l):
     print "=== List of mechs sorted by year ==="
     print header
     header2 = "Year Name                            "
-    header2 += "Tons BV   Mov Str Armr Weapons/turns of fire"
+    header2 += "Tons Mov Eng Str Armr Weapons/turns of fire"
     print header2
     for i in unit_list:
-        print ("%4d %-32.32s %3d %4d %-3s %-3s %-4s %s" %
-               (i[3], i[0], i[1], i[2], i[4], i[5], i[6], i[7]))
+        print ("%4d %-32.32s %3d %-3s %-3s %-3s %-4s %s" %
+               (i[3], i[0], i[1], i[4], i[2], i[5], i[6], i[7]))
 
 
 ## LRM tubes listing
