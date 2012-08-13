@@ -114,21 +114,22 @@ LEG_IS = {
 
 # Info on internal structure types
 #
-# Name, techbase, BV multiplier, weight factor, rules level, cost factor
+# Name, techbase, BV multiplier, weight factor, rules level, cost factor,
+# short name
 #
 # Where techbase 0 = IS, 1 = Clan, 2 = Both, 10 = unknown
 # Where rules level is 0 = intro, 1 = TL, 2 = advanced, 3 = experimental,
 # 4 = primitive
 #
 # Missing: Industrial
-STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0, 400],
-             ["Endo-Steel", 0, 1.0, 0.05, 1, 1600],
-             ["Endo-Steel", 1, 1.0, 0.05, 1, 1600],
-             ["Primitive Structure", 0, 1.0, 0.1, 4, 400],
-             ["Composite Structure", 0, 1.0, 0.05, 2, 1600],
-             ["Reinforced Structure", 2, 2.0, 0.2, 2, 6400],
-             ["Endo-Composite", 0, 1.0, 0.075, 2, 3200],
-             ["Endo-Composite", 1, 1.0, 0.075, 2, 3200]]
+STRUCTURE = [["Standard Structure", 2, 1.0, 0.1, 0, 400, ""],
+             ["Endo-Steel", 0, 1.0, 0.05, 1, 1600, "ES"],
+             ["Endo-Steel", 1, 1.0, 0.05, 1, 1600, "ES"],
+             ["Primitive Structure", 0, 1.0, 0.1, 4, 400, "Pr"],
+             ["Composite Structure", 0, 1.0, 0.05, 2, 1600, "Cmp"],
+             ["Reinforced Structure", 2, 2.0, 0.2, 2, 6400, "Rei"],
+             ["Endo-Composite", 0, 1.0, 0.075, 2, 3200, "EC"],
+             ["Endo-Composite", 1, 1.0, 0.075, 2, 3200, "EC"]]
 
 
 # Info on armor types
@@ -146,7 +147,7 @@ ARMOR = [["Standard Armor", 2, 1.0, 1.0, 0, 10000, ""],
          ["Ferro-Fibrous", 1, 1.0, 1.2, 1, 20000, "FF"],
          ["Light Ferro-Fibrous", 0, 1.0, 1.06, 1, 15000, "LFF"],
          ["Heavy Ferro-Fibrous", 0, 1.0, 1.24, 1, 25000, "HFF"],
-         ["Stealth Armor", 0, 1.0, 1.0, 1, 50000, "Stlth"],
+         ["Stealth Armor", 0, 1.0, 1.0, 1, 50000, "Stlh"],
          ["Primitive Armor", 0, 1.0, 0.67, 4, 5000, "Pr"],
          ["Laser-Reflective", 0, 1.5, 1.0, 2, 30000, "Rflc"],
          ["Laser-Reflective", 1, 1.5, 1.0, 2, 30000, "Rflc"],
@@ -174,6 +175,7 @@ class MechStructure(Item):
                 wgtf = i[3]
                 self.r_level = i[4]
                 costf = i[5]
+                self.short = i[6]
         if not ident:
             error_exit((self.type, self.tech_base))
 
@@ -255,6 +257,7 @@ class VehicleStructure(Item):
                 self.is_bv = i[2]
                 wgtf = i[3]
                 self.r_level = i[4]
+                self.short = i[6]
         if not ident:
             error_exit((self.type, self.tech_base))
 
