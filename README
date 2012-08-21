@@ -227,3 +227,5 @@ These switches are used to limit the number of units displayed.
 -rule <d>: Only list units with rules level <d> or lower.
 
 -vtol: Only list VTOLs.
+
+-j: Only list units that can jump.

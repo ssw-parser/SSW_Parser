@@ -586,8 +586,6 @@ Priority: Medium
 -- Mech or Combat vehicle?
 -- Ground only?
 
-- Jumping filter?
-
 - Infantry transport capability?
 
 - Type_list is broken for combat vehicles.

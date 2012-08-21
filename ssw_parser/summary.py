@@ -1601,6 +1601,8 @@ def parse_arg():
                         help='Select units with at least armor points <n>')
     parser.add_argument('-vtol', action='store_true',
                         help='Select VTOL units')
+    parser.add_argument('-j', action='store_true',
+                        help='Select jumping units')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -1743,6 +1745,10 @@ def create_selector_list(args):
         spd = args.sf
         select_l.append(lambda x, y: (max(x.get_walk(), y.get_jump()) >= spd))
         header_l.append(("with at least speed %d" % spd))
+    # Jumping
+    if args.j:
+        select_l.append(lambda x, y: (y.get_jump() > 0))
+        header_l.append("can jump")
     # Armor
     if args.af > 0:
         select_l.append(lambda x, y: (x.armor.total.arm >= args.af))
@@ -1766,7 +1772,7 @@ def create_selector_list(args):
         select_l.append(lambda x, y: (x.get_rules_level(y) <= args.rule))
         header_l.append(("with highest rules level %s" % conv_rules(args.rule,
                                                                     1)))
-    # Clan
+    # VTOL
     if args.vtol:
         select_l.append(lambda x, y: (x.type == "CV" and x.mot_type == "VTOL"))
         header_l.append("VTOL")
