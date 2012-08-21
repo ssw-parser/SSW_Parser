@@ -42,24 +42,39 @@ from util import conv_era
 #############################
 
 
-def conv_rules(rule):
+def conv_rules(rule, form):
     """
     Convert rules level to string.
 
     :param rule: rules level
     :type rule: int
-    :return: rules level as 3-character string
+    :param form: formating type
+    :type form: int
+    :return: rules level as 3-character string, or longer string
     :rtype: string
+
+    Return is three character if form is 0, else it is a longer string.
     """
-    conv = {
+    conv_s = {
         0: "Int",
         1: "T-L",
         2: "Adv",
         3: "Exp",
         4: "Pri"
         }
-    return conv[rule]
 
+    conv_l = {
+        0: "Intro-Tech",
+        1: "Tournament-Legal",
+        2: "Advanced Rules",
+        3: "Experimental Rules",
+        4: "Primitive"
+        }
+
+    if form == 0:
+        return conv_s[rule]
+    else:
+        return conv_l[rule]
 
 def load_unit(file_name):
     """
@@ -1439,7 +1454,7 @@ def create_def_list_item(mech, i, var):
     weight = mech.weight
     source = i.source
     prod_era = conv_era(i.get_prod_era())
-    rules = conv_rules(mech.get_rules_level(i))
+    rules = conv_rules(mech.get_rules_level(i), 0)
     year = mech.get_year(i)
     return (name_str, weight, batt_val, source, rules, prod_era, year)
 
@@ -1749,7 +1764,8 @@ def create_selector_list(args):
     # Rules level
     if args.rule < 99:
         select_l.append(lambda x, y: (x.get_rules_level(y) <= args.rule))
-        header_l.append(("with highest rules level %d" % args.rule))
+        header_l.append(("with highest rules level %s" % conv_rules(args.rule,
+                                                                    1)))
     # Clan
     if args.vtol:
         select_l.append(lambda x, y: (x.type == "CV" and x.mot_type == "VTOL"))

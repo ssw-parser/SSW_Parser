@@ -1,3 +1,7 @@
+2012-08-21  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
+
+	* Use string instead of number for rules level in header.
+
 2012-08-13  Christer Nyfält  <cjnyfalt@yahoo.co.uk>
 
 	* Added timeline listing.
