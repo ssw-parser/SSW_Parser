@@ -136,6 +136,8 @@ Priority: Medium-High
 - Costs needs to be debugged and missing stuff needs to be added.
 - CASE will at least need some modifications. (seems to work?!)
 - Trailers probably quite buggy.
+- Support naval units.
+- Support WiGE untis.
 
 - Adapt report.py to be able to deal with combat vehicles.
 
@@ -342,6 +344,32 @@ Priority: Medium
 -- BF AC value (remember low ammo reduction)
 -- Tarcomp status
 
+=== Add more selectors to summary.py ===
+
+Priority: Medium
+
+- Transmission type filters? (VTOL done)
+-- Mech or Combat vehicle?
+-- Ground only?
+
+- Filter by source
+
+- Add ability to filter out L and XL engines (a cheap mechs only filter.)
+-- Implement cost and use that instead
+
+- Allow filtering by tonnage range. (How to input two variables with a flag?)
+-- Use light, medium, heavy & assault filters
+
+=== Add electronic device list to summary.py ===
+
+Priority: Medium
+
+- ECM
+- BAP
+- C3
+- TAG
+- Narc
+
 === Add missing gear ===
 
 Priority: Medium
@@ -531,6 +559,7 @@ code or in SSW.
 -- Legionnaire Muse Fire - torso cockpit?
 -- Wraith Alexander - Partial Wing?
 
+
 === Other ===
 
 - Law of Demeter, avoid accessing low-level object data
@@ -549,6 +578,10 @@ code or in SSW.
 - Move shots/ton info for ammo to weapons?
 
 - Able to use tuples as keys?
+
+- Lists of allowed/not-allowed gear, for filtering units in custom
+  settings. (This would probably require much work.)
+
 
 == movement.py ==
 
@@ -582,10 +615,6 @@ Priority: Medium
 - Use summary.py's own filters, instead of the is_xxx methods, so
   headers can be built.
 
-- Transmission type filters? (VTOL done)
--- Mech or Combat vehicle?
--- Ground only?
-
 - Infantry transport capability?
 
 - Type_list is broken for combat vehicles.
@@ -594,14 +623,10 @@ Priority: Medium
 -- Stealth
 -- Artillery
 
-- Allow filtering by tonnage range. (How to input two variables with a flag?)
-
 - Count and list specific weapon types
 -- Head-capper list: iHLL
 
-- Add ability to filter out L and XL engines (a cheap mechs only filter.)
--- Implement cost and use that instead
--- Cost/ton sorting for mechs?
+- Cost/ton sorting for mechs?
 
 - Speed listing:
 
@@ -615,7 +640,6 @@ Priority: Medium
 --- Light: 10 tubes, Medium: 20 tubes, Heavy: 30 tubes, Assault: 40 tubes
 --- Average damage
 
-- Filter by source
 
 
 
