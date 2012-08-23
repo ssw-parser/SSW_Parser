@@ -358,7 +358,6 @@ Priority: Medium
 -- Implement cost and use that instead
 
 - Allow filtering by tonnage range. (How to input two variables with a flag?)
--- Use light, medium, heavy & assault filters
 
 === Add electronic device list to summary.py ===
 

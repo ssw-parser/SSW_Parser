@@ -229,3 +229,11 @@ These switches are used to limit the number of units displayed.
 -vtol: Only list VTOLs.
 
 -j: Only list units that can jump.
+
+-light: Only list light units.
+
+-medium: Only list medium units.
+
+-heavy: Only list heavy units.
+
+-assault: Only list assault units.

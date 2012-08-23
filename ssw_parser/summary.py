@@ -1603,6 +1603,14 @@ def parse_arg():
                         help='Select VTOL units')
     parser.add_argument('-j', action='store_true',
                         help='Select jumping units')
+    parser.add_argument('-light', action='store_true',
+                        help='Select light units')
+    parser.add_argument('-medium', action='store_true',
+                        help='Select medium units')
+    parser.add_argument('-heavy', action='store_true',
+                        help='Select heavy units')
+    parser.add_argument('-assault', action='store_true',
+                        help='Select assault units')
     # Default: one filename
     parser.add_argument('file', nargs='*')
 
@@ -1776,6 +1784,22 @@ def create_selector_list(args):
     if args.vtol:
         select_l.append(lambda x, y: (x.type == "CV" and x.mot_type == "VTOL"))
         header_l.append("VTOL")
+    # Light
+    if args.light:
+        select_l.append(lambda x, y: (x.weight < 40))
+        header_l.append("of light weight")
+    # Medium
+    if args.medium:
+        select_l.append(lambda x, y: (x.weight >= 40 and x.weight < 60))
+        header_l.append("of medium weight")
+    # Heavy
+    if args.heavy:
+        select_l.append(lambda x, y: (x.weight >= 60 and x.weight < 80))
+        header_l.append("of heavy weight")
+    # Assault
+    if args.assault:
+        select_l.append(lambda x, y: (x.weight >= 80))
+        header_l.append("of assault weight")
 
     return (select_l, header_l)
 
