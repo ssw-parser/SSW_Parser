@@ -359,15 +359,17 @@ Priority: Medium
 
 - Allow filtering by tonnage range. (How to input two variables with a flag?)
 
-=== Add electronic device list to summary.py ===
+=== Work on electronic device list in summary.py ===
 
 Priority: Medium
 
-- ECM
-- BAP
-- C3
-- TAG
-- Narc
+- Polish format.
+
+- How to sort?
+
+- Show range of ECM and probes?
+
+- Show number of C3 masters? 
 
 === Add missing gear ===
 

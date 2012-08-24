@@ -140,7 +140,10 @@ or .saw file.
 
 -weight: Output weight distribution information.
 
--tl: Output mechs sorted by year.
+-tl: Output units sorted by year.
+
+-elec: Output information about mounted electronics (ECM, probes, TAG,
+ Narc, C3)
 
 ==== Output switches are related to mech types ====
 

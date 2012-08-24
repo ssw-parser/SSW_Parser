@@ -76,6 +76,7 @@ def conv_rules(rule, form):
     else:
         return conv_l[rule]
 
+
 def load_unit(file_name):
     """
     Load unit from file
@@ -399,6 +400,78 @@ def print_speed_list(file_list, select_l, header_l):
         print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %-3s %d   %-5s %4.2f %s" %
                (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
                 i[11], i[12]))
+
+
+## Electronics listing
+
+def create_electronics_list_item(mech, i, var):
+    """
+    Compile info used by print_electronics_list()
+    """
+    name_str = mech.name + " " + mech.model + i.get_name()
+    batt_val = mech.get_bv(i)
+    weight = mech.weight
+    walk = mech.get_walk()
+    run = mech.get_run()
+    jump = i.get_jump()
+    spd = max(walk, jump)
+
+    ecm = "---"
+    if ("ECM" in i.specials or "AECM" in i.specials or "WAT" in i.specials):
+        ecm = "ECM"
+    bap = "---"
+    if ("WAT" in i.specials or "BH" in i.specials or "PRB" in i.specials or
+        "LPRB" in i.specials):
+        bap = "BAP"
+    tag = "---"
+    if ("TAG" in i.specials or "LTAG" in i.specials):
+        tag = "TAG"
+    narc = "----"
+    if ("SNARC" in i.specials or "INARC" in i.specials):
+        narc = "NARC"
+    c3s = "---"
+    if ("C3S" in i.specials or "C3BSM" in i.specials):
+        c3s = "C3S"
+    c3m = "---"
+    if ("C3M" in i.specials or "C3BSM" in i.specials):
+        c3m = "C3M"
+    c3i = "---"
+    if ("C3I" in i.specials):
+        c3i = "C3I"
+
+    return (name_str, weight, batt_val, spd, walk, run, jump, ecm, bap, tag,
+            narc, c3s, c3m, c3i)
+
+
+def print_electronics_list(file_list, select_l, header_l):
+    """
+    electronics_list output
+
+    In the form of name, weight, BV, speed, myomer enhancement, target mod,
+    battleforce string
+    sorted by speed, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Build list
+    unit_list = create_unit_list(file_list, select_l,
+                                 create_electronics_list_item, 0)
+
+    # Sort by jump, speed
+    unit_list.sort(key=itemgetter(6), reverse=True)
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    # Print output
+    print "=== Electronics List ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV    Speed   ECM BAP TAG NARC C3S C3M C3I"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %2d/%2d/%2d %3s %3s %3s %4s %3s %3s %3s" %
+               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
+                i[11], i[12], i[13]))
 
 ## Weapons listing
 
@@ -1558,6 +1631,9 @@ def parse_arg():
     parser.add_argument('-weight', action='store_const',
                         help='Weight list output',
                         dest='output', const='weight')
+    parser.add_argument('-elec', action='store_const',
+                        help='Electronics list output',
+                        dest='output', const='elec')
     # Filter arguments
     parser.add_argument('-tag', action='store_true',
                         help='Select units with TAG')
@@ -1853,7 +1929,8 @@ def main():
         'bf': print_battle_force_list,
         'cost': print_cost_list,
         'weight': print_weight_list,
-        'tl': print_timeline_list
+        'tl': print_timeline_list,
+        'elec': print_electronics_list,
         }
 
     # Special case, damage at range <d>
