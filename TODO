@@ -85,6 +85,7 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 -- Badger (C) Tracked Transport Prime, A, B, C, D, E, F, H -- Clan CASE broken.
 -- Saladin Assault Hover Tank (Clan Cargo) -- Clan CASE broken.
 -- Bandit (C) Hovercraft Prime, A, B, C, D, E, F, G, H -- Clan CASE broken.
+-- Maxium Heavy Hover Transport (Clan) -- Clan CASE broken.
 
 == Goals ==
 
@@ -114,7 +115,7 @@ Comment: The main issue here is the Clan CASE bug that makes me
 unwilling to start on sources with Clan vehicles.
 
 TODO:
-- 3058 Medium, Heavy & Assault
+- 3058 Heavy, Assault & Star League
 - 3060
 - 3075
 - 3085
