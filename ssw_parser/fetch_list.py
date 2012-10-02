@@ -25,6 +25,7 @@ Fetches faction lists from MUL
 """
 
 import httplib
+from HTMLParser import HTMLParser
 
 # Factions
 #
@@ -52,7 +53,24 @@ h.endheaders()
 errcode, errmsg, headers = h.getreply()
 print errcode # Should be 200
 f = h.getfile()
-data = f.read() # Get the raw HTML
+raw_data = f.read() # Get the raw HTML
 f.close()
 
-print data
+
+class MyHTMLParser(HTMLParser):
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.l_out = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'a':
+            self.l_out = True
+    def handle_endtag(self, tag):
+        if tag == 'a':
+            self.l_out = False
+    def handle_data(self, data):
+        if self.l_out:
+            print data
+
+parser = MyHTMLParser()
+parser.feed(raw_data)
