@@ -26,9 +26,25 @@ Fetches faction lists from MUL
 
 import httplib
 
+# Factions
+#
+# 5 Capellan Confederation
+# 27 Draconis Combine
+# 29 Federated Suns
+# 30 Free Worlds League
+faction = str(5)
+
+# Eras
+#
+# 14 Jihad
+# 15 Republic
+era = str(14)
+
+file_name = '/Era/FactionEraDetails?EraId=' + era + '&FactionId=' + faction
 h = httplib.HTTP('www.masterunitlist.info', 80)
+
 # Get Capellan Confederation (5) list, Jihad Era (14)
-h.putrequest('GET', '/Era/FactionEraDetails?EraId=14&FactionId=5')
+h.putrequest('GET', file_name)
 h.putheader('Host', 'www.masterunitlist.info')
 h.putheader('Accept', 'text/html')
 h.putheader('Accept', 'text/plain')
