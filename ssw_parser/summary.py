@@ -43,6 +43,7 @@ from summary_view import print_timeline_list
 from summary_view import print_missile_list, print_srm_list
 from summary_view import print_autocannon_list, print_std_list
 from summary_view import print_headcap_list, print_battle_force_list
+from summary_view import print_damage_range_list, print_type_list
 
 
 #############################
@@ -1121,16 +1122,13 @@ def create_damage_range_list_item(mech, i, var):
             dam21, dam24)
 
 
-def print_damage_range_list(file_list, select_l, header_l):
+def handle_damage_range_list(file_list, select_l, header_l):
     """
     range_list output
 
     In the form of name, weight, BV, damage
     sorted by damage, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_damage_range_list_item, 0)
@@ -1139,15 +1137,7 @@ def print_damage_range_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== Damage by Range List ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV    D3  D6  D9 D12 D15 D18 D21 D24"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %3d %3d %3d %3d %3d %3d %3d %3d" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
-                i[10]))
+    print_damage_range_list(header_l, unit_list)
 
 
 ## Mech type listing
@@ -1195,16 +1185,13 @@ def create_type_list_item(mech, i, var):
             warn)
 
 
-def print_type_list(file_list, select_l, header_l):
+def handle_type_list(file_list, select_l, header_l):
     """
     type_list output
 
     In the form of name, weight, BV, damage
     sorted by damage, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_type_list_item, 0)
 
@@ -1212,15 +1199,7 @@ def print_type_list(file_list, select_l, header_l):
     # unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of Units by Type (Alpha) ==="
-    print header
-    header2 = "Name                          "
-    header2 += "Tons BV    SCT STR SKR BRW MIS SNP JUG WARN"
-    print header2
-    for i in unit_list:
-        print ("%-30s %3d %4d  %c   %c   %c   %c   %c   %c   %c  %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
-                i[10]))
+    print_type_list(header_l, unit_list)
 
 
 ## Cost listing
@@ -1745,11 +1724,11 @@ def main():
         'jug': print_juggernaut_list,
         'mb': print_missile_boat_list,
         'scout': print_scout_list,
-        'typ': print_type_list,
+        'typ': handle_type_list,
         # Misc
         'cap': handle_headcap_list,
         'bf': handle_battle_force_list,
-        'dr': print_damage_range_list,
+        'dr': handle_damage_range_list,
         'cost': print_cost_list,
         'weight': print_weight_list,
         }
