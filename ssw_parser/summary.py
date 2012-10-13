@@ -21,7 +21,7 @@
 """
 summary.py
 ==========
-Prints out a one-line summary of an unit
+Prints out one-line summaries of units.
 
 Note that this is one of the top-level modules that contains a main() function.
 """
@@ -36,6 +36,7 @@ from combat_vehicle import CombatVehicle
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
 from util import conv_era
+from summary_view import create_header, print_bvt_list, print_bv_list
 
 #############################
 ##### Utility functions #####
@@ -102,37 +103,6 @@ def load_unit(file_name):
     else:
         print "Unknown file extension: ", file_name
         sys.exit(1)
-
-
-def create_header(header_l):
-    """
-    Construct filter header
-
-    :param header_l: List of header segments
-    :type header_l: list of strings
-    :return: merged header
-    :rtype: string
-    """
-    # Start with Units
-    header = "Units "
-    count = 5
-
-    # Add specific filter description(s)
-    for h_item in header_l:
-        header += h_item
-        count += len(h_item)
-        # Need new-line?
-        if count > 60:
-            header += ",\n"
-            count = 0
-        else:
-            header += ", "
-            count += 2
-
-    # Clean up end
-    header = header[:-2] + ":"
-
-    return header
 
 
 ###############################
@@ -217,16 +187,13 @@ def create_bv_list_item(mech, i, var):
     return (name_str, weight, batt_val, bv_ton, bv_def, bv_off, cockp)
 
 
-def print_bvt_list(file_list, select_l, header_l):
+def handle_bvt_list(file_list, select_l, header_l):
     """
     BV_list output
 
     In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
     sorted by BV/weight, descending
     """
-
-    # Construct header
-    header = create_header(header_l)
 
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_bv_list_item, 0)
@@ -235,26 +202,15 @@ def print_bvt_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== Battle Value List by BV/weight ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d  %5.2f | %7.2f %7.2f %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+    print_bvt_list(header_l, unit_list)
 
-
-def print_bv_list(file_list, select_l, header_l):
+def handle_bv_list(file_list, select_l, header_l):
     """
     BV_list output
 
     In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
     sorted by BV/weight, descending
     """
-
-    # Construct header
-    header = create_header(header_l)
 
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_bv_list_item, 0)
@@ -263,14 +219,7 @@ def print_bv_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
-    print "=== Battle Value List by BV ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d  %5.2f | %7.2f %7.2f %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+    print_bv_list(header_l, unit_list)
 
 
 ## Armor listing
@@ -1904,8 +1853,8 @@ def main():
     ### Process output ###
 
     arg_calls = {
-        'b': print_bvt_list,
-        'bv': print_bv_list,
+        'b': handle_bvt_list,
+        'bv': handle_bv_list,
         'a': print_armor_list,
         's': print_speed_list,
         'cap': print_headcap_list,
