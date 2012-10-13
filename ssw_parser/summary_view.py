@@ -97,3 +97,51 @@ def print_bv_list(header_l, unit_list):
     for i in unit_list:
         print ("%-32.32s %3d %4d  %5.2f | %7.2f %7.2f %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+
+
+def print_armor_list(header_l, unit_list):
+    """
+    armor_list output
+
+    In the form of name, weight, BV, points/max, Armor%, armor tonnage,
+    armor type, battleforce armor value, Explosive, Stealth,
+    sorted by armor points, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== Armor List ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   Points  Armr Tons  Type  | BF Exp Sth"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %3d/%3d %3.0f%% %4.1ft %-5s | %2d %3s %3s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
+                i[10]))
+
+def print_speed_list(header_l, unit_list):
+    """
+    speed_list output
+
+    In the form of name, weight, BV, speed, myomer enhancement, target mod,
+    battleforce string
+    sorted by speed, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== Speed List ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV    Speed   Enh  Eng Mod BF    OSF  Super"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %-3s %d   %-5s %4.2f %s" %
+               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
+                i[11], i[12]))
+
+
+

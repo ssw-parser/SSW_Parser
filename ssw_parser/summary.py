@@ -37,6 +37,7 @@ from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
 from util import conv_era
 from summary_view import create_header, print_bvt_list, print_bv_list
+from summary_view import print_armor_list, print_speed_list
 
 #############################
 ##### Utility functions #####
@@ -260,7 +261,7 @@ def create_armor_list_item(mech, i, var):
             bf_a, e_str, s_str)
 
 
-def print_armor_list(file_list, select_l, header_l):
+def handle_armor_list(file_list, select_l, header_l):
     """
     armor_list output
 
@@ -268,9 +269,6 @@ def print_armor_list(file_list, select_l, header_l):
     armor type, battleforce armor value, Explosive, Stealth,
     sorted by armor points, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_armor_list_item, 0)
@@ -279,15 +277,7 @@ def print_armor_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== Armor List ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   Points  Armr Tons  Type  | BF Exp Sth"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %3d/%3d %3.0f%% %4.1ft %-5s | %2d %3s %3s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
-                i[10]))
+    print_armor_list(header_l, unit_list)
 
 
 ## Speed listing
@@ -320,7 +310,7 @@ def create_speed_list_item(mech, i, var):
             bf_str, osf, sup)
 
 
-def print_speed_list(file_list, select_l, header_l):
+def handle_speed_list(file_list, select_l, header_l):
     """
     speed_list output
 
@@ -328,9 +318,6 @@ def print_speed_list(file_list, select_l, header_l):
     battleforce string
     sorted by speed, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_speed_list_item, 0)
@@ -340,15 +327,7 @@ def print_speed_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== Speed List ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV    Speed   Enh  Eng Mod BF    OSF  Super"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %2d/%2d/%2d %-4s %-3s %d   %-5s %4.2f %s" %
-               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
-                i[11], i[12]))
+    print_speed_list(header_l, unit_list)
 
 
 ## Electronics listing
@@ -1855,8 +1834,8 @@ def main():
     arg_calls = {
         'b': handle_bvt_list,
         'bv': handle_bv_list,
-        'a': print_armor_list,
-        's': print_speed_list,
+        'a': handle_armor_list,
+        's': handle_speed_list,
         'cap': print_headcap_list,
         'dr': print_damage_range_list,
         # Mech types
