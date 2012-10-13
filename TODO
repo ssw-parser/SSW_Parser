@@ -89,6 +89,23 @@ Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 
 == Goals ==
 
+=== Refactor code for a MVC model ===
+
+Priority: Medium-High
+
+=== Fetch unit availability lists from MUL ===
+
+Priority: Medium-High
+
+Comment: Fetching is working, extracting data from the HTML needs
+work.
+
+=== Create command analyzer ===
+
+Priority: Medium-High
+
+Comment: Add capability to analyze a command consisting of multiple units.
+
 === Add missing mechs to database ===
 
 Priority: Medium
