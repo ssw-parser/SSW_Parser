@@ -36,7 +36,7 @@ from combat_vehicle import CombatVehicle
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
 from util import conv_era
-from summary_view import create_header, print_bv_list
+from summary_view import print_default, print_bv_list
 from summary_view import print_armor_list, print_speed_list
 from summary_view import print_electronics_list, print_weapon_list
 from summary_view import print_timeline_list
@@ -1311,26 +1311,18 @@ def create_def_list_item(mech, i, var):
     return (name_str, weight, batt_val, source, rules, prod_era, year)
 
 
-def print_default(file_list, select_l, header_l):
+def handle_default(file_list, select_l, header_l):
     """
     Default output format
 
     In the form of name, weight, BV, source, era
     Intended to conform to the MUL format
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_def_list_item, 0)
 
     # Print output
-    print "=== MUL-Type Listing of Units ==="
-    print header
-    print "Name                            Tons BV   Source   Rul Era   Year"
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %-8s %-3s %-5s %4d" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+    print_default(header_l, unit_list)
 
 
 ##################################
@@ -1719,7 +1711,7 @@ def main():
     elif args.output:
         arg_calls[args.output](file_list, select_l, header_l)
     else:
-        print_default(file_list, select_l, header_l)
+        handle_default(file_list, select_l, header_l)
 
 if __name__ == "__main__":
     main()

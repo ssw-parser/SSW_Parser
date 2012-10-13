@@ -413,3 +413,20 @@ def print_weight_list(header_l, unit_list):
                 i[10]))
 
 
+def print_default(header_l, unit_list):
+    """
+    Default output format
+
+    In the form of name, weight, BV, source, era
+    Intended to conform to the MUL format
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== MUL-Type Listing of Units ==="
+    print header
+    print "Name                            Tons BV   Source   Rul Era   Year"
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %-8s %-3s %-5s %4d" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
