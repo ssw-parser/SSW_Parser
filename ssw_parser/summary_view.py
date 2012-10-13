@@ -169,7 +169,7 @@ def print_electronics_list(header_l, unit_list):
                 i[11], i[12], i[13]))
 
 
-def print_weapon_list(header_l, unit_list):
+def print_weapon_list(title, header_l, unit_list):
     """
     weapon_list output
 
@@ -180,28 +180,7 @@ def print_weapon_list(header_l, unit_list):
     header = create_header(header_l)
 
     # Print output
-    print "=== List of All Weapons ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   Mov Weapons/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4]))
-
-
-def print_main_weapon_list(header_l, unit_list):
-    """
-    main_weapon_list output
-
-    In the form of name, weight, BV, Movement, weapon details
-    sorted by BV, descending
-    """
-    # Construct header
-    header = create_header(header_l)
-
-    # Print output
-    print "=== List of 'Main' Weapons ==="
+    print "=== " + title + " ==="
     print header
     header2 = "Name                            "
     header2 += "Tons BV   Mov Weapons/turns of fire"

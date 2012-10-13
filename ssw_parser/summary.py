@@ -39,7 +39,7 @@ from util import conv_era
 from summary_view import create_header, print_bvt_list, print_bv_list
 from summary_view import print_armor_list, print_speed_list
 from summary_view import print_electronics_list, print_weapon_list
-from summary_view import print_main_weapon_list, print_timeline_list
+from summary_view import print_timeline_list
 from summary_view import print_missile_list, print_srm_list
 from summary_view import print_autocannon_list, print_std_list
 
@@ -435,7 +435,7 @@ def handle_weapon_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
-    print_weapon_list(header_l, unit_list)
+    print_weapon_list("List of All Weapons", header_l, unit_list)
 
 
 def create_main_weapon_list_item(mech, i, var):
@@ -477,7 +477,7 @@ def handle_main_weapon_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
-    print_main_weapon_list(header_l, unit_list)
+    print_weapon_list("List of 'Main' Weapons", header_l, unit_list)
 
 
 ## Timeline listing
@@ -1758,9 +1758,6 @@ def main():
         'l': handle_missile_list,
         'srm': handle_srm_list,
         'ac': handle_autocannon_list,
-        # Misc
-        'cap': print_headcap_list,
-        'dr': print_damage_range_list,
         # Mech types
         'sn': print_snipe_list,
         'str': print_striker_list,
@@ -1771,7 +1768,9 @@ def main():
         'scout': print_scout_list,
         'typ': print_type_list,
         # Misc
+        'cap': print_headcap_list,
         'bf': print_battle_force_list,
+        'dr': print_damage_range_list,
         'cost': print_cost_list,
         'weight': print_weight_list,
         }
