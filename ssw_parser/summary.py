@@ -44,6 +44,7 @@ from summary_view import print_missile_list, print_srm_list
 from summary_view import print_autocannon_list, print_std_list
 from summary_view import print_headcap_list, print_battle_force_list
 from summary_view import print_damage_range_list, print_type_list
+from summary_view import print_cost_list, print_weight_list
 
 
 #############################
@@ -1218,17 +1219,13 @@ def create_cost_list_item(mech, i, var):
     return (name_str, weight, batt_val, cost, cost_ssw, cost_diff)
 
 
-def print_cost_list(file_list, select_l, header_l):
+def handle_cost_list(file_list, select_l, header_l):
     """
     cost_list output
 
     In the form of name, weight, BV, cost
     sorted by cost, descending
     """
-
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_cost_list_item, 0)
 
@@ -1236,14 +1233,8 @@ def print_cost_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of Unit Costs (Alpha) ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV      cost       cost(SSW)     difference"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d  %11d %11d %11d" %
-               (i[0], i[1], i[2], i[3], i[4], i[5]))
+    print_cost_list(header_l, unit_list)
+
 
 ## Weight listing
 
@@ -1285,17 +1276,13 @@ def create_weight_list_item(mech, i, var):
     return (name_str, weight, s_w, e_w, a_w, c_w, j_w, h_w, t_w, g_w, r_str)
 
 
-def print_weight_list(file_list, select_l, header_l):
+def handle_weight_list(file_list, select_l, header_l):
     """
     weight_list output
 
     In the form of name, weight, BV, cost
     sorted by cost, descending
     """
-
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_weight_list_item, 0)
@@ -1305,15 +1292,7 @@ def print_weight_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(10))
 
     # Print output
-    print "=== List of Unit Weight Distributions ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons | Stru Eng  Arm  Ctrl Jmp  Heat Tur  Gear Rest"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d | %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %4.1f %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
-                i[10]))
+    print_weight_list(header_l, unit_list)
 
 
 ## Default listing
@@ -1729,8 +1708,8 @@ def main():
         'cap': handle_headcap_list,
         'bf': handle_battle_force_list,
         'dr': handle_damage_range_list,
-        'cost': print_cost_list,
-        'weight': print_weight_list,
+        'cost': handle_cost_list,
+        'weight': handle_weight_list,
         }
 
     # Special case, damage at range <d>
