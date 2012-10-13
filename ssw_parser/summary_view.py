@@ -27,6 +27,7 @@ Handles representation of output for summary.py, in the form of
 printing out one-line summaries of units.
 """
 
+
 def create_header(header_l):
     """
     Construct filter header
@@ -121,6 +122,7 @@ def print_armor_list(header_l, unit_list):
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9],
                 i[10]))
 
+
 def print_speed_list(header_l, unit_list):
     """
     speed_list output
@@ -144,4 +146,45 @@ def print_speed_list(header_l, unit_list):
                 i[11], i[12]))
 
 
+def print_electronics_list(header_l, unit_list):
+    """
+    electronics_list output
 
+    In the form of name, weight, BV, speed, myomer enhancement, target mod,
+    battleforce string
+    sorted by speed, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== Electronics List ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV    Speed   ECM BAP TAG NARC C3S C3M C3I"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %2d/%2d/%2d %3s %3s %3s %4s %3s %3s %3s" %
+               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
+                i[11], i[12], i[13]))
+
+
+def print_weapon_list(header_l, unit_list):
+    """
+    weapon_list output
+
+    In the form of name, weight, BV, Movement, weapon details
+    sorted by BV, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== List of All Weapons ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   Mov Weapons/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4]))

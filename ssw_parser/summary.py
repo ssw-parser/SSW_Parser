@@ -38,6 +38,7 @@ from battle_force import BattleForce
 from util import conv_era
 from summary_view import create_header, print_bvt_list, print_bv_list
 from summary_view import print_armor_list, print_speed_list
+from summary_view import print_electronics_list, print_weapon_list
 
 #############################
 ##### Utility functions #####
@@ -205,6 +206,7 @@ def handle_bvt_list(file_list, select_l, header_l):
     # Print output
     print_bvt_list(header_l, unit_list)
 
+
 def handle_bv_list(file_list, select_l, header_l):
     """
     BV_list output
@@ -371,7 +373,7 @@ def create_electronics_list_item(mech, i, var):
             narc, c3s, c3m, c3i)
 
 
-def print_electronics_list(file_list, select_l, header_l):
+def handle_electronics_list(file_list, select_l, header_l):
     """
     electronics_list output
 
@@ -379,9 +381,6 @@ def print_electronics_list(file_list, select_l, header_l):
     battleforce string
     sorted by speed, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_electronics_list_item, 0)
@@ -391,15 +390,8 @@ def print_electronics_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== Electronics List ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV    Speed   ECM BAP TAG NARC C3S C3M C3I"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %2d/%2d/%2d %3s %3s %3s %4s %3s %3s %3s" %
-               (i[0], i[1], i[2], i[4], i[5], i[6], i[7], i[8], i[9], i[10],
-                i[11], i[12], i[13]))
+    print_electronics_list(header_l, unit_list)
+
 
 ## Weapons listing
 
@@ -424,16 +416,13 @@ def create_weapon_list_item(mech, i, var):
     return (name_str, weight, batt_val, mov, l_str)
 
 
-def print_weapon_list(file_list, select_l, header_l):
+def handle_weapon_list(file_list, select_l, header_l):
     """
     weapon_list output
 
     In the form of name, weight, BV, Movement, weapon details
     sorted by BV, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_weapon_list_item, 0)
@@ -442,14 +431,7 @@ def print_weapon_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
-    print "=== List of All Weapons ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   Mov Weapons/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4]))
+    print_weapon_list(header_l, unit_list)
 
 
 def create_main_weapon_list_item(mech, i, var):
@@ -1836,6 +1818,8 @@ def main():
         'bv': handle_bv_list,
         'a': handle_armor_list,
         's': handle_speed_list,
+        'elec': handle_electronics_list,
+        'w': handle_weapon_list,
         'cap': print_headcap_list,
         'dr': print_damage_range_list,
         # Mech types
@@ -1852,13 +1836,11 @@ def main():
         'ac': print_autocannon_list,
         'srm': print_srm_list,
         # Misc
-        'w': print_weapon_list,
         'mw': print_main_weapon_list,
         'bf': print_battle_force_list,
         'cost': print_cost_list,
         'weight': print_weight_list,
         'tl': print_timeline_list,
-        'elec': print_electronics_list,
         }
 
     # Special case, damage at range <d>
