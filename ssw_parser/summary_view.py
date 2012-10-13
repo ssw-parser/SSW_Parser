@@ -297,3 +297,24 @@ def print_autocannon_list(header_l, unit_list):
     for i in unit_list:
         print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+def print_std_list(title, header_l, unit_list):
+    """
+    print out lists created by create_std_list_item
+
+    In the form of name, weight, BV, damage, heat, movement, weapon details
+    sorted by damage, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== " + title + " ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %3d %-5s %-3s %3d %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))

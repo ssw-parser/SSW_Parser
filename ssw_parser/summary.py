@@ -41,7 +41,7 @@ from summary_view import print_armor_list, print_speed_list
 from summary_view import print_electronics_list, print_weapon_list
 from summary_view import print_main_weapon_list, print_timeline_list
 from summary_view import print_missile_list, print_srm_list
-from summary_view import print_autocannon_list
+from summary_view import print_autocannon_list, print_std_list
 
 
 #############################
@@ -740,27 +740,6 @@ def create_std_list_item(mech, i, rnge):
     return (name_str, weight, batt_val, dam, l_heat, mov, arm_p, l_str)
 
 
-def print_std_list(unit_list, title, header):
-    """
-    print out lists created by create_std_list_item
-
-    In the form of name, weight, BV, damage, heat, movement, weapon details
-    sorted by damage, descending
-    """
-    # Sort by damage
-    unit_list.sort(key=itemgetter(3), reverse=True)
-
-    # Print output
-    print title
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   Dam Heat  Mov Arm Wpns/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %3d %-5s %-3s %3d %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
-
-
 ## Juggernaut listing
 
 def print_juggernaut_list(file_list, select_l, header_l):
@@ -782,14 +761,14 @@ def print_juggernaut_list(file_list, select_l, header_l):
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_juggernaut(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Juggernauts' (Alpha) ===", header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Juggernauts' (Alpha)", header_l, unit_list)
 
 ## Sniper listing
 
@@ -812,14 +791,14 @@ def print_snipe_list(file_list, select_l, header_l):
     header_l.append("with at least one non-missile long-range weapon")
 #    select_l.append(lambda x, y: (x.is_sniper(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Snipers' (Alpha) ===", header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Snipers' (Alpha)", header_l, unit_list)
 
 ## Range listing
 
@@ -831,15 +810,15 @@ def print_range_list(file_list, select_l, header_l, rng):
     In the form of name, weight, BV, damage, heat, movement, weapon details
     sorted by damage, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, ("=== List of Damage at Range %d ===" % (rng)),
-                   header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list(("List of Damage at Range %d" % (rng)),
+                   header_l, unit_list)
 
 ## Striker listing
 
@@ -863,14 +842,14 @@ def print_striker_list(file_list, select_l, header_l):
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_striker(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Strikers' (Alpha) ===", header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Strikers' (Alpha)", header_l, unit_list)
 
 ## Skirmisher listing
 
@@ -898,14 +877,14 @@ def print_skirmisher_list(file_list, select_l, header_l):
     header_l.append(("with at least damage %d at range %d" % (dam, rng)))
 #    select_l.append(lambda x, y: (x.is_skirmisher(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Skirmishers' (Alpha) ===", header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Skirmishers' (Alpha)", header_l, unit_list)
 
 ## Brawler listing
 
@@ -938,14 +917,14 @@ def print_brawler_list(file_list, select_l, header_l):
                      (rng, rng + 3)))
 #    select_l.append(lambda x, y: (x.is_brawler(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Brawlers' (Alpha) ===", header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Brawlers' (Alpha)", header_l, unit_list)
 
 ## Scout listing
 
@@ -965,14 +944,14 @@ def print_scout_list(file_list, select_l, header_l):
     header_l.append("with at least speed %d" % spd)
 #    select_l.append(lambda x, y: (x.is_scout(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Scouts' (Alpha) ===", header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Scouts' (Alpha)", header_l, unit_list)
 
 ## Missile Boat listing
 
@@ -995,15 +974,14 @@ def print_missile_boat_list(file_list, select_l, header_l):
     header_l.append("with no non-missile long-range weapon")
 #    select_l.append(lambda x, y: (x.is_missile_boat(y)))
 
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_std_list_item, rng)
 
-    print_std_list(unit_list, "=== List of 'Missile Boats' (Alpha) ===",
-                   header)
+    # Sort by damage
+    unit_list.sort(key=itemgetter(3), reverse=True)
+
+    print_std_list("List of 'Missile Boats' (Alpha)", header_l, unit_list)
 
 
 ## Head-capper listing
