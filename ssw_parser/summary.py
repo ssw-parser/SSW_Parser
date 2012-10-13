@@ -40,6 +40,9 @@ from summary_view import create_header, print_bvt_list, print_bv_list
 from summary_view import print_armor_list, print_speed_list
 from summary_view import print_electronics_list, print_weapon_list
 from summary_view import print_main_weapon_list, print_timeline_list
+from summary_view import print_missile_list, print_srm_list
+from summary_view import print_autocannon_list
+
 
 #############################
 ##### Utility functions #####
@@ -564,7 +567,7 @@ def create_missile_list_item(mech, i, var):
     return (name_str, weight, batt_val, lrm, art, l_heat, mov, l_str)
 
 
-def print_missile_list(file_list, select_l, header_l):
+def handle_missile_list(file_list, select_l, header_l):
     """
     missile_list output
 
@@ -572,9 +575,6 @@ def print_missile_list(file_list, select_l, header_l):
     launcher details
     sorted by LRM tubes, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_missile_list_item, 0)
@@ -583,14 +583,7 @@ def print_missile_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of LRM Tubes ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+    print_missile_list(header_l, unit_list)
 
 
 ## SRM tubes listing
@@ -636,7 +629,7 @@ def create_srm_list_item(mech, i, var):
     return (name_str, weight, batt_val, srm, art, l_heat, mov, l_str)
 
 
-def print_srm_list(file_list, select_l, header_l):
+def handle_srm_list(file_list, select_l, header_l):
     """
     srm_list output
 
@@ -644,9 +637,6 @@ def print_srm_list(file_list, select_l, header_l):
     launcher details
     sorted by SRM tubes, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l, create_srm_list_item, 0)
 
@@ -654,14 +644,7 @@ def print_srm_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of SRM Tubes ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   SRM Art Heat  Mov Lnchrs/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+    print_srm_list(header_l, unit_list)
 
 
 ## Autocannon listing
@@ -705,7 +688,7 @@ def create_autocannon_list_item(mech, i, var):
     return (name_str, weight, batt_val, dam, tarcomp, l_heat, mov, l_str)
 
 
-def print_autocannon_list(file_list, select_l, header_l):
+def handle_autocannon_list(file_list, select_l, header_l):
     """
     autocannon_list output
 
@@ -713,9 +696,6 @@ def print_autocannon_list(file_list, select_l, header_l):
     weapon details
     sorted by damage, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_autocannon_list_item, 0)
@@ -724,14 +704,7 @@ def print_autocannon_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print "=== List of Special Ammo Capable Autocannons ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   Dam TC  Heat  Mov Guns/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+    print_autocannon_list(header_l, unit_list)
 
 
 ### Standard listing ###
@@ -1803,6 +1776,11 @@ def main():
         'w': handle_weapon_list,
         'mw': handle_main_weapon_list,
         'tl': handle_timeline_list,
+        # Special ammo users
+        'l': handle_missile_list,
+        'srm': handle_srm_list,
+        'ac': handle_autocannon_list,
+        # Misc
         'cap': print_headcap_list,
         'dr': print_damage_range_list,
         # Mech types
@@ -1814,10 +1792,6 @@ def main():
         'mb': print_missile_boat_list,
         'scout': print_scout_list,
         'typ': print_type_list,
-        # Special ammo users
-        'l': print_missile_list,
-        'ac': print_autocannon_list,
-        'srm': print_srm_list,
         # Misc
         'bf': print_battle_force_list,
         'cost': print_cost_list,

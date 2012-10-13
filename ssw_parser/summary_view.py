@@ -233,4 +233,67 @@ def print_timeline_list(header_l, unit_list):
                (i[3], i[0], i[1], i[4], i[2], i[5], i[6], i[7]))
 
 
+def print_missile_list(header_l, unit_list):
+    """
+    missile_list output
 
+    In the form of name, weight, BV, LRM tubes, Artemis, Heat, Movement,
+    launcher details
+    sorted by LRM tubes, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== List of LRM Tubes ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   LRM Art Heat  Mov Lnchrs/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+def print_srm_list(header_l, unit_list):
+    """
+    srm_list output
+
+    In the form of name, weight, BV, SRM tubes, Artemis, Heat, Movement,
+    launcher details
+    sorted by SRM tubes, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== List of SRM Tubes ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   SRM Art Heat  Mov Lnchrs/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
+
+
+def print_autocannon_list(header_l, unit_list):
+    """
+    autocannon_list output
+
+    In the form of name, weight, BV, damage, tarcomp, Heat, Movement,
+    weapon details
+    sorted by damage, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== List of Special Ammo Capable Autocannons ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   Dam TC  Heat  Mov Guns/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %3d %-3s %-5s %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7]))
