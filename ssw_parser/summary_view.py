@@ -188,3 +188,49 @@ def print_weapon_list(header_l, unit_list):
     for i in unit_list:
         print ("%-32.32s %3d %4d %-3s %s" %
                (i[0], i[1], i[2], i[3], i[4]))
+
+
+def print_main_weapon_list(header_l, unit_list):
+    """
+    main_weapon_list output
+
+    In the form of name, weight, BV, Movement, weapon details
+    sorted by BV, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== List of 'Main' Weapons ==="
+    print header
+    header2 = "Name                            "
+    header2 += "Tons BV   Mov Weapons/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%-32.32s %3d %4d %-3s %s" %
+               (i[0], i[1], i[2], i[3], i[4]))
+
+
+def print_timeline_list(header_l, unit_list):
+    """
+    timeline_list output
+
+    In the form of year, name, weight, BV, Movement, structure, armor,
+    weapon details
+    sorted by BV, descending
+    """
+    # Construct header
+    header = create_header(header_l)
+
+    # Print output
+    print "=== List of mechs sorted by year ==="
+    print header
+    header2 = "Year Name                            "
+    header2 += "Tons Mov Eng Str Armr Weapons/turns of fire"
+    print header2
+    for i in unit_list:
+        print ("%4d %-32.32s %3d %-3s %-3s %-3s %-4s %s" %
+               (i[3], i[0], i[1], i[4], i[2], i[5], i[6], i[7]))
+
+
+

@@ -39,6 +39,7 @@ from util import conv_era
 from summary_view import create_header, print_bvt_list, print_bv_list
 from summary_view import print_armor_list, print_speed_list
 from summary_view import print_electronics_list, print_weapon_list
+from summary_view import print_main_weapon_list, print_timeline_list
 
 #############################
 ##### Utility functions #####
@@ -458,16 +459,13 @@ def create_main_weapon_list_item(mech, i, var):
     return (name_str, weight, batt_val, mov, l_str)
 
 
-def print_main_weapon_list(file_list, select_l, header_l):
+def handle_main_weapon_list(file_list, select_l, header_l):
     """
     main_weapon_list output
 
     In the form of name, weight, BV, Movement, weapon details
     sorted by BV, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_main_weapon_list_item, 0)
@@ -476,14 +474,7 @@ def print_main_weapon_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
-    print "=== List of 'Main' Weapons ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV   Mov Weapons/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d %-3s %s" %
-               (i[0], i[1], i[2], i[3], i[4]))
+    print_main_weapon_list(header_l, unit_list)
 
 
 ## Timeline listing
@@ -512,7 +503,7 @@ def create_timeline_list_item(mech, i, var):
     return (name_str, weight, e_short, year, mov, s_short, a_short, l_str)
 
 
-def print_timeline_list(file_list, select_l, header_l):
+def handle_timeline_list(file_list, select_l, header_l):
     """
     timeline_list output
 
@@ -520,9 +511,6 @@ def print_timeline_list(file_list, select_l, header_l):
     weapon details
     sorted by BV, descending
     """
-    # Construct header
-    header = create_header(header_l)
-
     # Build list
     unit_list = create_unit_list(file_list, select_l,
                                  create_timeline_list_item, 0)
@@ -531,14 +519,7 @@ def print_timeline_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3))
 
     # Print output
-    print "=== List of mechs sorted by year ==="
-    print header
-    header2 = "Year Name                            "
-    header2 += "Tons Mov Eng Str Armr Weapons/turns of fire"
-    print header2
-    for i in unit_list:
-        print ("%4d %-32.32s %3d %-3s %-3s %-3s %-4s %s" %
-               (i[3], i[0], i[1], i[4], i[2], i[5], i[6], i[7]))
+    print_timeline_list(header_l, unit_list)
 
 
 ## LRM tubes listing
@@ -1820,6 +1801,8 @@ def main():
         's': handle_speed_list,
         'elec': handle_electronics_list,
         'w': handle_weapon_list,
+        'mw': handle_main_weapon_list,
+        'tl': handle_timeline_list,
         'cap': print_headcap_list,
         'dr': print_damage_range_list,
         # Mech types
@@ -1836,11 +1819,9 @@ def main():
         'ac': print_autocannon_list,
         'srm': print_srm_list,
         # Misc
-        'mw': print_main_weapon_list,
         'bf': print_battle_force_list,
         'cost': print_cost_list,
         'weight': print_weight_list,
-        'tl': print_timeline_list,
         }
 
     # Special case, damage at range <d>
