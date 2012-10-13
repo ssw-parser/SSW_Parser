@@ -59,27 +59,7 @@ def create_header(header_l):
     return header
 
 
-def print_bvt_list(header_l, unit_list):
-    """
-    BV_list output
-
-    In the form of name, weight, BV, BV/weight, def BV, off BV, small cockpit?
-    """
-    # Construct header
-    header = create_header(header_l)
-
-    # Print output
-    print "=== Battle Value List by BV/weight ==="
-    print header
-    header2 = "Name                            "
-    header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"
-    print header2
-    for i in unit_list:
-        print ("%-32.32s %3d %4d  %5.2f | %7.2f %7.2f %s" %
-               (i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
-
-
-def print_bv_list(header_l, unit_list):
+def print_bv_list(title, header_l, unit_list):
     """
     BV_list output
 
@@ -90,7 +70,7 @@ def print_bv_list(header_l, unit_list):
     header = create_header(header_l)
 
     # Print output
-    print "=== Battle Value List by BV ==="
+    print "=== " + title + " ==="
     print header
     header2 = "Name                            "
     header2 += "Tons BV    BV/Wt | defBV   offBV   cpit"

@@ -36,7 +36,7 @@ from combat_vehicle import CombatVehicle
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
 from battle_force import BattleForce
 from util import conv_era
-from summary_view import create_header, print_bvt_list, print_bv_list
+from summary_view import create_header, print_bv_list
 from summary_view import print_armor_list, print_speed_list
 from summary_view import print_electronics_list, print_weapon_list
 from summary_view import print_timeline_list
@@ -208,7 +208,7 @@ def handle_bvt_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(3), reverse=True)
 
     # Print output
-    print_bvt_list(header_l, unit_list)
+    print_bv_list("Battle Value List by BV/weight", header_l, unit_list)
 
 
 def handle_bv_list(file_list, select_l, header_l):
@@ -226,7 +226,7 @@ def handle_bv_list(file_list, select_l, header_l):
     unit_list.sort(key=itemgetter(2), reverse=True)
 
     # Print output
-    print_bv_list(header_l, unit_list)
+    print_bv_list("Battle Value List by BV", header_l, unit_list)
 
 
 ## Armor listing
