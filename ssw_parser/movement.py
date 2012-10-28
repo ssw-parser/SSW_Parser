@@ -791,6 +791,21 @@ class Gyro(Item):
         """
         return self.gyro_bv
 
+    def get_slots(self):
+        """
+        Return a list of equipment slots occupied by the gyro.
+        """
+        if (self.gtype == "Standard Gyro" or
+            self.gtype == "Heavy-Duty Gyro"):
+            return [("CT", 3), ("CT", 4), ("CT", 5), ("CT", 6)]
+        elif (self.gtype == "Compact Gyro"):
+            return [("CT", 3), ("CT", 4)]
+        elif (self.gtype == "Extra-Light Gyro"):
+            return [("CT", 3), ("CT", 4), ("CT", 5), ("CT", 6), ("CT", 7),
+                    ("CT", 8)]
+        else:
+            error_exit((self.gtype, self.g_base))
+
 
 class Engine(Item):
     """

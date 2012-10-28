@@ -447,6 +447,10 @@ class Load:
         arm_loc = self.arm_loc[:]
         # Deal with armored components
         for i in self.arm_loc:
+            # Gyros, BV calculated elsewhere
+            for j in mech.gyro.get_slots():
+                if not cmp(i, j):
+                    arm_loc.remove(i)
             # Standard cockpit: sensors, cockpit & life support
             if ((i[0] == "HD" and mech.cockpit.type == "Standard Cockpit") and
                  (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 4 or
@@ -473,27 +477,9 @@ class Load:
                 dbv += 5
                 # Track things left
                 arm_loc.remove(i)
-            # Standard & Heavy-Duty Gyro, BV calculated elsewhere
-            elif ((i[0] == "CT" and (mech.gyro.gtype == "Standard Gyro" or
-                                     mech.gyro.gtype)) and
-                  (i[1] == 3 or i[1] == 4 or i[1] == 5 or i[1] == 6)):
-                # Track things left
-                arm_loc.remove(i)
-            # Compact Gyro, BV calculated elsewhere
-            elif ((i[0] == "CT" and mech.gyro.gtype == "Compact Gyro") and
-                  (i[1] == 3 or i[1] == 4)):
-                # Track things left
-                arm_loc.remove(i)
-            # Extra-Light Gyro, BV calculated elsewhere
-            elif ((i[0] == "CT" and mech.gyro.gtype == "Extra-Light Gyro") and
-                  (i[1] == 3 or i[1] == 4 or i[1] == 5 or i[1] == 6 or
-                   i[1] == 7 or i[i] == 8)):
-                # Track things left
-                arm_loc.remove(i)
-            else:
-                print "Unknown armored item: ", i[0], i[1]
-                print "Left: ", arm_loc
-                raise NotImplementedError
+        if arm_loc:
+            print "Unknown armored items left: ", arm_loc
+            raise NotImplementedError
         return dbv
 
     def off_bv(self, mech, printq):

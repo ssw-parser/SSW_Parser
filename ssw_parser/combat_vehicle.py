@@ -41,7 +41,7 @@ class LiftEquipment(Item):
     """
     def __init__(self, mweight, mot_type):
         Item.__init__(self)
-        self.weight = mweight  # Mech weight
+        self.weight = mweight  # Vehicle weight
         self.mot_type = mot_type
 
     def get_type(self):
@@ -88,7 +88,7 @@ class ControlSystems(Item):
     """
     def __init__(self, mweight):
         Item.__init__(self)
-        self.weight = mweight  # Mech weight
+        self.weight = mweight  # Vehicle weight
 
     def get_type(self):
         """
