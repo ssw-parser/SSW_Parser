@@ -592,7 +592,7 @@ class Cockpit(Item):
     """
     A class to hold cockpit (and command console) info
     """
-    def __init__(self, cpt):
+    def __init__(self, cpt, unit):
         Item.__init__(self)
         cnode = cpt.getElementsByTagName("type")[0]
         self.type = gettext(cnode.childNodes)
@@ -601,6 +601,7 @@ class Cockpit(Item):
         else:
             self.console = "FALSE"
         self.c_weight = 0
+        self.unit = unit  # Reference to parent unit
 
         # Check for legal cockpit type, save data
         ident = False
@@ -652,6 +653,32 @@ class Cockpit(Item):
         else:
             return self.cost
 
+    def get_slots(self):
+        """
+        Return a list of equipment slots occupied by the cockpit.
+        """
+        if (self.type == "Standard Cockpit" or
+            self.type == "Primitive Cockpit"):
+            s_list = [("HD", 0), ("HD", 1), ("HD", 2), ("HD", 4), ("HD", 5)]
+            if self.console == "TRUE":
+                s_list.append(("HD", 3))
+        elif (self.type == "Small Cockpit"):
+            s_list = [("HD", 0), ("HD", 1), ("HD", 2), ("HD", 3)]
+            if self.console == "TRUE":
+                s_list.append(("HD", 4))
+        elif (self.type == "Torso-Mounted Cockpit"):
+            c_slot = self.unit.gyro.get_engine_continue()
+            s_slot = self.unit.engine.get_side_continue()
+            if self.unit.engine.etype == "Compact Fusion Engine":
+                s_list = [("HD", 0), ("HD", 1), ("CT", c_slot),
+                          ("CT", c_slot + 1), ("LT", s_slot), ("RT", s_slot)]
+            else:
+                s_list = [("HD", 0), ("HD", 1), ("CT", c_slot + 3),
+                          ("CT", c_slot + 4), ("LT", s_slot), ("RT", s_slot)]
+        else:
+            error_exit((self.type))
+
+        return s_list
 
 class Enhancement(Item):
     """
@@ -1023,4 +1050,21 @@ class Engine(Item):
             s_list.append(("RT", 3))
 
         return s_list
+
+    def get_side_continue(self):
+        """
+        Get side slots torso-mounted cockpits
+        """
+        if (self.etype == "XXL Engine" and self.e_base == 0):
+            return 6
+        elif (self.etype == "XXL Engine" and self.e_base == 1):
+            return 4
+        elif (self.etype == "XL Engine" and self.e_base == 0):
+            return 3
+        elif (self.etype == "XL Engine" and self.e_base == 1):
+            return 2
+        elif (self.etype == "Light Fusion Engine"):
+            return 2
+        else:
+            return 0
 

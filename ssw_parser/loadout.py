@@ -456,28 +456,13 @@ class Load:
                 if not cmp(i, j):
                     dbv += 5
                     arm_loc.remove(i)
-            # Standard cockpit: sensors, cockpit & life support
-            if ((i[0] == "HD" and mech.cockpit.type == "Standard Cockpit") and
-                 (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 4 or
-                  i[1] == 5)):
-                dbv += 5
-                # Track things left
-                arm_loc.remove(i)
-            # Standard cockpit: command console
-            elif ((i[0] == "HD" and
-                   mech.cockpit.type == "Standard Cockpit") and
-                  i[1] == 3 and mech.cockpit.console == "TRUE"):
-                dbv += 5
-                # Track things left
-                arm_loc.remove(i)
-            # Small cockpit: sensors, cockpit & life support
-            elif ((i[0] == "HD" and mech.cockpit.type == "Small Cockpit") and
-                  (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 3)):
-                dbv += 5
-                # Track things left
-                arm_loc.remove(i)
+            # Cockpits
+            for j in mech.cockpit.get_slots():
+                if not cmp(i, j):
+                    dbv += 5
+                    arm_loc.remove(i)
             # Shoulders & Hips
-            elif ((i[0] == "LA" or i[0] == "RA" or i[0] == "LL" or
+            if ((i[0] == "LA" or i[0] == "RA" or i[0] == "LL" or
                    i[0] == "RL") and i[1] == 0):
                 dbv += 5
                 # Track things left

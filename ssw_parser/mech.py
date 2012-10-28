@@ -218,7 +218,7 @@ class Mech(Unit):
                              self.engine.etype, self.engine.erating)
 
             # Get cockpit
-            self.cockpit = Cockpit(get_child(mmech, 'cockpit'))
+            self.cockpit = Cockpit(get_child(mmech, 'cockpit'), self)
 
             # Get enhancement, needs for loop
             self.enhancement = Enhancement(None, self.weight,
