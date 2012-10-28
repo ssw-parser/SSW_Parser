@@ -806,6 +806,21 @@ class Gyro(Item):
         else:
             error_exit((self.gtype, self.g_base))
 
+    def get_engine_continue(self):
+        """
+        Get CT slot where the engine continues
+        """
+        if (self.gtype == "Standard Gyro" or
+            self.gtype == "Heavy-Duty Gyro"):
+            return 7
+        elif (self.gtype == "Compact Gyro"):
+            return 5
+        elif (self.gtype == "Extra-Light Gyro"):
+            return 9
+        else:
+            error_exit((self.gtype, self.g_base))
+        
+
 
 class Engine(Item):
     """
@@ -950,3 +965,62 @@ class Engine(Item):
         # the rest are safe
         else:
             return False
+
+    def get_slots(self):
+        """
+        Return a list of equipment slots occupied by the engine.
+        """
+        # Combat vehicles don't have this
+        if self.unit.type == "CV":
+            return []
+        # Upper three CT slots
+        s_list = [("CT", 0), ("CT", 1), ("CT", 2)]
+        # Lower three CT slots
+        if self.etype != "Compact Fusion Engine":
+            l_slot = self.unit.gyro.get_engine_continue()
+            s_list.append(("CT", l_slot))
+            s_list.append(("CT", l_slot + 1))
+            s_list.append(("CT", l_slot + 2))
+        # Large engines
+        if self.erating > 400:
+            s_list.append(("CT", l_slot + 3))
+            s_list.append(("CT", l_slot + 4))
+        # Side torsos
+        if ((self.etype == "XL Engine" and self.e_base == 1) or
+            self.etype == "Light Fusion Engine"):
+            s_list.append(("LT", 0))
+            s_list.append(("LT", 1))
+            s_list.append(("RT", 0))
+            s_list.append(("RT", 1))
+        elif (self.etype == "XL Engine" and self.e_base == 0):
+            s_list.append(("LT", 0))
+            s_list.append(("LT", 1))
+            s_list.append(("LT", 2))
+            s_list.append(("RT", 0))
+            s_list.append(("RT", 1))
+            s_list.append(("RT", 2))
+        elif (self.etype == "XXL Engine" and self.e_base == 0):
+            s_list.append(("LT", 0))
+            s_list.append(("LT", 1))
+            s_list.append(("LT", 2))
+            s_list.append(("LT", 3))
+            s_list.append(("LT", 4))
+            s_list.append(("LT", 5))
+            s_list.append(("RT", 0))
+            s_list.append(("RT", 1))
+            s_list.append(("RT", 2))
+            s_list.append(("RT", 3))
+            s_list.append(("RT", 4))
+            s_list.append(("RT", 5))
+        elif (self.etype == "XXL Engine" and self.e_base == 1):
+            s_list.append(("LT", 0))
+            s_list.append(("LT", 1))
+            s_list.append(("LT", 2))
+            s_list.append(("LT", 3))
+            s_list.append(("RT", 0))
+            s_list.append(("RT", 1))
+            s_list.append(("RT", 2))
+            s_list.append(("RT", 3))
+
+        return s_list
+

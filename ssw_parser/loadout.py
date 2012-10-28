@@ -451,6 +451,11 @@ class Load:
             for j in mech.gyro.get_slots():
                 if not cmp(i, j):
                     arm_loc.remove(i)
+            # Engines
+            for j in mech.engine.get_slots():
+                if not cmp(i, j):
+                    dbv += 5
+                    arm_loc.remove(i)
             # Standard cockpit: sensors, cockpit & life support
             if ((i[0] == "HD" and mech.cockpit.type == "Standard Cockpit") and
                  (i[1] == 0 or i[1] == 1 or i[1] == 2 or i[1] == 4 or
