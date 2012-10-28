@@ -112,7 +112,6 @@ Priority: Medium
 Comment: Not really a programming task. Catch up with combat vehicles
 before adding more mechs first.
 
-- XTRO: Phantoms
 - Turning Points series (quite high priority, due to some design
   showing up on faction lists)
 - Dossiers/Lance packs
@@ -199,6 +198,12 @@ Comments: Nothing that can be done right now. (Except pestering the
 MUL team.)
 
 - Consider making failed year-era check non-interrupting?
+
+- Missing from MUL:
+-- Wight WGT-4NC Dezgra (XTRO:Phantoms)
+-- Chameleon CLN-7VQ Q-Mech (XTRO:Phantoms)
+-- Warlord BLR-2XC (XTRO:Phantoms)
+-- Grand Titan T-IT-N14R Vengeance (XTRO:Phantoms)
 
 - Missing year info, Mechs in MUL:
 -- Clint CLNT-2-4T (3039)
