@@ -461,12 +461,22 @@ class Load:
                 if not cmp(i, j):
                     dbv += 5
                     arm_loc.remove(i)
-            # Shoulders & Hips
-            if ((i[0] == "LA" or i[0] == "RA" or i[0] == "LL" or
-                   i[0] == "RL") and i[1] == 0):
-                dbv += 5
-                # Track things left
-                arm_loc.remove(i)
+            # Actuators
+            act_locations = [("LA", 0), ("LA", 1), ("RA", 0), ("RA", 1),
+                             ("LL", 0), ("LL", 1), ("LL", 2), ("LL", 3),
+                             ("RL", 0), ("RL", 1), ("RL", 2), ("RL", 3)]
+            if self.left_arm == "TRUE":
+                act_locations.append(("LA", 2))
+            if self.left_hand == "TRUE":
+                act_locations.append(("LA", 3))
+            if self.right_arm == "TRUE":
+                act_locations.append(("RA", 2))
+            if self.right_hand == "TRUE":
+                act_locations.append(("RA", 3))
+            for j in act_locations:
+                if not cmp(i, j):
+                    dbv += 5
+                    arm_loc.remove(i)
         if arm_loc:
             print "Unknown armored items left: ", arm_loc
             raise NotImplementedError
