@@ -453,35 +453,6 @@ class Mech(Unit):
         string = ("%s/%s/%d" % (wstr, rstr, self.load.get_jump()))
         return string
 
-    def print_engine_report(self):
-        """
-        Print out a report about the mech engine
-        """
-        eweight = self.engine.get_weight()
-        print "Engine:     ", self.engine.summary_string()
-        print "Speed:      ", self.get_move_string()
-        gweight = self.gyro.get_weight()
-        print "Gyro:       ", self.gyro.summary_string()
-        jweight = self.load.jjets.get_weight()
-        if self.load.get_jump() > 0:
-            print "Fixed jump: ", self.load.jjets.summary_string()
-        enhweight = self.enhancement.get_weight()
-        if enhweight > 0:
-            print "Enhancement:", self.enhancement.summary_string()
-        tweight = eweight + gweight + jweight + enhweight
-        print "Total motive weight: ", tweight, "tons"
-        print "Cockpit:    ", self.cockpit.summary_string()
-
-    def parse_armor(self):
-        """
-        Parse the armor of a mech.
-        """
-        # Standard armor report
-        self.armor.parse_armor()
-        # Battle force armor
-        batt_f = BattleForce(self, self.load)
-        print "BF Armor: ", batt_f.get_armor()
-
     def get_rules_level(self, load):
         """
         Return rules level of mech

@@ -33,6 +33,38 @@ import argparse
 from xml.dom import minidom
 from mech import Mech
 from weapon_list import LRM_LIST, SRM_LIST, AC_LIST
+from battle_force import BattleForce
+
+
+def print_engine_report(mech):
+    """
+    Print out a report about the mech engine
+    """
+    eweight = mech.engine.get_weight()
+    print "Engine:     ", mech.engine.summary_string()
+    print "Speed:      ", mech.get_move_string()
+    gweight = mech.gyro.get_weight()
+    print "Gyro:       ", mech.gyro.summary_string()
+    jweight = mech.load.jjets.get_weight()
+    if mech.load.get_jump() > 0:
+        print "Fixed jump: ", mech.load.jjets.summary_string()
+    enhweight = mech.enhancement.get_weight()
+    if enhweight > 0:
+        print "Enhancement:", mech.enhancement.summary_string()
+    tweight = eweight + gweight + jweight + enhweight
+    print "Total motive weight: ", tweight, "tons"
+    print "Cockpit:    ", mech.cockpit.summary_string()
+
+
+def parse_armor(mech):
+    """
+    Parse the armor of a mech.
+    """
+    # Standard armor report
+    mech.armor.parse_armor()
+    # Battle force armor
+    batt_f = BattleForce(mech, mech.load)
+    print "BF Armor: ", batt_f.get_armor()
 
 
 def print_weapon(mech, weap):
@@ -375,11 +407,11 @@ def main():
         print "Motive:    ", mech.motive, mech.mechtype
     print "Structure: ", mech.structure.summary_string()
     print "-Movement------------------------"
-    mech.print_engine_report()
+    print_engine_report(mech)
     print "-Fixed Heatsinks-----------------"
     print mech.load.heatsinks.summary_string()
     print "-Armor---------------------------"
-    mech.parse_armor()
+    parse_armor(mech)
     print "-5-------------------------------"
     if (mech.omni == "TRUE"):
         print "WARNING: Omni mech, results might be garbage."
