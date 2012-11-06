@@ -199,12 +199,6 @@ MUL team.)
 
 - Consider making failed year-era check non-interrupting?
 
-- Missing from MUL:
--- Wight WGT-4NC Dezgra (XTRO:Phantoms)
--- Chameleon CLN-7VQ Q-Mech (XTRO:Phantoms)
--- Warlord BLR-2XC (XTRO:Phantoms)
--- Grand Titan T-IT-N14R Vengeance (XTRO:Phantoms)
-
 - Missing year info, Mechs in MUL:
 -- Clint CLNT-2-4T (3039)
 -- Thug THG-11E Reich (3050)
@@ -606,6 +600,8 @@ code or in SSW.
 - Lists of allowed/not-allowed gear, for filtering units in custom
   settings. (This would probably require much work.)
 
+- Create a type evaluator Class? is_scout, is_brawler, ... would be
+  moved here.
 
 == movement.py ==
 
