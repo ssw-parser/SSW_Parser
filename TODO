@@ -600,8 +600,9 @@ code or in SSW.
 - Lists of allowed/not-allowed gear, for filtering units in custom
   settings. (This would probably require much work.)
 
-- Create a type evaluator Class? is_scout, is_brawler, ... would be
-  moved here.
+== type.py ==
+
+- Merge filters type filters from summary.py in here.
 
 == movement.py ==
 

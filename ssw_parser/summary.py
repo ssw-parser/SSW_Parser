@@ -45,6 +45,7 @@ from summary_view import print_autocannon_list, print_std_list
 from summary_view import print_headcap_list, print_battle_force_list
 from summary_view import print_damage_range_list, print_type_list
 from summary_view import print_cost_list, print_weight_list
+from type import Type
 
 
 #############################
@@ -1150,35 +1151,36 @@ def create_type_list_item(mech, i, var):
     name_str = mech.name + " " + mech.model + i.get_name()
     batt_val = mech.get_bv(i)
     weight = mech.weight
+    m_type = Type(mech, i)
 
     warn = "!!"
 
     sco = "-"
-    if mech.is_scout(i):
+    if m_type.is_scout():
         sco = "X"
         warn = ""
     stri = "-"
-    if mech.is_striker(i):
+    if m_type.is_striker():
         stri = "X"
         warn = ""
     skir = "-"
-    if mech.is_skirmisher(i):
+    if m_type.is_skirmisher():
         skir = "X"
         warn = ""
     brw = "-"
-    if mech.is_brawler(i):
+    if m_type.is_brawler():
         brw = "X"
         warn = ""
     mis = "-"
-    if mech.is_missile_boat(i):
+    if m_type.is_missile_boat():
         mis = "X"
         warn = ""
     snp = "-"
-    if mech.is_sniper(i):
+    if m_type.is_sniper():
         snp = "X"
         warn = ""
     jug = "-"
-    if mech.is_juggernaut(i):
+    if m_type.is_juggernaut():
         jug = "X"
         warn = ""
 
