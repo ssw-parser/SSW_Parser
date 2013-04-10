@@ -90,6 +90,7 @@ EQUIPMENT = {
     "Electronic Warfare Equipment": [[0, 0], [39, 0], 3, 7.5, 0, 0, 500000],
     "HarJel": [[0, 0], [0, 0], 3, 1, 0, 0, 120000],
     "C3 Remote Sensor Launcher": [[30, 6], [0, 0], 3, 4, 1, 0, 400000],
+    "Nova CEWS" : [[0, 0], [68, 0], 3, 1.5, 0, 0, 11100000],
     }
 
 # CASE

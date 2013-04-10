@@ -329,10 +329,18 @@ class Mech(Unit):
         torso_cockpit = False
         if self.cockpit.type == "Torso-Mounted Cockpit":
             torso_cockpit = True
+        # HACK -- Apply modular armor
+        if load.gear.has_mod_armor:
+            self.armor.apply_modular(load.gear.mod_armor)
+
         cur = self.armor.get_armor_bv(torso_cockpit)
         dbv += cur
         if (printq):
             print "Armor Def BV: ", cur
+        # HACK -- Remove modular armor
+        if load.gear.has_mod_armor:
+            self.armor.remove_modular(load.gear.mod_armor)
+
         # Internal
         cur = self.structure.get_bv_factor() * self.engine.get_bv_mod()
         dbv += cur

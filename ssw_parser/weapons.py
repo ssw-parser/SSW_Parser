@@ -183,6 +183,19 @@ def atm12_damage(rnge):
         return calc_average(12, 2)
 
 
+def iatm3_damage(rnge):
+    """
+    Calculates iATM3 damage.
+    We assumes a switch to HE at range 6, and normal at range 10.
+    """
+    if rnge <= 6:
+        return 9
+    elif rnge <= 10:
+        return 6
+    else:
+        return 3
+
+
 def svspl_damage(rnge):
     """
     Calculates Small VSPL damage.
@@ -900,8 +913,12 @@ WEAPONS = {
     "(CL) ER Large Pulse Laser (Insulated)":
         ["ERLPL", "DE", [272, 0], 3, 403000,
          12, (lambda x, y: 10), [0, 7, 15, 23],
-         "T", 0, 6.5, 4, ""]
-    }
+         "T", 0, 6.5, 4, ""],
+    "(CL) iATM-3":
+        ["iATM3", "M", [83, 21], 3, 100000,
+         2, (lambda x, y: iatm3_damage(x)), [0, 3, 18, 27],
+         "", 1, 1.5, 2, ""]
+         }
 
 
 class Weapon:

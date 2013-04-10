@@ -494,6 +494,33 @@ class MechArmor(Item):
                 self.r_leg.arm += mod[item]
                 self.total.arm += mod[item]
 
+    def remove_modular(self, mod):
+        """
+        Remove modular armor to normal
+        """
+        for item in mod:
+            if item == "CT":
+                self.c_torso.front.arm -= mod[item]
+                self.total.arm -= mod[item]
+            elif item == "RT":
+                self.r_torso.front.arm -= mod[item]
+                self.total.arm -= mod[item]
+            elif item == "LT":
+                self.l_torso.front.arm -= mod[item]
+                self.total.arm -= mod[item]
+            elif item == "LA":
+                self.l_arm.arm -= mod[item]
+                self.total.arm -= mod[item]
+            elif item == "RA":
+                self.r_arm.arm -= mod[item]
+                self.total.arm -= mod[item]
+            elif item == "LL":
+                self.l_leg.arm -= mod[item]
+                self.total.arm -= mod[item]
+            elif item == "RL":
+                self.r_leg.arm -= mod[item]
+                self.total.arm -= mod[item]
+
     def get_armor_bv(self, torso):
         """
         Return armor BV

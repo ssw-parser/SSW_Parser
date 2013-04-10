@@ -245,6 +245,7 @@ AMMO = {
         [["(IS) Silver Bullet Gauss"], 8, 1, "", 25000],
     "@ Long Tom Cannon":
         [["Long Tom Artillery Cannon"], 5, 1, "X", 20000],
+    "(CL) @ iATM-3": [["(CL) iATM-3"], 20, 1, "X", 75000],
     # Artillery
     "(IS) @ Arrow IV (Non-Homing)":
         [["(IS) Arrow IV Missile"], 5, 1, "X", 10000],
@@ -254,7 +255,7 @@ AMMO = {
     "(CL) @ Arrow IV (Homing)": [["(CL) Arrow IV Missile"], 5, 1, "X", 15000],
     "@ Thumper": [["(IS) Thumper"], 20, 1, "X", 4500],
     "@ Sniper": [["(IS) Sniper"], 10, 1, "X", 6000],
-    "@ Long Tom": [["(IS) Long Tom"], 5, 1, "X", 10000]
+    "@ Long Tom": [["(IS) Long Tom"], 5, 1, "X", 10000],
     }
 
 
