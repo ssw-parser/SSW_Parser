@@ -254,7 +254,7 @@ def lvspl_damage(rnge):
 # TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
-# TODO: Advanced: PMAC/2, iHSL, iHLL,
+# TODO: Advanced: PMAC/2,
 # Mech Mortars, Imp OS, Thumper & Sniper Artillery Cannon, HVAC2, HVAC5,
 # Chemical Lasers, ELRM5, ELRM15, SLRM-5, SLRM-20
 WEAPONS = {
@@ -814,11 +814,15 @@ WEAPONS = {
     "(CL) ER Large Pulse Laser": ["ERLPL", "DE", [272, 0], 2, 400000,
                                    13, (lambda x, y: 10), [0, 7, 15, 23],
                                    "T", 0, 6, 3, ""],
-    # iHSL
+    "(CL) Improved Heavy Small Laser": ["iHSL", "DE", [19, 0], 2, 30000,
+                                3, (lambda x, y: 6), [0, 1, 2, 3],
+                                "T", 0, 0.5, 1, "X"],
     "(CL) Improved Heavy Medium Laser": ["iHML", "DE", [93, 0], 2, 150000,
                                           7, (lambda x, y: 10), [0, 3, 6, 9],
                                           "T", 0, 1, 2, "X"],
-    # iHLL
+    "(CL) Improved Heavy Large Laser": ["iHLL", "DE", [296, 0], 2, 350000,
+                                18, (lambda x, y: 16), [0, 5, 10, 15],
+                                "T", 0, 4, 3, "X"],
     "(IS) Small Variable Speed Pulse Laser":
         ["SVSPL", "DE", [22, 0], 2, 60000,
          3, (lambda x, y: svspl_damage(x)), [0, 2, 4, 6],
