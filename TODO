@@ -63,6 +63,7 @@ Spatha SP2-X Warlord (XTRO:Gladiators) -- Blue Shield BV contribution
 Templar TLR1-OU (RS3085:ONN) -- missing due to no record sheets for main configs
 Turkina U (RS3085:ONN) -- armored components (pod-mounted gear), omni-config
 Celerity CLR-02-X-D (XTRO:Comstar) -- ultra-light
+Flea FLE-14 (XTRO:Succession Wars I) -- ultra-light
 
 == UNABLE TO BUILD IN SSW ==
 
@@ -70,6 +71,8 @@ Schwerer Gustav (XTRO:Mercs) -- Frankenmech
 WHM-X7 Warhammer The Lich (XTRO:Gladiators) -- Frankenmech
 TMC-NB Temax Cat Ninjabolt (XTRO:Boondocks) -- Frankenmech
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
+GRF-2N-X Super Griffin (XTRO:Succession Wars I) -- No Prototype
+Improved Jump-Jets
 
 == UNABLE TO BUILD IN SAW ==
 
@@ -116,12 +119,16 @@ before adding more mechs first.
   showing up on faction lists)
 - Dossiers/Lance packs
 - Starter books
-- WoR: Supplementals (wait for MUL)
+- WoR: Supplementals -- 30 ton+
 - Klondike industrial mechs (low priority, since this program does not
   handle industrial mechs (at least for now).)
+- R3067u -- 30 ton+
 
 Primitive Jump-jets:
 - Change Wasp WSP-1 to use primitive jump-jets when available.
+Prototype ES:
+- Change Marauder MAD-4X to use prototype Endo-Steel when available.
+
 
 === Add missing combat vehicles to database ===
 
@@ -133,6 +140,7 @@ unwilling to start on sources with Clan vehicles.
 TODO:
 - 3058 Heavy, Assault & Star League
 - 3060
+- 3067
 - 3075
 - 3085
 - Klondike -- Note that most vehicles uses Klondike-specific gear.
@@ -444,8 +452,6 @@ Missing from TO:
 - Chemical Laser Small
 - Chemical Laser Medium
 - Chemical Laser Large
-- Improved Heavy Small Laser
-- Improved Heavy Large Laser
 - Laser Insulators (implemented for a few items)
 - Mech Mortar/1 IS
 - Mech Mortar/1 Clan
