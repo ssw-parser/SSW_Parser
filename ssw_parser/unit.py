@@ -50,7 +50,7 @@ class Unit:
         """
         Calculates offensive speed factor for BV calculations.
         """
-        speed_factor = self.get_max_run() + ceil(load.get_jump() / 2.0)
+        speed_factor = self.get_max_run(load) + ceil(load.get_jump() / 2.0)
         if (printq):
             print "Speed Factor: ", speed_factor
         adj_sf = ((speed_factor - 5.0) / 10.0) + 1.0
@@ -60,7 +60,7 @@ class Unit:
 
         return off_speed_factor
 
-    def get_max_run(self):
+    def get_max_run(self, load):
         """
         Get maximum running speed
         """

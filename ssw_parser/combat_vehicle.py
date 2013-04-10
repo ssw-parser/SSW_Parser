@@ -224,13 +224,14 @@ class CombatVehicle(Unit):
             rspeed -= 1
         return rspeed
 
-    def get_max_run(self):
+    def get_max_run(self, load):
         """
         Get maximum running speed
         """
         spd = self.cruise + self.load.gear.get_speed_adj()
         factor = 1.5
-        if self.load.gear.supercharger.has_sc():
+        if (self.load.gear.supercharger.has_sc() or
+            load.gear.supercharger.has_sc()):
             factor += 0.5
         rspeed = int(ceil(spd * factor))
         # Hardened Armor
@@ -242,7 +243,7 @@ class CombatVehicle(Unit):
         """
         Get target modifier from movement, see Total Warfare for details
         """
-        run_speed = self.get_max_run()
+        run_speed = self.get_max_run(load)
         jump_speed = load.get_jump()
 
         r_mod = get_move_target_modifier(run_speed)
