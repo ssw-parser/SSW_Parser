@@ -196,6 +196,32 @@ def iatm3_damage(rnge):
         return 3
 
 
+def iatm9_damage(rnge):
+    """
+    Calculates iATM9 damage.
+    We assumes a switch to HE at range 6, and normal at range 10.
+    """
+    if rnge <= 6:
+        return 27
+    elif rnge <= 10:
+        return 18
+    else:
+        return 9
+
+
+def iatm12_damage(rnge):
+    """
+    Calculates iATM12 damage.
+    We assumes a switch to HE at range 6, and normal at range 10.
+    """
+    if rnge <= 6:
+        return 36
+    elif rnge <= 10:
+        return 24
+    else:
+        return 12
+
+
 def svspl_damage(rnge):
     """
     Calculates Small VSPL damage.
@@ -251,7 +277,7 @@ def lvspl_damage(rnge):
 # To be loaded into the gear class
 #
 # TODO: IS: 2 MG, 2 HMG, 4 HMG, One-shots, LRT-20, SRT-2, SRT-6
-# TODO: Clan: 2 LMG, 2 MG, 3 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
+# TODO: Clan: 2 LMG, 2 MG, 2 HMG, Flamer (Vehicle), One-shots, LRT-20
 # TODO: New TL: VGL, NLRM10, NLRM15, NLRM20,
 # Improved One-shot, Light Rifle, Medium Rifle, Heavy Rifle
 # TODO: Advanced: PMAC/2,
@@ -587,7 +613,10 @@ WEAPONS = {
                           0, (lambda x, y: 2), [0, 1, 2, 3],
                           "", 1, 0.25, 1, ""],
     # MG 2
-    # MG 3
+    "(CL) MG Array (3 Machine Gun)":
+        ["MG3A", "DB", [25.05, 1], 1, 16250,
+         0, (lambda x, y: 2 * calc_average(3, 0)), [0, 1, 2, 3],
+         "", 3, 1, 4, ""],
     "(CL) MG Array (4 Machine Gun)":
         ["MG4A", "DB", [33.4, 1], 1, 21250,
          0, (lambda x, y: 2 * calc_average(4, 0)), [0, 1, 2, 3],
@@ -921,7 +950,13 @@ WEAPONS = {
     "(CL) iATM-3":
         ["iATM3", "M", [83, 21], 3, 100000,
          2, (lambda x, y: iatm3_damage(x)), [0, 3, 18, 27],
-         "", 1, 1.5, 2, ""]
+         "", 1, 1.5, 2, ""],
+    "(CL) iATM-9": ["iATM9", "M", [231, 54], 3, 450000,
+                   6, (lambda x, y: iatm9_damage(x)), [0, 3, 18, 27],
+                   "", 1, 5, 4, ""],
+    "(CL) iATM-12": ["iATM12", "M", [333, 78], 3, 700000,
+                     8, (lambda x, y: iatm12_damage(x)), [0, 3, 18, 27],
+                     "", 1, 7, 5, ""],
          }
 
 

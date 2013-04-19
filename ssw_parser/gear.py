@@ -83,6 +83,7 @@ EQUIPMENT = {
     "M-Pod": [[5, 0], [0, 0], 2, 1, 0, 1, 6000],
     "MW Aquatic Survival System": [[0, 0], [9, 0], 2, 1.5, 0, 0, 4000],
     "Drone Carrier Control System": [[0, 0], [0, 0], 2, 2.5, 0, 0, 25000],
+    "Ground Mobile HPG": [[0, 0], [0, 0], 2, 12, 0, 0, 4000000000],
     # Experimental
     "Collapsible Command Module (CCM)": [[0, 0], [0, 0], 3, 16, 0, 0, 500000],
     "C3 Boosted Computer (Slave)": [[0, 0], [0, 0], 3, 3, 0, 0, 500000],

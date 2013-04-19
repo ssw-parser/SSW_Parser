@@ -65,11 +65,13 @@ AMMO = {
         [["(IS) Machine Gun", "(CL) Machine Gun",
           "(IS) MG Array (3 Machine Gun)",
           "(IS) MG Array (4 Machine Gun)",
+          "(CL) MG Array (3 Machine Gun)",
           "(CL) MG Array (4 Machine Gun)"], 200, 1, "X", 1000],
     "@ Machine Gun (1/2)":
         [["(IS) Machine Gun", "(CL) Machine Gun",
           "(IS) MG Array (3 Machine Gun)",
           "(IS) MG Array (4 Machine Gun)",
+          "(CL) MG Array (3 Machine Gun)",
           "(CL) MG Array (4 Machine Gun)"], 100, 0.5, "X", 500],
     "@ Heavy Machine Gun":
         [["(IS) Heavy Machine Gun", "(CL) Heavy Machine Gun",
@@ -246,6 +248,8 @@ AMMO = {
     "@ Long Tom Cannon":
         [["Long Tom Artillery Cannon"], 5, 1, "X", 20000],
     "(CL) @ iATM-3": [["(CL) iATM-3"], 20, 1, "X", 75000],
+    "(CL) @ iATM-9": [["(CL) iATM-9"], 7, 1, "X", 75000],
+    "(CL) @ iATM-12": [["(CL) iATM-12"], 5, 1, "X", 75000],
     # Artillery
     "(IS) @ Arrow IV (Non-Homing)":
         [["(IS) Arrow IV Missile"], 5, 1, "X", 10000],

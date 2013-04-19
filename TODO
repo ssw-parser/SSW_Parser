@@ -29,6 +29,8 @@ Morpheus MRP-3W (3055) -- Issue with Claw BV.
 Cudgel CDG-2A (3055) -- Issue with Claw BV.
 Cudgel CDG-2B (3055) -- Issue with Claw BV.
 
+Cronus CNS-TD9 (3067) -- Issue with Claw BV.
+
 Koschei KSC-5X (3075) -- Issue with Claw BV.
 Crusader CRD-3R Crael (3085) -- Issue with Claw BV.
 
@@ -73,6 +75,11 @@ TMC-NB Temax Cat Ninjabolt (XTRO:Boondocks) -- Frankenmech
 Grim Reaper Einer (XTRO:Comstar) -- Frankenmech
 GRF-2N-X Super Griffin (XTRO:Succession Wars I) -- No Prototype
 Improved Jump-Jets
+
+== IMPROVISED-NO RS ==
+
+Panther PNT-9R Tanaka (First Strike)
+
 
 == UNABLE TO BUILD IN SAW ==
 
@@ -211,7 +218,7 @@ MUL team.)
 -- Clint CLNT-2-4T (3039)
 -- Thug THG-11E Reich (3050)
 -- Highlander HGN-694 (3050)
--- Stooping Hawk Prime, A, B, C, D, E (3060)
+-- Stooping Hawk E (3060)
 -- Von Rohrs VON 4RH-6 (3075)
 
 - Missing/wrong year info, Combat Vehicles in MUL:
@@ -405,7 +412,7 @@ Missing from TM:
 - IS LRT-20
 - IS SRT-2
 - IS SRT-6
-- MG Arrays, CL: 2LMG, 2MG, 3MG, 2HMG
+- MG Arrays, CL: 2LMG, 2MG, 2HMG
 - CL Flamer (Vehicle)
 - CL LRT-20
 - Most one-shot launchers
